@@ -26,6 +26,12 @@ class Settings(BaseSettings):
     # API-FOOTBALL (only ever read here; never forwarded to frontend)
     api_football_base_url: str = "https://v3.football.api-sports.io"
     api_football_key: str = ""
+    # World Cup 2026 league/season for fixtures sync (API-FOOTBALL ids)
+    wc_league_id: int = 1
+    wc_season: int = 2026
+
+    # Admin protection — required header x-admin-token for /admin/* endpoints
+    admin_api_token: str = ""
 
     # AI Provider
     ai_provider: str = "mock"

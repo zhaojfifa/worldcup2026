@@ -13,6 +13,7 @@ from app.schemas.match import (
     MatchListItem, MatchDetail, ReportOut,
     TeamOut, WinProbOut, FeatureFactorOut, TrendPointOut, LiveCorrectionOut,
 )
+from app.services.modeling import baseline
 
 
 def _team_out(team) -> TeamOut:
@@ -156,3 +157,52 @@ def get_report(db: Session, match_id: int) -> Optional[ReportOut]:
         confidence=pred.confidence,
         live_correction=correction,
     )
+
+
+def refresh_prediction(db: Session, match_id: int) -> Optional[MatchDetail]:
+    """
+    Recompute a match's prediction with the baseline rules model, persist it,
+    touch updated_at, and return the standard MatchDetail (shape unchanged).
+    """
+    m = (
+        db.query(Match)
+        .options(joinedload(Match.home_team), joinedload(Match.away_team), joinedload(Match.prediction))
+        .filter(Match.id == match_id)
+        .first()
+    )
+    if not m:
+        return None
+
+    out = baseline.predict(baseline.build_input_for_match(m))
+
+    pred = m.prediction
+    if pred:
+        pred.prob_home = out["prob_home"]
+        pred.prob_draw = out["prob_draw"]
+        pred.prob_away = out["prob_away"]
+        pred.recommended_score = out["recommended_score"]
+        pred.risk_level = out["risk_level"]
+        pred.confidence = out["confidence"]
+        pred.risk_note = out["risk_note"]
+        pred.model_version = out["model_version"]
+        pred.ai_provider = out["ai_provider"]
+    else:
+        pred = Prediction(
+            match_id=m.id,
+            prob_home=out["prob_home"],
+            prob_draw=out["prob_draw"],
+            prob_away=out["prob_away"],
+            recommended_score=out["recommended_score"],
+            risk_level=out["risk_level"],
+            confidence=out["confidence"],
+            risk_note=out["risk_note"],
+            free_note="AI 基线模型已生成本场赛前判断，解锁可查看完整模型解释。",
+            model_version=out["model_version"],
+            ai_provider=out["ai_provider"],
+        )
+        db.add(pred)
+
+    m.updated_at = datetime.now(timezone.utc)
+    db.commit()
+
+    return get_match_detail(db, match_id)

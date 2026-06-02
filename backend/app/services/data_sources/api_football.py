@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 API-FOOTBALL (api-sports.io) connector.
 
@@ -5,12 +6,10 @@ SECURITY RULES:
 - API key is read from environment only — never hardcoded, never logged, never returned to frontend.
 - This module is ONLY called server-side.
 - All responses are sanitised before being forwarded to the frontend API.
-
-Day 3: connection test + countries endpoint only.
-Day 4: fixtures sync for WC 2026 (league_id=1, season=2026).
 """
 import logging
-from typing import Any
+from datetime import datetime, timezone
+from typing import Any, Optional
 
 import httpx
 
@@ -21,87 +20,110 @@ settings = get_settings()
 
 
 class APIFootballClient:
-    """Thin async-capable wrapper around API-FOOTBALL v3."""
-
-    BASE_URL: str = ""   # filled from settings
+    """Thin wrapper around API-FOOTBALL v3."""
 
     def __init__(self) -> None:
-        self.BASE_URL = settings.api_football_base_url.rstrip("/")
+        self.base_url = settings.api_football_base_url.rstrip("/")
         self._key = settings.api_football_key   # NEVER log or return this value
 
-    def _headers(self) -> dict[str, str]:
-        return {
-            "x-apisports-key": self._key,
-            "Accept": "application/json",
-        }
+    def _headers(self) -> dict:
+        return {"x-apisports-key": self._key, "Accept": "application/json"}
 
-    def _is_configured(self) -> bool:
-        return bool(self._key and self._key != "replace_with_your_api_key")
+    def is_configured(self) -> bool:
+        return bool(self._key and self._key not in ("", "replace_with_your_api_key"))
 
     # ------------------------------------------------------------------ #
-    #  Connection test                                                      #
+    #  Status                                                              #
     # ------------------------------------------------------------------ #
-    def test_connection(self) -> dict[str, Any]:
+    def status(self) -> dict:
         """
-        Verify the API key is working by calling /status.
-        Returns a sanitised status dict (key is NOT included in output).
+        Structured connector status. Key is never included in output.
         """
-        if not self._is_configured():
+        now = datetime.now(timezone.utc).isoformat()
+        if not self.is_configured():
             return {
-                "ok": False,
-                "source": "api-football",
+                "api_football_configured": False,
+                "connector_status": "not_configured",
+                "last_check_at": now,
+                "plan": None,
+                "requests_used": None,
+                "requests_limit": None,
                 "message": "API_FOOTBALL_KEY not configured — running in mock mode",
             }
-
         try:
             with httpx.Client(timeout=10) as client:
-                resp = client.get(f"{self.BASE_URL}/status", headers=self._headers())
+                resp = client.get(f"{self.base_url}/status", headers=self._headers())
             resp.raise_for_status()
             data = resp.json()
             account = data.get("response", {}).get("account", {})
+            requests = data.get("response", {}).get("requests", {})
             return {
-                "ok": True,
-                "source": "api-football",
+                "api_football_configured": True,
+                "connector_status": "ok",
+                "last_check_at": now,
                 "plan": account.get("plan", "unknown"),
-                "requests_used": data.get("response", {}).get("requests", {}).get("current", 0),
-                "requests_limit": data.get("response", {}).get("requests", {}).get("limit_day", 0),
+                "requests_used": requests.get("current", 0),
+                "requests_limit": requests.get("limit_day", 0),
+                "message": "API-FOOTBALL reachable",
             }
         except Exception as exc:
-            logger.warning("API-FOOTBALL connection test failed: %s", exc)
-            return {"ok": False, "source": "api-football", "message": str(exc)}
+            logger.warning("API-FOOTBALL status check failed: %s", exc)
+            return {
+                "api_football_configured": True,
+                "connector_status": "error",
+                "last_check_at": now,
+                "plan": None,
+                "requests_used": None,
+                "requests_limit": None,
+                "message": f"connection error: {exc}",
+            }
+
+    def test_connection(self) -> dict:
+        """Backwards-compatible alias used by /health/data-source."""
+        s = self.status()
+        return {
+            "ok": s["connector_status"] == "ok",
+            "source": "api-football",
+            "plan": s.get("plan"),
+            "requests_used": s.get("requests_used"),
+            "requests_limit": s.get("requests_limit"),
+            "message": s.get("message"),
+        }
 
     # ------------------------------------------------------------------ #
-    #  Countries                                                           #
+    #  Fixtures                                                            #
     # ------------------------------------------------------------------ #
-    def get_countries(self) -> list[dict[str, str]]:
-        """Return a list of {name, code, flag} — useful as a smoke test."""
-        if not self._is_configured():
+    def get_fixtures(self, league_id: Optional[int] = None, season: Optional[int] = None) -> list[dict]:
+        """
+        Fetch fixtures for a league & season.
+        Returns the raw `response` array (list of fixture dicts) or [] if not configured.
+        """
+        if not self.is_configured():
+            logger.info("get_fixtures skipped — API-FOOTBALL not configured")
             return []
-        with httpx.Client(timeout=10) as client:
-            resp = client.get(f"{self.BASE_URL}/countries", headers=self._headers())
+        league = league_id if league_id is not None else settings.wc_league_id
+        yr = season if season is not None else settings.wc_season
+        params = {"league": league, "season": yr}
+        with httpx.Client(timeout=20) as client:
+            resp = client.get(f"{self.base_url}/fixtures", headers=self._headers(), params=params)
         resp.raise_for_status()
         return resp.json().get("response", [])
 
-    # ------------------------------------------------------------------ #
-    #  Fixtures — placeholder for Day 4                                    #
-    # ------------------------------------------------------------------ #
-    def get_fixtures(self, league_id: int = 1, season: int = 2026) -> list[dict]:
-        """
-        Fetch fixtures for a given league & season.
-        Day 3: stubbed — returns empty list.
-        Day 4: will iterate pages and upsert into DB.
-        """
-        logger.info("get_fixtures called — league=%s season=%s (stub in Day 3)", league_id, season)
-        return []
-
     def get_lineups(self, fixture_id: int) -> dict:
         """
-        Fetch confirmed lineups 30 min before kickoff.
-        Day 3: stubbed.
-        Day 4: drives LiveCorrection creation.
+        Fetch confirmed lineups (used T-35min before kickoff to drive LiveCorrection).
+        Day 4: available but not yet scheduled automatically.
         """
-        logger.info("get_lineups called — fixture_id=%s (stub in Day 3)", fixture_id)
-        return {}
+        if not self.is_configured():
+            return {}
+        with httpx.Client(timeout=15) as client:
+            resp = client.get(
+                f"{self.base_url}/fixtures/lineups",
+                headers=self._headers(),
+                params={"fixture": fixture_id},
+            )
+        resp.raise_for_status()
+        return resp.json().get("response", {})
 
 
 # Module-level singleton — import this instead of instantiating directly

@@ -42,3 +42,16 @@ def get_report(match_id: int, db: Session = Depends(get_db)):
     if not report:
         raise HTTPException(status_code=404, detail="Report not found or match has no prediction")
     return report
+
+
+@router.post("/matches/{match_id}/refresh", response_model=MatchDetail)
+def refresh_match(match_id: int, db: Session = Depends(get_db)):
+    """
+    Recompute this match's prediction with the baseline rules model.
+    Updates the stored prediction + updated_at and returns the standard
+    MatchDetail (response shape is unchanged from GET /matches/{id}).
+    """
+    detail = match_service.refresh_prediction(db, match_id)
+    if not detail:
+        raise HTTPException(status_code=404, detail="Match not found")
+    return detail
