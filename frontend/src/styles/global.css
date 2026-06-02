@@ -630,3 +630,306 @@ body {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   UI ENHANCEMENT SPRINT — ticker, hero, capability bar, date scroll,
+   match cards, lineup watch, tactical room, mission center, VIP flow
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── AI Intelligence Ticker ─────────────────────────────────────────────── */
+.ai-ticker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #062E54, #0A4F90);
+  color: #fff;
+  padding: 8px 14px;
+  margin: 0 -16px 14px;        /* bleed to phone edges */
+  overflow: hidden;
+  position: relative;
+}
+.ai-ticker .live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #45E08A; flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(69, 224, 138, 0.7);
+  animation: pulseDot 1.6s infinite;
+}
+@keyframes pulseDot {
+  0%   { box-shadow: 0 0 0 0 rgba(69,224,138,.7); }
+  70%  { box-shadow: 0 0 0 7px rgba(69,224,138,0); }
+  100% { box-shadow: 0 0 0 0 rgba(69,224,138,0); }
+}
+.ai-ticker .tick-label {
+  font-size: 10px; font-weight: 800; letter-spacing: .5px;
+  color: #8FD0F5; flex-shrink: 0; text-transform: uppercase;
+}
+.ai-ticker .tick-track {
+  flex: 1; overflow: hidden; white-space: nowrap;
+}
+.ai-ticker .tick-move {
+  display: inline-block; white-space: nowrap;
+  font-size: 11.5px; font-weight: 600; color: #EAF4FF;
+  animation: tickerMove 18s linear infinite;
+}
+@keyframes tickerMove {
+  from { transform: translateX(8%); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ── Hero banner ────────────────────────────────────────────────────────── */
+.hero-banner {
+  position: relative;
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin-bottom: 14px;
+  color: #fff;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(8,46,84,.92), rgba(16,119,195,.92)),
+    radial-gradient(circle at 85% 18%, rgba(73,188,227,.55), transparent 42%);
+}
+/* pitch / radar lines */
+.hero-banner::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 38px, rgba(255,255,255,.05) 38px 39px),
+    radial-gradient(circle at 50% 120%, rgba(255,255,255,.10), transparent 55%);
+  pointer-events: none;
+}
+.hero-banner > * { position: relative; z-index: 1; }
+.hero-kicker {
+  font-size: 11px; font-weight: 800; letter-spacing: 3px;
+  color: var(--gold); text-transform: uppercase;
+}
+.hero-title {
+  font-size: 25px; font-weight: 900; line-height: 1.1;
+  letter-spacing: .5px; margin-top: 6px;
+}
+.hero-title .accent { color: #8FD0F5; }
+.hero-sub {
+  font-size: 12px; color: #C9E2F7; margin-top: 10px; line-height: 1.6;
+}
+
+/* ── Capability bar ─────────────────────────────────────────────────────── */
+.cap-bar {
+  display: flex; gap: 7px; overflow-x: auto;
+  margin-bottom: 16px; -webkit-overflow-scrolling: touch;
+}
+.cap-bar::-webkit-scrollbar { display: none; }
+.cap-chip {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 5px;
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 11px; padding: 8px 11px;
+  font-size: 11px; font-weight: 800; color: var(--blue);
+  white-space: nowrap; box-shadow: var(--shadow);
+}
+.cap-chip .ci { font-size: 14px; }
+
+/* ── Date / category scroller ───────────────────────────────────────────── */
+.date-scroll {
+  display: flex; gap: 8px; overflow-x: auto;
+  margin-bottom: 16px; -webkit-overflow-scrolling: touch;
+}
+.date-scroll::-webkit-scrollbar { display: none; }
+.date-pill {
+  flex: 0 0 auto;
+  font-size: 12.5px; font-weight: 800;
+  padding: 9px 15px; border-radius: 999px; white-space: nowrap;
+  background: #fff; color: var(--sub); border: 1px solid var(--line);
+  cursor: pointer; transition: all .15s;
+}
+.date-pill.on {
+  background: linear-gradient(90deg, var(--blueMid), var(--blue));
+  color: #fff; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(16,119,195,.3);
+}
+
+/* ── Enhanced Match Card (LiveScore style) ──────────────────────────────── */
+.mcard {
+  display: block; width: 100%; text-align: left;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 15px;
+  box-shadow: var(--shadow); margin-bottom: 13px; cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.mcard.is-focus { border-color: rgba(16,119,195,.4); }
+.mcard.is-focus::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--blueLight));
+}
+.mcard-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 11px;
+}
+.mono-label {
+  font-size: 9.5px; font-weight: 800; letter-spacing: 1px;
+  color: var(--blueMid); text-transform: uppercase;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+.upd-label {
+  font-size: 10px; font-weight: 700; color: var(--sub);
+  display: flex; align-items: center; gap: 4px;
+}
+.upd-label .sync-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  animation: pulseDot 2s infinite;
+}
+.mcard-tags { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.tag-chip {
+  font-size: 10.5px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
+}
+.tag-chip.focus { background: var(--blue); color: #fff; }
+.tag-chip.upset { background: #FFE9D6; color: #C75A12; }
+.tag-chip.live  { background: #E3F4EA; color: var(--green); }
+.tag-chip.high-conf { background: var(--sky); color: var(--blueMid); }
+.risk-chip { font-size: 10.5px; font-weight: 800; padding: 4px 9px; border-radius: 999px; }
+.risk-chip.low    { background: #E3F4EA; color: var(--green); }
+.risk-chip.medium { background: #FFF6E2; color: var(--amber); }
+.risk-chip.high   { background: #FEE8E9; color: var(--red); }
+
+.mcard-meta {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line);
+}
+.conf-block { flex: 1; }
+.conf-head {
+  display: flex; align-items: baseline; gap: 5px; margin-bottom: 5px;
+}
+.conf-head .lbl { font-size: 10.5px; color: var(--sub); font-weight: 700; }
+.conf-head .num { font-size: 17px; font-weight: 900; color: var(--blue); }
+.conf-track { width: 100%; height: 6px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.conf-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--blueLight), var(--blue)); }
+.score-block { text-align: right; flex-shrink: 0; }
+.score-block .lbl { font-size: 10.5px; color: var(--sub); font-weight: 700; }
+.score-block .val { font-size: 15px; font-weight: 900; color: var(--blueMid); margin-top: 3px; }
+
+.mcard-cta {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: 13px; padding: 11px;
+  background: linear-gradient(90deg, var(--sky), #F4F9FF);
+  border: 1px dashed rgba(16,119,195,.4); border-radius: 12px;
+  font-size: 13px; font-weight: 800; color: var(--blueMid);
+}
+
+/* ── Lineup Watch (detail page) ─────────────────────────────────────────── */
+.lineup-watch {
+  border-radius: var(--radius); padding: 16px; margin-bottom: 14px;
+  background: linear-gradient(135deg, #082E54, #0E4A82); color: #fff;
+  position: relative; overflow: hidden;
+}
+.lineup-watch::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 90% 0%, rgba(73,188,227,.35), transparent 45%);
+  pointer-events: none;
+}
+.lineup-watch > * { position: relative; z-index: 1; }
+.lw-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.lw-title { font-size: 13px; font-weight: 900; letter-spacing: .5px; display: flex; align-items: center; gap: 7px; }
+.lw-status {
+  font-size: 10px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
+  background: rgba(69,224,138,.2); color: #8DF2B6;
+  display: flex; align-items: center; gap: 5px;
+}
+.lw-status .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: #45E08A; animation: pulseDot 1.6s infinite; }
+.lw-status.armed { background: rgba(143,208,245,.18); color: #B6E2FB; }
+.lw-body { font-size: 12px; line-height: 1.7; color: #D5E8F8; }
+.lw-body .hl { color: #8DF2B6; font-weight: 800; }
+.lw-steps { display: flex; gap: 8px; margin: 12px 0; }
+.lw-step {
+  flex: 1; background: rgba(255,255,255,.08); border-radius: 10px;
+  padding: 9px 8px; text-align: center;
+}
+.lw-step .n { font-size: 10px; font-weight: 900; color: var(--gold); }
+.lw-step .t { font-size: 10px; color: #C9E2F7; margin-top: 3px; line-height: 1.3; }
+.lw-btn {
+  width: 100%; min-height: 46px; border: none; border-radius: 12px; cursor: pointer;
+  font-size: 14px; font-weight: 800; margin-top: 4px;
+  background: #fff; color: var(--blue);
+}
+.lw-btn:disabled { opacity: .55; cursor: default; }
+
+/* ── Section divider with EN label ──────────────────────────────────────── */
+.sec-en {
+  display: flex; align-items: baseline; gap: 8px; margin: 16px 2px 9px;
+}
+.sec-en .zh { font-size: 13px; font-weight: 900; color: var(--blue); }
+.sec-en .en {
+  font-size: 9.5px; font-weight: 800; letter-spacing: 1.5px;
+  color: var(--blueLight); text-transform: uppercase;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ── Gauge (tactical room) ──────────────────────────────────────────────── */
+.gauge-wrap { display: flex; align-items: center; gap: 16px; }
+.gauge {
+  width: 96px; height: 96px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.gauge .inner {
+  width: 74px; height: 74px; border-radius: 50%; background: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.gauge .gv { font-size: 22px; font-weight: 900; color: var(--blue); line-height: 1; }
+.gauge .gl { font-size: 9px; color: var(--sub); margin-top: 3px; font-weight: 700; }
+.gauge-side { flex: 1; }
+.gauge-side .gs-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; font-size: 12px; }
+.gauge-side .dotc { width: 9px; height: 9px; border-radius: 3px; display: inline-block; margin-right: 6px; }
+
+/* ── Risk radar bars ────────────────────────────────────────────────────── */
+.radar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+.radar-row:last-child { margin-bottom: 0; }
+.radar-row .rl { font-size: 12px; color: #3A4A60; width: 84px; flex-shrink: 0; font-weight: 600; }
+.radar-row .rt { flex: 1; height: 8px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.radar-row .rf { height: 100%; border-radius: 999px; }
+.radar-row .rn { font-size: 11px; font-weight: 800; width: 30px; text-align: right; }
+
+/* ── Mission cards (token page) ─────────────────────────────────────────── */
+.mission {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px; margin-bottom: 10px; box-shadow: var(--shadow);
+}
+.mission .m-ic {
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  background: var(--sky);
+}
+.mission.done .m-ic { background: #E3F4EA; }
+.mission .m-body { flex: 1; min-width: 0; }
+.mission .m-title { font-size: 14px; font-weight: 800; }
+.mission .m-desc { font-size: 11px; color: var(--sub); margin-top: 2px; line-height: 1.4; }
+.mission .m-reward {
+  font-size: 12px; font-weight: 800; padding: 9px 14px; border-radius: 11px;
+  background: var(--blueMid); color: #fff; border: none; flex-shrink: 0; cursor: pointer;
+  min-height: 38px;
+}
+.mission .m-reward.done { background: #E3E9F1; color: var(--sub); cursor: default; }
+
+/* ── VIP intelligence flow (community) ──────────────────────────────────── */
+.flow-step {
+  display: flex; gap: 12px; padding: 11px 0;
+  position: relative;
+}
+.flow-step:not(:last-child)::after {
+  content: ""; position: absolute; left: 15px; top: 38px; bottom: -4px;
+  width: 2px; background: var(--line);
+}
+.flow-step .fs-dot {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+  background: var(--sky); border: 2px solid var(--blueLight);
+}
+.flow-step .fs-body { flex: 1; }
+.flow-step .fs-title { font-size: 14px; font-weight: 800; color: var(--blue); }
+.flow-step .fs-desc { font-size: 12px; color: var(--sub); margin-top: 3px; line-height: 1.55; }
+
+/* ── Source / API status pill ───────────────────────────────────────────── */
+.src-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 999px;
+  background: var(--sky); color: var(--blueMid);
+}
+.src-pill .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulseDot 2s infinite; }

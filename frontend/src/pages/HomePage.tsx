@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
-import { WinBar } from '../components/WinBar';
-import { MatchHeader } from '../components/MatchHeader';
+import { MatchCard } from '../components/MatchCard';
 import { toast } from '../components/Toast';
 
-const TAG_LABELS: Record<string, string> = {
-  focus: '🏆 焦点战',
-  upset: '🔥 爆冷预警',
-  live:  '⚡ 临场更新',
-  'high-conf': '🎯 高信心',
-};
+const DATE_TABS = ['今日', '明日', '本周', '小组赛', '淘汰赛'];
+
+const CAPABILITIES = [
+  { ic: '🧠', label: 'AI 赛前模型' },
+  { ic: '⏱️', label: '临场 30 分钟修正' },
+  { ic: '⚖️', label: '风险评级' },
+  { ic: '🪙', label: 'MTC 解锁' },
+];
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -19,13 +20,15 @@ export function HomePage() {
     matches, matchesLoading, loadMatches,
     setSelectedMatch, syncedAt, apiError,
   } = useAppStore();
-  const [activeTab, setActiveTab] = useState('焦点');
+  const [activeDate, setActiveDate] = useState('今日');
 
-  // Hydrate from API on first mount
   useEffect(() => { loadMatches(); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const focus = matches.find(m => m.tag === 'focus') ?? matches[0];
   const rest  = matches.filter(m => m.id !== focus?.id);
+
+  const liveCount = matches.filter(m => m.tag === 'live').length;
+  const modelCount = matches.length;
 
   function goDetail(id: string) {
     setSelectedMatch(id);
@@ -42,9 +45,9 @@ export function HomePage() {
 
   if (matchesLoading) {
     return (
-      <div style={{ padding: 32, textAlign: 'center', color: 'var(--sub)' }}>
-        <div style={{ fontSize: 28, marginBottom: 12 }}>⚽</div>
-        <div className="small">AI 数据加载中…</div>
+      <div style={{ padding: 40, textAlign: 'center', color: 'var(--sub)' }}>
+        <div style={{ fontSize: 30, marginBottom: 12 }}>⚽</div>
+        <div className="small">AI 情报加载中…</div>
       </div>
     );
   }
@@ -53,14 +56,34 @@ export function HomePage() {
 
   return (
     <div className="page-enter">
-      {/* API source indicator (dev only) */}
-      {apiError && (
-        <div style={{ fontSize: 11, color: 'var(--amber)', padding: '4px 8px', background: '#FFF6E2', borderRadius: 8, marginTop: 8 }}>
-          ⚠️ 使用本地缓存数据（API 暂时不可用）
+      {/* ── AI Intelligence Ticker ───────────────────────────────── */}
+      <div className="ai-ticker">
+        <span className="live-dot" />
+        <span className="tick-label">AI 情报</span>
+        <div className="tick-track">
+          <span className="tick-move">
+            AI 情报更新 · 今日 {modelCount} 场赛前模型已生成 · {liveCount || 1} 场进入临场监听 · 数据同步 {syncTime} · 模型持续追踪阵容与临场变量
+          </span>
         </div>
-      )}
+      </div>
 
-      {/* Balance strip */}
+      {/* ── Hero ──────────────────────────────────────────────────── */}
+      <div className="hero-banner">
+        <div className="hero-kicker">WORLD CUP 2026</div>
+        <div className="hero-title">AI MATCH <span className="accent">INTELLIGENCE</span></div>
+        <div className="hero-sub">用数据拆解比赛，用临场变量追踪胜率变化。</div>
+      </div>
+
+      {/* ── Capability bar ────────────────────────────────────────── */}
+      <div className="cap-bar">
+        {CAPABILITIES.map(c => (
+          <div className="cap-chip" key={c.label}>
+            <span className="ci">{c.ic}</span>{c.label}
+          </div>
+        ))}
+      </div>
+
+      {/* ── Balance strip ─────────────────────────────────────────── */}
       <div className="strip">
         <div className="row gap8">
           <span>🪙</span>
@@ -71,79 +94,40 @@ export function HomePage() {
         </button>
       </div>
 
-      {/* Live correction banner */}
-      <div className="livebanner" onClick={() => goDetail(focus.id)}>
-        <span className="ic">⏱️</span>
-        <div style={{ flex: 1 }}>
-          <div className="h">赛前 30 分钟 · 临场修正</div>
-          <div className="p">首发名单公布后，AI 自动重算胜率并推送变盘</div>
+      {apiError && (
+        <div style={{ fontSize: 11, color: 'var(--amber)', padding: '6px 10px', background: '#FFF6E2', borderRadius: 8, marginBottom: 12 }}>
+          ⚠️ 使用本地缓存数据（情报源暂时不可用）
         </div>
-        <span style={{ color: 'var(--blueMid)', fontSize: 18 }}>›</span>
-      </div>
+      )}
 
-      {/* Filter tabs */}
-      <div className="tabs">
-        {['焦点', '高信心', '爆冷预警', '临场更新'].map(t => (
-          <button key={t} className={`tab ${activeTab === t ? 'on' : ''}`} onClick={() => setActiveTab(t)}>{t}</button>
+      {/* ── Date / category scroller ──────────────────────────────── */}
+      <div className="date-scroll">
+        {DATE_TABS.map(t => (
+          <button
+            key={t}
+            className={`date-pill ${activeDate === t ? 'on' : ''}`}
+            onClick={() => setActiveDate(t)}
+          >
+            {t}
+          </button>
         ))}
       </div>
 
-      {/* Focus match */}
-      <div className="card accent" style={{ borderColor: 'rgba(16,119,195,.35)' }}>
-        <div className="row between mb12">
-          <span className="pill" style={{ background: 'var(--blue)', color: '#fff' }}>
-            {TAG_LABELS[focus.tag ?? 'focus']}
-          </span>
-          <span className="xs sub">
-            {new Date(focus.kickoffTime).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })}{' '}
-            {new Date(focus.kickoffTime).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
-          </span>
-        </div>
-
-        <MatchHeader match={focus} />
-
-        <div className="mt8 mb12">
-          <WinBar prob={focus.winProb} homeLabel={`${focus.homeTeam.name}胜`} awayLabel={`${focus.awayTeam.name}胜`} />
-        </div>
-
-        <div className="row gap8 mb12">
-          <span>🎯</span>
-          <span className="small">AI 推荐比分 <b style={{ color: 'var(--blueMid)' }}>{focus.recommendedScore}</b></span>
-        </div>
-
-        <div className="risk mb12">
-          <span className="ic">⚠️</span>
-          <span className="tx">{focus.riskNote}</span>
-        </div>
-
-        <div className="lockline">🔒 39元 / 390 MTC积分 解锁完整 AI 模型解析</div>
-        <button className="cta primary" onClick={() => goDetail(focus.id)}>查看详情 →</button>
+      {/* ── Section header ────────────────────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">赛事情报</span>
+        <span className="en">MATCH INTEL</span>
+        <span style={{ marginLeft: 'auto' }} className="src-pill">
+          <span className="sync-dot" />数据同步 · {syncTime}
+        </span>
       </div>
 
-      {/* Secondary matches */}
+      {/* ── Match cards ───────────────────────────────────────────── */}
+      <MatchCard match={focus} onClick={() => goDetail(focus.id)} />
       {rest.map(m => (
-        <button key={m.id} className="smatch" onClick={() => goDetail(m.id)}>
-          <div className="row between mb12">
-            <span className="tag">{TAG_LABELS[m.tag ?? 'focus']}</span>
-            {m.tag === 'live' && (
-              <span className="pill" style={{ background: '#E3F4EA', color: 'var(--green)' }}>● LIVE 临场</span>
-            )}
-          </div>
-          <div className="row between">
-            <span className="b small">{m.homeTeam.flag} {m.homeTeam.name}</span>
-            <span className="probs">
-              <span style={{ color: 'var(--green)' }}>{m.winProb.home}%</span>
-              <span style={{ color: 'var(--amber)' }}>{m.winProb.draw}%</span>
-              <span style={{ color: 'var(--red)' }}>{m.winProb.away}%</span>
-            </span>
-            <span className="b small">{m.awayTeam.flag} {m.awayTeam.name}</span>
-          </div>
-        </button>
+        <MatchCard key={m.id} match={m} onClick={() => goDetail(m.id)} />
       ))}
 
-      <p className="xs sub" style={{ textAlign: 'center', marginTop: 8 }}>
-        数据同步 · 最近更新 {syncTime}
-      </p>
       <div className="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
     </div>
   );
