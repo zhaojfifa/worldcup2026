@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
@@ -14,27 +14,52 @@ const TAG_LABELS: Record<string, string> = {
 
 export function HomePage() {
   const navigate = useNavigate();
-  const { balance, checkedIn, checkIn, matches, setSelectedMatch, syncedAt } = useAppStore();
+  const {
+    balance, checkedIn, checkIn,
+    matches, matchesLoading, loadMatches,
+    setSelectedMatch, syncedAt, apiError,
+  } = useAppStore();
   const [activeTab, setActiveTab] = useState('焦点');
 
+  // Hydrate from API on first mount
+  useEffect(() => { loadMatches(); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+
   const focus = matches.find(m => m.tag === 'focus') ?? matches[0];
-  const rest  = matches.filter(m => m.id !== focus.id);
+  const rest  = matches.filter(m => m.id !== focus?.id);
 
   function goDetail(id: string) {
     setSelectedMatch(id);
     navigate('/detail');
   }
 
-  function handleCheckIn() {
+  async function handleCheckIn() {
     if (checkedIn) { toast('今日已签到'); return; }
-    checkIn();
+    await checkIn();
     toast('签到成功 +10 MTC');
   }
 
   const syncTime = new Date(syncedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
 
+  if (matchesLoading) {
+    return (
+      <div style={{ padding: 32, textAlign: 'center', color: 'var(--sub)' }}>
+        <div style={{ fontSize: 28, marginBottom: 12 }}>⚽</div>
+        <div className="small">AI 数据加载中…</div>
+      </div>
+    );
+  }
+
+  if (!focus) return null;
+
   return (
     <div className="page-enter">
+      {/* API source indicator (dev only) */}
+      {apiError && (
+        <div style={{ fontSize: 11, color: 'var(--amber)', padding: '4px 8px', background: '#FFF6E2', borderRadius: 8, marginTop: 8 }}>
+          ⚠️ 使用本地缓存数据（API 暂时不可用）
+        </div>
+      )}
+
       {/* Balance strip */}
       <div className="strip">
         <div className="row gap8">
@@ -70,7 +95,8 @@ export function HomePage() {
             {TAG_LABELS[focus.tag ?? 'focus']}
           </span>
           <span className="xs sub">
-            {new Date(focus.kickoffTime).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })} {new Date(focus.kickoffTime).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
+            {new Date(focus.kickoffTime).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })}{' '}
+            {new Date(focus.kickoffTime).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
           </span>
         </div>
 

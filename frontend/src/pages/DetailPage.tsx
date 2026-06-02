@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
 import { MatchHeader } from '../components/MatchHeader';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
-import type { LiveCorrection } from '../types';
 
 const RISK_LABELS = { low: '低风险', medium: '中风险', high: '高风险' };
 const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--red)' };
@@ -13,45 +12,58 @@ const RISK_BG     = { low: '#E3F4EA',     medium: '#FFF6E2',       high: '#FEE8E
 
 export function DetailPage() {
   const navigate = useNavigate();
-  const { balance, matches, selectedMatchId, unlockMatch, spendToken, applyLiveCorrection } = useAppStore();
+  const {
+    balance, matches, selectedMatchId,
+    loadDetail, unlockWithCash, unlockWithToken, simulateCorrection,
+  } = useAppStore();
 
   const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
-
   const [modal, setModal] = useState<null | { em: string; title: string; body: string; onOk: () => void }>(null);
-  const [lineupSimulated, setLineupSimulated] = useState(!!match.liveCorrection);
+  const [lineupSimulated, setLineupSimulated] = useState(!!match?.liveCorrection);
 
-  function unlockCash() {
+  // Load full detail (free_note, live_correction) from API
+  useEffect(() => {
+    if (selectedMatchId) loadDetail(selectedMatchId);
+  }, [selectedMatchId]);  // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Sync lineupSimulated with store correction
+  useEffect(() => {
+    if (match?.liveCorrection) setLineupSimulated(true);
+  }, [match?.liveCorrection]);
+
+  if (!match) return null;
+
+  async function handleUnlockCash() {
+    const res = await unlockWithCash(match.id);
     setModal({
       em: '💳',
-      title: '原型中模拟支付成功',
-      body: '这是演示原型，未发生真实交易（模拟支付 39 元）。点击继续查看完整 AI 报告。',
-      onOk: () => { unlockMatch(match.id); navigate('/report'); },
+      title: res.success ? '模拟支付成功' : '支付失败',
+      body: res.message,
+      onOk: () => { if (res.success) navigate('/report'); },
     });
   }
 
-  function unlockToken() {
+  async function handleUnlockToken() {
     if (balance < 390) { toast('MTC 积分不足，去做任务赚积分'); return; }
-    spendToken(390);
+    const res = await unlockWithToken(match.id);
+    if (!res.success) { toast(res.message); return; }
     setModal({
       em: '🪙',
       title: '已扣减 390 MTC 积分',
-      body: `原型中模拟积分扣减成功，当前余额 ${balance - 390} MTC。点击继续查看完整 AI 报告。`,
-      onOk: () => { unlockMatch(match.id); navigate('/report'); },
+      body: res.message,
+      onOk: () => navigate('/report'),
     });
   }
 
-  function simulateLineup() {
+  async function handleSimulateLineup() {
     if (lineupSimulated) return;
+    const prevHome = match.winProb.home;
+    await simulateCorrection(match.id);
     setLineupSimulated(true);
-    const correction: LiveCorrection = {
-      trigger: `${match.awayTeam.name}主力中卫未进入首发`,
-      before: { ...match.winProb },
-      after: { home: match.winProb.home + 4, draw: match.winProb.draw - 1, away: match.winProb.away - 3 },
-      reason: `${match.awayTeam.name}后场出球稳定性下降，${match.homeTeam.name}右路进攻优势扩大。`,
-      timestamp: new Date().toISOString(),
-    };
-    applyLiveCorrection(match.id, correction);
-    toast(`临场修正：${match.homeTeam.name}胜率 ${match.winProb.home}% → ${correction.after.home}%`);
+    // match.winProb now updated in store — grab new value for toast
+    const updated = useAppStore.getState().matches.find(m => m.id === match.id);
+    const newHome = updated?.winProb.home ?? prevHome + 4;
+    toast(`临场修正：${match.homeTeam.name}胜率 ${prevHome}% → ${newHome}%`);
   }
 
   const riskLevel = match.riskLevel;
@@ -82,7 +94,7 @@ export function DetailPage() {
         </div>
       </div>
 
-      {/* 临场30分钟修正模块 */}
+      {/* 临场 30 分钟修正模块 */}
       <div className="card accent-blue">
         <div className="row between mb12">
           <span className="row gap8 b small" style={{ color: 'var(--blue)' }}>
@@ -94,9 +106,11 @@ export function DetailPage() {
         {lineupSimulated && match.liveCorrection ? (
           <p className="xs sub" style={{ lineHeight: 1.7 }}>
             【临场修正】{match.liveCorrection.trigger}，AI 重新计算：<br />
-            {match.homeTeam.name}胜率 <b style={{ color: 'var(--green)' }}>
+            {match.homeTeam.name}胜率{' '}
+            <b style={{ color: 'var(--green)' }}>
               {match.liveCorrection.before.home}% → {match.liveCorrection.after.home}% ▲
-            </b>，平局 {match.liveCorrection.before.draw}% → {match.liveCorrection.after.draw}%，
+            </b>
+            ，平局 {match.liveCorrection.before.draw}% → {match.liveCorrection.after.draw}%，
             {match.awayTeam.name} {match.liveCorrection.before.away}% → {match.liveCorrection.after.away}%。<br />
             原因：{match.liveCorrection.reason}
           </p>
@@ -108,7 +122,7 @@ export function DetailPage() {
 
         <button
           className="cta ghost mt12"
-          onClick={simulateLineup}
+          onClick={handleSimulateLineup}
           disabled={lineupSimulated}
           style={lineupSimulated ? { opacity: 0.6 } : {}}
         >
@@ -118,7 +132,9 @@ export function DetailPage() {
 
       <div className="sec">免费解读</div>
       <div className="card">
-        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>{match.freeNote}</p>
+        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>
+          {match.freeNote || 'AI 数据加载中…'}
+        </p>
       </div>
 
       {/* Paywall */}
@@ -128,8 +144,8 @@ export function DetailPage() {
           <div className="feat" key={f}><span className="ck">✔</span>{f}</div>
         ))}
         <div className="mt12">
-          <button className="cta primary" onClick={unlockCash}>39 元解锁完整分析</button>
-          <button className="cta ghost" onClick={unlockToken}>
+          <button className="cta primary" onClick={handleUnlockCash}>39 元解锁完整分析</button>
+          <button className="cta ghost" onClick={handleUnlockToken}>
             🪙 使用 390 MTC积分 解锁（余额 {balance}）
           </button>
           <button className="cta ghost" onClick={() => navigate('/community')}>加入 199元/月 临场社群</button>
@@ -138,9 +154,7 @@ export function DetailPage() {
 
       <div className="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
 
-      {modal && (
-        <Modal {...modal} onClose={() => setModal(null)} />
-      )}
+      {modal && <Modal {...modal} onClose={() => setModal(null)} />}
     </div>
   );
 }

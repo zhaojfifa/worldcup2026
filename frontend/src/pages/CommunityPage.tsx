@@ -14,9 +14,9 @@ const BENEFITS = [
 export function CommunityPage() {
   const { subscribed, subscribe } = useAppStore();
 
-  function handleSubscribe() {
+  async function handleSubscribe() {
     if (subscribed) { toast('已订阅'); return; }
-    subscribe();
+    await subscribe();
     toast('订阅成功 · 临场推送已开启');
   }
 

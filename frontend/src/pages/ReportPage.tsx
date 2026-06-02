@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
@@ -9,17 +10,27 @@ const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--
 
 export function ReportPage() {
   const navigate = useNavigate();
-  const { matches, selectedMatchId } = useAppStore();
+  const { matches, selectedMatchId, loadReport } = useAppStore();
   const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
 
-  const maxTrend = Math.max(...match.trendHistory.map(t => t.prob));
+  // Load full report (features, tactics, trend) from API
+  useEffect(() => {
+    if (selectedMatchId) loadReport(selectedMatchId);
+  }, [selectedMatchId]);  // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!match) return null;
+
+  const hasTrend = match.trendHistory.length > 0;
+  const maxTrend = hasTrend ? Math.max(...match.trendHistory.map(t => t.prob)) : 100;
 
   return (
     <div className="page-enter">
       <div className="backbar">
         <button className="bk" onClick={() => navigate('/')}>←</button>
         <span className="ti">完整 AI 报告</span>
-        <span style={{ marginLeft: 'auto', background: '#E3F4EA', color: 'var(--green)', display: 'inline-block', fontSize: 11, fontWeight: 800, padding: '5px 10px', borderRadius: 999 }}>🔓 已解锁</span>
+        <span style={{ marginLeft: 'auto', background: '#E3F4EA', color: 'var(--green)', display: 'inline-block', fontSize: 11, fontWeight: 800, padding: '5px 10px', borderRadius: 999 }}>
+          🔓 已解锁
+        </span>
       </div>
 
       {/* AI verdict */}
@@ -29,7 +40,7 @@ export function ReportPage() {
         <p className="small" style={{ color: '#3A4A60' }}>{match.homeTeam.name} 小幅占优，但不是稳胆。</p>
         <div className="stats">
           <div className="stat">
-            <div className="v" style={{ color: 'var(--blueMid)' }}>{match.recommendedScore.split(' / ')[0]}</div>
+            <div className="v" style={{ color: 'var(--blueMid)' }}>{match.recommendedScore.split(' / ')[0] || '—'}</div>
             <div className="l">推荐比分</div>
           </div>
           <div className="stat">
@@ -48,32 +59,44 @@ export function ReportPage() {
         <WinBar prob={match.winProb} homeLabel={`${match.homeTeam.name}胜`} awayLabel={`${match.awayTeam.name}胜`} />
       </div>
 
-      <div className="sec">特征贡献度</div>
-      <div className="card">
-        <FeatureBars features={match.features} />
-      </div>
+      {match.features.length > 0 && (
+        <>
+          <div className="sec">特征贡献度</div>
+          <div className="card">
+            <FeatureBars features={match.features} />
+          </div>
+        </>
+      )}
 
-      <div className="sec">战术白话解释</div>
-      <div className="card">
-        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>{match.tacticsNote}</p>
-      </div>
+      {match.tacticsNote && (
+        <>
+          <div className="sec">战术白话解释</div>
+          <div className="card">
+            <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>{match.tacticsNote}</p>
+          </div>
+        </>
+      )}
 
-      <div className="sec">胜率变化走势</div>
-      <div className="card">
-        <div className="trend">
-          {match.trendHistory.map((t, i) => {
-            const h = Math.round((t.prob / maxTrend) * 100);
-            const isLast = i === match.trendHistory.length - 1;
-            return (
-              <div className="col" key={t.label}>
-                <span className="pv" style={{ color: isLast ? 'var(--blue)' : 'var(--blueMid)' }}>{t.prob}%</span>
-                <div className="barv" style={{ height: h, background: isLast ? 'var(--blue)' : 'var(--blueLight)' }} />
-                <span className="pt">{t.label}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {hasTrend && (
+        <>
+          <div className="sec">胜率变化走势</div>
+          <div className="card">
+            <div className="trend">
+              {match.trendHistory.map((t, i) => {
+                const h = Math.round((t.prob / maxTrend) * 100);
+                const isLast = i === match.trendHistory.length - 1;
+                return (
+                  <div className="col" key={t.label}>
+                    <span className="pv" style={{ color: isLast ? 'var(--blue)' : 'var(--blueMid)' }}>{t.prob}%</span>
+                    <div className="barv" style={{ height: h, background: isLast ? 'var(--blue)' : 'var(--blueLight)' }} />
+                    <span className="pt">{t.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Live correction record */}
       {match.liveCorrection && (
