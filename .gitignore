@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# Local tooling / preview config
+.claude/
+
 # Node / frontend
 node_modules/
 .next/
