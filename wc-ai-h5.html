@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#0A4F90" />
+<title>世界杯 AI 情报终端</title>
+<style>
+  :root{
+    --bg:#F0F5FB; --card:#FFFFFF; --line:#E0E9F4;
+    --blue:#0A4F90; --blueMid:#1077C3; --blueLight:#49BCE3; --sky:#E9F2FB;
+    --gold:#F7B500; --green:#1E9E5A; --amber:#E0930A; --red:#E1252E;
+    --txt:#0E2542; --sub:#5C6B82; --shadow:0 2px 12px rgba(16,60,120,.08);
+    --maxw:430px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:#C7D6E8;color:var(--txt);overscroll-behavior:none;}
+
+  /* phone shell: full width on mobile, centered phone width on desktop */
+  .phone{width:100%;max-width:var(--maxw);margin:0 auto;background:var(--bg);
+    min-height:100vh;min-height:100dvh;position:relative;box-shadow:0 0 40px rgba(20,50,90,.18);}
+
+  /* top brand header */
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:8px;
+    padding:14px 18px;padding-top:max(14px,env(safe-area-inset-top));
+    background:linear-gradient(90deg,var(--blue),var(--blueMid));color:#fff;}
+  .topbar .crown{font-size:22px;}
+  .topbar .t1{font-weight:800;font-size:15px;line-height:1.25;}
+  .topbar .t2{font-size:11px;line-height:1.25;color:#C5E0F6;}
+
+  .content{padding:0 16px 92px;}
+  .page{display:none;animation:fade .25s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  /* shared */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
+  .card.accent{border-color:rgba(73,188,227,.45);}
+  .sec{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.5px;margin:12px 2px 8px;}
+  .pill{display:inline-block;font-size:11px;font-weight:800;padding:5px 10px;border-radius:999px;}
+  .row{display:flex;align-items:center;}
+  .between{justify-content:space-between;}
+  .center{justify-content:center;}
+  .gap8{gap:8px;} .gap6{gap:6px;}
+  .mt8{margin-top:8px;} .mt10{margin-top:10px;} .mt12{margin-top:12px;} .mb12{margin-bottom:12px;}
+  .small{font-size:13px;} .xs{font-size:11.5px;}
+  .sub{color:var(--sub);} .b{font-weight:800;}
+  .muted-note{text-align:center;font-size:11px;color:#94A4BB;margin-top:16px;line-height:1.6;}
+
+  /* points strip */
+  .strip{display:flex;align-items:center;justify-content:space-between;padding:14px;border-radius:14px;
+    background:var(--sky);border:1px solid var(--line);margin:16px 0 14px;}
+  .btn-mini{font-size:12px;font-weight:800;padding:9px 16px;border-radius:12px;border:none;color:#fff;background:var(--blueMid);min-height:38px;}
+  .btn-mini.done{background:#E3E9F1;color:var(--sub);}
+
+  /* live-correction highlight banner */
+  .livebanner{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:14px;margin-bottom:14px;
+    background:linear-gradient(90deg,#E9F2FB,#F4F9FF);border:1px solid rgba(16,119,195,.3);}
+  .livebanner .ic{font-size:22px;}
+  .livebanner .h{font-size:13px;font-weight:800;color:var(--blue);}
+  .livebanner .p{font-size:11px;color:var(--sub);margin-top:2px;}
+
+  /* filter tabs */
+  .tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;-webkit-overflow-scrolling:touch;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{font-size:12px;font-weight:800;padding:9px 14px;border-radius:999px;white-space:nowrap;
+    background:#fff;color:var(--sub);border:1px solid var(--line);}
+  .tab.on{background:var(--blueMid);color:#fff;border-color:var(--blueMid);}
+
+  /* match header */
+  .mh{display:flex;align-items:center;justify-content:center;gap:18px;padding:10px 0;}
+  .mh .team{text-align:center;}
+  .mh .flag{font-size:42px;}
+  .mh .name{font-weight:800;margin-top:4px;font-size:15px;}
+  .mh .vs{font-weight:900;color:var(--blueMid);font-size:20px;}
+  .mh .time{font-size:11px;color:var(--sub);margin-top:4px;}
+
+  /* win bar */
+  .winbar{display:flex;width:100%;height:42px;border-radius:12px;overflow:hidden;}
+  .winbar .seg{display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;transition:width .6s ease;}
+  .winlabels{display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px;color:var(--sub);}
+
+  /* CTA - finger friendly */
+  .cta{width:100%;min-height:50px;padding:14px;border-radius:14px;font-weight:800;font-size:15px;border:none;cursor:pointer;}
+  .cta.primary{background:linear-gradient(90deg,var(--blueMid),var(--blue));color:#fff;box-shadow:0 5px 14px rgba(16,119,195,.32);}
+  .cta.ghost{background:#fff;color:var(--blueMid);border:1.5px solid var(--blueMid);}
+  .cta+.cta{margin-top:10px;}
+
+  .risk{display:flex;gap:9px;padding:13px;border-radius:13px;background:#FFF6E2;border:1px solid rgba(224,147,10,.35);}
+  .risk .ic{color:var(--amber);flex-shrink:0;font-size:16px;}
+  .risk .tx{font-size:12px;line-height:1.65;color:#7A5A05;}
+
+  .lockline{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--blueMid);margin:13px 0;}
+
+  /* paywall */
+  .paywall{background:var(--sky);border:1.5px solid rgba(16,119,195,.35);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
+  .feat{display:flex;align-items:center;gap:9px;font-size:13px;color:#3A4A60;margin-bottom:9px;}
+  .feat .ck{color:var(--green);font-weight:800;}
+
+  /* small match */
+  .smatch{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow);margin-bottom:12px;cursor:pointer;}
+  .smatch .tag{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:var(--sub);}
+  .smatch .probs{display:flex;gap:8px;font-size:12px;font-weight:800;}
+
+  /* stat boxes */
+  .stats{display:flex;gap:8px;margin-top:12px;}
+  .stat{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 6px;text-align:center;}
+  .stat .v{font-weight:900;font-size:19px;} .stat .l{font-size:11px;color:var(--sub);margin-top:3px;}
+
+  /* feature bars */
+  .fbar{margin-bottom:13px;}
+  .fbar:last-child{margin-bottom:0;}
+  .fbar .top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+  .fbar .track{width:100%;height:9px;background:var(--bg);border-radius:999px;overflow:hidden;}
+  .fbar .fill{height:100%;border-radius:999px;}
+
+  /* trend */
+  .trend{display:flex;align-items:flex-end;justify-content:space-between;height:124px;}
+  .trend .col{display:flex;flex-direction:column;align-items:center;width:30%;}
+  .trend .barv{width:100%;border-radius:9px 9px 0 0;}
+  .trend .pv{font-size:12px;font-weight:800;margin-bottom:5px;}
+  .trend .pt{font-size:11px;color:var(--sub);margin-top:5px;}
+
+  /* correction rows */
+  .crow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);}
+  .crow:last-of-type{border-bottom:none;}
+
+  /* big gradient card */
+  .bigcard{border-radius:18px;padding:22px;text-align:center;background:linear-gradient(135deg,var(--blueMid),var(--blue));box-shadow:0 6px 18px rgba(16,79,144,.28);color:#fff;margin-bottom:16px;}
+  .bigcard .lbl{font-size:12px;color:#C5E0F6;}
+  .bigcard .val{font-weight:900;font-size:46px;margin-top:4px;}
+
+  /* token tasks */
+  .task{display:flex;align-items:center;justify-content:space-between;padding:11px 8px;}
+  .task .l{display:flex;align-items:center;gap:9px;font-size:14px;}
+  .tbtn{font-size:12px;font-weight:800;padding:9px 15px;border-radius:12px;background:var(--sky);color:var(--blueMid);border:1px solid rgba(16,119,195,.35);min-height:38px;}
+  .tbtn.done{background:#E3E9F1;color:var(--sub);border-color:var(--line);}
+
+  .opt{flex:1;min-height:48px;padding:13px;border-radius:13px;font-size:14px;font-weight:800;background:var(--sky);border:1px solid var(--line);color:var(--txt);}
+  .opt.sel{background:var(--blueMid);color:#fff;border-color:var(--blueMid);}
+
+  .shopitem{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:var(--shadow);margin-bottom:10px;}
+  .shopbtn{font-size:12px;font-weight:800;padding:10px 14px;border-radius:12px;white-space:nowrap;background:var(--blueMid);color:#fff;border:none;min-height:40px;}
+
+  .compliance{background:var(--sky);color:#5C6B82;border:1px solid var(--line);border-radius:14px;padding:13px;font-size:11.5px;line-height:1.7;margin-top:8px;}
+  .compliance b{color:var(--blue);}
+
+  .benefit{display:flex;align-items:center;gap:9px;padding:9px;font-size:14px;color:#3A4A60;}
+
+  .backbar{display:flex;align-items:center;gap:10px;padding:16px 0 12px;}
+  .backbar .bk{font-size:24px;cursor:pointer;color:var(--txt);background:none;border:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;margin-left:-8px;}
+  .backbar .ti{font-weight:800;font-size:17px;}
+
+  /* bottom tab nav */
+  .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:var(--maxw);display:flex;
+    background:#fff;border-top:1px solid var(--line);z-index:40;
+    padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -2px 12px rgba(16,60,120,.06);}
+  .nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    background:none;border:none;cursor:pointer;height:62px;}
+  .nav .ic{font-size:21px;color:#9AA8BC;line-height:1;}
+  .nav .lb{font-size:11px;color:#9AA8BC;}
+  .nav button.on .ic,.nav button.on .lb{color:var(--blueMid);}
+  .nav button.on .lb{font-weight:800;}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);background:var(--blue);color:#fff;
+    font-size:13px;font-weight:800;padding:11px 18px;border-radius:999px;box-shadow:0 4px 16px rgba(10,79,144,.4);
+    z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90%;text-align:center;}
+  .toast.show{opacity:1;}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(10,30,60,.45);display:none;align-items:center;justify-content:center;z-index:70;padding:28px;}
+  .overlay.show{display:flex;}
+  .modal{background:#fff;border-radius:20px;padding:26px;max-width:320px;width:100%;text-align:center;box-shadow:0 12px 44px rgba(0,0,0,.25);}
+  .modal .em{font-size:42px;}
+  .modal .h{font-weight:800;font-size:17px;margin-top:10px;}
+  .modal .p{font-size:13px;color:var(--sub);margin-top:8px;line-height:1.65;}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- TOP BRAND -->
+  <div class="topbar">
+    <span class="crown">👑</span>
+    <div>
+      <div class="t1">世界杯 AI 情报终端</div>
+      <div class="t2">不只告诉你谁会赢,更告诉你为什么</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ============ PAGE 1: HOME ============ -->
+    <div class="page active" id="page-home">
+      <div class="strip">
+        <div class="row gap8"><span>🪙</span><span class="small">我的 MTC 球迷积分：<b id="bal-home" style="color:var(--blueMid)">520</b></span></div>
+        <button class="btn-mini" id="checkin-home" onclick="checkIn()">签到 +10</button>
+      </div>
+
+      <!-- 赛前30分钟临场修正 highlight -->
+      <div class="livebanner" onclick="go('detail')">
+        <span class="ic">⏱️</span>
+        <div style="flex:1">
+          <div class="h">赛前 30 分钟 · 临场修正</div>
+          <div class="p">首发名单公布后,AI 自动重算胜率并推送变盘</div>
+        </div>
+        <span style="color:var(--blueMid);font-size:18px">›</span>
+      </div>
+
+      <div class="tabs">
+        <button class="tab on">焦点</button>
+        <button class="tab">高信心</button>
+        <button class="tab">爆冷预警</button>
+        <button class="tab">临场更新</button>
+      </div>
+
+      <!-- focus match -->
+      <div class="card accent" style="border-color:rgba(16,119,195,.35)">
+        <div class="row between mb12">
+          <span class="pill" style="background:var(--blue);color:#fff">🏆 焦点战</span>
+          <span class="xs sub">06-05 07:00</span>
+        </div>
+        <div class="mh">
+          <div class="team"><div class="flag">🇧🇷</div><div class="name">巴西</div></div>
+          <div class="team"><div class="vs">VS</div><div class="time">06-05 07:00</div></div>
+          <div class="team"><div class="flag">🇦🇷</div><div class="name">阿根廷</div></div>
+        </div>
+        <div class="mt8 mb12">
+          <div class="winbar">
+            <div class="seg" style="width:45%;background:var(--green)">45%</div>
+            <div class="seg" style="width:27%;background:var(--amber)">27%</div>
+            <div class="seg" style="width:28%;background:var(--red)">28%</div>
+          </div>
+          <div class="winlabels"><span>🟢 巴西胜</span><span>🟡 平局</span><span>🔴 阿根廷胜</span></div>
+        </div>
+        <div class="row gap8 mb12"><span>🎯</span><span class="small">AI 推荐比分 <b style="color:var(--blueMid)">2:1 / 1:1</b></span></div>
+        <div class="risk mb12">
+          <span class="ic">⚠️</span>
+          <span class="tx">巴西近期中场控制力增强;阿根廷后卫线主力伤停,防线稳定性下降。</span>
+        </div>
+        <div class="lockline">🔒 39元 / 390 MTC积分 解锁完整 AI 模型解析</div>
+        <button class="cta primary" onclick="go('detail')">查看详情 →</button>
+      </div>
+
+      <!-- secondary matches -->
+      <button class="smatch" onclick="go('detail')">
+        <div class="row between mb12"><span class="tag">🔥 爆冷预警</span></div>
+        <div class="row between">
+          <span class="b small">🇲🇦 摩洛哥</span>
+          <span class="probs"><span style="color:var(--green)">38%</span><span style="color:var(--amber)">29%</span><span style="color:var(--red)">33%</span></span>
+          <span class="b small">🇫🇷 法国</span>
+        </div>
+      </button>
+      <button class="smatch" onclick="go('detail')">
+        <div class="row between mb12"><span class="tag">⚡ 临场更新</span><span class="pill" style="background:#E3F4EA;color:var(--green)">● LIVE 临场</span></div>
+        <div class="row between">
+          <span class="b small">🇪🇸 西班牙</span>
+          <span class="probs"><span style="color:var(--green)">41%</span><span style="color:var(--amber)">30%</span><span style="color:var(--red)">29%</span></span>
+          <span class="b small">🇩🇪 德国</span>
+        </div>
+      </button>
+
+      <div class="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
+    </div>
+
+    <!-- ============ PAGE 2: DETAIL ============ -->
+    <div class="page" id="page-detail">
+      <div class="backbar"><button class="bk" onclick="go('home')">←</button><span class="ti">单场预测详情</span></div>
+
+      <div class="card">
+        <div class="mh">
+          <div class="team"><div class="flag">🇧🇷</div><div class="name">巴西</div></div>
+          <div class="team"><div class="vs">VS</div><div class="time">06-05 07:00</div></div>
+          <div class="team"><div class="flag">🇦🇷</div><div class="name">阿根廷</div></div>
+        </div>
+        <div class="row center gap8">
+          <span class="pill" style="background:var(--sky);color:var(--blueMid)">免费结果</span>
+          <span class="pill" style="background:#FFF6E2;color:var(--amber)">中风险</span>
+        </div>
+      </div>
+
+      <div class="sec">AI 当前胜率</div>
+      <div class="card">
+        <div class="winbar" id="detail-winbar">
+          <div class="seg" style="width:45%;background:var(--green)">45%</div>
+          <div class="seg" style="width:27%;background:var(--amber)">27%</div>
+          <div class="seg" style="width:28%;background:var(--red)">28%</div>
+        </div>
+        <div class="winlabels"><span>🟢 巴西胜</span><span>🟡 平局</span><span>🔴 阿根廷胜</span></div>
+        <div class="row center gap8 mt12" style="padding-top:12px;border-top:1px solid var(--line)">
+          <span>🎯</span><span class="small">推荐比分 <b style="color:var(--blueMid)">2:1 / 1:1</b></span>
+        </div>
+      </div>
+
+      <!-- 临场修正 highlighted near top -->
+      <div class="card accent" style="border-color:rgba(16,119,195,.4)">
+        <div class="row between mb12">
+          <span class="row gap8 b small" style="color:var(--blue)"><span>⏱️</span>赛前 30 分钟临场修正</span>
+          <span class="pill" style="background:#FFF6E2;color:var(--amber)">关键功能</span>
+        </div>
+        <p class="xs sub" style="line-height:1.7" id="live-text">等待官方首发名单公布。首发确定后,AI 将根据主力出场、阵型变化、替补强度重新计算胜率。</p>
+        <button class="cta ghost mt12" id="live-btn" onclick="simulateLineup()">模拟首发公布 → 重新计算</button>
+      </div>
+
+      <div class="sec">免费解读</div>
+      <div class="card">
+        <p class="small" style="color:#3A4A60;line-height:1.75">AI 当前更倾向巴西,但这不是低风险比赛。巴西优势在中场控制和右路推进,阿根廷风险来自后卫线伤停。不过阿根廷反击效率较高,因此平局概率也不可忽视。</p>
+      </div>
+
+      <!-- paywall -->
+      <div class="paywall">
+        <div class="row gap8 mb12"><span>🔒</span><span class="b">解锁完整 AI 模型解析</span></div>
+        <div class="feat"><span class="ck">✔</span>为什么 AI 更看好巴西</div>
+        <div class="feat"><span class="ck">✔</span>哪些数据影响了胜率</div>
+        <div class="feat"><span class="ck">✔</span>阿根廷的核心风险点</div>
+        <div class="feat"><span class="ck">✔</span>巴西是否被高估</div>
+        <div class="feat"><span class="ck">✔</span>首发公布后胜率如何变化</div>
+        <div class="mt12">
+          <button class="cta primary" onclick="unlockCash()">39 元解锁完整分析</button>
+          <button class="cta ghost" onclick="unlockToken()">🪙 使用 390 MTC积分 解锁(余额 <span id="bal-detail">520</span>)</button>
+          <button class="cta ghost" onclick="go('community')">加入 199元/月 临场社群</button>
+        </div>
+      </div>
+
+      <div class="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
+    </div>
+
+    <!-- ============ PAGE 3: REPORT ============ -->
+    <div class="page" id="page-report">
+      <div class="backbar">
+        <button class="bk" onclick="go('home')">←</button><span class="ti">完整 AI 报告</span>
+        <span style="margin-left:auto" class="pill" style="background:#E3F4EA;color:var(--green)">🔓 已解锁</span>
+      </div>
+
+      <div class="paywall" style="border-color:rgba(30,158,90,.4)">
+        <div class="row gap8 mb12"><span>✨</span><span class="b">AI 最终判断</span></div>
+        <p class="small" style="color:#3A4A60">巴西小幅占优,但不是稳胆。</p>
+        <div class="stats">
+          <div class="stat"><div class="v" style="color:var(--blueMid)">2:1</div><div class="l">推荐比分</div></div>
+          <div class="stat"><div class="v" style="color:var(--amber)">中</div><div class="l">风险等级</div></div>
+          <div class="stat"><div class="v" style="color:var(--green)">62%</div><div class="l">信心</div></div>
+        </div>
+      </div>
+
+      <div class="sec">胜平负概率分布</div>
+      <div class="card">
+        <div class="winbar">
+          <div class="seg" style="width:45%;background:var(--green)">45%</div>
+          <div class="seg" style="width:27%;background:var(--amber)">27%</div>
+          <div class="seg" style="width:28%;background:var(--red)">28%</div>
+        </div>
+        <div class="winlabels"><span>🟢 巴西胜</span><span>🟡 平局</span><span>🔴 阿根廷胜</span></div>
+      </div>
+
+      <div class="sec">特征贡献度</div>
+      <div class="card" id="features"></div>
+
+      <div class="sec">战术白话解释</div>
+      <div class="card">
+        <p class="small" style="color:#3A4A60;line-height:1.75">巴西本场优势主要来自中场控制和右路推进。如果阿根廷主力中卫无法首发,巴西右路更容易形成传中和二次进攻。但阿根廷反击效率仍然很高,因此 AI 并不把本场标记为低风险。</p>
+      </div>
+
+      <div class="sec">胜率变化走势</div>
+      <div class="card">
+        <div class="trend">
+          <div class="col"><span class="pv" style="color:var(--blueMid)">42%</span><div class="barv" style="height:67px;background:var(--blueLight)"></div><span class="pt">赛前3天</span></div>
+          <div class="col"><span class="pv" style="color:var(--blueMid)">45%</span><div class="barv" style="height:72px;background:var(--blueLight)"></div><span class="pt">赛前1天</span></div>
+          <div class="col"><span class="pv" style="color:var(--blue)">49%</span><div class="barv" style="height:78px;background:var(--blue)"></div><span class="pt">临场30分</span></div>
+        </div>
+      </div>
+
+      <div class="sec">临场修正记录</div>
+      <div class="card accent">
+        <div class="row gap8 mb12"><span>🔔</span><span class="b small">阿根廷主力中卫未进入首发</span></div>
+        <div class="crow"><span class="small" style="color:#3A4A60">巴西胜率</span><span class="b small"><span class="sub">45%</span> → <span style="color:var(--green)">49%</span> <span style="color:var(--green)">▲</span></span></div>
+        <div class="crow"><span class="small" style="color:#3A4A60">平局概率</span><span class="b small"><span class="sub">27%</span> → <span style="color:var(--red)">26%</span> <span style="color:var(--red)">▼</span></span></div>
+        <div class="crow"><span class="small" style="color:#3A4A60">阿根廷胜率</span><span class="b small"><span class="sub">28%</span> → <span style="color:var(--red)">25%</span> <span style="color:var(--red)">▼</span></span></div>
+        <p class="xs sub mt12" style="line-height:1.7">变化原因:阿根廷后场出球稳定性下降,巴西右路进攻优势扩大。</p>
+      </div>
+
+      <button class="cta primary" onclick="go('community')">订阅社群 · 每场临场修正实时推送</button>
+      <div class="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
+    </div>
+
+    <!-- ============ PAGE 4: MTC 积分中心 ============ -->
+    <div class="page" id="page-token">
+      <div class="backbar"><span class="ti">🪙 MTC 球迷积分中心</span></div>
+
+      <div class="bigcard">
+        <div class="lbl">我的 MTC 球迷积分余额</div>
+        <div class="val" id="bal-token">520</div>
+      </div>
+
+      <div class="sec">今日任务</div>
+      <div class="card" style="padding:6px">
+        <div class="task">
+          <span class="l"><span style="color:var(--green)">✔</span>每日签到</span>
+          <button class="tbtn" id="checkin-token" onclick="checkIn()">+10</button>
+        </div>
+        <div class="task">
+          <span class="l"><span style="color:var(--blueMid)">📤</span>分享预测卡</span>
+          <button class="tbtn" onclick="addToken(50)">+50</button>
+        </div>
+        <div class="task">
+          <span class="l"><span style="color:var(--gold)">👥</span>邀请好友注册</span>
+          <button class="tbtn" onclick="addToken(100)">+100</button>
+        </div>
+      </div>
+
+      <div class="sec">免费预测挑战</div>
+      <div class="card">
+        <div class="b small mb12">巴西 vs 阿根廷</div>
+        <div class="xs sub" style="margin-bottom:14px">本场是否会出现红牌? · 免费参与 · 命中瓜分 MTC 积分奖池</div>
+        <div class="row gap8" id="challenge-opts">
+          <button class="opt" onclick="joinChallenge('A')">A. 会</button>
+          <button class="opt" onclick="joinChallenge('B')">B. 不会</button>
+        </div>
+        <div class="xs" id="challenge-state" style="display:none;color:var(--green);font-weight:800;margin-top:12px"></div>
+      </div>
+
+      <div class="sec">MTC 积分商店</div>
+      <div class="shopitem"><span class="row gap8 small"><span>🔓</span>单场 AI 深度报告</span><button class="shopbtn" onclick="spend(390)">390 MTC</button></div>
+      <div class="shopitem"><span class="row gap8 small"><span>👥</span>7 天社群体验</span><button class="shopbtn" onclick="spend(1500)">1500 MTC</button></div>
+      <div class="shopitem"><span class="row gap8 small"><span>🎁</span>单场免单券</span><button class="shopbtn" onclick="spend(3000)">3000 MTC</button></div>
+
+      <div class="compliance">⚠️ MTC 球迷积分仅为平台积分:<b>不可提现 · 不可转让 · 不承诺收益</b> · 不作为金融资产 · 不接入博彩。</div>
+      <div class="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注</div>
+    </div>
+
+    <!-- ============ PAGE 5: COMMUNITY ============ -->
+    <div class="page" id="page-community">
+      <div class="backbar"><span class="ti">👥 社群订阅</span></div>
+
+      <div class="bigcard">
+        <span class="pill" style="background:#fff;color:var(--blue)">临场情报 VIP</span>
+        <div class="val" style="font-size:42px">¥199<span style="font-size:16px;color:#C5E0F6">/月</span></div>
+        <div class="xs" style="color:#C5E0F6;margin-top:4px">首发公布后,AI 自动重算并推送给你</div>
+      </div>
+
+      <div class="sec">会员权益</div>
+      <div class="card" style="padding:10px">
+        <div class="benefit"><span style="color:var(--green)">✔</span>每日 3-5 场 AI 预测</div>
+        <div class="benefit"><span style="color:var(--green)">✔</span>单场完整模型解析</div>
+        <div class="benefit"><span style="color:var(--green)">✔</span>首发公布后 30 分钟 AI 重新计算</div>
+        <div class="benefit"><span style="color:var(--green)">✔</span>临场修正推送</div>
+        <div class="benefit"><span style="color:var(--green)">✔</span>高风险比赛提醒</div>
+        <div class="benefit"><span style="color:var(--green)">✔</span>MTC 积分加成</div>
+        <div class="benefit"><span style="color:var(--green)">✔</span>私域社群服务</div>
+      </div>
+
+      <div class="sec">为什么社群值钱?</div>
+      <div class="card accent">
+        <div class="row gap8 mb12"><span>⚡</span><span class="b small">实时变盘示例</span></div>
+        <div class="row between small">
+          <span style="color:#3A4A60">巴西胜率</span>
+          <span class="b"><span class="sub">45%</span> → <span style="color:var(--green)">49%</span> <span style="color:var(--green)">▲</span></span>
+        </div>
+        <p class="xs sub mt8">阿根廷主力中卫缺阵 → 巴西右路优势扩大,社群第一时间推送。</p>
+      </div>
+
+      <button class="cta primary" id="sub-btn" onclick="subscribe()">立即订阅 ¥199/月</button>
+      <div class="muted-note">订阅为 AI 数据分析与情报服务 · 非博彩 · 不提供现金投注 · MTC 不可提现</div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM TAB NAV -->
+  <div class="nav">
+    <button class="on" id="nav-home" onclick="go('home')"><span class="ic">🏠</span><span class="lb">首页</span></button>
+    <button id="nav-detail" onclick="go('detail')"><span class="ic">📈</span><span class="lb">AI预测</span></button>
+    <button id="nav-token" onclick="go('token')"><span class="ic">🪙</span><span class="lb">MTC积分</span></button>
+    <button id="nav-community" onclick="go('community')"><span class="ic">👥</span><span class="lb">社群</span></button>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- MODAL -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="em" id="modal-em">💳</div>
+      <div class="h" id="modal-h">原型中模拟支付成功</div>
+      <div class="p" id="modal-p">这是演示原型,未发生真实交易。点击继续查看完整 AI 报告。</div>
+      <button class="cta primary" style="margin-top:18px" id="modal-ok">继续查看报告</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var balance = 520, checkedIn = false, challengeJoined = false, lineupDone = false, subscribed = false;
+
+  var FEATURES = [
+    {label:"中场控制力", v:18},
+    {label:"近 5 场 xG 表现", v:12},
+    {label:"阿根廷后卫伤停", v:10},
+    {label:"巴西右路突破", v:8},
+    {label:"体能与旅行因素", v:-3}
+  ];
+  (function(){
+    var max=18, host=document.getElementById('features'), html='';
+    FEATURES.forEach(function(f){
+      var pos=f.v>=0, color=pos?'var(--green)':'var(--red)', w=(Math.abs(f.v)/max*100);
+      html+='<div class="fbar"><div class="top"><span style="color:#3A4A60">'+f.label+'</span>'
+        +'<span class="b" style="color:'+color+'">'+(pos?'+':'')+f.v+'%</span></div>'
+        +'<div class="track"><div class="fill" style="width:'+w+'%;background:'+color+'"></div></div></div>';
+    });
+    host.innerHTML=html;
+  })();
+
+  function go(page){
+    ['home','detail','report','token','community'].forEach(function(p){ document.getElementById('page-'+p).classList.remove('active'); });
+    document.getElementById('page-'+page).classList.add('active');
+    var navMap = {home:'home', detail:'detail', report:'detail', token:'token', community:'community'};
+    ['home','detail','token','community'].forEach(function(n){ document.getElementById('nav-'+n).classList.remove('on'); });
+    var nv=navMap[page]; if(document.getElementById('nav-'+nv)) document.getElementById('nav-'+nv).classList.add('on');
+    window.scrollTo(0,0);
+  }
+
+  function syncBalance(){
+    ['bal-home','bal-detail','bal-token'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.textContent=balance;
+    });
+  }
+
+  var toastTimer;
+  function toast(msg){
+    var t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){ t.classList.remove('show'); },1800);
+  }
+
+  function checkIn(){
+    if(checkedIn){ toast('今日已签到'); return; }
+    checkedIn=true; balance+=10; syncBalance();
+    var b1=document.getElementById('checkin-home'); if(b1){ b1.textContent='已签到'; b1.classList.add('done'); b1.disabled=true; }
+    var b2=document.getElementById('checkin-token'); if(b2){ b2.textContent='已完成'; b2.classList.add('done'); b2.disabled=true; }
+    toast('签到成功 +10 MTC');
+  }
+
+  function addToken(n){ balance+=n; syncBalance(); toast('获得 '+n+' MTC'); }
+
+  function spend(cost){
+    if(balance<cost){ toast('MTC 积分不足'); return; }
+    balance-=cost; syncBalance(); toast('已消耗 '+cost+' MTC 兑换成功');
+  }
+
+  function showModal(em,h,p,onOk){
+    document.getElementById('modal-em').textContent=em;
+    document.getElementById('modal-h').textContent=h;
+    document.getElementById('modal-p').textContent=p;
+    var ov=document.getElementById('overlay'); ov.classList.add('show');
+    document.getElementById('modal-ok').onclick=function(){ ov.classList.remove('show'); if(onOk) onOk(); };
+  }
+  function unlockCash(){
+    showModal('💳','原型中模拟支付成功','这是演示原型,未发生真实交易(模拟支付 39 元)。点击继续查看完整 AI 报告。',function(){ go('report'); });
+  }
+  function unlockToken(){
+    if(balance<390){ toast('MTC 积分不足,去做任务赚积分'); return; }
+    balance-=390; syncBalance();
+    showModal('🪙','已扣减 390 MTC 积分','原型中模拟积分扣减成功,当前余额 '+balance+' MTC。点击继续查看完整 AI 报告。',function(){ go('report'); });
+  }
+
+  function joinChallenge(opt){
+    if(challengeJoined) return;
+    challengeJoined=true;
+    var opts=document.getElementById('challenge-opts').querySelectorAll('.opt');
+    opts.forEach(function(o){ o.disabled=true; });
+    opts[opt==='A'?0:1].classList.add('sel');
+    var st=document.getElementById('challenge-state');
+    st.style.display='block';
+    st.textContent='✔ 已参与免费预测挑战(选择「'+(opt==='A'?'会':'不会')+'」)· 赛后结算瓜分积分奖池';
+    toast('已参与免费预测挑战');
+  }
+
+  function simulateLineup(){
+    if(lineupDone) return;
+    lineupDone=true;
+    var segs=document.getElementById('detail-winbar').querySelectorAll('.seg');
+    segs[0].style.width='49%'; segs[0].textContent='49%';
+    segs[1].style.width='26%'; segs[1].textContent='26%';
+    segs[2].style.width='25%'; segs[2].textContent='25%';
+    document.getElementById('live-text').innerHTML='【临场修正】阿根廷主力中卫未进入首发,AI 重新计算:<br>巴西胜率 <b style="color:var(--green)">45% → 49% ▲</b>,平局 27% → 26%,阿根廷 28% → 25%。<br>原因:阿根廷后场出球稳定性下降,巴西右路进攻优势扩大。';
+    var btn=document.getElementById('live-btn');
+    btn.textContent='已根据首发重新计算 ✓'; btn.disabled=true; btn.style.opacity='0.6';
+    toast('临场修正:巴西胜率 45% → 49%');
+  }
+
+  function subscribe(){
+    if(subscribed){ toast('已订阅'); return; }
+    subscribed=true;
+    document.getElementById('sub-btn').textContent='✓ 已订阅 · 临场推送已开启';
+    toast('订阅成功 · 临场推送已开启');
+  }
+</script>
+</body>
+</html>
