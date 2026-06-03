@@ -5,10 +5,14 @@ import { WinBar } from '../components/WinBar';
 import { MatchHeader } from '../components/MatchHeader';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
+import { deriveOps, reasonBullets } from '../ops/derive';
+import { DETAIL, COMPLIANCE_FOOTER } from '../copy/zh';
 
 const RISK_LABELS = { low: '低风险', medium: '中风险', high: '高风险' };
+const RISK_GRADE  = { low: '低', medium: '中', high: '高' };
 const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--red)' };
 const RISK_BG     = { low: '#E3F4EA',     medium: '#FFF6E2',       high: '#FEE8E9' };
+const STAR_COLOR  = { low: '#8DF2B6', medium: '#FFD27A', high: '#FFAEB2' };
 
 export function DetailPage() {
   const navigate = useNavigate();
@@ -30,6 +34,10 @@ export function DetailPage() {
   }, [match?.liveCorrection]);
 
   if (!match) return null;
+
+  const ops = deriveOps(match);
+  const bullets = reasonBullets(match);
+  const riskLevel = match.riskLevel;
 
   async function handleUnlockCash() {
     const res = await unlockWithCash(match.id);
@@ -63,8 +71,6 @@ export function DetailPage() {
     toast(`临场修正：${match.homeTeam.name}胜率 ${prevHome}% → ${newHome}%`);
   }
 
-  const riskLevel = match.riskLevel;
-
   return (
     <div className="page-enter">
       <div className="backbar">
@@ -76,39 +82,83 @@ export function DetailPage() {
       <div className="card">
         <div className="mono-label" style={{ textAlign: 'center', marginBottom: 4 }}>AI PRE-MATCH MODEL</div>
         <MatchHeader match={match} />
-        <div className="row center gap8">
-          <span className="pill" style={{ background: 'var(--sky)', color: 'var(--blueMid)' }}>免费速览</span>
-          <span className="pill" style={{ background: RISK_BG[riskLevel], color: RISK_COLORS[riskLevel] }}>
-            {RISK_LABELS[riskLevel]}
-          </span>
+      </div>
+
+      {/* ── 1. AI 结论卡（置顶） ──────────────────────────────────── */}
+      <div className="verdict-card">
+        <div className="verdict-top">
+          <span className="zh">✨ {DETAIL.verdictTitle}</span>
+          <span className="en">{DETAIL.verdictEn}</span>
+        </div>
+        <div className="verdict-grid">
+          <div className="verdict-cell">
+            <div className="l">{DETAIL.tendency}</div>
+            <div className="v">{ops.aiPickLabel}</div>
+          </div>
+          <div className="verdict-cell">
+            <div className="l">{DETAIL.confidence}</div>
+            <div className="v star">{ops.confidenceStars}</div>
+          </div>
+          <div className="verdict-cell">
+            <div className="l">{DETAIL.riskGrade}</div>
+            <div className="v" style={{ color: STAR_COLOR[riskLevel] }}>{RISK_GRADE[riskLevel]}</div>
+          </div>
+          <div className="verdict-cell">
+            <div className="l">{DETAIL.recommendedScore}</div>
+            <div className="verdict-lock">{DETAIL.unlockToView}<span className="lockchip">🔒</span></div>
+          </div>
         </div>
       </div>
 
-      {/* Current win prob */}
+      {/* ── 2. 胜率图 ─────────────────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">AI 当前胜率</span>
-        <span className="en">WIN PROBABILITY</span>
+        <span className="zh">{DETAIL.winProbTitle}</span>
+        <span className="en">{DETAIL.winProbEn}</span>
       </div>
       <div className="card">
         <WinBar prob={match.winProb} homeLabel={`${match.homeTeam.name}胜`} awayLabel={`${match.awayTeam.name}胜`} />
-        <div className="mcard-meta">
-          <div className="conf-block">
-            <div className="conf-head">
-              <span className="lbl">信心指数</span>
-              <span className="num">{Math.round(match.confidence)}</span>
-            </div>
-            <div className="conf-track">
-              <div className="conf-fill" style={{ width: `${match.confidence}%` }} />
-            </div>
+        <div className="conf-block" style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--line)' }}>
+          <div className="conf-head">
+            <span className="lbl">信心指数</span>
+            <span className="num">{Math.round(match.confidence)}</span>
+            <span style={{ marginLeft: 'auto', color: 'var(--gold)', fontWeight: 800 }}>{ops.confidenceStars}</span>
           </div>
-          <div className="score-block">
-            <div className="lbl">推荐比分</div>
-            <div className="val">{match.recommendedScore}</div>
-          </div>
+          <div className="conf-track"><div className="conf-fill" style={{ width: `${match.confidence}%` }} /></div>
         </div>
       </div>
 
-      {/* ── LINEUP WATCH ──────────────────────────────────────────── */}
+      {/* ── 3. 为什么 AI 这么判断 ─────────────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{DETAIL.whyTitle}</span>
+        <span className="en">{DETAIL.whyEn}</span>
+      </div>
+      <div className="card">
+        {match.freeNote && (
+          <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75, marginBottom: 10 }}>{match.freeNote}</p>
+        )}
+        <ul className="reason-list">
+          {bullets.map((b, i) => <li key={i}>{b}</li>)}
+        </ul>
+      </div>
+
+      {/* ── 4. 风险关注维度 ───────────────────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{DETAIL.riskTitle}</span>
+        <span className="en">{DETAIL.riskEn}</span>
+        <span style={{ marginLeft: 'auto', background: RISK_BG[riskLevel], color: RISK_COLORS[riskLevel] }} className="pill">
+          {RISK_LABELS[riskLevel]}
+        </span>
+      </div>
+      <div className="card">
+        <div className="risk-tagrow">
+          {ops.riskTags.map(t => <span className="risk-tag" key={t}>{t}</span>)}
+        </div>
+        {match.riskNote && (
+          <p className="xs sub" style={{ marginTop: 10, lineHeight: 1.7 }}>{match.riskNote}</p>
+        )}
+      </div>
+
+      {/* ── 5. LINEUP WATCH ───────────────────────────────────────── */}
       <div className="lineup-watch">
         <div className="lw-head">
           <span className="lw-title">📡 LINEUP WATCH · 临场监听</span>
@@ -118,13 +168,11 @@ export function DetailPage() {
             <span className="lw-status armed"><span className="sync-dot" />待命中</span>
           )}
         </div>
-
         <div className="lw-steps">
           <div className="lw-step"><div className="n">60'</div><div className="t">赛前自动<br />进入监听</div></div>
           <div className="lw-step"><div className="n">首发</div><div className="t">公布后<br />触发重算</div></div>
           <div className="lw-step"><div className="n">AI</div><div className="t">胜率随变量<br />实时更新</div></div>
         </div>
-
         {lineupSimulated && match.liveCorrection ? (
           <p className="lw-body">
             <span className="hl">【临场修正】</span>{match.liveCorrection.trigger}，模型重新计算：
@@ -135,32 +183,15 @@ export function DetailPage() {
           </p>
         ) : (
           <p className="lw-body">
-            开赛前 60 分钟自动进入监听。首发公布后触发 AI 重算——阵容变化、核心缺阵、战术改动都会影响胜率。
+            开赛前 60 分钟自动进入监听。首发公布后，AI 根据核心球员、阵型变化、替补强度重新计算胜率。
           </p>
         )}
-
-        <button
-          className="lw-btn"
-          style={{ marginTop: 12 }}
-          onClick={handleSimulateLineup}
-          disabled={lineupSimulated}
-        >
+        <button className="lw-btn" style={{ marginTop: 12 }} onClick={handleSimulateLineup} disabled={lineupSimulated}>
           {lineupSimulated ? '已根据首发重新计算 ✓' : '模拟首发公布 → AI 重算'}
         </button>
       </div>
 
-      {/* ── FREE ZONE ─────────────────────────────────────────────── */}
-      <div className="sec-en">
-        <span className="zh">免费解读</span>
-        <span className="en">FREE READ</span>
-      </div>
-      <div className="card">
-        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>
-          {match.freeNote || 'AI 数据加载中…'}
-        </p>
-      </div>
-
-      {/* ── PAID ZONE ─────────────────────────────────────────────── */}
+      {/* ── 6. 付费解锁 / 社群引导 ────────────────────────────────── */}
       <div className="sec-en">
         <span className="zh">AI 战术底牌</span>
         <span className="en">PREMIUM</span>
@@ -168,7 +199,7 @@ export function DetailPage() {
       </div>
       <div className="paywall">
         <div className="row gap8 mb12"><span>✨</span><span className="b">解锁后可查看完整模型解释</span></div>
-        {['为什么 AI 更看好主队', '哪些数据影响了胜率', '客队的核心风险点', '主队是否被高估', '首发公布后胜率如何变化'].map(f => (
+        {ops.premiumTeaser.map(f => (
           <div className="feat" key={f}><span className="ck">✔</span>{f}</div>
         ))}
         <div className="mt12">
@@ -180,7 +211,7 @@ export function DetailPage() {
         </div>
       </div>
 
-      <div className="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
+      <div className="muted-note">{COMPLIANCE_FOOTER}</div>
 
       {modal && <Modal {...modal} onClose={() => setModal(null)} />}
     </div>

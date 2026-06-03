@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
-import { MatchCard } from '../components/MatchCard';
+import { WinBar } from '../components/WinBar';
 import { toast } from '../components/Toast';
-
-const DATE_TABS = ['今日', '明日', '本周', '小组赛', '淘汰赛'];
+import { deriveOps, pickTopSignal, topUpsets } from '../ops/derive';
+import { HOME, DISCLAIMER_RECORD, COMPLIANCE_FOOTER, MTC_STATEMENT } from '../copy/zh';
+import type { Match } from '../types';
 
 const CAPABILITIES = [
   { ic: '🧠', label: 'AI 赛前模型' },
@@ -13,6 +14,20 @@ const CAPABILITIES = [
   { ic: '🪙', label: 'MTC 解锁' },
 ];
 
+function fmtTime(iso: string) {
+  const d = new Date(iso);
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+function fmtDate(iso: string) {
+  const d = new Date(iso);
+  return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function upsetHook(score: number): string {
+  if (score >= 60) return '爆冷风险升高';
+  if (score >= 40) return '需谨慎关注';
+  return '风险可控';
+}
+
 export function HomePage() {
   const navigate = useNavigate();
   const {
@@ -20,15 +35,8 @@ export function HomePage() {
     matches, matchesLoading, loadMatches,
     setSelectedMatch, syncedAt, apiError,
   } = useAppStore();
-  const [activeDate, setActiveDate] = useState('今日');
 
   useEffect(() => { loadMatches(); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
-
-  const focus = matches.find(m => m.tag === 'focus') ?? matches[0];
-  const rest  = matches.filter(m => m.id !== focus?.id);
-
-  const liveCount = matches.filter(m => m.tag === 'live').length;
-  const modelCount = matches.length;
 
   function goDetail(id: string) {
     setSelectedMatch(id);
@@ -42,6 +50,8 @@ export function HomePage() {
   }
 
   const syncTime = new Date(syncedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  const modelCount = matches.length;
+  const liveCount = matches.filter(m => m.tag === 'live').length;
 
   if (matchesLoading) {
     return (
@@ -52,7 +62,11 @@ export function HomePage() {
     );
   }
 
-  if (!focus) return null;
+  const signal = pickTopSignal(matches);
+  if (!signal) return null;
+
+  const sOps = deriveOps(signal);
+  const upsets = topUpsets(matches, 3);
 
   return (
     <div className="page-enter">
@@ -70,8 +84,8 @@ export function HomePage() {
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <div className="hero-banner">
         <div className="hero-kicker">WORLD CUP 2026</div>
-        <div className="hero-title">AI MATCH <span className="accent">INTELLIGENCE</span></div>
-        <div className="hero-sub">用数据拆解比赛，用临场变量追踪胜率变化。</div>
+        <div className="hero-title">AI 足球<span className="accent">情报社区</span></div>
+        <div className="hero-sub">AI 数据观点 · 胜率变化 · 风险提示 · 临场修正。</div>
       </div>
 
       {/* ── Capability bar ────────────────────────────────────────── */}
@@ -100,35 +114,115 @@ export function HomePage() {
         </div>
       )}
 
-      {/* ── Date / category scroller ──────────────────────────────── */}
-      <div className="date-scroll">
-        {DATE_TABS.map(t => (
-          <button
-            key={t}
-            className={`date-pill ${activeDate === t ? 'on' : ''}`}
-            onClick={() => setActiveDate(t)}
-          >
-            {t}
-          </button>
-        ))}
+      {/* ── 1. 今日 AI 最强信号 (C-position) ───────────────────────── */}
+      <div className="signal-card" onClick={() => goDetail(signal.id)}>
+        <div className="signal-head">
+          <span className="signal-badge">⭐ {HOME.signalTitle}</span>
+          <span className="signal-en">{HOME.signalEn}</span>
+        </div>
+        <div className="signal-teams">
+          <div className="t"><div className="fl">{signal.homeTeam.flag}</div><div className="nm">{signal.homeTeam.name}</div></div>
+          <div className="vs">VS</div>
+          <div className="t"><div className="fl">{signal.awayTeam.flag}</div><div className="nm">{signal.awayTeam.name}</div></div>
+        </div>
+        <div className="signal-row">
+          <span className="signal-tend">{HOME.tendency}：{sOps.aiPickLabel}</span>
+          <span className="signal-star">{sOps.confidenceStars}</span>
+        </div>
+        <div style={{ margin: '4px 0 10px' }}>
+          <WinBar prob={signal.winProb} homeLabel={`${signal.homeTeam.name}胜`} awayLabel={`${signal.awayTeam.name}胜`} />
+        </div>
+        <div className="signal-risk">⚠️ {HOME.topRisk}：{sOps.topRisk}</div>
+        <div className="signal-cta">
+          <span className="b1" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{HOME.ctaView}</span>
+          <span className="b2" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{HOME.ctaUnlock}</span>
+        </div>
       </div>
 
-      {/* ── Section header ────────────────────────────────────────── */}
+      {/* ── 2. 今日比赛简表 ────────────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">赛事情报</span>
-        <span className="en">MATCH INTEL</span>
-        <span style={{ marginLeft: 'auto' }} className="src-pill">
-          <span className="sync-dot" />数据同步 · {syncTime}
-        </span>
+        <span className="zh">{HOME.listTitle}</span>
+        <span className="en">{HOME.listEn}</span>
+        <span style={{ marginLeft: 'auto' }} className="src-pill"><span className="sync-dot" />同步 {syncTime}</span>
       </div>
+      {matches.map((m: Match) => {
+        const ops = deriveOps(m);
+        return (
+          <div className="simrow" key={m.id} onClick={() => goDetail(m.id)}>
+            <div className="time">{fmtDate(m.kickoffTime)}<br />{fmtTime(m.kickoffTime)}</div>
+            <div className="teams">{m.homeTeam.flag} {m.homeTeam.name}<span className="vs">vs</span>{m.awayTeam.name} {m.awayTeam.flag}</div>
+            <div className="chips">
+              <span className="tend">{ops.aiPickLabel}</span>
+              <span className={`risk-chip ${m.riskLevel}`}>{m.riskLevel === 'low' ? '低' : m.riskLevel === 'medium' ? '中' : '高'}</span>
+              <span className="heat-chip">{ops.heatLabel}</span>
+            </div>
+          </div>
+        );
+      })}
 
-      {/* ── Match cards ───────────────────────────────────────────── */}
-      <MatchCard match={focus} onClick={() => goDetail(focus.id)} />
-      {rest.map(m => (
-        <MatchCard key={m.id} match={m} onClick={() => goDetail(m.id)} />
+      {/* ── 3. 今日爆冷风险 TOP3 ───────────────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{HOME.upsetTitle}</span>
+        <span className="en">{HOME.upsetEn}</span>
+      </div>
+      {upsets.map((u, i) => (
+        <div className="upset-item" key={u.match.id} onClick={() => goDetail(u.match.id)}>
+          <div className="upset-rank">{i + 1}</div>
+          <div className="upset-body">
+            <div className="upset-match">{u.match.homeTeam.flag} {u.match.homeTeam.name} vs {u.match.awayTeam.name} {u.match.awayTeam.flag}</div>
+            <div className="upset-hook">⚠️ {upsetHook(u.score)}</div>
+          </div>
+          <div className="upset-score">
+            <div className="v">{u.score}</div>
+            <div className="l">爆冷分</div>
+          </div>
+        </div>
       ))}
 
-      <div className="muted-note">仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现</div>
+      {/* ── 4. AI 情报战绩 (待真实赛果回灌) ────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{HOME.recordTitle}</span>
+        <span className="en">{HOME.recordEn}</span>
+      </div>
+      <div className="status-card">
+        <div className="ic">📊</div>
+        <div className="st">{HOME.recordPending}</div>
+        <div className="sub2">命中率与连续命中等战绩指标，将在接入真实数据源、完成赛果回灌后开放。</div>
+        <span className="status-pill">{HOME.recordBuilding}</span>
+        <div className="disclaimer-line">{DISCLAIMER_RECORD}</div>
+      </div>
+
+      {/* ── 5. 社区热门选择 (轻社交证明) ───────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{HOME.heatTitle}</span>
+        <span className="en">{HOME.heatEn}</span>
+      </div>
+      <div className="status-card">
+        <div className="ic">🔥</div>
+        <div className="st">{matches[0] ? `热门关注：${matches[0].homeTeam.name} vs ${matches[0].awayTeam.name}` : '热门关注'}</div>
+        <div className="sub2">社区讨论热度与用户关注趋势，正在建设中。</div>
+        <span className="status-pill">{HOME.heatComingSoon}</span>
+      </div>
+
+      {/* ── 6. Token / 连胜挑战 / 排行榜入口 ───────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{HOME.loopTitle}</span>
+        <span className="en">{HOME.loopEn}</span>
+      </div>
+      <div className="loop-grid">
+        <div className="loop-tile" onClick={() => navigate('/token')}>
+          <div className="ic">🪙</div><div className="nm">球迷积分</div><div className="ds">每日签到</div>
+        </div>
+        <div className="loop-tile" onClick={() => navigate('/token')}>
+          <div className="ic">🎯</div><div className="nm">连胜挑战</div><div className="ds">免费参与</div>
+        </div>
+        <div className="loop-tile" onClick={() => toast('排行榜即将上线')}>
+          <div className="ic">🏅</div><div className="nm">排行榜</div><div className="ds">即将上线</div>
+        </div>
+      </div>
+      <div className="compliance">{MTC_STATEMENT}</div>
+
+      <div className="muted-note">{COMPLIANCE_FOOTER}</div>
     </div>
   );
 }
