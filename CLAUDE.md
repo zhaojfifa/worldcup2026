@@ -4,13 +4,23 @@
 > this project, before executing any task. It is the source of truth for
 > identity, baseline, rules, and guardrails.
 
+### Key design docs (read after this file when doing product work)
+- `docs/PRODUCT_OPERATION_ALIGNMENT_V1.md` — **formal** product/operation plan
+  (positioning upgrade, home/detail IA, API & modeling output layer, ops,
+  compliance, phased roadmap). Authoritative for product scope.
+- `docs/_drafts/product_operation_alignment_brainstorm.md` — exploratory draft
+  behind the formal plan (background only).
+- `docs/MVP_STATUS.md`, `docs/DAY4_DATA_AUTOMATION.md` — engineering baseline.
+
 ---
 
 ## 1. Project Identity
 
 - **Name:** worldcup2026
-- **Positioning:** 2026 世界杯 AI 情报终端，面向越南和缅甸球迷。
-  **不做博彩，不提供现金投注，不承诺收益。**
+- **Positioning:** 2026 世界杯 **AI 足球情报社区**（formalized in
+  `PRODUCT_OPERATION_ALIGNMENT_V1.md`；前身表述「AI 情报终端」），面向越南、缅甸
+  及东南亚球迷。**不做博彩，不提供现金投注，不承诺收益。**
+  用户侧使用「AI 足球情报社区 / AI 赛事情报 / AI 数据观点 / AI 倾向」；避免「决策社区」。
 - **Core selling points:**
   - AI 赛前预测
   - 高可信 AI 解释
