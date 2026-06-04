@@ -4,7 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
 import { toast } from '../components/Toast';
 import { deriveOps, pickTopSignal, topUpsets } from '../ops/derive';
-import { HOME, DISCLAIMER_RECORD, COMPLIANCE_FOOTER, MTC_STATEMENT } from '../copy/zh';
+import { HOME, BRAND, DISCLAIMER_RECORD, COMPLIANCE_FOOTER, MTC_STATEMENT } from '../copy/zh';
 import type { Match } from '../types';
 
 const CAPABILITIES = [
@@ -83,9 +83,10 @@ export function HomePage() {
 
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <div className="hero-banner">
-        <div className="hero-kicker">WORLD CUP 2026</div>
+        <div className="hero-kicker">NHÀ TIÊN TRI AI</div>
         <div className="hero-title">AI 足球<span className="accent">情报社区</span></div>
-        <div className="hero-sub">AI 数据观点 · 胜率变化 · 风险提示 · 临场修正。</div>
+        <div className="hero-en">{BRAND.heroEn}</div>
+        <div className="hero-sub">{BRAND.heroSub}</div>
       </div>
 
       {/* ── Capability bar ────────────────────────────────────────── */}
@@ -118,7 +119,7 @@ export function HomePage() {
       <div className="signal-card" onClick={() => goDetail(signal.id)}>
         <div className="signal-head">
           <span className="signal-badge">⭐ {HOME.signalTitle}</span>
-          <span className="signal-en">{HOME.signalEn}</span>
+          <span className="signal-en">{BRAND.signalTag}</span>
         </div>
         <div className="signal-teams">
           <div className="t"><div className="fl">{signal.homeTeam.flag}</div><div className="nm">{signal.homeTeam.name}</div></div>

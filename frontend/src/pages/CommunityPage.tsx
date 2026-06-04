@@ -1,5 +1,6 @@
 import { useAppStore } from '../store/useAppStore';
 import { toast } from '../components/Toast';
+import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, MTC_STATEMENT } from '../copy/zh';
 
 const FLOW = [
   { ic: '🧠', title: '赛前模型判断', desc: '每场比赛的胜率分布、推荐比分、风险评级与关键因子。' },
@@ -40,6 +41,25 @@ export function CommunityPage() {
         <div className="xs" style={{ color: '#C5E0F6', marginTop: 4 }}>
           你获得的不是一条预测，而是一整套比赛情报流。
         </div>
+      </div>
+
+      {/* ── 社群情报矩阵 (Community Channels — placeholders) ───────── */}
+      <div className="sec-en">
+        <span className="zh">{SOCIAL.title}</span>
+        <span className="en">{SOCIAL.en}</span>
+      </div>
+      <div className="channel-grid">
+        {SOCIAL_CHANNELS.map(ch => (
+          <div className="channel-card" key={ch.id} onClick={() => toast(`${ch.name} ${SOCIAL.status}`)}>
+            <div className="ch-top">
+              <span className="ch-ic">{ch.ic}</span>
+              <span className="ch-name">{ch.name}</span>
+              <span className="ch-status">{SOCIAL.status}</span>
+            </div>
+            <div className="ch-title">{ch.title}</div>
+            <div className="ch-desc">{ch.desc}</div>
+          </div>
+        ))}
       </div>
 
       {/* Intelligence flow */}
@@ -93,10 +113,33 @@ export function CommunityPage() {
         </p>
       </div>
 
+      {/* ── AI 情报内容工厂 (Content Studio — placeholder) ────────── */}
+      <div className="sec-en">
+        <span className="zh">{CONTENT_STUDIO.title}</span>
+        <span className="en">{CONTENT_STUDIO.en}</span>
+        <span style={{ marginLeft: 'auto' }} className="status-pill">{CONTENT_STUDIO.status}</span>
+      </div>
+      <div className="card">
+        <div className="studio-grid">
+          {CONTENT_STUDIO.items.map(it => (
+            <div className="studio-item" key={it.label}>
+              <span className="si-ic">{it.ic}</span>
+              <span className="si-label">{it.label}</span>
+            </div>
+          ))}
+        </div>
+        <div className="studio-actions">
+          {CONTENT_STUDIO.actions.map(a => (
+            <button className="studio-btn" key={a.label} disabled>{a.label}</button>
+          ))}
+        </div>
+      </div>
+
       <button className="cta primary" onClick={handleSubscribe}>
         {subscribed ? '✓ 已订阅 · 临场推送已开启' : '立即订阅 · ¥199/月'}
       </button>
 
+      <div className="compliance">{MTC_STATEMENT}</div>
       <div className="muted-note">
         订阅为 AI 数据分析与情报服务 · 非博彩 · 不提供现金投注 · MTC 不可提现
       </div>

@@ -19,6 +19,51 @@ export const COMPLIANCE_FOOTER =
 export const MTC_STATEMENT =
   'MTC 为平台积分 · 不可提现 · 不可转让 · 不可交易 · 不作为金融资产';
 
+// ── Brand: Nhà Tiên Tri AI (足球先知 / 世界杯 AI 情报官) ──────────────────────
+export const BRAND = {
+  name: 'Nhà Tiên Tri AI',
+  nameVn: 'Nhà Tiên Tri Bóng Đá',
+  zhRole: '世界杯 AI 情报社区',
+  headerSub: '不只看胜率，更看 AI 为什么这样判断',
+  heroEn: '2026 World Cup Football Intelligence',
+  heroSub: 'AI 数据观点 · 胜率变化 · 风险提示 · 临场修正',
+  signalTag: 'Nhà Tiên Tri Signal',
+  verdictTitle: 'Nhà Tiên Tri AI Verdict',
+};
+
+// ── Community channel matrix (placeholders — no real outbound links yet) ────
+export const SOCIAL_CHANNELS = [
+  { id: 'zalo',     ic: '💬', name: 'Zalo',     title: '越南球迷主阵地',   desc: '每日 AI 情报、临场修正提醒即将开放' },
+  { id: 'telegram', ic: '✈️', name: 'Telegram', title: '临场情报推送',     desc: '首发公布后，AI 修正观点实时同步' },
+  { id: 'facebook', ic: '📘', name: 'Facebook', title: '赛事讨论与长图复盘', desc: '适合发布赛前分析与赛后总结' },
+  { id: 'tiktok',   ic: '🎵', name: 'TikTok',   title: '每日 AI 三场速览',  desc: '爆冷风险、今日最高信心、临场修正短视频' },
+] as const;
+
+export const SOCIAL = {
+  title: '社群情报矩阵',
+  en: 'COMMUNITY CHANNELS',
+  status: '即将开放',
+};
+
+// ── Content Studio (placeholders — no copy/share logic yet) ─────────────────
+export const CONTENT_STUDIO = {
+  title: 'AI 情报内容工厂',
+  en: 'CONTENT STUDIO',
+  status: '数据能力建设中',
+  items: [
+    { ic: '⚡', label: '今日 AI 三场速览' },
+    { ic: '🎯', label: '今日最高信心' },
+    { ic: '⚠️', label: '爆冷风险短图' },
+    { ic: '📡', label: '临场修正截图' },
+    { ic: '📊', label: '赛后复盘长图' },
+    { ic: '📝', label: '社群推送文案' },
+  ],
+  actions: [
+    { label: '复制运营文案（即将开放）' },
+    { label: '生成分享卡（即将开放）' },
+  ],
+};
+
 export const HOME = {
   signalTitle: '今日 AI 最强信号',
   signalTitleAlt: '今日最高信心',

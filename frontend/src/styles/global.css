@@ -710,6 +710,11 @@ body {
 .hero-sub {
   font-size: 12px; color: #C9E2F7; margin-top: 10px; line-height: 1.6;
 }
+.hero-en {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  color: #8FD0F5; margin-top: 6px; text-transform: uppercase;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
 
 /* ── Capability bar ─────────────────────────────────────────────────────── */
 .cap-bar {
@@ -1064,6 +1069,37 @@ body {
 .verdict-lock .lockchip {
   display: inline-block; background: rgba(247,181,0,.25); color: var(--gold);
   font-size: 10px; padding: 2px 8px; border-radius: 999px; margin-left: 6px;
+}
+
+/* ── Community channel matrix (placeholders) ────────────────────────────── */
+.channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.channel-card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px; box-shadow: var(--shadow); cursor: pointer;
+}
+.channel-card .ch-top { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+.channel-card .ch-ic { font-size: 18px; }
+.channel-card .ch-name { font-size: 13px; font-weight: 800; color: var(--blue); }
+.channel-card .ch-status {
+  margin-left: auto; font-size: 9px; font-weight: 800; color: var(--blueMid);
+  background: var(--sky); padding: 2px 7px; border-radius: 999px; white-space: nowrap;
+}
+.channel-card .ch-title { font-size: 12px; font-weight: 800; color: var(--txt); }
+.channel-card .ch-desc { font-size: 10.5px; color: var(--sub); margin-top: 3px; line-height: 1.5; }
+
+/* ── Content Studio (placeholder) ───────────────────────────────────────── */
+.studio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.studio-item {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--sky); border-radius: 11px; padding: 10px 11px;
+  font-size: 12px; font-weight: 700; color: #3A4A60;
+}
+.studio-item .si-ic { font-size: 15px; }
+.studio-actions { display: flex; gap: 9px; margin-top: 12px; }
+.studio-btn {
+  flex: 1; min-height: 42px; border-radius: 11px; cursor: not-allowed;
+  font-size: 12px; font-weight: 800; color: var(--sub);
+  background: #EDF2F8; border: 1px dashed var(--line);
 }
 
 /* ── Reason bullets + risk tag chips (detail) ───────────────────────────── */

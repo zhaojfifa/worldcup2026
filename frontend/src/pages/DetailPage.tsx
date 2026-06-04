@@ -6,7 +6,7 @@ import { MatchHeader } from '../components/MatchHeader';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
 import { deriveOps, reasonBullets } from '../ops/derive';
-import { DETAIL, COMPLIANCE_FOOTER } from '../copy/zh';
+import { DETAIL, BRAND, COMPLIANCE_FOOTER } from '../copy/zh';
 
 const RISK_LABELS = { low: '低风险', medium: '中风险', high: '高风险' };
 const RISK_GRADE  = { low: '低', medium: '中', high: '高' };
@@ -87,8 +87,8 @@ export function DetailPage() {
       {/* ── 1. AI 结论卡（置顶） ──────────────────────────────────── */}
       <div className="verdict-card">
         <div className="verdict-top">
-          <span className="zh">✨ {DETAIL.verdictTitle}</span>
-          <span className="en">{DETAIL.verdictEn}</span>
+          <span className="zh">🔮 {DETAIL.verdictTitle}</span>
+          <span className="en">{BRAND.verdictTitle}</span>
         </div>
         <div className="verdict-grid">
           <div className="verdict-cell">

@@ -1,5 +1,6 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ToastProvider } from './Toast';
+import { BRAND } from '../copy/zh';
 
 const NAV_ITEMS = [
   { path: '/',          ic: '🏠', lb: '首页'  },
@@ -20,10 +21,10 @@ export function Layout() {
   return (
     <div className="phone">
       <div className="topbar">
-        <span className="topbar-crown">👑</span>
+        <span className="topbar-crown">🔮</span>
         <div>
-          <div className="topbar-t1">世界杯 AI 情报终端</div>
-          <div className="topbar-t2">不只告诉你谁会赢，更告诉你为什么</div>
+          <div className="topbar-t1">{BRAND.name} · {BRAND.zhRole}</div>
+          <div className="topbar-t2">{BRAND.headerSub}</div>
         </div>
       </div>
 

@@ -17,6 +17,11 @@
 ## 1. Project Identity
 
 - **Name:** worldcup2026
+- **Brand (AI persona):** **Nhà Tiên Tri AI**（越南语完整名 Nhà Tiên Tri Bóng Đá，
+  中文：足球先知 / 世界杯 AI 情报官）。标准副文案：「不是告诉你一定会赢，而是告诉你
+  AI 为什么这样看。」人设是 AI 数据观点 / 风险提示 / 临场修正解释，**不是结果承诺人设**。
+  禁用「必中神 / 稳赚神 / 跟单大神 / 预测神 / 包赢」等称谓。详见
+  `docs/DAY5_5_DATA_SOCIAL_LOOP_PLAN.md`。
 - **Positioning:** 2026 世界杯 **AI 足球情报社区**（formalized in
   `PRODUCT_OPERATION_ALIGNMENT_V1.md`；前身表述「AI 情报终端」），面向越南、缅甸
   及东南亚球迷。**不做博彩，不提供现金投注，不承诺收益。**
