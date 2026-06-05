@@ -17,11 +17,15 @@
 ## 1. Project Identity
 
 - **Name:** worldcup2026
-- **Brand (AI persona):** **Nhà Tiên Tri AI**（越南语完整名 Nhà Tiên Tri Bóng Đá，
-  中文：足球先知 / 世界杯 AI 情报官）。标准副文案：「不是告诉你一定会赢，而是告诉你
-  AI 为什么这样看。」人设是 AI 数据观点 / 风险提示 / 临场修正解释，**不是结果承诺人设**。
-  禁用「必中神 / 稳赚神 / 跟单大神 / 预测神 / 包赢」等称谓。详见
-  `docs/DAY5_5_DATA_SOCIAL_LOOP_PLAN.md`。
+- **Brand (final):** **Giành Cup**（中文：赢杯 / 夺杯 · 世界杯 AI 足球情报官）。
+  用户侧标准文案：`Giành Cup` · `2026 World Cup AI Football Intelligence` ·
+  `Giành Cup · 世界杯 AI 足球情报社区`；副文案「不只看胜率，更看 AI 为什么这样判断。」
+  代码标识符用 ASCII `GIAND_CUP` / `GIAND_CUP_BRAND`，显示必须为 `Giành Cup`。
+  人设是 AI 数据观点 / 风险提示 / 临场修正解释，**不是结果承诺品牌**；禁用
+  「必中神 / 稳赚神 / 跟单大神 / 包赢」等称谓。
+  _曾用命名方案：Nhà Tiên Tri AI（已弃用为主品牌，用户侧统一替换为 Giành Cup；
+  代码内品牌字符串集中在 `frontend/src/copy/zh.ts` 的 `BRAND`，rename 见
+  `docs/DAY6_REAL_DATA_STORAGE_PLAN.md` §0）。_
 - **Positioning:** 2026 世界杯 **AI 足球情报社区**（formalized in
   `PRODUCT_OPERATION_ALIGNMENT_V1.md`；前身表述「AI 情报终端」），面向越南、缅甸
   及东南亚球迷。**不做博彩，不提供现金投注，不承诺收益。**
@@ -39,6 +43,13 @@
 ## 2. Current Baseline
 
 **MVP v0.4 · Auto Data Source + Baseline Predictor Baseline**
+
+**Active theme — Day 6: Real Data & Storage Integration** (plan:
+`docs/DAY6_REAL_DATA_STORAGE_PLAN.md`). Order: 6A Real Result Loop
+(MatchResult / PredictionSettlement / admin sync results / performance) →
+6B R2 Content Asset Storage → 6C social config + community heat →
+6D streak / rankings. Day 6 plan is design-only; implementation is additive
+and must not break existing API shapes or `VITE_USE_MOCK` dual mode.
 
 Done:
 - Frontend Render 部署
