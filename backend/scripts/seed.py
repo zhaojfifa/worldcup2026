@@ -144,14 +144,42 @@ MATCHES = [
 ]
 
 
+DEFAULT_CHANNELS = [
+    dict(channel_name="zalo",     display_name="Zalo",     status="coming_soon",
+         description="越南球迷主阵地", locale="vi", sort_order=1),
+    dict(channel_name="telegram", display_name="Telegram", status="coming_soon",
+         description="临场情报推送", locale="vi", sort_order=2),
+    dict(channel_name="facebook", display_name="Facebook", status="coming_soon",
+         description="赛事讨论与长图复盘", locale="vi", sort_order=3),
+    dict(channel_name="tiktok",   display_name="TikTok",   status="coming_soon",
+         description="每日 AI 三场速览", locale="vi", sort_order=4),
+]
+
+
+def seed_social_channels(db):
+    """Idempotent: insert default channels if missing. Real links NOT set here."""
+    from app.models import SocialChannel
+    added = 0
+    for ch in DEFAULT_CHANNELS:
+        exists = db.query(SocialChannel).filter(SocialChannel.channel_name == ch["channel_name"]).first()
+        if not exists:
+            db.add(SocialChannel(is_enabled=True, **ch))
+            added += 1
+    db.commit()
+    print(f"   social channels: {added} inserted, {len(DEFAULT_CHANNELS) - added} already present")
+
+
 def run():
     init_db()
     db = SessionLocal()
 
     try:
-        # Skip if already seeded
+        # Social channels are idempotent and seeded regardless of prior seeding.
+        seed_social_channels(db)
+
+        # Skip the rest if already seeded
         if db.query(Team).count() > 0:
-            print("DB already seeded — skipping. Drop DB first to re-seed.")
+            print("DB already seeded (teams present) — skipping demo data.")
             return
 
         # Teams

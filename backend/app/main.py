@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import health, matches, tokens, data_source, admin, performance, assets
+from app.routers import health, matches, tokens, data_source, admin, performance, assets, social
 
 settings = get_settings()
 
@@ -41,6 +41,7 @@ app.include_router(data_source.router)
 app.include_router(admin.router)
 app.include_router(performance.router)
 app.include_router(assets.router)
+app.include_router(social.router)
 
 
 @app.on_event("startup")
