@@ -78,6 +78,8 @@ export const api = {
   // ── Day 6C: social channels + community heat ──────────────────────────────
   getSocialChannels: () => request<ApiSocialChannel[]>('/api/v1/social/channels'),
   getCommunityHeat:  () => request<ApiCommunityHeat>('/api/v1/community/heat'),
+  getUserStreak:     (userId: number) => request<ApiStreak>(`/api/v1/users/${userId}/streak`),
+  getRankings:       () => request<ApiRankings>('/api/v1/rankings'),
   trackEvent:        (eventType: string, matchId?: number, channelName?: string) =>
     request<{ ok: boolean; event_type: string; message: string }>('/api/v1/events/track', {
       method: 'POST',
@@ -109,4 +111,18 @@ export interface ApiCommunityHeat {
   hot_channels: string[];
   updated_at: string | null;
   message: string;
+}
+export interface ApiStreak {
+  user_id: number;
+  current_streak: number;
+  best_streak: number;
+  mtc_earned: number;
+  last_participation_date: string | null;
+  disclaimer: string;
+}
+export interface ApiRankings {
+  top_users: Array<{ rank: number; display_name: string; current_streak: number; best_streak: number; mtc_earned: number }>;
+  ranking_type: string;
+  updated_at: string | null;
+  disclaimer: string;
 }

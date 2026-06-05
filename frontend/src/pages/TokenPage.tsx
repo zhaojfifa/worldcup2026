@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { MOCK_SHOP } from '../data/mock';
 import { toast } from '../components/Toast';
+import { api, type ApiStreak, type ApiRankings } from '../api/client';
+import { DISCLAIMER_RECORD } from '../copy/zh';
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
+const DEMO_USER_ID = 1;
 
 // Gamified mission copy, keyed by task id
 const MISSION_COPY: Record<string, { title: string; desc: string }> = {
@@ -13,6 +18,15 @@ const MISSION_COPY: Record<string, { title: string; desc: string }> = {
 export function TokenPage() {
   const { balance, tasks, checkIn, completeTask, spendToken, syncedAt } = useAppStore();
   const [challengeJoined, setChallengeJoined] = useState<'A' | 'B' | null>(null);
+  const [streak, setStreak] = useState<ApiStreak | null>(null);
+  const [rankings, setRankings] = useState<ApiRankings | null>(null);
+
+  // Streak + rankings load (API mode only; fallback shows building state).
+  useEffect(() => {
+    if (USE_MOCK) return;
+    api.getUserStreak(DEMO_USER_ID).then(setStreak).catch(() => { /* building state */ });
+    api.getRankings().then(setRankings).catch(() => { /* building state */ });
+  }, []);
 
   async function handleTask(taskId: string) {
     if (taskId === 'checkin') {
@@ -53,6 +67,29 @@ export function TokenPage() {
         <div className="val">{balance}</div>
         <div className="xs" style={{ color: '#C5E0F6', marginTop: 4 }}>最近更新 {syncTime}</div>
       </div>
+
+      {/* Fan streak */}
+      <div className="sec-en">
+        <span className="zh">我的连胜</span>
+        <span className="en">FAN STREAK</span>
+      </div>
+      {streak && (streak.current_streak > 0 || streak.best_streak > 0 || streak.mtc_earned > 0) ? (
+        <div className="card">
+          <div className="stats">
+            <div className="stat"><div className="v" style={{ color: 'var(--blueMid)' }}>{streak.current_streak}</div><div className="l">当前连胜</div></div>
+            <div className="stat"><div className="v" style={{ color: 'var(--gold)' }}>{streak.best_streak}</div><div className="l">最佳连胜</div></div>
+            <div className="stat"><div className="v" style={{ color: 'var(--green)' }}>{streak.mtc_earned}</div><div className="l">挑战获 MTC</div></div>
+          </div>
+          <div className="disclaimer-line" style={{ textAlign: 'center' }}>{DISCLAIMER_RECORD}</div>
+        </div>
+      ) : (
+        <div className="status-card">
+          <div className="ic">🎯</div>
+          <div className="st">连胜挑战建设中</div>
+          <div className="sub2">参与免费预测挑战、赛后结算后，这里会显示你的连胜与 MTC 积分进度。</div>
+          <div className="disclaimer-line">{DISCLAIMER_RECORD}</div>
+        </div>
+      )}
 
       {/* Daily missions */}
       <div className="sec-en">
@@ -121,6 +158,36 @@ export function TokenPage() {
           </button>
         </div>
       ))}
+
+      {/* Rankings */}
+      <div className="sec-en">
+        <span className="zh">连胜排行榜</span>
+        <span className="en">RANKINGS</span>
+      </div>
+      {rankings && rankings.top_users.length > 0 ? (
+        <div className="card" style={{ padding: 6 }}>
+          {rankings.top_users.map(u => (
+            <div className="task" key={u.rank}>
+              <span className="l">
+                <span style={{ color: u.rank <= 3 ? 'var(--gold)' : 'var(--sub)', fontWeight: 800 }}>#{u.rank}</span>
+                {u.display_name}
+              </span>
+              <span className="xs" style={{ fontWeight: 800, color: 'var(--blueMid)' }}>
+                连胜 {u.current_streak} · {u.mtc_earned} MTC
+              </span>
+            </div>
+          ))}
+          <div className="disclaimer-line" style={{ textAlign: 'center', padding: '6px 8px' }}>
+            积分/连胜榜，非收益榜。{DISCLAIMER_RECORD}
+          </div>
+        </div>
+      ) : (
+        <div className="status-card">
+          <div className="ic">🏅</div>
+          <div className="st">排行榜建设中</div>
+          <div className="sub2">连胜与 MTC 积分排行榜将在挑战结算累积后开放，仅展示积分/参与/连胜，非收益榜。</div>
+        </div>
+      )}
 
       <div className="compliance">
         ⚠️ MTC 球迷积分仅为平台积分：<b>不可提现 · 不可转让 · 不可交易</b> · 不承诺收益 · 不作为金融资产 · 不接入博彩。
