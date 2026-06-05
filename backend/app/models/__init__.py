@@ -13,6 +13,8 @@ from app.models.settlement import PredictionSettlement
 from app.models.content_asset import ContentAsset
 from app.models.social_channel import SocialChannel
 from app.models.match_engagement import MatchEngagement
+from app.models.user_streak import UserStreak
+from app.models.challenge_result import ChallengeResult
 
 __all__ = [
     "Team", "Match", "Prediction", "Report", "LiveCorrection",
@@ -21,4 +23,5 @@ __all__ = [
     "UnlockRecord", "CommunitySubscription",
     "MatchResult", "PredictionSettlement",
     "ContentAsset", "SocialChannel", "MatchEngagement",
+    "UserStreak", "ChallengeResult",
 ]
