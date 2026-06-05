@@ -1,6 +1,19 @@
+import { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { toast } from '../components/Toast';
 import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, MTC_STATEMENT } from '../copy/zh';
+import { api, safeTrack } from '../api/client';
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
+const CHANNEL_ICON: Record<string, string> = { zalo: '💬', telegram: '✈️', facebook: '📘', tiktok: '🎵' };
+const STATUS_LABEL: Record<string, string> = { coming_soon: '即将开放', active: '查看', disabled: '暂未开放' };
+
+interface ChannelView { key: string; ic: string; name: string; desc: string; status: string; url: string | null; }
+
+// Static fallback derived from centralized copy (used in mock mode or on API error)
+const FALLBACK_CHANNELS: ChannelView[] = SOCIAL_CHANNELS.map(c => ({
+  key: c.id, ic: c.ic, name: c.name, desc: c.desc, status: 'coming_soon', url: null,
+}));
 
 const FLOW = [
   { ic: '🧠', title: '赛前模型判断', desc: '每场比赛的胜率分布、推荐比分、风险评级与关键因子。' },
@@ -20,6 +33,35 @@ const BENEFITS = [
 
 export function CommunityPage() {
   const { subscribed, subscribe } = useAppStore();
+  const [channels, setChannels] = useState<ChannelView[]>(FALLBACK_CHANNELS);
+
+  // Prefer live config; fall back to static on mock mode or API error.
+  useEffect(() => {
+    if (USE_MOCK) return;
+    api.getSocialChannels()
+      .then(list => {
+        if (Array.isArray(list) && list.length) {
+          setChannels(list.map(c => ({
+            key: c.channel_name,
+            ic: CHANNEL_ICON[c.channel_name] ?? '🔗',
+            name: c.display_name,
+            desc: c.description ?? '',
+            status: c.status,
+            url: c.public_url,
+          })));
+        }
+      })
+      .catch(() => { /* keep fallback; no white screen */ });
+  }, []);
+
+  function handleChannelClick(ch: ChannelView) {
+    safeTrack('click_social_channel', undefined, ch.key);
+    if (ch.status === 'active' && ch.url) {
+      window.open(ch.url, '_blank', 'noopener,noreferrer');
+    } else {
+      toast(`${ch.name} ${SOCIAL.status}`);
+    }
+  }
 
   async function handleSubscribe() {
     if (subscribed) { toast('已订阅'); return; }
@@ -49,14 +91,13 @@ export function CommunityPage() {
         <span className="en">{SOCIAL.en}</span>
       </div>
       <div className="channel-grid">
-        {SOCIAL_CHANNELS.map(ch => (
-          <div className="channel-card" key={ch.id} onClick={() => toast(`${ch.name} ${SOCIAL.status}`)}>
+        {channels.map(ch => (
+          <div className="channel-card" key={ch.key} onClick={() => handleChannelClick(ch)}>
             <div className="ch-top">
               <span className="ch-ic">{ch.ic}</span>
               <span className="ch-name">{ch.name}</span>
-              <span className="ch-status">{SOCIAL.status}</span>
+              <span className="ch-status">{STATUS_LABEL[ch.status] ?? SOCIAL.status}</span>
             </div>
-            <div className="ch-title">{ch.title}</div>
             <div className="ch-desc">{ch.desc}</div>
           </div>
         ))}

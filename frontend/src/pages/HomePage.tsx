@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
 import { toast } from '../components/Toast';
 import { deriveOps, pickTopSignal, topUpsets } from '../ops/derive';
 import { HOME, BRAND, DISCLAIMER_RECORD, COMPLIANCE_FOOTER, MTC_STATEMENT } from '../copy/zh';
+import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import type { Match } from '../types';
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
 const CAPABILITIES = [
   { ic: '🧠', label: 'AI 赛前模型' },
@@ -36,9 +39,19 @@ export function HomePage() {
     setSelectedMatch, syncedAt, apiError,
   } = useAppStore();
 
+  const [heat, setHeat] = useState<ApiCommunityHeat | null>(null);
+
   useEffect(() => { loadMatches(); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Anonymous home view + community heat (API mode only).
+  useEffect(() => {
+    if (USE_MOCK) return;
+    safeTrack('view_home');
+    api.getCommunityHeat().then(setHeat).catch(() => { /* keep building-state */ });
+  }, []);
+
   function goDetail(id: string) {
+    safeTrack('click_detail', Number(id));
     setSelectedMatch(id);
     navigate('/detail');
   }
@@ -198,12 +211,31 @@ export function HomePage() {
         <span className="zh">{HOME.heatTitle}</span>
         <span className="en">{HOME.heatEn}</span>
       </div>
-      <div className="status-card">
-        <div className="ic">🔥</div>
-        <div className="st">{matches[0] ? `热门关注：${matches[0].homeTeam.name} vs ${matches[0].awayTeam.name}` : '热门关注'}</div>
-        <div className="sub2">社区讨论热度与用户关注趋势，正在建设中。</div>
-        <span className="status-pill">{HOME.heatComingSoon}</span>
-      </div>
+      {heat && heat.top_matches.length > 0 ? (
+        <>
+          {heat.top_matches.slice(0, 3).map((m, i) => (
+            <div className="upset-item" key={m.match_id} style={{ borderColor: 'var(--line)' }}>
+              <div className="upset-rank" style={{ background: 'var(--blueMid)' }}>{i + 1}</div>
+              <div className="upset-body">
+                <div className="upset-match">{m.home} vs {m.away}</div>
+                <div className="upset-hook" style={{ color: 'var(--blueMid)' }}>🔥 社区关注</div>
+              </div>
+              <div className="upset-score">
+                <div className="v" style={{ color: 'var(--blueMid)' }}>{m.interactions}</div>
+                <div className="l">互动</div>
+              </div>
+            </div>
+          ))}
+          <div className="disclaimer-line" style={{ textAlign: 'center' }}>社区热度为匿名站内互动统计，不含用户个人信息。</div>
+        </>
+      ) : (
+        <div className="status-card">
+          <div className="ic">🔥</div>
+          <div className="st">{HOME.heatComingSoon}</div>
+          <div className="sub2">社区讨论热度与用户关注趋势，正在建设中。</div>
+          <span className="status-pill">{HOME.heatComingSoon}</span>
+        </div>
+      )}
 
       {/* ── 6. Token / 连胜挑战 / 排行榜入口 ───────────────────────── */}
       <div className="sec-en">

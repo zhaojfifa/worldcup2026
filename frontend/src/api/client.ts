@@ -74,4 +74,39 @@ export const api = {
   simulateCorrection: (matchId: number)                  => request<{ success: boolean; trigger: string; before: ApiWinProb; after: ApiWinProb; reason: string; timestamp: string }>(`/api/v1/corrections/${matchId}/simulate`, { method: 'POST', body: JSON.stringify({}) }),
   joinChallenge:   (challengeId: number, userId: number, option: string) => request<{ success: boolean; chosen_option: string; message: string }>(`/api/v1/challenges/${challengeId}/join`, { method: 'POST', body: JSON.stringify({ user_id: userId, chosen_option: option }) }),
   subscribe:       (userId: number)                      => request<{ success: boolean; plan: string; message: string }>('/api/v1/community/subscribe', { method: 'POST', body: JSON.stringify({ user_id: userId }) }),
+
+  // ── Day 6C: social channels + community heat ──────────────────────────────
+  getSocialChannels: () => request<ApiSocialChannel[]>('/api/v1/social/channels'),
+  getCommunityHeat:  () => request<ApiCommunityHeat>('/api/v1/community/heat'),
+  trackEvent:        (eventType: string, matchId?: number, channelName?: string) =>
+    request<{ ok: boolean; event_type: string; message: string }>('/api/v1/events/track', {
+      method: 'POST',
+      body: JSON.stringify({ event_type: eventType, match_id: matchId ?? null, channel_name: channelName ?? null }),
+    }),
 };
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
+
+/** Fire-and-forget anonymous event tracking. No-op in mock mode; never throws. */
+export function safeTrack(eventType: string, matchId?: number, channelName?: string): void {
+  if (USE_MOCK) return;
+  api.trackEvent(eventType, matchId, channelName).catch(() => { /* tracking must never break UI */ });
+}
+
+export interface ApiSocialChannel {
+  channel_name: string;
+  display_name: string;
+  status: string;            // coming_soon / active / disabled
+  public_url: string | null;
+  description: string | null;
+  locale: string;
+  is_enabled: boolean;
+  sort_order: number;
+}
+export interface ApiCommunityHeat {
+  top_matches: Array<{ match_id: number; home: string; away: string; interactions: number }>;
+  total_interactions: number;
+  hot_channels: string[];
+  updated_at: string | null;
+  message: string;
+}
