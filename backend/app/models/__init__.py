@@ -8,10 +8,13 @@ from app.models.token import TokenWallet, TokenLog
 from app.models.challenge import Challenge, ChallengeEntry
 from app.models.unlock import UnlockRecord
 from app.models.community import CommunitySubscription
+from app.models.match_result import MatchResult
+from app.models.settlement import PredictionSettlement
 
 __all__ = [
     "Team", "Match", "Prediction", "Report", "LiveCorrection",
     "User", "TokenWallet", "TokenLog",
     "Challenge", "ChallengeEntry",
     "UnlockRecord", "CommunitySubscription",
+    "MatchResult", "PredictionSettlement",
 ]

@@ -93,10 +93,17 @@ class APIFootballClient:
     # ------------------------------------------------------------------ #
     #  Fixtures                                                            #
     # ------------------------------------------------------------------ #
-    def get_fixtures(self, league_id: Optional[int] = None, season: Optional[int] = None) -> list[dict]:
+    def get_fixtures(
+        self,
+        league_id: Optional[int] = None,
+        season: Optional[int] = None,
+        status: Optional[str] = None,
+    ) -> list[dict]:
         """
         Fetch fixtures for a league & season.
-        Returns the raw `response` array (list of fixture dicts) or [] if not configured.
+        `status` is an optional API-FOOTBALL status filter (e.g. "FT-AET-PEN"
+        for finished fixtures). Returns the raw `response` array or [] if not
+        configured.
         """
         if not self.is_configured():
             logger.info("get_fixtures skipped — API-FOOTBALL not configured")
@@ -104,6 +111,8 @@ class APIFootballClient:
         league = league_id if league_id is not None else settings.wc_league_id
         yr = season if season is not None else settings.wc_season
         params = {"league": league, "season": yr}
+        if status:
+            params["status"] = status
         with httpx.Client(timeout=20) as client:
             resp = client.get(f"{self.base_url}/fixtures", headers=self._headers(), params=params)
         resp.raise_for_status()

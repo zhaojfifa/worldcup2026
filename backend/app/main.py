@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import health, matches, tokens, data_source, admin
+from app.routers import health, matches, tokens, data_source, admin, performance
 
 settings = get_settings()
 
@@ -19,7 +19,7 @@ app = FastAPI(
         "Not a betting or gambling service. "
         "MTC points are platform loyalty points — not withdrawable, not transferable."
     ),
-    version="0.4.0",
+    version="0.6.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -39,6 +39,7 @@ app.include_router(matches.router)
 app.include_router(tokens.router)
 app.include_router(data_source.router)
 app.include_router(admin.router)
+app.include_router(performance.router)
 
 
 @app.on_event("startup")
@@ -50,7 +51,7 @@ def on_startup():
 def root():
     return {
         "service": "WorldCup 2026 AI Intelligence Terminal",
-        "version": "0.4.0",
+        "version": "0.6.0",
         "docs": "/docs",
         "health": "/api/v1/health",
         "compliance": "AI data analysis only. Not a betting service. MTC not withdrawable.",
