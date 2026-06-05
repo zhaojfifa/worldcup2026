@@ -23,9 +23,9 @@
   代码标识符用 ASCII `GIAND_CUP` / `GIAND_CUP_BRAND`，显示必须为 `Giành Cup`。
   人设是 AI 数据观点 / 风险提示 / 临场修正解释，**不是结果承诺品牌**；禁用
   「必中神 / 稳赚神 / 跟单大神 / 包赢」等称谓。
-  _曾用命名方案：Nhà Tiên Tri AI（已弃用为主品牌，用户侧统一替换为 Giành Cup；
-  代码内品牌字符串集中在 `frontend/src/copy/zh.ts` 的 `BRAND`，rename 见
-  `docs/DAY6_REAL_DATA_STORAGE_PLAN.md` §0）。_
+  _曾用命名方案：Nhà Tiên Tri AI（已弃用为主品牌；用户侧 UI 已于 Day 6B 全部替换为
+  Giành Cup，仅保留于历史文档说明）。代码品牌常量集中在 `frontend/src/copy/zh.ts`
+  的 `GIAND_CUP_BRAND`（`BRAND` 为兼容别名）；R2 资产 key 统一使用 `giand-cup`。_
 - **Positioning:** 2026 世界杯 **AI 足球情报社区**（formalized in
   `PRODUCT_OPERATION_ALIGNMENT_V1.md`；前身表述「AI 情报终端」），面向越南、缅甸
   及东南亚球迷。**不做博彩，不提供现金投注，不承诺收益。**

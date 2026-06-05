@@ -19,17 +19,20 @@ export const COMPLIANCE_FOOTER =
 export const MTC_STATEMENT =
   'MTC 为平台积分 · 不可提现 · 不可转让 · 不可交易 · 不作为金融资产';
 
-// ── Brand: Nhà Tiên Tri AI (足球先知 / 世界杯 AI 情报官) ──────────────────────
-export const BRAND = {
-  name: 'Nhà Tiên Tri AI',
-  nameVn: 'Nhà Tiên Tri Bóng Đá',
-  zhRole: '世界杯 AI 情报社区',
+// ── Brand: Giành Cup (赢杯 / 夺杯 · 世界杯 AI 足球情报官) ─────────────────────
+// 用户侧主品牌统一为 Giành Cup；曾用方案 Nhà Tiên Tri AI 仅保留于历史文档说明。
+// 代码常量 ASCII：GIAND_CUP / GIAND_CUP_BRAND。
+export const GIAND_CUP_BRAND = {
+  name: 'Giành Cup',
+  zhRole: '世界杯 AI 足球情报社区',
   headerSub: '不只看胜率，更看 AI 为什么这样判断',
-  heroEn: '2026 World Cup Football Intelligence',
+  heroEn: '2026 World Cup AI Football Intelligence',
   heroSub: 'AI 数据观点 · 胜率变化 · 风险提示 · 临场修正',
-  signalTag: 'Nhà Tiên Tri Signal',
-  verdictTitle: 'Nhà Tiên Tri AI Verdict',
+  signalTag: 'Giành Cup Signal',
+  verdictTitle: 'Giành Cup AI Verdict',
 };
+// Backwards-compatible alias so existing imports keep working.
+export const BRAND = GIAND_CUP_BRAND;
 
 // ── Community channel matrix (placeholders — no real outbound links yet) ────
 export const SOCIAL_CHANNELS = [

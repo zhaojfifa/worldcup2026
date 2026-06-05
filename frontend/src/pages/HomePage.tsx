@@ -83,7 +83,7 @@ export function HomePage() {
 
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <div className="hero-banner">
-        <div className="hero-kicker">NHÀ TIÊN TRI AI</div>
+        <div className="hero-kicker">GIÀNH CUP</div>
         <div className="hero-title">AI 足球<span className="accent">情报社区</span></div>
         <div className="hero-en">{BRAND.heroEn}</div>
         <div className="hero-sub">{BRAND.heroSub}</div>
