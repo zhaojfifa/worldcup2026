@@ -10,5 +10,7 @@ httpx==0.28.1
 eval_type_backport==0.2.2
 # PostgreSQL driver (used on Render; ignored locally when using SQLite)
 psycopg2-binary==2.9.10
+# Cloudflare R2 (S3-compatible) client — imported lazily; only used when R2 is configured
+boto3==1.35.99
 # CORS
 # (fastapi includes starlette which has CORSMiddleware)
