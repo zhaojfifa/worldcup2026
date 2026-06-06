@@ -224,3 +224,95 @@ Core APIs, R2, heat, streak/rankings all healthy; shapes unchanged; refresh vali
 compliance clean. Mock/real boundary is **clear and documented**. The only open Day A
 item is the operator-run live sync in Render Shell (optional for the trial — mock data
 is sufficient to test copy attractiveness and community承接).
+
+---
+
+## Accelerated Day B/C · Copy, Community and Retention Trial
+
+_(Per `docs/MVP_ACCELERATED_OPERATION_LOOP.md` — Day B + Day C combined.)_
+
+- **Verification time:** 2026-06-06 ~07:26 UTC
+- **Baseline:** main @ `c43773a` (MVP v0.7)
+
+### 1. Social channel current status
+
+| Channel | Status | public_url |
+|---------|--------|------------|
+| zalo | `coming_soon` | `null` |
+| telegram | `coming_soon` | `null` |
+| facebook | `coming_soon` | `null` |
+| tiktok | `coming_soon` | `null` |
+
+- **No real Zalo / Telegram link or test group available this round.**
+  → Recorded as **「待运营建立测试群」**. **No fabricated link configured.**
+- `admin/social/channels/upsert` is ready (admin token, Render Shell). When a real
+  link / test group exists, set `status:"active"` + `public_url` (Zalo first, then
+  Telegram; Facebook/TikTok stay `coming_soon`). **Real links never hardcoded in source.**
+
+### 2. Channel click attribution (with match_id)
+
+| Step | Result |
+|------|--------|
+| heat BEFORE | total=4, match1=3, match2=1 |
+| `POST /events/track` (`click_social_channel`, `channel_name:zalo`, **`match_id:1`**) | ✅ `{ok:true,"recorded"}` |
+| heat AFTER | **total=5**, **match1=4**, match2=1, `updated_at` refreshed |
+
+✅ **Confirmed:** with `match_id`, the channel click **does** increment community heat
+(Day A finding resolved at the data level). `hot_channels` unchanged (zalo/telegram/facebook/tiktok).
+Heat payload contains **no personal info** — only match_id, team names, interaction counts,
+channel names. ✅ 不记录个人信息.
+
+### 3. Operating trial messages
+
+- **Path:** `docs/OPERATION_TRIAL_MESSAGES.md` — 3 ready-to-send posts:
+  1. 今日 AI 三场速览 (Zalo/Telegram)
+  2. 爆冷风险 TOP1 摩洛哥 vs 法国 (TikTok/Telegram)
+  3. 临场修正 巴西 vs 阿根廷 (real `live_correction` data; Telegram/Zalo)
+- All three pass the forbidden-word self-check; each carries risk note + disclaimer.
+- **Source pack:** `docs/OPERATION_COPY_TEST_PACK.md` (4 templates).
+
+### 4. MTC / streak / rankings recheck
+
+| Endpoint | Result |
+|----------|--------|
+| `GET /tokens/wallet/1` | `balance:160`, `total_earned:550`, `total_spent:390`, `last_checkin_date:2026-06-02` |
+| `GET /users/1/streak` | `current_streak:2`, `best_streak:2`, `mtc_earned:20`; disclaimer present |
+| `GET /rankings` | `#1 Demo Fan` (streak 2, mtc 20); disclaimer present; non-earnings board |
+| `POST /admin/challenges/settle` (no token, local) | ✅ `401` locked |
+
+- MTC remains **平台积分 · 不可提现 · 不可转让 · 不可交易** (no cash field anywhere).
+- New challenge settlement (`challenge_id=3`) is an **operator step in Render Shell** with
+  `$ADMIN_API_TOKEN` (not run locally — admin route correctly locked). Idempotency already
+  proven in the Day 6D PASS log (repeat settle does not re-credit streak/MTC).
+
+### 5. Small-traffic trial status
+
+- **Not yet dispatched.** Reason: no `active` community channel (no real Zalo/Telegram link
+  or test group available this round). Messages are **prepared and compliance-checked**, ready
+  to send the moment a channel is configured `active` via admin upsert.
+- Trial uses **seed/mock match data** by design — validates copy attractiveness + community
+  承接, **not** real model accuracy. Dispatch metrics table is in `OPERATION_TRIAL_MESSAGES.md`.
+
+### 6. Minor fix applied
+
+- `frontend/index.html` `<title>` updated `世界杯 AI 情报终端` → `Giành Cup · 世界杯 AI 足球情报社区`
+  (index.html only; no business logic touched). Resolves Day 1/Day A carryover issue #3.
+
+### 7. Issues found
+
+| # | Severity | Issue |
+|---|----------|-------|
+| 1 | Blocking for dispatch only | No real Zalo/Telegram link / test group → trial not yet sent. Operator action: configure an `active` channel via admin upsert. |
+| 2 | Info | `mock_mode=true` — trial validates copy/community, not model accuracy. |
+| 3 | Carryover | Live `admin/sync/*` + `challenge_id=3` settle still pending operator Render Shell run (optional). |
+
+No blocking bugs in the service itself.
+
+### 8. Day D readiness
+
+**✅ Cleared to proceed to Day D (Unified Review).**
+Channel attribution verified (with match_id), 3 compliant trial messages prepared,
+MTC/streak/rankings healthy, compliance clean, title fixed. Open operational item:
+configure a real/test community channel `active` to actually dispatch the trial — this is
+an **operator setup step**, not an engineering blocker, and will be a key input to the
+Day D decision on community承接.
