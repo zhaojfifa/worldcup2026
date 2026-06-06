@@ -11,15 +11,24 @@
  */
 import { useSyncExternalStore } from 'react';
 
+// 'en' is the international fallback for all non-Chinese locales.
 // 'mm' (Myanmar/Burmese) is reserved for a future locale — no UI button, no copy
-// yet. Burmese is deferred this sprint; the type slot lets the structure extend
-// without a refactor.
-export type Locale = 'zh' | 'vi' | 'mm';
+// yet (falls back to 'en'). The type slot lets the structure extend w/o a refactor.
+export type Locale = 'zh' | 'en' | 'vi' | 'mm';
+
+// Per-locale fallback chains. zh stays Chinese-only; every other locale falls back
+// to English (NOT Chinese) to avoid mixed-language UI.
+export const FALLBACK_CHAIN: Record<Locale, Locale[]> = {
+  zh: ['zh'],
+  en: ['en', 'zh'],
+  vi: ['vi', 'en'],
+  mm: ['mm', 'en'],
+};
 
 const STORAGE_KEY = 'giandcup_lang';
 const listeners = new Set<() => void>();
 
-// Only zh & vi are user-selectable today (mm intentionally excluded).
+// Only zh & vi are user-selectable today (en/mm not exposed as buttons).
 function isLocale(v: unknown): v is Locale {
   return v === 'zh' || v === 'vi';
 }

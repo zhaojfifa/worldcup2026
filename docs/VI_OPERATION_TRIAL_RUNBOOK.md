@@ -12,7 +12,10 @@ Record results in: `docs/OPERATION_TRIAL_RESULTS.md`.
 > Share `https://worldcup2026-izid.onrender.com/?lang=vi` so Vietnamese users land directly in
 > Vietnamese (Home / Detail / Token / Community core copy). A `CN | VI` switch sits in the header;
 > the choice persists. Dynamic seed match data is mapped to Vietnamese on the frontend.
-> Burmese and full i18n remain deferred.
+> **Vietnamese pricing uses VND / ₫** (single unlock 139.000₫, VIP 699.000₫/tháng, 390 MTC);
+> **RMB is never shown in Vietnamese mode.** Prices are MVP operational prices, not real-time
+> exchange rates. **English is the fallback** for any unmapped copy (not Chinese).
+> Burmese and full i18n remain deferred (Burmese also falls back to English).
 
 > **Data note:** seed/mock match data (`mock_mode=true`). The trial validates **copy
 > attractiveness + community承接**, NOT real prediction accuracy. 不可宣传真实命中率。

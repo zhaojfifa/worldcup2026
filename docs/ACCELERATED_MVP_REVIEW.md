@@ -169,10 +169,22 @@ auto-write to production · paid-content automation.
   `apolloveo-auto` i18n reference (structure only).
 - **Trial copy** still available: `docs/OPERATION_TRIAL_MESSAGES_VI.md` + dispatch runbook
   `docs/VI_OPERATION_TRIAL_RUNBOOK.md`. **Next blocker remains an `active` Zalo / Telegram channel.**
-- **Burmese (my/mm) is deferred** — type slot reserved, no copy, no UI button. The
-  `apolloveo-auto` reference (uses `mm`) can be reused later for the `my`/`mm` locale.
+- **Burmese (my/mm) is deferred** — type slot reserved, no copy, no UI button; **falls back
+  to English** (not Chinese). The `apolloveo-auto` reference can be reused later for `my`/`mm`.
 - **Full i18n is still deferred** — only operation-trial core surfaces are covered; no
   site-wide framework, no translation of every dynamic field beyond the seed mapping.
+
+### Pricing & fallback policy (updated 2026-06-06)
+
+- **English is the fallback for all non-Chinese locales.** Fallback chains (`i18n/useLocale.ts`):
+  `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`. **vi/mm never fall back to Chinese.**
+  English copy layer: `frontend/src/copy/en.ts` (complete). Dynamic unmapped data in
+  `viMapping.ts` falls back to English generics (e.g. "AI is tracking team form…",
+  "AI trend under review", "Risk to monitor"), never Chinese.
+- **Currency is localized** (`i18n/pricing.ts`): zh shows RMB (39 元 / 199 元/月),
+  **vi shows VND (139.000₫ / 699.000₫/tháng)**, en shows USD. MTC (390) is constant.
+  **RMB / ¥ is never shown in Vietnamese mode.** Prices are **MVP operational prices, not
+  real-time exchange rates.** No ¥ is hardcoded in any page — all prices read from `pricing.ts`.
 
 ---
 

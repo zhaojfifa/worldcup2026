@@ -1,17 +1,16 @@
 /**
- * Bilingual copy dictionary (zh | vi) for operation-trial core surfaces.
+ * Multilingual copy dictionary (zh | en | vi | mm) for operation-trial surfaces.
  *
- * Structure: a full Chinese source object `ZH` (source of truth) and a `VI`
- * override object. `getCopy('vi')` = { ...ZH, ...VI } so any missing vi key
- * automatically falls back to zh. `mm` (Burmese) is reserved but deferred — it
- * currently resolves to zh (no mm copy, no UI button).
+ * `ZH` is the source of truth and defines the `Copy` type. `EN` (copy/en.ts) is a
+ * complete English layer. `VI` is an override; `MM` is reserved (empty).
+ * Resolution walks `FALLBACK_CHAIN`: vi → en (NOT zh), mm → en, en → zh, zh → zh.
+ * So non-Chinese locales never fall back to Chinese (no mixed-language UI).
  *
- * Scope: static UI text only (header, hero, home, detail, token, community,
- * nav, compliance). Dynamic match data (team names, risk_note, AI tendency,
- * risk level, reason bullets, live-correction text) is handled by
- * `i18n/viMapping.ts`. Not a full i18n framework; no external dependency.
+ * Scope: static UI text. Dynamic match data is mapped in `i18n/viMapping.ts`.
+ * Price-bearing strings are LABEL-ONLY here; price comes from `i18n/pricing.ts`.
  */
-import { useLocale, type Locale } from './useLocale';
+import { EN } from '../copy/en';
+import { useLocale, FALLBACK_CHAIN, type Locale } from './useLocale';
 
 const ZH = {
   // ── Header / brand ──
@@ -113,9 +112,10 @@ const ZH = {
   premiumTitle: 'AI 战术底牌',
   premiumLocked: '🔒 未解锁',
   premiumUnlockHint: '解锁后可查看完整模型解释',
-  unlockCash: '解锁 AI 战术底牌 · 39 元',
-  unlockMtc: '🪙 查看完整模型解释 · 390 MTC（余额 {balance}）',
-  joinCommunityCta: '加入临场情报社群 · 199 元/月',
+  unlockCashLabel: '解锁 AI 战术底牌',
+  unlockMtcLabel: '🪙 查看完整模型解释',
+  balanceSuffix: '（余额 {balance}）',
+  joinCommunityLabel: '加入临场情报社群',
   payOkTitle: '模拟支付成功',
   payFailTitle: '支付失败',
   mtcDeductedTitle: '已扣减 390 MTC 积分',
@@ -202,7 +202,7 @@ const ZH = {
   storagePublicEnabled: '公开素材访问已启用',
   storagePublicPending: '公开访问域名待绑定',
   storageChecking: '素材存储状态确认中',
-  subscribeNow: '立即订阅 · ¥199/月',
+  subscribeNowLabel: '立即订阅',
   subscribedLabel: '✓ 已订阅 · 临场推送已开启',
   subscribedToast: '订阅成功 · 临场推送已开启',
   alreadySubscribed: '已订阅',
@@ -213,7 +213,7 @@ const ZH = {
   disclaimer: '历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。',
   complianceFooter: '仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现',
 
-  // ── Vietnamese trial badge (bilingual, same in both) ──
+  // ── Vietnamese trial badge (bilingual, same in all locales) ──
   viBadge: '越南语试跑文案已就绪 · Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
 };
 
@@ -221,50 +221,35 @@ export type Copy = typeof ZH;
 export type CopyKey = keyof Copy;
 
 const VI: Partial<Copy> = {
-  // Header / brand
   brandRole: 'Cộng đồng thông tin bóng đá AI World Cup',
   headerSub: 'Không chỉ xem tỷ lệ, hãy hiểu vì sao AI đưa ra nhận định.',
-
-  // Bottom nav
   navHome: 'Trang chủ',
   navDetail: 'Dự đoán AI',
   navToken: 'Điểm MTC',
   navCommunity: 'Cộng đồng',
-
-  // Global
   aiTicker: 'Thông tin AI',
   tickerBody: 'Cập nhật AI · Hôm nay đã tạo {n} mô hình trước trận · {live} trận vào theo dõi sát giờ · Đồng bộ {time} · AI liên tục theo dõi đội hình và biến số sát giờ',
   apiErrorCache: '⚠️ Đang dùng dữ liệu lưu cục bộ (nguồn thông tin tạm thời không khả dụng)',
   syncLabel: 'Đồng bộ',
   loadingText: 'Đang tải thông tin AI…',
-
-  // Hero
   heroTitlePre: 'Thông tin bóng đá ',
   heroTitleAccent: 'AI',
   heroSub: 'Xu hướng AI · Thay đổi tỷ lệ · Cảnh báo rủi ro · Hiệu chỉnh sát giờ',
-
-  // Capability chips
   capModel: 'Mô hình AI trước trận',
   capLive: 'Hiệu chỉnh sát giờ (30′)',
   capRisk: 'Đánh giá rủi ro',
   capUnlock: 'Mở khóa MTC',
-
-  // Balance / check-in
   balanceLabel: 'Điểm MTC của tôi: ',
   checkin: 'Điểm danh +10',
   checkedIn: 'Đã điểm danh',
   checkinToastDone: 'Hôm nay đã điểm danh',
   checkinToastOk: 'Điểm danh thành công +10 MTC',
-
-  // Home core + CTA
   signalTitle: 'Tín hiệu AI mạnh nhất hôm nay',
   tendency: 'Xu hướng AI',
   topRisk: 'Rủi ro chính',
   ctaView: 'Xem nhận định AI',
   ctaUnlock: 'Mở khóa phân tích đầy đủ',
   winLabel: 'thắng',
-
-  // Section titles + states
   listTitle: 'Lịch trận hôm nay',
   upsetTitle: 'Top 3 rủi ro bất ngờ hôm nay',
   recordTitle: 'Thành tích thông tin AI',
@@ -289,8 +274,6 @@ const VI: Partial<Copy> = {
   loopRanking: 'Bảng xếp hạng',
   loopComingSoon: 'Sắp ra mắt',
   rankingComingToast: 'Bảng xếp hạng sắp ra mắt',
-
-  // Detail
   detailBack: 'Chi tiết dự đoán trận đấu',
   aiVerdict: 'Kết luận AI',
   confidence: 'Độ tin cậy',
@@ -318,17 +301,16 @@ const VI: Partial<Copy> = {
   premiumTitle: 'Lá bài chiến thuật AI',
   premiumLocked: '🔒 Chưa mở khóa',
   premiumUnlockHint: 'Mở khóa để xem giải thích mô hình đầy đủ',
-  unlockCash: 'Mở khóa lá bài chiến thuật AI · 39¥',
-  unlockMtc: '🪙 Xem giải thích mô hình đầy đủ · 390 MTC (số dư {balance})',
-  joinCommunityCta: 'Vào cộng đồng thông tin sát giờ · 199¥/tháng',
+  unlockCashLabel: 'Mở khóa lá bài chiến thuật AI',
+  unlockMtcLabel: '🪙 Xem giải thích mô hình đầy đủ',
+  balanceSuffix: ' (số dư {balance})',
+  joinCommunityLabel: 'Vào cộng đồng thông tin sát giờ',
   payOkTitle: 'Thanh toán mô phỏng thành công',
   payFailTitle: 'Thanh toán thất bại',
   mtcDeductedTitle: 'Đã trừ 390 điểm MTC',
   mtcInsufficient: 'Không đủ điểm MTC, vào trung tâm nhiệm vụ để kích hoạt ngày thi đấu',
   liveToastPrefix: 'Hiệu chỉnh sát giờ: ',
   liveToastRate: 'tỷ lệ thắng',
-
-  // Token
   tokenBack: '🪙 Trung tâm nhiệm vụ fan',
   walletLabel: 'Số dư điểm MTC của tôi',
   lastUpdate: 'Cập nhật gần nhất',
@@ -365,8 +347,6 @@ const VI: Partial<Copy> = {
   rankingsDisclaimerPre: 'Bảng điểm/chuỗi đúng, không phải bảng lợi nhuận. ',
   tokenMtcCompliance: '⚠️ Điểm MTC chỉ là điểm tích lũy nền tảng: không thể rút tiền · không thể chuyển nhượng · không thể giao dịch · không cam kết lợi nhuận · không phải tài sản tài chính · không liên kết cá cược.',
   tokenInsufficient: 'Không đủ điểm MTC',
-
-  // Community
   communityBack: '👥 VIP thông tin sát giờ',
   vipKicker: 'VIP thông tin sát giờ',
   vipPriceSub: 'Bạn nhận được không phải một dự đoán, mà cả một luồng thông tin trận đấu.',
@@ -407,29 +387,38 @@ const VI: Partial<Copy> = {
   storagePublicEnabled: 'Đã bật truy cập tài nguyên công khai',
   storagePublicPending: 'Chờ gắn tên miền truy cập công khai',
   storageChecking: 'Đang xác nhận trạng thái lưu trữ',
-  subscribeNow: 'Đăng ký ngay · 199¥/tháng',
+  subscribeNowLabel: 'Đăng ký ngay',
   subscribedLabel: '✓ Đã đăng ký · Đã bật đẩy tin sát giờ',
   subscribedToast: 'Đăng ký thành công · Đã bật đẩy tin sát giờ',
   alreadySubscribed: 'Đã đăng ký',
   communityMutedNote: 'Đăng ký là dịch vụ phân tích dữ liệu & thông tin AI · Không phải cá cược · Không nhận cược tiền mặt · MTC không thể rút tiền',
-
-  // Compliance
   mtcStatement: 'MTC là điểm tích lũy trong nền tảng, không thể rút tiền, không thể chuyển nhượng, không thể giao dịch và không phải tài sản tài chính.',
   disclaimer: 'Kết quả trong quá khứ không đảm bảo kết quả tương lai. Nội dung chỉ dùng cho phân tích dữ liệu và giải trí bóng đá.',
   complianceFooter: 'Chỉ phân tích dữ liệu AI · Không phải dịch vụ cá cược · Không nhận cược tiền mặt · MTC không thể rút tiền',
 };
 
-// Burmese (mm) deferred — no copy yet; resolves to zh until a future sprint.
+// Burmese (mm) deferred — no copy; resolves to en via the fallback chain.
 const MM: Partial<Copy> = {};
 
-const ZH_COPY: Copy = ZH;
-const VI_COPY: Copy = { ...ZH, ...VI };
-const MM_COPY: Copy = { ...ZH, ...MM };
+const TABLE: Record<Locale, Partial<Copy>> = { zh: ZH, en: EN, vi: VI, mm: MM };
+
+function resolve(locale: Locale): Copy {
+  const chain = FALLBACK_CHAIN[locale] ?? ['zh'];
+  const out = {} as Copy;
+  (Object.keys(ZH) as CopyKey[]).forEach((k) => {
+    for (const loc of chain) {
+      const v = TABLE[loc]?.[k];
+      if (v != null) { out[k] = v; return; }
+    }
+    out[k] = ZH[k]; // final safety (only if a key is missing from the whole chain)
+  });
+  return out;
+}
+
+const CACHE: Partial<Record<Locale, Copy>> = {};
 
 export function getCopy(locale: Locale): Copy {
-  if (locale === 'vi') return VI_COPY;
-  if (locale === 'mm') return MM_COPY; // deferred → zh fallback
-  return ZH_COPY;
+  return (CACHE[locale] ??= resolve(locale));
 }
 
 /** React hook: resolved copy for the current locale. */

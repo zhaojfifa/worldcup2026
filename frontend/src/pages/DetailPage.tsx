@@ -9,6 +9,7 @@ import { deriveOps, reasonBullets } from '../ops/derive';
 import { BRAND } from '../copy/zh';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
+import { getPrice } from '../i18n/pricing';
 import {
   teamVi, homeWinVi, awayWinVi, aiPickLabelVi, riskLevelLongVi, riskLevelShortVi,
   riskTagVi, noteVi, premiumTeaserVi, reasonBulletsVi,
@@ -23,6 +24,7 @@ export function DetailPage() {
   const t = useCopy();
   const loc = useLocale();
   const vi = loc === 'vi';
+  const price = getPrice(loc);
   const tn = (name: string) => (vi ? teamVi(name) : name);
   const {
     balance, matches, selectedMatchId,
@@ -211,11 +213,11 @@ export function DetailPage() {
           <div className="feat" key={f}><span className="ck">✔</span>{vi ? premiumTeaserVi(f) : f}</div>
         ))}
         <div className="mt12">
-          <button className="cta primary" onClick={handleUnlockCash}>{t.unlockCash}</button>
+          <button className="cta primary" onClick={handleUnlockCash}>{t.unlockCashLabel} · {price.singleUnlock}</button>
           <button className="cta ghost" onClick={handleUnlockToken}>
-            {t.unlockMtc.replace('{balance}', String(balance))}
+            {t.unlockMtcLabel} · {price.tokenUnlock}{t.balanceSuffix.replace('{balance}', String(balance))}
           </button>
-          <button className="cta ghost" onClick={() => navigate('/community')}>{t.joinCommunityCta}</button>
+          <button className="cta ghost" onClick={() => navigate('/community')}>{t.joinCommunityLabel} · {price.monthlyVip}</button>
         </div>
       </div>
 

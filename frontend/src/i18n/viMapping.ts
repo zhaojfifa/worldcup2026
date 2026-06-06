@@ -40,7 +40,7 @@ export const aiPickLabelViMap: Record<string, string> = {
   '难分胜负': 'Khó phân định',
 };
 export function aiPickLabelVi(zh: string): string {
-  return aiPickLabelViMap[zh] ?? zh;
+  return aiPickLabelViMap[zh] ?? 'AI trend under review'; // English fallback (not Chinese)
 }
 
 // ── Risk level ───────────────────────────────────────────────────────────────
@@ -65,7 +65,7 @@ export const heatLabelViMap: Record<string, string> = {
   '关注中': 'Đang chú ý',
   '常规': 'Thường',
 };
-export function heatLabelVi(zh: string): string { return heatLabelViMap[zh] ?? zh; }
+export function heatLabelVi(zh: string): string { return heatLabelViMap[zh] ?? 'Trending'; }
 
 // ── Risk category tags (from ops/derive.riskTags) ────────────────────────────
 export const riskTagViMap: Record<string, string> = {
@@ -81,7 +81,7 @@ export const riskTagViMap: Record<string, string> = {
   '阵型变化': 'Thay đổi đội hình',
   '战意': 'Tinh thần thi đấu',
 };
-export function riskTagVi(zh: string): string { return riskTagViMap[zh] ?? zh; }
+export function riskTagVi(zh: string): string { return riskTagViMap[zh] ?? 'Risk to monitor'; }
 
 // ── Risk notes + first-clause (topRisk) + live-correction text ───────────────
 export const noteViMap: Record<string, string> = {
@@ -114,9 +114,11 @@ export const noteViMap: Record<string, string> = {
   'AI 当前更倾向巴西，但这不是低风险比赛。巴西优势在中场控制和右路推进，阿根廷风险来自后卫线伤停。不过阿根廷反击效率较高，因此平局概率也不可忽视。':
     'AI hiện nghiêng về Brazil, nhưng đây không phải trận rủi ro thấp. Lợi thế của Brazil ở kiểm soát tuyến giữa và đẩy biên phải; rủi ro của Argentina đến từ chấn thương hàng thủ. Tuy vậy Argentina phản công hiệu quả, nên khả năng hòa cũng không thể bỏ qua.',
 };
+// English generic fallback for unmapped notes — avoids leaking Chinese into vi UI.
+export const NOTE_VI_FALLBACK = 'AI is tracking team form, lineup changes and tactical risk.';
 export function noteVi(zh: string): string {
   if (!zh) return zh;
-  return noteViMap[zh] ?? noteViMap[zh.trim()] ?? zh;
+  return noteViMap[zh] ?? noteViMap[zh.trim()] ?? NOTE_VI_FALLBACK;
 }
 
 // ── Feature labels (report features → reason bullets) ────────────────────────

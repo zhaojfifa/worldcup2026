@@ -4,6 +4,7 @@ import { toast } from '../components/Toast';
 import { SOCIAL_CHANNELS, CONTENT_STUDIO, STORAGE_STATUS, VI_TRIAL_COPY_READY } from '../copy/zh';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
+import { getPrice } from '../i18n/pricing';
 import { api, safeTrack } from '../api/client';
 import type { ApiAssetsStatus } from '../api/client';
 
@@ -32,7 +33,9 @@ function storageStatusText(
 
 export function CommunityPage() {
   const t = useCopy();
-  const vi = useLocale() === 'vi';
+  const loc = useLocale();
+  const vi = loc === 'vi';
+  const price = getPrice(loc);
   const STATUS_LABEL: Record<string, string> = {
     coming_soon: t.statusComingSoon, active: t.statusActive, disabled: t.statusDisabled,
   };
@@ -100,8 +103,8 @@ export function CommunityPage() {
       <div className="bigcard">
         <div className="hero-kicker" style={{ color: 'var(--gold)' }}>LIVE INTELLIGENCE VIP</div>
         <span className="pill" style={{ background: '#fff', color: 'var(--blue)', marginTop: 8 }}>{t.vipKicker}</span>
-        <div className="val" style={{ fontSize: 42 }}>
-          ¥199<span style={{ fontSize: 16, color: '#C5E0F6' }}>/{vi ? 'tháng' : '月'}</span>
+        <div className="val" style={{ fontSize: 30 }}>
+          {price.monthlyVip}
         </div>
         <div className="xs" style={{ color: '#C5E0F6', marginTop: 4 }}>
           {t.vipPriceSub}
@@ -212,7 +215,7 @@ export function CommunityPage() {
       </div>
 
       <button className="cta primary" onClick={handleSubscribe}>
-        {subscribed ? t.subscribedLabel : t.subscribeNow}
+        {subscribed ? t.subscribedLabel : `${t.subscribeNowLabel} · ${price.monthlyVip}`}
       </button>
 
       <div className="compliance">{t.mtcStatement}</div>

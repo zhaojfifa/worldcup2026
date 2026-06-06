@@ -8,6 +8,11 @@ Source (zh): `docs/OPERATION_TRIAL_MESSAGES.md` · Code: `frontend/src/copy/vi.t
 
 > **Data note / 数据说明:** seed/mock match data (`mock_mode=true`). Validates copy
 > attractiveness + community承接, NOT real model accuracy. 不可宣传真实命中率。
+>
+> **Pricing / 价格:** Vietnamese mode shows VND / ₫ — single unlock **139.000₫**,
+> VIP **699.000₫/tháng**, 390 MTC. RMB is not shown in Vietnamese mode. These are MVP
+> operational prices, not real-time exchange rates. English is the fallback for non-Chinese
+> locales (never Chinese).
 
 **Forbidden (vi) / 越南语禁用表达:** `chắc thắng` · `đảm bảo thắng` · `cá cược` ·
 `đặt cược` · `kiếm tiền` · `lợi nhuận chắc chắn` — và mọi cách nói cá cược / cam kết lợi nhuận.
