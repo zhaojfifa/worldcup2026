@@ -1,4 +1,5 @@
 import type { WinProb } from '../types';
+import { useLocale } from '../i18n/useLocale';
 
 interface Props {
   prob: WinProb;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export function WinBar({ prob, homeLabel = '主队胜', awayLabel = '客队胜' }: Props) {
+  const drawLabel = useLocale() === 'vi' ? 'Hòa' : '平局';
   return (
     <>
       <div className="winbar">
@@ -16,7 +18,7 @@ export function WinBar({ prob, homeLabel = '主队胜', awayLabel = '客队胜' 
       </div>
       <div className="winlabels">
         <span>🟢 {homeLabel}</span>
-        <span>🟡 平局</span>
+        <span>🟡 {drawLabel}</span>
         <span>🔴 {awayLabel}</span>
       </div>
     </>

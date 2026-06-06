@@ -8,6 +8,12 @@ Step-by-step runbook to execute the **Vietnamese small-traffic trial** once at l
 Source copy: `docs/OPERATION_TRIAL_MESSAGES_VI.md` (vi) · `frontend/src/copy/vi.ts`.
 Record results in: `docs/OPERATION_TRIAL_RESULTS.md`.
 
+> **UI note (2026-06-06):** the live site now supports an operational Vietnamese UI mode.
+> Share `https://worldcup2026-izid.onrender.com/?lang=vi` so Vietnamese users land directly in
+> Vietnamese (Home / Detail / Token / Community core copy). A `CN | VI` switch sits in the header;
+> the choice persists. Dynamic seed match data is mapped to Vietnamese on the frontend.
+> Burmese and full i18n remain deferred.
+
 > **Data note:** seed/mock match data (`mock_mode=true`). The trial validates **copy
 > attractiveness + community承接**, NOT real prediction accuracy. 不可宣传真实命中率。
 > All admin calls run in **Render Shell** with `$ADMIN_API_TOKEN` (never printed/committed).

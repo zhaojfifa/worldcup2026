@@ -1,96 +1,438 @@
 /**
- * Bilingual copy dictionary (zh | vi) for the operation-trial core surfaces.
+ * Bilingual copy dictionary (zh | vi) for operation-trial core surfaces.
  *
- * Scope (intentionally limited — not full i18n): header, hero, home core labels,
- * home CTAs, community title, Content Studio badge, MTC statement, disclaimer,
- * compliance footer, bottom nav, key buttons. Dynamic match data (team names,
- * risk_note, AI prediction text) stays Chinese for now.
+ * Structure: a full Chinese source object `ZH` (source of truth) and a `VI`
+ * override object. `getCopy('vi')` = { ...ZH, ...VI } so any missing vi key
+ * automatically falls back to zh. `mm` (Burmese) is reserved but deferred — it
+ * currently resolves to zh (no mm copy, no UI button).
  *
- * vi values reuse `copy/vi.ts` where available; zh values reuse `copy/zh.ts`.
- * Missing vi keys fall back to zh.
+ * Scope: static UI text only (header, hero, home, detail, token, community,
+ * nav, compliance). Dynamic match data (team names, risk_note, AI tendency,
+ * risk level, reason bullets, live-correction text) is handled by
+ * `i18n/viMapping.ts`. Not a full i18n framework; no external dependency.
  */
-import {
-  BRAND, HOME, SOCIAL, DISCLAIMER_RECORD, COMPLIANCE_FOOTER, MTC_STATEMENT, VI_TRIAL_COPY_READY,
-} from '../copy/zh';
-import {
-  BRAND_VI, MTC_NOTICE_VI, DISCLAIMER_VI, COMPLIANCE_FOOTER_VI,
-} from '../copy/vi';
 import { useLocale, type Locale } from './useLocale';
 
-interface Pair { zh: string; vi: string }
+const ZH = {
+  // ── Header / brand ──
+  brandName: 'Giành Cup',
+  brandRole: '世界杯 AI 足球情报社区',
+  headerSub: '不只看胜率，更看 AI 为什么这样判断',
+  brandHeroEn: '2026 World Cup AI Football Intelligence',
 
-const D = {
-  // Header
-  brandName:   { zh: BRAND.name,                 vi: BRAND_VI.name },
-  brandRole:   { zh: BRAND.zhRole,               vi: BRAND_VI.sub },
-  headerSub:   { zh: BRAND.headerSub,            vi: BRAND_VI.tagline },
-  brandHeroEn: { zh: BRAND.heroEn,               vi: BRAND_VI.en },
-  heroSub:     { zh: BRAND.heroSub,              vi: 'Xu hướng AI · Thay đổi tỷ lệ · Cảnh báo rủi ro · Hiệu chỉnh sát giờ' },
+  // ── Bottom nav ──
+  navHome: '首页',
+  navDetail: 'AI预测',
+  navToken: 'MTC积分',
+  navCommunity: '社群',
+
+  // ── Global ──
+  aiTicker: 'AI 情报',
+  tickerBody: 'AI 情报更新 · 今日 {n} 场赛前模型已生成 · {live} 场进入临场监听 · 数据同步 {time} · 模型持续追踪阵容与临场变量',
+  apiErrorCache: '⚠️ 使用本地缓存数据（情报源暂时不可用）',
+  syncLabel: '同步',
+  loadingText: 'AI 情报加载中…',
+
+  // ── Hero (split title) ──
+  heroTitlePre: 'AI 足球',
+  heroTitleAccent: '情报社区',
+  heroSub: 'AI 数据观点 · 胜率变化 · 风险提示 · 临场修正',
+
+  // ── Home capability chips ──
+  capModel: 'AI 赛前模型',
+  capLive: '临场 30 分钟修正',
+  capRisk: '风险评级',
+  capUnlock: 'MTC 解锁',
+
+  // ── Home balance / check-in ──
+  balanceLabel: '我的 MTC 球迷积分：',
+  checkin: '签到 +10',
+  checkedIn: '已签到',
+  checkinToastDone: '今日已签到',
+  checkinToastOk: '签到成功 +10 MTC',
+
+  // ── Home core + CTA ──
+  signalTitle: '今日 AI 最强信号',
+  tendency: 'AI 倾向',
+  topRisk: '核心风险',
+  ctaView: '查看 AI 观点',
+  ctaUnlock: '解锁完整分析',
+  winLabel: '胜',
+
+  // ── Home section titles + states ──
+  listTitle: '今日比赛简表',
+  upsetTitle: '今日爆冷风险 TOP3',
+  recordTitle: 'AI 情报战绩',
+  heatTitle: '社区热门选择',
+  loopTitle: '球迷任务中心',
+  recordPending: '真实赛果回灌后开放',
+  recordBuilding: '数据能力建设中',
+  recordSub: '命中率与连续命中等战绩指标，将在接入真实数据源、完成赛果回灌后开放。',
+  heatComingSoon: '社区热度即将上线',
+  heatSub: '社区讨论热度与用户关注趋势，正在建设中。',
+  heatNote: '社区热度为匿名站内互动统计，不含用户个人信息。',
+  heatAttention: '🔥 社区关注',
+  interactions: '互动',
+  upsetScoreLabel: '爆冷分',
+  upsetHookHigh: '爆冷风险升高',
+  upsetHookMid: '需谨慎关注',
+  upsetHookLow: '风险可控',
+  loopFanPoints: '球迷积分',
+  loopDailyCheckin: '每日签到',
+  loopStreak: '连胜挑战',
+  loopFreeJoin: '免费参与',
+  loopRanking: '排行榜',
+  loopComingSoon: '即将上线',
+  rankingComingToast: '排行榜即将上线',
+
+  // ── Detail page ──
+  detailBack: '单场预测详情',
+  aiVerdict: 'AI 结论',
+  confidence: '信心',
+  riskGrade: '风险等级',
+  recommendedScore: '推荐比分',
+  unlockToView: '解锁查看',
+  winProbTitle: 'AI 当前胜率',
+  whyTitle: '为什么 AI 这么判断',
+  riskTitle: '风险关注维度',
+  confIndex: '信心指数',
+  lineupWatchTitle: '📡 LINEUP WATCH · 临场监听',
+  lwRecalc: '已重算',
+  lwArmed: '待命中',
+  lwStep1: '赛前自动\n进入监听',
+  lwStep2: '公布后\n触发重算',
+  lwStep3: '胜率随变量\n实时更新',
+  lwBodyDefault: '开赛前 60 分钟自动进入监听。首发公布后，AI 根据核心球员、阵型变化、替补强度重新计算胜率。',
+  lwCorrectionPrefix: '【临场修正】',
+  lwRecalcMid: '，模型重新计算：',
+  lwDrawWord: '平局',
+  lwReasonWord: '原因：',
+  lwRateWord: '胜率',
+  lwBtnDone: '已根据首发重新计算 ✓',
+  lwBtnDo: '模拟首发公布 → AI 重算',
+  premiumTitle: 'AI 战术底牌',
+  premiumLocked: '🔒 未解锁',
+  premiumUnlockHint: '解锁后可查看完整模型解释',
+  unlockCash: '解锁 AI 战术底牌 · 39 元',
+  unlockMtc: '🪙 查看完整模型解释 · 390 MTC（余额 {balance}）',
+  joinCommunityCta: '加入临场情报社群 · 199 元/月',
+  payOkTitle: '模拟支付成功',
+  payFailTitle: '支付失败',
+  mtcDeductedTitle: '已扣减 390 MTC 积分',
+  mtcInsufficient: 'MTC 积分不足，去任务中心点亮比赛日',
+  liveToastPrefix: '临场修正：',
+  liveToastRate: '胜率',
+
+  // ── Token page ──
+  tokenBack: '🪙 球迷任务中心',
+  walletLabel: '我的 MTC 球迷积分余额',
+  lastUpdate: '最近更新',
+  myStreak: '我的连胜',
+  curStreak: '当前连胜',
+  bestStreak: '最佳连胜',
+  challengeMtc: '挑战获 MTC',
+  streakBuilding: '连胜挑战建设中',
+  streakBuildingSub: '参与免费预测挑战、赛后结算后，这里会显示你的连胜与 MTC 积分进度。',
+  dailyMissions: '每日任务',
+  missionCheckinT: '每日签到',
+  missionCheckinD: '点亮今日比赛日，保持情报在线',
+  missionShareT: '分享预测卡',
+  missionShareD: '带好友进入情报站',
+  missionInviteT: '邀请好友注册',
+  missionInviteD: '扩列你的情报小队',
+  missionDone: '已完成',
+  predictionChallenge: '预测挑战',
+  challengeTitle: '巴西 vs 阿根廷 · 用积分验证你的判断',
+  challengeQ: '本场是否会出现红牌？· 免费参与 · 命中瓜分 MTC 积分奖池',
+  challengeYes: 'A. 会',
+  challengeNo: 'B. 不会',
+  challengeJoinedToast: '已参与免费预测挑战',
+  challengeJoinedMsgPre: '✔ 已参与免费预测挑战（选择「',
+  challengeJoinedMsgPost: '」）· 赛后结算瓜分积分奖池',
+  shopTitle: '积分兑换',
+  shopReport: '单场 AI 深度报告',
+  shopCommunity7: '7 天社群体验',
+  shopFreepass: '单场免单券',
+  rankingsTitle: '连胜排行榜',
+  rankStreakWord: '连胜',
+  rankingsBuilding: '排行榜建设中',
+  rankingsBuildingSub: '连胜与 MTC 积分排行榜将在挑战结算累积后开放，仅展示积分/参与/连胜，非收益榜。',
+  rankingsDisclaimerPre: '积分/连胜榜，非收益榜。',
+  tokenMtcCompliance: '⚠️ MTC 球迷积分仅为平台积分：不可提现 · 不可转让 · 不可交易 · 不承诺收益 · 不作为金融资产 · 不接入博彩。',
+  tokenInsufficient: 'MTC 积分不足',
+
+  // ── Community page ──
+  communityBack: '👥 临场情报 VIP',
+  vipKicker: '临场情报 VIP',
+  vipPriceSub: '你获得的不是一条预测，而是一整套比赛情报流。',
+  communityTitle: '社群情报矩阵',
+  statusComingSoon: '即将开放',
+  statusActive: '查看',
+  statusDisabled: '暂未开放',
+  intelFlowTitle: '一整套情报流',
+  flow1T: '赛前模型判断',
+  flow1D: '每场比赛的胜率分布、推荐比分、风险评级与关键因子。',
+  flow2T: '临场阵容修正',
+  flow2D: '首发公布后 30 分钟内，AI 根据阵容变化重新计算并推送变盘。',
+  flow3T: '赛后模型复盘',
+  flow3D: '比对模型判断与实际结果，沉淀下一场的情报视角。',
+  benefitsTitle: '会员权益',
+  benefit1: '每日 3-5 场 AI 情报推送',
+  benefit2: '单场完整模型解释',
+  benefit3: '首发公布后 30 分钟 AI 重新计算',
+  benefit4: '临场修正实时推送',
+  benefit5: '高风险比赛提醒',
+  benefit6: 'MTC 积分加成',
+  benefit7: '私域社群服务',
+  whyVipTitle: '为什么社群值钱？',
+  whyVipExample: '实时变盘示例',
+  whyVipHomeRate: '巴西胜率',
+  whyVipReason: '阿根廷主力中卫缺阵 → 巴西右路优势扩大，社群第一时间推送。',
+  csTitle: 'AI 情报内容工厂',
+  csStatus: '数据能力建设中',
+  csItem1: '今日 AI 三场速览',
+  csItem2: '今日最高信心',
+  csItem3: '爆冷风险短图',
+  csItem4: '临场修正截图',
+  csItem5: '赛后复盘长图',
+  csItem6: '社群推送文案',
+  csAction1: '复制运营文案（即将开放）',
+  csAction2: '生成分享卡（即将开放）',
+  storageConnected: '素材存储已连接',
+  storagePublicEnabled: '公开素材访问已启用',
+  storagePublicPending: '公开访问域名待绑定',
+  storageChecking: '素材存储状态确认中',
+  subscribeNow: '立即订阅 · ¥199/月',
+  subscribedLabel: '✓ 已订阅 · 临场推送已开启',
+  subscribedToast: '订阅成功 · 临场推送已开启',
+  alreadySubscribed: '已订阅',
+  communityMutedNote: '订阅为 AI 数据分析与情报服务 · 非博彩 · 不提供现金投注 · MTC 不可提现',
+
+  // ── Compliance (shared) ──
+  mtcStatement: 'MTC 为平台积分 · 不可提现 · 不可转让 · 不可交易 · 不作为金融资产',
+  disclaimer: '历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。',
+  complianceFooter: '仅 AI 数据分析 · 非博彩服务 · 不提供现金投注 · MTC 不可提现',
+
+  // ── Vietnamese trial badge (bilingual, same in both) ──
+  viBadge: '越南语试跑文案已就绪 · Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
+};
+
+export type Copy = typeof ZH;
+export type CopyKey = keyof Copy;
+
+const VI: Partial<Copy> = {
+  // Header / brand
+  brandRole: 'Cộng đồng thông tin bóng đá AI World Cup',
+  headerSub: 'Không chỉ xem tỷ lệ, hãy hiểu vì sao AI đưa ra nhận định.',
 
   // Bottom nav
-  navHome:      { zh: '首页',    vi: 'Trang chủ' },
-  navDetail:    { zh: 'AI预测',  vi: 'Dự đoán AI' },
-  navToken:     { zh: 'MTC积分', vi: 'Điểm MTC' },
-  navCommunity: { zh: '社群',    vi: 'Cộng đồng' },
+  navHome: 'Trang chủ',
+  navDetail: 'Dự đoán AI',
+  navToken: 'Điểm MTC',
+  navCommunity: 'Cộng đồng',
 
-  // Hero title (split into two spans in JSX)
-  heroTitlePre:    { zh: 'AI 足球',   vi: 'Thông tin bóng đá ' },
-  heroTitleAccent: { zh: '情报社区',  vi: 'AI' },
+  // Global
+  aiTicker: 'Thông tin AI',
+  tickerBody: 'Cập nhật AI · Hôm nay đã tạo {n} mô hình trước trận · {live} trận vào theo dõi sát giờ · Đồng bộ {time} · AI liên tục theo dõi đội hình và biến số sát giờ',
+  apiErrorCache: '⚠️ Đang dùng dữ liệu lưu cục bộ (nguồn thông tin tạm thời không khả dụng)',
+  syncLabel: 'Đồng bộ',
+  loadingText: 'Đang tải thông tin AI…',
 
-  // Home capability chips
-  capModel:  { zh: 'AI 赛前模型',        vi: 'Mô hình AI trước trận' },
-  capLive:   { zh: '临场 30 分钟修正',   vi: 'Hiệu chỉnh sát giờ (30′)' },
-  capRisk:   { zh: '风险评级',           vi: 'Đánh giá rủi ro' },
-  capUnlock: { zh: 'MTC 解锁',           vi: 'Mở khóa MTC' },
+  // Hero
+  heroTitlePre: 'Thông tin bóng đá ',
+  heroTitleAccent: 'AI',
+  heroSub: 'Xu hướng AI · Thay đổi tỷ lệ · Cảnh báo rủi ro · Hiệu chỉnh sát giờ',
 
-  // Home balance / check-in
-  balanceLabel: { zh: '我的 MTC 球迷积分：', vi: 'Điểm MTC của tôi: ' },
-  checkin:      { zh: '签到 +10',            vi: 'Điểm danh +10' },
-  checkedIn:    { zh: '已签到',              vi: 'Đã điểm danh' },
-  checkinToastDone: { zh: '今日已签到',      vi: 'Hôm nay đã điểm danh' },
-  checkinToastOk:   { zh: '签到成功 +10 MTC', vi: 'Điểm danh thành công +10 MTC' },
+  // Capability chips
+  capModel: 'Mô hình AI trước trận',
+  capLive: 'Hiệu chỉnh sát giờ (30′)',
+  capRisk: 'Đánh giá rủi ro',
+  capUnlock: 'Mở khóa MTC',
 
-  // Home core labels + CTA
-  signalTitle: { zh: HOME.signalTitle,  vi: 'Tín hiệu AI mạnh nhất hôm nay' },
-  tendency:    { zh: HOME.tendency,     vi: 'Xu hướng AI' },
-  topRisk:     { zh: HOME.topRisk,      vi: 'Rủi ro chính' },
-  ctaView:     { zh: HOME.ctaView,      vi: 'Xem nhận định AI' },
-  ctaUnlock:   { zh: HOME.ctaUnlock,    vi: 'Mở khóa phân tích đầy đủ' },
+  // Balance / check-in
+  balanceLabel: 'Điểm MTC của tôi: ',
+  checkin: 'Điểm danh +10',
+  checkedIn: 'Đã điểm danh',
+  checkinToastDone: 'Hôm nay đã điểm danh',
+  checkinToastOk: 'Điểm danh thành công +10 MTC',
 
-  // Home section titles
-  listTitle:   { zh: HOME.listTitle,    vi: 'Lịch trận hôm nay' },
-  upsetTitle:  { zh: HOME.upsetTitle,   vi: 'Top 3 rủi ro bất ngờ hôm nay' },
-  recordTitle: { zh: HOME.recordTitle,  vi: 'Thành tích thông tin AI' },
-  heatTitle:   { zh: HOME.heatTitle,    vi: 'Lựa chọn cộng đồng' },
-  loopTitle:   { zh: HOME.loopTitle,    vi: 'Trung tâm nhiệm vụ fan' },
-  recordPending:  { zh: HOME.recordPending,  vi: 'Mở sau khi cập nhật kết quả thật' },
-  recordBuilding: { zh: HOME.recordBuilding, vi: 'Đang xây dựng dữ liệu' },
-  heatComingSoon: { zh: HOME.heatComingSoon, vi: 'Độ nóng cộng đồng sắp ra mắt' },
+  // Home core + CTA
+  signalTitle: 'Tín hiệu AI mạnh nhất hôm nay',
+  tendency: 'Xu hướng AI',
+  topRisk: 'Rủi ro chính',
+  ctaView: 'Xem nhận định AI',
+  ctaUnlock: 'Mở khóa phân tích đầy đủ',
+  winLabel: 'thắng',
+
+  // Section titles + states
+  listTitle: 'Lịch trận hôm nay',
+  upsetTitle: 'Top 3 rủi ro bất ngờ hôm nay',
+  recordTitle: 'Thành tích thông tin AI',
+  heatTitle: 'Lựa chọn cộng đồng',
+  loopTitle: 'Trung tâm nhiệm vụ fan',
+  recordPending: 'Mở sau khi cập nhật kết quả thật',
+  recordBuilding: 'Đang xây dựng dữ liệu',
+  recordSub: 'Tỷ lệ đúng và chuỗi đúng liên tiếp sẽ mở sau khi kết nối nguồn dữ liệu thật và cập nhật kết quả.',
+  heatComingSoon: 'Độ nóng cộng đồng sắp ra mắt',
+  heatSub: 'Độ nóng thảo luận và xu hướng quan tâm của người dùng đang được xây dựng.',
+  heatNote: 'Độ nóng cộng đồng là thống kê tương tác ẩn danh trong nền tảng, không chứa thông tin cá nhân.',
+  heatAttention: '🔥 Cộng đồng quan tâm',
+  interactions: 'Tương tác',
+  upsetScoreLabel: 'Điểm bất ngờ',
+  upsetHookHigh: 'Rủi ro bất ngờ tăng',
+  upsetHookMid: 'Cần chú ý thận trọng',
+  upsetHookLow: 'Rủi ro trong tầm kiểm soát',
+  loopFanPoints: 'Điểm fan',
+  loopDailyCheckin: 'Điểm danh mỗi ngày',
+  loopStreak: 'Thử thách chuỗi đúng',
+  loopFreeJoin: 'Tham gia miễn phí',
+  loopRanking: 'Bảng xếp hạng',
+  loopComingSoon: 'Sắp ra mắt',
+  rankingComingToast: 'Bảng xếp hạng sắp ra mắt',
+
+  // Detail
+  detailBack: 'Chi tiết dự đoán trận đấu',
+  aiVerdict: 'Kết luận AI',
+  confidence: 'Độ tin cậy',
+  riskGrade: 'Mức rủi ro',
+  recommendedScore: 'Tỷ số đề xuất',
+  unlockToView: 'Mở khóa để xem',
+  winProbTitle: 'Tỷ lệ thắng AI hiện tại',
+  whyTitle: 'Vì sao AI nhận định như vậy',
+  riskTitle: 'Khía cạnh rủi ro',
+  confIndex: 'Chỉ số tin cậy',
+  lineupWatchTitle: '📡 LINEUP WATCH · Theo dõi sát giờ',
+  lwRecalc: 'Đã tính lại',
+  lwArmed: 'Đang chờ',
+  lwStep1: 'Tự động vào\ntheo dõi trước trận',
+  lwStep2: 'Sau khi công bố\nkích hoạt tính lại',
+  lwStep3: 'Tỷ lệ cập nhật\ntheo biến số',
+  lwBodyDefault: 'Tự động vào theo dõi 60 phút trước trận. Sau khi công bố đội hình, AI tính lại tỷ lệ theo cầu thủ trụ cột, thay đổi đội hình và sức mạnh dự bị.',
+  lwCorrectionPrefix: '【Hiệu chỉnh sát giờ】',
+  lwRecalcMid: ', mô hình tính lại: ',
+  lwDrawWord: 'Hòa',
+  lwReasonWord: 'Lý do: ',
+  lwRateWord: 'tỷ lệ thắng',
+  lwBtnDone: 'Đã tính lại theo đội hình ✓',
+  lwBtnDo: 'Mô phỏng công bố đội hình → AI tính lại',
+  premiumTitle: 'Lá bài chiến thuật AI',
+  premiumLocked: '🔒 Chưa mở khóa',
+  premiumUnlockHint: 'Mở khóa để xem giải thích mô hình đầy đủ',
+  unlockCash: 'Mở khóa lá bài chiến thuật AI · 39¥',
+  unlockMtc: '🪙 Xem giải thích mô hình đầy đủ · 390 MTC (số dư {balance})',
+  joinCommunityCta: 'Vào cộng đồng thông tin sát giờ · 199¥/tháng',
+  payOkTitle: 'Thanh toán mô phỏng thành công',
+  payFailTitle: 'Thanh toán thất bại',
+  mtcDeductedTitle: 'Đã trừ 390 điểm MTC',
+  mtcInsufficient: 'Không đủ điểm MTC, vào trung tâm nhiệm vụ để kích hoạt ngày thi đấu',
+  liveToastPrefix: 'Hiệu chỉnh sát giờ: ',
+  liveToastRate: 'tỷ lệ thắng',
+
+  // Token
+  tokenBack: '🪙 Trung tâm nhiệm vụ fan',
+  walletLabel: 'Số dư điểm MTC của tôi',
+  lastUpdate: 'Cập nhật gần nhất',
+  myStreak: 'Chuỗi đúng của tôi',
+  curStreak: 'Chuỗi hiện tại',
+  bestStreak: 'Chuỗi tốt nhất',
+  challengeMtc: 'MTC từ thử thách',
+  streakBuilding: 'Thử thách chuỗi đúng đang xây dựng',
+  streakBuildingSub: 'Sau khi tham gia thử thách dự đoán miễn phí và kết toán sau trận, chuỗi đúng và tiến trình điểm MTC của bạn sẽ hiển thị ở đây.',
+  dailyMissions: 'Nhiệm vụ hằng ngày',
+  missionCheckinT: 'Điểm danh mỗi ngày',
+  missionCheckinD: 'Kích hoạt ngày thi đấu hôm nay, giữ thông tin luôn cập nhật',
+  missionShareT: 'Chia sẻ thẻ dự đoán',
+  missionShareD: 'Rủ bạn bè vào trạm thông tin',
+  missionInviteT: 'Mời bạn đăng ký',
+  missionInviteD: 'Mở rộng đội thông tin của bạn',
+  missionDone: 'Đã hoàn thành',
+  predictionChallenge: 'Thử thách dự đoán',
+  challengeTitle: 'Brazil vs Argentina · Dùng điểm để kiểm chứng nhận định của bạn',
+  challengeQ: 'Trận này có thẻ đỏ không? · Tham gia miễn phí · Đoán đúng cùng chia điểm thưởng MTC',
+  challengeYes: 'A. Có',
+  challengeNo: 'B. Không',
+  challengeJoinedToast: 'Đã tham gia thử thách dự đoán miễn phí',
+  challengeJoinedMsgPre: '✔ Đã tham gia thử thách miễn phí (chọn “',
+  challengeJoinedMsgPost: '”) · Kết toán sau trận, cùng chia điểm thưởng',
+  shopTitle: 'Đổi điểm',
+  shopReport: 'Báo cáo AI chuyên sâu một trận',
+  shopCommunity7: 'Trải nghiệm cộng đồng 7 ngày',
+  shopFreepass: 'Vé miễn phí một trận',
+  rankingsTitle: 'Bảng xếp hạng chuỗi đúng',
+  rankStreakWord: 'Chuỗi',
+  rankingsBuilding: 'Bảng xếp hạng đang xây dựng',
+  rankingsBuildingSub: 'Bảng xếp hạng chuỗi đúng và điểm MTC sẽ mở sau khi tích lũy kết toán thử thách; chỉ hiển thị điểm/tham gia/chuỗi đúng, không phải bảng lợi nhuận.',
+  rankingsDisclaimerPre: 'Bảng điểm/chuỗi đúng, không phải bảng lợi nhuận. ',
+  tokenMtcCompliance: '⚠️ Điểm MTC chỉ là điểm tích lũy nền tảng: không thể rút tiền · không thể chuyển nhượng · không thể giao dịch · không cam kết lợi nhuận · không phải tài sản tài chính · không liên kết cá cược.',
+  tokenInsufficient: 'Không đủ điểm MTC',
 
   // Community
-  communityTitle: { zh: SOCIAL.title, vi: 'Ma trận cộng đồng' },
-  viBadge:        { zh: VI_TRIAL_COPY_READY.text, vi: VI_TRIAL_COPY_READY.text },
+  communityBack: '👥 VIP thông tin sát giờ',
+  vipKicker: 'VIP thông tin sát giờ',
+  vipPriceSub: 'Bạn nhận được không phải một dự đoán, mà cả một luồng thông tin trận đấu.',
+  communityTitle: 'Ma trận cộng đồng',
+  statusComingSoon: 'Sắp mở',
+  statusActive: 'Xem',
+  statusDisabled: 'Chưa mở',
+  intelFlowTitle: 'Một luồng thông tin trọn vẹn',
+  flow1T: 'Nhận định mô hình trước trận',
+  flow1D: 'Phân bố tỷ lệ thắng, tỷ số đề xuất, mức rủi ro và yếu tố then chốt từng trận.',
+  flow2T: 'Hiệu chỉnh đội hình sát giờ',
+  flow2D: 'Trong 30 phút sau khi công bố đội hình, AI tính lại theo thay đổi đội hình và đẩy biến động.',
+  flow3T: 'Phân tích lại sau trận',
+  flow3D: 'So sánh nhận định mô hình với kết quả thực tế, đúc kết góc nhìn cho trận sau.',
+  benefitsTitle: 'Quyền lợi thành viên',
+  benefit1: 'Đẩy thông tin AI 3-5 trận mỗi ngày',
+  benefit2: 'Giải thích mô hình đầy đủ từng trận',
+  benefit3: 'AI tính lại trong 30 phút sau khi công bố đội hình',
+  benefit4: 'Đẩy hiệu chỉnh sát giờ theo thời gian thực',
+  benefit5: 'Nhắc nhở trận rủi ro cao',
+  benefit6: 'Cộng thưởng điểm MTC',
+  benefit7: 'Dịch vụ cộng đồng riêng',
+  whyVipTitle: 'Vì sao cộng đồng đáng giá?',
+  whyVipExample: 'Ví dụ biến động thời gian thực',
+  whyVipHomeRate: 'Tỷ lệ thắng Brazil',
+  whyVipReason: 'Trung vệ trụ cột Argentina vắng mặt → lợi thế cánh phải Brazil tăng, cộng đồng được đẩy tin đầu tiên.',
+  csTitle: 'Xưởng nội dung thông tin AI',
+  csStatus: 'Đang xây dựng năng lực dữ liệu',
+  csItem1: 'Xem nhanh 3 trận AI hôm nay',
+  csItem2: 'Độ tin cậy cao nhất hôm nay',
+  csItem3: 'Ảnh ngắn rủi ro bất ngờ',
+  csItem4: 'Ảnh chụp hiệu chỉnh sát giờ',
+  csItem5: 'Ảnh dài phân tích sau trận',
+  csItem6: 'Nội dung đẩy cộng đồng',
+  csAction1: 'Sao chép nội dung vận hành (sắp mở)',
+  csAction2: 'Tạo thẻ chia sẻ (sắp mở)',
+  storageConnected: 'Đã kết nối lưu trữ tài nguyên',
+  storagePublicEnabled: 'Đã bật truy cập tài nguyên công khai',
+  storagePublicPending: 'Chờ gắn tên miền truy cập công khai',
+  storageChecking: 'Đang xác nhận trạng thái lưu trữ',
+  subscribeNow: 'Đăng ký ngay · 199¥/tháng',
+  subscribedLabel: '✓ Đã đăng ký · Đã bật đẩy tin sát giờ',
+  subscribedToast: 'Đăng ký thành công · Đã bật đẩy tin sát giờ',
+  alreadySubscribed: 'Đã đăng ký',
+  communityMutedNote: 'Đăng ký là dịch vụ phân tích dữ liệu & thông tin AI · Không phải cá cược · Không nhận cược tiền mặt · MTC không thể rút tiền',
 
   // Compliance
-  mtcStatement:     { zh: MTC_STATEMENT,     vi: MTC_NOTICE_VI },
-  disclaimer:       { zh: DISCLAIMER_RECORD, vi: DISCLAIMER_VI },
-  complianceFooter: { zh: COMPLIANCE_FOOTER, vi: COMPLIANCE_FOOTER_VI },
-} satisfies Record<string, Pair>;
+  mtcStatement: 'MTC là điểm tích lũy trong nền tảng, không thể rút tiền, không thể chuyển nhượng, không thể giao dịch và không phải tài sản tài chính.',
+  disclaimer: 'Kết quả trong quá khứ không đảm bảo kết quả tương lai. Nội dung chỉ dùng cho phân tích dữ liệu và giải trí bóng đá.',
+  complianceFooter: 'Chỉ phân tích dữ liệu AI · Không phải dịch vụ cá cược · Không nhận cược tiền mặt · MTC không thể rút tiền',
+};
 
-export type CopyKey = keyof typeof D;
-export type Copy = Record<CopyKey, string>;
+// Burmese (mm) deferred — no copy yet; resolves to zh until a future sprint.
+const MM: Partial<Copy> = {};
 
-/** Resolve all keys for a locale (vi falls back to zh when a vi value is empty). */
+const ZH_COPY: Copy = ZH;
+const VI_COPY: Copy = { ...ZH, ...VI };
+const MM_COPY: Copy = { ...ZH, ...MM };
+
 export function getCopy(locale: Locale): Copy {
-  const out = {} as Copy;
-  (Object.keys(D) as CopyKey[]).forEach((k) => {
-    const pair = D[k];
-    out[k] = locale === 'vi' ? pair.vi || pair.zh : pair.zh;
-  });
-  return out;
+  if (locale === 'vi') return VI_COPY;
+  if (locale === 'mm') return MM_COPY; // deferred → zh fallback
+  return ZH_COPY;
 }
 
-/** React hook: returns the resolved copy for the current locale. */
+/** React hook: resolved copy for the current locale. */
 export function useCopy(): Copy {
   return getCopy(useLocale());
 }

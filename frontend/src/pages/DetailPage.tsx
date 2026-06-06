@@ -6,16 +6,24 @@ import { MatchHeader } from '../components/MatchHeader';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
 import { deriveOps, reasonBullets } from '../ops/derive';
-import { DETAIL, BRAND, COMPLIANCE_FOOTER } from '../copy/zh';
+import { BRAND } from '../copy/zh';
+import { useCopy } from '../i18n/dict';
+import { useLocale } from '../i18n/useLocale';
+import {
+  teamVi, homeWinVi, awayWinVi, aiPickLabelVi, riskLevelLongVi, riskLevelShortVi,
+  riskTagVi, noteVi, premiumTeaserVi, reasonBulletsVi,
+} from '../i18n/viMapping';
 
-const RISK_LABELS = { low: '低风险', medium: '中风险', high: '高风险' };
-const RISK_GRADE  = { low: '低', medium: '中', high: '高' };
 const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--red)' };
 const RISK_BG     = { low: '#E3F4EA',     medium: '#FFF6E2',       high: '#FEE8E9' };
 const STAR_COLOR  = { low: '#8DF2B6', medium: '#FFD27A', high: '#FFAEB2' };
 
 export function DetailPage() {
   const navigate = useNavigate();
+  const t = useCopy();
+  const loc = useLocale();
+  const vi = loc === 'vi';
+  const tn = (name: string) => (vi ? teamVi(name) : name);
   const {
     balance, matches, selectedMatchId,
     loadDetail, unlockWithCash, unlockWithToken, simulateCorrection,
@@ -36,26 +44,28 @@ export function DetailPage() {
   if (!match) return null;
 
   const ops = deriveOps(match);
-  const bullets = reasonBullets(match);
+  const bullets = vi ? reasonBulletsVi(match) : reasonBullets(match);
   const riskLevel = match.riskLevel;
+  const riskLong = vi ? riskLevelLongVi(riskLevel) : ({ low: '低风险', medium: '中风险', high: '高风险' }[riskLevel]);
+  const riskGrade = vi ? riskLevelShortVi(riskLevel) : ({ low: '低', medium: '中', high: '高' }[riskLevel]);
 
   async function handleUnlockCash() {
     const res = await unlockWithCash(match.id);
     setModal({
       em: '💳',
-      title: res.success ? '模拟支付成功' : '支付失败',
+      title: res.success ? t.payOkTitle : t.payFailTitle,
       body: res.message,
       onOk: () => { if (res.success) navigate('/report'); },
     });
   }
 
   async function handleUnlockToken() {
-    if (balance < 390) { toast('MTC 积分不足，去任务中心点亮比赛日'); return; }
+    if (balance < 390) { toast(t.mtcInsufficient); return; }
     const res = await unlockWithToken(match.id);
     if (!res.success) { toast(res.message); return; }
     setModal({
       em: '🪙',
-      title: '已扣减 390 MTC 积分',
+      title: t.mtcDeductedTitle,
       body: res.message,
       onOk: () => navigate('/report'),
     });
@@ -68,14 +78,14 @@ export function DetailPage() {
     setLineupSimulated(true);
     const updated = useAppStore.getState().matches.find(m => m.id === match.id);
     const newHome = updated?.winProb.home ?? prevHome + 4;
-    toast(`临场修正：${match.homeTeam.name}胜率 ${prevHome}% → ${newHome}%`);
+    toast(`${t.liveToastPrefix}${tn(match.homeTeam.name)} ${t.liveToastRate} ${prevHome}% → ${newHome}%`);
   }
 
   return (
     <div className="page-enter">
       <div className="backbar">
         <button className="bk" onClick={() => navigate('/')}>←</button>
-        <span className="ti">单场预测详情</span>
+        <span className="ti">{t.detailBack}</span>
       </div>
 
       {/* Match header */}
@@ -87,39 +97,39 @@ export function DetailPage() {
       {/* ── 1. AI 结论卡（置顶） ──────────────────────────────────── */}
       <div className="verdict-card">
         <div className="verdict-top">
-          <span className="zh">🔮 {DETAIL.verdictTitle}</span>
+          <span className="zh">🔮 {t.aiVerdict}</span>
           <span className="en">{BRAND.verdictTitle}</span>
         </div>
         <div className="verdict-grid">
           <div className="verdict-cell">
-            <div className="l">{DETAIL.tendency}</div>
-            <div className="v">{ops.aiPickLabel}</div>
+            <div className="l">{t.tendency}</div>
+            <div className="v">{vi ? aiPickLabelVi(ops.aiPickLabel) : ops.aiPickLabel}</div>
           </div>
           <div className="verdict-cell">
-            <div className="l">{DETAIL.confidence}</div>
+            <div className="l">{t.confidence}</div>
             <div className="v star">{ops.confidenceStars}</div>
           </div>
           <div className="verdict-cell">
-            <div className="l">{DETAIL.riskGrade}</div>
-            <div className="v" style={{ color: STAR_COLOR[riskLevel] }}>{RISK_GRADE[riskLevel]}</div>
+            <div className="l">{t.riskGrade}</div>
+            <div className="v" style={{ color: STAR_COLOR[riskLevel] }}>{riskGrade}</div>
           </div>
           <div className="verdict-cell">
-            <div className="l">{DETAIL.recommendedScore}</div>
-            <div className="verdict-lock">{DETAIL.unlockToView}<span className="lockchip">🔒</span></div>
+            <div className="l">{t.recommendedScore}</div>
+            <div className="verdict-lock">{t.unlockToView}<span className="lockchip">🔒</span></div>
           </div>
         </div>
       </div>
 
       {/* ── 2. 胜率图 ─────────────────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{DETAIL.winProbTitle}</span>
-        <span className="en">{DETAIL.winProbEn}</span>
+        <span className="zh">{t.winProbTitle}</span>
+        <span className="en">WIN PROBABILITY</span>
       </div>
       <div className="card">
-        <WinBar prob={match.winProb} homeLabel={`${match.homeTeam.name}胜`} awayLabel={`${match.awayTeam.name}胜`} />
+        <WinBar prob={match.winProb} homeLabel={vi ? homeWinVi(match.homeTeam.name) : `${match.homeTeam.name}胜`} awayLabel={vi ? awayWinVi(match.awayTeam.name) : `${match.awayTeam.name}胜`} />
         <div className="conf-block" style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--line)' }}>
           <div className="conf-head">
-            <span className="lbl">信心指数</span>
+            <span className="lbl">{t.confIndex}</span>
             <span className="num">{Math.round(match.confidence)}</span>
             <span style={{ marginLeft: 'auto', color: 'var(--gold)', fontWeight: 800 }}>{ops.confidenceStars}</span>
           </div>
@@ -129,12 +139,12 @@ export function DetailPage() {
 
       {/* ── 3. 为什么 AI 这么判断 ─────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{DETAIL.whyTitle}</span>
-        <span className="en">{DETAIL.whyEn}</span>
+        <span className="zh">{t.whyTitle}</span>
+        <span className="en">WHY</span>
       </div>
       <div className="card">
         {match.freeNote && (
-          <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75, marginBottom: 10 }}>{match.freeNote}</p>
+          <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75, marginBottom: 10 }}>{vi ? noteVi(match.freeNote) : match.freeNote}</p>
         )}
         <ul className="reason-list">
           {bullets.map((b, i) => <li key={i}>{b}</li>)}
@@ -143,75 +153,73 @@ export function DetailPage() {
 
       {/* ── 4. 风险关注维度 ───────────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{DETAIL.riskTitle}</span>
-        <span className="en">{DETAIL.riskEn}</span>
+        <span className="zh">{t.riskTitle}</span>
+        <span className="en">RISK FACTORS</span>
         <span style={{ marginLeft: 'auto', background: RISK_BG[riskLevel], color: RISK_COLORS[riskLevel] }} className="pill">
-          {RISK_LABELS[riskLevel]}
+          {riskLong}
         </span>
       </div>
       <div className="card">
         <div className="risk-tagrow">
-          {ops.riskTags.map(t => <span className="risk-tag" key={t}>{t}</span>)}
+          {ops.riskTags.map(tag => <span className="risk-tag" key={tag}>{vi ? riskTagVi(tag) : tag}</span>)}
         </div>
         {match.riskNote && (
-          <p className="xs sub" style={{ marginTop: 10, lineHeight: 1.7 }}>{match.riskNote}</p>
+          <p className="xs sub" style={{ marginTop: 10, lineHeight: 1.7 }}>{vi ? noteVi(match.riskNote) : match.riskNote}</p>
         )}
       </div>
 
       {/* ── 5. LINEUP WATCH ───────────────────────────────────────── */}
       <div className="lineup-watch">
         <div className="lw-head">
-          <span className="lw-title">📡 LINEUP WATCH · 临场监听</span>
+          <span className="lw-title">{t.lineupWatchTitle}</span>
           {lineupSimulated ? (
-            <span className="lw-status"><span className="sync-dot" />已重算</span>
+            <span className="lw-status"><span className="sync-dot" />{t.lwRecalc}</span>
           ) : (
-            <span className="lw-status armed"><span className="sync-dot" />待命中</span>
+            <span className="lw-status armed"><span className="sync-dot" />{t.lwArmed}</span>
           )}
         </div>
         <div className="lw-steps">
-          <div className="lw-step"><div className="n">60'</div><div className="t">赛前自动<br />进入监听</div></div>
-          <div className="lw-step"><div className="n">首发</div><div className="t">公布后<br />触发重算</div></div>
-          <div className="lw-step"><div className="n">AI</div><div className="t">胜率随变量<br />实时更新</div></div>
+          <div className="lw-step"><div className="n">60'</div><div className="t">{t.lwStep1.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
+          <div className="lw-step"><div className="n">{vi ? 'XI' : '首发'}</div><div className="t">{t.lwStep2.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
+          <div className="lw-step"><div className="n">AI</div><div className="t">{t.lwStep3.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
         </div>
         {lineupSimulated && match.liveCorrection ? (
           <p className="lw-body">
-            <span className="hl">【临场修正】</span>{match.liveCorrection.trigger}，模型重新计算：
-            {match.homeTeam.name}胜率 <span className="hl">{match.liveCorrection.before.home}% → {match.liveCorrection.after.home}% ▲</span>，
-            平局 {match.liveCorrection.before.draw}% → {match.liveCorrection.after.draw}%，
-            {match.awayTeam.name} {match.liveCorrection.before.away}% → {match.liveCorrection.after.away}%。
-            <br />原因：{match.liveCorrection.reason}
+            <span className="hl">{t.lwCorrectionPrefix}</span>{vi ? noteVi(match.liveCorrection.trigger) : match.liveCorrection.trigger}{t.lwRecalcMid}
+            {tn(match.homeTeam.name)} {t.lwRateWord} <span className="hl">{match.liveCorrection.before.home}% → {match.liveCorrection.after.home}% ▲</span>，
+            {t.lwDrawWord} {match.liveCorrection.before.draw}% → {match.liveCorrection.after.draw}%，
+            {tn(match.awayTeam.name)} {match.liveCorrection.before.away}% → {match.liveCorrection.after.away}%。
+            <br />{t.lwReasonWord}{vi ? noteVi(match.liveCorrection.reason) : match.liveCorrection.reason}
           </p>
         ) : (
-          <p className="lw-body">
-            开赛前 60 分钟自动进入监听。首发公布后，AI 根据核心球员、阵型变化、替补强度重新计算胜率。
-          </p>
+          <p className="lw-body">{t.lwBodyDefault}</p>
         )}
         <button className="lw-btn" style={{ marginTop: 12 }} onClick={handleSimulateLineup} disabled={lineupSimulated}>
-          {lineupSimulated ? '已根据首发重新计算 ✓' : '模拟首发公布 → AI 重算'}
+          {lineupSimulated ? t.lwBtnDone : t.lwBtnDo}
         </button>
       </div>
 
       {/* ── 6. 付费解锁 / 社群引导 ────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">AI 战术底牌</span>
+        <span className="zh">{t.premiumTitle}</span>
         <span className="en">PREMIUM</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 800, color: 'var(--blueMid)' }}>🔒 未解锁</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 800, color: 'var(--blueMid)' }}>{t.premiumLocked}</span>
       </div>
       <div className="paywall">
-        <div className="row gap8 mb12"><span>✨</span><span className="b">解锁后可查看完整模型解释</span></div>
+        <div className="row gap8 mb12"><span>✨</span><span className="b">{t.premiumUnlockHint}</span></div>
         {ops.premiumTeaser.map(f => (
-          <div className="feat" key={f}><span className="ck">✔</span>{f}</div>
+          <div className="feat" key={f}><span className="ck">✔</span>{vi ? premiumTeaserVi(f) : f}</div>
         ))}
         <div className="mt12">
-          <button className="cta primary" onClick={handleUnlockCash}>解锁 AI 战术底牌 · 39 元</button>
+          <button className="cta primary" onClick={handleUnlockCash}>{t.unlockCash}</button>
           <button className="cta ghost" onClick={handleUnlockToken}>
-            🪙 查看完整模型解释 · 390 MTC（余额 {balance}）
+            {t.unlockMtc.replace('{balance}', String(balance))}
           </button>
-          <button className="cta ghost" onClick={() => navigate('/community')}>加入临场情报社群 · 199 元/月</button>
+          <button className="cta ghost" onClick={() => navigate('/community')}>{t.joinCommunityCta}</button>
         </div>
       </div>
 
-      <div className="muted-note">{COMPLIANCE_FOOTER}</div>
+      <div className="muted-note">{t.complianceFooter}</div>
 
       {modal && <Modal {...modal} onClose={() => setModal(null)} />}
     </div>

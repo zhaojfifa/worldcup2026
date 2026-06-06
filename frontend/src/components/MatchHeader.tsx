@@ -1,4 +1,6 @@
 import type { Match } from '../types';
+import { useLocale } from '../i18n/useLocale';
+import { teamVi } from '../i18n/viMapping';
 
 function fmt(iso: string) {
   const d = new Date(iso);
@@ -10,11 +12,13 @@ function fmt(iso: string) {
 }
 
 export function MatchHeader({ match }: { match: Match }) {
+  const vi = useLocale() === 'vi';
+  const tn = (name: string) => (vi ? teamVi(name) : name);
   return (
     <div className="mh">
       <div className="team">
         <div className="flag">{match.homeTeam.flag}</div>
-        <div className="name">{match.homeTeam.name}</div>
+        <div className="name">{tn(match.homeTeam.name)}</div>
       </div>
       <div className="team">
         <div className="vs">VS</div>
@@ -22,7 +26,7 @@ export function MatchHeader({ match }: { match: Match }) {
       </div>
       <div className="team">
         <div className="flag">{match.awayTeam.flag}</div>
-        <div className="name">{match.awayTeam.name}</div>
+        <div className="name">{tn(match.awayTeam.name)}</div>
       </div>
     </div>
   );

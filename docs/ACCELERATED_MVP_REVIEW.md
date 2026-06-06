@@ -155,17 +155,24 @@ auto-write to production · paid-content automation.
 
 ## 9b. Localization status (updated 2026-06-06)
 
-- **Vietnamese trial copy is READY** — `frontend/src/copy/vi.ts` +
-  `docs/OPERATION_TRIAL_MESSAGES_VI.md` (3 ready-to-send vi messages); Community page shows a
-  "VI trial copy ready" badge. This is **operator dispatch copy**, not a site language switch.
-- **Next blocker is an `active` Zalo / Telegram channel** (still `coming_soon`, `public_url=null`).
-- **Once an active channel is configured → proceed via `docs/VI_OPERATION_TRIAL_RUNBOOK.md`**
-  (pre-conditions → upsert active → dispatch A/B/C → record fields → heat verify → PASS criteria).
-- **Burmese (my/mm) copy is deferred** — not implemented this sprint. The `apolloveo-auto`
-  `i18n` reference (per-locale `CLIENT_DICT` + fallback chain, uses `mm`) can be reused later
-  for `my`/`mm` locale structure.
-- **Full i18n is deferred** until after the first operation trial. No language switcher,
-  no site-wide vi/my translation in this sprint.
+- **Vietnamese UI upgraded from trial badge to OPERATIONAL MVP language mode.**
+  `/?lang=vi` now renders the core user-visible copy of Home / Detail / Token / Community
+  (+ header & nav) in Vietnamese — no longer中越混合. A lightweight `CN | VI` switch in the
+  header toggles reactively; choice persists in `localStorage (giandcup_lang)`; default zh.
+- **Dynamic match data** (team names, AI tendency, risk level, risk notes, reason bullets,
+  live-correction text) is handled by **frontend rule-based mapping** (`i18n/viMapping.ts`)
+  for the current seed/demo matches; unmatched text falls back to the original. No backend
+  change, no API shape change, no external translation API.
+- **i18n structure:** `i18n/useLocale.ts` (`zh | vi | mm`), `i18n/dict.ts`
+  (`ZH` source + `VI` override, vi→zh fallback; `mm` reserved → resolves to zh, no button),
+  `i18n/viMapping.ts` (dynamic data). Borrows the per-locale copy-map + fallback idea from the
+  `apolloveo-auto` i18n reference (structure only).
+- **Trial copy** still available: `docs/OPERATION_TRIAL_MESSAGES_VI.md` + dispatch runbook
+  `docs/VI_OPERATION_TRIAL_RUNBOOK.md`. **Next blocker remains an `active` Zalo / Telegram channel.**
+- **Burmese (my/mm) is deferred** — type slot reserved, no copy, no UI button. The
+  `apolloveo-auto` reference (uses `mm`) can be reused later for the `my`/`mm` locale.
+- **Full i18n is still deferred** — only operation-trial core surfaces are covered; no
+  site-wide framework, no translation of every dynamic field beyond the seed mapping.
 
 ---
 

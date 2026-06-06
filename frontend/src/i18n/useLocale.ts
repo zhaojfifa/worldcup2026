@@ -11,11 +11,15 @@
  */
 import { useSyncExternalStore } from 'react';
 
-export type Locale = 'zh' | 'vi';
+// 'mm' (Myanmar/Burmese) is reserved for a future locale — no UI button, no copy
+// yet. Burmese is deferred this sprint; the type slot lets the structure extend
+// without a refactor.
+export type Locale = 'zh' | 'vi' | 'mm';
 
 const STORAGE_KEY = 'giandcup_lang';
 const listeners = new Set<() => void>();
 
+// Only zh & vi are user-selectable today (mm intentionally excluded).
 function isLocale(v: unknown): v is Locale {
   return v === 'zh' || v === 'vi';
 }
