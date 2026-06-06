@@ -49,6 +49,14 @@ export const SOCIAL = {
 };
 
 // ── Content Studio (placeholders — no copy/share logic yet) ─────────────────
+export const STORAGE_STATUS = {
+  connected: '素材存储已连接',
+  publicEnabled: '公开素材访问已启用',
+  publicPending: '公开访问域名待绑定',
+  checking: '素材存储状态确认中',
+  label: 'CONTENT STORAGE',
+};
+
 export const CONTENT_STUDIO = {
   title: 'AI 情报内容工厂',
   en: 'CONTENT STUDIO',

@@ -1088,6 +1088,18 @@ body {
 .channel-card .ch-desc { font-size: 10.5px; color: var(--sub); margin-top: 3px; line-height: 1.5; }
 
 /* ── Content Studio (placeholder) ───────────────────────────────────────── */
+.storage-status-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  padding: 8px 10px; background: var(--sky); border-radius: 10px;
+}
+.storage-label { font-size: 11px; font-weight: 800; color: var(--sub); letter-spacing: .04em; flex-shrink: 0; }
+.storage-badge {
+  font-size: 11px; font-weight: 700; border-radius: 6px;
+  padding: 2px 8px; margin-left: auto;
+}
+.storage-badge.ok     { color: var(--green); background: #E8F5E9; }
+.storage-badge.pending { color: var(--sub);  background: #EDF2F8; }
+
 .studio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .studio-item {
   display: flex; align-items: center; gap: 8px;
