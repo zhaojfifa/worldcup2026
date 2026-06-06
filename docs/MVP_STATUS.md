@@ -25,23 +25,24 @@ Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 
 ---
 
-## Day 7 Render Verification Results (2026-06-06)
+## Day 6D Render Verification: **PASS** (2026-06-06)
 
 | Endpoint | Result | Notes |
 |----------|--------|-------|
 | `GET /api/v1/health` | ✅ OK | `real_money_betting_enabled: false`, `token_withdrawal_enabled: false` |
 | `GET /api/v1/assets/status` | ✅ OK | `r2_configured: true`, `public_base_url_set: true`, `message: "R2 ready"` |
-| `GET /api/v1/users/1/streak` | ⚠️ 404 | Render backend not yet redeployed with Day 6D (commit 0c3f730). **Needs human Render redeploy trigger.** |
-| `GET /api/v1/rankings` | ⚠️ 404 | Same — awaiting Render redeploy. |
-| `POST /admin/challenges/settle` | ⏳ Pending | Cannot verify until streak/rankings routes are deployed. |
+| `GET /api/v1/users/1/streak` | ✅ PASS | No longer 404. Empty-safe initial: `current_streak=0`, `best_streak=0`, `mtc_earned=0`, `last_participation_date=null`; disclaimer present. |
+| `GET /api/v1/rankings` | ✅ PASS | No longer 404. Initial `top_users=[]`, empty-safe; disclaimer present. |
+| `POST /admin/challenges/settle` | ✅ PASS | Succeeded via Render Shell `$ADMIN_API_TOKEN`. See settlement log below. |
 
-**Root cause of 404:** Render auto-deploy may not have triggered for commits 0c3f730 → b047953.
-**Action required:** In Render dashboard → worldcup2026 backend service → Manual Deploy → Deploy latest commit.
-After redeploy, re-run:
-```bash
-curl https://worldcup2026-api-71n6.onrender.com/api/v1/users/1/streak
-curl https://worldcup2026-api-71n6.onrender.com/api/v1/rankings
-```
+**Settlement verification (Render Shell, `$ADMIN_API_TOKEN`):**
+
+- **challenge_id=1** → `ok=true`, `is_correct=true`, `mtc_reward=10`, `current_streak=1`, `best_streak=1`.
+  - Re-check `/users/1/streak` → `current_streak=1`, `best_streak=1`, `mtc_earned=10`.
+  - Re-check `/rankings` → `#1 Demo Fan`, `current_streak=1`, `best_streak=1`, `mtc_earned=10`.
+- **challenge_id=2** → settled again → `current_streak=2`, `best_streak=2`, `mtc_reward=10`.
+
+**Conclusion: Day 6D Render verification PASS.** PR #1 previous blocker resolved.
 
 ---
 
@@ -80,16 +81,10 @@ e7dcad4 feat(frontend): show fan streak and rankings fallback
 
 - Frontend + backend on Render; PostgreSQL live; API loop verified (CORS OK).
 - mock ↔ API dual mode (`VITE_USE_MOCK`) verified.
-- Day 6A–6C verified online (per prior human PASS rulings).
+- Day 6A–6D verified online (Day 6D streak/rankings/admin settle PASS — see table above).
 - All new capabilities are **additive**: `/matches`, `/matches/{id}`,
   `/reports/{id}` response shapes unchanged across Day 4→6D.
 - Brand unified to Giành Cup across header / hero / signal / verdict.
-
-## ⚠️ Awaiting deploy verification
-
-- **Day 6D Render online verification** (streak / rankings / admin settle) —
-  Health + assets/status verified OK. Streak/rankings need **manual Render redeploy** of
-  backend (commits 0c3f730 + b047953). See Day 7 verification table above.
 
 ## ✅ Done in Day 7
 
@@ -136,7 +131,7 @@ e7dcad4 feat(frontend): show fan streak and rankings fallback
 | Task | Status |
 |------|--------|
 | Day 6D Render online verification (health + assets/status) | ✅ Verified |
-| Day 6D streak/rankings Render verification | ⚠️ Needs manual Render redeploy |
+| Day 6D streak/rankings/admin settle Render verification | ✅ PASS |
 | Content Studio reads `/assets/status` | ✅ Done |
 | Operations manual (daily flow, social channel config) | ✅ `docs/OPERATIONS_RUNBOOK.md` |
 | Compliance checklist | ✅ `docs/COMPLIANCE_CHECKLIST.md` |
@@ -149,7 +144,6 @@ e7dcad4 feat(frontend): show fan streak and rankings fallback
 - LLM (Kimi/DeepSeek) AI explanation generation — only after banned-word output filter in place.
 - Configure real Zalo/Telegram channels via admin API.
 - Trigger API-FOOTBALL real sync in production.
-- Complete Day 6D streak/rankings post-redeploy verification.
 
 **Do not** wire LLM in Day 7. LLM (Kimi/DeepSeek) for AI explanation generation
 is Day 8 — and only after a banned-word output filter is in place.

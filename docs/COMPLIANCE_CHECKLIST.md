@@ -28,11 +28,20 @@ Scan all UI text, push messages, and marketing copy for:
 | 包赢 / 必赢 | Guaranteed win |
 | 投注 | Wagering |
 
-**Scan command:**
+**Scan command (hard forbidden words):**
 ```bash
 grep -rn "下注\|稳赚\|必中\|跟单\|购彩\|回报率\|返奖\|收益承诺\|现金奖池\|投注\|包赢\|必赢" \
   frontend/src/
 ```
+Any hit is a violation and must be fixed before launch.
+
+**`提现` scan (allow `不可提现`, flag standalone `提现`):**
+```bash
+grep -R "提现" frontend/src docs | grep -v "不可提现"
+```
+- `不可提现` is an **allowed** expression (it is the required MTC statement wording).
+- Any **standalone** `提现` surfaced by this command must be manually reviewed and corrected.
+- This is a guidance-style check — manual confirmation is expected, not full automation.
 
 ---
 
