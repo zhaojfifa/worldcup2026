@@ -1,17 +1,20 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ToastProvider } from './Toast';
-import { BRAND } from '../copy/zh';
-
-const NAV_ITEMS = [
-  { path: '/',          ic: '🏠', lb: '首页'  },
-  { path: '/detail',    ic: '📈', lb: 'AI预测' },
-  { path: '/token',     ic: '🪙', lb: 'MTC积分' },
-  { path: '/community', ic: '👥', lb: '社群'  },
-];
+import { useLocale, setLocale } from '../i18n/useLocale';
+import { useCopy } from '../i18n/dict';
 
 export function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const locale = useLocale();
+  const t = useCopy();
+
+  const NAV_ITEMS = [
+    { path: '/',          ic: '🏠', lb: t.navHome     },
+    { path: '/detail',    ic: '📈', lb: t.navDetail   },
+    { path: '/token',     ic: '🪙', lb: t.navToken    },
+    { path: '/community', ic: '👥', lb: t.navCommunity },
+  ];
 
   const activeNav = (path: string) => {
     if (path === '/') return location.pathname === '/' || location.pathname === '/report';
@@ -23,8 +26,19 @@ export function Layout() {
       <div className="topbar">
         <span className="topbar-crown">🔮</span>
         <div>
-          <div className="topbar-t1">{BRAND.name} · {BRAND.zhRole}</div>
-          <div className="topbar-t2">{BRAND.headerSub}</div>
+          <div className="topbar-t1">{t.brandName} · {t.brandRole}</div>
+          <div className="topbar-t2">{t.headerSub}</div>
+        </div>
+        <div className="lang-switch" role="group" aria-label="language">
+          <button
+            className={`lang-btn ${locale === 'zh' ? 'on' : ''}`}
+            onClick={() => setLocale('zh')}
+          >CN</button>
+          <span className="lang-sep">|</span>
+          <button
+            className={`lang-btn ${locale === 'vi' ? 'on' : ''}`}
+            onClick={() => setLocale('vi')}
+          >VI</button>
         </div>
       </div>
 

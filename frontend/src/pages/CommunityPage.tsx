@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { toast } from '../components/Toast';
-import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, STORAGE_STATUS, VI_TRIAL_COPY_READY, MTC_STATEMENT } from '../copy/zh';
+import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, STORAGE_STATUS, VI_TRIAL_COPY_READY } from '../copy/zh';
+import { useCopy } from '../i18n/dict';
 import { api, safeTrack } from '../api/client';
 import type { ApiAssetsStatus } from '../api/client';
 
@@ -40,6 +41,7 @@ function storageStatusText(s: ApiAssetsStatus | null): string {
 }
 
 export function CommunityPage() {
+  const t = useCopy();
   const { subscribed, subscribe } = useAppStore();
   const [channels, setChannels] = useState<ChannelView[]>(FALLBACK_CHANNELS);
   const [assetsStatus, setAssetsStatus] = useState<ApiAssetsStatus | null>(null);
@@ -99,7 +101,7 @@ export function CommunityPage() {
 
       {/* ── 社群情报矩阵 (Community Channels — placeholders) ───────── */}
       <div className="sec-en">
-        <span className="zh">{SOCIAL.title}</span>
+        <span className="zh">{t.communityTitle}</span>
         <span className="en">{SOCIAL.en}</span>
       </div>
       <div className="channel-grid">
@@ -183,7 +185,7 @@ export function CommunityPage() {
         {/* Vietnamese trial copy readiness (operator-facing; not a language switch) */}
         <div className="storage-status-row">
           <span className="storage-label">{VI_TRIAL_COPY_READY.label}</span>
-          <span className="storage-badge ok">{VI_TRIAL_COPY_READY.text}</span>
+          <span className="storage-badge ok">{t.viBadge}</span>
         </div>
         <div className="studio-grid">
           {CONTENT_STUDIO.items.map(it => (
@@ -204,7 +206,7 @@ export function CommunityPage() {
         {subscribed ? '✓ 已订阅 · 临场推送已开启' : '立即订阅 · ¥199/月'}
       </button>
 
-      <div className="compliance">{MTC_STATEMENT}</div>
+      <div className="compliance">{t.mtcStatement}</div>
       <div className="muted-note">
         订阅为 AI 数据分析与情报服务 · 非博彩 · 不提供现金投注 · MTC 不可提现
       </div>

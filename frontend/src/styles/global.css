@@ -70,6 +70,20 @@ body {
 .topbar-spacer { flex: 1; }
 .topbar-sync { font-size: 10px; color: #C5E0F6; text-align: right; }
 
+/* ── Lightweight language switch (CN | VI) ──────────────────────────────── */
+.lang-switch {
+  margin-left: auto; display: flex; align-items: center; gap: 2px;
+  flex-shrink: 0;
+}
+.lang-btn {
+  min-width: 30px; padding: 4px 7px; border-radius: 7px;
+  font-size: 11px; font-weight: 800; letter-spacing: .03em;
+  color: #C5E0F6; background: rgba(255,255,255,.12);
+  border: 1px solid transparent; cursor: pointer;
+}
+.lang-btn.on { color: var(--blue); background: #fff; }
+.lang-sep { color: #6FA8D6; font-size: 11px; }
+
 /* Scrollable content */
 .content {
   flex: 1;

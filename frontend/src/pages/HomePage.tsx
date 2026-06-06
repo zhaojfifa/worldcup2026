@@ -4,18 +4,12 @@ import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
 import { toast } from '../components/Toast';
 import { deriveOps, pickTopSignal, topUpsets } from '../ops/derive';
-import { HOME, BRAND, DISCLAIMER_RECORD, COMPLIANCE_FOOTER, MTC_STATEMENT } from '../copy/zh';
+import { HOME, BRAND } from '../copy/zh';
+import { useCopy } from '../i18n/dict';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
-
-const CAPABILITIES = [
-  { ic: '🧠', label: 'AI 赛前模型' },
-  { ic: '⏱️', label: '临场 30 分钟修正' },
-  { ic: '⚖️', label: '风险评级' },
-  { ic: '🪙', label: 'MTC 解锁' },
-];
 
 function fmtTime(iso: string) {
   const d = new Date(iso);
@@ -33,6 +27,13 @@ function upsetHook(score: number): string {
 
 export function HomePage() {
   const navigate = useNavigate();
+  const t = useCopy();
+  const CAPABILITIES = [
+    { ic: '🧠', label: t.capModel },
+    { ic: '⏱️', label: t.capLive },
+    { ic: '⚖️', label: t.capRisk },
+    { ic: '🪙', label: t.capUnlock },
+  ];
   const {
     balance, checkedIn, checkIn,
     matches, matchesLoading, loadMatches,
@@ -57,9 +58,9 @@ export function HomePage() {
   }
 
   async function handleCheckIn() {
-    if (checkedIn) { toast('今日已签到'); return; }
+    if (checkedIn) { toast(t.checkinToastDone); return; }
     await checkIn();
-    toast('签到成功 +10 MTC');
+    toast(t.checkinToastOk);
   }
 
   const syncTime = new Date(syncedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
@@ -97,9 +98,9 @@ export function HomePage() {
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <div className="hero-banner">
         <div className="hero-kicker">GIÀNH CUP</div>
-        <div className="hero-title">AI 足球<span className="accent">情报社区</span></div>
+        <div className="hero-title">{t.heroTitlePre}<span className="accent">{t.heroTitleAccent}</span></div>
         <div className="hero-en">{BRAND.heroEn}</div>
-        <div className="hero-sub">{BRAND.heroSub}</div>
+        <div className="hero-sub">{t.heroSub}</div>
       </div>
 
       {/* ── Capability bar ────────────────────────────────────────── */}
@@ -115,10 +116,10 @@ export function HomePage() {
       <div className="strip">
         <div className="row gap8">
           <span>🪙</span>
-          <span className="small">我的 MTC 球迷积分：<b style={{ color: 'var(--blueMid)' }}>{balance}</b></span>
+          <span className="small">{t.balanceLabel}<b style={{ color: 'var(--blueMid)' }}>{balance}</b></span>
         </div>
         <button className={`btn-mini ${checkedIn ? 'done' : ''}`} onClick={handleCheckIn} disabled={checkedIn}>
-          {checkedIn ? '已签到' : '签到 +10'}
+          {checkedIn ? t.checkedIn : t.checkin}
         </button>
       </div>
 
@@ -131,7 +132,7 @@ export function HomePage() {
       {/* ── 1. 今日 AI 最强信号 (C-position) ───────────────────────── */}
       <div className="signal-card" onClick={() => goDetail(signal.id)}>
         <div className="signal-head">
-          <span className="signal-badge">⭐ {HOME.signalTitle}</span>
+          <span className="signal-badge">⭐ {t.signalTitle}</span>
           <span className="signal-en">{BRAND.signalTag}</span>
         </div>
         <div className="signal-teams">
@@ -140,22 +141,22 @@ export function HomePage() {
           <div className="t"><div className="fl">{signal.awayTeam.flag}</div><div className="nm">{signal.awayTeam.name}</div></div>
         </div>
         <div className="signal-row">
-          <span className="signal-tend">{HOME.tendency}：{sOps.aiPickLabel}</span>
+          <span className="signal-tend">{t.tendency}：{sOps.aiPickLabel}</span>
           <span className="signal-star">{sOps.confidenceStars}</span>
         </div>
         <div style={{ margin: '4px 0 10px' }}>
           <WinBar prob={signal.winProb} homeLabel={`${signal.homeTeam.name}胜`} awayLabel={`${signal.awayTeam.name}胜`} />
         </div>
-        <div className="signal-risk">⚠️ {HOME.topRisk}：{sOps.topRisk}</div>
+        <div className="signal-risk">⚠️ {t.topRisk}：{sOps.topRisk}</div>
         <div className="signal-cta">
-          <span className="b1" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{HOME.ctaView}</span>
-          <span className="b2" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{HOME.ctaUnlock}</span>
+          <span className="b1" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaView}</span>
+          <span className="b2" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaUnlock}</span>
         </div>
       </div>
 
       {/* ── 2. 今日比赛简表 ────────────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{HOME.listTitle}</span>
+        <span className="zh">{t.listTitle}</span>
         <span className="en">{HOME.listEn}</span>
         <span style={{ marginLeft: 'auto' }} className="src-pill"><span className="sync-dot" />同步 {syncTime}</span>
       </div>
@@ -176,7 +177,7 @@ export function HomePage() {
 
       {/* ── 3. 今日爆冷风险 TOP3 ───────────────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{HOME.upsetTitle}</span>
+        <span className="zh">{t.upsetTitle}</span>
         <span className="en">{HOME.upsetEn}</span>
       </div>
       {upsets.map((u, i) => (
@@ -195,20 +196,20 @@ export function HomePage() {
 
       {/* ── 4. AI 情报战绩 (待真实赛果回灌) ────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{HOME.recordTitle}</span>
+        <span className="zh">{t.recordTitle}</span>
         <span className="en">{HOME.recordEn}</span>
       </div>
       <div className="status-card">
         <div className="ic">📊</div>
-        <div className="st">{HOME.recordPending}</div>
+        <div className="st">{t.recordPending}</div>
         <div className="sub2">命中率与连续命中等战绩指标，将在接入真实数据源、完成赛果回灌后开放。</div>
-        <span className="status-pill">{HOME.recordBuilding}</span>
-        <div className="disclaimer-line">{DISCLAIMER_RECORD}</div>
+        <span className="status-pill">{t.recordBuilding}</span>
+        <div className="disclaimer-line">{t.disclaimer}</div>
       </div>
 
       {/* ── 5. 社区热门选择 (轻社交证明) ───────────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{HOME.heatTitle}</span>
+        <span className="zh">{t.heatTitle}</span>
         <span className="en">{HOME.heatEn}</span>
       </div>
       {heat && heat.top_matches.length > 0 ? (
@@ -231,15 +232,15 @@ export function HomePage() {
       ) : (
         <div className="status-card">
           <div className="ic">🔥</div>
-          <div className="st">{HOME.heatComingSoon}</div>
+          <div className="st">{t.heatComingSoon}</div>
           <div className="sub2">社区讨论热度与用户关注趋势，正在建设中。</div>
-          <span className="status-pill">{HOME.heatComingSoon}</span>
+          <span className="status-pill">{t.heatComingSoon}</span>
         </div>
       )}
 
       {/* ── 6. Token / 连胜挑战 / 排行榜入口 ───────────────────────── */}
       <div className="sec-en">
-        <span className="zh">{HOME.loopTitle}</span>
+        <span className="zh">{t.loopTitle}</span>
         <span className="en">{HOME.loopEn}</span>
       </div>
       <div className="loop-grid">
@@ -253,9 +254,9 @@ export function HomePage() {
           <div className="ic">🏅</div><div className="nm">排行榜</div><div className="ds">即将上线</div>
         </div>
       </div>
-      <div className="compliance">{MTC_STATEMENT}</div>
+      <div className="compliance">{t.mtcStatement}</div>
 
-      <div className="muted-note">{COMPLIANCE_FOOTER}</div>
+      <div className="muted-note">{t.complianceFooter}</div>
     </div>
   );
 }
