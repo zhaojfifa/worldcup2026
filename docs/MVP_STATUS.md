@@ -1,6 +1,6 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-06 · Version: **MVP v0.6D**_
+_Last updated: 2026-06-06 (Day 7) · Version: **MVP v0.7**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
@@ -25,6 +25,27 @@ Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 
 ---
 
+## Day 6D Render Verification: **PASS** (2026-06-06)
+
+| Endpoint | Result | Notes |
+|----------|--------|-------|
+| `GET /api/v1/health` | ✅ OK | `real_money_betting_enabled: false`, `token_withdrawal_enabled: false` |
+| `GET /api/v1/assets/status` | ✅ OK | `r2_configured: true`, `public_base_url_set: true`, `message: "R2 ready"` |
+| `GET /api/v1/users/1/streak` | ✅ PASS | No longer 404. Empty-safe initial: `current_streak=0`, `best_streak=0`, `mtc_earned=0`, `last_participation_date=null`; disclaimer present. |
+| `GET /api/v1/rankings` | ✅ PASS | No longer 404. Initial `top_users=[]`, empty-safe; disclaimer present. |
+| `POST /admin/challenges/settle` | ✅ PASS | Succeeded via Render Shell `$ADMIN_API_TOKEN`. See settlement log below. |
+
+**Settlement verification (Render Shell, `$ADMIN_API_TOKEN`):**
+
+- **challenge_id=1** → `ok=true`, `is_correct=true`, `mtc_reward=10`, `current_streak=1`, `best_streak=1`.
+  - Re-check `/users/1/streak` → `current_streak=1`, `best_streak=1`, `mtc_earned=10`.
+  - Re-check `/rankings` → `#1 Demo Fan`, `current_streak=1`, `best_streak=1`, `mtc_earned=10`.
+- **challenge_id=2** → settled again → `current_streak=2`, `best_streak=2`, `mtc_reward=10`.
+
+**Conclusion: Day 6D Render verification PASS.** PR #1 previous blocker resolved.
+
+---
+
 ## Completed milestones
 
 - **Day 2** — React/Vite frontend, 5 pages.
@@ -41,9 +62,15 @@ Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
   `/admin/social/channels/upsert`, `/events/track`, `/community/heat`.
 - **Day 6D** — `UserStreak`, `ChallengeResult`, `/users/{id}/streak`, `/rankings`,
   `/admin/challenges/settle`; TokenPage fan streak + rankings fallback.
+- **Day 7** — Operational Readiness & Public MVP Polish:
+  Content Studio shows live R2 storage readiness status (`/assets/status`);
+  `docs/OPERATIONS_RUNBOOK.md` (daily ops flow, social channel config via admin API);
+  `docs/COMPLIANCE_CHECKLIST.md` (forbidden words, MTC statement, disclaimers, rankings);
+  frontend build passes; forbidden-word scan clean; `/matches`+`/reports` shapes unchanged.
 
 Latest commits:
 ```
+b047953 docs: add v0.6D engineering handoff
 e7dcad4 feat(frontend): show fan streak and rankings fallback
 0c3f730 feat(backend): add streak challenge and rankings
 ```
@@ -54,15 +81,17 @@ e7dcad4 feat(frontend): show fan streak and rankings fallback
 
 - Frontend + backend on Render; PostgreSQL live; API loop verified (CORS OK).
 - mock ↔ API dual mode (`VITE_USE_MOCK`) verified.
-- Day 6A–6C verified online (per prior human PASS rulings).
+- Day 6A–6D verified online (Day 6D streak/rankings/admin settle PASS — see table above).
 - All new capabilities are **additive**: `/matches`, `/matches/{id}`,
   `/reports/{id}` response shapes unchanged across Day 4→6D.
 - Brand unified to Giành Cup across header / hero / signal / verdict.
 
-## ⚠️ Awaiting deploy verification
+## ✅ Done in Day 7
 
-- **Day 6D Render online verification** (streak / rankings / admin settle) —
-  **first task of the next chat.** Commands in the handoff doc §6.
+- Content Studio section in Community page shows live R2 storage readiness via `/assets/status`.
+- `docs/OPERATIONS_RUNBOOK.md` — daily prediction flow, social channel config, admin API examples.
+- `docs/COMPLIANCE_CHECKLIST.md` — forbidden words, MTC statement, disclaimers, rankings sign-off.
+- Frontend build passes; forbidden-word scan clean; API shapes unchanged.
 
 ## Not yet done (by design)
 
@@ -97,16 +126,24 @@ e7dcad4 feat(frontend): show fan streak and rankings fallback
 
 ---
 
-## Recommended Day 7 (Operational Readiness & Public MVP Polish)
+## Day 7 Status (Operational Readiness & Public MVP Polish)
 
-1. Day 6D Render online verification.
-2. Vietnamese first-pass key copy.
-3. Content Studio reads `/assets/status` (show storage connected).
-4. Configure real Zalo / Telegram channel links via admin upsert.
-5. Real API-FOOTBALL fixtures/results sync verification.
-6. Operations manual: daily prediction publishing flow.
-7. Compliance checklist.
-8. Codex v0.6D review.
+| Task | Status |
+|------|--------|
+| Day 6D Render online verification (health + assets/status) | ✅ Verified |
+| Day 6D streak/rankings/admin settle Render verification | ✅ PASS |
+| Content Studio reads `/assets/status` | ✅ Done |
+| Operations manual (daily flow, social channel config) | ✅ `docs/OPERATIONS_RUNBOOK.md` |
+| Compliance checklist | ✅ `docs/COMPLIANCE_CHECKLIST.md` |
+| Vietnamese first-pass key copy | Deferred — out of scope for Day 7 |
+| Real API-FOOTBALL sync in prod | Deferred — connector ready, key in Render |
+| Configure real Zalo/Telegram links | Deferred — via admin API per runbook |
+
+## Recommended Day 8
+
+- LLM (Kimi/DeepSeek) AI explanation generation — only after banned-word output filter in place.
+- Configure real Zalo/Telegram channels via admin API.
+- Trigger API-FOOTBALL real sync in production.
 
 **Do not** wire LLM in Day 7. LLM (Kimi/DeepSeek) for AI explanation generation
 is Day 8 — and only after a banned-word output filter is in place.

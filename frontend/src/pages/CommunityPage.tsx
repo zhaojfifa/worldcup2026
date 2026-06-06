@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { toast } from '../components/Toast';
-import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, MTC_STATEMENT } from '../copy/zh';
+import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, STORAGE_STATUS, MTC_STATEMENT } from '../copy/zh';
 import { api, safeTrack } from '../api/client';
+import type { ApiAssetsStatus } from '../api/client';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 const CHANNEL_ICON: Record<string, string> = { zalo: '💬', telegram: '✈️', facebook: '📘', tiktok: '🎵' };
@@ -31,9 +32,17 @@ const BENEFITS = [
   '私域社群服务',
 ];
 
+function storageStatusText(s: ApiAssetsStatus | null): string {
+  if (!s) return STORAGE_STATUS.checking;
+  if (!s.r2_configured) return STORAGE_STATUS.checking;
+  if (s.public_base_url_set) return `${STORAGE_STATUS.connected} · ${STORAGE_STATUS.publicEnabled}`;
+  return `${STORAGE_STATUS.connected} · ${STORAGE_STATUS.publicPending}`;
+}
+
 export function CommunityPage() {
   const { subscribed, subscribe } = useAppStore();
   const [channels, setChannels] = useState<ChannelView[]>(FALLBACK_CHANNELS);
+  const [assetsStatus, setAssetsStatus] = useState<ApiAssetsStatus | null>(null);
 
   // Prefer live config; fall back to static on mock mode or API error.
   useEffect(() => {
@@ -52,6 +61,9 @@ export function CommunityPage() {
         }
       })
       .catch(() => { /* keep fallback; no white screen */ });
+    api.getAssetsStatus()
+      .then(s => setAssetsStatus(s))
+      .catch(() => { /* keep null; show "确认中" */ });
   }, []);
 
   function handleChannelClick(ch: ChannelView) {
@@ -161,6 +173,13 @@ export function CommunityPage() {
         <span style={{ marginLeft: 'auto' }} className="status-pill">{CONTENT_STUDIO.status}</span>
       </div>
       <div className="card">
+        {/* R2 storage readiness indicator */}
+        <div className="storage-status-row">
+          <span className="storage-label">{STORAGE_STATUS.label}</span>
+          <span className={`storage-badge ${assetsStatus?.r2_configured ? 'ok' : 'pending'}`}>
+            {storageStatusText(assetsStatus)}
+          </span>
+        </div>
         <div className="studio-grid">
           {CONTENT_STUDIO.items.map(it => (
             <div className="studio-item" key={it.label}>

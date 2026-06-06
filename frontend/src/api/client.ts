@@ -75,6 +75,9 @@ export const api = {
   joinChallenge:   (challengeId: number, userId: number, option: string) => request<{ success: boolean; chosen_option: string; message: string }>(`/api/v1/challenges/${challengeId}/join`, { method: 'POST', body: JSON.stringify({ user_id: userId, chosen_option: option }) }),
   subscribe:       (userId: number)                      => request<{ success: boolean; plan: string; message: string }>('/api/v1/community/subscribe', { method: 'POST', body: JSON.stringify({ user_id: userId }) }),
 
+  // ── Day 6B: assets / R2 status ───────────────────────────────────────────
+  getAssetsStatus:   () => request<ApiAssetsStatus>('/api/v1/assets/status'),
+
   // ── Day 6C: social channels + community heat ──────────────────────────────
   getSocialChannels: () => request<ApiSocialChannel[]>('/api/v1/social/channels'),
   getCommunityHeat:  () => request<ApiCommunityHeat>('/api/v1/community/heat'),
@@ -95,6 +98,12 @@ export function safeTrack(eventType: string, matchId?: number, channelName?: str
   api.trackEvent(eventType, matchId, channelName).catch(() => { /* tracking must never break UI */ });
 }
 
+export interface ApiAssetsStatus {
+  r2_configured: boolean;
+  bucket: string | null;
+  public_base_url_set: boolean;
+  message: string;
+}
 export interface ApiSocialChannel {
   channel_name: string;
   display_name: string;
