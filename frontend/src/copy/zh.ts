@@ -57,6 +57,13 @@ export const STORAGE_STATUS = {
   label: 'CONTENT STORAGE',
 };
 
+// Vietnamese trial copy readiness (operator-facing status; not a language switch).
+export const VI_TRIAL_COPY_READY = {
+  label: 'VI TRIAL COPY',
+  text: '越南语试跑文案已就绪 · Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
+  doc: 'docs/OPERATION_TRIAL_MESSAGES_VI.md',
+};
+
 export const CONTENT_STUDIO = {
   title: 'AI 情报内容工厂',
   en: 'CONTENT STUDIO',

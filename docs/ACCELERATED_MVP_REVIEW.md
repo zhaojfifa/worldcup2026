@@ -153,6 +153,20 @@ auto-write to production · paid-content automation.
 
 ---
 
+## 9b. Localization status (added 2026-06-06)
+
+- **Vietnamese operation copy is required before the real Zalo trial** — done at trial level:
+  `frontend/src/copy/vi.ts` + `docs/OPERATION_TRIAL_MESSAGES_VI.md` (3 ready-to-send vi messages);
+  Community page shows a "VI trial copy ready" badge. This is **operator dispatch copy**, not a
+  site language switch.
+- **Burmese (my/mm) copy is deferred** — not implemented this sprint. The `apolloveo-auto`
+  `i18n` reference (per-locale `CLIENT_DICT` + fallback chain, uses `mm`) can be reused later
+  for `my`/`mm` locale structure.
+- **Full i18n is deferred** until after the first operation trial. No language switcher,
+  no site-wide vi/my translation in this sprint.
+
+---
+
 ## 10. Final Recommendation
 
 > **Giành Cup MVP v0.7 已具备工程可运营基础，但尚未完成真实私域承接；建议先补 Zalo/Telegram

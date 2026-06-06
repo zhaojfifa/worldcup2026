@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { toast } from '../components/Toast';
-import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, STORAGE_STATUS, MTC_STATEMENT } from '../copy/zh';
+import { SOCIAL, SOCIAL_CHANNELS, CONTENT_STUDIO, STORAGE_STATUS, VI_TRIAL_COPY_READY, MTC_STATEMENT } from '../copy/zh';
 import { api, safeTrack } from '../api/client';
 import type { ApiAssetsStatus } from '../api/client';
 
@@ -179,6 +179,11 @@ export function CommunityPage() {
           <span className={`storage-badge ${assetsStatus?.r2_configured ? 'ok' : 'pending'}`}>
             {storageStatusText(assetsStatus)}
           </span>
+        </div>
+        {/* Vietnamese trial copy readiness (operator-facing; not a language switch) */}
+        <div className="storage-status-row">
+          <span className="storage-label">{VI_TRIAL_COPY_READY.label}</span>
+          <span className="storage-badge ok">{VI_TRIAL_COPY_READY.text}</span>
         </div>
         <div className="studio-grid">
           {CONTENT_STUDIO.items.map(it => (

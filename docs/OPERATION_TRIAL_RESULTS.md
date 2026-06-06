@@ -49,7 +49,11 @@ curl https://worldcup2026-api-71n6.onrender.com/api/v1/community/heat
 ```
 Expected: `total_interactions` +1, match1 +1, `updated_at` refreshed.
 
-**Step 4 — dispatch** the 3 messages from `docs/OPERATION_TRIAL_MESSAGES.md` to the test group.
+**Step 4 — dispatch** the 3 messages to the test group:
+- **If the Zalo test group is mostly Vietnamese users → use `docs/OPERATION_TRIAL_MESSAGES_VI.md`** (vi copy).
+- The Chinese `docs/OPERATION_TRIAL_MESSAGES.md` is for **internal reference** only.
+- **Before sending, manually re-check forbidden wording** in both zh and vi
+  (vi: `chắc thắng` / `đảm bảo thắng` / `cá cược` / `đặt cược` / `kiếm tiền` / `lợi nhuận chắc chắn`).
 
 **Step 5 — record** results in the tables below.
 
