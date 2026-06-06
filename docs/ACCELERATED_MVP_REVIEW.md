@@ -136,8 +136,8 @@ auto-write to production · paid-content automation.
 1. Operator stands up a **Zalo or Telegram test group**.
 2. Configure it `active` via `POST /admin/social/channels/upsert` (Render Shell, `$ADMIN_API_TOKEN`).
 3. Re-test `click_social_channel` + `match_id` → confirm heat increments.
-4. Dispatch the 3 prepared messages to the test group; record real feedback in
-   `OPERATION_TRIAL_MESSAGES.md` dispatch log.
+4. Dispatch the 3 prepared messages (prefer **vi** for Vietnamese groups) following
+   `docs/VI_OPERATION_TRIAL_RUNBOOK.md`; record real feedback in `docs/OPERATION_TRIAL_RESULTS.md`.
 5. Prepare the **Day 8 Prep** design doc — **no LLM code**.
 
 ---
@@ -153,12 +153,14 @@ auto-write to production · paid-content automation.
 
 ---
 
-## 9b. Localization status (added 2026-06-06)
+## 9b. Localization status (updated 2026-06-06)
 
-- **Vietnamese operation copy is required before the real Zalo trial** — done at trial level:
-  `frontend/src/copy/vi.ts` + `docs/OPERATION_TRIAL_MESSAGES_VI.md` (3 ready-to-send vi messages);
-  Community page shows a "VI trial copy ready" badge. This is **operator dispatch copy**, not a
-  site language switch.
+- **Vietnamese trial copy is READY** — `frontend/src/copy/vi.ts` +
+  `docs/OPERATION_TRIAL_MESSAGES_VI.md` (3 ready-to-send vi messages); Community page shows a
+  "VI trial copy ready" badge. This is **operator dispatch copy**, not a site language switch.
+- **Next blocker is an `active` Zalo / Telegram channel** (still `coming_soon`, `public_url=null`).
+- **Once an active channel is configured → proceed via `docs/VI_OPERATION_TRIAL_RUNBOOK.md`**
+  (pre-conditions → upsert active → dispatch A/B/C → record fields → heat verify → PASS criteria).
 - **Burmese (my/mm) copy is deferred** — not implemented this sprint. The `apolloveo-auto`
   `i18n` reference (per-locale `CLIENT_DICT` + fallback chain, uses `mm`) can be reused later
   for `my`/`mm` locale structure.
