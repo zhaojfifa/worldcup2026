@@ -4,6 +4,38 @@
 > this project, before executing any task. It is the source of truth for
 > identity, baseline, rules, and guardrails.
 
+---
+
+## ★ Current Project State / Handoff (read this first)
+
+> Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`**.
+> Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.6D).
+
+1. **Brand:** `Giành Cup` · `2026 World Cup AI Football Intelligence`.
+   User-facing: **Giành Cup · 世界杯 AI 足球情报社区**.
+   (Retired main brand: Nhà Tiên Tri AI — historical docs only.)
+
+2. **Live URLs:**
+   - Frontend: https://worldcup2026-izid.onrender.com
+   - Backend:  https://worldcup2026-api-71n6.onrender.com
+
+3. **Stage:** **MVP v0.6D** — Day 6A–6D completed & pushed (origin/main synced).
+   **Day 6D awaits human Render online verification** (first task next chat).
+
+4. **Compliance floor (non-negotiable):**
+   不做博彩 · 不做现金投注 · 不承诺命中 · 不承诺收益 ·
+   MTC 仅平台积分（不可提现 / 不可转让 / 不可交易）·
+   排行榜是积分/连胜榜，不是收益榜。
+
+5. **Forbidden user-facing wording:**
+   下注 · 稳赚 · 必中 · 跟单 · 购彩 · 回报率 · 返奖 · 收益承诺 · 现金奖池 ·
+   Token 提现/转让/交易。 `提现` 只允许出现在 `不可提现`。
+
+6. **Mandatory disclaimer (战绩/命中/连胜 must carry it):**
+   「历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。」
+
+---
+
 ### Key design docs (read after this file when doing product work)
 - `docs/PRODUCT_OPERATION_ALIGNMENT_V1.md` — **formal** product/operation plan
   (positioning upgrade, home/detail IA, API & modeling output layer, ops,
