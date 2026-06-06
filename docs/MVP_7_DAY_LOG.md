@@ -104,3 +104,123 @@ No blocking issues found.
 **✅ Cleared to proceed to Day 2 (Data Source Validation).**
 All endpoints healthy, shapes unchanged, event loop working, compliance clean.
 Only a minor stale `<title>` and two informational items to carry forward.
+
+---
+
+## Accelerated Day A · Service and Data Verification
+
+_(Per `docs/MVP_ACCELERATED_OPERATION_LOOP.md` — collapses original Day 1 + Day 2 core.)_
+
+- **Verification time:** 2026-06-06 ~07:20–07:21 UTC
+- **Baseline:** main @ `43e84cd` (MVP v0.7)
+- **Backend:** https://worldcup2026-api-71n6.onrender.com
+
+### 1. Core service
+
+| Endpoint | Result | Notes |
+|----------|--------|-------|
+| `GET /health` | ✅ 200 | `ai_provider: mock`; `real_money_betting_enabled: false`; `token_withdrawal_enabled: false` |
+| `GET /matches` | ✅ 200 | 3 matches; **shape unchanged** |
+| `GET /matches/1` | ✅ 200 | detail + `live_correction`; **shape unchanged** |
+| `GET /reports/1` | ✅ 200 | features/trend/tactics/verdict; **shape unchanged** |
+
+### 2. Storage / R2
+
+| Field | Value |
+|-------|-------|
+| `r2_configured` | `true` |
+| `public_base_url_set` | `true` |
+| `bucket` | `giand-cup-assets` |
+| `message` | `R2 ready` |
+
+### 3. Social / community + event
+
+| Step | Result |
+|------|--------|
+| `GET /social/channels` | ✅ 200 — 4 channels, all `coming_soon`, `public_url: null` |
+| `GET /community/heat` (before) | match1=3, match2=1, total=4 |
+| `POST /events/track` (`click_social_channel`, **no match_id**) | ✅ `{ok:true,"recorded"}` |
+| `GET /community/heat` (after) | **unchanged** (total=4, updated_at same) |
+
+> **Finding (behavior):** community heat aggregation is keyed on `match_id`. A channel-only
+> event with **no `match_id`** is accepted and recorded, but does **not** increment match heat
+> (Day 1's event included `match_id` and did increment). Not a bug — expected aggregation design.
+> For the small-traffic trial, channel-entry attribution must pass a `match_id` to show in heat.
+
+### 4. Streak / rankings
+
+| Endpoint | Result |
+|----------|--------|
+| `GET /users/1/streak` | ✅ 200 — `current_streak:2`, `best_streak:2`, `mtc_earned:20`; disclaimer present |
+| `GET /rankings` | ✅ 200 — `#1 Demo Fan` (streak 2, mtc 20); disclaimer present; **non-earnings board** |
+
+MTC remains platform loyalty points (no cash field anywhere).
+
+### 5. Data source
+
+`GET /data-source/status`:
+```json
+{ "api_football_configured": true, "connector_status": "ok",
+  "mock_mode": true, "plan": "unknown",
+  "requests_used": 0, "requests_limit": 100,
+  "message": "API-FOOTBALL reachable" }
+```
+
+- API-FOOTBALL **key configured** and connector reports **reachable**.
+- **`mock_mode: true`** — predictions/matches are still served from **seed/mock data**,
+  not live API-FOOTBALL fixtures. `requests_used: 0` confirms no live pulls yet.
+
+**Admin sync (write path) — locked, real run is operator step:**
+
+| Call (no token, from local) | Result |
+|------|--------|
+| `POST /admin/sync/fixtures` | ✅ `401 "Invalid or missing x-admin-token"` (locked) |
+| `POST /admin/sync/results` | ✅ `401 "Invalid or missing x-admin-token"` (locked) |
+
+> Real sync must be run in **Render Shell** with `$ADMIN_API_TOKEN` (never printed).
+> Expected per runbook: graceful `inserted/updated/skipped/settled` counts; `0/0/…` when no
+> finished fixtures or in mock conditions. Not executed this round (no token locally) —
+> **carry to operator** as the one remaining Day A item.
+
+### 6. Predictor refresh
+
+| Check | Result |
+|-------|--------|
+| `POST /matches/1/refresh` | ✅ 200 |
+| win_prob sum | ✅ `49+26+25 = 100.0` |
+| confidence | ✅ recomputed `62.0 → 61.0` (reasonable) |
+| risk_level | ✅ present; recomputed `medium → high` (risk_note updated) |
+| `updated_at` | ✅ refreshed to `2026-06-06T07:21:09Z` |
+| response shape | ✅ **unchanged** (same keys) |
+
+### 7. Mock / real boundary (classification)
+
+| Capability | Status | Operational impact |
+|-----------|--------|--------------------|
+| Core read APIs (health/matches/reports) | **Real** (live service, seed data) | None — usable for trial |
+| R2 storage | **Real** (configured, public URL bound) | None |
+| Social channels | **Real endpoint**, demo data (all `coming_soon`, no URLs) | Needs Day B admin upsert of real/test links |
+| Community heat + events | **Real** (aggregation works; keyed on match_id) | Attribution needs match_id |
+| Streak / rankings / MTC | **Real** (Day 6D settlement persisted) | None |
+| Baseline predictor / refresh | **Real compute**, on **seed** fixtures | Numbers are model-on-mock, not live results |
+| API-FOOTBALL data | **Configured but `mock_mode: true`** | Matches/results are seed; live sync not yet run |
+| LLM (`ai_provider`) | **mock** | By design — Day 8 only |
+
+### 8. Issues found
+
+| # | Severity | Issue |
+|---|----------|-------|
+| 1 | Info / decision | `mock_mode: true` — system runs on seed data despite API-FOOTBALL key configured. Operator must run `admin/sync/fixtures` + `admin/sync/results` in Render Shell to pull live data (or consciously keep mock for the trial). |
+| 2 | Info | Channel-only `events/track` (no `match_id`) doesn't move community heat — pass `match_id` for attribution. |
+| 3 | Minor (carryover) | Stale browser `<title>` `世界杯 AI 情报终端` (from Day 1). |
+| 4 | Info | `health` `env: development` on the public service. |
+
+No blocking bugs. No functional code changed.
+
+### 9. Day B / C readiness
+
+**✅ PASS — cleared to proceed to Day B (content + community承接) and Day C prep.**
+Core APIs, R2, heat, streak/rankings all healthy; shapes unchanged; refresh valid;
+compliance clean. Mock/real boundary is **clear and documented**. The only open Day A
+item is the operator-run live sync in Render Shell (optional for the trial — mock data
+is sufficient to test copy attractiveness and community承接).
