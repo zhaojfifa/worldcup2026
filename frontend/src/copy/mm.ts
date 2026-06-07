@@ -50,7 +50,7 @@ export const MM: Partial<Copy> = {
   tendency: 'AI အမြင်',
   topRisk: 'အန္တရာယ်',
   ctaView: 'AI အမြင်',
-  ctaUnlock: 'အပြည့်အစုံ ခွဲခြမ်းစိတ်ဖြာမှု',
+  ctaUnlock: 'အပြည့်အစုံ ကြည့်ရန်',
   winLabel: 'နိုင်',
 
   // Section titles + states

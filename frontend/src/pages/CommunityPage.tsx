@@ -18,12 +18,19 @@ const CHANNEL_DESC_VI: Record<string, string> = {
   facebook: 'Thảo luận trận đấu & tổng kết dạng ảnh dài.',
   tiktok: 'Xem nhanh 3 trận AI mỗi ngày.',
 };
-// English fallback descriptions (used for en / mm — never Chinese).
+// English fallback descriptions (used for en — never Chinese).
 const CHANNEL_DESC_EN: Record<string, string> = {
   zalo: 'Home base for fans; daily AI intel & live correction push — coming soon.',
   telegram: 'Live intel push; after the lineup drops, AI syncs its read.',
   facebook: 'Match discussion & long-form review graphics.',
   tiktok: 'Quick view of 3 AI matches daily.',
+};
+// Burmese channel descriptions (mm customer UI).
+const CHANNEL_DESC_MM: Record<string, string> = {
+  zalo: 'ပရိသတ် အခြေစိုက်; နေ့စဉ် AI သတင်း · ပွဲချိန်ပြင်ဆင်ချက် — မကြာမီ။',
+  telegram: 'ပွဲချိန် သတင်း push; လူစာရင်းထွက်ပြီး AI က ပြန်တွက်ပို့သည်။',
+  facebook: 'ပွဲ ဆွေးနွေးမှု · ပြန်သုံးသပ် ပုံရှည်။',
+  tiktok: 'နေ့စဉ် AI ၃ ပွဲ အမြန်ကြည့်။',
 };
 
 interface ChannelView { key: string; ic: string; name: string; desc: string; status: string; url: string | null; }
@@ -43,7 +50,10 @@ export function CommunityPage() {
   const loc = useLocale();
   const price = getPrice(loc);
   const channelDesc = (c: { id: string; desc: string }) =>
-    loc === 'zh' ? c.desc : loc === 'vi' ? (CHANNEL_DESC_VI[c.id] ?? c.desc) : (CHANNEL_DESC_EN[c.id] ?? c.desc);
+    loc === 'zh' ? c.desc
+    : loc === 'vi' ? (CHANNEL_DESC_VI[c.id] ?? c.desc)
+    : loc === 'mm' ? (CHANNEL_DESC_MM[c.id] ?? CHANNEL_DESC_EN[c.id] ?? c.desc)
+    : (CHANNEL_DESC_EN[c.id] ?? c.desc);
   const STATUS_LABEL: Record<string, string> = {
     coming_soon: t.statusComingSoon, active: t.statusActive, disabled: t.statusDisabled,
   };
