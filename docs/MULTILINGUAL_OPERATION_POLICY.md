@@ -106,3 +106,14 @@ Every locale must preserve the compliance floor:
   `https://worldcup2026-izid.onrender.com/?lang=mm`.
 - **Language isolation verified:** zh→RMB only, vi→VND only (no MMK), mm→MMK only (no ¥/元/₫);
   CN·VI·MY switch + localStorage persistence working; missing keys fall back to English.
+
+## 8. Myanmar density profile (policy)
+
+- **Burmese cannot use the same copy density as Vietnamese.** Myanmar glyphs are taller and
+  words longer, so `mm` uses a **separate, shorter copy set** (`frontend/src/copy/mm.ts`) and a
+  dedicated **`.lang-mm` CSS density profile** (`frontend/src/styles/global.css`). The root node
+  carries `data-lang` + `lang-${locale}` (`Layout.tsx`) so CSS can scope by locale.
+- **Rule:** Burmese copy must stay **shorter than Vietnamese**; long explanation belongs on the
+  detail page, not home cards. **Concise English product terms (AI / Risk / Update / MTC) are
+  allowed** in the Myanmar customer UI.
+- **zh / vi / en must not be affected** — all density rules are scoped to `.lang-mm`.

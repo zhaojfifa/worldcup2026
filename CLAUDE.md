@@ -52,6 +52,11 @@
   acceptance-verified** (core Burmese, rest → English; no Chinese residual; no ¥/元/₫), pricing
   **MMK (Ks)** = "MM MVP operation test pricing" (12,000 Ks / 59,000 Ks/လ, matches page).
   Trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm`.
+  - **Myanmar density profile:** Burmese glyphs are taller / words longer, so mm uses a
+    **separate, shorter copy set** and a `.lang-mm` CSS density profile (root carries
+    `data-lang` + `lang-${locale}` in `Layout.tsx`). **Burmese copy must stay shorter than
+    Vietnamese**; concise English product terms (AI / Risk / Update / MTC) are allowed in mm UI.
+    zh / vi / en are unaffected (rules scoped to `.lang-mm`).
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

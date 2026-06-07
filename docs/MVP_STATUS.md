@@ -20,6 +20,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   Trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm`.
 - **Language isolation verified (2026-06-06):** zh→RMB only · vi→VND only (no MMK) · mm→MMK only
   (no ¥/元/₫); CN·VI·MY switch + localStorage persist OK; non-Chinese locales fall back to English.
+- **Myanmar density profile (2026-06-06):** mm uses a **separate shorter copy set** + `.lang-mm`
+  CSS density profile (root `data-lang`/`lang-mm`). Header/Hero/chips/Signal CTA/risk-note(2-line
+  clamp)/bottom-nav verified uncrowded at 375px; CTAs equal height. **zh/vi/en unaffected.**
+  Concise English product terms (AI/Risk/Update/MTC) allowed in mm UI.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.
