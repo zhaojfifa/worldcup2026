@@ -18,6 +18,13 @@ const CHANNEL_DESC_VI: Record<string, string> = {
   facebook: 'Thảo luận trận đấu & tổng kết dạng ảnh dài.',
   tiktok: 'Xem nhanh 3 trận AI mỗi ngày.',
 };
+// English fallback descriptions (used for en / mm — never Chinese).
+const CHANNEL_DESC_EN: Record<string, string> = {
+  zalo: 'Home base for fans; daily AI intel & live correction push — coming soon.',
+  telegram: 'Live intel push; after the lineup drops, AI syncs its read.',
+  facebook: 'Match discussion & long-form review graphics.',
+  tiktok: 'Quick view of 3 AI matches daily.',
+};
 
 interface ChannelView { key: string; ic: string; name: string; desc: string; status: string; url: string | null; }
 
@@ -34,15 +41,16 @@ function storageStatusText(
 export function CommunityPage() {
   const t = useCopy();
   const loc = useLocale();
-  const vi = loc === 'vi';
   const price = getPrice(loc);
+  const channelDesc = (c: { id: string; desc: string }) =>
+    loc === 'zh' ? c.desc : loc === 'vi' ? (CHANNEL_DESC_VI[c.id] ?? c.desc) : (CHANNEL_DESC_EN[c.id] ?? c.desc);
   const STATUS_LABEL: Record<string, string> = {
     coming_soon: t.statusComingSoon, active: t.statusActive, disabled: t.statusDisabled,
   };
   // Static fallback derived from centralized copy (used in mock mode or on API error).
   const FALLBACK_CHANNELS: ChannelView[] = SOCIAL_CHANNELS.map(c => ({
     key: c.id, ic: c.ic, name: c.name,
-    desc: vi ? (CHANNEL_DESC_VI[c.id] ?? c.desc) : c.desc,
+    desc: channelDesc(c),
     status: 'coming_soon', url: null,
   }));
   const FLOW = [

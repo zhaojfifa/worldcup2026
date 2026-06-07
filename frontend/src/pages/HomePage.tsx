@@ -7,7 +7,7 @@ import { deriveOps, pickTopSignal, topUpsets } from '../ops/derive';
 import { HOME, BRAND } from '../copy/zh';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
-import { teamVi, homeWinVi, awayWinVi, aiPickLabelVi, heatLabelVi, riskLevelShortVi, noteVi } from '../i18n/viMapping';
+import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import type { Match } from '../types';
 
@@ -26,16 +26,14 @@ export function HomePage() {
   const navigate = useNavigate();
   const t = useCopy();
   const loc = useLocale();
-  const vi = loc === 'vi';
-  // Locale-aware helpers for dynamic data (zh stays as-is).
-  const tn = (name: string) => (vi ? teamVi(name) : name);
-  const pick = (zh: string) => (vi ? aiPickLabelVi(zh) : zh);
-  const heatLbl = (zh: string) => (vi ? heatLabelVi(zh) : zh);
-  const note = (zh: string) => (vi ? noteVi(zh) : zh);
-  const riskShort = (lvl: string) =>
-    vi ? riskLevelShortVi(lvl) : (lvl === 'low' ? '低' : lvl === 'medium' ? '中' : '高');
-  const homeWinLabel = (m: Match) => (vi ? homeWinVi(m.homeTeam.name) : `${m.homeTeam.name}胜`);
-  const awayWinLabel = (m: Match) => (vi ? awayWinVi(m.awayTeam.name) : `${m.awayTeam.name}胜`);
+  // Locale-aware helpers for dynamic data (zh→original, vi→Vietnamese, else→English).
+  const tn = (name: string) => teamLoc(name, loc);
+  const pick = (zh: string) => aiPickLoc(zh, loc);
+  const heatLbl = (zh: string) => heatLoc(zh, loc);
+  const note = (zh: string) => noteLoc(zh, loc);
+  const riskShort = (lvl: string) => riskShortLoc(lvl, loc);
+  const homeWinLabel = (m: Match) => homeWinLoc(m.homeTeam.name, loc);
+  const awayWinLabel = (m: Match) => awayWinLoc(m.awayTeam.name, loc);
   const hook = (score: number) =>
     score >= 60 ? t.upsetHookHigh : score >= 40 ? t.upsetHookMid : t.upsetHookLow;
   const CAPABILITIES = [

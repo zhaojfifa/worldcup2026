@@ -28,9 +28,10 @@ export const FALLBACK_CHAIN: Record<Locale, Locale[]> = {
 const STORAGE_KEY = 'giandcup_lang';
 const listeners = new Set<() => void>();
 
-// Only zh & vi are user-selectable today (en/mm not exposed as buttons).
+// zh, vi & mm are user-selectable (customer operation languages). 'en' is the
+// internal fallback layer and is not exposed as its own button.
 function isLocale(v: unknown): v is Locale {
-  return v === 'zh' || v === 'vi';
+  return v === 'zh' || v === 'vi' || v === 'mm';
 }
 
 function readInitial(): Locale {

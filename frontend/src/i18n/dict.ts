@@ -10,6 +10,7 @@
  * Price-bearing strings are LABEL-ONLY here; price comes from `i18n/pricing.ts`.
  */
 import { EN } from '../copy/en';
+import { MM } from '../copy/mm';
 import { useLocale, FALLBACK_CHAIN, type Locale } from './useLocale';
 
 const ZH = {
@@ -397,9 +398,7 @@ const VI: Partial<Copy> = {
   complianceFooter: 'Chỉ phân tích dữ liệu AI · Không phải dịch vụ cá cược · Không nhận cược tiền mặt · MTC không thể rút tiền',
 };
 
-// Burmese (mm) deferred — no copy; resolves to en via the fallback chain.
-const MM: Partial<Copy> = {};
-
+// Burmese (mm) — partial copy in copy/mm.ts; missing keys resolve to en via chain.
 const TABLE: Record<Locale, Partial<Copy>> = { zh: ZH, en: EN, vi: VI, mm: MM };
 
 function resolve(locale: Locale): Copy {

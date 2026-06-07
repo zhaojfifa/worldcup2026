@@ -16,15 +16,14 @@ export interface PriceCopy {
   tokenUnlock: string;   // MTC 解锁（跨语言一致）
 }
 
-const PRICE: Record<'zh' | 'en' | 'vi', PriceCopy> = {
-  zh: { singleUnlock: '39 元',    monthlyVip: '199 元/月',        tokenUnlock: '390 MTC' },
-  en: { singleUnlock: 'US$5.5',   monthlyVip: 'US$28/month',      tokenUnlock: '390 MTC' },
-  vi: { singleUnlock: '139.000₫', monthlyVip: '699.000₫/tháng',   tokenUnlock: '390 MTC' },
+const PRICE: Record<'zh' | 'en' | 'vi' | 'mm', PriceCopy> = {
+  zh: { singleUnlock: '39 元',     monthlyVip: '199 元/月',       tokenUnlock: '390 MTC' },
+  en: { singleUnlock: 'US$5.5',    monthlyVip: 'US$28/month',     tokenUnlock: '390 MTC' },
+  vi: { singleUnlock: '139.000₫',  monthlyVip: '699.000₫/tháng',  tokenUnlock: '390 MTC' },
+  mm: { singleUnlock: '12,000 Ks', monthlyVip: '59,000 Ks/လ',     tokenUnlock: '390 MTC' },
 };
 
-/** Resolve pricing for a locale (vi/mm → en fallback; en → en; zh → zh). */
+/** Resolve pricing for a locale (each locale shows its own currency; en is the fallback). */
 export function getPrice(locale: Locale): PriceCopy {
-  if (locale === 'zh') return PRICE.zh;
-  if (locale === 'vi') return PRICE.vi;
-  return PRICE.en; // en + mm (deferred) both use the English/USD prices
+  return PRICE[locale] ?? PRICE.en;
 }

@@ -1,5 +1,6 @@
 import type { WinProb } from '../types';
 import { useLocale } from '../i18n/useLocale';
+import { drawLoc } from '../i18n/viMapping';
 
 interface Props {
   prob: WinProb;
@@ -8,7 +9,7 @@ interface Props {
 }
 
 export function WinBar({ prob, homeLabel = '主队胜', awayLabel = '客队胜' }: Props) {
-  const drawLabel = useLocale() === 'vi' ? 'Hòa' : '平局';
+  const drawLabel = drawLoc(useLocale());
   return (
     <>
       <div className="winbar">

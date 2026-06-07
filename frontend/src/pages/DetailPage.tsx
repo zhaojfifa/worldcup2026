@@ -11,8 +11,8 @@ import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
 import { getPrice } from '../i18n/pricing';
 import {
-  teamVi, homeWinVi, awayWinVi, aiPickLabelVi, riskLevelLongVi, riskLevelShortVi,
-  riskTagVi, noteVi, premiumTeaserVi, reasonBulletsVi,
+  teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, riskLongLoc, riskShortLoc,
+  riskTagLoc, noteLoc, premiumTeaserLoc, reasonBulletsLoc,
 } from '../i18n/viMapping';
 
 const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--red)' };
@@ -23,9 +23,8 @@ export function DetailPage() {
   const navigate = useNavigate();
   const t = useCopy();
   const loc = useLocale();
-  const vi = loc === 'vi';
   const price = getPrice(loc);
-  const tn = (name: string) => (vi ? teamVi(name) : name);
+  const tn = (name: string) => teamLoc(name, loc);
   const {
     balance, matches, selectedMatchId,
     loadDetail, unlockWithCash, unlockWithToken, simulateCorrection,
@@ -46,10 +45,10 @@ export function DetailPage() {
   if (!match) return null;
 
   const ops = deriveOps(match);
-  const bullets = vi ? reasonBulletsVi(match) : reasonBullets(match);
+  const bullets = loc === 'zh' ? reasonBullets(match) : reasonBulletsLoc(match, loc);
   const riskLevel = match.riskLevel;
-  const riskLong = vi ? riskLevelLongVi(riskLevel) : ({ low: '低风险', medium: '中风险', high: '高风险' }[riskLevel]);
-  const riskGrade = vi ? riskLevelShortVi(riskLevel) : ({ low: '低', medium: '中', high: '高' }[riskLevel]);
+  const riskLong = riskLongLoc(riskLevel, loc);
+  const riskGrade = riskShortLoc(riskLevel, loc);
 
   async function handleUnlockCash() {
     const res = await unlockWithCash(match.id);
@@ -105,7 +104,7 @@ export function DetailPage() {
         <div className="verdict-grid">
           <div className="verdict-cell">
             <div className="l">{t.tendency}</div>
-            <div className="v">{vi ? aiPickLabelVi(ops.aiPickLabel) : ops.aiPickLabel}</div>
+            <div className="v">{aiPickLoc(ops.aiPickLabel, loc)}</div>
           </div>
           <div className="verdict-cell">
             <div className="l">{t.confidence}</div>
@@ -128,7 +127,7 @@ export function DetailPage() {
         <span className="en">WIN PROBABILITY</span>
       </div>
       <div className="card">
-        <WinBar prob={match.winProb} homeLabel={vi ? homeWinVi(match.homeTeam.name) : `${match.homeTeam.name}胜`} awayLabel={vi ? awayWinVi(match.awayTeam.name) : `${match.awayTeam.name}胜`} />
+        <WinBar prob={match.winProb} homeLabel={homeWinLoc(match.homeTeam.name, loc)} awayLabel={awayWinLoc(match.awayTeam.name, loc)} />
         <div className="conf-block" style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--line)' }}>
           <div className="conf-head">
             <span className="lbl">{t.confIndex}</span>
@@ -146,7 +145,7 @@ export function DetailPage() {
       </div>
       <div className="card">
         {match.freeNote && (
-          <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75, marginBottom: 10 }}>{vi ? noteVi(match.freeNote) : match.freeNote}</p>
+          <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75, marginBottom: 10 }}>{noteLoc(match.freeNote, loc)}</p>
         )}
         <ul className="reason-list">
           {bullets.map((b, i) => <li key={i}>{b}</li>)}
@@ -163,10 +162,10 @@ export function DetailPage() {
       </div>
       <div className="card">
         <div className="risk-tagrow">
-          {ops.riskTags.map(tag => <span className="risk-tag" key={tag}>{vi ? riskTagVi(tag) : tag}</span>)}
+          {ops.riskTags.map(tag => <span className="risk-tag" key={tag}>{riskTagLoc(tag, loc)}</span>)}
         </div>
         {match.riskNote && (
-          <p className="xs sub" style={{ marginTop: 10, lineHeight: 1.7 }}>{vi ? noteVi(match.riskNote) : match.riskNote}</p>
+          <p className="xs sub" style={{ marginTop: 10, lineHeight: 1.7 }}>{noteLoc(match.riskNote, loc)}</p>
         )}
       </div>
 
@@ -182,16 +181,16 @@ export function DetailPage() {
         </div>
         <div className="lw-steps">
           <div className="lw-step"><div className="n">60'</div><div className="t">{t.lwStep1.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
-          <div className="lw-step"><div className="n">{vi ? 'XI' : '首发'}</div><div className="t">{t.lwStep2.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
+          <div className="lw-step"><div className="n">{loc === 'zh' ? '首发' : 'XI'}</div><div className="t">{t.lwStep2.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
           <div className="lw-step"><div className="n">AI</div><div className="t">{t.lwStep3.split('\n').map((s, i) => <span key={i}>{i > 0 && <br />}{s}</span>)}</div></div>
         </div>
         {lineupSimulated && match.liveCorrection ? (
           <p className="lw-body">
-            <span className="hl">{t.lwCorrectionPrefix}</span>{vi ? noteVi(match.liveCorrection.trigger) : match.liveCorrection.trigger}{t.lwRecalcMid}
+            <span className="hl">{t.lwCorrectionPrefix}</span>{noteLoc(match.liveCorrection.trigger, loc)}{t.lwRecalcMid}
             {tn(match.homeTeam.name)} {t.lwRateWord} <span className="hl">{match.liveCorrection.before.home}% → {match.liveCorrection.after.home}% ▲</span>，
             {t.lwDrawWord} {match.liveCorrection.before.draw}% → {match.liveCorrection.after.draw}%，
             {tn(match.awayTeam.name)} {match.liveCorrection.before.away}% → {match.liveCorrection.after.away}%。
-            <br />{t.lwReasonWord}{vi ? noteVi(match.liveCorrection.reason) : match.liveCorrection.reason}
+            <br />{t.lwReasonWord}{noteLoc(match.liveCorrection.reason, loc)}
           </p>
         ) : (
           <p className="lw-body">{t.lwBodyDefault}</p>
@@ -210,7 +209,7 @@ export function DetailPage() {
       <div className="paywall">
         <div className="row gap8 mb12"><span>✨</span><span className="b">{t.premiumUnlockHint}</span></div>
         {ops.premiumTeaser.map(f => (
-          <div className="feat" key={f}><span className="ck">✔</span>{vi ? premiumTeaserVi(f) : f}</div>
+          <div className="feat" key={f}><span className="ck">✔</span>{premiumTeaserLoc(f, loc)}</div>
         ))}
         <div className="mt12">
           <button className="cta primary" onClick={handleUnlockCash}>{t.unlockCashLabel} · {price.singleUnlock}</button>

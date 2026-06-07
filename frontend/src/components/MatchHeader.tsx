@@ -1,6 +1,6 @@
 import type { Match } from '../types';
 import { useLocale } from '../i18n/useLocale';
-import { teamVi } from '../i18n/viMapping';
+import { teamLoc } from '../i18n/viMapping';
 
 function fmt(iso: string) {
   const d = new Date(iso);
@@ -12,8 +12,8 @@ function fmt(iso: string) {
 }
 
 export function MatchHeader({ match }: { match: Match }) {
-  const vi = useLocale() === 'vi';
-  const tn = (name: string) => (vi ? teamVi(name) : name);
+  const loc = useLocale();
+  const tn = (name: string) => teamLoc(name, loc);
   return (
     <div className="mh">
       <div className="team">

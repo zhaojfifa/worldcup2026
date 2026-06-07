@@ -39,6 +39,11 @@ export function Layout() {
             className={`lang-btn ${locale === 'vi' ? 'on' : ''}`}
             onClick={() => setLocale('vi')}
           >VI</button>
+          <span className="lang-sep">|</span>
+          <button
+            className={`lang-btn ${locale === 'mm' ? 'on' : ''}`}
+            onClick={() => setLocale('mm')}
+          >MY</button>
         </div>
       </div>
 
