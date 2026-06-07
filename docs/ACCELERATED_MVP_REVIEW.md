@@ -153,26 +153,26 @@ auto-write to production · paid-content automation.
 
 ---
 
-## 9b. Localization status (updated 2026-06-06)
+## 9b. Multilingual operation policy & status (updated 2026-06-06)
 
-- **Vietnamese UI upgraded from trial badge to OPERATIONAL MVP language mode.**
-  `/?lang=vi` now renders the core user-visible copy of Home / Detail / Token / Community
-  (+ header & nav) in Vietnamese — no longer中越混合. A lightweight `CN | VI` switch in the
-  header toggles reactively; choice persists in `localStorage (giandcup_lang)`; default zh.
-- **Dynamic match data** (team names, AI tendency, risk level, risk notes, reason bullets,
-  live-correction text) is handled by **frontend rule-based mapping** (`i18n/viMapping.ts`)
-  for the current seed/demo matches; unmatched text falls back to the original. No backend
-  change, no API shape change, no external translation API.
-- **i18n structure:** `i18n/useLocale.ts` (`zh | vi | mm`), `i18n/dict.ts`
-  (`ZH` source + `VI` override, vi→zh fallback; `mm` reserved → resolves to zh, no button),
-  `i18n/viMapping.ts` (dynamic data). Borrows the per-locale copy-map + fallback idea from the
-  `apolloveo-auto` i18n reference (structure only).
-- **Trial copy** still available: `docs/OPERATION_TRIAL_MESSAGES_VI.md` + dispatch runbook
-  `docs/VI_OPERATION_TRIAL_RUNBOOK.md`. **Next blocker remains an `active` Zalo / Telegram channel.**
-- **Burmese (my/mm) is deferred** — type slot reserved, no copy, no UI button; **falls back
-  to English** (not Chinese). The `apolloveo-auto` reference can be reused later for `my`/`mm`.
-- **Full i18n is still deferred** — only operation-trial core surfaces are covered; no
-  site-wide framework, no translation of every dynamic field beyond the seed mapping.
+> Authoritative baseline: **`docs/MULTILINGUAL_OPERATION_POLICY.md`**.
+
+- **Language roles:** English = default system/fallback; Chinese = internal management;
+  Vietnamese = primary customer; Burmese = secondary customer; API/admin/config/schema = English.
+- **Vietnamese (vi):** ✅ **ready** — operational MVP language mode across Home/Detail/Token/
+  Community + nav; VND pricing.
+- **Burmese (mm):** ✅ **ready (started this sprint)** — core Burmese UI + MMK pricing; unmapped
+  copy & dynamic data fall back to **English** (never Chinese).
+- **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
+  `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
+- **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.
+- **Dynamic data** (`i18n/viMapping.ts`): zh→original, vi→Vietnamese (English generic if
+  unmapped), en/mm→English. No backend change, no API shape change, no external translation API.
+- **i18n code:** `i18n/{useLocale,dict,pricing,viMapping}.ts`, `copy/{zh,en,vi,mm}.ts`.
+- **Active social channel remains the main blocker** for the real customer trial (vi & mm).
+- **LLM:** Prep only, **not Full Build** — deferred until after a real operation trial, then
+  behind a banned-word output filter.
+- **Full professional i18n is deferred** — only operation-trial core surfaces covered.
 
 ### Pricing & fallback policy (updated 2026-06-06)
 

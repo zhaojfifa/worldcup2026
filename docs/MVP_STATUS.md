@@ -1,9 +1,26 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-06 (Day 7) · Version: **MVP v0.7**_
+_Last updated: 2026-06-06 (Day 7) · Version: **MVP v0.7 — multilingual operation preparation**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
+Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
+
+---
+
+## Latest state (2026-06-06)
+
+- **main** synced to origin; frontend multilingual operation mode shipped.
+- **Vietnamese lightweight UI:** ✅ done (Home/Detail/Token/Community + nav).
+- **VND pricing:** ✅ done (139.000₫ / 699.000₫/tháng / 390 MTC).
+- **English fallback:** ✅ done — non-Chinese locales fall back to English, never Chinese.
+- **Burmese (mm) MVP language mode:** ✅ **ready** (core Burmese UI + MMK pricing 12,000 Ks /
+  59,000 Ks/လ; unmapped copy & dynamic data → English).
+- **UI language buttons:** CN · VI · MY (en = internal fallback layer).
+- **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
+  (vi & mm) cannot dispatch until one is configured via admin upsert.
+- **Day 8 LLM Full Build:** deferred (Prep only; behind banned-word filter when started).
+- **Next step:** configure an `active` social channel → run Vietnamese/Burmese operation trial.
 
 ---
 
@@ -12,6 +29,9 @@ Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 - **Brand:** Giành Cup · 2026 World Cup AI Football Intelligence.
 - **User-facing:** Giành Cup · 世界杯 AI 足球情报社区.
 - AI 足球情报社区 for the Vietnam-first SEA market. **Not a betting product.**
+- **Languages:** zh (internal/default) · en (fallback) · vi (primary customer) ·
+  mm (secondary customer). Copy docs: `OPERATION_TRIAL_MESSAGES_VI.md`,
+  `MM_OPERATION_TRIAL_MESSAGES.md`.
 
 ## Live deployments
 

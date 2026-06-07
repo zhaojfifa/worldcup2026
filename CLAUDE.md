@@ -19,8 +19,11 @@
    - Frontend: https://worldcup2026-izid.onrender.com
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
-3. **Stage:** **MVP v0.6D** — Day 6A–6D completed & pushed (origin/main synced).
-   **Day 6D awaits human Render online verification** (first task next chat).
+3. **Stage:** **MVP v0.7 — multilingual operation preparation** (origin/main synced).
+   Day 6A–6D done & Render-verified PASS. Day 7 ops-readiness + accelerated operation
+   loop done. Multilingual (zh/en/vi/mm) operation mode in place. **Operational blocker:
+   no `active` Zalo/Telegram channel yet** (real customer trial cannot dispatch until set).
+   Day 8 LLM = Prep only, not Full Build.
 
 4. **Compliance floor (non-negotiable):**
    不做博彩 · 不做现金投注 · 不承诺命中 · 不承诺收益 ·
@@ -33,6 +36,33 @@
 
 6. **Mandatory disclaimer (战绩/命中/连胜 must carry it):**
    「历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。」
+
+---
+
+## ★ Language & Operation Policy (read before any multilingual/operation work)
+
+> Full baseline: **`docs/MULTILINGUAL_OPERATION_POLICY.md`** (authoritative).
+
+- **Brand:** Giành Cup.
+- **Current MVP version:** v0.7 — multilingual operation preparation.
+- **Default system / fallback language:** **English** (`en`).
+- **Internal management language:** **Chinese** (`zh`; also default UI when no locale chosen).
+- **Primary customer operation language:** **Vietnamese** (`vi`) — MVP UI **ready**, pricing **VND / ₫**.
+- **Secondary customer operation language:** **Burmese / Myanmar** (`mm`) — MVP UI **ready
+  (started this sprint; core Burmese, rest → English)**, pricing **MMK (Ks)**.
+- **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
+- **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
+  **vi/mm must NEVER fall back to Chinese** — English is their fallback.
+- **Pricing localization** (`frontend/src/i18n/pricing.ts`; never hardcode ¥ in pages):
+  zh = RMB, en = USD, vi = VND, mm = MMK. MVP operational prices, not real-time FX. MTC constant.
+- **Full i18n:** deferred. **LLM translation/generation:** deferred until after a real
+  operation trial (then behind a banned-word output filter).
+- **UI language buttons:** `CN · VI · MY` (`en` is the internal fallback layer, no button).
+- **Operational blocker:** an `active` Zalo/Telegram channel remains the gate to the real trial.
+- **i18n code:** `frontend/src/i18n/{useLocale,dict,pricing,viMapping}.ts`,
+  `frontend/src/copy/{zh,en,vi,mm}.ts`.
+- **Operation copy docs:** `docs/OPERATION_TRIAL_MESSAGES_VI.md`,
+  `docs/MM_OPERATION_TRIAL_MESSAGES.md`, `docs/VI_OPERATION_TRIAL_RUNBOOK.md`.
 
 ---
 
