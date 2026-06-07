@@ -48,8 +48,10 @@
 - **Default system / fallback language:** **English** (`en`).
 - **Internal management language:** **Chinese** (`zh`; also default UI when no locale chosen).
 - **Primary customer operation language:** **Vietnamese** (`vi`) — MVP UI **ready**, pricing **VND / ₫**.
-- **Secondary customer operation language:** **Burmese / Myanmar** (`mm`) — MVP UI **ready
-  (started this sprint; core Burmese, rest → English)**, pricing **MMK (Ks)**.
+- **Secondary customer operation language:** **Burmese / Myanmar** (`mm`) — MVP UI **ready &
+  acceptance-verified** (core Burmese, rest → English; no Chinese residual; no ¥/元/₫), pricing
+  **MMK (Ks)** = "MM MVP operation test pricing" (12,000 Ks / 59,000 Ks/လ, matches page).
+  Trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm`.
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

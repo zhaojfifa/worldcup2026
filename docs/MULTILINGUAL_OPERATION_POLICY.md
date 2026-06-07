@@ -54,10 +54,12 @@ Defined in `frontend/src/i18n/pricing.ts`. **Never hardcode a currency symbol in
 | vi | VND (₫) | 139.000₫ | 699.000₫/tháng | 390 MTC |
 | mm | MMK (Ks) | 12,000 Ks | 59,000 Ks/လ | 390 MTC |
 
-- **RMB / ¥ is never shown to vi or mm customers.**
-- These are **MVP operational prices, not real-time exchange rates.** Revisit before any
-  real payment integration (payment is out of scope / deferred).
-- MTC is a platform point count — identical across all locales.
+- **RMB / ¥ is never shown to vi or mm customers.** vi shows only VND; mm shows only MMK/Ks.
+- **MM pricing is "MM MVP operation test pricing"** — 12,000 Ks / 59,000 Ks/လ matches the live
+  page exactly (`frontend/src/i18n/pricing.ts`). It is a test figure, **not** a real-time FX rate
+  and **not** a final commercial price; revisit before any payment integration.
+- These are **MVP operational prices, not real-time exchange rates.** Payment is out of scope / deferred.
+- MTC is a platform point count — identical across all locales (390 MTC).
 
 ---
 
@@ -95,3 +97,12 @@ Every locale must preserve the compliance floor:
 
 > **Operational blocker (unchanged):** no `active` Zalo / Telegram channel yet — the real
 > customer trial (vi and mm) cannot dispatch until one is configured via admin upsert.
+
+## 7. Readiness (acceptance 2026-06-06)
+
+- **Vietnamese (vi):** ready for MVP customer trial. UI + VND verified across Home/Detail/Token/Community.
+- **Burmese (mm):** ready for MVP customer trial. UI (core Burmese, rest English) + MMK verified
+  across Home/Detail/Token/Community; **no Chinese residual; no ¥/元/₫.** Trial URL:
+  `https://worldcup2026-izid.onrender.com/?lang=mm`.
+- **Language isolation verified:** zh→RMB only, vi→VND only (no MMK), mm→MMK only (no ¥/元/₫);
+  CN·VI·MY switch + localStorage persistence working; missing keys fall back to English.

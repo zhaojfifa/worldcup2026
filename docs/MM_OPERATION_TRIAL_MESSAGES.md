@@ -6,6 +6,12 @@ Burmese versions of the 3 trial messages for the secondary customer market (Myan
 English notes kept inline for operator understanding. Burmese is an **MVP language mode**;
 unmapped UI falls back to English (never Chinese).
 
+> **Readiness (2026-06-06):** Burmese customer operation language is **ready for MVP trial** —
+> UI acceptance-verified (no Chinese residual; no ¥/元/₫; MMK pricing). Burmese fallback is
+> **English**; Chinese is never a customer-side fallback. Full professional localization deferred.
+> **Active social channel remains the shared blocker for both vi and mm trials.**
+> Burmese trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm`.
+
 > **Data note:** seed/mock match data (`mock_mode=true`). Validates copy attractiveness +
 > community承接, NOT real model accuracy. Do not advertise real hit-rate.
 >

@@ -14,8 +14,12 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 - **Vietnamese lightweight UI:** ✅ done (Home/Detail/Token/Community + nav).
 - **VND pricing:** ✅ done (139.000₫ / 699.000₫/tháng / 390 MTC).
 - **English fallback:** ✅ done — non-Chinese locales fall back to English, never Chinese.
-- **Burmese (mm) MVP language mode:** ✅ **ready** (core Burmese UI + MMK pricing 12,000 Ks /
-  59,000 Ks/လ; unmapped copy & dynamic data → English).
+- **Burmese (mm) MVP language mode:** ✅ **ready & acceptance-verified** — core Burmese UI +
+  **MM MVP operation test pricing** (12,000 Ks / 59,000 Ks/လ / 390 MTC; matches page exactly);
+  unmapped copy & dynamic data → English; **no Chinese residual, no ¥/元/₫** on mm pages.
+  Trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm`.
+- **Language isolation verified (2026-06-06):** zh→RMB only · vi→VND only (no MMK) · mm→MMK only
+  (no ¥/元/₫); CN·VI·MY switch + localStorage persist OK; non-Chinese locales fall back to English.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.
