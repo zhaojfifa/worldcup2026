@@ -152,6 +152,11 @@ export function premiumTeaserVi(zh: string): string { return premiumTeaserViMap[
 // never Chinese). vi keeps its own maps above; everything else uses English.
 // ════════════════════════════════════════════════════════════════════════════
 import type { Locale } from './useLocale';
+import {
+  aiPickLabelMmMap, AI_PICK_FALLBACK_MM, riskLevelLongMmMap, riskLevelShortMmMap,
+  heatLabelMmMap, HEAT_FALLBACK_MM, riskTagMmMap, RISK_TAG_FALLBACK_MM,
+  noteMmMap, NOTE_FALLBACK_MM, featureLabelMmMap, premiumTeaserMmMap, REASON_MM, WIN_WORD_MM, DRAW_WORD_MM,
+} from './mmMapping';
 
 export const aiPickLabelEnMap: Record<string, string> = {
   '主胜偏强': 'Home strongly favored',
@@ -213,48 +218,62 @@ export function teamLoc(name: string, loc: Locale): string { return loc === 'zh'
 export function homeWinLoc(home: string, loc: Locale): string {
   if (loc === 'zh') return `${home}胜`;
   if (loc === 'vi') return `${teamVi(home)} thắng`;
+  if (loc === 'mm') return `${teamVi(home)} ${WIN_WORD_MM}`;
   return `${teamVi(home)} win`;
 }
 export function awayWinLoc(away: string, loc: Locale): string {
   if (loc === 'zh') return `${away}胜`;
   if (loc === 'vi') return `${teamVi(away)} thắng`;
+  if (loc === 'mm') return `${teamVi(away)} ${WIN_WORD_MM}`;
   return `${teamVi(away)} win`;
 }
-export function drawLoc(loc: Locale): string { return loc === 'zh' ? '平局' : loc === 'vi' ? 'Hòa' : 'Draw'; }
+export function drawLoc(loc: Locale): string {
+  if (loc === 'zh') return '平局';
+  if (loc === 'vi') return 'Hòa';
+  if (loc === 'mm') return DRAW_WORD_MM;
+  return 'Draw';
+}
 export function aiPickLoc(zh: string, loc: Locale): string {
   if (loc === 'zh') return zh;
   if (loc === 'vi') return aiPickLabelViMap[zh] ?? AI_PICK_FALLBACK_EN;
+  if (loc === 'mm') return aiPickLabelMmMap[zh] ?? AI_PICK_FALLBACK_MM;
   return aiPickLabelEnMap[zh] ?? AI_PICK_FALLBACK_EN;
 }
 export function riskLongLoc(level: string, loc: Locale): string {
   if (loc === 'zh') return ({ low: '低风险', medium: '中风险', high: '高风险' } as Record<string, string>)[level] ?? level;
   if (loc === 'vi') return riskLevelLongViMap[level] ?? level;
+  if (loc === 'mm') return riskLevelLongMmMap[level] ?? level;
   return riskLevelLongEnMap[level] ?? level;
 }
 export function riskShortLoc(level: string, loc: Locale): string {
   if (loc === 'zh') return ({ low: '低', medium: '中', high: '高' } as Record<string, string>)[level] ?? level;
   if (loc === 'vi') return riskLevelShortViMap[level] ?? level;
+  if (loc === 'mm') return riskLevelShortMmMap[level] ?? level;
   return riskLevelShortEnMap[level] ?? level;
 }
 export function heatLoc(zh: string, loc: Locale): string {
   if (loc === 'zh') return zh;
   if (loc === 'vi') return heatLabelViMap[zh] ?? 'Trending';
+  if (loc === 'mm') return heatLabelMmMap[zh] ?? HEAT_FALLBACK_MM;
   return heatLabelEnMap[zh] ?? 'Trending';
 }
 export function riskTagLoc(zh: string, loc: Locale): string {
   if (loc === 'zh') return zh;
   if (loc === 'vi') return riskTagViMap[zh] ?? RISK_TAG_FALLBACK_EN;
+  if (loc === 'mm') return riskTagMmMap[zh] ?? RISK_TAG_FALLBACK_MM;
   return riskTagEnMap[zh] ?? RISK_TAG_FALLBACK_EN;
 }
 export function noteLoc(zh: string, loc: Locale): string {
   if (!zh) return zh;
   if (loc === 'zh') return zh;
   if (loc === 'vi') return noteViMap[zh] ?? noteViMap[zh.trim()] ?? NOTE_VI_FALLBACK;
+  if (loc === 'mm') return noteMmMap[zh] ?? noteMmMap[zh.trim()] ?? NOTE_FALLBACK_MM;
   return noteEnMap[zh] ?? noteEnMap[zh.trim()] ?? NOTE_FALLBACK_EN;
 }
 export function premiumTeaserLoc(zh: string, loc: Locale): string {
   if (loc === 'zh') return zh;
   if (loc === 'vi') return premiumTeaserViMap[zh] ?? zh;
+  if (loc === 'mm') return premiumTeaserMmMap[zh] ?? zh;
   return premiumTeaserEnMap[zh] ?? zh;
 }
 
@@ -264,31 +283,42 @@ import { topRisk } from '../ops/derive';
 
 export function reasonBulletsLoc(m: Match, loc: Locale): string[] {
   const isVi = loc === 'vi';
+  const isMm = loc === 'mm';
   if (m.features && m.features.length) {
     return m.features.slice(0, 3).map((f) => {
-      const label = isVi ? (featureLabelViMap[f.label] ?? f.label) : (featureLabelEnMap[f.label] ?? f.label);
-      const pos = isVi ? 'đóng góp tích cực +' : 'positive +';
-      const neg = isVi ? 'trừ rủi ro ' : 'risk deduction ';
+      const label = isVi ? (featureLabelViMap[f.label] ?? f.label)
+        : isMm ? (featureLabelMmMap[f.label] ?? f.label)
+        : (featureLabelEnMap[f.label] ?? f.label);
+      const pos = isVi ? 'đóng góp tích cực +' : isMm ? REASON_MM.posContribution : 'positive +';
+      const neg = isVi ? 'trừ rủi ro ' : isMm ? REASON_MM.riskDeduction : 'risk deduction ';
       return `${label}: ${f.value >= 0 ? pos : neg}${f.value}%`;
     });
   }
   const { home, draw, away } = m.winProb;
-  const riskTextVi =
-    m.riskLevel === 'high' ? 'mức bất định cao' :
-    m.riskLevel === 'medium' ? 'có biến động nhất định' : 'hướng tương đối rõ';
-  const riskTextEn =
-    m.riskLevel === 'high' ? 'high uncertainty' :
-    m.riskLevel === 'medium' ? 'some variance' : 'relatively clear direction';
-  const bullets = isVi
-    ? [
-        `Tỷ lệ mô hình: Chủ nhà ${home}% / Hòa ${draw}% / Khách ${away}%`,
-        `Chỉ số tin cậy ${Math.round(m.confidence)}, ${riskTextVi}`,
-      ]
-    : [
-        `Model odds: Home ${home}% / Draw ${draw}% / Away ${away}%`,
-        `Confidence ${Math.round(m.confidence)}, ${riskTextEn}`,
-      ];
+  let bullets: string[];
+  if (isVi) {
+    const r = m.riskLevel === 'high' ? 'mức bất định cao' : m.riskLevel === 'medium' ? 'có biến động nhất định' : 'hướng tương đối rõ';
+    bullets = [
+      `Tỷ lệ mô hình: Chủ nhà ${home}% / Hòa ${draw}% / Khách ${away}%`,
+      `Chỉ số tin cậy ${Math.round(m.confidence)}, ${r}`,
+    ];
+  } else if (isMm) {
+    const r = m.riskLevel === 'high' ? REASON_MM.high : m.riskLevel === 'medium' ? REASON_MM.medium : REASON_MM.low;
+    bullets = [
+      `${REASON_MM.oddsPre}${home}%${REASON_MM.drawWord}${draw}%${REASON_MM.awayWord}${away}%`,
+      `${REASON_MM.confPre}${Math.round(m.confidence)}၊ ${r}`,
+    ];
+  } else {
+    const r = m.riskLevel === 'high' ? 'high uncertainty' : m.riskLevel === 'medium' ? 'some variance' : 'relatively clear direction';
+    bullets = [
+      `Model odds: Home ${home}% / Draw ${draw}% / Away ${away}%`,
+      `Confidence ${Math.round(m.confidence)}, ${r}`,
+    ];
+  }
   const tr = topRisk(m);
-  if (tr) bullets.push(`${isVi ? 'Điểm chú ý' : 'Watch point'}: ${noteLoc(tr, loc)}`);
+  if (tr) {
+    const wp = isVi ? 'Điểm chú ý' : isMm ? REASON_MM.watch : 'Watch point';
+    bullets.push(`${wp}: ${noteLoc(tr, loc)}`);
+  }
   return bullets.slice(0, 3);
 }
