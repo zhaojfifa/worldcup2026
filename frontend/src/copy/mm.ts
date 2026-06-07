@@ -8,31 +8,32 @@
 import type { Copy } from '../i18n/dict';
 
 export const MM: Partial<Copy> = {
-  // Header / brand
-  brandRole: 'ကမ္ဘာ့ဖလား AI ဘောလုံးသတင်းအချက်အလက် အသိုင်းအဝိုင်း',
-  headerSub: 'နှုန်းကိုသာမကြည့်ဘဲ AI ဘာကြောင့် ဤသို့ဆုံးဖြတ်သည်ကို နားလည်ပါ။',
+  // Header / brand — kept short for Myanmar density
+  brandRole: 'AI Football',
+  headerSub: 'AI သုံးသပ်ချက် · ပွဲမတိုင်ခင် အချက်အလက်',
 
-  // Bottom nav
-  navHome: 'ပင်မ',
-  navDetail: 'AI ခန့်မှန်း',
+  // Bottom nav — short
+  navHome: 'Home',
+  navDetail: 'AI',
   navToken: 'MTC',
-  navCommunity: 'အသိုင်းအဝိုင်း',
+  navCommunity: 'Community',
 
   // Global
-  aiTicker: 'AI သတင်း',
-  loadingText: 'AI သတင်း ဖွင့်နေသည်…',
-  syncLabel: 'ထပ်တူ',
+  aiTicker: 'AI intel',
+  tickerBody: 'AI intel · {n} models today · live watch on',
+  loadingText: 'AI intel loading…',
+  syncLabel: 'Sync',
 
-  // Hero
-  heroTitlePre: 'ဘောလုံး ',
-  heroTitleAccent: 'AI သတင်း',
-  heroSub: 'AI အမြင် · နှုန်းပြောင်းလဲမှု · အန္တရာယ်သတိပေးချက် · ပွဲချိန်ပြင်ဆင်မှု',
+  // Hero — short
+  heroTitlePre: 'AI ဘောလုံး',
+  heroTitleAccent: 'အချက်အလက်',
+  heroSub: 'ဖြစ်နိုင်ခြေ · အန္တရာယ် · 30′ update',
 
-  // Capability chips
-  capModel: 'AI ပွဲမတိုင်မီ မော်ဒယ်',
-  capLive: 'ပွဲချိန် ၃၀ မိနစ် ပြင်ဆင်မှု',
-  capRisk: 'အန္တရာယ် အဆင့်သတ်မှတ်',
-  capUnlock: 'MTC ဖွင့်ရန်',
+  // Capability chips — short (concise English product terms allowed)
+  capModel: 'AI မော်ဒယ်',
+  capLive: "30′ Update",
+  capRisk: 'Risk',
+  capUnlock: 'MTC',
 
   // Balance / check-in
   balanceLabel: 'ကျွန်ုပ်၏ MTC ပွိုင့်: ',
@@ -41,20 +42,20 @@ export const MM: Partial<Copy> = {
   checkinToastDone: 'ယနေ့ စစ်ဆေးပြီးပါပြီ',
   checkinToastOk: 'ဝင်ရောက်စစ်ဆေးအောင်မြင် +10 MTC',
 
-  // Home core + CTA
-  signalTitle: 'ယနေ့ အကောင်းဆုံး AI signal',
-  tendency: 'AI ခန့်မှန်းချက်',
-  topRisk: 'အဓိက အန္တရာယ်',
-  ctaView: 'AI အမြင် ကြည့်ရန်',
-  ctaUnlock: 'အပြည့်အစုံ ခွဲခြမ်းစိတ်ဖြာချက် ဖွင့်ရန်',
+  // Home core + CTA — short
+  signalTitle: 'AI signal',
+  tendency: 'AI view',
+  topRisk: 'Risk',
+  ctaView: 'AI View',
+  ctaUnlock: 'Full Analysis',
   winLabel: 'နိုင်',
 
   // Section titles + states
-  listTitle: 'ယနေ့ ပွဲစဉ်များ',
-  upsetTitle: 'ယနေ့ အံ့အားသင့်နိုင်ခြေ TOP3',
-  recordTitle: 'AI သတင်း မှတ်တမ်း',
-  heatTitle: 'အသိုင်းအဝိုင်း ရွေးချယ်မှု',
-  loopTitle: 'ပရိသတ် တာဝန်စင်တာ',
+  listTitle: 'ယနေ့ ပွဲများ',
+  upsetTitle: 'အံ့အားသင့် TOP3',
+  recordTitle: 'AI မှတ်တမ်း',
+  heatTitle: 'Community',
+  loopTitle: 'ပရိသတ် Zone',
   recordPending: 'တကယ့်ရလဒ်များ ဖြည့်ပြီးမှ ဖွင့်မည်',
   recordBuilding: 'ဒေတာစွမ်းရည် တည်ဆောက်နေသည်',
   heatComingSoon: 'အသိုင်းအဝိုင်း ပူပြင်းမှု မကြာမီ',
@@ -75,31 +76,31 @@ export const MM: Partial<Copy> = {
   winProbTitle: 'AI လက်ရှိ နိုင်ခြေ',
   whyTitle: 'AI ဘာကြောင့် ဤသို့ဆုံးဖြတ်သလဲ',
   riskTitle: 'အန္တရာယ် အချက်များ',
-  premiumTitle: 'AI နည်းဗျူဟာ ဖွင့်ချက်',
-  premiumLocked: '🔒 မဖွင့်ရသေး',
-  unlockCashLabel: 'AI နည်းဗျူဟာ ဖွင့်ရန်',
-  unlockMtcLabel: '🪙 မော်ဒယ် ရှင်းလင်းချက် အပြည့်အစုံ ကြည့်ရန်',
-  joinCommunityLabel: 'ပွဲချိန်သတင်း အသိုင်းအဝိုင်း ဝင်ရန်',
+  premiumTitle: 'AI Tactics',
+  premiumLocked: '🔒 Locked',
+  unlockCashLabel: 'AI Tactics',
+  unlockMtcLabel: '🪙 Full Analysis',
+  joinCommunityLabel: 'Join Community',
 
   // Token
-  tokenBack: '🪙 ပရိသတ် တာဝန်စင်တာ',
-  walletLabel: 'ကျွန်ုပ်၏ MTC ပွိုင့်လက်ကျန်',
-  myStreak: 'ကျွန်ုပ်၏ ဆက်တိုက်နိုင်ပွဲ',
-  dailyMissions: 'နေ့စဉ် တာဝန်များ',
-  predictionChallenge: 'ခန့်မှန်း စိန်ခေါ်မှု',
-  shopTitle: 'ပွိုင့် လဲလှယ်ရန်',
-  rankingsTitle: 'ဆက်တိုက်နိုင်ပွဲ အဆင့်ဇယား',
-  tokenInsufficient: 'MTC ပွိုင့် မလုံလောက်ပါ',
+  tokenBack: '🪙 ပရိသတ် Zone',
+  walletLabel: 'ကျွန်ုပ်၏ MTC လက်ကျန်',
+  myStreak: 'ဆက်တိုက်နိုင်ပွဲ',
+  dailyMissions: 'နေ့စဉ် တာဝန်',
+  predictionChallenge: 'ခန့်မှန်း Challenge',
+  shopTitle: 'MTC Shop',
+  rankingsTitle: 'Ranking',
+  tokenInsufficient: 'MTC မလုံလောက်ပါ',
 
   // Community
-  communityBack: '👥 ပွဲချိန်သတင်း VIP',
-  vipKicker: 'ပွဲချိန်သတင်း VIP',
-  communityTitle: 'အသိုင်းအဝိုင်း ကွန်ရက်',
+  communityBack: '👥 VIP',
+  vipKicker: 'VIP',
+  communityTitle: 'Community',
   statusComingSoon: 'မကြာမီ',
   statusActive: 'ကြည့်ရန်',
   statusDisabled: 'မဖွင့်သေး',
-  benefitsTitle: 'အသင်းဝင် အခွင့်အရေး',
-  subscribeNowLabel: 'ယခု စာရင်းသွင်းရန်',
+  benefitsTitle: 'Benefits',
+  subscribeNowLabel: 'Join now',
   alreadySubscribed: 'စာရင်းသွင်းပြီး',
 
   // Compliance

@@ -22,7 +22,7 @@ export function Layout() {
   };
 
   return (
-    <div className="phone">
+    <div className={`phone lang-${locale}`} data-lang={locale}>
       <div className="topbar">
         <span className="topbar-crown">🔮</span>
         <div>
