@@ -55,8 +55,13 @@
   - **Myanmar density profile:** Burmese glyphs are taller / words longer, so mm uses a
     **separate, shorter copy set** and a `.lang-mm` CSS density profile (root carries
     `data-lang` + `lang-${locale}` in `Layout.tsx`). **Burmese copy must stay shorter than
-    Vietnamese**; concise English product terms (AI / Risk / Update / MTC) are allowed in mm UI.
-    zh / vi / en are unaffected (rules scoped to `.lang-mm`).
+    Vietnamese**; concise English product terms (AI / Risk / Update / MTC / Premium / VIP /
+    team names) are allowed in mm UI. zh / vi / en are unaffected (rules scoped to `.lang-mm`).
+  - **Burmese translation accepted by operation team (2026-06-06).** mm upgraded from
+    "framework + English fallback" to **customer-ready Burmese**: core UI (Home/Detail/Token/
+    Community), dynamic data (team outcomes, AI tendency, risk level/tags, notes, reason bullets,
+    live-correction) all Burmese via `copy/mm.ts` + `i18n/mmMapping.ts`. **English remains the
+    system fallback** for unmapped dynamic data only; **Chinese is never a customer-side fallback.**
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

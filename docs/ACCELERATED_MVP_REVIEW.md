@@ -161,11 +161,12 @@ auto-write to production · paid-content automation.
   Vietnamese = primary customer; Burmese = secondary customer; API/admin/config/schema = English.
 - **Vietnamese (vi):** ✅ **ready** — operational MVP language mode across Home/Detail/Token/
   Community + nav; VND pricing.
-- **Burmese (mm):** ✅ **ready & density-tuned** — core Burmese UI + MMK pricing; unmapped
-  copy & dynamic data fall back to **English** (never Chinese). Uses a **separate shorter copy set
-  + `.lang-mm` density profile** (root `data-lang`/`lang-mm`); Header/Hero/chips/Signal CTA/risk
-  note(2-line clamp)/bottom-nav verified uncrowded at 375px. **zh/vi/en unaffected.** Concise
-  English product terms (AI/Risk/Update/MTC) allowed in mm UI.
+- **Burmese (mm):** ✅ **ready, density-tuned & op-team accepted** — **customer-ready Burmese**
+  across Home/Detail/Token/Community + dynamic data (team outcomes, AI tendency, risk level/tags,
+  notes, reason bullets, live-correction) via `copy/mm.ts` + `i18n/mmMapping.ts`. MMK pricing;
+  English fallback only for unmapped dynamic data (never Chinese). Separate shorter copy set +
+  `.lang-mm` density profile; uncrowded at 375px. Acceptance: no English-core residual (only
+  allowed AI/MTC/Premium/VIP/team names/numbers). **zh/vi/en unaffected.**
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

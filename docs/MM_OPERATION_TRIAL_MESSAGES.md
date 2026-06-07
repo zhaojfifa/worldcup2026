@@ -11,6 +11,11 @@ unmapped UI falls back to English (never Chinese).
 > **English**; Chinese is never a customer-side fallback. Full professional localization deferred.
 > **Active social channel remains the shared blocker for both vi and mm trials.**
 > Burmese trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm`.
+>
+> **Update (2026-06-06):** Burmese **UI copy is now customer-ready** (op-team accepted) — core
+> UI + dynamic match data render in Burmese; English appears only as fallback for unmapped
+> dynamic data; no Chinese on the customer side. The page copy is customer-ready for trial after
+> deployment. (Operational dispatch still blocked on an `active` Zalo/Telegram channel.)
 
 > **Data note:** seed/mock match data (`mock_mode=true`). Validates copy attractiveness +
 > community承接, NOT real model accuracy. Do not advertise real hit-rate.

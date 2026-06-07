@@ -24,6 +24,12 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   CSS density profile (root `data-lang`/`lang-mm`). Header/Hero/chips/Signal CTA/risk-note(2-line
   clamp)/bottom-nav verified uncrowded at 375px; CTAs equal height. **zh/vi/en unaffected.**
   Concise English product terms (AI/Risk/Update/MTC) allowed in mm UI.
+- **Burmese customer copy coverage (2026-06-06, op-team accepted):** mm upgraded from English
+  fallback to **customer-ready Burmese** across Home/Detail/Token/Community + dynamic data
+  (team outcomes, AI tendency, risk level/tags, notes, reason bullets, live-correction) via
+  `copy/mm.ts` + new `i18n/mmMapping.ts`. Acceptance-verified: **no English-core residual**
+  (only allowed AI/MTC/Premium/VIP/team names/numbers); MMK pricing intact; English fallback only
+  for unmapped dynamic data; **Chinese never a customer-side fallback.** zh/vi unaffected.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.

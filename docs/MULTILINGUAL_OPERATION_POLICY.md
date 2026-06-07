@@ -117,3 +117,15 @@ Every locale must preserve the compliance floor:
   detail page, not home cards. **Concise English product terms (AI / Risk / Update / MTC) are
   allowed** in the Myanmar customer UI.
 - **zh / vi / en must not be affected** — all density rules are scoped to `.lang-mm`.
+
+## 9. Burmese translation acceptance (2026-06-06)
+
+- **Operation team accepted the Burmese translation** (clear, no mojibake). mm is upgraded from
+  "framework + English fallback" to **customer-ready Burmese**: core UI uses Burmese; dynamic
+  data (team outcomes, AI tendency, risk level/tags, risk/free notes, reason bullets,
+  live-correction text) mapped to Burmese in `frontend/src/i18n/mmMapping.ts`.
+- **English remains the system fallback** only for unmapped dynamic data; **Chinese is never a
+  customer-side fallback.** Concise English product terms (AI / MTC / Premium / VIP / Update /
+  team names / numbers) are intentionally kept.
+- Burmese trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm` — page copy is
+  customer-ready for trial after deployment. Active social channel remains the shared blocker.
