@@ -170,6 +170,10 @@ auto-write to production · paid-content automation.
   **Myanmar mobile QA PASS (2026-06-07)** — screenshot-verified 390×844 & 430×932
   (`docs/MM_MOBILE_QA_REPORT.md`, shots in `docs/qa_screenshots/mm_mobile/`); fixed Today Matches
   row overlap + Burmese channel descriptions. Screenshots mandatory before any mm-layout PASS.
+- **Vietnamese mobile QA PASS (2026-06-07)** — same screenshot method
+  (`docs/VI_MOBILE_QA_REPORT.md`, shots in `docs/qa_screenshots/vi_mobile/`); 4 pages clean, VND
+  pricing, no residual. **Language gate CLOSED; isolation verified** (zh/RMB · vi/VND · mm/MMK).
+  Next phase: `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md`. LLM stays in prep, not full build.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

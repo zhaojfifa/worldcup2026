@@ -129,7 +129,14 @@ Every locale must preserve the compliance floor:
   team names / numbers) are intentionally kept.
 - Burmese trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm` — page copy is
   customer-ready for trial after deployment. Active social channel remains the shared blocker.
-- **Myanmar mobile QA is mandatory before PASS (policy):** any mm layout change must be
-  **screenshot-verified at 390×844 and 430×932** (helper `scripts/qa/mm_mobile_shots.sh`, headless
-  Chrome, not a prod dependency) and recorded in `docs/MM_MOBILE_QA_REPORT.md`. The `.lang-mm`
-  density profile is mandatory; zh/vi/mm isolation remains mandatory. (2026-06-07: QA PASS.)
+- **Screenshot-driven mobile QA is mandatory for BOTH customer languages (vi & mm) before PASS:**
+  any vi/mm layout change must be **screenshot-verified at 390×844 and 430×932** (helper
+  `scripts/qa/lang_mobile_shots.sh`, headless Chrome, not a prod dependency) and recorded in
+  `docs/VI_MOBILE_QA_REPORT.md` / `docs/MM_MOBILE_QA_REPORT.md`. The `.lang-mm` density profile is
+  mandatory; zh/vi/mm isolation remains mandatory.
+- **Final policy summary:** English = system / fallback / API / admin / schema language ·
+  Chinese = China-team internal management · Vietnamese = primary customer operation language ·
+  Burmese = secondary customer operation language · vi/mm fall back to **English**, never Chinese ·
+  pricing separated by locale (zh RMB · en USD · vi VND · mm MMK).
+- **2026-06-07: vi & mm mobile QA PASS; language gate CLOSED.** Next phase:
+  `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md`. Active Zalo/Telegram channel remains the blocker.

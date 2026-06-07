@@ -65,8 +65,13 @@
   - **Myanmar mobile QA passed (2026-06-07).** Screenshot-verified at 390×844 & 430×932 →
     `docs/MM_MOBILE_QA_REPORT.md` (PASS), shots in `docs/qa_screenshots/mm_mobile/`. Fixed Today
     Matches row overlap (mm `.simrow` two-row), shortened signal CTA, Burmese channel descriptions.
-    **Screenshots are required before declaring any mm layout PASS** (QA script:
-    `scripts/qa/mm_mobile_shots.sh`, headless Chrome — not a prod dependency).
+  - **Vietnamese mobile QA passed (2026-06-07).** Same screenshot method → `docs/VI_MOBILE_QA_REPORT.md`
+    (PASS), shots in `docs/qa_screenshots/vi_mobile/`; no residual found (vi already customer-ready).
+  - **Screenshot-driven QA is MANDATORY for customer languages (vi/mm)** before declaring a layout
+    PASS (QA script: `scripts/qa/lang_mobile_shots.sh`, headless Chrome — not a prod dependency).
+  - **Language gate CLOSED.** Next phase plan: `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md`
+    (Data / Modeling / Social / LLM-prep / deployment / go-live gate). LLM stays in prep, not
+    full build. **Active Zalo/Telegram channel remains the operation blocker.**
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

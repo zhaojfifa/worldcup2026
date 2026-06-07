@@ -32,8 +32,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   for unmapped dynamic data; **Chinese never a customer-side fallback.** zh/vi unaffected.
 - **Myanmar mobile QA: PASS (2026-06-07)** — `docs/MM_MOBILE_QA_REPORT.md`; screenshots at
   390×844 & 430×932 in `docs/qa_screenshots/mm_mobile/`. Fixed: Today Matches **row overlap**
-  (mm two-row `.simrow`), signal CTA shortened, Burmese channel descriptions. Screenshots are
-  mandatory before declaring an mm layout PASS. zh/vi regression clean; no console errors.
+  (mm two-row `.simrow`), signal CTA shortened, Burmese channel descriptions. Re-verified 2026-06-07.
+- **Vietnamese mobile QA: PASS (2026-06-07)** — `docs/VI_MOBILE_QA_REPORT.md`; screenshots in
+  `docs/qa_screenshots/vi_mobile/` (4 pages × 390/430). No residual found (vi already customer-ready).
+- **Language gate CLOSED. Isolation verified:** zh→Chinese/RMB · vi→Vietnamese/VND · mm→Burmese/MMK;
+  vi/mm fall back to English (never Chinese). Screenshot-driven QA mandatory for vi/mm.
+  **Next phase:** `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md` (Data/Modeling/Social/LLM-prep).
+  Operation blocker unchanged: no active Zalo/Telegram channel.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.

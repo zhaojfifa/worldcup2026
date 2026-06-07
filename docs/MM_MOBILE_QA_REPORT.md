@@ -2,6 +2,10 @@
 
 **Verdict: PASS** (ready for human re-review)
 
+> **Re-verified 2026-06-07** alongside the Vietnamese sweep: mm Home/Detail/Token/Community
+> re-scanned at 390×844 & 430×932 — Today Matches overlap stays fixed, no Chinese residual,
+> no English long-form residual, MMK pricing intact, isolation holds. Still PASS.
+
 ## 1. Test time
 2026-06-07.
 
