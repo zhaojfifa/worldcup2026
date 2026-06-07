@@ -30,6 +30,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   `copy/mm.ts` + new `i18n/mmMapping.ts`. Acceptance-verified: **no English-core residual**
   (only allowed AI/MTC/Premium/VIP/team names/numbers); MMK pricing intact; English fallback only
   for unmapped dynamic data; **Chinese never a customer-side fallback.** zh/vi unaffected.
+- **Myanmar mobile QA: PASS (2026-06-07)** — `docs/MM_MOBILE_QA_REPORT.md`; screenshots at
+  390×844 & 430×932 in `docs/qa_screenshots/mm_mobile/`. Fixed: Today Matches **row overlap**
+  (mm two-row `.simrow`), signal CTA shortened, Burmese channel descriptions. Screenshots are
+  mandatory before declaring an mm layout PASS. zh/vi regression clean; no console errors.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.

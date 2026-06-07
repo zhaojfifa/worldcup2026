@@ -129,3 +129,7 @@ Every locale must preserve the compliance floor:
   team names / numbers) are intentionally kept.
 - Burmese trial URL: `https://worldcup2026-izid.onrender.com/?lang=mm` — page copy is
   customer-ready for trial after deployment. Active social channel remains the shared blocker.
+- **Myanmar mobile QA is mandatory before PASS (policy):** any mm layout change must be
+  **screenshot-verified at 390×844 and 430×932** (helper `scripts/qa/mm_mobile_shots.sh`, headless
+  Chrome, not a prod dependency) and recorded in `docs/MM_MOBILE_QA_REPORT.md`. The `.lang-mm`
+  density profile is mandatory; zh/vi/mm isolation remains mandatory. (2026-06-07: QA PASS.)

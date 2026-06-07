@@ -167,6 +167,9 @@ auto-write to production · paid-content automation.
   English fallback only for unmapped dynamic data (never Chinese). Separate shorter copy set +
   `.lang-mm` density profile; uncrowded at 375px. Acceptance: no English-core residual (only
   allowed AI/MTC/Premium/VIP/team names/numbers). **zh/vi/en unaffected.**
+  **Myanmar mobile QA PASS (2026-06-07)** — screenshot-verified 390×844 & 430×932
+  (`docs/MM_MOBILE_QA_REPORT.md`, shots in `docs/qa_screenshots/mm_mobile/`); fixed Today Matches
+  row overlap + Burmese channel descriptions. Screenshots mandatory before any mm-layout PASS.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

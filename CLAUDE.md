@@ -62,6 +62,11 @@
     Community), dynamic data (team outcomes, AI tendency, risk level/tags, notes, reason bullets,
     live-correction) all Burmese via `copy/mm.ts` + `i18n/mmMapping.ts`. **English remains the
     system fallback** for unmapped dynamic data only; **Chinese is never a customer-side fallback.**
+  - **Myanmar mobile QA passed (2026-06-07).** Screenshot-verified at 390×844 & 430×932 →
+    `docs/MM_MOBILE_QA_REPORT.md` (PASS), shots in `docs/qa_screenshots/mm_mobile/`. Fixed Today
+    Matches row overlap (mm `.simrow` two-row), shortened signal CTA, Burmese channel descriptions.
+    **Screenshots are required before declaring any mm layout PASS** (QA script:
+    `scripts/qa/mm_mobile_shots.sh`, headless Chrome — not a prod dependency).
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.
