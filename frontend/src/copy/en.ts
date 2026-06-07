@@ -208,6 +208,6 @@ export const EN: Copy = {
   disclaimer: 'Past performance does not guarantee future results. Content is for data analysis and football entertainment only.',
   complianceFooter: 'AI data analysis only · not a betting service · no cash wagering · MTC non-withdrawable',
 
-  // Vietnamese trial badge (bilingual; same in all locales)
-  viBadge: '越南语试跑文案已就绪 · Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
+  // Vietnamese trial badge — English for en/mm (avoids Chinese on Burmese page)
+  viBadge: 'Vietnamese trial copy ready',
 };
