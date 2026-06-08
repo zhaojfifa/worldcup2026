@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-06-08 Interaction-state recheck (modal/toast/action-sheet) — PASS WITH ISSUES → fixed
+
+Operator hit a **Chinese unlock modal** on `/?lang=mm` → `/detail` → unlock:
+`已解锁，可直接查看完整报告` (body) + `继续查看报告` (button). Prior QA only scanned **static page DOM**
+and never opened the modal/toast/action-sheet states. **Fixed** (frontend only): `Modal.tsx` button +
+`DetailPage` body now use i18n keys `unlockedBody`/`unlockFailedBody`/`continueToReport`
+(mm `ဖွင့်ပြီးပါပြီ။ အစီရင်ခံစာအပြည့်အစုံကို ကြည့်နိုင်ပါသည်။` / `အစီရင်ခံစာ ဆက်ကြည့်ရန်`); store Chinese
+neutralized. mm unlock modal / report-after-unlock / Telegram open-copy sheet / copy-link / check-in /
+ranking toasts all re-scanned **0 Han** and screenshot-verified. **Telegram direct-open accepted as PASS
+WITH ISSUES — Copy Link is the operating path.** Full report: `docs/LANG_INTERACTION_RECHECK_REPORT.md`;
+shots: `docs/qa_screenshots/lang_interaction_recheck/`. **Interaction-state language QA is now mandatory.**
+
+---
+
 ## 2026-06-08 Recheck after operator feedback (BLOCKED_STATE_DIVERGENCE → resolved)
 
 **Verdict: PASS WITH ISSUES** — both reported issues fixed and screenshot-verified; the residual

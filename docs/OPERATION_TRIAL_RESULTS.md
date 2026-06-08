@@ -10,6 +10,22 @@ only on configuring ≥1 `active` community channel (Zalo first).
 
 ---
 
+## Operator feedback — interaction-state recheck (2026-06-08)
+
+Two real-operation findings from the Myanmar trial path, both handled by engineering (frontend only):
+
+1. **Chinese unlock modal on mm** — tapping unlock on `/?lang=mm` → `/detail` showed a Chinese modal
+   (`已解锁，可直接查看完整报告` / `继续查看报告`). **Fixed** and screenshot-verified Burmese; prior QA
+   had only scanned static pages, not modal/toast/action-sheet states. **Interaction-state language QA is
+   now mandatory.** Details: `docs/LANG_INTERACTION_RECHECK_REPORT.md`.
+2. **Telegram direct-open still fails on the operator phone** (Telegram installed) but **Copy Link works**.
+   **Ruling: PASS WITH ISSUES — Copy Link is the accepted operating path; do not block the trial on
+   direct-open.** The open/copy fallback sheet (Open Telegram / Copy link / paste hint) is localized for
+   mm & vi and uses the live API `public_url`. Operator guidance: if the link does not open, tap **Copy link**
+   and paste it into the Telegram app or a browser.
+
+---
+
 ## Channel status update (2026-06-08, Harness-X)
 
 | Channel | Status | Notes |

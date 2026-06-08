@@ -16,7 +16,14 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   re-scanned at 390/430; one Chinese residual (community "VI TRIAL COPY" badge) **fixed** (frontend
   `dict.ts` VI `viBadge` → Vietnamese-only); zh/mm regression clean; build passes; backend untouched.
   See `docs/VI_MOBILE_RECHECK_REPORT.md` + `docs/qa_screenshots/vi_mobile_recheck/`.
+- **Interaction-state recheck (2026-06-08):** **PASS WITH ISSUES** — operator-reported **Chinese unlock
+  modal** on mm (`Modal.tsx` button + store `res.message` body) **fixed** via i18n keys
+  `unlockedBody`/`unlockFailedBody`/`continueToReport` (zh/vi/mm/en); store Chinese neutralized.
+  **Modal/toast/action-sheet language QA now mandatory.** mm/vi interaction states screenshot-verified;
+  zh + price isolation unaffected; build passes; backend untouched. See
+  `docs/LANG_INTERACTION_RECHECK_REPORT.md` + `docs/qa_screenshots/lang_interaction_recheck/`.
 - **Social:** Myanmar **Telegram active** (`t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending**.
+  **Telegram direct-open may fail in mobile WebViews → Copy Link is the accepted operating path** (PASS WITH ISSUES).
 - **Data-source:** `api_football_configured=true`, `connector_status=ok`, **`mock_mode=true`**
   (last known); **real sync pending operator** (Render Shell). No real hit-rate claimable.
 - **Modeling:** matches 1/2/3 refresh PASS (win_prob sums 100); baseline usable as **AI viewpoint**,

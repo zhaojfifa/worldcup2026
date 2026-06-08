@@ -82,14 +82,23 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 - **`/detail` alone was insufficient** — the real residual was on the **`/report`** page reached via
   detail → unlock. Always QA the **full detail → unlock → report flow**.
 - **Screenshot-driven QA is mandatory** for customer-facing language/mobile. **No screenshot = no PASS.**
+- **Static DOM scan is NOT enough — interaction states leak too.** The operator hit a **Chinese unlock
+  modal** on mm (`已解锁，可直接查看完整报告` / `继续查看报告`) that every static scan missed because the
+  modal/toast/action-sheet were never opened. Source: `Modal.tsx` hardcoded button + `DetailPage` showing
+  the store/API `res.message` (Chinese) as the body. **Always QA modal / toast / unlock dialog / action-sheet
+  states** (helper `scripts/qa/lang_interaction_shots.mjs` clicks into them and captures). Fixed via i18n
+  `unlockedBody`/`unlockFailedBody`/`continueToReport`; never render raw store/API message text.
+- **Telegram direct-open may fail in mobile WebViews; Copy Link is the accepted operating path** — do not
+  block the trial on direct-open (ruling: PASS WITH ISSUES). The open/copy fallback sheet is localized.
 - **vi recheck (2026-06-08, Myanmar standard):** full vi path incl. `/report` re-scanned; residual was the
   **community "VI TRIAL COPY" badge** leaking Chinese (`越南语试跑文案已就绪`) on the public page — the
   bilingual zh·vi badge that mm had already been switched to English. **Lesson:** operator-labelled badges
   on public customer pages still count as customer surface — vi must be Chinese-free. Fixed: `dict.ts` VI
   `viBadge` → Vietnamese-only.
-- Recheck artifacts: `docs/qa_screenshots/mm_mobile_recheck/`, `docs/qa_screenshots/vi_mobile_recheck/`
-  (+ `mm_mobile/`, `vi_mobile/`). Reports: `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`,
-  `docs/VI_MOBILE_RECHECK_REPORT.md`.
+- Recheck artifacts: `docs/qa_screenshots/mm_mobile_recheck/`, `docs/qa_screenshots/vi_mobile_recheck/`,
+  `docs/qa_screenshots/lang_interaction_recheck/` (+ `mm_mobile/`, `vi_mobile/`). Reports:
+  `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_RECHECK_REPORT.md`,
+  `docs/LANG_INTERACTION_RECHECK_REPORT.md`.
 
 ## 9. Harness-X rule set
 

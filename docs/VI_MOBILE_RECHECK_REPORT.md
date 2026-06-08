@@ -5,6 +5,12 @@
 
 _Date: 2026-06-08. Standard: same screenshot-driven QA as `docs/MM_MOBILE_QA_REPORT.md`._
 
+> **Follow-up (2026-06-08, same day):** a later **interaction-state** recheck found the vi/mm **unlock
+> modal** was still leaking Chinese (this static sweep did not open modal/toast/action-sheet states). The
+> vi unlock modal is now Vietnamese (`Đã mở khóa, bạn có thể xem báo cáo đầy đủ.` / `Tiếp tục xem báo cáo`)
+> and screenshot-verified. See `docs/LANG_INTERACTION_RECHECK_REPORT.md` +
+> `docs/qa_screenshots/lang_interaction_recheck/`. **Interaction-state QA is now mandatory.**
+
 ---
 
 ## 1. Trigger
