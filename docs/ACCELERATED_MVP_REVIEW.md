@@ -185,6 +185,11 @@ auto-write to production · paid-content automation.
   copy library filled from model output. Real `admin/sync/*` BLOCKED for Claude (operator Render-Shell
   token) → `mock_mode=true` until run; no real hit-rate advertised. Myanmar Telegram trial
   `ready_to_send`; Vietnam Zalo pending. No backend/API/DB/scaling change.
+- **Real LLM integration DRAFT-ONLY (2026-06-08, Owner GO WITH CONDITIONS):** `app/services/llm/*`
+  + admin endpoint `POST /api/v1/admin/llm/generate-copy` (draft_only, forbidden-phrase filter,
+  human-template fallback, AI_PROVIDER=mock rollback). No auto-publish / DB / payment / scaling /
+  API-shape change; verified locally (import/auth/filter/vi+mm drafts). Real call pending Render key.
+  Ref: `docs/LLM_REAL_INTEGRATION_PLAN.md`. Unreviewed output NO-GO (human review gate).
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

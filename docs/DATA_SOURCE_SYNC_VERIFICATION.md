@@ -88,3 +88,9 @@ Paste the returned counts back into this table.
 - **Seed/mock:** match fixtures, results, win-prob inputs (`mock_mode=true`, 0 live pulls).
 - **Operator may use:** AI-viewpoint copy, risk signals, pre-match updates, community CTAs.
 - **Forbidden to advertise:** any real hit-rate / accuracy (none exists; `performance.*` all null/0).
+
+## 10. Owner GO for real data (2026-06-08) — still operator-gated for Claude
+Owner approved real data integration. Re-checked live: `mock_mode=true`, `requests_used=0`;
+`admin/sync/fixtures` still `401` from local (no token). **Claude cannot run the real sync (no
+Render Shell / token) and will not fabricate counts.** The real pull remains the operator step in
+§9. Status unchanged: data still seed until operator runs sync on Render.

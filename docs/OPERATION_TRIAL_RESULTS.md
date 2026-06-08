@@ -38,6 +38,12 @@ only on configuring ≥1 `active` community channel (Zalo first).
 > row**. Claude does not send to real groups and will not fabricate metrics. `next_adjustment`:
 > record after first real feedback.
 
+### Copy source per message (human vs LLM-draft)
+- Mark each dispatched message's `source`: `human_template` or `llm_draft` (from
+  `POST /api/v1/admin/llm/generate-copy`, draft-only). LLM drafts must be **human-reviewed**
+  before sending (forbidden-phrase filter + operator approval). No auto-publish.
+- Current `ready_to_send` mm set = **human_template** (LLM real call not yet exercised on Render).
+
 ### Vietnam (vi) trial — pending
 - Channel: Zalo (pending active). Copy ready: `docs/OPERATION_TRIAL_MESSAGES_VI.md` (VND pricing).
 - Operator action: `POST /admin/social/channels/upsert` (Render Shell) to set zalo `active` + `public_url`.

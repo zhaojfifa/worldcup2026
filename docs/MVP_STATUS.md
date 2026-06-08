@@ -53,6 +53,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   fixtures/results sync NOT run by Claude** — needs `$ADMIN_API_TOKEN` in Render Shell (operator);
   `mock_mode=true` until then. Myanmar Telegram trial `ready_to_send`; Vietnam Zalo pending.
   No backend/API/DB/scaling change.
+- **Real LLM integration — DRAFT-ONLY (2026-06-08, Owner GO WITH CONDITIONS):** added
+  `backend/app/services/llm/*` + admin endpoint `POST /api/v1/admin/llm/generate-copy`
+  (x-admin-token; `status:draft_only`, `publishable:false`). DeepSeek/Kimi client + forbidden-phrase
+  filter (zh/vi/mm/en) + human-template fallback; `AI_PROVIDER=mock` rollback. Verified locally:
+  import OK, auth 401/400, filter clean/dirty/negation, vi+mm drafts via fallback. **No auto-publish /
+  DB write / payment / scaling / public API-shape change**; `httpx` already present. Real provider call
+  pending Render key (currently mock → fallback). Plan: `docs/LLM_REAL_INTEGRATION_PLAN.md`.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.

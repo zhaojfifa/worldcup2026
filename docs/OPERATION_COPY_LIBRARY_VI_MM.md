@@ -100,3 +100,14 @@ Kết quả trong quá khứ không đảm bảo kết quả tương lai. Chỉ 
 
 > All lines above are **AI data view / risk signal / pre-match update** — no hit-rate claim, no
 > betting, no cash. Confidence shown as ★ (derived), not as a real success rate.
+
+---
+
+## Copy provenance & review workflow (2026-06-08)
+- **Human template:** the filled copy above + `OPERATION_TRIAL_MESSAGES_VI.md` /
+  `MM_OPERATION_TRIAL_MESSAGES.md`. Always available; used as the LLM fallback.
+- **LLM draft:** generated via `POST /api/v1/admin/llm/generate-copy` (admin, draft-only) →
+  `provenance: llm:deepseek|kimi`. **Every LLM draft is `status=draft_only`, `publishable:false`**
+  and must pass the forbidden-phrase filter + **human review** before any manual send.
+- Workflow: `generate draft → forbidden filter → human review → operator manually sends`.
+  **No auto-publish, no bot.** Record which messages were human vs LLM-draft in `OPERATION_TRIAL_RESULTS.md`.

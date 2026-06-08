@@ -85,6 +85,14 @@
     **Real `admin/sync/fixtures|results` BLOCKED for Claude** (needs `$ADMIN_API_TOKEN` in Render
     Shell — operator step; data stays `mock_mode=true` until then). Myanmar Telegram trial
     `ready_to_send`; Vietnam Zalo pending. **No backend/API/DB/scaling change.**
+  - **Real LLM integration — DRAFT-ONLY (2026-06-08, Owner GO WITH CONDITIONS).** New
+    `app/services/llm/` (compliance filter, prompts, deepseek/kimi client, copy_service) + admin
+    endpoint `POST /api/v1/admin/llm/generate-copy` (x-admin-token, `status:draft_only`,
+    `publishable:false`). Forbidden-phrase filter (zh/vi/mm/en, allows negations) + human-template
+    fallback (LLM fail → rules copy) + `AI_PROVIDER=mock` rollback. **NO auto-publish, NO DB write,
+    NO payment, NO scaling, NO public API-shape change.** `httpx` already present (no new dep).
+    Real provider call to be exercised on Render with key (currently `AI_PROVIDER=mock` → fallback).
+    Plan: `docs/LLM_REAL_INTEGRATION_PLAN.md`. **Unreviewed LLM output is NO-GO** (human review gate).
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

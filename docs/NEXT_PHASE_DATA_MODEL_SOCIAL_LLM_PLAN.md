@@ -105,3 +105,13 @@ Vietnam trial pending Zalo. Real data sync (#3) is an operator decision. Owner d
 - **No** resource scaling, payment, bot, API/DB schema change.
 - **Owner actions outstanding:** (a) run real data sync in Render Shell; (b) activate Zalo;
   (c) dispatch the Myanmar trial + record feedback; (d) approve LLM Full Build later.
+
+## 9. Real LLM integration — DRAFT-ONLY (2026-06-08, Owner GO WITH CONDITIONS)
+- Built `backend/app/services/llm/*` + admin endpoint `POST /api/v1/admin/llm/generate-copy`
+  (x-admin-token, `status:draft_only`). DeepSeek/Kimi client + forbidden-phrase filter (zh/vi/mm/en)
+  + human-template fallback; `AI_PROVIDER=mock` rollback. Output: reason/risk/social(vi,mm)/recap.
+- **Conditions enforced:** draft-only (no auto-publish), human review gate, no DB write, no payment,
+  no bot, no scaling, no public API-shape change. `httpx` already present (no new dep).
+- **Pending (ops):** set `AI_PROVIDER=deepseek|kimi` + key on Render to exercise the real call;
+  then human-review drafts before manual send. LLM **Full auto-publish remains NO-GO**.
+- Plan/details: `docs/LLM_REAL_INTEGRATION_PLAN.md`.
