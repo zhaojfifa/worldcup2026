@@ -12,6 +12,7 @@ from typing import Optional
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
+from app.models.match import Match
 from app.services import match_service
 from app.services.llm import client, compliance, prompts
 
@@ -24,6 +25,20 @@ _DISCLAIMER = {
     "zh": "历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。",
     "en": "Past performance does not guarantee future results. For data analysis & entertainment only.",
 }
+
+
+def _localized_team_names(db: Session, match_id: int, language: str) -> Optional[tuple[str, str]]:
+    """Locale-appropriate team names: zh → Chinese (name_zh), vi/mm/en → English (name).
+
+    The MatchDetail/TeamOut only carries the Chinese display name, so vi/mm/en drafts would
+    otherwise embed Chinese team names (e.g. "巴西" instead of "Brazil"). Read the raw teams.
+    """
+    m = db.get(Match, match_id)
+    if m is None or m.home_team is None or m.away_team is None:
+        return None
+    if language == "zh":
+        return (m.home_team.name_zh, m.away_team.name_zh)
+    return (m.home_team.name, m.away_team.name)
 
 
 def _ctx_from_match(detail) -> dict:
@@ -96,6 +111,11 @@ def generate_copy(db: Session, match_id: int, language: str, copy_type: str) -> 
         return {"error": f"match {match_id} not found", "status": "rejected"}
 
     ctx = _ctx_from_match(detail)
+    # Use locale-appropriate team names (vi/mm/en → English, zh → Chinese) so drafts are
+    # not polluted with Chinese team names on non-zh customer copy.
+    names = _localized_team_names(db, match_id, language)
+    if names is not None:
+        ctx["home"], ctx["away"] = names
     warnings: list[str] = []
 
     system, user = prompts.build_prompt(copy_type, language, ctx)
