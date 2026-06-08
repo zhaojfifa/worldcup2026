@@ -100,6 +100,23 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
   `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_RECHECK_REPORT.md`,
   `docs/LANG_INTERACTION_RECHECK_REPORT.md`.
 
+## 8b. LLM provider comparison + Mini-Agent (2026-06-08)
+
+- **`provider_override`** on `POST /api/v1/admin/llm/generate-copy` (admin, draft-only, backward compatible):
+  `deepseek|kimi|gemini`; unknown/unavailable → human-template fallback with warning. Providers in
+  `client.py`: deepseek/kimi (OpenAI-compatible) + gemini (generateContent, `thinkingBudget=0`).
+- **Real 3-provider comparison run locally** (provider keys already in the dev `.env`, **pre-existing**;
+  **never printed/committed**; all draft-only). Empirical finding (contradicts assumed "Kimi primary"):
+  **DeepSeek + Gemini are clean for vi/mm (0 Han, compliant); Kimi leaks full Chinese for vi/mm.**
+  → **Use DeepSeek (primary) / Gemini (benchmark) for vi/mm; not Kimi yet.** `forbidden_hits=[]` everywhere,
+  but note **compliant ≠ correct-language** → add a Han-ratio language-fidelity check at review.
+- **Mini-Agent Harness:** lightweight **design only** (8 stages, `docs/MINI_AGENT_HARNESS_DESIGN.md`); no
+  runtime built. Stages 2/6/7 already exist in code; 3–5 are prompt drafts.
+- **Data-first:** Operator Action Checklist in `docs/DATA_SOURCE_SYNC_VERIFICATION.md` §11 (operator runs
+  real fixtures/results/performance sync on Render — **not fabricated**; data still seed until then).
+- Reports: `docs/LLM_PROVIDER_COMPARISON_REPORT.md`, `docs/LLM_DRAFT_COPY_REVIEW_LOG.md` (Batch 2 = real).
+  `backend/scripts/llm_draft_verify.py` is a **manual** helper (no make/npm target, by Owner ruling).
+
 ## 9. Harness-X rule set
 
 - **Self-validation OK:** L0/L1 (read-only checks, docs, small frontend copy/mapping with screenshots).

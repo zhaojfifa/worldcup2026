@@ -52,6 +52,15 @@
      now use **English** team names (zh keeps Chinese) — `copy_service._localized_team_names`.
      **Real DeepSeek/Kimi call still operator-pending on Render (no token for Claude; never fabricated).**
      Evidence: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`, `docs/LLM_RENDER_VERIFICATION.md`. Human review = pending.
+   - **Data-first loop + Mini-Agent + provider comparison (2026-06-08):** Owner GO for data-first model/copy
+     loop. **`provider_override`** added (admin/draft-only, `deepseek|kimi|gemini`, backward compatible;
+     unknown/unavailable → fallback). **Real 3-provider comparison run locally** (keys already in dev `.env`,
+     pre-existing; **never printed/committed**): **DeepSeek + Gemini clean for vi/mm; Kimi leaks Chinese for
+     vi/mm** (assumed "Kimi primary" not borne out — empirical: DeepSeek primary, Gemini benchmark). Prompt
+     hardened (respond-only-in-target-language) + Gemini `thinkingBudget=0`. **Mini-Agent Harness = lightweight
+     DESIGN only** (no runtime). Draft-only; no auto-publish/payment/scaling. Docs: `MINI_AGENT_HARNESS_DESIGN.md`,
+     `LLM_PROVIDER_COMPARISON_REPORT.md`. Note: `backend/scripts/llm_draft_verify.py` is a **manual** helper
+     (no make/npm target).
    - **NO** payment · **NO** bot auto-publish · **NO** resource scaling.
 
 3b. **Harness-X work protocol (now the project standard):**

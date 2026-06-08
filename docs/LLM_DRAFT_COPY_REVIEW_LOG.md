@@ -70,3 +70,43 @@ _Created 2026-06-08. Every draft below is **draft-only** (`status=draft_only`, `
   profit / withdrawal-incentive wording (filter `forbidden_hits=[]`).
 - **Approval workflow:** set `human_review_status` to `approved` / `revised` / `rejected` and add a
   `reviewer_note`. Only **approved** copy may be sent by the operator; this engine never sends.
+
+---
+
+## Batch 2 — REAL provider drafts (2026-06-08, draft-only)
+
+> **provenance = real LLM** (`provider_override` against keys already in the local `.env`, pre-existing;
+> **no keys printed/committed**). Still `status=draft_only`, `publishable=false`, `data_mode=mock`,
+> `whether_sent_to_social=no`, `human_review_status=pending`. `forbidden_hits=[]` for every row.
+> Full comparison: `docs/LLM_PROVIDER_COMPARISON_REPORT.md`.
+
+### B2-1 · provider=gemini · provenance=llm:gemini · vi / preview / match 1
+> AI xu hướng trận Brazil vs Argentina: Brazil thắng 49.0% / Hòa 26.0% / Argentina thắng 25.0%.
+> Độ tin cậy AI: Trung bình cao (61/100). Lý do AI: Brazil có lợi thế sân nhà và phong độ ổn định hơn
+> một chút. Tín hiệu rủi ro AI: Cao — hai đội thực lực tương đồng, kết quả phụ thuộc đội hình & chiến
+> thuật. Tỷ số AI gợi ý: 2:1 / 1:1. _Lưu ý: Hiệu suất trong quá khứ không đảm bảo kết quả tương lai._
+
+### B2-2 · provider=gemini · provenance=llm:gemini · mm / preview / match 1
+> ဘရာဇီး vs အာဂျင်တီးနား ပွဲကြို AI အချက်ပြမှု — AI နိုင်ခြေ: ဘရာဇီး 49.0% | သရေ 26.0% | အာဂျင်တီးနား 25.0%။
+> AI ယုံကြည်မှု ၃/၅ ကြယ်ပွင့်။ အန္တရာယ်အဆင့် မြင့်မား — အသင်းနှစ်သင်း အင်အားတူညီနီးပါး၊ ရလဒ်သည် လူစာရင်း/
+> နည်းဗျူဟာအပေါ် မူတည်။ AI ခန့်မှန်းရလဒ် 2:1 / 1:1။ _ယခင်စွမ်းဆောင်ရည်များသည် အနာဂတ်ရလဒ်ကို အာမမခံပါ။_ (0 Han)
+
+### B2-3 · provider=deepseek · provenance=llm:deepseek · vi / upset / match 2
+> **Cảnh báo bất ngờ: Morocco vs France** — Theo góc nhìn dữ liệu AI, Morocco có 50% cơ hội thắng, Pháp
+> 31%. Dù rủi ro thấp (80/100), các yếu tố chính đồng thuận cao. Morocco có thể tạo bất ngờ nếu tận dụng
+> tốt cơ hội đầu trận (2:0 / 2:1). Theo dõi lối chơi pressing & chuyển trạng thái.
+> _Lưu ý: Dữ liệu mô phỏng, hiệu suất quá khứ không đảm bảo kết quả tương lai._
+
+### B2-4 · provider=deepseek · provenance=llm:deepseek · mm / upset / match 2
+> **Morocco vs France — AI Data Signal** — AI မော်ဒယ်က ရှင်းလင်းသော ဦးတည်ချက်ပြထားပြီး အဓိကအချက်များ
+> တည်ငြိမ်နေသည်။ သတိပြုရန်: Morocco အိမ်ကွင်းအားသာချက် · France ၏ ဖိအားခံနိုင်စွမ်း။ အဓိကအချက်တူညီသော်လည်း
+> လက်တွေ့ပြောင်းလဲမှုက ရလဒ်ကို လွှမ်းမိုးနိုင်သည်။ _မှတ်ချက်: အတိတ်စွမ်းဆောင်ရည်သည် အနာဂတ်ရလဒ်ကို အာမမခံပါ။_
+
+### B2-5 · provider=kimi · provenance=llm:kimi · vi / upset / match 2 — **REJECT (wrong language)**
+> _(Kimi returned full Chinese for a Vietnamese request — `han≈112`.)_ **reviewer_note:** rejected —
+> language-fidelity failure (Chinese in a vi draft). Do not use Kimi for vi/mm until prompt work closes
+> the leak. Compliance still passed (`forbidden_hits=[]`), proving compliant ≠ correct-language.
+
+> **Reviewer reminder:** add a **language-fidelity** check (Han chars in vi/mm = reject) per
+> `docs/MINI_AGENT_HARNESS_DESIGN.md` §4. All Batch-2 rows remain `human_review_status=pending`
+> except B2-5 (illustrative reject). None sent.

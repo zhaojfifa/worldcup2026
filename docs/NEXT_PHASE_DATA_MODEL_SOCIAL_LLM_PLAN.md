@@ -138,3 +138,16 @@ Owner ruling: **link the real LLM for copy optimization, but draft-only — no a
   needs no real key; Claude has no token and does **not** fabricate a provider result.
 - LLM output stays **draft-only + human-review-required**. Auto-publish / payment / bot / scaling remain
   **NO-GO**. Drafts: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`; candidates: `docs/OPERATION_COPY_LIBRARY_VI_MM.md`.
+
+## 13. Data-first loop + Mini-Agent + provider comparison (2026-06-08)
+Owner ruling: **Data formalization = highest priority; Mini-Agent Harness = GO (lightweight); Kimi/DeepSeek/
+Gemini comparison = GO; LLM stays draft-only; auto-publish/payment/scaling = NO-GO.**
+- **Data-first:** `docs/DATA_SOURCE_SYNC_VERIFICATION.md` §11 adds an **Operator Action Checklist**
+  (fixtures/results/performance/status sync on Render). **Not fabricated** — data still seed until operator runs it.
+- **Mini-Agent Harness:** lightweight **design** (`docs/MINI_AGENT_HARNESS_DESIGN.md`) — 8 stages
+  (Data Scout → Baseline → Risk → Contrarian → Explanation → Copy → Compliance → Human Review). Prompt-only;
+  no runtime; stages 2/6/7 already exist in code.
+- **Provider comparison (`docs/LLM_PROVIDER_COMPARISON_REPORT.md`):** real draft-only runs. **DeepSeek + Gemini
+  clean for vi/mm; Kimi leaks Chinese for vi/mm.** Roles updated by evidence: **DeepSeek primary, Gemini
+  benchmark/co-primary, Kimi needs prompt work (zh ok).** `provider_override` (admin/draft-only) lets stage 6
+  pick a provider per call. Prompt hardened (target-language-only) + Gemini `thinkingBudget=0`.

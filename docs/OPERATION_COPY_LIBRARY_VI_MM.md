@@ -143,3 +143,12 @@ is not one of the endpoint's copy_types and is not LLM-generated.)
 - **临场修正 (live):** 📡 ပွဲချိန် update · Spain vs Germany: AI က လူစာရင်းအရ ပြန်တွက်သည်။ _(+ disclaimer)_
 - **赛后复盘 (recap):** 📊 Spain vs Germany ပြန်သုံးသပ်: AI သုံးသပ်ချက်နှင့် တကယ့်ရလဒ် နှိုင်းယှဉ်။ _(+ disclaimer)_
 - **社群引导 (community CTA, human):** see mm templates above — Telegram open/copy fallback; Copy Link is the operating path.
+
+### Real-provider drafts now available (2026-06-08)
+Real `provider_override` drafts (DeepSeek / Gemini / Kimi) are logged in
+`docs/LLM_DRAFT_COPY_REVIEW_LOG.md` (Batch 2) and benchmarked in
+`docs/LLM_PROVIDER_COMPARISON_REPORT.md`. Each candidate is tagged **provider · provenance ·
+data_mode · human_review_status=pending · whether_sent_to_social=no**. Operator-usability finding:
+**DeepSeek + Gemini are clean for vi/mm; Kimi leaks Chinese for vi/mm — do not use Kimi there yet.**
+Pick a candidate, human-review (incl. **language-fidelity**: reject Chinese in vi/mm), then send manually.
+Nothing here is auto-published.

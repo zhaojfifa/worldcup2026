@@ -36,6 +36,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   **locally verified** (`backend/scripts/llm_draft_verify.py`, mock→fallback). Backend harden: vi/mm/en
   drafts now use **English** team names (zh Chinese). **Real DeepSeek/Kimi on Render still operator-pending
   (no token; not fabricated).** Drafts logged pending human review: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`.
+- **Provider comparison + Mini-Agent (2026-06-08):** `provider_override` (deepseek|kimi|gemini, admin/
+  draft-only, backward compatible) added. **Real 3-provider comparison** (local keys, pre-existing, never
+  committed): **DeepSeek + Gemini clean for vi/mm; Kimi leaks Chinese for vi/mm.** Prompt hardened +
+  Gemini `thinkingBudget=0`. **Mini-Agent Harness = lightweight design only** (no runtime). Draft-only;
+  no auto-publish/payment/scaling. Docs: `docs/MINI_AGENT_HARNESS_DESIGN.md`,
+  `docs/LLM_PROVIDER_COMPARISON_REPORT.md`. **Data-first** Operator Action Checklist added to
+  `docs/DATA_SOURCE_SYNC_VERIFICATION.md` (operator runs real sync on Render; not fabricated).
 - **Resource:** **no scaling · no payment · no bot auto-publish.**
 - **Harness-X:** docs are source of truth; no screenshot = no PASS; high-risk transitions Owner-gated.
 

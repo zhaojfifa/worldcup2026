@@ -94,3 +94,33 @@ Owner approved real data integration. Re-checked live: `mock_mode=true`, `reques
 `admin/sync/fixtures` still `401` from local (no token). **Claude cannot run the real sync (no
 Render Shell / token) and will not fabricate counts.** The real pull remains the operator step in
 §9. Status unchanged: data still seed until operator runs sync on Render.
+
+## 11. Operator Action Checklist (data-first — highest priority)
+Run on **Render Shell** (operator + `$ADMIN_API_TOKEN`). **Do not fabricate results** — paste real output.
+
+- [ ] **Fixtures sync** — `curl -X POST .../api/v1/admin/sync/fixtures -H "x-admin-token: $ADMIN_API_TOKEN"`
+      → record inserted/updated counts.
+- [ ] **Results sync** — `curl -X POST .../api/v1/admin/sync/results -H "x-admin-token: $ADMIN_API_TOKEN" -d '{"league_id":1,"season":2026}'`
+      → record settled count.
+- [ ] **Performance summary** — `curl .../api/v1/performance/summary` → record `total_settled`, `hit_rate`.
+- [ ] **Data-source status** — `curl .../api/v1/data-source/status` → record `mock_mode`, `requests_used`.
+- [ ] **Record real-vs-seed:** state explicitly whether match/fixture/result data is **real** or **seed**.
+- [ ] **What can be used in operation copy:** if real → AI-viewpoint + pre-match + risk signals; results recap only once settled.
+- [ ] **What must NOT be marketed:** **no hit-rate / accuracy / guaranteed-result claims** while
+      `total_settled` is 0 or `hit_rate` is null. (Compliance floor — unchanged.)
+
+| Field | Value (operator fills) |
+|-------|------------------------|
+| fixtures inserted/updated |  |
+| results settled |  |
+| performance.total_settled |  |
+| performance.hit_rate |  |
+| data-source.mock_mode |  |
+| data-source.requests_used |  |
+| real or seed? |  |
+| usable in copy |  |
+| must-not-market |  |
+
+> **Until this checklist is filled with real Render output, treat all match data as seed.** LLM drafts
+> already carry `data_mode=mock` + "do not present as real accuracy" warnings (see
+> `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`).

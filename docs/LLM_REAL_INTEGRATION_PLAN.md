@@ -91,3 +91,14 @@ then review drafts before any manual publish. Full auto-publish remains NO-GO.
 - Drafts → `docs/LLM_DRAFT_COPY_REVIEW_LOG.md` (human_review_status=pending). Render runbook +
   local results → `docs/LLM_RENDER_VERIFICATION.md`. **No auto-publish, no payment, no bot, no scaling.**
   Render is the source of truth for the LLM env; local needs no real key.
+
+## 11. provider_override + real provider comparison (2026-06-08)
+- **`provider_override`** added to the endpoint (admin, draft-only, backward compatible): `deepseek|kimi|
+  gemini`. Unknown value → warned + fallback; provider with no key/error → fallback. Response shape unchanged
+  (`provenance` carries `llm:<provider>` or `human_template_fallback`). Gemini added to `client.py`
+  (`generateContent`, `thinkingBudget=0`, `maxOutputTokens=600`). Prompt hardened: **respond only in target
+  language** (no Chinese for vi/mm).
+- **Real comparison (local keys, pre-existing, never committed; draft-only):** **DeepSeek + Gemini clean for
+  vi/mm; Kimi leaks Chinese for vi/mm.** See `docs/LLM_PROVIDER_COMPARISON_REPORT.md`. Recommendation
+  (Owner decides production): **DeepSeek primary, Gemini benchmark, Kimi not for vi/mm yet.** Mini-Agent
+  Harness is a lightweight **design** only (`docs/MINI_AGENT_HARNESS_DESIGN.md`). Draft-only unchanged.
