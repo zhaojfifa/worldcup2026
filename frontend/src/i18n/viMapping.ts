@@ -106,6 +106,11 @@ export const noteViMap: Record<string, string> = {
   // Generic topRisk fallbacks (ops/derive.topRisk)
   '双方接近，结果对临场阵容较为敏感': 'Hai đội sát nhau, kết quả nhạy với đội hình xuất phát',
   '常规波动，关注临场首发': 'Biến động thường, chú ý đội hình xuất phát',
+  // refreshed risk_note (low-risk / clear-direction matches)
+  '模型判断方向较为明确，主要因子一致，临场变量影响有限。':
+    'Mô hình nhận định khá rõ ràng; các yếu tố chính đồng thuận, biến số sát giờ ảnh hưởng hạn chế.',
+  '模型判断方向较为明确，主要因子一致，临场变量影响有限':
+    'Mô hình nhận định khá rõ ràng; các yếu tố chính đồng thuận, biến số sát giờ ảnh hưởng hạn chế',
   // live_correction trigger + reason (seed)
   '阿根廷主力中卫未进入首发': 'Trung vệ trụ cột Argentina không đá chính',
   '阿根廷后场出球稳定性下降，巴西右路进攻优势扩大。':
@@ -192,6 +197,10 @@ export const noteEnMap: Record<string, string> = {
   '双方实力接近，结果高度依赖临场阵容与战术对位，不确定性较高': 'The two sides are close; result hinges on lineup & tactics, high uncertainty',
   '双方接近，结果对临场阵容较为敏感': 'Teams are close; result is sensitive to the starting lineup',
   '常规波动，关注临场首发': 'Normal variance; watch the starting lineup',
+  '模型判断方向较为明确，主要因子一致，临场变量影响有限。':
+    'The model’s read is fairly clear; key factors align and live variables have limited impact.',
+  '模型判断方向较为明确，主要因子一致，临场变量影响有限':
+    'The model’s read is fairly clear; key factors align and live variables have limited impact',
   '阿根廷主力中卫未进入首发': 'Argentina’s key center-back is not starting',
   '阿根廷后场出球稳定性下降，巴西右路进攻优势扩大。':
     'Argentina’s build-up stability drops; Brazil’s right-flank attacking edge grows.',
