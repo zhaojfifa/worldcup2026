@@ -2,6 +2,56 @@
 
 **Verdict: PASS** (ready for human re-review)
 
+---
+
+## 2026-06-08 Recheck after operator feedback (BLOCKED_STATE_DIVERGENCE → resolved)
+
+**Verdict: PASS WITH ISSUES** — both reported issues fixed and screenshot-verified; the residual
+operator action (real-device Telegram open + live deploy) remains outside engineering.
+
+### 1. Trigger
+- Operator (real phone): Telegram link reachable on web but in-app browser → `ERR_CONNECTION_REFUSED`.
+- Operator: `/detail?lang=mm` still shows Chinese residual.
+- Previous QA said PASS → **state divergence** vs real feedback.
+
+### 2. Blocked state
+`BLOCKED_STATE_DIVERGENCE` — re-entered screenshot-driven QA before re-asserting PASS.
+
+### 3. Screenshots (`docs/qa_screenshots/mm_mobile_recheck/`)
+`detail-mm-before-390.png`, `community-mm-before-390.png` (before);
+`community-mm-after-390.png`, `detail-mm-after-390.png`, `home-mm-after-390.png`,
+`community-mm-after-430.png`, `detail-mm-after-430.png` (after);
+`detail-vi-regression-390.png`, `home-zh-regression-390.png` (regression).
+Telegram open/copy sheet + localized Report page were screenshot-verified live in Claude Preview.
+
+### 4. Findings (root cause)
+- **Chinese residual was on the REPORT page** (`/report`, reached via detail → unlock), which was
+  **never localized** — hardcoded zh (`低/中/高`, feature labels, tactics, trend, verdict, footer).
+  `/detail` itself scanned clean (0 Han) for all 3 matches; the operator's "detail" path includes
+  the detail→unlock→report flow. (The live site may also lag the latest deploy.)
+- **Telegram:** plain `window.open(t.me)` fails in some mobile in-app browsers (ERR_CONNECTION_REFUSED).
+
+### 5. Fixes (frontend only; copy/mapping/UX)
+- **ReportPage.tsx + FeatureBars.tsx** localized (zh/vi/mm/en) via `useCopy`/`useLocale` + loc helpers;
+  added report dict keys (zh/vi/en/mm) and mapped report **trend labels + tactics_note** (3 seed
+  matches) + feature labels in `viMapping.ts`/`mmMapping.ts` (unmapped → English, never Chinese).
+  Verified: `/report?lang=mm` → 0 Han; sections all Burmese (screenshot).
+- **CommunityPage.tsx**: active-channel click now opens an **open/copy fallback sheet** instead of a
+  bare `window.open`: `Telegram ဖွင့်ရန်` (Open) / `Link ကူးရန်` (Copy, `navigator.clipboard` +
+  toast/fallback) / `ပိတ်ရန်` (Close) + Burmese hint. Still uses the **API `public_url`** (not
+  hardcoded); `click_social_channel` still tracked. Verified live (API mode) — screenshot shows the
+  sheet with all three buttons + hint. vi/en strings added too.
+
+### 6. Regression
+- vi `/detail` Vietnamese, VND — unaffected. zh `/` Chinese, RMB — unaffected. Build passes; no console errors.
+
+### 7. Verdict
+**PASS WITH ISSUES** — engineering fixes verified by screenshot. Outstanding (non-engineering):
+operator to confirm on a real device after deploy, and to validate the Telegram link opens via the
+copy path. (Original 2026-06-07 PASS is superseded by this recheck.)
+
+---
+
 > **Re-verified 2026-06-07** alongside the Vietnamese sweep: mm Home/Detail/Token/Community
 > re-scanned at 390×844 & 430×932 — Today Matches overlap stays fixed, no Chinese residual,
 > no English long-form residual, MMK pricing intact, isolation holds. Still PASS.

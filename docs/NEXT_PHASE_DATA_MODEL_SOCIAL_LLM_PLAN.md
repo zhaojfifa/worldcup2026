@@ -115,3 +115,10 @@ Vietnam trial pending Zalo. Real data sync (#3) is an operator decision. Owner d
 - **Pending (ops):** set `AI_PROVIDER=deepseek|kimi` + key on Render to exercise the real call;
   then human-review drafts before manual send. LLM **Full auto-publish remains NO-GO**.
 - Plan/details: `docs/LLM_REAL_INTEGRATION_PLAN.md`.
+
+## 10. Social link UX fix + Report localization (2026-06-08, BLOCKED_STATE_DIVERGENCE)
+- Operator real-device feedback: Telegram `ERR_CONNECTION_REFUSED` + mm detail Chinese residual.
+- Fixed: **Report page localized** (zh/vi/mm/en; the true residual — never localized before) and a
+  **Telegram open/copy fallback sheet** added (uses API `public_url`, still tracks click_social_channel).
+- Screenshot-verified; `docs/MM_MOBILE_QA_REPORT.md` (recheck, PASS WITH ISSUES). No backend change.
+- Social trial can continue after deploy; operator confirms Telegram open via copy path on device.

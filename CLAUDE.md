@@ -93,6 +93,14 @@
     NO payment, NO scaling, NO public API-shape change.** `httpx` already present (no new dep).
     Real provider call to be exercised on Render with key (currently `AI_PROVIDER=mock` → fallback).
     Plan: `docs/LLM_REAL_INTEGRATION_PLAN.md`. **Unreviewed LLM output is NO-GO** (human review gate).
+  - **BLOCKED_STATE_DIVERGENCE recheck (2026-06-08):** operator (real phone) reported Telegram
+    `ERR_CONNECTION_REFUSED` + `/detail?lang=mm` Chinese residual. Root cause: the **Report page**
+    (`/report`, via detail→unlock) was never localized (hardcoded zh). Fixed: ReportPage +
+    FeatureBars localized (zh/vi/mm/en) incl. trend/tactics/feature mappings; CommunityPage active
+    channel now shows an **open/copy fallback sheet** (uses API `public_url`, still tracks
+    `click_social_channel`). Screenshot-verified (`docs/qa_screenshots/mm_mobile_recheck/`,
+    `docs/MM_MOBILE_QA_REPORT.md`). zh/vi unaffected. **Lesson: screenshot-driven QA must cover the
+    full unlock→report flow, not just /detail.** No backend/API/DB/scaling change.
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

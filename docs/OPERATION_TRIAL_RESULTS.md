@@ -24,6 +24,10 @@ only on configuring ≥1 `active` community channel (Zalo first).
 
 ### Myanmar (mm) trial — ready to dispatch
 - Channel: **Telegram — `status=active`, `public_url=set`** (live-verified `GET /social/channels`, 2026-06-08).
+- ⚠️ **Operator reported `ERR_CONNECTION_REFUSED`** opening the Telegram link in a mobile in-app
+  browser. Mitigation shipped: the community page now shows an **open/copy fallback sheet**
+  (Open Telegram / Copy link / hint) so the operator/user can paste the link into the Telegram app
+  or a browser. Operator should re-test on device after deploy and use "Copy link" if direct open fails.
 - Copy: `docs/MM_OPERATION_TRIAL_MESSAGES.md` + `docs/OPERATION_COPY_LIBRARY_VI_MM.md` (Burmese, MMK).
 - Channel-click events must carry `match_id` (so `community/heat` registers).
 - Record metrics below after real dispatch (no fabricated feedback).

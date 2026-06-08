@@ -60,6 +60,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   import OK, auth 401/400, filter clean/dirty/negation, vi+mm drafts via fallback. **No auto-publish /
   DB write / payment / scaling / public API-shape change**; `httpx` already present. Real provider call
   pending Render key (currently mock → fallback). Plan: `docs/LLM_REAL_INTEGRATION_PLAN.md`.
+- **BLOCKED_STATE_DIVERGENCE recheck (2026-06-08):** operator reported Telegram mobile
+  `ERR_CONNECTION_REFUSED` + mm detail Chinese residual. Root cause = the **Report page** was never
+  localized (hardcoded zh). Fixed ReportPage + FeatureBars (zh/vi/mm/en) + report trend/tactics/feature
+  mappings; added a **Telegram open/copy fallback sheet** (API `public_url`, still tracks click).
+  Screenshot-verified at 390/430 (`docs/qa_screenshots/mm_mobile_recheck/`, `docs/MM_MOBILE_QA_REPORT.md`).
+  Previous PASS → **PASS WITH ISSUES** (operator to confirm on device post-deploy). zh/vi unaffected;
+  build passes; no backend/API/DB/scaling change.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.
