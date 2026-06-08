@@ -1,213 +1,116 @@
 # Giành Cup Engineering Handoff
 
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
-_Version: **MVP v0.6D** · origin/main synced · Day 6A–6D complete._
+_Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
 ---
 
-## 1. Product Positioning
+## 1. One-page summary
 
-**Giành Cup** is a **2026 World Cup AI Football Intelligence community** for the
-**Vietnam-first** Southeast Asia market. It provides AI data viewpoints, win-probability
-changes, risk notes, live (T-30min) lineup corrections, and fan engagement tasks.
-
-It is **NOT a betting product**: no betting, no cash wagering, no guaranteed hits,
-no promised returns. MTC is **platform loyalty points only** (not withdrawable /
-transferable / tradable; not a financial asset). Rankings are a streak/points board,
-never an earnings board.
-
-User-facing brand line: **Giành Cup · 世界杯 AI 足球情报社区** —
-副文案「不只看胜率，更看 AI 为什么这样判断。」
-(Retired main brand `Nhà Tiên Tri AI` survives only in historical docs.)
+- **State:** Giành Cup MVP v0.8 — multilingual (zh/en/vi/mm) UI is **language-gate CLOSED & QA-PASS**;
+  a **draft-only LLM** copy endpoint exists; data/model are **real-capable but still on seed
+  (`mock_mode=true`)**; Myanmar **Telegram is active**, Vietnam **Zalo pending**.
+- **Next chat's first goal:** deploy latest `main`, then **(operator) true-device retest of the
+  Telegram open/copy fallback + send the 3 Burmese trial messages**, and **verify the real LLM draft
+  call on Render** (`AI_PROVIDER=deepseek|kimi` + key). Do NOT start new features; finish the
+  operate/verify loop. LLM production beyond draft-only / payment / bot / scaling are **Owner-gated**.
 
 ---
 
-## 2. Current Deployment
+## 2. Product & language state
 
-| Item | Value |
-|------|-------|
-| Frontend | https://worldcup2026-izid.onrender.com (Render) |
-| Backend | https://worldcup2026-api-71n6.onrender.com (Render, FastAPI) |
-| Database | Render PostgreSQL (local dev uses SQLite via `DATABASE_URL`) |
-| R2 bucket | `giand-cup-assets` (configured & ready; `R2_PUBLIC_BASE_URL` empty = OK) |
-| Repo | github.com/zhaojfifa/worldcup2026 |
-| Branch | `main` (origin synced) |
-| Backend version | `0.6.0` (app/main.py) |
+- **Brand:** Giành Cup · 2026 World Cup AI Football Intelligence Community (Vietnam-first SEA).
+- **Language roles:** `vi` primary customer · `mm` secondary customer · `zh` internal China-team
+  management · `en` system/fallback/API/admin/schema. **vi/mm fall back to English, never Chinese.**
+- **Currency by locale:** zh RMB · en USD · vi VND(₫) · mm MMK(Ks). No RMB shown to vi/mm customers.
+- **Switcher:** header `CN · VI · MY`; persists in `localStorage giandcup_lang`; `?lang=` param honored.
+- **Verify URLs:** `/?lang=vi` · `/?lang=mm` · `/community?lang=mm` · `/report?lang=mm` · `/detail?lang=mm`.
+- **i18n code:** `frontend/src/i18n/{useLocale,dict,viMapping,mmMapping,pricing}.ts`,
+  `frontend/src/copy/{zh,en,vi,mm}.ts`. `.lang-mm` density profile in `global.css` (Burmese is longer).
 
-Latest commits:
-```
-e7dcad4 feat(frontend): show fan streak and rankings fallback
-0c3f730 feat(backend): add streak challenge and rankings
-```
+## 3. Deployment / environment
 
-Local dev: Python 3.9; deps in `backend/requirements.txt` (boto3 lazy-imported).
-`init_db()` auto-creates all tables on startup (create_all; only missing tables).
-Seed: `python backend/scripts/seed.py` (idempotent social channels; demo user id=1, 520 MTC).
+- Frontend: https://worldcup2026-izid.onrender.com · Backend: https://worldcup2026-api-71n6.onrender.com
+- DB: Render PostgreSQL (local dev = SQLite). R2 bucket `giand-cup-assets` (configured; `/assets/status` ok).
+- **Render env is the source of truth for secrets** (`ADMIN_API_TOKEN`, `API_FOOTBALL_KEY`,
+  `DEEPSEEK_API_KEY`/`KIMI_API_KEY`, R2_*). **Local does NOT need real keys** — LLM falls back to
+  human templates; admin routes are 401 locally without a token.
+- Local QA dev server: `npm run dev --prefix frontend`; screenshot helper `scripts/qa/lang_mobile_shots.sh`.
 
----
+## 4. Social status
 
-## 3. Completed Milestones (Day 2 → Day 6D)
+- **Myanmar Telegram ACTIVE:** `https://t.me/GianhCupMMAIFootball` (live `GET /social/channels` →
+  telegram `status=active`, `public_url` set).
+- **Operator reported `ERR_CONNECTION_REFUSED`** opening t.me in a mobile in-app browser → fixed with
+  a **community open/copy fallback sheet** (Open Telegram / Copy link / hint; uses API `public_url`,
+  still tracks `click_social_channel`). Needs operator **true-device confirmation after deploy**.
+- `events/track` + `community/heat` verified earlier (clicks need `match_id` to register).
+- **Vietnam Zalo pending active** — operator sets it via `POST /admin/social/channels/upsert` (Render Shell).
 
-**Day 2** — React/Vite frontend, 5 pages (Home / Detail / Report / Token / Community).
+## 5. Data status
 
-**Day 3** — FastAPI backend, PostgreSQL, Render deploy, frontend↔backend API loop.
+- Last known `GET /api/v1/data-source/status`: `api_football_configured=true`, `connector_status=ok`,
+  **`mock_mode=true`**, `requests_used=0`. `performance/summary` all 0 / `hit_rate=null`.
+- **Real sync is operator-only (Render Shell, `$ADMIN_API_TOKEN`); Claude has no token → do NOT fake it.**
+  ```bash
+  curl -X POST .../api/v1/admin/sync/fixtures -H "x-admin-token: $ADMIN_API_TOKEN"
+  curl -X POST .../api/v1/admin/sync/results  -H "x-admin-token: $ADMIN_API_TOKEN" -d '{"league_id":1,"season":2026}'
+  curl .../api/v1/data-source/status   # expect mock_mode=false, requests_used>0 after a real pull
+  ```
+  Details: `docs/DATA_SOURCE_SYNC_VERIFICATION.md`.
 
-**Day 4** — API-FOOTBALL connector; fixtures sync; baseline rules predictor;
-`POST /matches/{id}/refresh`.
+## 6. Modeling status
 
-**Day 5** — Operational intelligence home: 今日 AI 最强信号 (C-pick), 今日比赛简表,
-今日爆冷风险 TOP3, AI 情报战绩 status; detail AI 结论卡; `frontend/src/ops/derive.ts`.
+- `POST /matches/{1,2,3}/refresh` verified: win_prob sums to **100**; m1 high/conf61, m2 low/conf80,
+  m3 low/conf86; **response shape unchanged**. Details: `docs/MODELING_BASELINE_VERIFICATION.md`.
+- **Allowed operating language:** AI viewpoint / risk signal / pre-match update.
+  **Forbidden:** real hit-rate / guaranteed accuracy / betting language (no settled results yet).
 
-**Day 5.5** — Giành Cup branding; 社群矩阵; Content Studio; data/social loop design.
+## 7. LLM status
 
-**Day 6A** — `MatchResult`, `PredictionSettlement`, `/admin/sync/results`,
-`/performance/daily`, `/performance/summary`.
+- **Draft-only** admin endpoint: `POST /api/v1/admin/llm/generate-copy` (x-admin-token) →
+  `{generated_text, provenance, data_mode, warnings, forbidden_hits, status:"draft_only", publishable:false}`.
+  Body: `{match_id, language: vi|mm|zh|en, copy_type: preview|upset|live|recap}`.
+- Providers: **DeepSeek / Kimi** (via `AI_PROVIDER` + key). Local/`mock` → **human-template fallback**.
+  Forbidden-phrase filter (zh/vi/mm/en, allows negations). `AI_PROVIDER=mock` = instant rollback.
+- **Real provider call NOT yet verified on Render** — see `docs/LLM_RENDER_VERIFICATION.md` for the steps.
+- **No auto-publish, no DB write, no payment, no bot.** Code: `backend/app/services/llm/*`,
+  `backend/app/routers/llm.py`. Plan: `docs/LLM_REAL_INTEGRATION_PLAN.md`.
 
-**Day 6B** — R2 storage: bucket `giand-cup-assets`, `ContentAsset`, `/assets/status`,
-`/admin/assets/upload`, `/assets/{id}`, `/admin/assets/{id}`.
+## 8. QA lessons (do not repeat)
 
-**Day 6C** — `SocialChannel`, `MatchEngagement`, `/social/channels`,
-`/admin/social/channels/upsert`, `/events/track`, `/community/heat`.
+- **`/detail` alone was insufficient** — the real residual was on the **`/report`** page reached via
+  detail → unlock. Always QA the **full detail → unlock → report flow**.
+- **Screenshot-driven QA is mandatory** for customer-facing language/mobile. **No screenshot = no PASS.**
+- Recheck artifacts: `docs/qa_screenshots/mm_mobile_recheck/` (+ `mm_mobile/`, `vi_mobile/`).
+  Reports: `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`.
 
-**Day 6D** — `UserStreak`, `ChallengeResult`, `/users/{user_id}/streak`, `/rankings`,
-`/admin/challenges/settle`; TokenPage fan streak + ranking fallback.
+## 9. Harness-X rule set
 
----
+- **Self-validation OK:** L0/L1 (read-only checks, docs, small frontend copy/mapping with screenshots).
+- **Owner decision required (blocked transitions):** LLM production beyond draft-only · bot auto-publish ·
+  payment · deployment scaling · API-shape change · DB-schema expansion · release decisions.
+- **Required artifacts:** screenshots for UI PASS; real curl output (never fabricated) for API/data;
+  docs updated every round. **Docs are the source of truth, not chat memory.**
 
-## 4. Current API Inventory
+## 10. Immediate next actions
 
-**Core (shapes frozen — do not change):**
-```
-GET  /api/v1/health
-GET  /api/v1/matches
-GET  /api/v1/matches/{id}
-GET  /api/v1/reports/{id}
-```
-**Data:**
-```
-GET  /api/v1/data-source/status
-POST /api/v1/admin/sync/fixtures        (x-admin-token)
-POST /api/v1/matches/{id}/refresh
-```
-**Performance:**
-```
-POST /api/v1/admin/sync/results          (x-admin-token)
-GET  /api/v1/performance/daily
-GET  /api/v1/performance/summary
-```
-**Assets:**
-```
-GET    /api/v1/assets/status
-POST   /api/v1/admin/assets/upload       (x-admin-token)
-GET    /api/v1/assets/{id}
-DELETE /api/v1/admin/assets/{id}         (x-admin-token)
-```
-**Community:**
-```
-GET  /api/v1/social/channels
-POST /api/v1/admin/social/channels/upsert (x-admin-token)
-POST /api/v1/events/track
-GET  /api/v1/community/heat
-```
-**Streak / rankings:**
-```
-GET  /api/v1/users/{user_id}/streak
-GET  /api/v1/rankings
-POST /api/v1/admin/challenges/settle      (x-admin-token)
-```
+1. **Deploy latest `main`** to Render (frontend + backend).
+2. **Operator:** true-device retest of the Telegram open/copy fallback (`/community?lang=mm`).
+3. **Operator:** send the 3 Burmese trial messages (`docs/MM_OPERATION_TRIAL_MESSAGES.md`); record in
+   `docs/OPERATION_TRIAL_RESULTS.md` (no fabricated metrics).
+4. **Operator (Render Shell):** run real `admin/sync/fixtures` + `admin/sync/results`; paste counts into
+   `docs/DATA_SOURCE_SYNC_VERIFICATION.md`.
+5. **Verify the Render LLM draft endpoint** with `AI_PROVIDER=deepseek|kimi` + key; record in
+   `docs/LLM_RENDER_VERIFICATION.md`.
+6. **Activate Vietnam Zalo** when a real link is available (admin upsert), then run the vi trial.
 
-> All `/admin/*` routes require header `x-admin-token` == `ADMIN_API_TOKEN`.
-> If `ADMIN_API_TOKEN` is unset, admin routes are locked (always 401).
-
----
-
-## 5. Day 6D Details
-
-**New tables**
-- `UserStreak` — `user_id` (unique), `current_streak`, `best_streak`,
-  `last_participation_date`, `mtc_earned`. No cash fields.
-- `ChallengeResult` — unique (`challenge_id`, `user_id`); `selected_option`,
-  `actual_result`, `is_correct` (null = neutral/unresolved).
-
-**Settlement rules** (`services/streak/streak_service.py`; label mirrors
-`frontend/src/ops/derive.ts`):
-- 主胜偏强/略占优 → home (single); 客胜偏强/略占优 → away (single);
-  主队不败趋势 → {home,draw}; 客队不败趋势 → {away,draw}; 难分胜负 → neutral (not scored).
-- Correct → `current_streak += 1`, `best = max(...)`; miss → reset to 0; neutral → unchanged.
-
-**MTC reward** (platform points only, credited via `wallet_service._credit`,
-logged in `TokenLog` as `challenge_reward`): +10 on correct; +20 extra when streak
-reaches 3; +80 extra when streak reaches 7.
-
-**Idempotency:** a challenge already settled for a user does NOT re-apply
-streak/MTC on repeat calls (returns "该挑战已结算，未重复计入连胜或积分").
-
-**Rankings sort:** `current_streak` desc → `best_streak` desc → `mtc_earned` desc.
-Empty-safe; no fabricated users; display name = user nickname or `球迷 NNN`.
-
-**TokenPage fallback:** API mode shows FAN STREAK + RANKINGS from live data;
-mock mode / no data shows "连胜挑战建设中" / "排行榜建设中" (no fabricated board).
-MTC compliance statement retained. `/matches` & `/reports` shapes unaffected.
-
----
-
-## 6. Render Verification Needed (DO THIS FIRST next chat)
-
-After backend redeploys (tables auto-create on startup):
-
-```
-curl https://worldcup2026-api-71n6.onrender.com/api/v1/users/1/streak
-curl https://worldcup2026-api-71n6.onrender.com/api/v1/rankings
-```
-(Both should be empty-safe with the disclaimer.)
-
-Admin settlement (replace token with the real Render `ADMIN_API_TOKEN`):
-```
-curl -X POST https://worldcup2026-api-71n6.onrender.com/api/v1/admin/challenges/settle \
-  -H "Content-Type: application/json" \
-  -H "x-admin-token: YOUR_ADMIN_API_TOKEN" \
-  -d '{"challenge_id":1,"user_id":1,"actual_result":"A","selected_option":"A"}'
-```
-Then re-check:
-```
-curl https://worldcup2026-api-71n6.onrender.com/api/v1/users/1/streak
-curl https://worldcup2026-api-71n6.onrender.com/api/v1/rankings
-```
-(401 expected without / with wrong token. Seed channels first if needed:
-run `python scripts/seed.py` in the Render shell.)
-
-Frontend (after deploy, `VITE_USE_MOCK=false`):
-- Token page shows **FAN STREAK** card.
-- Token page shows **连胜排行榜**.
-- mock mode does NOT fabricate a board.
-- MTC compliance statement still present.
-
----
-
-## 7. Recommended Day 7 — Operational Readiness & Public MVP Polish
-
-Candidate tasks (do NOT wire LLM in Day 7):
-1. Update `docs/MVP_STATUS.md` after Day 6D verification (already at v0.6D).
-2. **Day 6D Render online verification** (see §6).
-3. Giành Cup Vietnamese first-pass key copy.
-4. Content Studio reads `/assets/status` → show "素材存储已连接".
-5. Configure real Zalo / Telegram links via `/admin/social/channels/upsert`.
-6. Real API-FOOTBALL fixtures/results sync verification.
-7. Operations manual: daily prediction publishing flow.
-8. Compliance checklist.
-9. Codex v0.6D review.
-
-**Day 8 (not earlier):** LLM (Kimi / DeepSeek) for AI explanation generation —
-must ship behind a banned-word output filter.
-
----
-
-## 8. Hard Rules (carry forward)
+## 11. Hard rules (carry forward)
 
 - Standard path `/Users/jackie/code/worldcup2026` (NOT `wordcup2026`).
-- Never change `/matches`, `/matches/{id}`, `/reports/{id}` response shapes.
-- New capability → new tables + new endpoints; admin writes token-protected.
-- Graceful degradation when external services (API-FOOTBALL / R2) unconfigured.
-- Never print/log `API_FOOTBALL_KEY`, `R2_SECRET_ACCESS_KEY`, `ADMIN_API_TOKEN`.
-- Never commit `.env` / `.db`; keep `VITE_USE_MOCK` dual mode working.
-- Forbidden wording + mandatory disclaimer + MTC statement (see CLAUDE.md §0/§8).
+- Never change `/matches`, `/matches/{id}`, `/reports/{id}` response shapes. New capability → new
+  endpoint + token-protected admin writes. Graceful degradation when API-FOOTBALL/R2/LLM unconfigured.
+- Never log/commit secrets; never commit `.env*` / `.db`. Keep `VITE_USE_MOCK` dual mode working.
+- Forbidden wording + mandatory disclaimer + MTC statement (CLAUDE.md). vi/mm never fall back to Chinese.
+- **git:** committer is machine-inferred (user.name/email unset). Do **not** amend/force-push;
+  recommend human run `git config user.name "Jackie"` / `git config user.email "zhaojifa@gmail.com"`.

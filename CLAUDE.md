@@ -8,22 +8,46 @@
 
 ## ★ Current Project State / Handoff (read this first)
 
-> Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`**.
-> Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.6D).
+> Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`** (read after this).
+> Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.8).
 
-1. **Brand:** `Giành Cup` · `2026 World Cup AI Football Intelligence`.
-   User-facing: **Giành Cup · 世界杯 AI 足球情报社区**.
-   (Retired main brand: Nhà Tiên Tri AI — historical docs only.)
+1. **Brand / Product:** `Giành Cup` · **2026 World Cup AI Football Intelligence Community**.
+   User-facing: **Giành Cup · 世界杯 AI 足球情报社区**. (Retired: Nhà Tiên Tri AI — docs only.)
+   **Language roles:** `vi` = primary customer (Vietnam) · `mm` = secondary customer
+   (Myanmar/Burmese) · `zh` = internal China-team management · `en` = system / fallback /
+   API / admin / schema. vi/mm fall back to **English, never Chinese**.
 
 2. **Live URLs:**
    - Frontend: https://worldcup2026-izid.onrender.com
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
-3. **Stage:** **MVP v0.7 — multilingual operation preparation** (origin/main synced).
-   Day 6A–6D done & Render-verified PASS. Day 7 ops-readiness + accelerated operation
-   loop done. Multilingual (zh/en/vi/mm) operation mode in place. **Operational blocker:
-   no `active` Zalo/Telegram channel yet** (real customer trial cannot dispatch until set).
-   Day 8 LLM = Prep only, not Full Build.
+3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Language gate CLOSED.** vi mobile QA PASS; mm mobile QA PASS (after screenshot-driven recheck).
+     Report-page localization residual **fixed**; Telegram **open/copy fallback UX** added.
+   - **Social:** Myanmar **Telegram active** (`https://t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending active**.
+   - **Data:** API-FOOTBALL configured & reachable but **`mock_mode=true`** (last known); **real
+     fixtures/results sync NOT run by Claude** — needs `$ADMIN_API_TOKEN` in Render Shell (operator).
+   - **Modeling:** baseline + refresh OK (win_prob sums 100); usable as **AI viewpoint only**, NOT hit-rate.
+   - **LLM:** **draft-only** admin endpoint `POST /api/v1/admin/llm/generate-copy` (DeepSeek/Kimi,
+     forbidden-filter, human-template fallback, `status:draft_only`). **Real provider call pending
+     Render verification** (`AI_PROVIDER=mock` now → fallback). No auto-publish.
+   - **NO** payment · **NO** bot auto-publish · **NO** resource scaling.
+
+3b. **Harness-X work protocol (now the project standard):**
+   - L0/L1 tasks → Claude self-validation OK. **L2 / high-risk → Owner decision required.**
+   - **No screenshot = no PASS** for customer-facing language / mobile QA.
+   - **Docs are the source of truth**, not chat/terminal output.
+   - **Owner approval required for:** LLM production beyond draft-only · bot auto-publish · payment ·
+     deployment scaling · API-shape change · DB-schema expansion · release decisions.
+   - Never fake a Render-Shell sync or an LLM provider result; never write "PASS" without evidence.
+
+3c. **Current blockers:** (a) Vietnam Zalo not active; (b) real fixtures/results sync needs operator
+   Render Shell (no token for Claude); (c) real LLM provider call must be verified on Render, not local;
+   (d) Myanmar Telegram mobile fallback needs operator true-device confirmation after deploy.
+
+3d. **git committer note (do NOT amend history):** commits show a machine-inferred committer because
+   `git user.name`/`user.email` are unset locally. Recommended local config (human runs it):
+   `git config user.name "Jackie"` · `git config user.email "zhaojifa@gmail.com"`. Do not force-push.
 
 4. **Compliance floor (non-negotiable):**
    不做博彩 · 不做现金投注 · 不承诺命中 · 不承诺收益 ·

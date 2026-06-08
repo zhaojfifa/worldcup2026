@@ -122,3 +122,9 @@ Vietnam trial pending Zalo. Real data sync (#3) is an operator decision. Owner d
   **Telegram open/copy fallback sheet** added (uses API `public_url`, still tracks click_social_channel).
 - Screenshot-verified; `docs/MM_MOBILE_QA_REPORT.md` (recheck, PASS WITH ISSUES). No backend change.
 - Social trial can continue after deploy; operator confirms Telegram open via copy path on device.
+
+## 11. Handoff scribe (v0.8, 2026-06-08)
+Context handed off — see `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md` (one-page + next actions) and
+`CLAUDE.md` (state/Harness-X/blockers). Pending owner/operator items: real data sync (Render Shell),
+real LLM call on Render (`docs/LLM_RENDER_VERIFICATION.md`), Telegram true-device retest, Zalo activation.
+No new feature code this round; docs-only scribe pass.

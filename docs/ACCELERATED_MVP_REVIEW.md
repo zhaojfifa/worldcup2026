@@ -190,6 +190,10 @@ auto-write to production · paid-content automation.
   human-template fallback, AI_PROVIDER=mock rollback). No auto-publish / DB / payment / scaling /
   API-shape change; verified locally (import/auth/filter/vi+mm drafts). Real call pending Render key.
   Ref: `docs/LLM_REAL_INTEGRATION_PLAN.md`. Unreviewed output NO-GO (human review gate).
+- **Handoff scribe (v0.8, 2026-06-08):** context fully captured in
+  `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md` + `CLAUDE.md`. mm/report residual fixed; Telegram
+  open/copy fallback added; real LLM call pending Render (`docs/LLM_RENDER_VERIFICATION.md`); real
+  data sync pending operator. No scaling/payment/bot. Docs-only round.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

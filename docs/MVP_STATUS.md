@@ -1,10 +1,27 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-06 (Day 7) · Version: **MVP v0.7 — multilingual operation preparation**_
+_Last updated: 2026-06-08 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
+
+## v0.8 current-state summary (2026-06-08)
+
+- **Latest commits:** `3343475` (mm recheck screenshots), `3a05ba3` (Telegram fallback + Report
+  localization), `822f3ac` (LLM integration policy), `0cd76bd` (draft-only LLM backend).
+- **Language QA:** vi PASS · mm PASS (after screenshot-driven recheck). Report-page Chinese residual
+  **fixed**; Telegram **open/copy fallback UX** added. Isolation holds (zh/RMB · vi/VND · mm/MMK).
+- **Social:** Myanmar **Telegram active** (`t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending**.
+- **Data-source:** `api_football_configured=true`, `connector_status=ok`, **`mock_mode=true`**
+  (last known); **real sync pending operator** (Render Shell). No real hit-rate claimable.
+- **Modeling:** matches 1/2/3 refresh PASS (win_prob sums 100); baseline usable as **AI viewpoint**,
+  not hit-rate proof; shape unchanged.
+- **LLM:** **draft-only** admin endpoint (`status=draft_only`, `publishable=false`); forbidden filter
+  + local human-template fallback work; **Render real-provider verification pending**
+  (`docs/LLM_RENDER_VERIFICATION.md`).
+- **Resource:** **no scaling · no payment · no bot auto-publish.**
+- **Harness-X:** docs are source of truth; no screenshot = no PASS; high-risk transitions Owner-gated.
 
 ---
 

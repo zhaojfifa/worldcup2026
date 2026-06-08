@@ -73,7 +73,8 @@ curl -X POST .../api/v1/admin/llm/generate-copy \
 
 ## 8. Risk / blocker
 - **Real LLM call not exercised locally** (no key; `AI_PROVIDER=mock`). Path verified via
-  fallback + unit tests; real-provider call should be validated on Render with a key (Owner/ops).
+  fallback + unit tests; **real-provider call must be validated on Render** — steps + result log in
+  **`docs/LLM_RENDER_VERIFICATION.md`** (status: PENDING).
 - Until then drafts come from human templates (compliant, fallback path).
 
 ## 9. Next Owner decision needed?
