@@ -93,3 +93,15 @@ channel**, then run the small-traffic vi/mm trial. LLM stays in prep until the g
 **Go-live gate update:** items 1,4,5 met; #2 = **Myanmar trial can dispatch now (Telegram active)**;
 Vietnam trial pending Zalo. Real data sync (#3) is an operator decision. Owner decisions outstanding:
 (a) run real data sync now or stay seed; (b) activate Zalo; (c) approve LLM Full Build (later).
+
+## 8. Data+Model formalization (2026-06-08, bounded L2-lite, NO scaling)
+- **Modeling:** matches 1/2/3 refreshed — all `win_prob` sum 100; m1 high/conf61, m2 low/conf80,
+  m3 low/conf86; **API shape unchanged**. vi/mm/en note maps extended for the refreshed low-risk
+  `risk_note`. Copy library filled from real model output (AI-viewpoint only). PASS.
+- **Data:** `mock_mode=true` still; **real `admin/sync/*` is BLOCKED for Claude** (token only in
+  Render Shell) → operator must run it. Until then no real hit-rate may be advertised.
+- **Social:** Myanmar Telegram `active` (verified) → 3 mm messages `ready_to_send`; Vietnam Zalo pending.
+- **LLM:** prep only (mapping / review queue / fallback / rollback designed); Full Build Owner-gated.
+- **No** resource scaling, payment, bot, API/DB schema change.
+- **Owner actions outstanding:** (a) run real data sync in Render Shell; (b) activate Zalo;
+  (c) dispatch the Myanmar trial + record feedback; (d) approve LLM Full Build later.

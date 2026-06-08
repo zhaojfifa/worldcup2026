@@ -46,6 +46,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   - Copy library: `docs/OPERATION_COPY_LIBRARY_VI_MM.md`. LLM prep: `docs/LLM_PREP_SCHEMA_AND_GUARDRAILS.md` (design only).
   - **Channels (live-verified): Myanmar Telegram `active` (url set); Vietnam Zalo `coming_soon` (pending).**
   - Admin sync endpoints 401-locked (operator Render-Shell). LLM Full Build Owner-gated.
+- **Data+Model Formalization (2026-06-08, Owner-approved L2-lite, no scaling):** matches 1/2/3
+  refreshed (win_prob=100; m1 high/61, m2 low/80, m3 low/86; **shape unchanged**); vi/mm/en note
+  maps extended for the new low-risk `risk_note`; copy library filled from model output
+  (`OPERATION_COPY_LIBRARY_VI_MM.md`); LLM prep deepened (mapping/queue/rollback). **Real
+  fixtures/results sync NOT run by Claude** — needs `$ADMIN_API_TOKEN` in Render Shell (operator);
+  `mock_mode=true` until then. Myanmar Telegram trial `ready_to_send`; Vietnam Zalo pending.
+  No backend/API/DB/scaling change.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.

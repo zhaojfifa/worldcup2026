@@ -23,9 +23,20 @@ only on configuring ≥1 `active` community channel (Zalo first).
 `GET /api/v1/social/channels` should show telegram `status=active` with a non-null `public_url`.
 
 ### Myanmar (mm) trial — ready to dispatch
-- Channel: Telegram (active). Copy: `docs/MM_OPERATION_TRIAL_MESSAGES.md` (Burmese, MMK pricing).
+- Channel: **Telegram — `status=active`, `public_url=set`** (live-verified `GET /social/channels`, 2026-06-08).
+- Copy: `docs/MM_OPERATION_TRIAL_MESSAGES.md` + `docs/OPERATION_COPY_LIBRARY_VI_MM.md` (Burmese, MMK).
 - Channel-click events must carry `match_id` (so `community/heat` registers).
 - Record metrics below after real dispatch (no fabricated feedback).
+
+| Msg | Status | sent_at | views | clicks | replies | asked_full_analysis | asked_ai_reason | asked_mtc | asked_live_update | compliance_issue |
+|-----|--------|---------|-------|--------|---------|---------------------|-----------------|-----------|-------------------|------------------|
+| A 三场速览 | `ready_to_send` | | | | | | | | | |
+| B 爆冷风险 | `ready_to_send` | | | | | | | | | |
+| C 临场修正 | `ready_to_send` | | | | | | | | | |
+
+> Status `ready_to_send` = copy + active channel both ready; **operator dispatches and fills the
+> row**. Claude does not send to real groups and will not fabricate metrics. `next_adjustment`:
+> record after first real feedback.
 
 ### Vietnam (vi) trial — pending
 - Channel: Zalo (pending active). Copy ready: `docs/OPERATION_TRIAL_MESSAGES_VI.md` (VND pricing).

@@ -57,3 +57,46 @@ Sources: `OPERATION_TRIAL_MESSAGES_VI.md`, `MM_OPERATION_TRIAL_MESSAGES.md`, `fr
 2. Disclaimer present.
 3. Price in correct currency (vi ₫ / mm Ks) — never RMB to customers.
 4. AI-viewpoint framing, no result/profit promise.
+
+---
+
+## Filled copy from refreshed model output (2026-06-08, seed data)
+
+> Based on the live refreshed baseline output (NOT real accuracy). Numbers are AI data view.
+
+### Daily 3-match brief
+
+**vi:**
+```
+🔥 3 trận AI đáng chú ý hôm nay
+⚽ Brazil vs Argentina — Xu hướng AI: Chủ nhà nhỉnh nhẹ (49%) · ★★★☆☆ · rủi ro cao, phụ thuộc đội hình.
+⚽ Morocco vs France — Xu hướng AI: Chủ nhà nhỉnh (50%) · ★★★★☆ · hướng khá rõ, biến số hạn chế.
+⚽ Spain vs Germany — Xu hướng AI: Chủ nhà nhỉnh (52%) · ★★★★★ · hướng khá rõ.
+Vào nhóm xem nhận định AI đầy đủ 👉
+Kết quả trong quá khứ không đảm bảo kết quả tương lai. Chỉ phân tích dữ liệu & giải trí.
+```
+
+**mm:**
+```
+🔥 ယနေ့ AI ၃ ပွဲ
+⚽ Brazil vs Argentina — AI အမြင်: အိမ်ရှင် အနည်းငယ်သာ (49%) · ★★★☆☆ · အန္တရာယ်မြင့်၊ လူစာရင်းပေါ်မူတည်။
+⚽ Morocco vs France — AI အမြင်: အိမ်ရှင် သာ (50%) · ★★★★☆ · ဦးတည်ရှင်း၊ ပြောင်းလဲမှုနည်း။
+⚽ Spain vs Germany — AI အမြင်: အိမ်ရှင် သာ (52%) · ★★★★★ · ဦးတည်ရှင်း။
+အပြည့်အစုံ ကြည့်ရန် အုပ်စုဝင်ပါ 👉
+အတိတ်ရလဒ်က အနာဂတ်ကို အာမမခံပါ။ ဒေတာ ခွဲခြမ်းစိတ်ဖြာမှုနှင့် ဖျော်ဖြေရေးအတွက်သာ။
+```
+
+### Upset risk (highest = match 1, high risk)
+- **vi:** ⚠️ Rủi ro cao: Brazil vs Argentina — hai đội sát nhau, kết quả phụ thuộc đội hình & chiến thuật. (disclaimer)
+- **mm:** ⚠️ အန္တရာယ်မြင့်: Brazil vs Argentina — နှစ်သင်းနီးစပ်၊ ရလဒ်သည် လူစာရင်း/နည်းဗျူဟာပေါ် မူတည်။ (disclaimer)
+
+### Live correction / model explanation
+- Use match 1's real `live_correction` (Brazil 45%→49% after Argentina center-back out).
+  vi: "AI tính lại"; mm: "AI ပြန်တွက်" — **not** "sure win".
+
+### MTC Q&A (both langs)
+- vi: "MTC là gì? → điểm tích lũy nền tảng, không rút tiền/chuyển nhượng/giao dịch."
+- mm: "MTC ဆိုတာ? → ပလက်ဖောင်းပွိုင့်၊ ငွေထုတ်/လွှဲ/ရောင်း မရ။"
+
+> All lines above are **AI data view / risk signal / pre-match update** — no hit-rate claim, no
+> betting, no cash. Confidence shown as ★ (derived), not as a real success rate.

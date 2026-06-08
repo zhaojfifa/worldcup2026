@@ -55,3 +55,36 @@ documented; real pull pending operator action.
 ## 8. Next Owner decision needed?
 **Yes (operator):** decide whether to run real fixtures/results sync now, or stay on seed for the
 small-traffic trial (copy/community validation does not require real accuracy).
+
+---
+
+## 9. Data formalization run (2026-06-08, Owner-approved bounded L2-lite)
+
+**Verdict: BLOCKED (on operator Render-Shell step)** — engineering verified everything reachable
+from local; the actual `admin/sync/*` writes require `$ADMIN_API_TOKEN` which lives only in the
+Render Shell. **Claude cannot reach Render Shell and must not fabricate sync results.**
+
+| Item | Result (2026-06-08 ~04:30 UTC) |
+|------|-------------------------------|
+| `data-source/status` | `api_football_configured=true`, `connector_status=ok`, **`mock_mode=true`**, `requests_used=0`, `requests_limit=100` |
+| `admin/sync/fixtures` (local, no token) | `401 Invalid or missing x-admin-token` (lock correct) |
+| `admin/sync/results` (local, no token) | `401` (lock correct) |
+| `performance/summary` | `total_settled=0`, `hit_rate=null` (still all zero) |
+| fixtures inserted/updated/skipped/errors | **N/A — not executed (operator step)** |
+| results inserted/updated/settled/skipped/errors | **N/A — not executed (operator step)** |
+
+**Operator action required (Render Shell):**
+```bash
+curl -X POST .../api/v1/admin/sync/fixtures -H "x-admin-token: $ADMIN_API_TOKEN"
+curl -X POST .../api/v1/admin/sync/results  -H "x-admin-token: $ADMIN_API_TOKEN" -d '{"league_id":1,"season":2026}'
+curl .../api/v1/data-source/status      # expect mock_mode=false, requests_used>0 after a real pull
+curl .../api/v1/performance/summary     # expect total_settled>0 after results settle
+```
+Paste the returned counts back into this table.
+
+**Data provenance (current):**
+- **Real:** service uptime, R2 storage, community heat/events, streak/rankings, MTC ledger,
+  baseline compute, refresh.
+- **Seed/mock:** match fixtures, results, win-prob inputs (`mock_mode=true`, 0 live pulls).
+- **Operator may use:** AI-viewpoint copy, risk signals, pre-match updates, community CTAs.
+- **Forbidden to advertise:** any real hit-rate / accuracy (none exists; `performance.*` all null/0).

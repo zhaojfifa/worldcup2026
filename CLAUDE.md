@@ -78,6 +78,13 @@
     → `docs/OPERATION_COPY_LIBRARY_VI_MM.md`; LLM prep schema+guardrails (design only) →
     `docs/LLM_PREP_SCHEMA_AND_GUARDRAILS.md`. **Channels: Myanmar Telegram ACTIVE (verified live),
     Vietnam Zalo pending.** LLM Full Build remains Owner-gated.
+  - **Data+Model Formalization (2026-06-08, Owner-approved bounded L2-lite, NO scaling):**
+    refreshed matches 1/2/3 (all `win_prob`=100; m1 high/conf61, m2 low/conf80, m3 low/conf86;
+    **response shape unchanged**); added m2/m3's new `risk_note` to vi/mm/en note maps so vi/mm
+    stay non-Chinese; copy library filled from real model output (AI-viewpoint, no hit-rate).
+    **Real `admin/sync/fixtures|results` BLOCKED for Claude** (needs `$ADMIN_API_TOKEN` in Render
+    Shell — operator step; data stays `mock_mode=true` until then). Myanmar Telegram trial
+    `ready_to_send`; Vietnam Zalo pending. **No backend/API/DB/scaling change.**
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

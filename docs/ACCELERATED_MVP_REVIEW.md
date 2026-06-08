@@ -180,6 +180,11 @@ auto-write to production · paid-content automation.
   can dispatch; Vietnam Zalo still pending.** Refs: `DATA_SOURCE_SYNC_VERIFICATION.md`,
   `MODELING_BASELINE_VERIFICATION.md`, `OPERATION_COPY_LIBRARY_VI_MM.md`,
   `LLM_PREP_SCHEMA_AND_GUARDRAILS.md`. LLM Full Build remains Owner-gated.
+- **Data+Model Formalization (2026-06-08, bounded L2-lite, no scaling):** matches 1/2/3 refreshed
+  (win_prob=100; m1 high/61, m2 low/80, m3 low/86; shape unchanged); note maps extended for vi/mm;
+  copy library filled from model output. Real `admin/sync/*` BLOCKED for Claude (operator Render-Shell
+  token) → `mock_mode=true` until run; no real hit-rate advertised. Myanmar Telegram trial
+  `ready_to_send`; Vietnam Zalo pending. No backend/API/DB/scaling change.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

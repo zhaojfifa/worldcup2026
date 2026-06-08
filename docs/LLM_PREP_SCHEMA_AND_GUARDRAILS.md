@@ -56,3 +56,37 @@ Filter + review are mandatory gates; either failing blocks publish.
 
 ## 7. Next Owner decision needed?
 **Yes (later):** approve LLM Full Build only after the entry gate is met. Not now.
+
+---
+
+## 8. Model output → copy input mapping (design)
+Rules baseline already produces the inputs an LLM would enrich; mapping keeps the swap non-breaking:
+
+| Model field (existing) | → copy field | Notes |
+|------------------------|--------------|-------|
+| `win_prob` {h,d,a} | `reason_bullets[0]` (odds line) | localized; sums to 100 |
+| `confidence` | `★` rating in `social_copy` | derived stars, NOT a success rate |
+| `risk_level` + `risk_note` | `risk_copy` | viewpoint, never guarantee |
+| `live_correction` (before→after) | `social_copy` (live update) | "AI recalculated", not "win" |
+| `MatchResult` (after real settle) | `recap_copy` | only when `data_mode=real` |
+
+## 9. vi/mm social copy schema
+```jsonc
+{ "locale":"vi|mm", "match_id":1, "kind":"brief|upset|live|recap|mtc_qa",
+  "text":"…", "disclaimer":"…", "price_locale":"vnd|mmk|none",
+  "provenance":"rules|llm", "data_mode":"mock|real", "approved_by":null }
+```
+
+## 10. Human review queue (design)
+Generated/edited copy → `pending` → operator approves (`approved_by` set) → `publishable`.
+Nothing auto-publishes. zh-internal preview allowed for the China team; customers only see vi/mm/en.
+
+## 11. Fallback & rollback strategy
+- **Fallback:** LLM unavailable / filter-fail → fall back to the **rules baseline copy** (current
+  behavior). vi/mm missing → English, never Chinese.
+- **Rollback:** flip `AI_PROVIDER` back to `mock` (no schema change) to disable LLM enrichment
+  instantly; UI keeps working on rules output. No DB migration involved.
+
+## 12. Hard prohibitions (this phase)
+No production LLM code · no auto-publish · no auto paid-conclusion generation · no auto DB writes ·
+no auto group send. **LLM Full Build remains Owner-gated.**
