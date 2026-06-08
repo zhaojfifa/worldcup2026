@@ -1,6 +1,9 @@
 import type { FeatureFactor } from '../types';
+import { useLocale } from '../i18n/useLocale';
+import { featureLabelLoc } from '../i18n/viMapping';
 
 export function FeatureBars({ features }: { features: FeatureFactor[] }) {
+  const loc = useLocale();
   const max = Math.max(...features.map(f => Math.abs(f.value)));
   return (
     <>
@@ -11,7 +14,7 @@ export function FeatureBars({ features }: { features: FeatureFactor[] }) {
         return (
           <div className="fbar" key={f.label}>
             <div className="fbar-top">
-              <span style={{ color: '#3A4A60' }}>{f.label}</span>
+              <span style={{ color: '#3A4A60' }}>{featureLabelLoc(f.label, loc)}</span>
               <span className="b" style={{ color }}>{pos ? '+' : ''}{f.value}%</span>
             </div>
             <div className="track">

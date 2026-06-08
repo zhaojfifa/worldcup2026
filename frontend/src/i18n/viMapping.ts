@@ -118,6 +118,15 @@ export const noteViMap: Record<string, string> = {
   // free_note (seed match 1 — focus match, most viewed)
   'AI 当前更倾向巴西，但这不是低风险比赛。巴西优势在中场控制和右路推进，阿根廷风险来自后卫线伤停。不过阿根廷反击效率较高，因此平局概率也不可忽视。':
     'AI hiện nghiêng về Brazil, nhưng đây không phải trận rủi ro thấp. Lợi thế của Brazil ở kiểm soát tuyến giữa và đẩy biên phải; rủi ro của Argentina đến từ chấn thương hàng thủ. Tuy vậy Argentina phản công hiệu quả, nên khả năng hòa cũng không thể bỏ qua.',
+  // report trend labels
+  '赛前 3 天': 'Trước 3 ngày', '赛前 1 天': 'Trước 1 ngày', '临场 30 分': 'T-30 phút',
+  // report tactics_note (seed)
+  '巴西本场优势主要来自中场控制和右路推进。如果阿根廷主力中卫无法首发，巴西右路更容易形成传中和二次进攻。但阿根廷反击效率仍然很高，因此 AI 并不把本场标记为低风险。':
+    'Lợi thế Brazil đến từ kiểm soát tuyến giữa & đẩy biên phải. Nếu trung vệ trụ cột Argentina không đá chính, Brazil dễ tạt biên và tấn công lớp hai; nhưng Argentina vẫn phản công hiệu quả, nên AI không xem đây là trận rủi ro thấp.',
+  '摩洛哥依靠密集防守与快速反击，法国需要突破其低位防线。若法国前锋状态未能回升，平局或摩洛哥逆转的概率上升。':
+    'Morocco dựa vào phòng ngự dày và phản công nhanh; Pháp cần xuyên phá hàng thủ lùi sâu. Nếu tiền đạo Pháp chưa hồi phong độ, khả năng hòa hoặc Morocco lật ngược tăng.',
+  '西班牙控球压制节奏，德国依赖定位球和快速反击。若西班牙中场保持高位压迫，得分窗口将集中在上半场。':
+    'Tây Ban Nha kiểm soát bóng và áp đặt nhịp; Đức dựa vào bóng cố định và phản công nhanh. Nếu TBN duy trì pressing cao, cửa ghi bàn dồn vào hiệp một.',
 };
 // English generic fallback for unmapped notes — avoids leaking Chinese into vi UI.
 export const NOTE_VI_FALLBACK = 'AI is tracking team form, lineup changes and tactical risk.';
@@ -206,6 +215,13 @@ export const noteEnMap: Record<string, string> = {
     'Argentina’s build-up stability drops; Brazil’s right-flank attacking edge grows.',
   'AI 当前更倾向巴西，但这不是低风险比赛。巴西优势在中场控制和右路推进，阿根廷风险来自后卫线伤停。不过阿根廷反击效率较高，因此平局概率也不可忽视。':
     'The AI currently leans Brazil, but this is not a low-risk match. Brazil’s edge is midfield control and the right flank; Argentina’s risk comes from a defensive injury. Still, Argentina counters efficiently, so a draw cannot be ignored.',
+  '赛前 3 天': '3 days before', '赛前 1 天': '1 day before', '临场 30 分': 'T-30 min',
+  '巴西本场优势主要来自中场控制和右路推进。如果阿根廷主力中卫无法首发，巴西右路更容易形成传中和二次进攻。但阿根廷反击效率仍然很高，因此 AI 并不把本场标记为低风险。':
+    'Brazil’s edge is midfield control and right-flank progression. If Argentina’s key center-back can’t start, Brazil more easily creates crosses and second-phase attacks; but Argentina still counters efficiently, so the AI does not mark this as low risk.',
+  '摩洛哥依靠密集防守与快速反击，法国需要突破其低位防线。若法国前锋状态未能回升，平局或摩洛哥逆转的概率上升。':
+    'Morocco relies on compact defending and fast counters; France must break a deep block. If France’s strikers don’t regain form, the chance of a draw or a Morocco upset rises.',
+  '西班牙控球压制节奏，德国依赖定位球和快速反击。若西班牙中场保持高位压迫，得分窗口将集中在上半场。':
+    'Spain controls the ball and dictates tempo; Germany relies on set pieces and fast counters. If Spain keeps a high press, the scoring window concentrates in the first half.',
 };
 export const featureLabelEnMap: Record<string, string> = {
   '中场控制力': 'Midfield control', '近 5 场 xG 表现': 'xG form (last 5)', '阿根廷后卫伤停': 'Argentina defender injury',
@@ -284,6 +300,12 @@ export function premiumTeaserLoc(zh: string, loc: Locale): string {
   if (loc === 'vi') return premiumTeaserViMap[zh] ?? zh;
   if (loc === 'mm') return premiumTeaserMmMap[zh] ?? zh;
   return premiumTeaserEnMap[zh] ?? zh;
+}
+export function featureLabelLoc(zh: string, loc: Locale): string {
+  if (loc === 'zh') return zh;
+  if (loc === 'vi') return featureLabelViMap[zh] ?? featureLabelEnMap[zh] ?? zh;
+  if (loc === 'mm') return featureLabelMmMap[zh] ?? featureLabelEnMap[zh] ?? zh;
+  return featureLabelEnMap[zh] ?? zh;
 }
 
 // ── Reason bullets (vi) — mirrors ops/derive.reasonBullets, no logic change ───

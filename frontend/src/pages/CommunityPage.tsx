@@ -73,6 +73,7 @@ export function CommunityPage() {
   const { subscribed, subscribe } = useAppStore();
   const [apiChannels, setApiChannels] = useState<ChannelView[] | null>(null);
   const [assetsStatus, setAssetsStatus] = useState<ApiAssetsStatus | null>(null);
+  const [linkSheet, setLinkSheet] = useState<ChannelView | null>(null);  // Telegram/active open fallback
 
   // Prefer live config; fall back to static on mock mode or API error.
   useEffect(() => {
@@ -99,9 +100,26 @@ export function CommunityPage() {
   function handleChannelClick(ch: ChannelView) {
     safeTrack('click_social_channel', undefined, ch.key);
     if (ch.status === 'active' && ch.url) {
-      window.open(ch.url, '_blank', 'noopener,noreferrer');
+      // Mobile in-app browsers often fail a plain t.me load (ERR_CONNECTION_REFUSED).
+      // Show an open/copy fallback sheet instead of relying on window.open alone.
+      setLinkSheet(ch);
     } else {
       toast(`${ch.name} ${STATUS_LABEL[ch.status] ?? t.statusComingSoon}`);
+    }
+  }
+
+  function openChannelLink(ch: ChannelView) {
+    if (ch.url) window.open(ch.url, '_blank', 'noopener,noreferrer');
+  }
+
+  async function copyChannelLink(ch: ChannelView) {
+    if (!ch.url) return;
+    try {
+      await navigator.clipboard.writeText(ch.url);
+      toast(t.tgCopied);
+    } catch {
+      // Clipboard API unavailable (older/in-app browsers) → show the link to copy manually.
+      toast(`${t.tgCopy}: ${ch.url}`);
     }
   }
 
@@ -240,6 +258,26 @@ export function CommunityPage() {
       <div className="muted-note">
         {t.communityMutedNote}
       </div>
+
+      {/* Open/copy fallback sheet for active channels (Telegram mobile compatibility) */}
+      {linkSheet && (
+        <div className="overlay" onClick={() => setLinkSheet(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="em">{linkSheet.ic}</div>
+            <div className="h">{linkSheet.name} · {t.tgSheetTitle}</div>
+            <div className="p">{t.tgHint}</div>
+            <button className="cta primary" style={{ marginTop: 14 }} onClick={() => { openChannelLink(linkSheet); }}>
+              {t.tgOpen}
+            </button>
+            <button className="cta ghost" style={{ marginTop: 8 }} onClick={() => { copyChannelLink(linkSheet); }}>
+              {t.tgCopy}
+            </button>
+            <button className="cta ghost" style={{ marginTop: 8 }} onClick={() => setLinkSheet(null)}>
+              {t.tgClose}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
