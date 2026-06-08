@@ -31,6 +31,11 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 - **LLM:** **draft-only** admin endpoint (`status=draft_only`, `publishable=false`); forbidden filter
   + local human-template fallback work; **Render real-provider verification pending**
   (`docs/LLM_RENDER_VERIFICATION.md`).
+- **LLM draft verification (2026-06-08):** auth gate (401/401), 7 drafts (vi/mm/zh × types) all
+  `draft_only`/`publishable=false`/`forbidden_hits=[]`, filter dirty-caught + clean/negation-allowed —
+  **locally verified** (`backend/scripts/llm_draft_verify.py`, mock→fallback). Backend harden: vi/mm/en
+  drafts now use **English** team names (zh Chinese). **Real DeepSeek/Kimi on Render still operator-pending
+  (no token; not fabricated).** Drafts logged pending human review: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`.
 - **Resource:** **no scaling · no payment · no bot auto-publish.**
 - **Harness-X:** docs are source of truth; no screenshot = no PASS; high-risk transitions Owner-gated.
 

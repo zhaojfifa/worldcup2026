@@ -30,10 +30,32 @@ provider result.**
 5. **Human-review** the draft text for compliance (AI-viewpoint only, no betting/hit-rate) before
    any manual send. Paste sanitized results below.
 
-## Result log (fill on Render)
+## Local verification done (2026-06-08) — contract / fallback / filter (NOT real provider)
+
+Run: `PYTHONPATH=. python3 backend/scripts/llm_draft_verify.py` (`AI_PROVIDER=mock`, throwaway LOCAL
+admin token — **not** a real secret). Exercises the **real endpoint** via FastAPI TestClient:
+
+- **Auth gate:** no token → **401**; wrong token → **401**; valid token → **200**.
+- **Contract (7 drafts: vi/mm/zh × preview/upset/live/recap):** every response
+  `status=draft_only`, `publishable=false`, `provenance=human_template_fallback`, `data_mode=mock`,
+  `forbidden_hits=[]`, warnings carry the fallback + mock-data notes. (Real LLM still pending — mock.)
+- **Team-name localization fix verified:** vi/mm/en drafts now use English names (Brazil/Argentina…,
+  **0 Han**); zh keeps Chinese. (`copy_service._localized_team_names`.)
+- **Forbidden-phrase filter (9 cases, all PASS):**
+  - dirty **caught** — vi `chắc thắng/cá cược/kiếm tiền/lợi nhuận chắc chắn`; zh `下注/包赢/必中/收益承诺/稳赚/跟单`;
+    mm `လောင်းကစား`; en `betting/guaranteed win/sure win`.
+  - clean vi/mm → `[]`.
+  - **negation allowed** → vi `Không phải dịch vụ cá cược · Không nhận cược tiền mặt`, zh `不可提现`,
+    mm `လောင်းကစား မဟုတ်` → all `[]`.
+- Drafts recorded in `docs/LLM_DRAFT_COPY_REVIEW_LOG.md` (human_review_status=pending).
+
+**Still PENDING:** the **real DeepSeek/Kimi provider call on Render** (operator + `$ADMIN_API_TOKEN`).
+Claude has no provider key and does not fabricate a real-LLM result.
+
+## Result log (fill on Render — real provider rows)
 | Date | Provider | language | copy_type | provenance | forbidden_hits | reviewed | notes |
 |------|----------|----------|-----------|------------|----------------|----------|-------|
-|      |          |          |           |            |                |          |       |
+|      |          |          |           | _(expect llm:deepseek / llm:kimi)_ |    | pending |       |
 
 ## Guardrails (unchanged)
 - Draft-only; **no auto-publish, no DB write, no payment, no bot.**

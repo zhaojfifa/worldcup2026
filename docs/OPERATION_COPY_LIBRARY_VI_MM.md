@@ -111,3 +111,35 @@ Kết quả trong quá khứ không đảm bảo kết quả tương lai. Chỉ 
   and must pass the forbidden-phrase filter + **human review** before any manual send.
 - Workflow: `generate draft → forbidden filter → human review → operator manually sends`.
   **No auto-publish, no bot.** Record which messages were human vs LLM-draft in `OPERATION_TRIAL_RESULTS.md`.
+
+---
+
+## LLM Draft Candidates (2026-06-08)
+
+> ⚠️ **draft only · not auto-published · requires human review.** Generated via the draft-only admin
+> endpoint. The batch below is the **`human_template_fallback`** (local `AI_PROVIDER=mock`, **not** real
+> DeepSeek/Kimi) — real-provider drafts will replace these once run on Render (see
+> `docs/LLM_DRAFT_COPY_REVIEW_LOG.md` + `docs/LLM_RENDER_VERIFICATION.md`). All passed the forbidden
+> filter (`forbidden_hits=[]`) and carry the AI-viewpoint disclaimer. Team names are localized
+> (vi/mm = English).
+
+Endpoint copy_type mapping: **preview ≈ 今日速览** · **upset ≈ 爆冷风险** · **live ≈ 临场修正** ·
+**recap ≈ 赛后复盘**. (社群引导 / community CTA is human-authored — see the Templates section above; it
+is not one of the endpoint's copy_types and is not LLM-generated.)
+
+### Vietnamese (vi)
+- **今日速览 (preview):** ⚽ Brazil vs Argentina — Xu hướng AI: Brazil nhỉnh (49%). Đây là góc nhìn dữ
+  liệu AI, không phải cam kết kết quả. _(+ disclaimer)_
+- **爆冷风险 (upset):** ⚠️ Rủi ro bất ngờ: Morocco vs France — mức rủi ro low, cần theo dõi đội hình.
+  _(+ disclaimer)_
+- **临场修正 (live):** 📡 Cập nhật sát giờ · Spain vs Germany: AI tính lại theo đội hình. _(+ disclaimer)_
+- **赛后复盘 (recap):** 📊 Nhìn lại trận đấu: so sánh nhận định AI với kết quả thực tế. _(+ disclaimer)_
+- **社群引导 (community CTA, human):** see vi templates above — Zalo `Sắp mở`; do not promise results.
+
+### Burmese (mm)
+- **今日速览 (preview):** ⚽ Brazil vs Argentina — AI အမြင်: Brazil သာ (49%)။ ဤသည် AI ဒေတာအမြင်ဖြစ်ပြီး
+  ရလဒ် အာမခံချက် မဟုတ်ပါ။ _(+ disclaimer)_
+- **爆冷风险 (upset):** ⚠️ အံ့အားသင့်နိုင်ခြေ: Morocco vs France — အန္တရာယ် low၊ လူစာရင်း စောင့်ကြည့်ပါ။ _(+ disclaimer)_
+- **临场修正 (live):** 📡 ပွဲချိန် update · Spain vs Germany: AI က လူစာရင်းအရ ပြန်တွက်သည်။ _(+ disclaimer)_
+- **赛后复盘 (recap):** 📊 Spain vs Germany ပြန်သုံးသပ်: AI သုံးသပ်ချက်နှင့် တကယ့်ရလဒ် နှိုင်းယှဉ်။ _(+ disclaimer)_
+- **社群引导 (community CTA, human):** see mm templates above — Telegram open/copy fallback; Copy Link is the operating path.

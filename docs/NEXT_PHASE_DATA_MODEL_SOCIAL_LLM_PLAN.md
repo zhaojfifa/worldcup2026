@@ -128,3 +128,13 @@ Context handed off — see `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md` (one-page 
 `CLAUDE.md` (state/Harness-X/blockers). Pending owner/operator items: real data sync (Render Shell),
 real LLM call on Render (`docs/LLM_RENDER_VERIFICATION.md`), Telegram true-device retest, Zalo activation.
 No new feature code this round; docs-only scribe pass.
+
+## 12. LLM draft-only verification (2026-06-08, Owner GO — draft-only)
+Owner ruling: **link the real LLM for copy optimization, but draft-only — no auto-publish.** Status:
+- **Local verification done** (`backend/scripts/llm_draft_verify.py`, mock→fallback): contract
+  (`draft_only`/`publishable=false`), auth gate, and forbidden filter (dirty caught; clean + negation
+  allowed) all PASS. Backend harden: vi/mm/en drafts use English team names (zh Chinese).
+- **Real DeepSeek/Kimi call on Render remains operator-pending** — Render holds the LLM env/keys; local
+  needs no real key; Claude has no token and does **not** fabricate a provider result.
+- LLM output stays **draft-only + human-review-required**. Auto-publish / payment / bot / scaling remain
+  **NO-GO**. Drafts: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`; candidates: `docs/OPERATION_COPY_LIBRARY_VI_MM.md`.

@@ -201,6 +201,13 @@ auto-write to production · paid-content automation.
   statements, disclaimers, and Zalo/Telegram `Sắp mở` states correct; Myanmar Telegram does not pollute vi.
   zh/mm regression clean; build passes; **no backend/API/DB change.** Evidence:
   `docs/VI_MOBILE_RECHECK_REPORT.md` + `docs/qa_screenshots/vi_mobile_recheck/`.
+- **LLM draft-only verification (2026-06-08, Owner GO — draft-only):** the draft endpoint contract
+  (`status=draft_only`, `publishable=false`), admin auth gate, and forbidden-phrase filter (dirty
+  zh/vi/mm/en caught; clean + negation allowed) **locally verified** (`backend/scripts/llm_draft_verify.py`,
+  `AI_PROVIDER=mock`→fallback, throwaway local token — no real secret). Backend harden: vi/mm/en drafts
+  now use **English** team names (zh Chinese). **Real DeepSeek/Kimi on Render is operator-pending** (no
+  token for Claude; never fabricated). Draft-only · human-review-required · no auto-publish / payment /
+  bot / scaling. Evidence: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`, `docs/LLM_RENDER_VERIFICATION.md`.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

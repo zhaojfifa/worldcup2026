@@ -28,14 +28,30 @@
      one Chinese residual (community "VI TRIAL COPY" badge) **fixed** (`dict.ts` VI `viBadge` → vi-only);
      zh/mm unaffected, build passes, backend untouched. Evidence: `docs/VI_MOBILE_RECHECK_REPORT.md` +
      `docs/qa_screenshots/vi_mobile_recheck/`.
+   - **Interaction-state recheck (2026-06-08)** PASS WITH ISSUES — operator hit a **Chinese unlock modal**
+     on mm (`已解锁，可直接查看完整报告` / `继续查看报告`). Root cause: `Modal.tsx` hardcoded button +
+     `DetailPage` rendering the store/API `res.message` (Chinese) as body. **Fixed** via i18n keys
+     `unlockedBody`/`unlockFailedBody`/`continueToReport` (zh/vi/mm/en); store messages neutralized.
+     **Interaction-state language QA (modal/toast/action-sheet) is now MANDATORY.** mm/vi modal/sheet/toast
+     all screenshot-verified; zh + price isolation unaffected. Evidence: `docs/LANG_INTERACTION_RECHECK_REPORT.md`
+     + `docs/qa_screenshots/lang_interaction_recheck/`.
    - **Social:** Myanmar **Telegram active** (`https://t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending active**
      (vi page correctly shows Zalo + Telegram as `Sắp mở`; Myanmar Telegram does not pollute vi).
+     **Telegram direct-open may fail in some mobile WebViews — Copy Link is the accepted operating path**
+     (open/copy fallback sheet, all locales; ruling: PASS WITH ISSUES, do not block trial on direct-open).
    - **Data:** API-FOOTBALL configured & reachable but **`mock_mode=true`** (last known); **real
      fixtures/results sync NOT run by Claude** — needs `$ADMIN_API_TOKEN` in Render Shell (operator).
    - **Modeling:** baseline + refresh OK (win_prob sums 100); usable as **AI viewpoint only**, NOT hit-rate.
    - **LLM:** **draft-only** admin endpoint `POST /api/v1/admin/llm/generate-copy` (DeepSeek/Kimi,
      forbidden-filter, human-template fallback, `status:draft_only`). **Real provider call pending
      Render verification** (`AI_PROVIDER=mock` now → fallback). No auto-publish.
+   - **LLM draft verification (2026-06-08):** endpoint contract + auth gate + forbidden filter +
+     fallback **locally verified** (`backend/scripts/llm_draft_verify.py`, mock → fallback, throwaway
+     local token — NOT a real secret). All drafts `draft_only`/`publishable=false`/`forbidden_hits=[]`;
+     filter catches dirty (zh/vi/mm/en), allows clean + negations. **Backend harden:** vi/mm/en drafts
+     now use **English** team names (zh keeps Chinese) — `copy_service._localized_team_names`.
+     **Real DeepSeek/Kimi call still operator-pending on Render (no token for Claude; never fabricated).**
+     Evidence: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`, `docs/LLM_RENDER_VERIFICATION.md`. Human review = pending.
    - **NO** payment · **NO** bot auto-publish · **NO** resource scaling.
 
 3b. **Harness-X work protocol (now the project standard):**

@@ -80,3 +80,14 @@ curl -X POST .../api/v1/admin/llm/generate-copy \
 ## 9. Next Owner decision needed?
 **Yes (ops):** on Render, set `AI_PROVIDER=deepseek` (or `kimi`) + key to exercise the real call,
 then review drafts before any manual publish. Full auto-publish remains NO-GO.
+
+## 10. Draft verification update (2026-06-08)
+- **Local end-to-end verification** via `backend/scripts/llm_draft_verify.py` (FastAPI TestClient,
+  `AI_PROVIDER=mock`, throwaway local token — **no real secret**): auth gate 401/401, 7 drafts all
+  `draft_only`/`publishable=false`/`forbidden_hits=[]`; forbidden filter catches dirty (zh/vi/mm/en),
+  allows clean + negations. Real provider call **still pending on Render** (operator + `$ADMIN_API_TOKEN`).
+- **Harden (additive, no API-shape change):** `copy_service._localized_team_names` — vi/mm/en drafts use
+  the **English** team name, zh keeps Chinese; previously vi/mm drafts leaked Chinese team names.
+- Drafts → `docs/LLM_DRAFT_COPY_REVIEW_LOG.md` (human_review_status=pending). Render runbook +
+  local results → `docs/LLM_RENDER_VERIFICATION.md`. **No auto-publish, no payment, no bot, no scaling.**
+  Render is the source of truth for the LLM env; local needs no real key.
