@@ -115,6 +115,9 @@ export const MM: Partial<Copy> = {
   payFailTitle: 'ငွေပေးချေမှု မအောင်မြင်',
   mtcDeductedTitle: 'MTC 390 နုတ်ယူပြီး',
   mtcInsufficient: 'MTC မလုံလောက်ပါ၊ တာဝန်စင်တာတွင် ပွဲနေ့ ဖွင့်ပါ',
+  unlockedBody: 'ဖွင့်ပြီးပါပြီ။ အစီရင်ခံစာအပြည့်အစုံကို ကြည့်နိုင်ပါသည်။',
+  unlockFailedBody: 'ဖွင့်၍မရပါ၊ ခဏနေ ပြန်ကြိုးစားပါ။',
+  continueToReport: 'အစီရင်ခံစာ ဆက်ကြည့်ရန်',
   liveToastPrefix: 'တိုက်ရိုက်ပြင်ဆင်ချက်: ',
   liveToastRate: 'နိုင်ခြေ',
 
@@ -223,7 +226,7 @@ export const MM: Partial<Copy> = {
   tgSheetTitle: 'Telegram ဖွင့်နည်း',
   tgOpen: 'Telegram ဖွင့်ရန်',
   tgCopy: 'Link ကူးရန်',
-  tgHint: 'မဖွင့်နိုင်ပါက browser သို့မဟုတ် Telegram app ထဲတွင် link ကို paste လုပ်ပါ။',
+  tgHint: 'မဖွင့်နိုင်ပါက link ကို copy လုပ်ပြီး Telegram app သို့မဟုတ် browser ထဲတွင် paste လုပ်ပါ။',
   tgCopied: 'Link ကူးပြီး',
   tgClose: 'ပိတ်ရန်',
 

@@ -153,7 +153,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   async unlockWithToken(matchId) {
     const { balance } = get();
     const cost = 390;
-    if (balance < cost) return { success: false, message: 'MTC 球迷积分不足，请先完成任务积累积分' };
+    // Display text is locale-driven in the UI; these messages are internal/diagnostic only (never shown raw).
+    if (balance < cost) return { success: false, message: 'insufficient_mtc' };
 
     if (!USE_MOCK) {
       try {
@@ -175,7 +176,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       balance: s.balance - cost,
       unlockedMatchIds: new Set([...s.unlockedMatchIds, matchId]),
     }));
-    return { success: true, message: `已消耗 ${cost} MTC 积分，完整 AI 报告已解锁` };
+    return { success: true, message: 'report_unlocked_mtc' };
   },
 
   async unlockWithCash(matchId) {
@@ -192,7 +193,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     }
     set(s => ({ unlockedMatchIds: new Set([...s.unlockedMatchIds, matchId]) }));
-    return { success: true, message: '支付成功，完整 AI 报告已解锁（演示模式）' };
+    return { success: true, message: 'report_unlocked_cash_demo' };
   },
 
   completeTask(taskId) {

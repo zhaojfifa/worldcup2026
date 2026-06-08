@@ -31,7 +31,7 @@ export function DetailPage() {
   } = useAppStore();
 
   const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
-  const [modal, setModal] = useState<null | { em: string; title: string; body: string; onOk: () => void }>(null);
+  const [modal, setModal] = useState<null | { em: string; title: string; body: string; okLabel: string; onOk: () => void }>(null);
   const [lineupSimulated, setLineupSimulated] = useState(!!match?.liveCorrection);
 
   useEffect(() => {
@@ -52,10 +52,12 @@ export function DetailPage() {
 
   async function handleUnlockCash() {
     const res = await unlockWithCash(match.id);
+    // Display copy is locale-driven (never the raw store/API message, which may be Chinese).
     setModal({
       em: '💳',
       title: res.success ? t.payOkTitle : t.payFailTitle,
-      body: res.message,
+      body: res.success ? t.unlockedBody : t.unlockFailedBody,
+      okLabel: t.continueToReport,
       onOk: () => { if (res.success) navigate('/report'); },
     });
   }
@@ -63,11 +65,12 @@ export function DetailPage() {
   async function handleUnlockToken() {
     if (balance < 390) { toast(t.mtcInsufficient); return; }
     const res = await unlockWithToken(match.id);
-    if (!res.success) { toast(res.message); return; }
+    if (!res.success) { toast(t.unlockFailedBody); return; }
     setModal({
       em: '🪙',
       title: t.mtcDeductedTitle,
-      body: res.message,
+      body: t.unlockedBody,
+      okLabel: t.continueToReport,
       onOk: () => navigate('/report'),
     });
   }

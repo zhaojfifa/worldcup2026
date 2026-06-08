@@ -115,6 +115,9 @@ export const EN: Copy = {
   payFailTitle: 'Payment failed',
   mtcDeductedTitle: '390 MTC deducted',
   mtcInsufficient: 'Not enough MTC — light up a match day in the fan center',
+  unlockedBody: 'Unlocked. You can view the full report.',
+  unlockFailedBody: 'Unlock failed, please try again.',
+  continueToReport: 'Continue to report',
   liveToastPrefix: 'Live correction: ',
   liveToastRate: 'win prob',
 
