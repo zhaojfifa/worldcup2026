@@ -444,8 +444,9 @@ const VI: Partial<Copy> = {
   mtcStatement: 'MTC là điểm tích lũy trong nền tảng, không thể rút tiền, không thể chuyển nhượng, không thể giao dịch và không phải tài sản tài chính.',
   disclaimer: 'Kết quả trong quá khứ không đảm bảo kết quả tương lai. Nội dung chỉ dùng cho phân tích dữ liệu và giải trí bóng đá.',
   complianceFooter: 'Chỉ phân tích dữ liệu AI · Không phải dịch vụ cá cược · Không nhận cược tiền mặt · MTC không thể rút tiền',
-  // Keep the bilingual zh·vi badge for vi (operator-facing); en/mm use the English EN value.
-  viBadge: '越南语试跑文案已就绪 · Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
+  // vi badge is Vietnamese-only — the public /community?lang=vi page must never show Chinese
+  // (Myanmar QA standard; vi falls back to en, never zh). en/mm use the English EN value.
+  viBadge: 'Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
 };
 
 // Burmese (mm) — partial copy in copy/mm.ts; missing keys resolve to en via chain.
