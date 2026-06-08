@@ -38,7 +38,14 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 - **Language gate CLOSED. Isolation verified:** zh→Chinese/RMB · vi→Vietnamese/VND · mm→Burmese/MMK;
   vi/mm fall back to English (never Chinese). Screenshot-driven QA mandatory for vi/mm.
   **Next phase:** `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md` (Data/Modeling/Social/LLM-prep).
-  Operation blocker unchanged: no active Zalo/Telegram channel.
+- **Harness-X L1 + P-flow Prep (2026-06-08):**
+  - Data source: connector `ok`, **`mock_mode=true`**, `requests_used=0`, `performance.total_settled=0`
+    (`hit_rate=null`) → **no real hit-rate claimable yet** · `docs/DATA_SOURCE_SYNC_VERIFICATION.md` (PASS WITH ISSUES).
+  - Modeling: baseline + `refresh` verified (`win_prob` sums 100, confidence/risk recompute) ·
+    `docs/MODELING_BASELINE_VERIFICATION.md` (PASS).
+  - Copy library: `docs/OPERATION_COPY_LIBRARY_VI_MM.md`. LLM prep: `docs/LLM_PREP_SCHEMA_AND_GUARDRAILS.md` (design only).
+  - **Channels (live-verified): Myanmar Telegram `active` (url set); Vietnam Zalo `coming_soon` (pending).**
+  - Admin sync endpoints 401-locked (operator Render-Shell). LLM Full Build Owner-gated.
 - **UI language buttons:** CN · VI · MY (en = internal fallback layer).
 - **Operational blocker:** ⛔ no `active` Zalo/Telegram channel yet → real customer trial
   (vi & mm) cannot dispatch until one is configured via admin upsert.

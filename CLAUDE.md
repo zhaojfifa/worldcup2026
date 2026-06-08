@@ -71,7 +71,13 @@
     PASS (QA script: `scripts/qa/lang_mobile_shots.sh`, headless Chrome — not a prod dependency).
   - **Language gate CLOSED.** Next phase plan: `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md`
     (Data / Modeling / Social / LLM-prep / deployment / go-live gate). LLM stays in prep, not
-    full build. **Active Zalo/Telegram channel remains the operation blocker.**
+    full build.
+  - **Harness-X L1 + P-flow Prep (2026-06-08):** verified data-source (connector ok, `mock_mode=true`,
+    0 settled → no real hit-rate claimable) → `docs/DATA_SOURCE_SYNC_VERIFICATION.md`; baseline
+    predictor + refresh (win_prob=100) → `docs/MODELING_BASELINE_VERIFICATION.md`; vi/mm copy library
+    → `docs/OPERATION_COPY_LIBRARY_VI_MM.md`; LLM prep schema+guardrails (design only) →
+    `docs/LLM_PREP_SCHEMA_AND_GUARDRAILS.md`. **Channels: Myanmar Telegram ACTIVE (verified live),
+    Vietnam Zalo pending.** LLM Full Build remains Owner-gated.
 - **API / admin / config / schema / data contract language:** **English** (ASCII identifiers).
 - **Fallback chains:** `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`, `mm→[mm,en]`.
   **vi/mm must NEVER fall back to Chinese** — English is their fallback.

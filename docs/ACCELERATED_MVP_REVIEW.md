@@ -174,6 +174,12 @@ auto-write to production · paid-content automation.
   (`docs/VI_MOBILE_QA_REPORT.md`, shots in `docs/qa_screenshots/vi_mobile/`); 4 pages clean, VND
   pricing, no residual. **Language gate CLOSED; isolation verified** (zh/RMB · vi/VND · mm/MMK).
   Next phase: `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md`. LLM stays in prep, not full build.
+- **Harness-X L1 + P-flow Prep (2026-06-08):** data-source verified (`mock_mode=true`, 0 settled →
+  no real hit-rate claimable), baseline+refresh PASS (win_prob=100), vi/mm copy library + LLM-prep
+  schema/guardrails authored (design only). **Myanmar Telegram now ACTIVE (live-verified) → mm trial
+  can dispatch; Vietnam Zalo still pending.** Refs: `DATA_SOURCE_SYNC_VERIFICATION.md`,
+  `MODELING_BASELINE_VERIFICATION.md`, `OPERATION_COPY_LIBRARY_VI_MM.md`,
+  `LLM_PREP_SCHEMA_AND_GUARDRAILS.md`. LLM Full Build remains Owner-gated.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.

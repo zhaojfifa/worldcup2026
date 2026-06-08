@@ -10,16 +10,29 @@ only on configuring ≥1 `active` community channel (Zalo first).
 
 ---
 
-## Current blocker status (2026-06-06 07:36 UTC)
+## Channel status update (2026-06-08, Harness-X)
 
-| Channel | Status | public_url |
-|---------|--------|------------|
-| zalo | `coming_soon` | `null` |
-| telegram | `coming_soon` | `null` |
-| facebook | `coming_soon` | `null` |
-| tiktok | `coming_soon` | `null` |
+| Channel | Status | Notes |
+|---------|--------|-------|
+| **telegram (Myanmar)** | ✅ **ACTIVE verified** | mm trial channel ready — use `MM_OPERATION_TRIAL_MESSAGES.md` |
+| **zalo (Vietnam)** | ⏳ **pending active** | vi trial blocked until `public_url` configured via admin upsert |
+| facebook | `coming_soon` | content distribution later |
+| tiktok | `coming_soon` | content distribution later |
 
-→ **No active channel. No real link / test group provided yet. Trial NOT dispatched.**
+→ **Myanmar (Telegram) can dispatch now; Vietnam (Zalo) still pending.** Verify on the live API:
+`GET /api/v1/social/channels` should show telegram `status=active` with a non-null `public_url`.
+
+### Myanmar (mm) trial — ready to dispatch
+- Channel: Telegram (active). Copy: `docs/MM_OPERATION_TRIAL_MESSAGES.md` (Burmese, MMK pricing).
+- Channel-click events must carry `match_id` (so `community/heat` registers).
+- Record metrics below after real dispatch (no fabricated feedback).
+
+### Vietnam (vi) trial — pending
+- Channel: Zalo (pending active). Copy ready: `docs/OPERATION_TRIAL_MESSAGES_VI.md` (VND pricing).
+- Operator action: `POST /admin/social/channels/upsert` (Render Shell) to set zalo `active` + `public_url`.
+
+> Earlier snapshot (2026-06-06): all channels were `coming_soon`. Telegram has since been
+> activated for the Myanmar market.
 
 ---
 

@@ -75,3 +75,21 @@ on seed for the trial), with a clear mock-vs-real label in the UI/data.
 
 **Current status:** language gate cleared; **next action = stand up an active Zalo/Telegram
 channel**, then run the small-traffic vi/mm trial. LLM stays in prep until the gate is met.
+
+---
+
+## 7. Harness-X progress (2026-06-08, L1 + P-flow Prep)
+
+| Track | Status | Reference |
+|-------|--------|-----------|
+| Data source verification | ✅ PASS WITH ISSUES — connector ok, `mock_mode=true`, 0 settled | `DATA_SOURCE_SYNC_VERIFICATION.md` |
+| Modeling refresh verification | ✅ PASS — win_prob=100, refresh ok | `MODELING_BASELINE_VERIFICATION.md` |
+| vi/mm copy library | ✅ built | `OPERATION_COPY_LIBRARY_VI_MM.md` |
+| LLM prep schema + guardrails | ✅ design only (no prod) | `LLM_PREP_SCHEMA_AND_GUARDRAILS.md` |
+| Social — Myanmar Telegram | ✅ **active (live-verified)** | `OPERATION_TRIAL_RESULTS.md` |
+| Social — Vietnam Zalo | ⏳ pending active | `OPERATION_TRIAL_RESULTS.md` |
+| LLM Full Build | ⛔ Owner-gated | — |
+
+**Go-live gate update:** items 1,4,5 met; #2 = **Myanmar trial can dispatch now (Telegram active)**;
+Vietnam trial pending Zalo. Real data sync (#3) is an operator decision. Owner decisions outstanding:
+(a) run real data sync now or stay seed; (b) activate Zalo; (c) approve LLM Full Build (later).
