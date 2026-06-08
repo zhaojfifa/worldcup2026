@@ -18,6 +18,7 @@ from app.services.llm import client, compliance, prompts
 
 VALID_LANGS = {"vi", "mm", "zh", "en"}
 VALID_TYPES = {"preview", "upset", "live", "recap"}
+VALID_PROVIDERS = {"deepseek", "kimi", "gemini"}
 
 _DISCLAIMER = {
     "vi": "Kết quả trong quá khứ không đảm bảo kết quả tương lai. Chỉ phân tích dữ liệu & giải trí.",
@@ -98,13 +99,27 @@ def _human_template(copy_type: str, language: str, ctx: dict) -> str:
     return f"{head}\nThis is an AI data viewpoint, not a result promise.\n{disc}"
 
 
-def generate_copy(db: Session, match_id: int, language: str, copy_type: str) -> dict:
+def generate_copy(
+    db: Session,
+    match_id: int,
+    language: str,
+    copy_type: str,
+    provider_override: Optional[str] = None,
+) -> dict:
     language = (language or "").lower()
     copy_type = (copy_type or "").lower()
     if language not in VALID_LANGS:
         return {"error": f"unsupported language '{language}'", "status": "rejected"}
     if copy_type not in VALID_TYPES:
         return {"error": f"unsupported copy_type '{copy_type}'", "status": "rejected"}
+
+    # provider_override is optional + admin-only + draft-only. Unknown values are ignored
+    # (warned) rather than rejected, so the draft still returns via fallback.
+    override = (provider_override or "").lower() or None
+    override_warning: Optional[str] = None
+    if override is not None and override not in VALID_PROVIDERS:
+        override_warning = f"ignored unknown provider_override '{override}'; used default provider."
+        override = None
 
     detail = match_service.get_match_detail(db, match_id)
     if detail is None:
@@ -117,15 +132,18 @@ def generate_copy(db: Session, match_id: int, language: str, copy_type: str) -> 
     if names is not None:
         ctx["home"], ctx["away"] = names
     warnings: list[str] = []
+    if override_warning:
+        warnings.append(override_warning)
 
     system, user = prompts.build_prompt(copy_type, language, ctx)
-    text = client.generate(system, user)
+    text = client.generate(system, user, provider=override)
     if text:
-        provenance = f"llm:{client.active_provider()}"
+        provenance = f"llm:{client.active_provider(override)}"
     else:
         text = _human_template(copy_type, language, ctx)
         provenance = "human_template_fallback"
-        warnings.append("LLM unavailable or returned empty; used human template fallback.")
+        reason = f"provider '{override}' " if override else ""
+        warnings.append(f"LLM {reason}unavailable or returned empty; used human template fallback.")
 
     forbidden_hits = compliance.scan(text, language)
     if forbidden_hits:

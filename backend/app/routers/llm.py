@@ -33,6 +33,9 @@ class GenerateCopyIn(BaseModel):
     match_id: int
     language: str
     copy_type: str
+    # Optional, admin-only, draft-only provider override: "deepseek" | "kimi" | "gemini".
+    # Backward compatible: omit to use settings.ai_provider. Unknown/unavailable → fallback.
+    provider_override: str | None = None
 
 
 @router.post("/generate-copy")
@@ -42,7 +45,9 @@ def generate_copy(
     db: Session = Depends(get_db),
 ):
     """Generate a single draft copy (LLM if configured, else human-template fallback)."""
-    result = copy_service.generate_copy(db, body.match_id, body.language, body.copy_type)
+    result = copy_service.generate_copy(
+        db, body.match_id, body.language, body.copy_type, body.provider_override
+    )
     if result.get("status") == "rejected":
         raise HTTPException(status_code=400, detail=result.get("error", "invalid request"))
     return result

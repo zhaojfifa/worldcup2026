@@ -51,6 +51,24 @@ for mid, lang, ctype in CASES:
     out["drafts"].append({"req": {"match_id": mid, "language": lang, "copy_type": ctype},
                           "http": r.status_code, "body": r.json() if r.status_code == 200 else r.text})
 
+# ── 2b. provider_override (backward compat + unknown + unavailable→fallback) ──
+out["provider_override"] = []
+OVERRIDE_CASES = [
+    ("omitted", {"match_id": 1, "language": "vi", "copy_type": "preview"}),
+    ("kimi", {"match_id": 1, "language": "vi", "copy_type": "preview", "provider_override": "kimi"}),
+    ("deepseek", {"match_id": 1, "language": "mm", "copy_type": "preview", "provider_override": "deepseek"}),
+    ("gemini", {"match_id": 1, "language": "vi", "copy_type": "preview", "provider_override": "gemini"}),
+    ("bogus", {"match_id": 1, "language": "vi", "copy_type": "preview", "provider_override": "bogus"}),
+]
+for tag, payload in OVERRIDE_CASES:
+    r = client.post(URL, headers={"x-admin-token": TOKEN}, json=payload)
+    b = r.json() if r.status_code == 200 else {"_text": r.text}
+    out["provider_override"].append({
+        "tag": tag, "http": r.status_code,
+        "provenance": b.get("provenance"), "status": b.get("status"),
+        "publishable": b.get("publishable"), "warnings": b.get("warnings"),
+    })
+
 # ── 3. Forbidden-phrase filter: dirty / clean / negation ──
 FILTER_CASES = [
     ("dirty-vi", "vi", "Cá cược chắc thắng, kiếm tiền dễ mỗi ngày, lợi nhuận chắc chắn."),

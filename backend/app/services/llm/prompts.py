@@ -19,6 +19,8 @@ _SYSTEM = (
     "- NEVER use betting, gambling, 'sure win', 'guaranteed', profit, cash-prize, or hit-rate wording.\n"
     "- NEVER promise results or returns. MTC is platform loyalty points only (not withdrawable).\n"
     "- Keep team names in English; numbers/percentages as given.\n"
+    "- Respond ONLY in {lang}. Do NOT use Chinese characters unless {lang} is Chinese. "
+    "Do NOT mix languages or add labels in another language.\n"
     "- End with a one-line disclaimer that past performance does not guarantee future results.\n"
     "- Output ONLY the copy text, no preamble."
 )
