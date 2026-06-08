@@ -24,7 +24,12 @@
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
    - **Language gate CLOSED.** vi mobile QA PASS; mm mobile QA PASS (after screenshot-driven recheck).
      Report-page localization residual **fixed**; Telegram **open/copy fallback UX** added.
-   - **Social:** Myanmar **Telegram active** (`https://t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending active**.
+   - **vi recheck (2026-06-08, Myanmar standard)** PASS WITH ISSUES — full path incl. `/report` re-scanned;
+     one Chinese residual (community "VI TRIAL COPY" badge) **fixed** (`dict.ts` VI `viBadge` → vi-only);
+     zh/mm unaffected, build passes, backend untouched. Evidence: `docs/VI_MOBILE_RECHECK_REPORT.md` +
+     `docs/qa_screenshots/vi_mobile_recheck/`.
+   - **Social:** Myanmar **Telegram active** (`https://t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending active**
+     (vi page correctly shows Zalo + Telegram as `Sắp mở`; Myanmar Telegram does not pollute vi).
    - **Data:** API-FOOTBALL configured & reachable but **`mock_mode=true`** (last known); **real
      fixtures/results sync NOT run by Claude** — needs `$ADMIN_API_TOKEN` in Render Shell (operator).
    - **Modeling:** baseline + refresh OK (win_prob sums 100); usable as **AI viewpoint only**, NOT hit-rate.

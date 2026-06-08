@@ -82,8 +82,14 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 - **`/detail` alone was insufficient** — the real residual was on the **`/report`** page reached via
   detail → unlock. Always QA the **full detail → unlock → report flow**.
 - **Screenshot-driven QA is mandatory** for customer-facing language/mobile. **No screenshot = no PASS.**
-- Recheck artifacts: `docs/qa_screenshots/mm_mobile_recheck/` (+ `mm_mobile/`, `vi_mobile/`).
-  Reports: `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`.
+- **vi recheck (2026-06-08, Myanmar standard):** full vi path incl. `/report` re-scanned; residual was the
+  **community "VI TRIAL COPY" badge** leaking Chinese (`越南语试跑文案已就绪`) on the public page — the
+  bilingual zh·vi badge that mm had already been switched to English. **Lesson:** operator-labelled badges
+  on public customer pages still count as customer surface — vi must be Chinese-free. Fixed: `dict.ts` VI
+  `viBadge` → Vietnamese-only.
+- Recheck artifacts: `docs/qa_screenshots/mm_mobile_recheck/`, `docs/qa_screenshots/vi_mobile_recheck/`
+  (+ `mm_mobile/`, `vi_mobile/`). Reports: `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`,
+  `docs/VI_MOBILE_RECHECK_REPORT.md`.
 
 ## 9. Harness-X rule set
 

@@ -12,6 +12,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   localization), `822f3ac` (LLM integration policy), `0cd76bd` (draft-only LLM backend).
 - **Language QA:** vi PASS · mm PASS (after screenshot-driven recheck). Report-page Chinese residual
   **fixed**; Telegram **open/copy fallback UX** added. Isolation holds (zh/RMB · vi/VND · mm/MMK).
+- **vi recheck (2026-06-08, Myanmar standard):** **PASS WITH ISSUES** — full vi path incl. **`/report`**
+  re-scanned at 390/430; one Chinese residual (community "VI TRIAL COPY" badge) **fixed** (frontend
+  `dict.ts` VI `viBadge` → Vietnamese-only); zh/mm regression clean; build passes; backend untouched.
+  See `docs/VI_MOBILE_RECHECK_REPORT.md` + `docs/qa_screenshots/vi_mobile_recheck/`.
 - **Social:** Myanmar **Telegram active** (`t.me/GianhCupMMAIFootball`); **Vietnam Zalo pending**.
 - **Data-source:** `api_football_configured=true`, `connector_status=ok`, **`mock_mode=true`**
   (last known); **real sync pending operator** (Render Shell). No real hit-rate claimable.

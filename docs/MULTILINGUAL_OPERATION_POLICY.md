@@ -140,3 +140,10 @@ Every locale must preserve the compliance floor:
   pricing separated by locale (zh RMB · en USD · vi VND · mm MMK).
 - **2026-06-07: vi & mm mobile QA PASS; language gate CLOSED.** Next phase:
   `docs/NEXT_PHASE_DATA_MODEL_SOCIAL_LLM_PLAN.md`. Active Zalo/Telegram channel remains the blocker.
+- **2026-06-08: vi recheck (Myanmar standard) — PASS WITH ISSUES → fixed.** Full vi path incl. `/report`
+  re-scanned at 390/430. Found one Chinese residual: the community **"VI TRIAL COPY" badge** rendered the
+  bilingual zh·vi string on the public page. **Reinforced rule: operator-labelled badges on public
+  customer pages are still customer surface — vi must never show Chinese.** Fixed by making the VI
+  `viBadge` Vietnamese-only (`dict.ts`); zh keeps its internal bilingual value, en/mm stay English.
+  vi/mm → en fallback (never zh) re-confirmed. Evidence: `docs/VI_MOBILE_RECHECK_REPORT.md` +
+  `docs/qa_screenshots/vi_mobile_recheck/`. Recheck helper: `scripts/qa/vi_mobile_recheck_shots.sh`.
