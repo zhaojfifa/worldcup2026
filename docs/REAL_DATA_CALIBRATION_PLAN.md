@@ -98,6 +98,13 @@ change** (Option B needs Owner approval) · **no fake real data** · **no hit-ra
 - **Pending operator action** on Render (Claude has no token → will not fabricate). Results land in
   `docs/DATA_SOURCE_SYNC_VERIFICATION.md` §11 (Operator Action Checklist, now extendable per-competition).
 
+## 12. Real Data Verification Sprint (2026-06-10)
+Rollback tag `v0.8-real-data-verify-start`; branch `feature/real-data-zh-vi-verification`. zh+vi are the
+verification languages (mm not broken). **Operator must re-run the data pull** (runbook
+`DATA_SOURCE_SYNC_VERIFICATION.md` §13): warm-ups/2026 availability rechecked; **WC2022 is recap/calibration
+only**; **current seed preview is NOT real-synced data** and is not advertised as 2026 real data. No
+hit-rate marketing, no auto-publish/payment/bot/scaling. Frontend: recap-aware Report caption only.
+
 ## 11. Update (2026-06-09) — priority shifted to warm-ups; specific matches selected
 Owner correction: produce **specific real matches**, not league-level guidance. **Priority is now
 warm-ups/friendlies first** (`league_id=10, season=2026`), then WC-2026 (`1/2026`), then WC-2022 backtest.

@@ -3,6 +3,15 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Real Data Verification Sprint (2026-06-10):** on branch **`feature/real-data-zh-vi-verification`**
+> (NOT merged to main yet); rollback tag **`v0.8-real-data-verify-start`**. zh+vi verification; mm not broken.
+> Data re-pull = operator-run on Render (BLOCKED for Claude; last known 2026/warm-ups=0, WC2022=64 — not
+> fabricated). One small frontend fix: **Report evidence-strip caption is recap-aware** for finished matches
+> (`历史数据·模型校准·非当前比赛` / `Dữ liệu lịch sử · hiệu chỉnh mô hình · không phải trận hiện tại`).
+> 42.2% still **not in any UI**. Build PASS, vi Han=0, no backend diff. Evidence:
+> `docs/REAL_DATA_ZH_VI_OPERATOR_REVIEW.md` + `docs/qa_screenshots/real_data_zh_vi_verification/`.
+> **Final PASS pending operator review; Owner decides branch→main merge.**
+
 > **Historical Recap separation SHIPPED (2026-06-09, frontend-only):** the `/matches` historical-vs-seed
 > mixing is fixed with **no backend/API/DB change**. `Match.status` is carried through `transform.ts`;
 > Home current surfaces (signal/today/upsets) filter `status !== 'finished'`; finished WC-2022 matches show

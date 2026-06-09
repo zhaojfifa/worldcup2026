@@ -8,6 +8,12 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Real Data Verification Sprint (2026-06-10, branch `feature/real-data-zh-vi-verification`):** rollback
+  tag **`v0.8-real-data-verify-start`**; zh+vi verification (mm not broken). Data re-pull operator-run
+  (BLOCKED for Claude; last known 2026=0 / WC2022=64). Small frontend clarity: **Report evidence caption
+  recap-aware** for finished matches; 42.2% still not in UI; build PASS, vi Han=0. On branch (not main);
+  **final PASS pending operator review.** Evidence: `docs/REAL_DATA_ZH_VI_OPERATOR_REVIEW.md` +
+  `docs/qa_screenshots/real_data_zh_vi_verification/`.
 - **Historical Recap separation SHIPPED (2026-06-09, frontend-only):** `/matches` mixing fixed without
   backend/API/DB change — `Match.status` carried through transform; Home current surfaces filter
   `status !== 'finished'`; finished WC-2022 matches show only under a labelled **Historical Recap · WC2022**

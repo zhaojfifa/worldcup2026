@@ -81,6 +81,12 @@ new optional query param — **Owner-gated**, not needed now.)
 - Until implemented, **do not run operator screenshots on the polluted Home**, and **do not market
   2022 numbers**. Await Owner go for the frontend separation.
 
+## 10. Verification follow-up (2026-06-10, branch)
+Real Data Verification Sprint added one clarity fix: the **Report evidence-strip caption is now recap-aware**
+— finished matches show `历史数据 · 模型校准 · 非当前比赛` / `Dữ liệu lịch sử · hiệu chỉnh mô hình · không phải
+trận hiện tại` instead of the pre-match preview caption. zh+vi screenshots:
+`docs/qa_screenshots/real_data_zh_vi_verification/`; operator review: `docs/REAL_DATA_ZH_VI_OPERATOR_REVIEW.md`.
+
 ## 9. IMPLEMENTED (2026-06-09) — frontend-only, Option A
 Owner approved → shipped. **No backend/API/DB change.** Engineer self-verify **PASS**.
 - **transform/type:** `Match.status` added (`types/index.ts`) and carried through `transform.ts` from

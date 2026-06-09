@@ -150,6 +150,10 @@ curl "$BASE/api/v1/data-source/status";  curl "$BASE/api/v1/performance/summary"
 > `REAL_MATCH_INTELLIGENCE_SELECTION.md` and treat those matches as **public_source** only —
 > **never relabel news data as API data; never fabricate counts.**
 
+> **Re-run requested (2026-06-10, Real Data Verification Sprint):** operator re-runs the gate below to
+> recheck 2026/warm-up availability. Fill a fresh dated row. Claude remains `BLOCKED_OPERATOR_RENDER_SHELL`
+> (no token); current seed pages stay `current_preview`, not `real_synced`, until a re-pull returns current matches.
+
 ## 13. Fast Real Data Gate (2026-06-09) — execute on Render, fill ONE row per run
 
 Baseline tagged **`v0.8-real-data-gate`** (commit `d4feb6c`) before any real sync. **Claude cannot run

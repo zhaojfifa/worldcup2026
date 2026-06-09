@@ -26,6 +26,13 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Real Data Verification Sprint (2026-06-10, branch `feature/real-data-zh-vi-verification`):** rollback
+     tag **`v0.8-real-data-verify-start`**. zh+vi verification; mm not broken. Data re-pull is operator-run on
+     Render (`BLOCKED_OPERATOR_RENDER_SHELL` for Claude; last known: 2026/warm-ups=0, WC2022=64). Small
+     frontend clarity fix: **Report evidence caption is recap-aware** for finished matches
+     (`历史数据 · 模型校准 · 非当前比赛` / `Dữ liệu lịch sử · hiệu chỉnh mô hình · không phải trận hiện tại`).
+     42.2% still **not in any UI**. Build PASS, vi Han=0. Evidence: `docs/REAL_DATA_ZH_VI_OPERATOR_REVIEW.md`
+     + `docs/qa_screenshots/real_data_zh_vi_verification/`. On branch (not main); **final PASS pending operator review.**
    - **Historical Recap separation (2026-06-09, frontend-only, shipped):** WC-2022 synced (64/64/64) mixed
      historical into `/matches`. Fixed **without backend/API/DB change**: `Match.status` carried through
      `transform.ts`; Home current surfaces filter `status !== 'finished'`; finished matches show only under
