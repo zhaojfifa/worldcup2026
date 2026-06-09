@@ -43,10 +43,57 @@ factor % values come from the existing `Match.features[].value`. No API/DB field
 `detail-vi-unlock-modal-390.png` · `detail-mm-unlock-modal-390.png`.
 Captured full-page via `scripts/qa/intel_rewrite_shots.mjs` (zero-dep CDP driver; manual helper).
 
-## 4. Operator verification (Stage 5 — pending, real device)
-Operator to confirm on a real phone: `/detail` · `/report` · `/community` for `lang=vi` and `lang=mm` —
-evidence strip, scout verdict, factor explanation, unlock→report path, Telegram/Zalo entry, bottom nav,
-and any modal/toast/action sheet. Record under this doc; no screenshot = no PASS.
+## 4. Stage 5 — Operator Verification Checklist (real device)
+
+**Status:** `operator_verification_status: pending`. Engineer self-verification (§2) is PASS, but the
+**Final PASS is NOT granted until the operator screenshots below are captured and reviewed.**
+Rule: **no screenshot = no PASS.** Save all shots to `docs/qa_screenshots/intelligence_rewrite_operator/`.
+
+### 4.1 Paths to open on a real phone
+**Vietnam (vi):** `/detail?lang=vi` · `/report?lang=vi` · `/community?lang=vi`
+**Myanmar (mm):** `/detail?lang=mm` · `/report?lang=mm` · `/community?lang=mm`
+(Live: `https://worldcup2026-izid.onrender.com/...` after deploy, or the local dev server.)
+
+### 4.2 Required screenshots (each, for vi AND mm → save to `…/intelligence_rewrite_operator/`)
+Suggested filenames: `{area}-{vi|mm}-{device}.png` (device = the operator's phone, e.g. `iphone13`).
+
+| # | Capture | Where |
+|---|---------|-------|
+| 1 | Evidence Strip / Signal Sources | Detail + Report (top) |
+| 2 | Scout verdict (persona + hook line) | Detail + Report |
+| 3 | Factor source / impact / interpretation | Report (Key factors) |
+| 4 | Contrarian / Risk watch | Detail (teaser) + Report |
+| 5 | Watch before kickoff | Report |
+| 6 | Unlock modal | Detail → tap unlock (MTC) |
+| 7 | Report after unlock | after tapping "continue to report" |
+| 8 | Telegram / Zalo entry | Community → tap channel |
+| 9 | Bottom nav | any page |
+| 10 | Any toast / modal / action sheet | check-in, copy-link, coming-soon |
+
+### 4.3 Operator judgement criteria (answer per language)
+- [ ] **Understandable?** (能不能看懂)
+- [ ] **Reads like match intelligence, not generic "AI analysis"?** (是否像赛事情报)
+- [ ] **Data sources + model basis visible?** (是否看到数据来源和模型依据)
+- [ ] **Language natural for local operation?** (语言是否自然)
+- [ ] **Page not crowded / no overlap?** (页面是否拥挤)
+- [ ] **No Chinese residual on vi/mm?** (是否有中文残留)
+- [ ] **No betting / 稳赚 / 必中 / 收益 / 现金 hints?** (博彩/收益暗示)
+- [ ] **Willing to forward a screenshot to the group?** (是否愿意发群)
+- [ ] **Willing to tap full report / join community?** (是否愿意解锁/进社群)
+
+### 4.4 Result fields (operator fills, then Owner reviews)
+```
+operator_verification_status: pending   # pending | pass | pass_with_issues | fail
+operator_feedback_vi: ""                # operator's words (vi path)
+operator_feedback_mm: ""                # operator's words (mm path)
+issues_found: ""                        # concrete problems (language / layout / redirect)
+required_fix: ""                        # frontend-only fixes, if any
+final_owner_decision: ""                # Owner's call after reviewing screenshots
+```
+
+> If issues are found, fixes stay **frontend-only** (copy / mapping / layout); any API/DB need must
+> stop and return to Owner. Until `operator_verification_status` is `pass`/`pass_with_issues` **and**
+> `final_owner_decision` is recorded, the sprint remains **PASS pending Stage 5**.
 
 ## 5. Boundaries honored
 Frontend-only · no backend · no public API shape change · no DB schema change · no payment · no bot ·

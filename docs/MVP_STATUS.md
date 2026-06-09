@@ -13,7 +13,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   Contrarian · Watch. Derived on frontend (dict + viMapping/mmMapping); **no API/DB change.** vi/mm 0 Han,
   zh regression OK, build passes, no forbidden phrases. Evidence:
   `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` + `docs/qa_screenshots/intelligence_rewrite/`.
-  Operator real-device verify pending.
+  **Engineer self-verify PASS; Stage 5 operator real-device verification PENDING** (checklist in
+  evidence doc §4; `operator_verification_status: pending`; shots →
+  `docs/qa_screenshots/intelligence_rewrite_operator/`). **Final PASS withheld until operator
+  screenshots reviewed + `final_owner_decision` recorded.**
 
 
 - **Latest commits:** `3343475` (mm recheck screenshots), `3a05ba3` (Telegram fallback + Report

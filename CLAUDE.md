@@ -22,6 +22,15 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Scout Intelligence Rewrite (2026-06-08, Owner-approved, frontend-only):** Report/Detail upgraded to
+     a data-backed **Giành Cup Scout** read — Evidence Strip (signal sources, provenance-tagged), Scout
+     verdict + hook, factor **Source/Impact/Interpretation**, Contrarian + Watch sections. All derived on
+     the frontend (dict + viMapping/mmMapping); **no API/DB change.** vi/mm 0 Han, zh regression OK, build
+     passes, no console errors, no forbidden phrases. Evidence: `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`
+     + `docs/qa_screenshots/intelligence_rewrite/`. **Engineer self-verify PASS; Stage 5 operator
+     real-device verification PENDING** (checklist in the evidence doc §4; shots →
+     `docs/qa_screenshots/intelligence_rewrite_operator/`). **Final PASS not granted until operator
+     screenshots are reviewed + `final_owner_decision` recorded.**
    - **Language gate CLOSED.** vi mobile QA PASS; mm mobile QA PASS (after screenshot-driven recheck).
      Report-page localization residual **fixed**; Telegram **open/copy fallback UX** added.
    - **vi recheck (2026-06-08, Myanmar standard)** PASS WITH ISSUES — full path incl. `/report` re-scanned;

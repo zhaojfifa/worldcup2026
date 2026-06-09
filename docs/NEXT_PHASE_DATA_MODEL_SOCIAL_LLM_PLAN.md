@@ -156,6 +156,8 @@ Gemini comparison = GO; LLM stays draft-only; auto-publish/payment/scaling = NO-
 Owner-approved `docs/DATA_BACKED_SCOUT_INTELLIGENCE_REWRITE_PLAN.md` implemented on Report/Detail:
 Evidence Strip · Scout verdict + hook · factor Source/Impact/Interpretation · Contrarian · Watch.
 Mini-Agent stages 1/3/4/5 are now realized as **page UI + copy mapping** (rules/prompts/copy, not a
-runtime). Frontend-only — **no API/DB change**; vi/mm 0 Han; draft-only LLM unchanged; engineer
-self-verify PASS, operator real-device verify pending. Evidence:
-`docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`.
+runtime). Frontend-only — **no API/DB change**; vi/mm 0 Han; draft-only LLM unchanged.
+**Engineer self-verify PASS; Stage 5 operator real-device verification PENDING**
+(`operator_verification_status: pending`; checklist in evidence doc §4; shots →
+`docs/qa_screenshots/intelligence_rewrite_operator/`). **Final PASS withheld until operator screenshots
+reviewed + `final_owner_decision` recorded.** Evidence: `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`.

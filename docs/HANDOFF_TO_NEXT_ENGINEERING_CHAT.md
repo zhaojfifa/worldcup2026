@@ -6,8 +6,11 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 > **Latest (2026-06-08): Scout Intelligence Rewrite shipped (frontend-only).** Report/Detail now show an
 > Evidence Strip, Scout verdict + hook, factor Source/Impact/Interpretation, Contrarian + Watch — all
 > frontend-derived (dict + viMapping/mmMapping), **no API/DB change**, vi/mm 0 Han, draft-only LLM
-> unchanged. Engineer self-verify PASS; **operator real-device verification pending (Stage 5)**.
-> See `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` + `docs/qa_screenshots/intelligence_rewrite/`.
+> unchanged. **Engineer self-verify PASS; Stage 5 operator real-device verification PENDING**
+> (checklist: evidence doc §4; `operator_verification_status: pending`; shots →
+> `docs/qa_screenshots/intelligence_rewrite_operator/`). **Final PASS not granted until operator
+> screenshots reviewed + `final_owner_decision` recorded.** See
+> `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` + `docs/qa_screenshots/intelligence_rewrite/`.
 
 ---
 
