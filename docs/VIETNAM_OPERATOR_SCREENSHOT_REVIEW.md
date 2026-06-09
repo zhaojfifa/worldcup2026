@@ -20,6 +20,17 @@ Paths (vi first): `/detail?lang=vi` · `/report?lang=vi` · `/community?lang=vi`
 - [ ] Risk watch · [ ] Watch before kickoff · [ ] unlock modal · [ ] full report · [ ] community entry ·
 - [ ] bottom nav · [ ] any toast / modal / action sheet.
 
+## Historical Recap separation — added checks (2026-06-09)
+- [ ] **Home current section shows ONLY current/preview matches** (no finished WC-2022 match appears as
+      today's signal / today list / top-upset).
+- [ ] **Historical Recap is clearly labelled** as `Phục dựng lịch sử · World Cup 2022` /
+      `Hiệu chỉnh mô hình · không phải trận hiện tại` (model calibration, **not a current match**).
+- [ ] **No hit-rate / 42.2% / accuracy number** shown anywhere in the customer UI.
+- [ ] **Would the user tap a recap row** to see a full recap? (signal for the optional recap-row→detail link)
+- [ ] If the operator wants it, **recap-row → detail/report link** is a later small polish (**not blocking**).
+- Result: `recap_separation_ok: ""` (yes/no) · `recap_label_clear: ""` (yes/no) ·
+  `wants_recap_link: ""` (yes/no) · `notes: ""`
+
 ## Operator judgement summary (fill after review)
 ```
 overall_status: pending        # pending | pass | pass_with_issues | fail

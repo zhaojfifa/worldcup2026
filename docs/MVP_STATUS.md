@@ -13,7 +13,9 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   `status !== 'finished'`; finished WC-2022 matches show only under a labelled **Historical Recap · WC2022**
   surface; Detail/Report show a recap banner when finished. **42.2% not in any customer UI.** vi/mm Han=0,
   zh regression OK, build passes. Evidence: `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9 +
-  `docs/qa_screenshots/historical_recap_separation/`. Operator real-device screenshots can now run.
+  `docs/qa_screenshots/historical_recap_separation/`. **Verdict PASS (frontend separation).**
+  **Operator real-device screenshots can RESUME** (Home un-polluted); **final PASS still pending operator
+  review.** Recap-row→detail link = optional polish, not blocking.
 - **Fast Real Data Gate RESULT (2026-06-09, operator):** friendlies `10/2026`=0; **WC `1/2026`=0
   (2026 fixtures unavailable from provider)**; **WC `1/2022`=64 fixtures/results/settled** (usable for
   **backtest/recap only**). `hit_rate=42.2%` is a **technical backtest metric — NOT marketed**; 2022 ≠ live.

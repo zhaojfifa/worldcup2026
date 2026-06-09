@@ -26,6 +26,15 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Historical Recap separation (2026-06-09, frontend-only, shipped):** WC-2022 synced (64/64/64) mixed
+     historical into `/matches`. Fixed **without backend/API/DB change**: `Match.status` carried through
+     `transform.ts`; Home current surfaces filter `status !== 'finished'`; finished matches show only under
+     a labelled **Historical Recap · WC2022** surface; Detail/Report show a recap banner when finished.
+     **`hit_rate=42.2%` is NOT in any customer UI** (docs-only backtest metric). vi/mm Han=0, zh regression OK,
+     build passes. Evidence: `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9 + `docs/qa_screenshots/historical_recap_separation/`.
+     **Verdict PASS (frontend separation).** **Operator real-device screenshots can RESUME** (Home un-polluted);
+     **final PASS still pending operator review** (`SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` §4,
+     `VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md`). Recap-row→detail link = optional polish, **not blocking**.
    - **Fast Real Data Gate (2026-06-09):** baseline tagged **`v0.8-real-data-gate`** (`d4feb6c`).
      **Selected matchup mapping is intentionally BLOCKED** until the Render sync confirms a real `match_id`
      (avoid second-seed / fake-real). Next path = **operator runs the Fast Gate** sync order (friendlies

@@ -12,6 +12,10 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 > QA'd with temporary injected finished mock (reverted; `mock.ts` clean). Evidence:
 > `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9 + `docs/qa_screenshots/historical_recap_separation/`.
 > Operator real-device screenshots can now run on the un-polluted Home.
+> **Verdict PASS (frontend separation).** **Operator real-device screenshots can RESUME**; **final PASS
+> still pending operator review** (`docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` §4 +
+> `docs/VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md`, with added recap checks). The **recap-row → detail/report
+> link is optional polish, NOT blocking** — do only if the operator asks.
 
 > **Fast Real Data Gate RESULT (2026-06-09):** 2026 fixtures **unavailable** (friendlies `10/2026`=0, WC
 > `1/2026`=0); **WC `1/2022` synced = 64/64/64** (backtest/recap only; `hit_rate=42.2%` is a backtest

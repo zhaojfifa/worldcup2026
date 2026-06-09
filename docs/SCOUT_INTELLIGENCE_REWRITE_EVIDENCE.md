@@ -49,6 +49,13 @@ Captured full-page via `scripts/qa/intel_rewrite_shots.mjs` (zero-dep CDP driver
 **Final PASS is NOT granted until the operator screenshots below are captured and reviewed.**
 Rule: **no screenshot = no PASS.** Save all shots to `docs/qa_screenshots/intelligence_rewrite_operator/`.
 
+> **Operator gate UNBLOCKED (2026-06-09):** the **Historical Recap separation is complete** (PASS,
+> frontend-only — `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9). **Home is no longer polluted by finished
+> WC-2022 matches** (current surfaces filter `status !== 'finished'`; finished show only under a labelled
+> Historical Recap · WC2022 surface). **Operator real-device verification may now proceed** on the
+> un-polluted Home. `hit_rate` (42.2%) is **not in any customer UI**. The **recap-row → detail/report
+> link is optional polish, NOT blocking** Stage 5 (banner-labelled flow is sufficient).
+
 ### 4.1 Paths to open on a real phone
 **Vietnam (vi):** `/detail?lang=vi` · `/report?lang=vi` · `/community?lang=vi`
 **Myanmar (mm):** `/detail?lang=mm` · `/report?lang=mm` · `/community?lang=mm`
