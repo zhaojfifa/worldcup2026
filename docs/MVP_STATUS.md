@@ -8,6 +8,12 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Fast Real Data Gate RESULT (2026-06-09, operator):** friendlies `10/2026`=0; **WC `1/2026`=0
+  (2026 fixtures unavailable from provider)**; **WC `1/2022`=64 fixtures/results/settled** (usable for
+  **backtest/recap only**). `hit_rate=42.2%` is a **technical backtest metric — NOT marketed**; 2022 ≠ live.
+  `/matches` now mixes historical (id 4–67) + seed (id 1–3) → separation plan
+  `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` (frontend filter by status/date + labelled Recap; **no API/DB
+  change**). **Selected matchup mapping stays BLOCKED** (2026 not in system). Plan-only this round.
 - **Fast Real Data Gate (2026-06-09):** baseline **tag `v0.8-real-data-gate`** (`d4feb6c`) pushed.
   **Selected matchup mapping intentionally BLOCKED until API sync confirms `match_id`.** Next = operator
   Fast Gate sync (friendlies `10/2026` → WC `1/2026` → `1/2022`) → `/matches` → `refresh`

@@ -176,9 +176,16 @@ curl -X POST "$BASE/api/v1/matches/{match_id}/refresh"
 
 | gate_run_at | operator | command_run | league_id | season | fixtures_inserted | fixtures_updated | fixtures_skipped | results_inserted | results_updated | results_settled | errors | requests_used_before | requests_used_after | matches_returned_count | selected_match_ids | selected_matches | decision (use/fallback/blocked) | notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  |  | sync/fixtures+results | 10 | 2026 |  |  |  |  |  |  |  |  |  |  |  |  |  | step 1 — friendlies |
-|  |  | sync/fixtures | 1 | 2026 |  |  |  |  |  |  |  |  |  |  |  |  |  | step 2 — WC if step1 empty |
-|  |  | sync/fixtures+results | 1 | 2022 |  |  |  |  |  |  |  |  |  |  |  |  |  | step 3 — backtest if step2 empty |
+| 2026-06-09 | operator | sync/fixtures(+results) | 10 | 2026 | 0 | 0 | 0 | — | — | — | — | — | — | 0 | — | — | **fallback** | friendlies returned nothing |
+| 2026-06-09 | operator | sync/fixtures | 1 | 2026 | 0 | 0 | 0 | — | — | — | — | 0 | 0 | 0 (still seed 3) | — | — | **fallback** | 2026 WC fixtures NOT available from provider; `/data-source/status`: configured=true, connector=ok, mock_mode=true, requests_used=0 |
+| 2026-06-09 | operator | sync/fixtures+results | 1 | 2022 | 64 | 0 | 0 | 64 | 0 | 64 | — | — | — | id 4–67 (+seed 1–3) | 8,13,58,67 (candidates) | see recap proposal | **use (backtest only)** | WC2022 historical; `/performance/summary`: total_settled=64, hit_count=27, hit_rate=42.2, high_conf_hit_rate=42.5 |
+
+> **Reading of the result (Owner ruling):** **2026 fixtures are currently unavailable** from the provider
+> (`mock_mode=true`, 0 fixtures). **WC-2022 historical synced (64/64/64)** and is usable for
+> **backtest / recap / model calibration only**. The **`hit_rate=42.2%` is a technical settlement/backtest
+> output, NOT marketable predictive accuracy** — do **not** advertise it, and do **not** treat 2022
+> matches as live/current. `/matches` now **mixes** historical finished (id 4–67) with seed scheduled
+> (id 1–3) → see `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` for the data/product separation plan.
 
 **Per-match refresh (fill after a real match_id is confirmed):**
 | match_id | home | away | win_prob (H/D/A) | confidence | risk_level | risk_note | updated_at |

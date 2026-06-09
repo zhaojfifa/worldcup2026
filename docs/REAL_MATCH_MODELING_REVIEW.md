@@ -30,6 +30,17 @@ presented as model probabilities.** Real model numbers appear **only after** ope
 - **RMI-03 Argentina 2-0 Honduras (recap):** result known (news: 2-0). Recap angle = comfortable margin;
   good "model direction vs result" example **once synced**.
 
+## Update (2026-06-09) — WC-2022 historical is in the system; 2026 still unavailable
+- **2026 (league 1) and friendlies (league 10): 0 fixtures** → RMI-01/02/03 remain
+  `model_status=pending_api_sync` and `api_available=no` (public_source only; no fake numbers).
+- **WC-2022 (league 1, season 2022): 64 fixtures/results/settled.** Historical matches **id 4–67** are now
+  in the DB and **can be refreshed** (`POST /matches/{id}/refresh`) for **backtest/recap/calibration only**.
+  Candidates: id 8 (ARG-KSA), 13 (GER-JPN), 58 (MAR-ESP), 67 (ARG-FRA).
+- **`hit_rate=42.2%` is a settlement/backtest metric, NOT marketable predictive accuracy.** Use it for
+  internal model calibration only; never present it to customers as a hit rate. 2022 matches are
+  **historical**, not current — keep them out of the live "current preview" surfaces
+  (`docs/HISTORICAL_RECAP_MODE_PROPOSAL.md`).
+
 ## Operator action to unblock modeling (Render)
 1. Sync fixtures/results for league `10`/`1` season `2026` (see `DATA_SOURCE_SYNC_VERIFICATION.md`).
 2. `GET /matches` → find the `match_id` for each selected fixture.

@@ -3,6 +3,14 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Fast Real Data Gate RESULT (2026-06-09):** 2026 fixtures **unavailable** (friendlies `10/2026`=0, WC
+> `1/2026`=0); **WC `1/2022` synced = 64/64/64** (backtest/recap only; `hit_rate=42.2%` is a backtest
+> metric, **NOT marketed**; 2022 ≠ live). **`/matches` now mixes historical (id 4–67) + seed (id 1–3)** →
+> Home could surface a finished 2022 match as "today's signal". **Separation plan (frontend-only, no API/DB):**
+> `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` — carry `status` in `transform.ts`, filter Home to non-finished,
+> add a labelled vi Recap surface (`Phục dựng lịch sử · WC2022`). Recap candidates id 8/13/58/67. **Do not
+> run operator screenshots on the polluted Home until separation lands.** Awaiting Owner go for that frontend change.
+
 > **Fast Real Data Gate (2026-06-09):** baseline **tag `v0.8-real-data-gate`** (`d4feb6c`) pushed.
 > **Do NOT extend selected matchup mapping** (Mexico/SA, Brazil/Egypt, Argentina/Honduras) — intentionally
 > blocked until the Render sync confirms a real `match_id` (avoids second-seed/fake-real). Next execution =

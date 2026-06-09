@@ -105,3 +105,12 @@ Selected real fixtures are listed in **`docs/REAL_MATCH_INTELLIGENCE_SELECTION.m
 South Africa; finished Brazil-Egypt, Argentina-Honduras) with sources; per-competition sync table in
 `DATA_SOURCE_SYNC_VERIFICATION.md` §12. Claude is `BLOCKED_OPERATOR_RENDER_SHELL` (no token) — match
 selection proceeded anyway, no fabricated sync/results.
+
+## 12. Gate result (2026-06-09, operator-run)
+- **Friendlies `10/2026` = 0; WC `1/2026` = 0** → **2026 fixtures currently unavailable from the provider.**
+- **WC `1/2022` = 64 fixtures / 64 results / 64 settled** → **usable for backtest/recap/calibration only.**
+  `hit_rate=42.2%` is a **technical backtest metric, NOT marketable accuracy.** 2022 ≠ live.
+- `/matches` now mixes historical (id 4–67) + seed (id 1–3) → data/product separation needed:
+  **`docs/HISTORICAL_RECAP_MODE_PROPOSAL.md`** (frontend filter by status/date + labelled Recap surface;
+  no API/DB change). Priority order updated: warm-ups/2026 remain target but **currently unavailable** →
+  use **WC-2022 historical** for calibration in the meantime.

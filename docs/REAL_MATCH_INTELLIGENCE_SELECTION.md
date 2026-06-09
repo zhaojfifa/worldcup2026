@@ -23,6 +23,18 @@ _Created 2026-06-09 · Harness-X Real Match Intelligence Sprint · Data recon (E
 | RMI-06 | FIFA World Cup 2026 | 1 | 2026 | Canada | (TBD) | 2026-06-12 | upcoming | news/official | Wikipedia / Yahoo | unknown | unknown | no | partial | no | no | host nation day-2; opponent not confirmed in sources | opponent TBD — do not publish until confirmed |
 | RMI-07 | FIFA World Cup 2026 | 1 | 2026 | United States | (TBD) | 2026-06-12 | upcoming | news/official | Wikipedia / Yahoo | unknown | unknown | no | partial | no | no | host nation day-2; opponent not confirmed | opponent TBD — confirm before use |
 
+## Gate result (2026-06-09, operator-run on Render — real, not fabricated)
+- **Friendlies `10/2026`: returned 0.** **WC `1/2026`: returned 0** (2026 fixtures unavailable from
+  provider; `mock_mode=true`, `requests_used=0`). → news candidates RMI-01/02/03 are **`api_available=no`**
+  via the current key (remain **public_source** only; do **not** relabel as API data).
+- **WC `1/2022`: SUCCESS — 64 fixtures / 64 results / 64 settled.** `/matches` now has historical finished
+  matches **id 4–67** plus seed preview **id 1–3**. `/performance/summary`: total_settled=64, hit_count=27,
+  **hit_rate=42.2** (high_conf 42.5). **This hit_rate is a technical backtest/settlement output, NOT
+  marketable predictive accuracy — do not advertise it; 2022 ≠ live.**
+- **WC-2022 historical candidates** (recap/calibration): **id 8** Argentina v Saudi Arabia · **id 13**
+  Germany v Japan · **id 58** Morocco v Spain · **id 67** Argentina v France. Plan:
+  `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md`. **/matches now mixes historical + seed → separation needed.**
+
 ## Fast Real Data Gate — mapping intentionally BLOCKED until API confirms match_id (2026-06-09)
 Owner ruling: **do NOT write these matchups (Mexico/South Africa, Brazil/Egypt, Argentina/Honduras) into
 frontend mapping yet.** Reason: `api_available` is still `unknown`, `match_id` unconfirmed; writing mapping
