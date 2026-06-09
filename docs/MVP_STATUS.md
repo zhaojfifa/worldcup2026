@@ -8,6 +8,14 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Scout Intelligence Rewrite (2026-06-08, frontend-only):** Report/Detail now a data-backed **Giành
+  Cup Scout** read — Evidence Strip · Scout verdict + hook · factor Source/Impact/Interpretation ·
+  Contrarian · Watch. Derived on frontend (dict + viMapping/mmMapping); **no API/DB change.** vi/mm 0 Han,
+  zh regression OK, build passes, no forbidden phrases. Evidence:
+  `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` + `docs/qa_screenshots/intelligence_rewrite/`.
+  Operator real-device verify pending.
+
+
 - **Latest commits:** `3343475` (mm recheck screenshots), `3a05ba3` (Telegram fallback + Report
   localization), `822f3ac` (LLM integration policy), `0cd76bd` (draft-only LLM backend).
 - **Language QA:** vi PASS · mm PASS (after screenshot-driven recheck). Report-page Chinese residual

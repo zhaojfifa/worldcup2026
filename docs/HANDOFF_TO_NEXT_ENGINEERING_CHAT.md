@@ -3,6 +3,12 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Latest (2026-06-08): Scout Intelligence Rewrite shipped (frontend-only).** Report/Detail now show an
+> Evidence Strip, Scout verdict + hook, factor Source/Impact/Interpretation, Contrarian + Watch — all
+> frontend-derived (dict + viMapping/mmMapping), **no API/DB change**, vi/mm 0 Han, draft-only LLM
+> unchanged. Engineer self-verify PASS; **operator real-device verification pending (Stage 5)**.
+> See `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` + `docs/qa_screenshots/intelligence_rewrite/`.
+
 ---
 
 ## 1. One-page summary

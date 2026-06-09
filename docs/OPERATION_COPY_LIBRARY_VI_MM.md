@@ -152,3 +152,22 @@ data_mode · human_review_status=pending · whether_sent_to_social=no**. Operato
 **DeepSeek + Gemini are clean for vi/mm; Kimi leaks Chinese for vi/mm — do not use Kimi there yet.**
 Pick a candidate, human-review (incl. **language-fidelity**: reject Chinese in vi/mm), then send manually.
 Nothing here is auto-published.
+
+## Scout-framed lines (human-authored; shipped in the UI 2026-06-08)
+These power the Report/Detail "Scout" rewrite (`docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`) and are
+operator-forwardable as-is. Compliant (no betting/hit-rate/profit), localized, no Chinese for vi/mm.
+
+**Verdict hook (Brazil vs Argentina):**
+- vi: `Không phải câu hỏi Brazil mạnh hơn không. Câu hỏi là hàng thủ Argentina chịu được bao lâu.`
+- mm: `မေးခွန်းက Brazil အားကောင်းလား မဟုတ်ပါ။ Argentina ခံစစ် ဘယ်လောက်ကြာကြာ တောင့်ခံနိုင်မလဲ ဆိုတာပါ။`
+
+**Contrarian (why it could be wrong):**
+- vi: `Nếu trung vệ Argentina kịp bình phục, lợi thế cánh phải của Brazil giảm mạnh.`
+- mm: `Argentina ဗဟိုခံစစ်သမား ပြန်ကောင်းလာပါက Brazil ၏ ညာခြမ်းအားသာချက် သိသိသာသာ ကျဆင်းသွားမည်။`
+
+**Watch before kickoff:**
+- vi: `Theo dõi danh sách ra sân hàng thủ Argentina và biên phải Brazil 30 phút trước trận.`
+- mm: `ပွဲမစမီ ၃၀ မိနစ်အလို Argentina ခံစစ်လူစာရင်းနှင့် Brazil ညာခြမ်းကို စောင့်ကြည့်ပါ။`
+
+(Other seed matchups — Morocco/France, Spain/Germany — have parallel lines in
+`frontend/src/i18n/viMapping.ts`; unmapped matches fall back to a generic localized scout line.)

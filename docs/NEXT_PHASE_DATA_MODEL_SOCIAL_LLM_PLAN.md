@@ -151,3 +151,11 @@ Gemini comparison = GO; LLM stays draft-only; auto-publish/payment/scaling = NO-
   clean for vi/mm; Kimi leaks Chinese for vi/mm.** Roles updated by evidence: **DeepSeek primary, Gemini
   benchmark/co-primary, Kimi needs prompt work (zh ok).** `provider_override` (admin/draft-only) lets stage 6
   pick a provider per call. Prompt hardened (target-language-only) + Gemini `thinkingBudget=0`.
+
+## 14. Scout Intelligence Rewrite shipped (2026-06-08, frontend-only)
+Owner-approved `docs/DATA_BACKED_SCOUT_INTELLIGENCE_REWRITE_PLAN.md` implemented on Report/Detail:
+Evidence Strip · Scout verdict + hook · factor Source/Impact/Interpretation · Contrarian · Watch.
+Mini-Agent stages 1/3/4/5 are now realized as **page UI + copy mapping** (rules/prompts/copy, not a
+runtime). Frontend-only — **no API/DB change**; vi/mm 0 Han; draft-only LLM unchanged; engineer
+self-verify PASS, operator real-device verify pending. Evidence:
+`docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`.

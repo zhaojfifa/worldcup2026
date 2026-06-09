@@ -110,3 +110,12 @@ _Created 2026-06-08. Every draft below is **draft-only** (`status=draft_only`, `
 > **Reviewer reminder:** add a **language-fidelity** check (Han chars in vi/mm = reject) per
 > `docs/MINI_AGENT_HARNESS_DESIGN.md` §4. All Batch-2 rows remain `human_review_status=pending`
 > except B2-5 (illustrative reject). None sent.
+
+---
+
+## Note — Scout UI copy is human-authored (2026-06-08)
+The Scout Intelligence Rewrite that shipped in the Report/Detail UI (evidence strip, scout verdict
+hook, factor source/interpretation, contrarian, watch) is **human-authored copy** in
+`frontend/src/i18n/{dict,viMapping,mmMapping}.ts` — **not** raw LLM output. LLM drafts (Batch 1/2) remain
+draft-only inputs for review; the LLM does not write shipped customer strings. Evidence:
+`docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`. vi/mm verified 0 Chinese residual; forbidden scan clean.
