@@ -8,6 +8,11 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN only, Owner review pending.** 3-role plan
+  (Engineering/Product/Operation); **vi first priority**, **warm-ups/friendlies first data priority**
+  (`league_id=10,season=2026`); **no backend/API/DB change proposed**; prediction-game/entertainment
+  framing, not betting. `docs/HARNESSX_VIETNAM_MARKET_HEAVY_SPRINT_PLAN.md` +
+  `docs/VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md` (pending). Not yet implemented.
 - **Brand architecture (2026-06-08):** **LEIZE = company brand**; **Giành Cup = product** (under LEIZE
   AI); **"Cloud" = future branch, not the company brand.** No product rename / no code change this round.
   Details: `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.

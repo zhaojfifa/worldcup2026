@@ -26,6 +26,12 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN written, Owner review pending.**
+     3 roles (Engineering data/modeling · Product flow · Operation vi screenshots). **vi = first priority;
+     warm-ups/friendlies (`league_id=10,season=2026`) = first data priority.** No backend/API/DB change
+     proposed (sync override already exists). Compliance: AI-intelligence + fan **prediction-game**, **not
+     betting**. Plan: `docs/HARNESSX_VIETNAM_MARKET_HEAVY_SPRINT_PLAN.md`; operator review template:
+     `docs/VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md`. **Not yet in Implementation.**
    - **Scout Intelligence Rewrite (2026-06-08, Owner-approved, frontend-only):** Report/Detail upgraded to
      a data-backed **Giành Cup Scout** read — Evidence Strip (signal sources, provenance-tagged), Scout
      verdict + hook, factor **Source/Impact/Interpretation**, Contrarian + Watch sections. All derived on

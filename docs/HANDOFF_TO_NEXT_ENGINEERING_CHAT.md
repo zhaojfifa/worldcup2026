@@ -3,6 +3,13 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN only, Owner review pending** — do NOT start
+> coding until approved. 3 roles (Engineering data/modeling · Product flow · Operation vi screenshots);
+> vi first; **warm-ups/friendlies first data** (`league_id=10,season=2026`); **no backend/API/DB change
+> proposed**; prediction-game/entertainment framing (not betting). Key risk flagged: seed-keyed
+> viMapping/mmMapping → real matches use generic fallback + LLM drafts (human review). Plan:
+> `docs/HARNESSX_VIETNAM_MARKET_HEAVY_SPRINT_PLAN.md`; operator template: `docs/VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md`.
+
 > **Brand (2026-06-08): LEIZE = company brand · Giành Cup = product (under LEIZE AI) · "Cloud" = future
 > branch, not the company brand.** No product rename, no code change. See
 > `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
