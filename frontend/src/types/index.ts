@@ -24,6 +24,7 @@ export interface Match {
   homeTeam: { name: string; flag: string };
   awayTeam: { name: string; flag: string };
   kickoffTime: string;        // ISO string
+  status?: string;            // scheduled | live | finished (from API; seed = undefined ≈ scheduled)
   tag?: 'focus' | 'upset' | 'live' | 'high-conf';
   winProb: WinProb;
   recommendedScore: string;   // e.g. "2:1 / 1:1"

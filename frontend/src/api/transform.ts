@@ -30,6 +30,7 @@ export function listItemToMatch(m: ApiMatchListItem): Match {
     homeTeam: { name: m.home_team.name, flag: m.home_team.flag },
     awayTeam: { name: m.away_team.name, flag: m.away_team.flag },
     kickoffTime: m.kickoff_time,
+    status: m.status,
     tag: (m.tag as Match['tag']) ?? undefined,
     winProb: toWinProb(m.win_prob),
     recommendedScore: m.recommended_score ?? '',

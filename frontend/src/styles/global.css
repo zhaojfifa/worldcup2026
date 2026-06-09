@@ -355,6 +355,26 @@ body {
 /* Amber accent card (contrarian / risk watch) */
 .card.accent-amber { border-color: rgba(214, 158, 46, 0.45); background: #FFFDF7; }
 
+/* Historical recap (WC2022) — clearly separated from current operation */
+.recap-banner {
+  background: #F3EEFF; border: 1px solid #D9CBF5; color: #5B3FA8;
+  border-radius: 12px; padding: 9px 12px; margin: 12px 0;
+  font-size: 11.5px; font-weight: 700; line-height: 1.55;
+}
+.card.recap-card { border-color: #D9CBF5; background: #FBF9FF; }
+.recap-card .recap-sub { font-size: 11px; color: #7A6AA8; margin-bottom: 9px; font-weight: 700; }
+.recap-row {
+  display: flex; align-items: center; gap: 8px; padding: 9px 0;
+  border-top: 1px solid var(--line); cursor: pointer;
+}
+.recap-row:first-of-type { border-top: none; }
+.recap-badge {
+  flex-shrink: 0; font-size: 10px; font-weight: 800; color: #5B3FA8;
+  background: #ECE4FB; border-radius: 999px; padding: 2px 8px;
+}
+.recap-teams { font-size: 12.5px; color: #3A4A60; font-weight: 600; }
+.lang-mm .recap-banner { font-size: 11px; line-height: 1.6; }
+
 /* Myanmar density: scout layer needs a touch more breathing room */
 .lang-mm .scout-hook { font-size: 12.5px; line-height: 1.6; }
 .lang-mm .evidence-strip .ev-sources { font-size: 11px; line-height: 1.7; }

@@ -51,6 +51,11 @@ export function ReportPage() {
         </span>
       </div>
 
+      {/* Historical recap banner — finished match is calibration, not a current prediction */}
+      {match.status === 'finished' && (
+        <div className="recap-banner">🗂️ {t.recapBadge} · {t.recapDetailNote}</div>
+      )}
+
       {/* Evidence strip — signal sources (labels only; provenance-tagged, no fabricated data) */}
       <div className="evidence-strip">
         <div className="ev-title">🛰️ {t.evidenceTitle}</div>

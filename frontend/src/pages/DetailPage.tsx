@@ -98,6 +98,11 @@ export function DetailPage() {
         <MatchHeader match={match} />
       </div>
 
+      {/* Historical recap banner — finished match is calibration, not a current prediction */}
+      {match.status === 'finished' && (
+        <div className="recap-banner">🗂️ {t.recapBadge} · {t.recapDetailNote}</div>
+      )}
+
       {/* Condensed evidence strip (signal sources — labels only) */}
       <div className="evidence-strip compact">
         <div className="ev-title">🛰️ {t.evidenceTitle}</div>

@@ -72,8 +72,18 @@ export function HomePage() {
   }
 
   const syncTime = new Date(syncedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-  const modelCount = matches.length;
-  const liveCount = matches.filter(m => m.tag === 'live').length;
+  // Separate CURRENT operational matches from HISTORICAL finished matches (e.g. synced WC-2022).
+  // Current = not finished (seed scheduled has status undefined → treated as current).
+  const currentMatches = matches.filter(m => m.status !== 'finished');
+  const historicalMatches = matches.filter(m => m.status === 'finished');
+  // Prefer the selected WC-2022 recap candidates (id 8/13/58/67), else the first few finished.
+  const RECAP_IDS = ['8', '13', '58', '67'];
+  const recapMatches = [
+    ...RECAP_IDS.map(id => historicalMatches.find(m => m.id === id)).filter((m): m is Match => !!m),
+    ...historicalMatches.filter(m => !RECAP_IDS.includes(m.id)),
+  ].slice(0, 4);
+  const modelCount = currentMatches.length;
+  const liveCount = currentMatches.filter(m => m.tag === 'live').length;
 
   if (matchesLoading) {
     return (
@@ -84,11 +94,11 @@ export function HomePage() {
     );
   }
 
-  const signal = pickTopSignal(matches);
+  const signal = pickTopSignal(currentMatches);
   if (!signal) return null;
 
   const sOps = deriveOps(signal);
-  const upsets = topUpsets(matches, 3);
+  const upsets = topUpsets(currentMatches, 3);
 
   return (
     <div className="page-enter">
@@ -171,7 +181,7 @@ export function HomePage() {
         <span className="en">{HOME.listEn}</span>
         <span style={{ marginLeft: 'auto' }} className="src-pill"><span className="sync-dot" />{t.syncLabel} {syncTime}</span>
       </div>
-      {matches.map((m: Match) => {
+      {currentMatches.map((m: Match) => {
         const ops = deriveOps(m);
         return (
           <div className="simrow" key={m.id} onClick={() => goDetail(m.id)}>
@@ -185,6 +195,25 @@ export function HomePage() {
           </div>
         );
       })}
+
+      {/* ── Historical Recap · WC2022 (labelled; NOT current prediction) ──────── */}
+      {recapMatches.length > 0 && (
+        <>
+          <div className="sec-en">
+            <span className="zh">{t.recapSectionTitle}</span>
+            <span className="en">HISTORICAL RECAP</span>
+          </div>
+          <div className="card recap-card">
+            <div className="recap-sub">🗂️ {t.recapSectionSub}</div>
+            {recapMatches.map((m: Match) => (
+              <div className="recap-row" key={m.id} onClick={() => goDetail(m.id)}>
+                <span className="recap-badge">{t.recapBadge}</span>
+                <span className="recap-teams">{m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       {/* ── 3. 今日爆冷风险 TOP3 ───────────────────────────────────── */}
       <div className="sec-en">
