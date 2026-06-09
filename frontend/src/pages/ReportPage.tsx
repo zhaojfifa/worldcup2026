@@ -19,12 +19,22 @@ export function ReportPage() {
   const navigate = useNavigate();
   const t = useCopy();
   const loc = useLocale();
-  const { matches, selectedMatchId, loadReport } = useAppStore();
-  const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
+  const { matches, selectedMatchId, setSelectedMatch, loadReport } = useAppStore();
+  // Deep-link support: /report?match_id=8 (or ?id=8) → select that match (e.g. historical recap).
+  const sp = new URLSearchParams(window.location.search);
+  const urlMatchId = sp.get('match_id') || sp.get('id');
+  const resolvedId = (urlMatchId && matches.some(m => m.id === urlMatchId)) ? urlMatchId : selectedMatchId;
+  const match = matches.find(m => m.id === resolvedId) ?? matches[0];
 
   useEffect(() => {
-    if (selectedMatchId) loadReport(selectedMatchId);
-  }, [selectedMatchId]);  // eslint-disable-line react-hooks/exhaustive-deps
+    if (urlMatchId && matches.some(m => m.id === urlMatchId) && urlMatchId !== selectedMatchId) {
+      setSelectedMatch(urlMatchId);
+    }
+  }, [urlMatchId, matches, selectedMatchId, setSelectedMatch]);
+
+  useEffect(() => {
+    if (resolvedId) loadReport(resolvedId);
+  }, [resolvedId]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!match) return null;
 
@@ -53,7 +63,7 @@ export function ReportPage() {
 
       {/* Historical recap banner — finished match is calibration, not a current prediction */}
       {match.status === 'finished' && (
-        <div className="recap-banner">🗂️ {t.recapBadge} · {t.recapDetailNote}</div>
+        <div className="recap-banner">🗂️ {t.recapDetailNote}</div>
       )}
 
       {/* Evidence strip — signal sources (labels only; provenance-tagged, no fabricated data) */}

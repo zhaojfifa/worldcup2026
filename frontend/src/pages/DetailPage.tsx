@@ -26,17 +26,28 @@ export function DetailPage() {
   const price = getPrice(loc);
   const tn = (name: string) => teamLoc(name, loc);
   const {
-    balance, matches, selectedMatchId,
+    balance, matches, selectedMatchId, setSelectedMatch,
     loadDetail, unlockWithCash, unlockWithToken, simulateCorrection,
   } = useAppStore();
 
-  const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
+  // Deep-link support: /detail?match_id=8 (or ?id=8) → select that match (e.g. historical recap).
+  // No API change; reads from the already-loaded /matches list, falls back to current selection.
+  const sp = new URLSearchParams(window.location.search);
+  const urlMatchId = sp.get('match_id') || sp.get('id');
+  const resolvedId = (urlMatchId && matches.some(m => m.id === urlMatchId)) ? urlMatchId : selectedMatchId;
+  const match = matches.find(m => m.id === resolvedId) ?? matches[0];
   const [modal, setModal] = useState<null | { em: string; title: string; body: string; okLabel: string; onOk: () => void }>(null);
   const [lineupSimulated, setLineupSimulated] = useState(!!match?.liveCorrection);
 
   useEffect(() => {
-    if (selectedMatchId) loadDetail(selectedMatchId);
-  }, [selectedMatchId]);  // eslint-disable-line react-hooks/exhaustive-deps
+    if (urlMatchId && matches.some(m => m.id === urlMatchId) && urlMatchId !== selectedMatchId) {
+      setSelectedMatch(urlMatchId);
+    }
+  }, [urlMatchId, matches, selectedMatchId, setSelectedMatch]);
+
+  useEffect(() => {
+    if (resolvedId) loadDetail(resolvedId);
+  }, [resolvedId]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (match?.liveCorrection) setLineupSimulated(true);
@@ -100,7 +111,7 @@ export function DetailPage() {
 
       {/* Historical recap banner — finished match is calibration, not a current prediction */}
       {match.status === 'finished' && (
-        <div className="recap-banner">🗂️ {t.recapBadge} · {t.recapDetailNote}</div>
+        <div className="recap-banner">🗂️ {t.recapDetailNote}</div>
       )}
 
       {/* Condensed evidence strip (signal sources — labels only) */}
