@@ -60,7 +60,7 @@ export function ReportPage() {
       <div className="evidence-strip">
         <div className="ev-title">🛰️ {t.evidenceTitle}</div>
         <div className="ev-sources">{t.evidenceSources}</div>
-        <div className="ev-mode">{t.evidenceMode}</div>
+        <div className="ev-mode">{match.status === 'finished' ? t.evidenceModeRecap : t.evidenceMode}</div>
       </div>
 
       {/* Scout verdict + gauge */}

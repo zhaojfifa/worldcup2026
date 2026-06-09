@@ -224,6 +224,7 @@ export const MM: Partial<Copy> = {
   recapSectionSub: 'Model calibration · not a current match',
   recapBadge: 'Historical recap',
   recapDetailNote: 'Historical recap / model calibration — လက်ရှိပွဲ ခန့်မှန်းချက် မဟုတ်ပါ။',
+  evidenceModeRecap: 'Historical data · model calibration · not a current match',
   riskRadarTitle: 'အန္တရာယ် radar',
   radarForm: 'လတ်တလော ဖောင်း',
   radarSquad: 'အသင်း ပြည့်စုံမှု',

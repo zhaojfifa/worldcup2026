@@ -224,6 +224,7 @@ export const EN: Copy = {
   recapSectionSub: 'Model calibration · not a current match',
   recapBadge: 'Historical recap',
   recapDetailNote: 'Historical recap / model calibration — not a current-match prediction.',
+  evidenceModeRecap: 'Historical data · model calibration · not a current match',
   riskRadarTitle: 'Risk radar',
   radarForm: 'Recent form',
   radarSquad: 'Squad availability',
