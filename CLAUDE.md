@@ -11,7 +11,11 @@
 > Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`** (read after this).
 > Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.8).
 
-1. **Brand / Product:** `Giành Cup` · **2026 World Cup AI Football Intelligence Community**.
+1. **Brand / Product:** **Company = LEIZE** (`CÔNG TY TNHH CÔNG NGHỆ SỐ LEIZE` / `LEIZE DIGITAL
+   TECHNOLOGY CO., LTD`); **product = `Giành Cup`** (football intelligence, under **LEIZE AI**).
+   **"Cloud" is a future branch, NOT the company brand.** External: "Giành Cup by LEIZE AI". Do NOT
+   rename the product or put Cloud in the company name. Details: `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
+   Product is `Giành Cup` · **2026 World Cup AI Football Intelligence Community**.
    User-facing: **Giành Cup · 世界杯 AI 足球情报社区**. (Retired: Nhà Tiên Tri AI — docs only.)
    **Language roles:** `vi` = primary customer (Vietnam) · `mm` = secondary customer
    (Myanmar/Burmese) · `zh` = internal China-team management · `en` = system / fallback /
@@ -50,6 +54,11 @@
      (open/copy fallback sheet, all locales; ruling: PASS WITH ISSUES, do not block trial on direct-open).
    - **Data:** API-FOOTBALL configured & reachable but **`mock_mode=true`** (last known); **real
      fixtures/results sync NOT run by Claude** — needs `$ADMIN_API_TOKEN` in Render Shell (operator).
+   - **Real Data Calibration (2026-06-08, Owner GO):** before WC2026, calibrate with **real competitions**.
+     `admin/sync/fixtures` + `admin/sync/results` **already accept optional `?league_id=&season=`**
+     (default WC `1`/`2026`) → **no code/DB change needed**. First pick: **La Liga (140)**, fallback
+     friendlies (10) / WC-2022 (1/2022). Runbook: `docs/REAL_DATA_CALIBRATION_PLAN.md`. Operator-run on
+     Render (Claude has no token → not fabricated). No scaling/payment/bot; LLM still draft-only.
    - **Modeling:** baseline + refresh OK (win_prob sums 100); usable as **AI viewpoint only**, NOT hit-rate.
    - **LLM:** **draft-only** admin endpoint `POST /api/v1/admin/llm/generate-copy` (DeepSeek/Kimi,
      forbidden-filter, human-template fallback, `status:draft_only`). **Real provider call pending

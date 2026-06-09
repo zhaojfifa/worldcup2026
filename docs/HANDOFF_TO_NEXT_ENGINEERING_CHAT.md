@@ -3,6 +3,14 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Brand (2026-06-08): LEIZE = company brand · Giành Cup = product (under LEIZE AI) · "Cloud" = future
+> branch, not the company brand.** No product rename, no code change. See
+> `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
+> **Real Data Calibration (2026-06-08, Owner GO):** `admin/sync/{fixtures,results}` already accept optional
+> `?league_id=&season=` (default WC 1/2026) → **no code/DB change needed**. First pick La Liga (140),
+> fallback friendlies (10) / WC-2022 (1/2022); operator-run on Render (not fabricated). Runbook:
+> `docs/REAL_DATA_CALIBRATION_PLAN.md`. Any DB schema change (competition/source fields) = Owner-gated.
+
 > **Latest (2026-06-08): Scout Intelligence Rewrite shipped (frontend-only).** Report/Detail now show an
 > Evidence Strip, Scout verdict + hook, factor Source/Impact/Interpretation, Contrarian + Watch — all
 > frontend-derived (dict + viMapping/mmMapping), **no API/DB change**, vi/mm 0 Han, draft-only LLM

@@ -161,3 +161,14 @@ runtime). Frontend-only — **no API/DB change**; vi/mm 0 Han; draft-only LLM un
 (`operator_verification_status: pending`; checklist in evidence doc §4; shots →
 `docs/qa_screenshots/intelligence_rewrite_operator/`). **Final PASS withheld until operator screenshots
 reviewed + `final_owner_decision` recorded.** Evidence: `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`.
+
+## 15. Brand + Real Data Calibration (2026-06-08, Owner GO)
+- **Brand architecture:** **LEIZE = company-level brand**; **Giành Cup = product** (under **LEIZE AI**);
+  **"Cloud" = future branch, not the company brand.** No product rename / no code this round.
+  `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
+- **Real Data Calibration:** before WC2026, calibrate with **real competitions** (priority: current live →
+  historical WC-2022 → 2026 seed). Engineering check: `admin/sync/{fixtures,results}` **already accept
+  optional `?league_id=&season=`** (default WC 1/2026) → **no code/DB change required**; runbook in
+  `docs/REAL_DATA_CALIBRATION_PLAN.md`. First pick La Liga (140); fallback friendlies (10) / WC-2022 (1/2022).
+  Operator-run on Render (not fabricated). DB schema change (competition/season/source fields) = **Owner-gated**.
+  Boundaries unchanged: no scaling / payment / bot / auto-publish / API-shape change / hit-rate marketing.

@@ -8,6 +8,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Brand architecture (2026-06-08):** **LEIZE = company brand**; **Giành Cup = product** (under LEIZE
+  AI); **"Cloud" = future branch, not the company brand.** No product rename / no code change this round.
+  Details: `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
+- **Real Data Calibration (2026-06-08, Owner GO):** calibrate with real competitions before WC2026.
+  `admin/sync/{fixtures,results}` **already accept optional `?league_id=&season=`** → **no code/DB change**;
+  first pick **La Liga (140)**, fallback friendlies (10) / WC-2022 (1/2022). Operator-run on Render
+  (not fabricated). Runbook: `docs/REAL_DATA_CALIBRATION_PLAN.md`. No scaling/payment/bot; LLM draft-only.
 - **Scout Intelligence Rewrite (2026-06-08, frontend-only):** Report/Detail now a data-backed **Giành
   Cup Scout** read — Evidence Strip · Scout verdict + hook · factor Source/Impact/Interpretation ·
   Contrarian · Watch. Derived on frontend (dict + viMapping/mmMapping); **no API/DB change.** vi/mm 0 Han,

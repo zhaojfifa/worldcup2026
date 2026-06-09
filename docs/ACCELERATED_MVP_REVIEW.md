@@ -208,6 +208,14 @@ auto-write to production · paid-content automation.
   now use **English** team names (zh Chinese). **Real DeepSeek/Kimi on Render is operator-pending** (no
   token for Claude; never fabricated). Draft-only · human-review-required · no auto-publish / payment /
   bot / scaling. Evidence: `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`, `docs/LLM_RENDER_VERIFICATION.md`.
+- **Brand architecture (2026-06-08, Owner GO):** **LEIZE = company brand** (`CÔNG TY TNHH CÔNG NGHỆ SỐ
+  LEIZE` / `LEIZE DIGITAL TECHNOLOGY CO., LTD`); **Giành Cup = product under LEIZE AI**; **"Cloud" = future
+  branch, not the company brand.** No product rename / no code. `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
+- **Real Data Calibration (2026-06-08, Owner GO):** calibrate with real competitions before WC2026. Engine
+  check: `admin/sync/{fixtures,results}` **already accept optional `?league_id=&season=`** → **no code/DB
+  change**; first pick La Liga (140), fallback friendlies (10) / WC-2022 (1/2022); operator-run on Render
+  (not fabricated). `docs/REAL_DATA_CALIBRATION_PLAN.md`. No scaling/payment/bot; LLM draft-only; hit-rate
+  not marketed until settled data exists.
 - **English fallback is now system policy** — chains `zh→[zh]`, `en→[en,zh]`, `vi→[vi,en]`,
   `mm→[mm,en]`. **vi/mm never fall back to Chinese.** EN layer (`copy/en.ts`) is complete.
 - **UI buttons:** `CN · VI · MY` (en = internal fallback layer, no button); choice persists.
