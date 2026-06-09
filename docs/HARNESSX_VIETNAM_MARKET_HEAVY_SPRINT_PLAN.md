@@ -7,6 +7,12 @@ Operator Screenshot Review → Final Owner decision.** This is **Stage 1 (Plan o
 > expression / conversion) · **Operation** (Vietnam real-device screenshots / language / appeal).
 > Vietnam (`vi`) is the **first priority**; warm-up / friendly real data is the **first data priority**.
 
+> **Update (2026-06-09) — Owner correction folded in:** this sprint now requires **specific real matches**,
+> not league-level guidance. Real Data Recon completed → `docs/REAL_MATCH_INTELLIGENCE_SELECTION.md`
+> (upcoming Mexico v South Africa; finished Brazil-Egypt, Argentina-Honduras), modeling status in
+> `REAL_MATCH_MODELING_REVIEW.md` (pending_api_sync), vi copy in `VI_REAL_MATCH_OPERATION_COPY.md`. Sync is
+> `BLOCKED_OPERATOR_RENDER_SHELL` (operator-run; not faked).
+
 ## 1. Sprint Goal
 Turn **Giành Cup** into a Vietnam-market **World Cup AI intelligence + fan prediction-game** product with:
 real data sources · model-based judgement · Scout persona · natural Vietnamese impact · a complete user

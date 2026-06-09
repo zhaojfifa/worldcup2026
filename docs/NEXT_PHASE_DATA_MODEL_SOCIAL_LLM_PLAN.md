@@ -172,3 +172,11 @@ reviewed + `final_owner_decision` recorded.** Evidence: `docs/SCOUT_INTELLIGENCE
   `docs/REAL_DATA_CALIBRATION_PLAN.md`. First pick La Liga (140); fallback friendlies (10) / WC-2022 (1/2022).
   Operator-run on Render (not fabricated). DB schema change (competition/season/source fields) = **Owner-gated**.
   Boundaries unchanged: no scaling / payment / bot / auto-publish / API-shape change / hit-rate marketing.
+
+## 16. Real Match Intelligence Sprint (2026-06-09)
+Owner correction: find **specific real matches**, not league-level guidance. Recon selected (sourced):
+**upcoming Mexico v South Africa** (WC opener 06-11), **finished Brazil 2-1 Egypt / Argentina 2-0 Honduras**
+(June friendlies). `api_available=unknown` → **`BLOCKED_OPERATOR_RENDER_SHELL`** (Claude has no token; sync
+not run/faked); `model_status=pending_api_sync` (no fake numbers); vi copy human-authored (no Chinese/betting,
+`whether_sent_to_social: no`). Docs-only this round; real matches not yet in the app → operator screenshots
+pending. See `REAL_MATCH_INTELLIGENCE_SELECTION.md`, `REAL_MATCH_MODELING_REVIEW.md`, `VI_REAL_MATCH_OPERATION_COPY.md`.

@@ -8,6 +8,12 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs-only).**
+  Sourced real matches: **upcoming Mexico v South Africa** (WC opener 06-11); **finished Brazil 2-1 Egypt,
+  Argentina 2-0 Honduras** (June friendlies). `api_available=unknown` (`BLOCKED_OPERATOR_RENDER_SHELL` —
+  Claude has no token, sync not run/faked); `model_status=pending_api_sync` (no fake numbers); vi copy
+  human-authored (no Chinese/betting). Real matches not yet in the app → operator screenshots pending.
+  Docs: `REAL_MATCH_INTELLIGENCE_SELECTION.md`, `REAL_MATCH_MODELING_REVIEW.md`, `VI_REAL_MATCH_OPERATION_COPY.md`.
 - **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN only, Owner review pending.** 3-role plan
   (Engineering/Product/Operation); **vi first priority**, **warm-ups/friendlies first data priority**
   (`league_id=10,season=2026`); **no backend/API/DB change proposed**; prediction-game/entertainment

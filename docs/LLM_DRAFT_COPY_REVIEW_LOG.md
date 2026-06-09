@@ -119,3 +119,21 @@ hook, factor source/interpretation, contrarian, watch) is **human-authored copy*
 `frontend/src/i18n/{dict,viMapping,mmMapping}.ts` — **not** raw LLM output. LLM drafts (Batch 1/2) remain
 draft-only inputs for review; the LLM does not write shipped customer strings. Evidence:
 `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md`. vi/mm verified 0 Chinese residual; forbidden scan clean.
+
+---
+
+## Note — Real-match copy (2026-06-09): human-authored; LLM drafts pending API sync
+For the Real Match Intelligence Sprint, the vi operation copy for the selected real matches
+(RMI-01 Mexico v South Africa, RMI-02 Brazil-Egypt, RMI-03 Argentina-Honduras) is **human-authored**
+and tagged `data_status: public_source` / `model_status: pending_api_sync` in
+`docs/VI_REAL_MATCH_OPERATION_COPY.md` (vi drafts contain **no Chinese**; forbidden scan clean;
+`whether_sent_to_social: no`). **Real LLM drafts (DeepSeek/Gemini, draft-only) for these matches are
+PENDING** — `POST /admin/llm/generate-copy` needs the match in the DB, which requires the operator to
+sync the fixture first (`BLOCKED_OPERATOR_RENDER_SHELL`). No LLM output is fabricated here.
+
+| provider | model | match_candidate_id | language | copy_type | generated_text | forbidden_hits | language_fidelity_result | human_review_status | selected_for_operation | whether_sent_to_social |
+|---|---|---|---|---|---|---|---|---|---|---|
+| human | — | RMI-01 | vi | preview/verdict/upset/community/recap | see VI_REAL_MATCH_OPERATION_COPY.md | none | pass (no Han) | pending | candidate | no |
+| human | — | RMI-02 | vi | recap set | see doc | none | pass (no Han) | pending | candidate | no |
+| human | — | RMI-03 | vi | recap set | see doc | none | pass (no Han) | pending | candidate | no |
+| deepseek/gemini | — | RMI-01/02/03 | vi/mm | (all) | **pending API sync** | — | — | pending | — | no |

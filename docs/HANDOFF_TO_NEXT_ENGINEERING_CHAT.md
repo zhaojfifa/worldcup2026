@@ -3,6 +3,15 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs-only).** Recon
+> (web sources) picked **upcoming Mexico v South Africa** (WC opener 06-11) + **finished Brazil 2-1 Egypt /
+> Argentina 2-0 Honduras** (June friendlies). `api_available=unknown` → **`BLOCKED_OPERATOR_RENDER_SHELL`**
+> (Claude has no token; sync NOT run or faked). `model_status=pending_api_sync` (no fake numbers); vi copy
+> human-authored (no Chinese/betting). Operator: run the league=10/1 sync on Render, then `/matches` →
+> `match_id` → `refresh`, fill `DATA_SOURCE_SYNC_VERIFICATION.md` §12 + `REAL_MATCH_MODELING_REVIEW.md`.
+> Real matches not yet in the app → operator screenshots pending. Docs:
+> `REAL_MATCH_INTELLIGENCE_SELECTION.md`, `REAL_MATCH_MODELING_REVIEW.md`, `VI_REAL_MATCH_OPERATION_COPY.md`.
+
 > **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN only, Owner review pending** — do NOT start
 > coding until approved. 3 roles (Engineering data/modeling · Product flow · Operation vi screenshots);
 > vi first; **warm-ups/friendlies first data** (`league_id=10,season=2026`); **no backend/API/DB change

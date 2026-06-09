@@ -124,3 +124,28 @@ Run on **Render Shell** (operator + `$ADMIN_API_TOKEN`). **Do not fabricate resu
 > **Until this checklist is filled with real Render output, treat all match data as seed.** LLM drafts
 > already carry `data_mode=mock` + "do not present as real accuracy" warnings (see
 > `docs/LLM_DRAFT_COPY_REVIEW_LOG.md`).
+
+## 12. Real Match Intelligence Sprint — per-competition sync (2026-06-09)
+
+**Claude status: `BLOCKED_OPERATOR_RENDER_SHELL`** — Claude has no `$ADMIN_API_TOKEN`, so the syncs below
+were **NOT run by Claude and are NOT fabricated.** Selected real matches: `docs/REAL_MATCH_INTELLIGENCE_SELECTION.md`
+(RMI-01 Mexico v South Africa upcoming; RMI-02 Brazil-Egypt, RMI-03 Argentina-Honduras finished).
+
+**Operator runs on Render (warm-ups/friendlies first):**
+```bash
+BASE=https://worldcup2026-api-71n6.onrender.com
+curl -X POST "$BASE/api/v1/admin/sync/fixtures?league_id=10&season=2026" -H "x-admin-token: $ADMIN_API_TOKEN"
+curl -X POST "$BASE/api/v1/admin/sync/results?league_id=10&season=2026"  -H "x-admin-token: $ADMIN_API_TOKEN"
+curl "$BASE/api/v1/data-source/status";  curl "$BASE/api/v1/performance/summary"
+# then league_id=1&season=2026 for the WC opener (RMI-01)
+```
+
+| run_at | operator | competition_name | league_id | season | fixtures_inserted | fixtures_updated | fixtures_skipped | results_inserted | results_updated | results_settled | errors | requests_used_before | requests_used_after | data_mode_after | selected_matches_count | usable_for_operation | notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|  |  | friendlies (P1) | 10 | 2026 |  |  |  |  |  |  |  |  |  |  |  |  | RMI-02/03/04/05 — confirm key covers league 10 |
+|  |  | World Cup (P2) | 1 | 2026 |  |  |  |  |  |  |  |  |  |  |  |  | RMI-01 opener (upcoming → no result yet) |
+|  |  | World Cup backtest | 1 | 2022 |  |  |  |  |  |  |  |  |  |  |  |  | optional settled-result validation |
+
+> If the API-FOOTBALL key plan does **not** return a league, mark that row `api_available=no` in
+> `REAL_MATCH_INTELLIGENCE_SELECTION.md` and treat those matches as **public_source** only —
+> **never relabel news data as API data; never fabricate counts.**

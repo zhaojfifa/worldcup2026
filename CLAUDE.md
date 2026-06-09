@@ -26,6 +26,13 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs).** Recon found
+     real matches (sourced): **upcoming RMI-01 Mexico v South Africa** (WC opener 2026-06-11); **finished
+     RMI-02 Brazil 2-1 Egypt, RMI-03 Argentina 2-0 Honduras** (June friendlies). `api_available=unknown`
+     (Claude has no token → `BLOCKED_OPERATOR_RENDER_SHELL`, sync NOT run/faked). **model_status=pending_api_sync**
+     (no fake numbers); vi operation copy human-authored (no Chinese, no betting). Docs:
+     `REAL_MATCH_INTELLIGENCE_SELECTION.md` · `REAL_MATCH_MODELING_REVIEW.md` · `VI_REAL_MATCH_OPERATION_COPY.md`
+     · `DATA_SOURCE_SYNC_VERIFICATION.md` §12. Real matches **not yet in the app** → operator screenshots pending.
    - **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN written, Owner review pending.**
      3 roles (Engineering data/modeling · Product flow · Operation vi screenshots). **vi = first priority;
      warm-ups/friendlies (`league_id=10,season=2026`) = first data priority.** No backend/API/DB change

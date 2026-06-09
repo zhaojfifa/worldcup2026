@@ -97,3 +97,11 @@ change** (Option B needs Owner approval) · **no fake real data** · **no hit-ra
 - **First competition recommendation:** La Liga (`140`), fallback friendlies (`10`) / WC-2022 (`1`/2022).
 - **Pending operator action** on Render (Claude has no token → will not fabricate). Results land in
   `docs/DATA_SOURCE_SYNC_VERIFICATION.md` §11 (Operator Action Checklist, now extendable per-competition).
+
+## 11. Update (2026-06-09) — priority shifted to warm-ups; specific matches selected
+Owner correction: produce **specific real matches**, not league-level guidance. **Priority is now
+warm-ups/friendlies first** (`league_id=10, season=2026`), then WC-2026 (`1/2026`), then WC-2022 backtest.
+Selected real fixtures are listed in **`docs/REAL_MATCH_INTELLIGENCE_SELECTION.md`** (upcoming Mexico v
+South Africa; finished Brazil-Egypt, Argentina-Honduras) with sources; per-competition sync table in
+`DATA_SOURCE_SYNC_VERIFICATION.md` §12. Claude is `BLOCKED_OPERATOR_RENDER_SHELL` (no token) — match
+selection proceeded anyway, no fabricated sync/results.
