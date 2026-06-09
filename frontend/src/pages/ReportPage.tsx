@@ -5,7 +5,7 @@ import { FeatureBars } from '../components/FeatureBars';
 import { MatchHeader } from '../components/MatchHeader';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
-import { homeWinLoc, awayWinLoc, drawLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
+import { homeWinLoc, awayWinLoc, drawLoc, riskShortLoc, noteLoc, scoutHookLoc, contrarianLoc, watchLoc } from '../i18n/viMapping';
 
 const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--red)' };
 
@@ -51,13 +51,21 @@ export function ReportPage() {
         </span>
       </div>
 
-      {/* AI verdict + gauge */}
+      {/* Evidence strip — signal sources (labels only; provenance-tagged, no fabricated data) */}
+      <div className="evidence-strip">
+        <div className="ev-title">🛰️ {t.evidenceTitle}</div>
+        <div className="ev-sources">{t.evidenceSources}</div>
+        <div className="ev-mode">{t.evidenceMode}</div>
+      </div>
+
+      {/* Scout verdict + gauge */}
       <div className="paywall" style={{ borderColor: 'rgba(30,158,90,.4)' }}>
         <div className="sec-en" style={{ marginTop: 0 }}>
-          <span className="zh">{t.reportVerdictTitle}</span>
-          <span className="en">AI TACTICAL ROOM</span>
+          <span className="zh">{t.scoutVerdictTitle}</span>
+          <span className="en">{t.scoutSub}</span>
         </div>
         <MatchHeader match={match} />
+        <p className="scout-hook">{scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
 
         <div className="gauge-wrap mt12">
           <div className="gauge" style={{ background: `conic-gradient(var(--blue) ${conf * 3.6}deg, var(--line) 0)` }}>
@@ -110,6 +118,28 @@ export function ReportPage() {
           </div>
         </>
       )}
+
+      {/* Contrarian / Risk watch — the "why this could be wrong" angle */}
+      <div className="sec-en">
+        <span className="zh">{t.contrarianTitle}</span>
+        <span className="en">CONTRARIAN</span>
+      </div>
+      <div className="card accent-amber">
+        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>
+          ⚔️ {contrarianLoc(match.homeTeam.name, match.awayTeam.name, loc)}
+        </p>
+      </div>
+
+      {/* What to watch before kickoff */}
+      <div className="sec-en">
+        <span className="zh">{t.watchTitle}</span>
+        <span className="en">WATCH</span>
+      </div>
+      <div className="card">
+        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75 }}>
+          👁️ {watchLoc(match.homeTeam.name, match.awayTeam.name, loc)}
+        </p>
+      </div>
 
       {/* Risk radar */}
       <div className="sec-en">

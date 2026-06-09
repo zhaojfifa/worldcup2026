@@ -170,6 +170,7 @@ import {
   aiPickLabelMmMap, AI_PICK_FALLBACK_MM, riskLevelLongMmMap, riskLevelShortMmMap,
   heatLabelMmMap, HEAT_FALLBACK_MM, riskTagMmMap, RISK_TAG_FALLBACK_MM,
   noteMmMap, NOTE_FALLBACK_MM, featureLabelMmMap, premiumTeaserMmMap, REASON_MM, WIN_WORD_MM, DRAW_WORD_MM,
+  factorInterpretationMmMap, FACTOR_INTERP_FALLBACK_MM,
 } from './mmMapping';
 
 export const aiPickLabelEnMap: Record<string, string> = {
@@ -306,6 +307,184 @@ export function featureLabelLoc(zh: string, loc: Locale): string {
   if (loc === 'vi') return featureLabelViMap[zh] ?? featureLabelEnMap[zh] ?? zh;
   if (loc === 'mm') return featureLabelMmMap[zh] ?? featureLabelEnMap[zh] ?? zh;
   return featureLabelEnMap[zh] ?? zh;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// Scout Intelligence layer (frontend-derived; no API/DB fields).
+// Factor SOURCE + INTERPRETATION are keyed by the zh factor label (same keys as
+// featureLabel maps). vi/mm/en fall back to a generic localized line — never zh.
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── Factor SOURCE (signal provenance category) ───────────────────────────────
+export const factorSourceZhMap: Record<string, string> = {
+  '中场控制力': '中场/战术', '近 5 场 xG 表现': '近期 xG', '阿根廷后卫伤停': '首发/伤停',
+  '巴西右路突破': '首发/伤停+战术', '体能与旅行因素': '旅行/体能', '主场氛围加成': '主场/社区',
+  '法国控球率': '控球/战术', '摩洛哥防线紧凑度': '战术', '法国前锋状态': '近期状态',
+  '控球与传导': '控球/战术', '德国定位球': '定位球', '西班牙锋线效率': '状态/xG', '德国中场疲劳度': '体能',
+};
+export const factorSourceViMap: Record<string, string> = {
+  '中场控制力': 'Tuyến giữa/chiến thuật', '近 5 场 xG 表现': 'xG gần đây', '阿根廷后卫伤停': 'Đội hình/chấn thương',
+  '巴西右路突破': 'Đội hình/chấn thương + chiến thuật', '体能与旅行因素': 'Di chuyển/thể lực', '主场氛围加成': 'Sân nhà/cộng đồng',
+  '法国控球率': 'Kiểm soát bóng/chiến thuật', '摩洛哥防线紧凑度': 'Chiến thuật', '法国前锋状态': 'Phong độ gần đây',
+  '控球与传导': 'Kiểm soát bóng/chiến thuật', '德国定位球': 'Bóng cố định', '西班牙锋线效率': 'Phong độ/xG', '德国中场疲劳度': 'Thể lực',
+};
+// English source tags — used for en AND mm (mm strip is English by design).
+export const factorSourceEnMap: Record<string, string> = {
+  '中场控制力': 'Midfield/tactical', '近 5 场 xG 表现': 'Recent xG', '阿根廷后卫伤停': 'Lineup/injury',
+  '巴西右路突破': 'Lineup/injury + tactical', '体能与旅行因素': 'Travel/fitness', '主场氛围加成': 'Home/community',
+  '法国控球率': 'Possession/tactical', '摩洛哥防线紧凑度': 'Tactical', '法国前锋状态': 'Recent form',
+  '控球与传导': 'Possession/tactical', '德国定位球': 'Set-piece', '西班牙锋线效率': 'Form/xG', '德国中场疲劳度': 'Fitness',
+};
+const FACTOR_SOURCE_FALLBACK_VI = 'Tín hiệu mô hình';
+const FACTOR_SOURCE_FALLBACK_EN = 'Model signal';
+
+// ── Factor INTERPRETATION (one-line "why it matters") ────────────────────────
+export const factorInterpretationViMap: Record<string, string> = {
+  '中场控制力': 'Kiểm soát tuyến giữa quyết định nhịp tấn công.',
+  '近 5 场 xG 表现': 'Cho thấy chất lượng cơ hội ở những trận gần đây.',
+  '阿根廷后卫伤停': 'Chấn thương hàng thủ làm giảm sự ổn định phòng ngự.',
+  '巴西右路突破': 'Hàng thủ cánh trái của Argentina là điểm chịu áp lực.',
+  '体能与旅行因素': 'Di chuyển và thể lực ảnh hưởng nhịp độ cuối trận.',
+  '主场氛围加成': 'Khán giả sân nhà tiếp thêm lợi thế cho chủ nhà.',
+  '法国控球率': 'Kiểm soát bóng giúp định đoạt thế trận.',
+  '摩洛哥防线紧凑度': 'Hàng thủ chặt khiến đối thủ khó xuyên phá.',
+  '法国前锋状态': 'Phong độ tiền đạo quyết định khả năng ghi bàn.',
+  '控球与传导': 'Luân chuyển bóng giúp dựng thế tấn công.',
+  '德国定位球': 'Bóng cố định có thể phá khối phòng ngự thấp.',
+  '西班牙锋线效率': 'Hiệu suất hàng công biến cơ hội thành bàn thắng.',
+  '德国中场疲劳度': 'Mệt mỏi tuyến giữa làm giảm kiểm soát hiệp hai.',
+};
+export const factorInterpretationEnMap: Record<string, string> = {
+  '中场控制力': 'Midfield control sets the attacking tempo.',
+  '近 5 场 xG 表现': 'Shows the quality of chances in recent games.',
+  '阿根廷后卫伤停': 'A defensive injury lowers backline stability.',
+  '巴西右路突破': "Argentina's left side is the pressure point.",
+  '体能与旅行因素': 'Travel and fitness affect the late-game tempo.',
+  '主场氛围加成': 'The home crowd adds an edge for the hosts.',
+  '法国控球率': 'Ball control helps dictate the game.',
+  '摩洛哥防线紧凑度': 'A compact block is hard to break down.',
+  '法国前锋状态': 'Striker form decides scoring potential.',
+  '控球与传导': 'Ball circulation builds the attack.',
+  '德国定位球': 'Set pieces can break a low block.',
+  '西班牙锋线效率': 'Attacking efficiency turns chances into goals.',
+  '德国中场疲劳度': 'Midfield fatigue weakens second-half control.',
+};
+const FACTOR_INTERP_FALLBACK_VI = 'Yếu tố được mô hình theo dõi.';
+const FACTOR_INTERP_FALLBACK_EN = 'A factor the model tracks.';
+
+export function factorSourceLoc(label: string, loc: Locale): string {
+  if (loc === 'zh') return factorSourceZhMap[label] ?? '模型信号';
+  if (loc === 'vi') return factorSourceViMap[label] ?? FACTOR_SOURCE_FALLBACK_VI;
+  return factorSourceEnMap[label] ?? FACTOR_SOURCE_FALLBACK_EN; // mm + en use English tags
+}
+export function factorInterpretationLoc(label: string, loc: Locale): string {
+  if (loc === 'zh') return factorInterpretationZhMap[label] ?? '模型关注的因素。';
+  if (loc === 'vi') return factorInterpretationViMap[label] ?? FACTOR_INTERP_FALLBACK_VI;
+  if (loc === 'mm') return factorInterpretationMmMap[label] ?? FACTOR_INTERP_FALLBACK_MM;
+  return factorInterpretationEnMap[label] ?? FACTOR_INTERP_FALLBACK_EN;
+}
+export const factorInterpretationZhMap: Record<string, string> = {
+  '中场控制力': '中场控制决定进攻节奏。', '近 5 场 xG 表现': '反映近期机会质量。',
+  '阿根廷后卫伤停': '后防伤停降低防线稳定性。', '巴西右路突破': '阿根廷左路是被施压的薄弱点。',
+  '体能与旅行因素': '旅行与体能影响末段节奏。', '主场氛围加成': '主场球迷为主队加成。',
+  '法国控球率': '控球有助于掌控比赛。', '摩洛哥防线紧凑度': '紧凑防线更难被打穿。',
+  '法国前锋状态': '前锋状态决定把握机会能力。', '控球与传导': '控球传导搭建进攻。',
+  '德国定位球': '定位球可破密集防守。', '西班牙锋线效率': '锋线效率把机会转化为进球。',
+  '德国中场疲劳度': '中场疲劳削弱下半场控制。',
+};
+
+// ── Scout verdict hook / contrarian / watch-before-kickoff (keyed by zh matchup) ──
+type Quad = { zh: string; vi: string; mm: string; en: string };
+const SCOUT_HOOK: Record<string, Quad> = {
+  '巴西|阿根廷': {
+    zh: '这场不是看巴西强不强，而是看阿根廷后防能撑多久。',
+    vi: 'Không phải câu hỏi Brazil mạnh hơn không. Câu hỏi là hàng thủ Argentina chịu được bao lâu.',
+    mm: 'မေးခွန်းက Brazil အားကောင်းလား မဟုတ်ပါ။ Argentina ခံစစ် ဘယ်လောက်ကြာကြာ တောင့်ခံနိုင်မလဲ ဆိုတာပါ။',
+    en: "The question isn't whether Brazil is stronger — it's how long Argentina's defense can hold.",
+  },
+  '摩洛哥|法国': {
+    zh: '这场不是看法国多强，而是看摩洛哥的低位防线能不能拖住节奏。',
+    vi: 'Không phải Pháp mạnh đến đâu, mà là hàng thủ lùi sâu của Morocco kìm được nhịp bao lâu.',
+    mm: 'France အားကို မဟုတ်ပါ၊ Morocco ၏ နက်ရှိုင်းသော ခံစစ်က အရှိန်ကို ဘယ်လောက်ထိန်းနိုင်မလဲ ဆိုတာပါ။',
+    en: "Not how strong France is — whether Morocco's deep block can slow the tempo.",
+  },
+  '西班牙|德国': {
+    zh: '这场不是看西班牙控球多漂亮，而是看德国的定位球和反击能不能抓住机会。',
+    vi: 'Không phải Tây Ban Nha cầm bóng đẹp ra sao, mà là Đức có chớp được bóng cố định và phản công không.',
+    mm: 'Spain ဘောလုံးပိုင်ဆိုင်မှု လှလား မဟုတ်ပါ၊ Germany ၏ set-piece နှင့် တန်ပြန်တိုက်စစ်က အခွင့်အရေးကို ဖမ်းနိုင်မလဲ ဆိုတာပါ။',
+    en: "Not how pretty Spain's possession is — whether Germany's set pieces and counters take their chance.",
+  },
+};
+const SCOUT_CONTRARIAN: Record<string, Quad> = {
+  '巴西|阿根廷': {
+    zh: '若阿根廷中卫及时复出，巴西右路优势会明显减弱。',
+    vi: 'Nếu trung vệ Argentina kịp bình phục, lợi thế cánh phải của Brazil giảm mạnh.',
+    mm: 'Argentina ဗဟိုခံစစ်သမား ပြန်ကောင်းလာပါက Brazil ၏ ညာခြမ်းအားသာချက် သိသိသာသာ ကျဆင်းသွားမည်။',
+    en: "If Argentina's center-back recovers in time, Brazil's right-flank edge shrinks sharply.",
+  },
+  '摩洛哥|法国': {
+    zh: '若法国前锋找回状态，摩洛哥的防守可能很快被打穿。',
+    vi: 'Nếu tiền đạo Pháp lấy lại phong độ, thế trận phòng ngự của Morocco có thể vỡ nhanh.',
+    mm: 'France ရှေ့တန်းကစားသမားများ ပုံစံပြန်ရပါက Morocco ၏ ခံစစ်က မြန်မြန် ပြိုနိုင်သည်။',
+    en: "If France's strikers rediscover form, Morocco's defensive plan can break quickly.",
+  },
+  '西班牙|德国': {
+    zh: '若德国能压制西班牙中场，控球态势可能反转。',
+    vi: 'Nếu Đức pressing được tuyến giữa Tây Ban Nha, thế trận kiểm soát có thể đảo chiều.',
+    mm: 'Germany က Spain အလယ်တန်းကို ဖိနှိပ်နိုင်ပါက ထိန်းချုပ်မှု ပြောင်းပြန်ဖြစ်နိုင်သည်။',
+    en: "If Germany presses Spain's midfield, the control battle can flip.",
+  },
+};
+const SCOUT_WATCH: Record<string, Quad> = {
+  '巴西|阿根廷': {
+    zh: '临场前 30 分钟关注阿根廷后防首发与巴西右路。',
+    vi: 'Theo dõi danh sách ra sân hàng thủ Argentina và biên phải Brazil 30 phút trước trận.',
+    mm: 'ပွဲမစမီ ၃၀ မိနစ်အလို Argentina ခံစစ်လူစာရင်းနှင့် Brazil ညာခြမ်းကို စောင့်ကြည့်ပါ။',
+    en: "Watch Argentina's defensive lineup and Brazil's right flank 30 min before kickoff.",
+  },
+  '摩洛哥|法国': {
+    zh: '关注法国前锋状态与摩洛哥防线纪律。',
+    vi: 'Theo dõi thể trạng tiền đạo Pháp và độ kỷ luật hàng thủ Morocco.',
+    mm: 'France ရှေ့တန်း ကြံ့ခိုင်မှုနှင့် Morocco ခံစစ် စည်းကမ်းကို စောင့်ကြည့်ပါ။',
+    en: "Watch France's striker fitness and Morocco's defensive discipline.",
+  },
+  '西班牙|德国': {
+    zh: '关注西班牙的压迫强度与德国的定位球。',
+    vi: 'Theo dõi cường độ pressing của Tây Ban Nha và các tình huống cố định của Đức.',
+    mm: 'Spain ၏ pressing အားနှင့် Germany ၏ set-piece များကို စောင့်ကြည့်ပါ။',
+    en: "Watch Spain's press intensity and Germany's set-piece situations.",
+  },
+};
+const SCOUT_HOOK_FALLBACK: Quad = {
+  zh: '问题不是谁更强，而是哪个因素决定这场比赛。',
+  vi: 'Câu hỏi không phải đội nào mạnh hơn, mà là yếu tố nào quyết định thế trận.',
+  mm: 'မေးခွန်းက ဘယ်အသင်း အားကောင်းလဲ မဟုတ်ပါ၊ ဘယ်အချက်က ပွဲကို ဆုံးဖြတ်မလဲ ဆိုတာပါ။',
+  en: "The question isn't who's stronger — it's which factor decides the game.",
+};
+const SCOUT_CONTRARIAN_FALLBACK: Quad = {
+  zh: '若主要风险因素反转，判断可能改变。',
+  vi: 'Nếu yếu tố rủi ro chính đảo chiều, nhận định có thể thay đổi.',
+  mm: 'အဓိက အန္တရာယ်အချက် ပြောင်းသွားပါက သုံးသပ်ချက် ပြောင်းနိုင်သည်။',
+  en: 'If the main risk factor flips, the read can change.',
+};
+const SCOUT_WATCH_FALLBACK: Quad = {
+  zh: '关注首发阵容与临场变量。',
+  vi: 'Theo dõi đội hình ra sân và biến số sát giờ trước trận.',
+  mm: 'ပွဲမစမီ လူစာရင်းနှင့် ပွဲချိန်ပြောင်းလဲမှုများကို စောင့်ကြည့်ပါ။',
+  en: 'Watch the starting lineup and last-minute variables before kickoff.',
+};
+function pickQuad(table: Record<string, Quad>, fallback: Quad, homeZh: string, awayZh: string, loc: Locale): string {
+  const q = table[`${homeZh}|${awayZh}`] ?? fallback;
+  return loc === 'zh' ? q.zh : loc === 'vi' ? q.vi : loc === 'mm' ? q.mm : q.en;
+}
+export function scoutHookLoc(homeZh: string, awayZh: string, loc: Locale): string {
+  return pickQuad(SCOUT_HOOK, SCOUT_HOOK_FALLBACK, homeZh, awayZh, loc);
+}
+export function contrarianLoc(homeZh: string, awayZh: string, loc: Locale): string {
+  return pickQuad(SCOUT_CONTRARIAN, SCOUT_CONTRARIAN_FALLBACK, homeZh, awayZh, loc);
+}
+export function watchLoc(homeZh: string, awayZh: string, loc: Locale): string {
+  return pickQuad(SCOUT_WATCH, SCOUT_WATCH_FALLBACK, homeZh, awayZh, loc);
 }
 
 // ── Reason bullets (vi) — mirrors ops/derive.reasonBullets, no logic change ───

@@ -1,9 +1,11 @@
 import type { FeatureFactor } from '../types';
 import { useLocale } from '../i18n/useLocale';
-import { featureLabelLoc } from '../i18n/viMapping';
+import { featureLabelLoc, factorSourceLoc, factorInterpretationLoc } from '../i18n/viMapping';
+import { useCopy } from '../i18n/dict';
 
 export function FeatureBars({ features }: { features: FeatureFactor[] }) {
   const loc = useLocale();
+  const t = useCopy();
   const max = Math.max(...features.map(f => Math.abs(f.value)));
   return (
     <>
@@ -20,6 +22,10 @@ export function FeatureBars({ features }: { features: FeatureFactor[] }) {
             <div className="track">
               <div className="fill" style={{ width: `${w}%`, background: color }} />
             </div>
+            <div className="fbar-meta">
+              <span className="fbar-src">{t.factorSourceWord}: {factorSourceLoc(f.label, loc)}</span>
+            </div>
+            <div className="fbar-interp">{factorInterpretationLoc(f.label, loc)}</div>
           </div>
         );
       })}

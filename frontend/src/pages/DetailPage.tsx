@@ -6,13 +6,13 @@ import { MatchHeader } from '../components/MatchHeader';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
 import { deriveOps, reasonBullets } from '../ops/derive';
-import { BRAND } from '../copy/zh';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
 import { getPrice } from '../i18n/pricing';
 import {
   teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, riskLongLoc, riskShortLoc,
   riskTagLoc, noteLoc, premiumTeaserLoc, reasonBulletsLoc,
+  scoutHookLoc, contrarianLoc,
 } from '../i18n/viMapping';
 
 const RISK_COLORS = { low: 'var(--green)', medium: 'var(--amber)', high: 'var(--red)' };
@@ -98,12 +98,19 @@ export function DetailPage() {
         <MatchHeader match={match} />
       </div>
 
-      {/* ── 1. AI 结论卡（置顶） ──────────────────────────────────── */}
+      {/* Condensed evidence strip (signal sources — labels only) */}
+      <div className="evidence-strip compact">
+        <div className="ev-title">🛰️ {t.evidenceTitle}</div>
+        <div className="ev-sources">{t.evidenceSources}</div>
+      </div>
+
+      {/* ── 1. Scout 结论卡（置顶） ──────────────────────────────────── */}
       <div className="verdict-card">
         <div className="verdict-top">
-          <span className="zh">🔮 {t.aiVerdict}</span>
-          <span className="en">{BRAND.verdictTitle}</span>
+          <span className="zh">🔮 {t.scoutVerdictTitle}</span>
+          <span className="en">{t.scoutSub}</span>
         </div>
+        <p className="scout-hook">{scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
         <div className="verdict-grid">
           <div className="verdict-cell">
             <div className="l">{t.tendency}</div>
@@ -201,6 +208,17 @@ export function DetailPage() {
         <button className="lw-btn" style={{ marginTop: 12 }} onClick={handleSimulateLineup} disabled={lineupSimulated}>
           {lineupSimulated ? t.lwBtnDone : t.lwBtnDo}
         </button>
+      </div>
+
+      {/* Contrarian teaser — drives unlock/community (compliant, no betting) */}
+      <div className="card accent-amber" style={{ marginTop: 14 }}>
+        <div className="sec-en" style={{ marginTop: 0 }}>
+          <span className="zh">{t.contrarianTitle}</span>
+          <span className="en">CONTRARIAN</span>
+        </div>
+        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.75, marginTop: 6 }}>
+          ⚔️ {contrarianLoc(match.homeTeam.name, match.awayTeam.name, loc)}
+        </p>
       </div>
 
       {/* ── 6. 付费解锁 / 社群引导 ────────────────────────────────── */}
