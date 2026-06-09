@@ -8,6 +8,11 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are now a
+  clickable path — Home recap rows → `/detail?match_id=<id>`, `Xem phục dựng` → `/report?match_id=<id>`
+  (deep-link `match_id`/`id`; default selection prefers current/non-finished). Real API verified (public GET):
+  67 matches (64 finished + 3 seed). vi Han=0; 42.2% not in UI; build PASS; no backend/API/DB.
+  Evidence: `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §11 + `qa_screenshots/real_data_zh_vi_verification_linked_recap/`.
 - **Real Data Verification Sprint (2026-06-10, branch `feature/real-data-zh-vi-verification`):** rollback
   tag **`v0.8-real-data-verify-start`**; zh+vi verification (mm not broken). Data re-pull operator-run
   (BLOCKED for Claude; last known 2026=0 / WC2022=64). Small frontend clarity: **Report evidence caption

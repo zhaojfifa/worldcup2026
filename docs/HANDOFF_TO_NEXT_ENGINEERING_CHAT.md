@@ -3,6 +3,15 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are a clickable
+> path now — Home recap rows → `/detail?match_id=<id>&lang=`, per-row `Xem phục dựng` → `/report?match_id=<id>`.
+> Detail/Report read `match_id` (or `id`) from `URLSearchParams`, find it in the loaded `/matches`, select it,
+> else fall back to current. **Store default selection prefers the first non-finished match** (so default
+> Detail/signal is current, not a 2022 recap). Real API verified via public GET (67 matches = 64 finished +
+> 3 seed; ids 8/13/58/67; finished reports have empty features → vi Han=0). 42.2% not in UI. No backend/API/DB.
+> Evidence: `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §11 + `qa_screenshots/real_data_zh_vi_verification_linked_recap/`.
+> Still on branch; PR #2 stays Draft.
+
 > **Real Data Verification Sprint (2026-06-10):** on branch **`feature/real-data-zh-vi-verification`**
 > (NOT merged to main yet); rollback tag **`v0.8-real-data-verify-start`**. zh+vi verification; mm not broken.
 > Data re-pull = operator-run on Render (BLOCKED for Claude; last known 2026/warm-ups=0, WC2022=64 — not

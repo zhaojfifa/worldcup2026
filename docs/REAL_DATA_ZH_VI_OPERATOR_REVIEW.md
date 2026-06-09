@@ -37,6 +37,17 @@ data lives on Render for the operator's real-device pass.)
 | /detail (finished) | vi | detail-vi-finished-recap-390.png | historical_recap |  |  |  |  |  |  |  |  |  |
 | /report (finished) | vi | report-vi-finished-recap-390.png | historical_recap |  |  |  |  |  |  |  |  |  |
 
+## Linked historical recap (2026-06-10) — verify on real device
+- [ ] Home **Historical Recap** rows are **clickable** → open the real finished match Detail.
+- [ ] Per-row **`Xem phục dựng →`** opens the finished match **Report**.
+- [ ] Deep links work: `/detail?match_id=8&lang=vi`, `/report?match_id=8&lang=vi` (real WC2022 match).
+- [ ] Finished Detail/Report show the **recap banner** (`Phục dựng lịch sử: Trận này đã kết thúc…`) and
+      the recap-aware caption (`Dữ liệu lịch sử · hiệu chỉnh mô hình · không phải trận hiện tại`).
+- [ ] **Default** `/detail` (no param) shows a **current** preview match, not a 2022 recap.
+- [ ] vi recap pages have **0 Chinese**; **no 42.2%/hit-rate** anywhere.
+- Result: `recap_link_works: ""` · `default_is_current: ""` · `vi_recap_no_chinese: ""` · `notes: ""`
+- New shots: `docs/qa_screenshots/real_data_zh_vi_verification_linked_recap/`.
+
 ## Engineer self-verification (this sprint)
 - **Build:** `tsc -b && vite build` ✅. **vi Han = 0** (home/detail/report, current + finished). **zh** Chinese
   (regression). **mm** not broken (recap labels English by design).

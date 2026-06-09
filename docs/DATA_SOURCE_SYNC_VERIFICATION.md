@@ -150,6 +150,18 @@ curl "$BASE/api/v1/data-source/status";  curl "$BASE/api/v1/performance/summary"
 > `REAL_MATCH_INTELLIGENCE_SELECTION.md` and treat those matches as **public_source** only —
 > **never relabel news data as API data; never fabricate counts.**
 
+### Engineer public-GET verification (2026-06-10, no token — read-only)
+Claude verified the **public** endpoints directly (no admin token needed):
+- `GET /api/v1/matches` → **67 matches: 64 finished (WC2022, id 4–67) + 3 scheduled seed (id 1–3)**.
+  Target recap ids confirmed: **8** 阿根廷 vs Saudi Arabia · **13** 德国 vs Japan · **58** 摩洛哥 vs 西班牙 ·
+  **67** 阿根廷 vs 法国 (all `status=finished`).
+- `GET /api/v1/reports/8` → `features=[]`, `tactics_note=None`, `trend=[]` (finished matches carry no full
+  report) → **no Chinese feature-label leak** on vi/mm; `risk_note`/`free_note` are Chinese but `noteLoc`
+  falls back to English for vi/mm. Team names: the 4 recap matchups map cleanly (阿根廷→Argentina etc.) or
+  are already English (Saudi Arabia/Japan) → **vi Han = 0**.
+- **2026 friendlies / WC2026 fixtures still = 0** (current seed preview is NOT real-synced 2026 data).
+  **WC2022 = historical recap / calibration only.**
+
 > **Re-run requested (2026-06-10, Real Data Verification Sprint):** operator re-runs the gate below to
 > recheck 2026/warm-up availability. Fill a fresh dated row. Claude remains `BLOCKED_OPERATOR_RENDER_SHELL`
 > (no token); current seed pages stay `current_preview`, not `real_synced`, until a re-pull returns current matches.

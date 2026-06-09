@@ -26,6 +26,13 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are now a
+     **clickable user path** — Home recap rows → `/detail?match_id=<id>` and `Xem phục dựng` → `/report?match_id=<id>`
+     (deep links read `match_id`/`id` from URL; default selection prefers a **current/non-finished** match).
+     Real API verified (public GET): 67 matches = 64 finished (id 4–67) + 3 seed (1–3); ids 8/13/58/67;
+     finished reports have empty features → vi Han=0. 42.2% not in UI. Build PASS. Evidence:
+     `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §11 + `docs/qa_screenshots/real_data_zh_vi_verification_linked_recap/`.
+     On branch (PR #2 Draft); not merged.
    - **Real Data Verification Sprint (2026-06-10, branch `feature/real-data-zh-vi-verification`):** rollback
      tag **`v0.8-real-data-verify-start`**. zh+vi verification; mm not broken. Data re-pull is operator-run on
      Render (`BLOCKED_OPERATOR_RENDER_SHELL` for Claude; last known: 2026/warm-ups=0, WC2022=64). Small

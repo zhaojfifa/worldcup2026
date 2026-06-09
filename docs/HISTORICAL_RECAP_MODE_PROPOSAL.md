@@ -81,6 +81,20 @@ new optional query param — **Owner-gated**, not needed now.)
 - Until implemented, **do not run operator screenshots on the polluted Home**, and **do not market
   2022 numbers**. Await Owner go for the frontend separation.
 
+## 11. Linked recap IMPLEMENTED (2026-06-10, branch) — recap rows → real finished match
+Owner upgraded the recap-row link from optional polish to a **blocking** verification fix. Shipped
+(frontend-only, no API/DB change):
+- **Deep-link routing:** `/detail?match_id=<id>` and `/report?match_id=<id>` (also `?id=`) read the id from
+  `URLSearchParams`, find it in the already-loaded `/matches` list, select it, else fall back to current.
+- **Home recap rows clickable:** each row → `/detail?match_id=<id>&lang=<loc>`; per-row **`Xem phục dựng →`**
+  CTA → `/report?match_id=<id>&lang=<loc>`. Candidates id 8/13/58/67.
+- **Default stays current:** store default selection now prefers the first **non-finished** match (initial +
+  `loadMatches`), so the default Detail/signal is a current preview, never a 2022 recap.
+- Verified live (temp finished mock, reverted): `/detail?match_id=8&lang=vi` → Argentina vs Saudi Arabia +
+  recap banner; `/report?match_id=67&lang=vi` → Argentina vs France + recap-aware caption; today list/signal/
+  upsets stay current (3 seed); **vi Han = 0**; 42.2% absent. Screenshots:
+  `docs/qa_screenshots/real_data_zh_vi_verification_linked_recap/`.
+
 ## 10. Verification follow-up (2026-06-10, branch)
 Real Data Verification Sprint added one clarity fix: the **Report evidence-strip caption is now recap-aware**
 — finished matches show `历史数据 · 模型校准 · 非当前比赛` / `Dữ liệu lịch sử · hiệu chỉnh mô hình · không phải
