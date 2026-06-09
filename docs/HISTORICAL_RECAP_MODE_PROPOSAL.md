@@ -80,3 +80,22 @@ new optional query param — **Owner-gated**, not needed now.)
   surface (Option A) → vi historical labels. **No backend/API/DB change.**
 - Until implemented, **do not run operator screenshots on the polluted Home**, and **do not market
   2022 numbers**. Await Owner go for the frontend separation.
+
+## 9. IMPLEMENTED (2026-06-09) — frontend-only, Option A
+Owner approved → shipped. **No backend/API/DB change.** Engineer self-verify **PASS**.
+- **transform/type:** `Match.status` added (`types/index.ts`) and carried through `transform.ts` from
+  the API's existing `status` field (no API shape change).
+- **Home filter:** `currentMatches = status !== 'finished'`, `historicalMatches = status === 'finished'`.
+  Signal / today list / upsets / counts use **currentMatches** → finished 2022 matches no longer pollute
+  current surfaces. Verified: today list = 3 seed only; finished excluded from signal/upsets (vi/zh/mm).
+- **Recap surface (Option A):** a labelled Home section — `recapSectionTitle` /`recapSectionSub` /
+  `recapBadge` (zh `历史复盘 · World Cup 2022` / `模型校准 · 非当前比赛`; vi `Phục dựng lịch sử…`; mm/en
+  English) listing the recap candidates (id 8/13/58/67, else first finished).
+- **Detail/Report finished banner:** when `match.status === 'finished'`, a `recap-banner` shows
+  `recapBadge · recapDetailNote` (vi: `… không phải dự đoán trận hiện tại. Dùng để xem Giành Cup Scout đọc
+  lại biến số trận đấu như thế nào`). No "current live match" wording.
+- **42.2% / hit_rate:** **not present in any customer UI** (verified by scan) — docs-only metric.
+- **QA:** build passes; vi/mm Han=0; zh regression Chinese; no console errors; no backend diff. Recap UI
+  verified with 2 temporarily-injected finished mock matches (reverted; `mock.ts` clean). Screenshots:
+  `docs/qa_screenshots/historical_recap_separation/`. **Real finished data lives on Render; operator
+  real-device screenshots can now run on the un-polluted Home.**

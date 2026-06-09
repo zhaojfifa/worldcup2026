@@ -41,6 +41,12 @@ presented as model probabilities.** Real model numbers appear **only after** ope
   **historical**, not current — keep them out of the live "current preview" surfaces
   (`docs/HISTORICAL_RECAP_MODE_PROPOSAL.md`).
 
+## Frontend separation shipped (2026-06-09)
+The `/matches` mixing risk is resolved by a **frontend-only** separation (no API/DB change): Home current
+surfaces filter `status !== 'finished'`; finished WC-2022 matches show only under a labelled **Historical
+Recap** surface; Detail/Report show a recap banner when finished. `hit_rate=42.2%` stays a docs-only
+backtest metric (not in customer UI). See `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9.
+
 ## Operator action to unblock modeling (Render)
 1. Sync fixtures/results for league `10`/`1` season `2026` (see `DATA_SOURCE_SYNC_VERIFICATION.md`).
 2. `GET /matches` → find the `match_id` for each selected fixture.

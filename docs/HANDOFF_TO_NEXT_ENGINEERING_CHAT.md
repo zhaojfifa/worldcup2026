@@ -3,6 +3,16 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Historical Recap separation SHIPPED (2026-06-09, frontend-only):** the `/matches` historical-vs-seed
+> mixing is fixed with **no backend/API/DB change**. `Match.status` is carried through `transform.ts`;
+> Home current surfaces (signal/today/upsets) filter `status !== 'finished'`; finished WC-2022 matches show
+> only under a labelled **Historical Recap · WC2022** Home section; Detail/Report show a recap banner when
+> `status==='finished'`. New i18n keys `recapSectionTitle/Sub/Badge/recapDetailNote` (zh/vi/mm/en).
+> **42.2% is not in any customer UI** (docs-only). Build passes; vi/mm Han=0; zh regression OK. Recap UI
+> QA'd with temporary injected finished mock (reverted; `mock.ts` clean). Evidence:
+> `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9 + `docs/qa_screenshots/historical_recap_separation/`.
+> Operator real-device screenshots can now run on the un-polluted Home.
+
 > **Fast Real Data Gate RESULT (2026-06-09):** 2026 fixtures **unavailable** (friendlies `10/2026`=0, WC
 > `1/2026`=0); **WC `1/2022` synced = 64/64/64** (backtest/recap only; `hit_rate=42.2%` is a backtest
 > metric, **NOT marketed**; 2022 ≠ live). **`/matches` now mixes historical (id 4–67) + seed (id 1–3)** →
