@@ -8,6 +8,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Fast Real Data Gate (2026-06-09):** baseline **tag `v0.8-real-data-gate`** (`d4feb6c`) pushed.
+  **Selected matchup mapping intentionally BLOCKED until API sync confirms `match_id`.** Next = operator
+  Fast Gate sync (friendlies `10/2026` → WC `1/2026` → `1/2022`) → `/matches` → `refresh`
+  (`DATA_SOURCE_SYNC_VERIFICATION.md` §13). No code change.
 - **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs-only).**
   Sourced real matches: **upcoming Mexico v South Africa** (WC opener 06-11); **finished Brazil 2-1 Egypt,
   Argentina 2-0 Honduras** (June friendlies). `api_available=unknown` (`BLOCKED_OPERATOR_RENDER_SHELL` —

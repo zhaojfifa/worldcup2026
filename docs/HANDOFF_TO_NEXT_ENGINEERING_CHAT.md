@@ -3,6 +3,13 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Fast Real Data Gate (2026-06-09):** baseline **tag `v0.8-real-data-gate`** (`d4feb6c`) pushed.
+> **Do NOT extend selected matchup mapping** (Mexico/SA, Brazil/Egypt, Argentina/Honduras) — intentionally
+> blocked until the Render sync confirms a real `match_id` (avoids second-seed/fake-real). Next execution =
+> operator Fast Gate: friendlies `10/2026` → WC `1/2026` → WC `1/2022`, then `/matches` → `match_id` →
+> `/refresh`; fill `DATA_SOURCE_SYNC_VERIFICATION.md` §13. If none return real matches → mark `blocked`,
+> return to Owner, do not fabricate.
+
 > **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs-only).** Recon
 > (web sources) picked **upcoming Mexico v South Africa** (WC opener 06-11) + **finished Brazil 2-1 Egypt /
 > Argentina 2-0 Honduras** (June friendlies). `api_available=unknown` → **`BLOCKED_OPERATOR_RENDER_SHELL`**

@@ -149,3 +149,42 @@ curl "$BASE/api/v1/data-source/status";  curl "$BASE/api/v1/performance/summary"
 > If the API-FOOTBALL key plan does **not** return a league, mark that row `api_available=no` in
 > `REAL_MATCH_INTELLIGENCE_SELECTION.md` and treat those matches as **public_source** only —
 > **never relabel news data as API data; never fabricate counts.**
+
+## 13. Fast Real Data Gate (2026-06-09) — execute on Render, fill ONE row per run
+
+Baseline tagged **`v0.8-real-data-gate`** (commit `d4feb6c`) before any real sync. **Claude cannot run
+this (no `$ADMIN_API_TOKEN`) → do NOT fabricate.** Operator runs the order below and stops at the first
+that returns real matches.
+
+**Order:** (1) friendlies `league_id=10&season=2026` → (2) WC `1&2026` → (3) WC backtest `1&2022`.
+```bash
+BASE=https://worldcup2026-api-71n6.onrender.com
+# 1) friendlies
+curl -X POST "$BASE/api/v1/admin/sync/fixtures?league_id=10&season=2026" -H "x-admin-token: $ADMIN_API_TOKEN"
+curl -X POST "$BASE/api/v1/admin/sync/results?league_id=10&season=2026"  -H "x-admin-token: $ADMIN_API_TOKEN"
+curl "$BASE/api/v1/matches"                       # → are there real matches? note ids
+# 2) if league 10 empty/failed → WC 2026
+curl -X POST "$BASE/api/v1/admin/sync/fixtures?league_id=1&season=2026" -H "x-admin-token: $ADMIN_API_TOKEN"
+curl "$BASE/api/v1/matches"
+# 3) else → WC 2022 backtest
+curl -X POST "$BASE/api/v1/admin/sync/fixtures?league_id=1&season=2022" -H "x-admin-token: $ADMIN_API_TOKEN"
+curl -X POST "$BASE/api/v1/admin/sync/results?league_id=1&season=2022"  -H "x-admin-token: $ADMIN_API_TOKEN"
+curl "$BASE/api/v1/performance/summary"
+# then, if real matches exist: pick 1-3, refresh each
+curl -X POST "$BASE/api/v1/matches/{match_id}/refresh"
+```
+
+| gate_run_at | operator | command_run | league_id | season | fixtures_inserted | fixtures_updated | fixtures_skipped | results_inserted | results_updated | results_settled | errors | requests_used_before | requests_used_after | matches_returned_count | selected_match_ids | selected_matches | decision (use/fallback/blocked) | notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|  |  | sync/fixtures+results | 10 | 2026 |  |  |  |  |  |  |  |  |  |  |  |  |  | step 1 — friendlies |
+|  |  | sync/fixtures | 1 | 2026 |  |  |  |  |  |  |  |  |  |  |  |  |  | step 2 — WC if step1 empty |
+|  |  | sync/fixtures+results | 1 | 2022 |  |  |  |  |  |  |  |  |  |  |  |  |  | step 3 — backtest if step2 empty |
+
+**Per-match refresh (fill after a real match_id is confirmed):**
+| match_id | home | away | win_prob (H/D/A) | confidence | risk_level | risk_note | updated_at |
+|---|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |  |
+
+> **Decision rule:** `use` (real matches present → proceed to per-match copy / LLM draft / screenshots) ·
+> `fallback` (next league in the order) · `blocked` (none return real matches → mark blocked, return to
+> Owner, **do not fabricate and do not extend matchup mapping**).

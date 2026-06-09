@@ -26,6 +26,11 @@
    - Backend:  https://worldcup2026-api-71n6.onrender.com
 
 3. **Stage:** **MVP v0.8 — real data/model/LLM-draft + multilingual operation** (origin/main synced).
+   - **Fast Real Data Gate (2026-06-09):** baseline tagged **`v0.8-real-data-gate`** (`d4feb6c`).
+     **Selected matchup mapping is intentionally BLOCKED** until the Render sync confirms a real `match_id`
+     (avoid second-seed / fake-real). Next path = **operator runs the Fast Gate** sync order (friendlies
+     `10/2026` → WC `1/2026` → WC `1/2022`), then `/matches` → `match_id` → `refresh`
+     (`docs/DATA_SOURCE_SYNC_VERIFICATION.md` §13). No mapping/code change until then.
    - **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs).** Recon found
      real matches (sourced): **upcoming RMI-01 Mexico v South Africa** (WC opener 2026-06-11); **finished
      RMI-02 Brazil 2-1 Egypt, RMI-03 Argentina 2-0 Honduras** (June friendlies). `api_available=unknown`

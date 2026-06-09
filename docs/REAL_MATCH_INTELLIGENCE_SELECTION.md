@@ -23,6 +23,15 @@ _Created 2026-06-09 · Harness-X Real Match Intelligence Sprint · Data recon (E
 | RMI-06 | FIFA World Cup 2026 | 1 | 2026 | Canada | (TBD) | 2026-06-12 | upcoming | news/official | Wikipedia / Yahoo | unknown | unknown | no | partial | no | no | host nation day-2; opponent not confirmed in sources | opponent TBD — do not publish until confirmed |
 | RMI-07 | FIFA World Cup 2026 | 1 | 2026 | United States | (TBD) | 2026-06-12 | upcoming | news/official | Wikipedia / Yahoo | unknown | unknown | no | partial | no | no | host nation day-2; opponent not confirmed | opponent TBD — confirm before use |
 
+## Fast Real Data Gate — mapping intentionally BLOCKED until API confirms match_id (2026-06-09)
+Owner ruling: **do NOT write these matchups (Mexico/South Africa, Brazil/Egypt, Argentina/Honduras) into
+frontend mapping yet.** Reason: `api_available` is still `unknown`, `match_id` unconfirmed; writing mapping
+now would create a **second seed / fake-real** impression. **Current strategy:** keep the generic Scout
+fallback in the app; LLM drafts may be generated **for operators** (not shipped); **only after a real
+`match_id` is confirmed** via the Render Fast Gate (`DATA_SOURCE_SYNC_VERIFICATION.md` §13) do we add a
+minimal per-match copy/mapping or LLM-draft operation pack. Baseline tagged **`v0.8-real-data-gate`**
+(`d4feb6c`). **Next action is operator-run Render sync**, not more mapping.
+
 ## Selection for this trial (≥3 candidates · ≥1 upcoming · ≥1 finished)
 - **Pre-match (upcoming):** **RMI-01 Mexico vs South Africa** (WC opener, 2026-06-11).
 - **Recap (finished):** **RMI-02 Brazil 2-1 Egypt** and **RMI-03 Argentina 2-0 Honduras**.
