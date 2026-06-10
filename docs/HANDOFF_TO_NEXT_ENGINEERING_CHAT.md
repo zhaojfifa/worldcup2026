@@ -1,210 +1,113 @@
-# Giành Cup Engineering Handoff
+# MVP-2 Next Engineering Thread Handoff
 
-_Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
-_Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
+_Read `CLAUDE.md` first, then this. Date: 2026-06-10. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
-> **Historical Recap separation SHIPPED (2026-06-09, frontend-only):** the `/matches` historical-vs-seed
-> mixing is fixed with **no backend/API/DB change**. `Match.status` is carried through `transform.ts`;
-> Home current surfaces (signal/today/upsets) filter `status !== 'finished'`; finished WC-2022 matches show
-> only under a labelled **Historical Recap · WC2022** Home section; Detail/Report show a recap banner when
-> `status==='finished'`. New i18n keys `recapSectionTitle/Sub/Badge/recapDetailNote` (zh/vi/mm/en).
-> **42.2% is not in any customer UI** (docs-only). Build passes; vi/mm Han=0; zh regression OK. Recap UI
-> QA'd with temporary injected finished mock (reverted; `mock.ts` clean). Evidence:
-> `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §9 + `docs/qa_screenshots/historical_recap_separation/`.
-> Operator real-device screenshots can now run on the un-polluted Home.
-> **Verdict PASS (frontend separation).** **Operator real-device screenshots can RESUME**; **final PASS
-> still pending operator review** (`docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` §4 +
-> `docs/VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md`, with added recap checks). The **recap-row → detail/report
-> link is optional polish, NOT blocking** — do only if the operator asks.
+## One-line status
+MVP-2 reached **Evidence Board v2 Gate Spec Ready** — real API-FOOTBALL Level-2 data → Scout Pack → ScoutScore v0.1 → a customer-readable historical recap wired into the frontend (`/recap/855737`, zh/vi), reviewed PASS WITH ISSUES (gaps fixed); v2 design closed + Gate Spec drafted. **Docs-only this round. No runtime change. PR #3 Draft. Operation paused.**
 
-> **Fast Real Data Gate RESULT (2026-06-09):** 2026 fixtures **unavailable** (friendlies `10/2026`=0, WC
-> `1/2026`=0); **WC `1/2022` synced = 64/64/64** (backtest/recap only; `hit_rate=42.2%` is a backtest
-> metric, **NOT marketed**; 2022 ≠ live). **`/matches` now mixes historical (id 4–67) + seed (id 1–3)** →
-> Home could surface a finished 2022 match as "today's signal". **Separation plan (frontend-only, no API/DB):**
-> `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` — carry `status` in `transform.ts`, filter Home to non-finished,
-> add a labelled vi Recap surface (`Phục dựng lịch sử · WC2022`). Recap candidates id 8/13/58/67. **Do not
-> run operator screenshots on the polluted Home until separation lands.** Awaiting Owner go for that frontend change.
+## Branch / PR truth
+```text
+Current implementation branch: feature/mvp2-api-football-ingestion
+PR #3: Draft, base main, NOT ready, NOT merged
+PR #2 (feature/real-data-zh-vi-verification): discovery Draft, untouched
+main: untouched
+External operation: paused · public_ready: false
+```
 
-> **Fast Real Data Gate (2026-06-09):** baseline **tag `v0.8-real-data-gate`** (`d4feb6c`) pushed.
-> **Do NOT extend selected matchup mapping** (Mexico/SA, Brazil/Egypt, Argentina/Honduras) — intentionally
-> blocked until the Render sync confirms a real `match_id` (avoids second-seed/fake-real). Next execution =
-> operator Fast Gate: friendlies `10/2026` → WC `1/2026` → WC `1/2022`, then `/matches` → `match_id` →
-> `/refresh`; fill `DATA_SOURCE_SYNC_VERIFICATION.md` §13. If none return real matches → mark `blocked`,
-> return to Owner, do not fabricate.
+## Completed capability chain
+```text
+API-FOOTBALL Level-2 ingestion PASS (server-side client; key server-only)
+4 verified fixtures: 855737 / 855741 / 977345 / 979139 (Scout Pack JSON, redacted/bounded)
+source_ledger + missing_evidence present; injuries unresolved (source required, never "no injuries")
+ScoutScore v0.1: 7-factor rule-based scoring + post-match accountability (historical replay; not_real_archived_prediction=true)
+855737 Argentina 1-2 Saudi Arabia productized (feature snapshot -> model notes -> accountability report zh/vi)
+Internal operator preview: /internal/scout-pack (accountability-first; raw + ledger collapsed; noindex; admin-gated in prod)
+Frontend product flow: Home "Historical Recap · WC2022" -> /recap/855737 (customer-readable, zh/vi, vi Han=0)
+Recap continuation: "更多历史复盘" list + continuation CTA + home narrative bridge (no dead-end, no payment)
+Backend recap proxy: GET /api/v1/recap/{fixture_id}?lang=zh|vi (en/mm -> 404 -> frontend bundled)
+User Review report (4 personas) = PASS WITH ISSUES, accepted; three gaps closed
+Evidence Board v2 design CLOSED (gate-ready) + Gate Spec DRAFT
+```
 
-> **Harness-X Real Match Intelligence Sprint (2026-06-09): real fixtures selected (docs-only).** Recon
-> (web sources) picked **upcoming Mexico v South Africa** (WC opener 06-11) + **finished Brazil 2-1 Egypt /
-> Argentina 2-0 Honduras** (June friendlies). `api_available=unknown` → **`BLOCKED_OPERATOR_RENDER_SHELL`**
-> (Claude has no token; sync NOT run or faked). `model_status=pending_api_sync` (no fake numbers); vi copy
-> human-authored (no Chinese/betting). Operator: run the league=10/1 sync on Render, then `/matches` →
-> `match_id` → `refresh`, fill `DATA_SOURCE_SYNC_VERIFICATION.md` §12 + `REAL_MATCH_MODELING_REVIEW.md`.
-> Real matches not yet in the app → operator screenshots pending. Docs:
-> `REAL_MATCH_INTELLIGENCE_SELECTION.md`, `REAL_MATCH_MODELING_REVIEW.md`, `VI_REAL_MATCH_OPERATION_COPY.md`.
+## Key files
+All paths verified present on this branch (none missing):
+```text
+CLAUDE.md                                                  [present]
+docs/MVP_STATUS.md                                         [present]
+docs/MVP2_SCOUTSCORE_V0_MODEL_CARD.md                      [present]
+docs/MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md               [present]
+docs/MVP2_USER_REVIEW_REPORT_855737.md                     [present]
+docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md                      [present]
+docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md             [present]
+docs/MVP2_NEXT_DATA_REQUIREMENTS.md                        [present]
+docs/MVP2_OPERATOR_REAL_DATA_REVIEW.md                     [present]
+docs/data_audit/mvp2_scout_pack_samples/                  [present: 855737/855741/977345/979139.json]
+docs/data_audit/mvp2_scoutscore_v0/                       [present: 855737.factor_scores.json]
+docs/data_audit/mvp2_prediction_replay/                   [present: 855737.scoutscore_v0.replay.json]
+docs/data_audit/mvp2_prediction_accountability_reports/   [present: 855737.{zh-CN,vi-VN}.json]
+docs/qa_screenshots/mvp2_historical_recap_product_flow/   [present: home_recap_entry/bridge + recap_855737(+continuation) zh/vi]
+```
+Runtime entry points (additive this MVP-2): backend `app/services/api_football_client.py`, `app/services/scout_pack/*`,
+`app/services/scoutscore/*`, `app/routers/{internal_scout_pack,recap}.py`; frontend `pages/RecapDetailPage.tsx`,
+`data/recapData.ts`, recap route in `App.tsx`, Home recap entry/bridge in `pages/HomePage.tsx`.
+Build scripts (offline, no live LLM): `backend/scripts/mvp2_{ingest_scout_pack,build_productized_report,build_scoutscore}.py`.
 
-> **Harness-X Vietnam Market Heavy Sprint (2026-06-08): PLAN only, Owner review pending** — do NOT start
-> coding until approved. 3 roles (Engineering data/modeling · Product flow · Operation vi screenshots);
-> vi first; **warm-ups/friendlies first data** (`league_id=10,season=2026`); **no backend/API/DB change
-> proposed**; prediction-game/entertainment framing (not betting). Key risk flagged: seed-keyed
-> viMapping/mmMapping → real matches use generic fallback + LLM drafts (human review). Plan:
-> `docs/HARNESSX_VIETNAM_MARKET_HEAVY_SPRINT_PLAN.md`; operator template: `docs/VIETNAM_OPERATOR_SCREENSHOT_REVIEW.md`.
+## Current product judgment
+The product is **not** neutral data display — it is a **prediction-accountability** loop: AI pre-match view →
+result → hit/miss → factor validation → model correction → operator recap. The 855737 upset (dominant side lost)
+is the lead sample: the model honestly shows a **MISS** and what it must up-weight (efficiency / goalkeeper /
+event momentum) + what to ingest next (injuries P0, xG P1, Elo/form P1). User Review: operator-PASS,
+fan/pre-paid/flow PASS-WITH-ISSUES (now fixed). Concept validated → recommend Evidence Board v2.
 
-> **Brand (2026-06-08): LEIZE = company brand · Giành Cup = product (under LEIZE AI) · "Cloud" = future
-> branch, not the company brand.** No product rename, no code change. See
-> `docs/BRAND_ARCHITECTURE_LEIZE_GIAND_CUP.md`.
-> **Real Data Calibration (2026-06-08, Owner GO):** `admin/sync/{fixtures,results}` already accept optional
-> `?league_id=&season=` (default WC 1/2026) → **no code/DB change needed**. First pick La Liga (140),
-> fallback friendlies (10) / WC-2022 (1/2022); operator-run on Render (not fabricated). Runbook:
-> `docs/REAL_DATA_CALIBRATION_PLAN.md`. Any DB schema change (competition/source fields) = Owner-gated.
+## Evidence Board v2 gate status
+- **Design CLOSED / gate-ready:** `docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md` (goals, core pages, IA, data contract, guardrails, v2-not-doing, Owner Q&A answers).
+- **Gate Spec DRAFT:** `docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` (allowed/forbidden paths, UI zones, data sources, API contracts, i18n, screenshot reqs, acceptance criteria, rollback, **Owner GO required**).
+- **Not approved for implementation.** No runtime built from the Gate Spec yet.
 
-> **Latest (2026-06-08): Scout Intelligence Rewrite shipped (frontend-only).** Report/Detail now show an
-> Evidence Strip, Scout verdict + hook, factor Source/Impact/Interpretation, Contrarian + Watch — all
-> frontend-derived (dict + viMapping/mmMapping), **no API/DB change**, vi/mm 0 Han, draft-only LLM
-> unchanged. **Engineer self-verify PASS; Stage 5 operator real-device verification PENDING**
-> (checklist: evidence doc §4; `operator_verification_status: pending`; shots →
-> `docs/qa_screenshots/intelligence_rewrite_operator/`). **Final PASS not granted until operator
-> screenshots reviewed + `final_owner_decision` recorded.** See
-> `docs/SCOUT_INTELLIGENCE_REWRITE_EVIDENCE.md` + `docs/qa_screenshots/intelligence_rewrite/`.
+## Next Owner decisions
+```text
+1. Approve Evidence Board v2 Gate Spec?
+2. Start Evidence Board v2 implementation?
+3. Productize 979139 Argentina vs France as a second recap type?
+4. Verify real DeepSeek / Gemini reasoning (currently template/mock fallback, draft-only)?
+5. Start TheSports trial / injuries second-source verification (P0 data gap)?
+6. Keep PR #3 Draft, or split a smaller PR?
+```
 
----
+## Hard guardrails
+```text
+No public operation · No PR ready without Owner approval · No merge
+No payment · No Token · No second-source injuries integration yet
+No betting / odds / 盘口 / 竞猜 / 投注 · No fake probability · No fake archived prediction
+No SHAP · No xG unless source exists · No injuries inference
+No frontend direct vendor call · No token / raw payload commit · vi Han=0 · mm -> English (never Chinese)
+```
 
-## 1. One-page summary
+## Carry-forward baseline (v0.8, still valid)
+- **Live URLs:** frontend https://worldcup2026-izid.onrender.com · backend https://worldcup2026-api-71n6.onrender.com
+- **Secrets live on Render** (`API_FOOTBALL_KEY`, `ADMIN_API_TOKEN`, `DEEPSEEK/KIMI/GEMINI`, R2_*). Local dev: `backend/.env` holds a working **API-FOOTBALL Pro** key (real ingestion runs locally); to run the full backend under local Python 3.9, `pip install --user eval_type_backport`.
+- **Dual mode:** `VITE_USE_MOCK=true` for local frontend screenshots (recap uses bundled `recapData.ts`); never break it.
+- **Never change** `/matches`, `/matches/{id}`, `/reports/{id}` response shapes; new capability → new endpoint.
+- **Language:** vi primary · mm secondary · zh internal · en system/fallback. vi/mm never fall back to Chinese.
+- **git committer is machine-inferred** (user.name/email unset); do NOT amend/force-push.
+- Prior v0.8 detail (social/LLM/QA lessons) is in git history of this file and in `docs/` (MM/VI QA reports, LLM_* docs).
 
-- **State:** Giành Cup MVP v0.8 — multilingual (zh/en/vi/mm) UI is **language-gate CLOSED & QA-PASS**;
-  a **draft-only LLM** copy endpoint exists; data/model are **real-capable but still on seed
-  (`mock_mode=true`)**; Myanmar **Telegram is active**, Vietnam **Zalo pending**.
-- **Next chat's first goal:** deploy latest `main`, then **(operator) true-device retest of the
-  Telegram open/copy fallback + send the 3 Burmese trial messages**, and **verify the real LLM draft
-  call on Render** (`AI_PROVIDER=deepseek|kimi` + key). Do NOT start new features; finish the
-  operate/verify loop. LLM production beyond draft-only / payment / bot / scaling are **Owner-gated**.
+## Recommended first command for next Claude thread
+```text
+Owner has accepted the MVP-2 design-closure handoff. Start by reading CLAUDE.md, docs/MVP_STATUS.md, docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md, docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md, and docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md.
 
----
+Do not implement immediately.
 
-## 2. Product & language state
+First verify:
+- PR #3 remains Draft
+- branch is feature/mvp2-api-football-ingestion
+- external operation remains paused
+- Evidence Board v2 Gate Spec is complete
 
-- **Brand:** Giành Cup · 2026 World Cup AI Football Intelligence Community (Vietnam-first SEA).
-- **Language roles:** `vi` primary customer · `mm` secondary customer · `zh` internal China-team
-  management · `en` system/fallback/API/admin/schema. **vi/mm fall back to English, never Chinese.**
-- **Currency by locale:** zh RMB · en USD · vi VND(₫) · mm MMK(Ks). No RMB shown to vi/mm customers.
-- **Switcher:** header `CN · VI · MY`; persists in `localStorage giandcup_lang`; `?lang=` param honored.
-- **Verify URLs:** `/?lang=vi` · `/?lang=mm` · `/community?lang=mm` · `/report?lang=mm` · `/detail?lang=mm`.
-- **i18n code:** `frontend/src/i18n/{useLocale,dict,viMapping,mmMapping,pricing}.ts`,
-  `frontend/src/copy/{zh,en,vi,mm}.ts`. `.lang-mm` density profile in `global.css` (Burmese is longer).
-
-## 3. Deployment / environment
-
-- Frontend: https://worldcup2026-izid.onrender.com · Backend: https://worldcup2026-api-71n6.onrender.com
-- DB: Render PostgreSQL (local dev = SQLite). R2 bucket `giand-cup-assets` (configured; `/assets/status` ok).
-- **Render env is the source of truth for secrets** (`ADMIN_API_TOKEN`, `API_FOOTBALL_KEY`,
-  `DEEPSEEK_API_KEY`/`KIMI_API_KEY`, R2_*). **Local does NOT need real keys** — LLM falls back to
-  human templates; admin routes are 401 locally without a token.
-- Local QA dev server: `npm run dev --prefix frontend`; screenshot helper `scripts/qa/lang_mobile_shots.sh`.
-
-## 4. Social status
-
-- **Myanmar Telegram ACTIVE:** `https://t.me/GianhCupMMAIFootball` (live `GET /social/channels` →
-  telegram `status=active`, `public_url` set).
-- **Operator reported `ERR_CONNECTION_REFUSED`** opening t.me in a mobile in-app browser → fixed with
-  a **community open/copy fallback sheet** (Open Telegram / Copy link / hint; uses API `public_url`,
-  still tracks `click_social_channel`). Needs operator **true-device confirmation after deploy**.
-- `events/track` + `community/heat` verified earlier (clicks need `match_id` to register).
-- **Vietnam Zalo pending active** — operator sets it via `POST /admin/social/channels/upsert` (Render Shell).
-
-## 5. Data status
-
-- Last known `GET /api/v1/data-source/status`: `api_football_configured=true`, `connector_status=ok`,
-  **`mock_mode=true`**, `requests_used=0`. `performance/summary` all 0 / `hit_rate=null`.
-- **Real sync is operator-only (Render Shell, `$ADMIN_API_TOKEN`); Claude has no token → do NOT fake it.**
-  ```bash
-  curl -X POST .../api/v1/admin/sync/fixtures -H "x-admin-token: $ADMIN_API_TOKEN"
-  curl -X POST .../api/v1/admin/sync/results  -H "x-admin-token: $ADMIN_API_TOKEN" -d '{"league_id":1,"season":2026}'
-  curl .../api/v1/data-source/status   # expect mock_mode=false, requests_used>0 after a real pull
-  ```
-  Details: `docs/DATA_SOURCE_SYNC_VERIFICATION.md`.
-
-## 6. Modeling status
-
-- `POST /matches/{1,2,3}/refresh` verified: win_prob sums to **100**; m1 high/conf61, m2 low/conf80,
-  m3 low/conf86; **response shape unchanged**. Details: `docs/MODELING_BASELINE_VERIFICATION.md`.
-- **Allowed operating language:** AI viewpoint / risk signal / pre-match update.
-  **Forbidden:** real hit-rate / guaranteed accuracy / betting language (no settled results yet).
-
-## 7. LLM status
-
-- **Draft-only** admin endpoint: `POST /api/v1/admin/llm/generate-copy` (x-admin-token) →
-  `{generated_text, provenance, data_mode, warnings, forbidden_hits, status:"draft_only", publishable:false}`.
-  Body: `{match_id, language: vi|mm|zh|en, copy_type: preview|upset|live|recap}`.
-- Providers: **DeepSeek / Kimi** (via `AI_PROVIDER` + key). Local/`mock` → **human-template fallback**.
-  Forbidden-phrase filter (zh/vi/mm/en, allows negations). `AI_PROVIDER=mock` = instant rollback.
-- **Real provider call NOT yet verified on Render** — see `docs/LLM_RENDER_VERIFICATION.md` for the steps.
-- **No auto-publish, no DB write, no payment, no bot.** Code: `backend/app/services/llm/*`,
-  `backend/app/routers/llm.py`. Plan: `docs/LLM_REAL_INTEGRATION_PLAN.md`.
-
-## 8. QA lessons (do not repeat)
-
-- **`/detail` alone was insufficient** — the real residual was on the **`/report`** page reached via
-  detail → unlock. Always QA the **full detail → unlock → report flow**.
-- **Screenshot-driven QA is mandatory** for customer-facing language/mobile. **No screenshot = no PASS.**
-- **Static DOM scan is NOT enough — interaction states leak too.** The operator hit a **Chinese unlock
-  modal** on mm (`已解锁，可直接查看完整报告` / `继续查看报告`) that every static scan missed because the
-  modal/toast/action-sheet were never opened. Source: `Modal.tsx` hardcoded button + `DetailPage` showing
-  the store/API `res.message` (Chinese) as the body. **Always QA modal / toast / unlock dialog / action-sheet
-  states** (helper `scripts/qa/lang_interaction_shots.mjs` clicks into them and captures). Fixed via i18n
-  `unlockedBody`/`unlockFailedBody`/`continueToReport`; never render raw store/API message text.
-- **Telegram direct-open may fail in mobile WebViews; Copy Link is the accepted operating path** — do not
-  block the trial on direct-open (ruling: PASS WITH ISSUES). The open/copy fallback sheet is localized.
-- **vi recheck (2026-06-08, Myanmar standard):** full vi path incl. `/report` re-scanned; residual was the
-  **community "VI TRIAL COPY" badge** leaking Chinese (`越南语试跑文案已就绪`) on the public page — the
-  bilingual zh·vi badge that mm had already been switched to English. **Lesson:** operator-labelled badges
-  on public customer pages still count as customer surface — vi must be Chinese-free. Fixed: `dict.ts` VI
-  `viBadge` → Vietnamese-only.
-- Recheck artifacts: `docs/qa_screenshots/mm_mobile_recheck/`, `docs/qa_screenshots/vi_mobile_recheck/`,
-  `docs/qa_screenshots/lang_interaction_recheck/` (+ `mm_mobile/`, `vi_mobile/`). Reports:
-  `docs/MM_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_QA_REPORT.md`, `docs/VI_MOBILE_RECHECK_REPORT.md`,
-  `docs/LANG_INTERACTION_RECHECK_REPORT.md`.
-
-## 8b. LLM provider comparison + Mini-Agent (2026-06-08)
-
-- **`provider_override`** on `POST /api/v1/admin/llm/generate-copy` (admin, draft-only, backward compatible):
-  `deepseek|kimi|gemini`; unknown/unavailable → human-template fallback with warning. Providers in
-  `client.py`: deepseek/kimi (OpenAI-compatible) + gemini (generateContent, `thinkingBudget=0`).
-- **Real 3-provider comparison run locally** (provider keys already in the dev `.env`, **pre-existing**;
-  **never printed/committed**; all draft-only). Empirical finding (contradicts assumed "Kimi primary"):
-  **DeepSeek + Gemini are clean for vi/mm (0 Han, compliant); Kimi leaks full Chinese for vi/mm.**
-  → **Use DeepSeek (primary) / Gemini (benchmark) for vi/mm; not Kimi yet.** `forbidden_hits=[]` everywhere,
-  but note **compliant ≠ correct-language** → add a Han-ratio language-fidelity check at review.
-- **Mini-Agent Harness:** lightweight **design only** (8 stages, `docs/MINI_AGENT_HARNESS_DESIGN.md`); no
-  runtime built. Stages 2/6/7 already exist in code; 3–5 are prompt drafts.
-- **Data-first:** Operator Action Checklist in `docs/DATA_SOURCE_SYNC_VERIFICATION.md` §11 (operator runs
-  real fixtures/results/performance sync on Render — **not fabricated**; data still seed until then).
-- Reports: `docs/LLM_PROVIDER_COMPARISON_REPORT.md`, `docs/LLM_DRAFT_COPY_REVIEW_LOG.md` (Batch 2 = real).
-  `backend/scripts/llm_draft_verify.py` is a **manual** helper (no make/npm target, by Owner ruling).
-
-## 9. Harness-X rule set
-
-- **Self-validation OK:** L0/L1 (read-only checks, docs, small frontend copy/mapping with screenshots).
-- **Owner decision required (blocked transitions):** LLM production beyond draft-only · bot auto-publish ·
-  payment · deployment scaling · API-shape change · DB-schema expansion · release decisions.
-- **Required artifacts:** screenshots for UI PASS; real curl output (never fabricated) for API/data;
-  docs updated every round. **Docs are the source of truth, not chat memory.**
-
-## 10. Immediate next actions
-
-1. **Deploy latest `main`** to Render (frontend + backend).
-2. **Operator:** true-device retest of the Telegram open/copy fallback (`/community?lang=mm`).
-3. **Operator:** send the 3 Burmese trial messages (`docs/MM_OPERATION_TRIAL_MESSAGES.md`); record in
-   `docs/OPERATION_TRIAL_RESULTS.md` (no fabricated metrics).
-4. **Operator (Render Shell):** run real `admin/sync/fixtures` + `admin/sync/results`; paste counts into
-   `docs/DATA_SOURCE_SYNC_VERIFICATION.md`.
-5. **Verify the Render LLM draft endpoint** with `AI_PROVIDER=deepseek|kimi` + key; record in
-   `docs/LLM_RENDER_VERIFICATION.md`.
-6. **Activate Vietnam Zalo** when a real link is available (admin upsert), then run the vi trial.
-
-## 11. Hard rules (carry forward)
-
-- Standard path `/Users/jackie/code/worldcup2026` (NOT `wordcup2026`).
-- Never change `/matches`, `/matches/{id}`, `/reports/{id}` response shapes. New capability → new
-  endpoint + token-protected admin writes. Graceful degradation when API-FOOTBALL/R2/LLM unconfigured.
-- Never log/commit secrets; never commit `.env*` / `.db`. Keep `VITE_USE_MOCK` dual mode working.
-- Forbidden wording + mandatory disclaimer + MTC statement (CLAUDE.md). vi/mm never fall back to Chinese.
-- **git:** committer is machine-inferred (user.name/email unset). Do **not** amend/force-push;
-  recommend human run `git config user.name "Jackie"` / `git config user.email "zhaojifa@gmail.com"`.
+Then ask Owner to choose one path:
+A. Start Evidence Board v2 implementation
+B. Productize 979139 as second recap sample
+C. Verify real DeepSeek / Gemini reasoning
+D. Start TheSports / injuries second-source trial
+E. Keep PR #3 Draft and split smaller PR
+```

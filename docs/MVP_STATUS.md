@@ -6,6 +6,27 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
+## ★ MVP-2 status (2026-06-10) — Evidence Board v2 Gate Spec Ready
+
+```text
+MVP-2 status:           Evidence Board v2 Gate Spec Ready
+API-FOOTBALL ingestion: PASS (Level-2; 4 fixtures: 855737/855741/977345/979139)
+ScoutScore v0.1:        PASS (rule-based factors + historical-replay accountability)
+Historical recap flow:  PASS WITH ISSUES, continuation fixed (more-recaps + CTA + home bridge)
+Evidence Board v2 design: CLOSED / gate-ready (+ Gate Spec draft)
+Branch:                 feature/mvp2-api-football-ingestion
+PR #3:                  Draft (base main, not ready, not merged) · PR #2 untouched · main untouched
+External operation:     paused · public_ready: false
+Next:                   Owner decision on EBv2 implementation
+```
+
+MVP-2 docs: `MVP2_SCOUTSCORE_V0_MODEL_CARD.md` · `MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md` ·
+`MVP2_USER_REVIEW_REPORT_855737.md` · `MVP2_EVIDENCE_BOARD_V2_DESIGN.md` ·
+`MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` · `MVP2_NEXT_DATA_REQUIREMENTS.md` ·
+`MVP2_OPERATOR_REAL_DATA_REVIEW.md`. Full handoff: `HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
+
+---
+
 ## v0.8 current-state summary (2026-06-08)
 
 - **Historical Recap separation SHIPPED (2026-06-09, frontend-only):** `/matches` mixing fixed without

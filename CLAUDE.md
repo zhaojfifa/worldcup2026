@@ -11,6 +11,81 @@
 > Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`** (read after this).
 > Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.8).
 
+## Current Project Status — MVP-2 Evidence Board v2 Gate Spec Ready
+
+**Current phase**
+```text
+MVP-2 is no longer in API verification.
+MVP-2 is no longer in raw Scout Pack display.
+MVP-2 is now at Evidence Board v2 Gate Spec / implementation decision stage.
+```
+
+**Branch / PR truth**
+```text
+Current implementation branch: feature/mvp2-api-football-ingestion
+PR #3: Draft, base main, not ready, not merged
+PR #2: discovery Draft, untouched
+main: untouched
+External operation: paused
+Public ready: false
+```
+
+**Completed chain**
+```text
+API-FOOTBALL Level-2 ingestion PASS
+4 verified fixtures loaded (855737, 855741, 977345, 979139)
+Scout Pack JSON generated (redacted/bounded)
+source_ledger / missing_evidence present
+ScoutScore v0.1 created (rule-based factors + LLM-ready reasoning, historical replay)
+855737 Argentina 1-2 Saudi Arabia productized as historical replay
+Homepage historical recap flow connected
+/recap/855737 detail page created
+zh / vi support (vi Han = 0)
+User Reviewer report completed (PASS WITH ISSUES, accepted)
+Continuation CTA added
+More recap placeholders added
+Homepage recap narrative bridge added
+Evidence Board v2 design closed (gate-ready)
+Gate Spec draft created
+```
+
+**Core product logic**
+```text
+Home prediction -> historical recap -> prediction accountability -> model correction -> user trust -> Evidence Board v2
+```
+
+**Current guardrails**
+```text
+No public operation
+No PR ready without Owner approval
+No merge
+No payment flow
+No Token
+No betting / odds / 盘口 / 竞猜 / 投注
+No fake probability
+No fake archived prediction
+No SHAP
+No xG unless source exists
+No injuries inference
+No frontend direct vendor call
+No token / raw payload commit
+```
+
+**Next Owner decisions**
+```text
+1. Whether to approve Evidence Board v2 Gate Spec.
+2. Whether to start Evidence Board v2 implementation.
+3. Whether to productize 979139 Argentina vs France as second recap type.
+4. Whether to verify real DeepSeek / Gemini reasoning.
+5. Whether to start TheSports trial / injuries second-source verification.
+6. Whether to keep PR #3 Draft or split a smaller PR.
+```
+
+> MVP-2 detail docs: `docs/MVP2_SCOUTSCORE_V0_MODEL_CARD.md` · `docs/MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md` ·
+> `docs/MVP2_USER_REVIEW_REPORT_855737.md` · `docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md` ·
+> `docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` · `docs/MVP2_NEXT_DATA_REQUIREMENTS.md`.
+> Below this is the prior v0.8 baseline (still valid for environment / language / social / hard rules).
+
 1. **Brand / Product:** **Company = LEIZE** (`CÔNG TY TNHH CÔNG NGHỆ SỐ LEIZE` / `LEIZE DIGITAL
    TECHNOLOGY CO., LTD`); **product = `Giành Cup`** (football intelligence, under **LEIZE AI**).
    **"Cloud" is a future branch, NOT the company brand.** External: "Giành Cup by LEIZE AI". Do NOT
