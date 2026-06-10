@@ -45,11 +45,11 @@ Each item: **product use · already have? · gap · candidate sources · commerc
 - **Commercial/license risk:** Low (World Football Elo / self-computed). Confirm attribution terms.
 - **Priority:** **P1**.
 
-## 4. Market value / squad value — **P2**
+## 4. Squad / transfer value — **P2**
 - **Product use:** paper strength, squad depth, "favourite vs underdog" context for the upset narrative.
 - **Already have?** No.
 - **Gap:** no squad valuation.
-- **Candidate sources:** **Transfermarkt** (values).
+- **Candidate sources:** **Transfermarkt** (squad/transfer values).
 - **Commercial/license risk:** **High** — Transfermarkt scraping/commercial use is license-restricted. Confirm before use.
 - **Priority:** **P2**.
 
@@ -79,7 +79,7 @@ Each item: **product use · already have? · gap · candidate sources · commerc
 | 2 | xG / advanced stats | P1 | no | StatsBomb non-commercial / Opta license (high) |
 | 3 | Elo / team strength | P1 | partial | low |
 | 5 | recent form / H2H | P1 | partial | low–med |
-| 4 | market value | P2 | no | Transfermarkt (high) |
+| 4 | squad / transfer value | P2 | no | Transfermarkt (high) |
 | 6 | venue / travel / weather | P2 | partial | low–med |
 
 ## Out of scope (policy)
