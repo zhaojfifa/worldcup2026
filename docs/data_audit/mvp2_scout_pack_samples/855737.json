@@ -1,0 +1,1397 @@
+{
+  "schema_version": "mvp2-scout-pack/1.0",
+  "source": "api-football",
+  "fixture_id": 855737,
+  "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+  "plan": "Pro",
+  "license_note": {
+    "zh": "内部预览：API-FOOTBALL Pro 套餐，对外商用条款由 Owner 复核，运营暂停",
+    "vi": "Xem nội bộ: gói API-FOOTBALL Pro, điều khoản thương mại do Owner duyệt, vận hành tạm dừng",
+    "en": "Internal preview: API-FOOTBALL Pro plan; commercial terms Owner-gated; operation paused"
+  },
+  "operation_status": "paused",
+  "public_ready": false,
+  "fixture": {
+    "value": {
+      "fixture_id": 855737,
+      "date": "2022-11-22T10:00:00+00:00",
+      "status": "Match Finished",
+      "venue": {
+        "name": "Lusail Iconic Stadium",
+        "city": "Lusail"
+      },
+      "league": {
+        "name": "World Cup",
+        "season": 2022,
+        "round": "Group Stage - 1"
+      },
+      "home_team": {
+        "id": 26,
+        "name": "Argentina"
+      },
+      "away_team": {
+        "id": 23,
+        "name": "Saudi Arabia"
+      },
+      "final_score": {
+        "home": 1,
+        "away": 2
+      },
+      "result_winner": "away"
+    },
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "数据未接入，需数据源",
+      "vi": "Chưa có dữ liệu, cần nguồn dữ liệu",
+      "en": "Source required"
+    },
+    "missing_reason": ""
+  },
+  "teams": {
+    "value": {
+      "home": {
+        "id": 26,
+        "name": "Argentina",
+        "country": "Argentina",
+        "founded": 1893,
+        "national": true,
+        "venue": {
+          "name": "Estadio Mâs Monumental",
+          "city": "Buenos Aires"
+        }
+      },
+      "away": {
+        "id": 23,
+        "name": "Saudi Arabia",
+        "country": "Saudi-Arabia",
+        "founded": 1956,
+        "national": true,
+        "venue": {
+          "name": "King Fahd Sports City Stadium",
+          "city": "Riyadh"
+        }
+      }
+    },
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/teams",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "数据未接入，需数据源",
+      "vi": "Chưa có dữ liệu, cần nguồn dữ liệu",
+      "en": "Source required"
+    },
+    "missing_reason": ""
+  },
+  "lineups": {
+    "value": [
+      {
+        "team": {
+          "id": 26,
+          "name": "Argentina"
+        },
+        "formation": "4-4-2",
+        "coach": {
+          "id": 326,
+          "name": "L. Scaloni"
+        },
+        "startXI": [
+          {
+            "name": "E. Martínez",
+            "number": 23,
+            "pos": "G",
+            "grid": "1:1"
+          },
+          {
+            "name": "N. Molina",
+            "number": 26,
+            "pos": "D",
+            "grid": "2:4"
+          },
+          {
+            "name": "C. Romero",
+            "number": 13,
+            "pos": "D",
+            "grid": "2:3"
+          },
+          {
+            "name": "N. Otamendi",
+            "number": 19,
+            "pos": "D",
+            "grid": "2:2"
+          },
+          {
+            "name": "N. Tagliafico",
+            "number": 3,
+            "pos": "D",
+            "grid": "2:1"
+          },
+          {
+            "name": "Á. Di María",
+            "number": 11,
+            "pos": "M",
+            "grid": "3:4"
+          },
+          {
+            "name": "R. De Paul",
+            "number": 7,
+            "pos": "M",
+            "grid": "3:3"
+          },
+          {
+            "name": "L. Paredes",
+            "number": 5,
+            "pos": "M",
+            "grid": "3:2"
+          },
+          {
+            "name": "P. Gómez",
+            "number": 17,
+            "pos": "M",
+            "grid": "3:1"
+          },
+          {
+            "name": "L. Messi",
+            "number": 10,
+            "pos": "F",
+            "grid": "4:2"
+          },
+          {
+            "name": "Lautaro Martínez",
+            "number": 22,
+            "pos": "F",
+            "grid": "4:1"
+          }
+        ],
+        "substitutes": [
+          {
+            "name": "J. Álvarez",
+            "number": 9,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "E. Fernández",
+            "number": 24,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Lisandro Martínez",
+            "number": 25,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "M. Acuña",
+            "number": 8,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "G. Montiel",
+            "number": 4,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "J. Foyth",
+            "number": 2,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "F. Armani",
+            "number": 1,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "G. Rodríguez",
+            "number": 18,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "E. Palacios",
+            "number": 14,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "T. Almada",
+            "number": 16,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Á. Correa",
+            "number": 15,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "G. Pezzella",
+            "number": 6,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "A. Mac Allister",
+            "number": 20,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "P. Dybala",
+            "number": 21,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "G. Rulli",
+            "number": 12,
+            "pos": "G",
+            "grid": null
+          }
+        ]
+      },
+      {
+        "team": {
+          "id": 23,
+          "name": "Saudi Arabia"
+        },
+        "formation": "4-1-4-1",
+        "coach": {
+          "id": 344,
+          "name": "H. Renard"
+        },
+        "startXI": [
+          {
+            "name": "Mohammed Al Owais",
+            "number": 21,
+            "pos": "G",
+            "grid": "1:1"
+          },
+          {
+            "name": "Saud Abdulhamid",
+            "number": 12,
+            "pos": "D",
+            "grid": "2:4"
+          },
+          {
+            "name": "Hassan Tambakti",
+            "number": 17,
+            "pos": "D",
+            "grid": "2:3"
+          },
+          {
+            "name": "Ali Al Bulayhi",
+            "number": 5,
+            "pos": "D",
+            "grid": "2:2"
+          },
+          {
+            "name": "Yasir Al Shahrani",
+            "number": 13,
+            "pos": "D",
+            "grid": "2:1"
+          },
+          {
+            "name": "Abdulelah Al Malki",
+            "number": 8,
+            "pos": "M",
+            "grid": "3:1"
+          },
+          {
+            "name": "Feras Al Brikan",
+            "number": 9,
+            "pos": "M",
+            "grid": "4:4"
+          },
+          {
+            "name": "Salman Al Faraj",
+            "number": 7,
+            "pos": "M",
+            "grid": "4:3"
+          },
+          {
+            "name": "Mohammed Kanno",
+            "number": 23,
+            "pos": "M",
+            "grid": "4:2"
+          },
+          {
+            "name": "Salem Al Dawsari",
+            "number": 10,
+            "pos": "M",
+            "grid": "4:1"
+          },
+          {
+            "name": "Saleh Al Shehri",
+            "number": 11,
+            "pos": "F",
+            "grid": "5:1"
+          }
+        ],
+        "substitutes": [
+          {
+            "name": "Nawaf Al Abid",
+            "number": 18,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Sultan Al Ghannam",
+            "number": 2,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Abdulelah Al Amri",
+            "number": 4,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Haitham Asiri",
+            "number": 25,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Mohammed Al Burayk",
+            "number": 6,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Sami Al Naji",
+            "number": 16,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Hattan Bahbri",
+            "number": 19,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Mohammed Al Yami",
+            "number": 1,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "Abdullah Madu",
+            "number": 3,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Abdulrahman Al Obud",
+            "number": 20,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Abdullah Otayf",
+            "number": 14,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Nasser Al Dawsari",
+            "number": 24,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Nawaf Al Aqidi",
+            "number": 22,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "Ali Al Hassan",
+            "number": 15,
+            "pos": "M",
+            "grid": null
+          }
+        ]
+      }
+    ],
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures/lineups",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "首发未接入，需数据源",
+      "vi": "Chưa có đội hình xuất phát, cần nguồn dữ liệu",
+      "en": "Lineup source required"
+    },
+    "missing_reason": ""
+  },
+  "formation": {
+    "value": {
+      "home": {
+        "team": "Argentina",
+        "formation": "4-4-2"
+      },
+      "away": {
+        "team": "Saudi Arabia",
+        "formation": "4-1-4-1"
+      }
+    },
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures/lineups",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "阵型未接入，需首发数据",
+      "vi": "Chưa có sơ đồ chiến thuật, cần dữ liệu đội hình",
+      "en": "Formation source required"
+    },
+    "missing_reason": ""
+  },
+  "coach": {
+    "value": {
+      "home": {
+        "id": 326,
+        "name": "L. Scaloni",
+        "age": 47,
+        "nationality": "Argentina"
+      },
+      "away": {
+        "id": 344,
+        "name": "H. Renard",
+        "age": 57,
+        "nationality": "France"
+      }
+    },
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures/lineups + /coachs",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "教练未接入，需数据源",
+      "vi": "Chưa có huấn luyện viên, cần nguồn dữ liệu",
+      "en": "Coach source required"
+    },
+    "missing_reason": ""
+  },
+  "squad": {
+    "value": {
+      "home": {
+        "team": "Argentina",
+        "players_count": 26,
+        "sample": [
+          {
+            "name": "E. Martínez",
+            "number": 23,
+            "position": "Goalkeeper"
+          },
+          {
+            "name": "J. Musso",
+            "number": 1,
+            "position": "Goalkeeper"
+          },
+          {
+            "name": "G. Rulli",
+            "number": 12,
+            "position": "Goalkeeper"
+          },
+          {
+            "name": "L. Balerdi",
+            "number": 2,
+            "position": "Defender"
+          },
+          {
+            "name": "Lisandro Martínez",
+            "number": 6,
+            "position": "Defender"
+          },
+          {
+            "name": "F. Medina",
+            "number": 25,
+            "position": "Defender"
+          },
+          {
+            "name": "N. Molina",
+            "number": 26,
+            "position": "Defender"
+          },
+          {
+            "name": "G. Montiel",
+            "number": 4,
+            "position": "Defender"
+          },
+          {
+            "name": "N. Otamendi",
+            "number": 19,
+            "position": "Defender"
+          },
+          {
+            "name": "C. Romero",
+            "number": 13,
+            "position": "Defender"
+          },
+          {
+            "name": "N. Tagliafico",
+            "number": 3,
+            "position": "Defender"
+          }
+        ]
+      },
+      "away": {
+        "team": "Saudi Arabia",
+        "players_count": 26,
+        "sample": [
+          {
+            "name": "Nawaf Al Aqidi",
+            "number": 1,
+            "position": "Goalkeeper"
+          },
+          {
+            "name": "Ahmed Al Kassar",
+            "number": 22,
+            "position": "Goalkeeper"
+          },
+          {
+            "name": "Mohammed Al Owais",
+            "number": 21,
+            "position": "Goalkeeper"
+          },
+          {
+            "name": "Saud Abdulhamid",
+            "number": 12,
+            "position": "Defender"
+          },
+          {
+            "name": "Mohammed Abu Al Shamat",
+            "number": 26,
+            "position": "Midfielder"
+          },
+          {
+            "name": "Nawaf Boushal",
+            "number": 13,
+            "position": "Defender"
+          },
+          {
+            "name": "Abdulelah Al Amri",
+            "number": 4,
+            "position": "Defender"
+          },
+          {
+            "name": "Moteb Al Harbi",
+            "number": 24,
+            "position": "Defender"
+          },
+          {
+            "name": "Hassan Kadesh",
+            "number": 14,
+            "position": "Defender"
+          },
+          {
+            "name": "Ali Lajami",
+            "number": 3,
+            "position": "Defender"
+          },
+          {
+            "name": "Ali Majrashi",
+            "number": 2,
+            "position": "Defender"
+          }
+        ]
+      }
+    },
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/players/squads",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "medium",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "球员名单未接入",
+      "vi": "Chưa có danh sách cầu thủ",
+      "en": "Squad source required"
+    },
+    "missing_reason": ""
+  },
+  "events_summary": {
+    "value": {
+      "total": 20,
+      "by_type": {
+        "Var": 2,
+        "Goal": 3,
+        "subst": 9,
+        "Card": 6
+      },
+      "timeline": [
+        {
+          "minute": 8,
+          "type": "Var",
+          "detail": "Penalty confirmed",
+          "team": "Argentina",
+          "player": "Leandro Paredes",
+          "assist": null
+        },
+        {
+          "minute": 10,
+          "type": "Goal",
+          "detail": "Penalty",
+          "team": "Argentina",
+          "player": "L. Messi",
+          "assist": null
+        },
+        {
+          "minute": 29,
+          "type": "Var",
+          "detail": "Goal cancelled",
+          "team": "Argentina",
+          "player": "Lautaro Martínez",
+          "assist": null
+        },
+        {
+          "minute": "45+4",
+          "type": "subst",
+          "detail": "Substitution 1",
+          "team": "Saudi Arabia",
+          "player": "Salman Al Faraj",
+          "assist": "Nawaf Al Abid"
+        },
+        {
+          "minute": 48,
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "team": "Saudi Arabia",
+          "player": "Saleh Al Shehri",
+          "assist": "Feras Al Brikan"
+        },
+        {
+          "minute": 53,
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "team": "Saudi Arabia",
+          "player": "Salem Al Dawsari",
+          "assist": null
+        },
+        {
+          "minute": 59,
+          "type": "subst",
+          "detail": "Substitution 1",
+          "team": "Argentina",
+          "player": "P. Gómez",
+          "assist": "J. Álvarez"
+        },
+        {
+          "minute": 59,
+          "type": "subst",
+          "detail": "Substitution 2",
+          "team": "Argentina",
+          "player": "L. Paredes",
+          "assist": "E. Fernández"
+        },
+        {
+          "minute": 59,
+          "type": "subst",
+          "detail": "Substitution 3",
+          "team": "Argentina",
+          "player": "C. Romero",
+          "assist": "Lisandro Martínez"
+        },
+        {
+          "minute": 67,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Saudi Arabia",
+          "player": "Abdulelah Al Malki",
+          "assist": null
+        },
+        {
+          "minute": 71,
+          "type": "subst",
+          "detail": "Substitution 4",
+          "team": "Argentina",
+          "player": "N. Tagliafico",
+          "assist": "M. Acuña"
+        },
+        {
+          "minute": 75,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Saudi Arabia",
+          "player": "Ali Al-Boleahi",
+          "assist": null
+        },
+        {
+          "minute": 78,
+          "type": "subst",
+          "detail": "Substitution 2",
+          "team": "Saudi Arabia",
+          "player": "Saleh Al Shehri",
+          "assist": "Sultan Al Ghannam"
+        },
+        {
+          "minute": 79,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Saudi Arabia",
+          "player": "Salem Al-Dawsari",
+          "assist": null
+        },
+        {
+          "minute": 82,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Saudi Arabia",
+          "player": "Saud Abdulhamid",
+          "assist": null
+        },
+        {
+          "minute": 88,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Saudi Arabia",
+          "player": "Nawaf Al-Abed",
+          "assist": null
+        },
+        {
+          "minute": 88,
+          "type": "subst",
+          "detail": "Substitution 3",
+          "team": "Saudi Arabia",
+          "player": "Nawaf Al Abid",
+          "assist": "Abdulelah Al Amri"
+        },
+        {
+          "minute": 89,
+          "type": "subst",
+          "detail": "Substitution 4",
+          "team": "Saudi Arabia",
+          "player": "Feras Al Brikan",
+          "assist": "Haitham Asiri"
+        },
+        {
+          "minute": "90+2",
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Saudi Arabia",
+          "player": "Mohammed Al-Owais",
+          "assist": null
+        },
+        {
+          "minute": "90+9",
+          "type": "subst",
+          "detail": "Substitution 5",
+          "team": "Saudi Arabia",
+          "player": "Yasir Al Shahrani",
+          "assist": "Mohammed Al Burayk"
+        }
+      ],
+      "timeline_truncated": false
+    },
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures/events",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "比赛事件未接入",
+      "vi": "Chưa có sự kiện trận đấu",
+      "en": "Events source required"
+    },
+    "missing_reason": ""
+  },
+  "team_statistics": {
+    "value": [
+      {
+        "team": "Argentina",
+        "stats": {
+          "Shots on Goal": 6,
+          "Shots off Goal": 6,
+          "Total Shots": 15,
+          "Blocked Shots": 3,
+          "Shots insidebox": 11,
+          "Shots outsidebox": 4,
+          "Fouls": 7,
+          "Corner Kicks": 9,
+          "Offsides": 10,
+          "Ball Possession": "69%",
+          "Yellow Cards": 0,
+          "Red Cards": null,
+          "Goalkeeper Saves": 0,
+          "Total passes": 596,
+          "Passes accurate": 508,
+          "Passes %": "85%"
+        }
+      },
+      {
+        "team": "Saudi Arabia",
+        "stats": {
+          "Shots on Goal": 2,
+          "Shots off Goal": 0,
+          "Total Shots": 3,
+          "Blocked Shots": 1,
+          "Shots insidebox": 3,
+          "Shots outsidebox": 0,
+          "Fouls": 21,
+          "Corner Kicks": 2,
+          "Offsides": 1,
+          "Ball Possession": "31%",
+          "Yellow Cards": 6,
+          "Red Cards": null,
+          "Goalkeeper Saves": 5,
+          "Total passes": 266,
+          "Passes accurate": 181,
+          "Passes %": "68%"
+        }
+      }
+    ],
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures/statistics",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "球队统计未接入",
+      "vi": "Chưa có thống kê đội",
+      "en": "Team statistics source required"
+    },
+    "missing_reason": ""
+  },
+  "player_statistics": {
+    "value": [
+      {
+        "team": "Argentina",
+        "players_count": 26,
+        "top_by_rating": [
+          {
+            "name": "Lionel Messi",
+            "pos": "F",
+            "minutes": 90,
+            "rating": "7.6",
+            "goals": 1,
+            "assists": null
+          },
+          {
+            "name": "Nicolás Otamendi",
+            "pos": "D",
+            "minutes": 90,
+            "rating": "7.3",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Leandro Paredes",
+            "pos": "M",
+            "minutes": 59,
+            "rating": "7.2",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Marcos Acuña",
+            "pos": "D",
+            "minutes": 19,
+            "rating": "7.2",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Ángel Di María",
+            "pos": "M",
+            "minutes": 90,
+            "rating": "6.9",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Rodrigo de Paul",
+            "pos": "M",
+            "minutes": 90,
+            "rating": "6.9",
+            "goals": null,
+            "assists": null
+          }
+        ]
+      },
+      {
+        "team": "Saudi Arabia",
+        "players_count": 25,
+        "top_by_rating": [
+          {
+            "name": "Mohammed Al-Owais",
+            "pos": "G",
+            "minutes": 90,
+            "rating": "7.7",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Saleh Al-Shehri",
+            "pos": "F",
+            "minutes": 78,
+            "rating": "7.3",
+            "goals": 1,
+            "assists": null
+          },
+          {
+            "name": "Yasir Al-Shahrani",
+            "pos": "D",
+            "minutes": 89,
+            "rating": "7.2",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Hassan Al Tambakti",
+            "pos": "D",
+            "minutes": 90,
+            "rating": "6.9",
+            "goals": null,
+            "assists": null
+          },
+          {
+            "name": "Firas Al-Buraikan",
+            "pos": "M",
+            "minutes": 89,
+            "rating": "6.9",
+            "goals": null,
+            "assists": 1
+          },
+          {
+            "name": "Mohamed Kanno",
+            "pos": "M",
+            "minutes": 90,
+            "rating": "6.9",
+            "goals": null,
+            "assists": null
+          }
+        ]
+      }
+    ],
+    "available": true,
+    "source": "api-football",
+    "endpoint": "/fixtures/players",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "high",
+    "license_status": "ok",
+    "fallback_text": {
+      "zh": "球员统计未接入",
+      "vi": "Chưa có thống kê cầu thủ",
+      "en": "Player statistics source required"
+    },
+    "missing_reason": ""
+  },
+  "missing_evidence": {
+    "injuries": {
+      "reason": "endpoint returned 0 results (HTTP 200) — UNRESOLVED: historical season may be unpopulated or needs fixture/current-season form; second-source verification required before any 'key absence' feature",
+      "fallback_text": {
+        "zh": "伤停数据未返回，需二次数据源或当前赛季复验",
+        "vi": "Dữ liệu chấn thương chưa có, cần xác minh bằng nguồn thứ hai hoặc mùa giải hiện tại",
+        "en": "Injuries data not returned — second source or current-season re-check required"
+      },
+      "endpoint": "/injuries",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    }
+  },
+  "source_ledger": {
+    "fixture": {
+      "field": "fixture",
+      "source": "api-football",
+      "endpoint": "/fixtures",
+      "params": {
+        "id": 855737
+      },
+      "http_status": 200,
+      "results": 1,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "teams": {
+      "field": "teams",
+      "source": "api-football",
+      "endpoint": "/teams",
+      "params": {
+        "id": 26
+      },
+      "http_status": 200,
+      "results": 1,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "lineups": {
+      "field": "lineups",
+      "source": "api-football",
+      "endpoint": "/fixtures/lineups",
+      "params": {
+        "fixture": 855737
+      },
+      "http_status": 200,
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "formation": {
+      "field": "formation",
+      "source": "api-football",
+      "endpoint": "/fixtures/lineups",
+      "params": {
+        "fixture": 855737
+      },
+      "http_status": 200,
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "coach": {
+      "field": "coach",
+      "source": "api-football",
+      "endpoint": "/fixtures/lineups + /coachs",
+      "params": {
+        "team": 26
+      },
+      "http_status": 200,
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "squad": {
+      "field": "squad",
+      "source": "api-football",
+      "endpoint": "/players/squads",
+      "params": {
+        "team": 26
+      },
+      "http_status": 200,
+      "results": 1,
+      "available": true,
+      "confidence": "medium",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "events_summary": {
+      "field": "events_summary",
+      "source": "api-football",
+      "endpoint": "/fixtures/events",
+      "params": {
+        "fixture": 855737
+      },
+      "http_status": 200,
+      "results": 20,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "team_statistics": {
+      "field": "team_statistics",
+      "source": "api-football",
+      "endpoint": "/fixtures/statistics",
+      "params": {
+        "fixture": 855737
+      },
+      "http_status": 200,
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "player_statistics": {
+      "field": "player_statistics",
+      "source": "api-football",
+      "endpoint": "/fixtures/players",
+      "params": {
+        "fixture": 855737
+      },
+      "http_status": 200,
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    },
+    "injuries": {
+      "field": "injuries",
+      "source": "api-football",
+      "endpoint": "/injuries",
+      "params": {
+        "fixture": 855737
+      },
+      "http_status": 200,
+      "results": 0,
+      "available": false,
+      "confidence": "low",
+      "license_status": "pending",
+      "last_checked_at": "2026-06-10T07:36:50.935097+00:00"
+    }
+  },
+  "ai_allowed_explanations": [
+    "fixture",
+    "teams",
+    "lineups",
+    "formation",
+    "coach",
+    "events_summary",
+    "team_statistics",
+    "player_statistics",
+    "squad"
+  ],
+  "ai_forbidden_explanations": [
+    "injuries (unresolved — 0 results; do NOT state 'no injuries')",
+    "player_absence_impact",
+    "suspensions",
+    "any field not present in source_ledger",
+    "match outcome prediction or any financial / profit signal"
+  ],
+  "feature_snapshot": {
+    "lineup_available": true,
+    "formation_available": true,
+    "coach_available": true,
+    "events_available": true,
+    "statistics_available": true,
+    "player_statistics_available": true,
+    "squad_available": true,
+    "injuries_unresolved": true,
+    "data_freshness": "2026-06-10T07:36:50.935097+00:00",
+    "coverage_score": 100,
+    "coverage_score_note": {
+      "zh": "仅数据覆盖评分，不是预测命中率，不作为博彩或资金信号",
+      "vi": "Chỉ là điểm độ phủ dữ liệu, không phải tỷ lệ dự đoán đúng, không phải tín hiệu tài chính",
+      "en": "Data-coverage score only — not a prediction hit-rate, not a financial signal"
+    },
+    "ai_explanation_allowed_fields": [
+      "fixture",
+      "teams",
+      "lineups",
+      "formation",
+      "coach",
+      "events_summary",
+      "team_statistics",
+      "player_statistics",
+      "squad"
+    ],
+    "ai_explanation_forbidden_fields": [
+      "injuries (unresolved — 0 results; do NOT state 'no injuries')",
+      "player_absence_impact",
+      "suspensions",
+      "any field not present in source_ledger",
+      "match outcome prediction or any financial / profit signal"
+    ]
+  },
+  "injuries": {
+    "value": null,
+    "available": false,
+    "source": "api-football",
+    "endpoint": "/injuries",
+    "fixture_id": "855737",
+    "last_checked_at": "2026-06-10T07:36:50.935097+00:00",
+    "confidence": "low",
+    "license_status": "pending",
+    "fallback_text": {
+      "zh": "伤停数据未返回，需二次数据源或当前赛季复验",
+      "vi": "Dữ liệu chấn thương chưa có, cần xác minh bằng nguồn thứ hai hoặc mùa giải hiện tại",
+      "en": "Injuries data not returned — second source or current-season re-check required"
+    },
+    "missing_reason": "endpoint returned 0 results (HTTP 200) — UNRESOLVED: historical season may be unpopulated or needs fixture/current-season form; second-source verification required before any 'key absence' feature"
+  },
+  "request_summary": {
+    "count": 13,
+    "log": [
+      {
+        "endpoint": "/fixtures",
+        "params": {
+          "id": 855737
+        },
+        "http_status": 200,
+        "results": 1,
+        "fixture_id": 855737,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:36.468684+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/fixtures/lineups",
+        "params": {
+          "fixture": 855737
+        },
+        "http_status": 200,
+        "results": 2,
+        "fixture_id": 855737,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:37.734073+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/fixtures/events",
+        "params": {
+          "fixture": 855737
+        },
+        "http_status": 200,
+        "results": 20,
+        "fixture_id": 855737,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:38.859193+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/fixtures/statistics",
+        "params": {
+          "fixture": 855737
+        },
+        "http_status": 200,
+        "results": 2,
+        "fixture_id": 855737,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:40.133076+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/fixtures/players",
+        "params": {
+          "fixture": 855737
+        },
+        "http_status": 200,
+        "results": 2,
+        "fixture_id": 855737,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:41.456467+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/injuries",
+        "params": {
+          "fixture": 855737
+        },
+        "http_status": 200,
+        "results": 0,
+        "fixture_id": 855737,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:42.691968+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/injuries",
+        "params": {
+          "league": 1,
+          "season": 2022
+        },
+        "http_status": 200,
+        "results": 0,
+        "fixture_id": null,
+        "team_id": null,
+        "checked_at": "2026-06-10T07:36:43.788565+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/players/squads",
+        "params": {
+          "team": 26
+        },
+        "http_status": 200,
+        "results": 1,
+        "fixture_id": null,
+        "team_id": 26,
+        "checked_at": "2026-06-10T07:36:44.884372+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/players/squads",
+        "params": {
+          "team": 23
+        },
+        "http_status": 200,
+        "results": 1,
+        "fixture_id": null,
+        "team_id": 23,
+        "checked_at": "2026-06-10T07:36:46.067472+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/coachs",
+        "params": {
+          "team": 26
+        },
+        "http_status": 200,
+        "results": 2,
+        "fixture_id": null,
+        "team_id": 26,
+        "checked_at": "2026-06-10T07:36:47.399688+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/coachs",
+        "params": {
+          "team": 23
+        },
+        "http_status": 200,
+        "results": 4,
+        "fixture_id": null,
+        "team_id": 23,
+        "checked_at": "2026-06-10T07:36:48.550073+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/teams",
+        "params": {
+          "id": 26
+        },
+        "http_status": 200,
+        "results": 1,
+        "fixture_id": null,
+        "team_id": 26,
+        "checked_at": "2026-06-10T07:36:49.642582+00:00",
+        "errors": null
+      },
+      {
+        "endpoint": "/teams",
+        "params": {
+          "id": 23
+        },
+        "http_status": 200,
+        "results": 1,
+        "fixture_id": null,
+        "team_id": 23,
+        "checked_at": "2026-06-10T07:36:50.935044+00:00",
+        "errors": null
+      }
+    ]
+  }
+}
