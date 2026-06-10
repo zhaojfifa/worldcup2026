@@ -14,6 +14,10 @@ Owner adopted the designer's integrated data-source plan → `FOOTBALL_INTELLIGE
 pending (**no longer blocks Level-2**), Sportmonks/Highlightly alternatives. Direction = Data Source → Feature
 Engineering → Model Explanation → UI; **no data, no AI deep analysis**; betting framing downgraded, odds excluded.
 
+**Day-2 (2026-06-10):** API-FOOTBALL Level-2 coverage run = **`blocked_by_token`** (no key provisioned; zero calls).
+Verifier hardened to accept `API_FOOTBALL_KEY`/`API_KEY`/`API_TOKEN`/`API_SPORTS_KEY` (+ local `.env`); ready for the
+operator's token run. See `API_FOOTBALL_COVERAGE_CHECK.md`.
+
 ## Goal 1 — Historical recap credible  (→ Level 1)
 - **Data needs:** `final_score` · `actual_winner` · H2H · recent_form · model baseline.
 - **Candidates:** **Kaggle** (martj42, CC0 *confirm*) · **current Render API** (baseline, fixtures).

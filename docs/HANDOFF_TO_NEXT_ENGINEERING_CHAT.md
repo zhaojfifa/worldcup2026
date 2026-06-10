@@ -14,6 +14,12 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 > `docs/FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign / requirements-matrix / source-strategy).
 > Latest commits on branch; main untouched; PR #2 stays Draft.
 
+> **API-FOOTBALL Day-2 coverage (2026-06-10):** ran `scripts/verify_api_football_level2.py` → verdict
+> **`blocked_by_token`** (no key under `API_FOOTBALL_KEY`/`API_KEY`/`API_TOKEN`/`API_SPORTS_KEY` or local `.env`;
+> ZERO calls; no fabrication). Verifier hardened (4 var names + `.env` loader + `/fixtures/statistics` + test-match
+> fixture-id resolution for 8/13/58/67 + auto verdict). Operator provides a paid key → re-run yields the full
+> pass/partial/fail. `docs/API_FOOTBALL_COVERAGE_CHECK.md`. External operation stays paused until Level-2 validated.
+
 > **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are a clickable
 > path now — Home recap rows → `/detail?match_id=<id>&lang=`, per-row `Xem phục dựng` → `/report?match_id=<id>`.
 > Detail/Report read `match_id` (or `id`) from `URLSearchParams`, find it in the loaded `/matches`, select it,

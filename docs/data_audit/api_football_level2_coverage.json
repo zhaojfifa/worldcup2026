@@ -1,69 +1,116 @@
 {
   "source": "api-football",
   "base_url": "https://v3.football.api-sports.io",
-  "checked_at": "2026-06-10T04:32:44.183976+00:00",
+  "checked_at": "2026-06-10T04:53:29.526413+00:00",
   "status": "token_required",
-  "expected_env": [
+  "verdict": "blocked_by_token",
+  "verdict_reason": "no API-FOOTBALL token in env (API_FOOTBALL_KEY / API_KEY / API_TOKEN / API_SPORTS_KEY) or local .env",
+  "token_var_used": null,
+  "accepted_token_vars": [
     "API_FOOTBALL_KEY",
-    "API_FOOTBALL_BASE_URL (optional)",
-    "WC_LEAGUE_ID (optional)"
+    "API_KEY",
+    "API_TOKEN",
+    "API_SPORTS_KEY"
+  ],
+  "test_matches": [
+    {
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "render_id": 8,
+      "fixture_id": null
+    },
+    {
+      "home": "Germany",
+      "away": "Japan",
+      "render_id": 13,
+      "fixture_id": null
+    },
+    {
+      "home": "Morocco",
+      "away": "Spain",
+      "render_id": 58,
+      "fixture_id": null
+    },
+    {
+      "home": "Argentina",
+      "away": "France",
+      "render_id": 67,
+      "fixture_id": null
+    }
   ],
   "planned_checks": [
     {
+      "key": "status",
       "endpoint": "/status",
       "query": "",
-      "level2_field": "account/plan"
+      "field": "account/plan"
     },
     {
+      "key": "leagues",
       "endpoint": "/leagues",
       "query": "id=1",
-      "level2_field": "competition"
+      "field": "World Cup league id/season"
     },
     {
+      "key": "fixtures2022",
       "endpoint": "/fixtures",
       "query": "league=1&season=2022",
-      "level2_field": "WC2022 fixtures/results"
+      "field": "WC2022 fixtures"
     },
     {
+      "key": "fixtures2026",
       "endpoint": "/fixtures",
       "query": "league=1&season=2026",
-      "level2_field": "WC2026 fixtures"
+      "field": "WC2026 fixtures"
     },
     {
+      "key": "lineups",
       "endpoint": "/fixtures/lineups",
-      "query": "fixture=<wc2022_fixture>",
-      "level2_field": "starting lineup / formation"
+      "query": "fixture=<f>",
+      "field": "starting lineup / formation"
     },
     {
+      "key": "events",
       "endpoint": "/fixtures/events",
-      "query": "fixture=<wc2022_fixture>",
-      "level2_field": "match events"
+      "query": "fixture=<f>",
+      "field": "match events"
     },
     {
+      "key": "statistics",
+      "endpoint": "/fixtures/statistics",
+      "query": "fixture=<f>",
+      "field": "match statistics"
+    },
+    {
+      "key": "players",
       "endpoint": "/fixtures/players",
-      "query": "fixture=<wc2022_fixture>",
-      "level2_field": "per-match player stats"
+      "query": "fixture=<f>",
+      "field": "per-match player stats"
     },
     {
+      "key": "injuries",
       "endpoint": "/injuries",
       "query": "league=1&season=2022",
-      "level2_field": "injuries / suspensions"
+      "field": "injuries / suspensions"
     },
     {
+      "key": "squad",
       "endpoint": "/players/squads",
-      "query": "team=<wc2022_team>",
-      "level2_field": "squad / player list"
+      "query": "team=<t>",
+      "field": "squad / player list"
     },
     {
+      "key": "coachs",
       "endpoint": "/coachs",
-      "query": "team=<wc2022_team>",
-      "level2_field": "coach"
+      "query": "team=<t>",
+      "field": "coach"
     },
     {
+      "key": "teams",
       "endpoint": "/teams",
       "query": "league=1&season=2022",
-      "level2_field": "teams"
+      "field": "teams"
     }
   ],
-  "note": "No token in env → ZERO calls made. Operator sets $API_FOOTBALL_KEY (paid plan) and re-runs. Token is never printed or committed."
+  "note": "ZERO calls made. Operator sets one of the accepted token vars (paid plan) and re-runs. Token never printed/committed."
 }

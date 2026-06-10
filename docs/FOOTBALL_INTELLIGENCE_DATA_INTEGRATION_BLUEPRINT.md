@@ -192,7 +192,7 @@ PRs off `main`, and keep the discovery docs (PR-A/PR-C content) as the reference
 | Day | Task | Output | Gate |
 |---|---|---|---|
 | **1** | API-FOOTBALL Level-2 verification script | `scripts/verify_api_football_level2.py` (**shipped this sprint**; token_required until operator runs) | operator token |
-| **2** | API-FOOTBALL coverage report | `docs/data_audit/api_football_level2_coverage.json` + summary (operator-run) | operator token |
+| **2** | API-FOOTBALL coverage report | **Day-2 run = `blocked_by_token`** (no key provisioned; 0 calls); verifier hardened (4 var names) → `docs/API_FOOTBALL_COVERAGE_CHECK.md` | operator token |
 | **3** | TheSports trial form / token follow-up | trial applied; `docs/THESPORTS_TRIAL_VERIFICATION.md` (19-pt checklist) | Owner/operator |
 | **4** | Sportmonks / Highlightly account feasibility | quick feasibility note (free plan / trial) | operator |
 | **5** | Kaggle H2H / recent_form derive | extend `audit_kaggle_wc2022.py` (offline; internal) | none (offline) |
