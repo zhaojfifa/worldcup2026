@@ -18,6 +18,16 @@ this is a review, not a sign-off.
   a compliant continuation CTA ("查看今日 AI 观点" → home, no payment), and a home recap-module narrative bridge.
 - **PR #3 remains Draft. External operation remains paused.** No payment, no Token, no public launch.
 
+## Post-continuation Status (2026-06-10)
+The three main PASS-WITH-ISSUES gaps from this review are now **closed** (continuation round):
+- ✅ **更多历史复盘入口已补** — recap page "更多历史复盘" list (855741/977345/979139, "数据已接入，复盘生成中"; no dead-end).
+- ✅ **continuation CTA 已补** — "想看当前比赛的 AI 情报？→ 查看今日 AI 观点" → home (no payment/Token/odds).
+- ✅ **首页叙事桥已补** — recap module narrative line linking pre-match prediction → model accountability.
+- ⚠️ **仍不代表 public ready** — internal verification only; `public_ready=false`; operation paused; PR #3 Draft.
+- **下一步建议:** 进入 **Evidence Board v2** — design closed
+  ([MVP2_EVIDENCE_BOARD_V2_DESIGN](MVP2_EVIDENCE_BOARD_V2_DESIGN.md)) + boundary-freeze Gate Spec draft
+  ([MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT](MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md)); **implementation needs a separate Owner GO.**
+
 ---
 
 ## A. 普通用户视角 (ordinary football fan) — **PASS WITH ISSUES**
