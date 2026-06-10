@@ -20,6 +20,11 @@ Rule pivot: the product narrative (model judgement / recap / operator copy / zh+
 (DeepSeek/Gemini), NOT hand-written in frontend/backend templates. Engineering builds the stage; the LLM writes
 the football intelligence. The prior hand-written product voice (/evidence, /recap) is the stage to be filled by
 LLM narrative JSON. mock allowed ONLY as fallback, marked llm_provider=mock.
+Owner verdict (2026-06-10): LLM pipeline PASS (contract/generator/guard/DeepSeek+Gemini); current customer-facing
+narrative FAIL (reads like post-match journalism, not a ScoutScore model judgement).
+NEXT SPRINT = MVP-2 Betting-Logic Model Narrative Prompt Revision (prediction first-principles, NOT gambling/odds/
+盘口/竞猜/投注): rewrite prompt + contract + guard so output = pre-match judgement -> risk factors -> actual result
+-> factor validation -> what the model got right / under-weighted -> what the user watches next. Thread closed docs-only; runtime unchanged.
 ```
 
 **★ LLM-Guided Narrative — hard rules (non-negotiable this phase)**
@@ -111,12 +116,11 @@ No LLM-fabricated facts (every conclusion carries source_refs or an assumption_f
 
 **Next Owner decisions**
 ```text
-1. Approve the LLM-Guided Narrative rules + contract (CLAUDE.md hard rules · MVP2_LLM_NARRATIVE_ARCHITECTURE/CONTRACT).
-2. Review the LLM-generated narrative (DeepSeek/Gemini) for 855737 vs the prior hand-written voice.
-3. Pick the default provider (DeepSeek vs Gemini) per MVP2_LLM_NARRATIVE_PROVIDER_REVIEW.
-4. Operator real-device verify (after the SPA-fallback dashboard rewrite is applied on Render).
-5. Whether to productize 979139 / start TheSports / second-source injuries — still gated.
-6. Whether to keep PR #3 Draft or split a smaller PR.
+1. NEXT SPRINT: MVP-2 Betting-Logic Model Narrative Prompt Revision — rewrite prompt/contract/guard so LLM output is a ScoutScore model judgement (pre-match judgement -> risk factors -> validation -> next-match watch), not journalism.
+2. Confirm DeepSeek as default narrative provider (vs Gemini benchmark).
+3. Operator: set Render dashboard SPA rewrite (/* -> /index.html) + redeploy; verify /recap + /evidence live (deep links 404 now).
+4. Productize 979139 / start TheSports / second-source injuries — still gated.
+5. Keep PR #3 Draft or split a smaller PR.
 ```
 
 > MVP-2 detail docs: `docs/MVP2_SCOUTSCORE_V0_MODEL_CARD.md` · `docs/MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md` ·

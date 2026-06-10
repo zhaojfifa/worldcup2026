@@ -30,6 +30,10 @@ LLM layer (impl):        scripts/mvp2_generate_scoutscore_narrative.py (REAL Dee
                         Narrative JSON -> frontend bundles DeepSeek (default) -> /recap + /evidence main view = LLM narrative
                         (NarrativeView); deterministic fallback for en/mm. Guard PASS (all 4); vi Han=0; build PASS.
                         Provider review: DeepSeek default (punchier), Gemini benchmark. llm_provider shown in internal block.
+Owner verdict (closure):  LLM pipeline PASS; current customer-facing narrative FAIL (post-match journalism tone, not a
+                        ScoutScore model judgement). NEXT SPRINT = MVP-2 Betting-Logic Model Narrative Prompt Revision
+                        (prediction first-principles, NOT gambling): rewrite prompt/contract/guard so output =
+                        pre-match judgement -> risk factors -> validation -> what model got right/under-weighted -> next-match watch. Thread closed docs-only.
 Branch:                 feature/mvp2-api-football-ingestion
 PR #3:                  Draft (base main, not ready, not merged) · PR #2 untouched · main untouched
 External operation:     paused · public_ready: false
