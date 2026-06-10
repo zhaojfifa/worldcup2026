@@ -1,0 +1,86 @@
+{
+  "hero_title": "阿根廷1-2沙特：纸面碾压，效率翻车",
+  "hero_subtitle": "控球69%却输球，ScoutScore赛后复盘：射门效率与下半场动量是致命盲区",
+  "model_judgement": "Giành Cup AI ScoutScore赛前高估了纸面实力与控场优势，但未能纳入射门效率与下半场动量这两个决定性因子。阿根廷全场压制（69%控球、15次射门、6次射正），但沙特仅2次射正即打入2球，门将评分7.7 vs 6.0，完成5次扑救。下半场开局5分钟内沙特连入两球完成逆转，暴露了模型在赛前对机会转化率和比赛转折点的评估缺失。",
+  "validated_signals": [
+    {
+      "name": "控场优势",
+      "text": "阿根廷控球率69%，射门15比3，射正6比2，符合赛前对纸面实力的预期。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "endpoint": "/fixtures/statistics"
+        },
+        {
+          "field": "team_statistics",
+          "endpoint": "/fixtures/statistics"
+        },
+        {
+          "field": "team_statistics",
+          "endpoint": "/fixtures/statistics"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "纸面实力高估",
+      "text": "阿根廷世界级阵容未转化为胜利，纸面实力因子被过度加权。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "underweighted_signals": [
+    {
+      "name": "射门效率",
+      "text": "沙特2次射正2球，阿根廷6次射正1球；沙特门将7.7分、5次扑救，阿根廷门将6.0分、0扑救。模型赛前无射门效率因子，导致低估沙特得分能力。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "endpoint": "/fixtures/statistics"
+        },
+        {
+          "field": "player_statistics",
+          "endpoint": "/fixtures/players"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "下半场动量",
+      "text": "沙特在48分钟和53分钟连入两球，完成逆转。模型赛前无动量因子，未能捕捉比赛转折点。",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "endpoint": "/fixtures/events"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "customer_takeaway": "下次看强弱分明的比赛时，重点盯防：1）射门效率——射正次数与进球转化率，尤其是弱队门将状态；2）下半场动量——强队领先后是否松懈，弱队是否有反击高潮。这两项数据比控球率更能预测冷门。",
+  "operator_copy": "阿根廷1-2沙特：控球69%却输球，射门效率+下半场动量才是冷门密码",
+  "cta_copy": "查看完整赛后复盘，优化你的下一场模型判断",
+  "internal_notes": [
+    "纸面实力因子为假设，无真实数据源，赛后未验证。",
+    "近期状态、xG、伤停数据均未摄入，是模型已知缺口。",
+    "射门效率与下半场动量因子在赛后验证为决定性，建议下一版优先纳入。",
+    "source_refs仅用于已验证信号，假设信号无source_refs。"
+  ],
+  "source_ref_map": {
+    "控场优势": [
+      "/fixtures/statistics"
+    ],
+    "纸面实力高估": [],
+    "射门效率": [
+      "/fixtures/statistics",
+      "/fixtures/players"
+    ],
+    "下半场动量": [
+      "/fixtures/events"
+    ]
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "language": "zh-CN",
+  "generated_at": "2026-06-10T15:22:06.346967+00:00"
+}

@@ -1,0 +1,104 @@
+{
+  "hero_title": "Argentina 1-2 Saudi Arabia: Khi kẻ yếu hóa người hùng",
+  "hero_subtitle": "ScoutScore chỉ ra: kiểm soát bóng không phải tất cả, hiệu quả dứt điểm mới là chìa khóa.",
+  "model_judgement": "Trước trận, mô hình thiên về sức mạnh danh nghĩa của Argentina (đội hình sao, kiểm soát bóng vượt trội 69%). Tuy nhiên, Saudi Arabia đã tận dụng tối đa cơ hội: chỉ 2 cú sút trúng đích nhưng ghi 2 bàn, trong khi Argentina có 6 cú sút trúng đích nhưng chỉ ghi 1 bàn. Thủ môn Saudi Arabia xuất sắc với 5 pha cứu thua, điểm 7.7 so với 6.0 của thủ môn Argentina. Đây là trận đấu điển hình cho thấy hiệu quả dứt điểm và khoảnh khắc quyết định (bàn thắng ở phút 48 và 53) có thể lật ngược thế trận, bất chấp sự áp đảo về mặt kiểm soát.",
+  "validated_signals": [
+    {
+      "name": "Kiểm soát bóng không quyết định kết quả",
+      "text": "Argentina kiểm soát bóng 69% nhưng thua trận. Yếu tố kiểm soát bóng được xác nhận là không có tính dự báo trong trận này.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "endpoint": "/fixtures/statistics"
+        },
+        {
+          "field": "fixture",
+          "endpoint": "/fixtures"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Hiệu quả dứt điểm quyết định",
+      "text": "Saudi Arabia ghi 2 bàn từ 2 cú sút trúng đích, Argentina chỉ ghi 1 bàn từ 6 cú sút trúng đích. Thủ môn Saudi Arabia có 5 pha cứu thua, điểm 7.7.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "endpoint": "/fixtures/statistics"
+        },
+        {
+          "field": "player_statistics",
+          "endpoint": "/fixtures/players"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Bước ngoặt hiệp hai",
+      "text": "Saudi Arabia ghi hai bàn liên tiếp ở phút 48 và 53, tạo nên cuộc lội ngược dòng.",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "endpoint": "/fixtures/events"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_signals": [
+    {
+      "name": "Sức mạnh danh nghĩa bị đánh giá quá cao",
+      "text": "Mô hình dựa nhiều vào danh tiếng và đội hình Argentina, nhưng điều này không phản ánh đúng thực tế trên sân.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thiếu dữ liệu phong độ gần đây",
+      "text": "Không có dữ liệu phong độ gần đây để đánh giá, đây là biến số cần theo dõi ở các trận sau.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thiếu dữ liệu chấn thương và xG",
+      "text": "Không có thông tin chấn thương và chỉ số bàn thắng kỳ vọng (xG), ảnh hưởng đến khả năng đánh giá chất lượng cơ hội.",
+      "source_refs": [
+        {
+          "field": "injuries",
+          "endpoint": "/injuries"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "customer_takeaway": "Khi xem một trận đấu chênh lệch rõ ràng, đừng chỉ nhìn vào kiểm soát bóng hay danh tiếng. Hãy chú ý đến hiệu quả dứt điểm: số cú sút trúng đích và tỷ lệ chuyển hóa thành bàn thắng. Ngoài ra, theo dõi các bước ngoặt như bàn thắng đầu hiệp hai. Các biến số như phong độ gần đây, chấn thương và xG cũng rất quan trọng – hãy đảm bảo có dữ liệu này trước khi đưa ra nhận định.",
+  "operator_copy": "Argentina thua sốc Saudi Arabia: Kiểm soát bóng 69% vẫn thua – ScoutScore vạch trần 'bẫy' hiệu quả dứt điểm và bước ngoặt hiệp hai. Xem ngay phân tích chi tiết!",
+  "cta_copy": "Xem phân tích đầy đủ trên Giành Cup AI ScoutScore",
+  "internal_notes": [
+    "Trận đấu lịch sử World Cup 2022: Argentina thua Saudi Arabia 1-2 dù áp đảo hoàn toàn.",
+    "Mô hình đã đánh giá quá cao sức mạnh danh nghĩa (overweighted) và thiếu các yếu tố quyết định như hiệu quả dứt điểm và bước ngoặt.",
+    "Dữ liệu phong độ gần đây, chấn thương, xG chưa được nạp (missing) – cần ưu tiên bổ sung.",
+    "Historical replay: thông tin đội hình và sơ đồ chiến thuật có sẵn từ API nhưng không phải dữ liệu trước trận.",
+    "Source refs: team_statistics, player_statistics, events_summary, fixtures, injuries."
+  ],
+  "source_ref_map": {
+    "team_statistics": [
+      "/fixtures/statistics"
+    ],
+    "player_statistics": [
+      "/fixtures/players"
+    ],
+    "events_summary": [
+      "/fixtures/events"
+    ],
+    "fixture": [
+      "/fixtures"
+    ],
+    "injuries": [
+      "/injuries"
+    ]
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "language": "vi-VN",
+  "generated_at": "2026-06-10T15:22:22.021857+00:00"
+}

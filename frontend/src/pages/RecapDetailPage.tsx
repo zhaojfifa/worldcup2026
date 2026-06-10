@@ -4,12 +4,14 @@ import { useLocale, type Locale } from '../i18n/useLocale';
 import { api } from '../api/client';
 import { getBundledRecap, MORE_RECAPS, type RecapContent } from '../data/recapData';
 import { EVIDENCE_AVAILABLE, getBundledEvidence } from '../data/evidenceData';
+import { getNarrative } from '../data/narrativeData';
+import { NarrativeView } from '../components/NarrativeView';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
-// Customer product voice (synced with /evidence). The recap leads with the AI
-// answer; model replay / MISS verdict / correction / AI boundary are folded into
-// a collapsed internal block. vi/mm fall back to English (never Chinese).
+// Main view prefers the LLM-generated narrative (DeepSeek, guard-passed). The
+// hand-written recap/evidence copy is a DETERMINISTIC FALLBACK only (en/mm or no
+// narrative). Model replay / MISS / correction / AI boundary stay folded.
 const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
   zh: {
     back: '历史复盘', lead: 'AI 怎么看这场', factors: '决定结果的三个因子', evidence: '真实数据支撑',
@@ -68,7 +70,48 @@ export function RecapDetailPage() {
   }
 
   const c = content;
-  // Product-voice answer (shared with /evidence). Falls back to recap fields if absent.
+  const narr = getNarrative(fixtureId, loc);
+
+  // ── Preferred: LLM-generated narrative main view ──────────────────────────
+  if (narr) {
+    return (
+      <div className="page-enter">
+        <div className="backbar">
+          <button className="bk" onClick={() => navigate('/')}>←</button>
+          <span className="ti">{L.back}</span>
+        </div>
+        <div className="recap-banner">🗂️ {c.badge}</div>
+        <div className="card recap-hero">
+          <h1 className="recap-headline">{narr.hero_title}</h1>
+          <p className="recap-oneliner">{narr.hero_subtitle}</p>
+        </div>
+
+        <NarrativeView narrative={narr} loc={loc} />
+
+        {EVIDENCE_AVAILABLE.has(fixtureId) && (
+          <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
+        )}
+
+        <div className="sec-en"><span className="zh">{L.more}</span><span className="en">MORE RECAPS</span></div>
+        <div className="card">
+          {MORE_RECAPS.map(r => (
+            <div className="recap-more-row" key={r.fixtureId}>
+              <span className="recap-teams">{r.teams}</span>
+              <span className="recap-more-status">{L.moreStatus}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="card recap-cta">
+          <div className="recap-cta-q">{L.ctaQ}</div>
+          <button className="recap-cta-btn" onClick={() => navigate('/')}>{narr.cta_copy || L.ctaBtn} ▸</button>
+        </div>
+        <div className="muted-note">{c.disclaimer}</div>
+      </div>
+    );
+  }
+
+  // ── Deterministic fallback (en/mm, or no narrative) ───────────────────────
   const eb = getBundledEvidence(fixtureId, loc);
   const vClass = c.verdict === 'hit' ? 'green' : c.verdict === 'partial' ? 'amber' : 'red';
   const heroTitle = eb ? eb.title : c.headline;
@@ -81,17 +124,11 @@ export function RecapDetailPage() {
         <button className="bk" onClick={() => navigate('/')}>←</button>
         <span className="ti">{L.back}</span>
       </div>
-
-      {/* replay statement kept small, does not dominate */}
       <div className="recap-banner">🗂️ {c.badge}</div>
-
-      {/* hero — customer answer headline */}
       <div className="card recap-hero">
         <h1 className="recap-headline">{heroTitle}</h1>
         <p className="recap-oneliner">{heroSub}</p>
       </div>
-
-      {/* first screen — the answer (AI lean / post-match check / takeaway / value) */}
       {eb && (
         <>
           <div className="eb-fs-list">
@@ -106,35 +143,23 @@ export function RecapDetailPage() {
           <div className="card"><p className="eb-lead">{eb.customerLead}</p></div>
         </>
       )}
-
-      {/* the three factors that decided it (reframed from "blind spots") */}
       <div className="sec-en"><span className="zh">{L.factors}</span><span className="en">KEY FACTORS</span></div>
       <div className="card">
         {c.keyMisses.map((m, i) => <div className="recap-keyfactor" key={i}>▸ {m}</div>)}
       </div>
-
-      {/* real evidence */}
       <div className="sec-en"><span className="zh">{L.evidence}</span><span className="en">EVIDENCE</span></div>
       <div className="card"><div className="recap-evgrid">
         {c.evidence.map((e, i) => (
           <div className="recap-evcard" key={i}><div className="t">{e.label}</div><div className="v">{e.value}</div></div>
         ))}
       </div></div>
-
-      {/* Evidence Board v2 entry — additive factor-by-factor deep dive */}
       {EVIDENCE_AVAILABLE.has(fixtureId) && (
         <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
       )}
-
-      {/* forward variables */}
       <div className="sec-en"><span className="zh">{L.dataGaps}</span><span className="en">WATCH NEXT</span></div>
       <div className="card">{c.dataGaps.map((g, i) => <div className="recap-gap" key={i}>🎯 {g}</div>)}</div>
-
-      {/* operator-ready copy (de-charged, shared with /evidence) */}
       <div className="sec-en"><span className="zh">{L.operator}</span><span className="en">OPERATOR COPY</span></div>
       <div className="card"><div className="recap-copybox">{operatorCopy}</div></div>
-
-      {/* INTERNAL — model replay / MISS verdict / correction / AI boundary, collapsed */}
       <details className="card recap-ledger eb-internal">
         <summary>{L.internal}</summary>
         <div className="recap-vs" style={{ marginTop: 10 }}>
@@ -152,8 +177,6 @@ export function RecapDetailPage() {
         <div className="eb-internal-sub">{L.ai}</div>
         <p className="small" style={{ color: '#3A4A60', lineHeight: 1.7 }}>{c.aiBoundary}</p>
       </details>
-
-      {/* source ledger (collapsed; raw data secondary) */}
       <details className="card recap-ledger">
         <summary>{L.ledger}</summary>
         <table className="recap-ledger-tbl"><tbody>
@@ -162,8 +185,6 @@ export function RecapDetailPage() {
           ))}
         </tbody></table>
       </details>
-
-      {/* more historical recaps — non-clickable status, no dead-end */}
       <div className="sec-en"><span className="zh">{L.more}</span><span className="en">MORE RECAPS</span></div>
       <div className="card">
         {MORE_RECAPS.map(r => (
@@ -173,13 +194,10 @@ export function RecapDetailPage() {
           </div>
         ))}
       </div>
-
-      {/* continuation CTA — back to current AI view (compliant, no payment) */}
       <div className="card recap-cta">
         <div className="recap-cta-q">{L.ctaQ}</div>
         <button className="recap-cta-btn" onClick={() => navigate('/')}>{L.ctaBtn} ▸</button>
       </div>
-
       <div className="muted-note">{c.disclaimer}</div>
     </div>
   );

@@ -1418,3 +1418,11 @@ body {
   border-radius: 10px; padding: 9px 11px; margin-bottom: 8px; line-height: 1.6;
 }
 .recap-keyfactor:last-child { margin-bottom: 0; }
+
+/* LLM narrative signals (model-generated) */
+.nv-signal { padding: 9px 0; border-top: 1px solid var(--line); }
+.nv-signal:first-child { border-top: none; }
+.nv-name { font-size: 13px; font-weight: 800; color: #0e2a52; }
+.nv-text { font-size: 12.5px; color: #3A4A60; line-height: 1.7; margin-top: 3px; }
+.nv-prov { font-size: 10.5px; color: #94A4BB; margin-top: 8px; font-family: ui-monospace, Menlo, monospace; }
+.lang-mm .nv-text { line-height: 1.75; }

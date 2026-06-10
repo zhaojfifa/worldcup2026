@@ -21,11 +21,13 @@ const PORT = 9367;
 // Product Voice Sprint: capture the customer-voice rewrite. Earlier
 // evidence_855737_{zh,vi}.png (the FAIL-for-copy version) stay committed as the
 // "before" reference for the Owner Product Voice Review.
+// LLM-guided narrative version (DeepSeek). product_voice (hand-written) shots stay
+// committed as the "before" reference.
 const SHOTS = [
-  { path: '/evidence/855737?lang=zh', file: 'evidence_855737_zh_product_voice.png' },
-  { path: '/evidence/855737?lang=vi', file: 'evidence_855737_vi_product_voice.png' },
-  { path: '/recap/855737?lang=zh', file: 'recap_855737_zh_product_voice.png' },
-  { path: '/recap/855737?lang=vi', file: 'recap_855737_vi_product_voice.png' },
+  { path: '/evidence/855737?lang=zh', file: 'evidence_855737_zh_llm.png' },
+  { path: '/evidence/855737?lang=vi', file: 'evidence_855737_vi_llm.png' },
+  { path: '/recap/855737?lang=zh', file: 'recap_855737_zh_llm.png' },
+  { path: '/recap/855737?lang=vi', file: 'recap_855737_vi_llm.png' },
 ];
 mkdirSync(OUT, { recursive: true });
 

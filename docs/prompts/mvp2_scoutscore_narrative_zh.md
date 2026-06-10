@@ -28,9 +28,29 @@
 scoutscore_factors / evidence_cards / source_refs / known_missing_or_unverified / product_goal。
 
 ## 输出
-**只输出一个 JSON 对象**（不要 markdown、不要代码围栏、不要多余文字），字段见 Contract 的 Output：
-`hero_title` · `hero_subtitle` · `model_judgement` · `validated_signals[]` · `underweighted_signals[]` ·
-`customer_takeaway` · `operator_copy` · `cta_copy` · `internal_notes[]` · `source_ref_map`。
+**只输出一个 JSON 对象**（不要 markdown、不要代码围栏、不要多余文字）。
+
+### 输出 schema（严格遵守，所有字段必填）
+```jsonc
+{
+  "hero_title": "string",
+  "hero_subtitle": "string",
+  "model_judgement": "string",
+  "validated_signals": [ { "name": "string", "text": "string", "source_refs": [ {"field":"","endpoint":""} ], "assumption_flag": false } ],
+  "underweighted_signals": [ { "name": "string", "text": "string", "source_refs": [ ... ], "assumption_flag": false } ],
+  "customer_takeaway": "string",
+  "operator_copy": "string",
+  "cta_copy": "string",
+  "internal_notes": [ "string", "..." ],
+  "source_ref_map": { "字段或信号名": [ "/endpoint", "..." ] }
+}
+```
+- 每个 signal **必须**用 `name` 和 `text` 两个键（**不要**用 `signal` / `detail` / `interpretation`）。
+- `internal_notes` **必须是字符串数组**；所有字段**全部必填**（zh 和 vi 都要有 hero_title/hero_subtitle/operator_copy/cta_copy）。
+- **客户字段**（hero_title/hero_subtitle/model_judgement/customer_takeaway/operator_copy/cta_copy 以及 signal 的 name+text）里
+  **绝不能出现代码标识符 / snake_case 字段名**（如 team_strength / match_control / efficiency / event_momentum /
+  recent_form / lineup_formation / data_status / source_refs）；改用自然足球语言（如「纸面实力」「控场」「射门效率」「下半场动量」「近期状态」）。
+- 字段名 / 数据来源只放进 signal 的 `source_refs` 和 `source_ref_map`，**不进客户正文**。
 
 ## 硬性要求
 - 客户字段用**客户语言**：给判断、给风险解释、给可信感；少说过程、少说缺口、少说合规。

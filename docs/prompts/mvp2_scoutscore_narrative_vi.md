@@ -29,7 +29,29 @@ Bạn nhận một JSON (xem Input trong `MVP2_LLM_NARRATIVE_CONTRACT.md`): fixt
 scoutscore_factors / evidence_cards / source_refs / known_missing_or_unverified / product_goal.
 
 ## Đầu ra
-**Chỉ xuất một đối tượng JSON** (không markdown, không hàng rào mã, không chữ thừa), các trường theo Output của Contract.
+**Chỉ xuất một đối tượng JSON** (không markdown, không hàng rào mã, không chữ thừa).
+
+### Schema đầu ra (bắt buộc tuân thủ, TẤT CẢ các trường đều bắt buộc)
+```jsonc
+{
+  "hero_title": "string",
+  "hero_subtitle": "string",
+  "model_judgement": "string",
+  "validated_signals": [ { "name": "string", "text": "string", "source_refs": [ {"field":"","endpoint":""} ], "assumption_flag": false } ],
+  "underweighted_signals": [ { "name": "string", "text": "string", "source_refs": [ ... ], "assumption_flag": false } ],
+  "customer_takeaway": "string",
+  "operator_copy": "string",
+  "cta_copy": "string",
+  "internal_notes": [ "string", "..." ],
+  "source_ref_map": { "ten_truong_hoac_tin_hieu": [ "/endpoint", "..." ] }
+}
+```
+- Mỗi signal **phải** dùng hai khóa `name` và `text` (**không** dùng `signal` / `detail` / `interpretation`).
+- `internal_notes` **phải là mảng chuỗi**; **tất cả** các trường đều bắt buộc (kể cả hero_title/hero_subtitle/operator_copy/cta_copy).
+- Trong **các trường hướng khách hàng** (hero_title/hero_subtitle/model_judgement/customer_takeaway/operator_copy/cta_copy và name+text của signal)
+  **tuyệt đối không** được có mã định danh / tên trường snake_case (như team_strength / match_control / efficiency / event_momentum /
+  recent_form / lineup_formation / data_status / source_refs); hãy dùng ngôn ngữ bóng đá tự nhiên.
+- Tên trường / nguồn dữ liệu chỉ đặt trong `source_refs` của signal và trong `source_ref_map`, **không đưa vào văn bản khách hàng**.
 
 ## Yêu cầu bắt buộc
 - Các trường hướng khách hàng dùng **ngôn ngữ khách hàng**: đưa ra nhận định, giải thích rủi ro, tạo độ tin cậy.

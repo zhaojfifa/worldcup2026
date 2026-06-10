@@ -26,6 +26,10 @@ Recap sync + SPA fix:    Live diag: deploy was CURRENT (Product Voice in live bu
 RULE PIVOT:              MVP-2 = LLM-Guided Product Narrative Refactor. Narrative (judgement/recap/operator/zh+vi) must be
                         LLM-generated (DeepSeek/Gemini), NOT hand-written in templates. Engineering = stage; LLM = intelligence;
                         mock only as marked fallback (llm_provider=mock). See MVP2_LLM_NARRATIVE_{ARCHITECTURE,CONTRACT} + prompts.
+LLM layer (impl):        scripts/mvp2_generate_scoutscore_narrative.py (REAL DeepSeek + Gemini) + check_mvp2_llm_narrative_guard.py.
+                        Narrative JSON -> frontend bundles DeepSeek (default) -> /recap + /evidence main view = LLM narrative
+                        (NarrativeView); deterministic fallback for en/mm. Guard PASS (all 4); vi Han=0; build PASS.
+                        Provider review: DeepSeek default (punchier), Gemini benchmark. llm_provider shown in internal block.
 Branch:                 feature/mvp2-api-football-ingestion
 PR #3:                  Draft (base main, not ready, not merged) · PR #2 untouched · main untouched
 External operation:     paused · public_ready: false
