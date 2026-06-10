@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
 import { MatchHeader } from '../components/MatchHeader';
+import { EvidencePack } from '../components/EvidencePack';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
 import { deriveOps, reasonBullets } from '../ops/derive';
@@ -54,6 +55,10 @@ export function DetailPage() {
   }, [match?.liveCorrection]);
 
   if (!match) return null;
+
+  // Recap / finished match → no detailed model report. Show the Evidence Pack
+  // (data-status) and suppress live-prediction sections; keep the honest basics.
+  const reportIncomplete = match.status === 'finished';
 
   const ops = deriveOps(match);
   const bullets = loc === 'zh' ? reasonBullets(match) : reasonBulletsLoc(match, loc);
@@ -120,13 +125,16 @@ export function DetailPage() {
         <div className="ev-sources">{t.evidenceSources}</div>
       </div>
 
+      {/* Evidence Pack — recap / detailed report not generated (no fake full report) */}
+      {reportIncomplete && <EvidencePack />}
+
       {/* ── 1. Scout 结论卡（置顶） ──────────────────────────────────── */}
       <div className="verdict-card">
         <div className="verdict-top">
           <span className="zh">🔮 {t.scoutVerdictTitle}</span>
           <span className="en">{t.scoutSub}</span>
         </div>
-        <p className="scout-hook">{scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
+        <p className="scout-hook">{reportIncomplete ? t.scoutHookRecap : scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
         <div className="verdict-grid">
           <div className="verdict-cell">
             <div className="l">{t.tendency}</div>
@@ -195,6 +203,9 @@ export function DetailPage() {
         )}
       </div>
 
+      {/* LINEUP WATCH + Contrarian — live-prediction depth; hidden on recap (a 2022 match must not simulate a live correction) */}
+      {!reportIncomplete && (
+      <>
       {/* ── 5. LINEUP WATCH ───────────────────────────────────────── */}
       <div className="lineup-watch">
         <div className="lw-head">
@@ -236,6 +247,8 @@ export function DetailPage() {
           ⚔️ {contrarianLoc(match.homeTeam.name, match.awayTeam.name, loc)}
         </p>
       </div>
+      </>
+      )}
 
       {/* ── 6. 付费解锁 / 社群引导 ────────────────────────────────── */}
       <div className="sec-en">
