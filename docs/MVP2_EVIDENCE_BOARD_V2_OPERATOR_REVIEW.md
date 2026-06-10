@@ -57,6 +57,34 @@ Apply the checklist below to the product-voice surface and record the verdict in
 
 ---
 
+## ★ Live deploy diagnostic + recap sync (2026-06-10)
+**Owner finding:** live `/recap/855737` still showed old copy despite a "latest commit" deploy.
+
+**Diagnosis (live content, not dashboard):**
+- The live JS bundle (`index-DerwFNIT.js`) **contained** the Product Voice code (new evidence title, next-variables,
+  recap data-gap reframe). **Deploy was current — NOT stale.** CSS hash matched local exactly; the JS hash differed
+  only due to Render build-env minification, content identical.
+- **Root cause:** Product Voice had landed on **`/evidence/855737` only**; **`/recap/855737` main view was never
+  reworked** (still ScoutScore / MISS / 模型升级样本). Compounded by **no SPA-fallback rewrite** on the Render
+  static site → hard-loading any deep link returns **404** (the Owner reached /recap via client navigation).
+- **Verdict recorded: LIVE FAIL — RECAP NOT UPDATED** (explicitly *not* a stale deploy).
+
+**Fix (Owner 二次 GO — "Sync recap + SPA fallback"):**
+- **`/recap/855737` reworked to Product Voice** (frontend only): leads with the answer (shares the title / subtitle /
+  4 cards / lead / operator copy with /evidence); "三个关键漏项" → "决定结果的三个因子"; **MISS / 模型回放 / 修正 /
+  AI boundary folded into a collapsed internal block.** Runtime-verified: `missInVisible=false`, `internalExists=true`,
+  body Han=0 (zh + vi), build PASS, no console errors.
+- **`render.yaml`** added with an SPA rewrite (`/* → /index.html`). **Operator action still required** if the live
+  static site is not Blueprint-managed: add the same rule in the Render dashboard (Settings → Redirects/Rewrites:
+  Source `/*`, Destination `/index.html`, Action Rewrite) and redeploy, so deep links stop 404-ing.
+- Screenshots refreshed: `recap_855737_{zh,vi}_product_voice.png`.
+
+**Pending operator live verification** (after the dashboard rewrite is applied + redeploy): hard-load
+`/recap/855737?lang=zh` and `/evidence/855737?lang=zh` → both should render Product Voice (answer-led), no 404,
+MISS only inside the collapsed internal block.
+
+---
+
 ## 0. Owner ruling (2026-06-10) — review only, do NOT develop (superseded by the Product Voice Sprint above)
 冻结(本阶段一律不做):
 ```text

@@ -56,6 +56,9 @@ recap entry link; homepage untouched; build PASS; vi Han=0; review PASS WITH ISS
 Evidence Board v2 reworked to CUSTOMER PRODUCT VOICE (2026-06-10): first screen = the answer (title/subtitle/4 cards/
 lead); 3 decisive factors expanded + rest folded; data gaps -> "下一版需补强的变量"; MISS/boundary/ledger in collapsed
 internal block; operator copy de-charged; build PASS; vi Han=0; engineering PASS / prior copy FAIL -> reworked; operator product-voice re-review pending
+Live deploy diagnostic (2026-06-10): live bundle WAS current (Product Voice present) but /recap main view was never reworked
+(only /evidence) + no SPA fallback (deep links 404). Verdict LIVE FAIL — RECAP NOT UPDATED. Owner 二次 GO -> /recap/855737
+synced to Product Voice (answer-led, MISS/replay folded); render.yaml SPA rewrite added (operator must also set Render dashboard rewrite). Frontend + render.yaml only.
 ```
 
 **Core product logic**

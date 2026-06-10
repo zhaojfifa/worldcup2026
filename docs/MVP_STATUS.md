@@ -19,6 +19,10 @@ Evidence Board v2 impl:  /evidence/855737 (zh/vi, vi Han=0), bundled, additive, 
                         source-required / assumption up top); 3 decisive factors expanded + 3 folded; data gaps ->
                         "下一版需补强的变量"; MISS / AI-boundary / ledger in a collapsed internal block; operator
                         copy de-charged (no 稳赢). Build PASS. Engineering PASS; prior copy FAILED -> reworked.
+Recap sync + SPA fix:    Live diag: deploy was CURRENT (Product Voice in live bundle), but /recap main view was never
+                        reworked (only /evidence was) + no SPA fallback (deep links 404). Owner 二次 GO -> /recap/855737
+                        reworked to Product Voice (answer-led, MISS/replay folded into internal block); render.yaml SPA
+                        rewrite added (operator must also set the Render dashboard rewrite rule). Verdict was LIVE FAIL — RECAP NOT UPDATED.
 Branch:                 feature/mvp2-api-football-ingestion
 PR #3:                  Draft (base main, not ready, not merged) · PR #2 untouched · main untouched
 External operation:     paused · public_ready: false
