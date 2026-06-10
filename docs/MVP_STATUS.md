@@ -1,12 +1,39 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-08 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
+_Last updated: 2026-06-11 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-10) — LLM-Guided Product Narrative Refactor
+## ★ MVP-2 status (2026-06-11) — LLM-Driven Product Proof Sprint (3 samples SHIPPED)
+
+```text
+Sprint:                 MVP-2 LLM-Driven Product Proof (Owner: heavy engineering GO). Engineering = stage;
+                        LLM = football intelligence. Fixes the 2026-06-10 "post-match journalism" FAIL via
+                        prediction-first prompt v2 + product contract v2 + product guard.
+Samples:                A /recap/855737 Argentina 1-2 Saudi Arabia (upset recap)
+                        B /recap/979139 Argentina 3-3 France, pens (final recap; 855741 fallback NOT needed)
+                        C /predict/2026-brazil-argentina (pre-match 2026 modeling, hypothetical knockout — disclosed)
+ScoutScore v0.2:        factor frames (scripts/mvp2_build_scoutscore_v0_2_factors.py): kaggle-derived Elo
+                        (K=32,+60 home; 855737 gap 369 / 979139 gap 68 / 2026 ARG 2064 vs BRA 1964) + last-10
+                        form + H2H + shootouts + Scout Pack stats/GK/momentum; gaps -> assumption_context.
+Narratives:             12/12 REAL LLM (DeepSeek 6 + Gemini 6, zero mock), v2 product contract, GUARD PASS
+                        (scripts/check_mvp2_product_narrative_guard.py). Guard caught: vi 盘口黑话 kèo/cửa trên/
+                        cửa dưới (5 files), invented t.me URL (1), missing factor provenance (2), AI-filler tone.
+Pages:                  /recap/{855737,979139} + /predict/2026-brazil-argentina render the DeepSeek narrative
+                        (zh/vi bundled; en/mm deterministic fallback); group/subscribe/today CTA = LLM copy;
+                        free-vs-full frame on predict; internal fold = notes/ops-kit/source map/provider.
+QA:                     build PASS (tsc+vite); 6 screenshots 390x844 -> docs/qa_screenshots/mvp2_product_proof/;
+                        DOM checks: CTA/disclaimer/fold/est-badge present x6; 0 console errors; vi narrative Han=0
+                        (pre-existing 22-char shell chrome residual logged, not a sprint surface).
+Provider review:        DeepSeek default / Gemini benchmark RE-VALIDATED on 3 samples (provider review 2026-06-11).
+Acceptance:             docs/MVP2_THREE_SAMPLE_PRODUCT_PROOF_REVIEW.md (16/16 self-verify PASS; Owner review pending).
+Branch / PR:            feature/mvp2-api-football-ingestion · PR #3 Draft (not ready, not merged) · main untouched.
+External operation:     paused · public_ready: false · no payment/Token/TheSports runtime.
+```
+
+## MVP-2 status (2026-06-10) — LLM-Guided Product Narrative Refactor (superseded by 2026-06-11 above)
 
 ```text
 MVP-2 status:           Evidence Board v2 — Product Voice rework done (engineering PASS, copy reworked; internal)

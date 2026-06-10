@@ -13,6 +13,22 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
+**★ 2026-06-11 — LLM-Driven Product Proof Sprint SHIPPED (Owner review pending)**
+```text
+The 2026-06-10 next-sprint was executed as the LLM-Driven Product Proof Sprint. 3 product samples live
+on this branch: /recap/855737 (upset recap) · /recap/979139 (Argentina 3-3 France final recap) ·
+/predict/2026-brazil-argentina (pre-match 2026 modeling; hypothetical knockout, disclosed).
+Pipeline: ScoutScore v0.2 factor frames (kaggle-derived Elo + last-10 form + H2H + Scout Pack; gaps =
+flagged assumption_context, never dressed as fact) -> v2 product contract -> DeepSeek/Gemini ->
+product guard -> pages. 12/12 narratives real LLM (zero mock), GUARD PASS; DeepSeek default on pages
+(re-validated), Gemini benchmark. Guard now also bans vi 盘口黑话 (kèo/cửa trên/cửa dưới) and URLs in
+customer prose (both providers tried both — guard is a mandatory layer).
+Scripts: mvp2_build_scoutscore_v0_2_factors.py · mvp2_generate_product_proof_narratives.py ·
+check_mvp2_product_narrative_guard.py. Acceptance: docs/MVP2_THREE_SAMPLE_PRODUCT_PROOF_REVIEW.md
+(16/16 self-verify PASS; final PASS = Owner review). Screenshots: docs/qa_screenshots/mvp2_product_proof/.
+PR #3 still Draft · no merge · operation still paused · no payment/Token/TheSports runtime.
+```
+
 **Current phase**
 ```text
 MVP-2 = LLM-Guided Product Narrative Refactor.
@@ -24,7 +40,8 @@ Owner verdict (2026-06-10): LLM pipeline PASS (contract/generator/guard/DeepSeek
 narrative FAIL (reads like post-match journalism, not a ScoutScore model judgement).
 NEXT SPRINT = MVP-2 Betting-Logic Model Narrative Prompt Revision (prediction first-principles, NOT gambling/odds/
 盘口/竞猜/投注): rewrite prompt + contract + guard so output = pre-match judgement -> risk factors -> actual result
--> factor validation -> what the model got right / under-weighted -> what the user watches next. Thread closed docs-only; runtime unchanged.
+-> factor validation -> what the model got right / under-weighted -> what the user watches next.
+[EXECUTED 2026-06-11 as the LLM-Driven Product Proof Sprint — see ★ block above; Owner review pending.]
 ```
 
 **★ LLM-Guided Narrative — hard rules (non-negotiable this phase)**
@@ -116,10 +133,11 @@ No LLM-fabricated facts (every conclusion carries source_refs or an assumption_f
 
 **Next Owner decisions**
 ```text
-1. NEXT SPRINT: MVP-2 Betting-Logic Model Narrative Prompt Revision — rewrite prompt/contract/guard so LLM output is a ScoutScore model judgement (pre-match judgement -> risk factors -> validation -> next-match watch), not journalism.
-2. Confirm DeepSeek as default narrative provider (vs Gemini benchmark).
-3. Operator: set Render dashboard SPA rewrite (/* -> /index.html) + redeploy; verify /recap + /evidence live (deep links 404 now).
-4. Productize 979139 / start TheSports / second-source injuries — still gated.
+1. [DONE 2026-06-11] Prompt revision executed as the LLM-Driven Product Proof Sprint (3 samples shipped).
+   NEW: review docs/MVP2_THREE_SAMPLE_PRODUCT_PROOF_REVIEW.md + screenshots -> grant/deny final PASS.
+2. Confirm DeepSeek as default narrative provider (re-validated on 3 samples; Gemini benchmark).
+3. Operator: set Render dashboard SPA rewrite (/* -> /index.html) + redeploy; verify /recap + /predict live (deep links 404 now).
+4. [PARTIAL] 979139 productized this sprint (recap). TheSports / second-source injuries — still gated.
 5. Keep PR #3 Draft or split a smaller PR.
 ```
 

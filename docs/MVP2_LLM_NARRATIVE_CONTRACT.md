@@ -1,5 +1,59 @@
 # MVP-2 — LLM Narrative Contract
 
+> **★ 2026-06-11:** the **v2 Product Proof contract (§v2 below)** is now the contract for all product
+> surfaces (`/recap/:id`, `/predict/:slug`). The v1 contract underneath remains as the archived first
+> iteration (its consumers were re-pointed to v2).
+
+---
+
+## v2 — Product Proof contract (current)
+
+**Input** (engineering → LLM, one call per sample × language), assembled by
+`scripts/mvp2_generate_product_proof_narratives.py` from the ScoutScore v0.2 factor frame
+(`docs/data_audit/mvp2_scoutscore_v0_2/{id}.factor_frame.json`):
+`fixture` · `score` (recap) · `baseline` (kaggle-derived elo snapshot / last-10 form / h2h /
+scorers / shootouts) · `scoutscore_factors` (naturalized names — snake_case never reaches prose) ·
+`model_frame_outputs` (lean/risk/scoreline-band basis, `model_estimate`-labelled) ·
+`live_30min_triggers` · `known_gaps_internal` · `replay_notice` | `hypothetical_notice` ·
+`product_goal` · `growth_brief`.
+
+**Output** (LLM → engineering) — JSON only, all keys required:
+```jsonc
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "", "mode": "historical_recap | pre_match_2026_modeling", "language": "zh-CN | vi-VN",
+  "hero_title": "", "hero_subtitle": "", "short_title": "", "screenshot_line": "",
+  "model_judgement": "", "main_lean": "", "scoreline_view": "", "risk_level": "",
+  "risk_factors":        [ { "name": "", "text": "", "source_refs": [], "assumption_flag": false } ],
+  "validated_factors":   [ /* recap: non-empty · predict: [] */ ],
+  "underweighted_factors": [ /* recap: non-empty · predict: [] */ ],
+  "watch_next_signals":  [ /* forward-looking; assumption_flag default true */ ],
+  "operator_copy": "", "subscription_hook": "", "group_join_copy": "", "today_cta": "", "social_post": "",
+  "internal_notes": [],   // replay / hypothetical-2026 / assumption_context disclosures (internal only)
+  "source_ref_map": {},
+  "llm_provider": "deepseek | gemini | mock", "model": "", "generated_at": ""  // stamped by the generator
+}
+```
+
+**Hard requirements (v2):** product name in the hero block; factor entries = `{name, text}` + real
+`source_refs` OR `assumption_flag: true`; predict `scoreline_view` carries a model-estimate marker and
+`internal_notes` disclose the hypothetical fixture; recap `internal_notes` disclose the replay nature;
+no betting/odds words incl. vi slang (kèo / lật kèo / cửa trên / cửa dưới / nhà cái / soi kèo); no
+probability-term predictions (real match stats like possession % allowed); no journalism-only titles,
+no AI-filler/research tone; **no URLs in customer prose** (links are page-injected); vi = zero Han;
+assumptions are analysis context, never stated as fact.
+
+**Consumers (v2):** generator `scripts/mvp2_generate_product_proof_narratives.py` (full guard runs
+inside its retry loop) → `docs/data_audit/mvp2_product_proof_narratives/{id}.{lang}.{provider}.json` →
+guard `scripts/check_mvp2_product_narrative_guard.py` → bundled copies
+`frontend/src/data/productNarratives/{id}.{lang}.json` (DeepSeek bound) → pages `/recap/:fixtureId`
+(ProductRecapView) and `/predict/:slug` (ProductPredictView); prompts
+`docs/prompts/mvp2_scoutscore_product_narrative_{zh,vi}.md`.
+
+---
+
+## v1 (archived 2026-06-10)
+
 > **Date:** 2026-06-10 · **Status:** executable contract for the narrative generator, the guard, and the pages.
 > The LLM is given the **input** below and MUST return the **output** below as **JSON only** (no prose wrapper,
 > no markdown fences). Pairs with `MVP2_LLM_NARRATIVE_ARCHITECTURE.md` and the prompts in `docs/prompts/`.
