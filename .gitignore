@@ -1,7 +1,10 @@
 # Environment
 .env
 .env.*
+*.env
 !.env.example
+# Local secret env exports (e.g. operator Render dumps) — never commit
+worldcup2026-api.env
 
 # Local tooling / preview config
 .claude/
