@@ -29,6 +29,7 @@ router = APIRouter(prefix="/internal", tags=["internal"])
 _REPO = Path(__file__).resolve().parents[3]
 SAMPLES_DIR = _REPO / "docs" / "data_audit" / "mvp2_scout_pack_samples"
 REPORTS_DIR = _REPO / "docs" / "data_audit" / "mvp2_productized_reports"
+ACCT_DIR = _REPO / "docs" / "data_audit" / "mvp2_prediction_accountability_reports"
 REPORT_LANG_TAG = {"zh": "zh-CN", "vi": "vi-VN"}  # en falls back to the raw view
 SUPPORTED_LANGS = ("zh", "vi", "en")
 
@@ -123,6 +124,33 @@ REPORT_LABELS["en"] = {"page_title": "Real-data Scout Report", "s_verdict": "Int
                        "s_ledger": "Source Ledger (click to expand)", "source": "Source",
                        "allowed": "Allowed conclusions", "forbidden": "Forbidden conclusions",
                        "not_prediction": "Post-match explanation signals, not pre-match prediction", "yes": "Yes", "no": "No"}
+
+ACCT_LABELS = {
+    "zh": {"page_title": "预测复盘报告", "s_recap": "模型复盘摘要", "s_replay": "历史回放声明",
+           "s_prematch": "赛前模型观点", "s_actual": "实际结果", "s_verdict": "命中 / 失误 / 部分命中",
+           "s_right": "模型看对了什么", "s_missed": "模型漏掉了什么", "s_evidence": "关键证据",
+           "s_factors": "因子校验", "s_correction": "下版模型修正", "s_operator": "运营复盘文案",
+           "s_hook": "客户吸引文案", "s_boundary": "缺失数据边界", "s_ai": "AI 解释边界",
+           "s_raw": "原始 Scout Pack（点击展开）", "s_ledger": "证据来源 / Source Ledger（点击展开）",
+           "expected": "赛前模型倾向", "confidence": "置信度", "status_label": "判定", "source": "来源",
+           "factor": "因子", "direction": "方向", "pre_score": "赛前分", "status": "校验", "data": "数据"},
+    "vi": {"page_title": "Báo cáo phục dựng dự đoán", "s_recap": "Tóm tắt phục dựng mô hình", "s_replay": "Tuyên bố phát lại lịch sử",
+           "s_prematch": "Quan điểm mô hình trước trận", "s_actual": "Kết quả thực tế", "s_verdict": "Trúng / Trượt / Trúng một phần",
+           "s_right": "Mô hình nhận định đúng điều gì", "s_missed": "Mô hình bỏ sót điều gì", "s_evidence": "Bằng chứng chính",
+           "s_factors": "Kiểm chứng yếu tố", "s_correction": "Hiệu chỉnh mô hình bản sau", "s_operator": "Nội dung tổng kết vận hành",
+           "s_hook": "Nội dung thu hút khách hàng", "s_boundary": "Giới hạn dữ liệu còn thiếu", "s_ai": "Giới hạn giải thích của AI",
+           "s_raw": "Scout Pack gốc (nhấn để mở)", "s_ledger": "Nguồn dữ liệu / Source Ledger (nhấn để mở)",
+           "expected": "Mô hình nghiêng về (trước trận)", "confidence": "Độ tin cậy", "status_label": "Kết luận", "source": "Nguồn",
+           "factor": "Yếu tố", "direction": "Hướng", "pre_score": "Điểm trước trận", "status": "Kiểm chứng", "data": "Dữ liệu"},
+}
+ACCT_LABELS["en"] = {"page_title": "Prediction Accountability Report", "s_recap": "Model recap summary", "s_replay": "Historical replay statement",
+                     "s_prematch": "Pre-match model view", "s_actual": "Actual result", "s_verdict": "Hit / Miss / Partial",
+                     "s_right": "What the model got right", "s_missed": "What the model missed", "s_evidence": "Key evidence",
+                     "s_factors": "Factor validation", "s_correction": "Model correction (next version)", "s_operator": "Operator recap copy",
+                     "s_hook": "Customer hook copy", "s_boundary": "Missing-data boundary", "s_ai": "AI boundary",
+                     "s_raw": "Raw Scout Pack (click to expand)", "s_ledger": "Source Ledger (click to expand)",
+                     "expected": "Pre-match model lean", "confidence": "Confidence", "status_label": "Verdict", "source": "Source",
+                     "factor": "Factor", "direction": "Dir", "pre_score": "Pre score", "status": "Check", "data": "Data"}
 
 _CSS = """
 *{box-sizing:border-box}body{margin:0;background:#0b1f3a;color:#0b1f3a;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans',sans-serif}
@@ -535,6 +563,128 @@ def _load_report(fixture_id: str, lang: str) -> Optional[dict]:
         return None
 
 
+def _load_accountability(fixture_id: str, lang: str) -> Optional[dict]:
+    tag = REPORT_LANG_TAG.get(lang)
+    if not tag:
+        return None
+    path = ACCT_DIR / f"{fixture_id}.{tag}.json"
+    if not path.is_file():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _render_accountability(acct: dict, pack: dict, lang: str) -> str:
+    """Prediction-accountability view (model recap first); raw pack + ledger collapsed."""
+    L = LABELS.get(lang, LABELS["en"])
+    A = ACCT_LABELS.get(lang, ACCT_LABELS["en"])
+    p = [_render_header(pack, lang)]
+
+    # 1. model recap summary (hero) + historical replay banner
+    p.append(f'<div class="card hero"><h2>{_esc(A["s_recap"])}</h2>'
+             f'<div class="verdict">{_esc(acct.get("model_recap_summary"))}</div>'
+             f'<div class="note" style="color:#ffe0b8">{_esc(acct.get("disclaimer"))}</div></div>')
+    # 2. historical replay statement
+    p.append(f'<div class="card"><div class="miss" style="margin:0">⛔ {_esc(A["s_replay"])}: '
+             f'{_esc(acct.get("historical_replay_statement"))}</div></div>')
+
+    # 3. pre-match model view
+    pmv = acct.get("pre_match_model_view") or {}
+    p.append(f'<div class="card"><h2>{_esc(A["s_prematch"])}</h2>'
+             f'<div class="chips" style="margin-bottom:8px">'
+             f'<span class="chip">{_esc(A["expected"])}: {_esc(pmv.get("expected_side"))}</span>'
+             f'<span class="chip warn">{_esc(A["confidence"])}: {_esc(pmv.get("confidence_tier"))}</span></div>'
+             f'<div class="why">{_esc(pmv.get("view"))}{_src_refs(pmv.get("source_refs"), A["source"])}</div>')
+    for r in pmv.get("reasons_favored") or []:
+        p.append(f'<div class="why">• {_esc(r)}</div>')
+    p.append("</div>")
+
+    # 4. actual result + 5. verdict
+    ar = acct.get("actual_result") or {}
+    av = acct.get("accountability_verdict") or {}
+    badge = {"hit": "ok", "miss": "bad", "partial": "warn"}.get(av.get("status"), "warn")
+    p.append(f'<div class="card"><h2>{_esc(A["s_actual"])}</h2>'
+             f'<div class="score">{_esc(ar.get("score"))}</div>'
+             f'<div class="why">{_esc(ar.get("text"))}{_src_refs(ar.get("source_refs"), A["source"])}</div>'
+             f'<div style="margin-top:8px"><span class="pill {badge}">{_esc(A["status_label"])}: '
+             f'{_esc((av.get("status") or "").upper())}</span> {_esc(av.get("text"))}</div></div>')
+
+    # 6. what got right / 7. what missed
+    p.append(f'<div class="card"><h2>{_esc(A["s_right"])}</h2>')
+    for b in acct.get("what_model_got_right") or []:
+        p.append(f'<div class="why">✔ {_esc(b.get("point"))}{_src_refs(b.get("source_refs"), A["source"])}</div>')
+    p.append("</div>")
+    p.append(f'<div class="card"><h2>{_esc(A["s_missed"])}</h2>')
+    for b in acct.get("what_model_missed") or []:
+        flag = "" if b.get("source_refs") else ' <span class="srcref">assumption</span>'
+        p.append(f'<div class="why">✘ {_esc(b.get("point"))}{flag}{_src_refs(b.get("source_refs"), A["source"])}</div>')
+    p.append("</div>")
+
+    # 8. key evidence
+    p.append(f'<div class="card"><h2>{_esc(A["s_evidence"])}</h2><div class="evgrid">')
+    for c in acct.get("key_evidence") or []:
+        p.append(f'<div class="evcard"><div class="evtitle">{_esc(c.get("title"))}</div>'
+                 f'<div class="evval">{_esc(c.get("value"))}</div></div>')
+    p.append("</div></div>")
+
+    # 9. factor validation
+    p.append(f'<div class="card"><h2>{_esc(A["s_factors"])}</h2>'
+             f'<table><tr><th>{_esc(A["factor"])}</th><th>{_esc(A["direction"])}</th><th>{_esc(A["pre_score"])}</th>'
+             f'<th>{_esc(A["status"])}</th><th>{_esc(A["data"])}</th><th>note</th></tr>')
+    for f in acct.get("factor_validation") or []:
+        flag = "" if (f.get("source_refs") or f.get("assumption")) else ""
+        asum = ' <span class="srcref">assumption</span>' if f.get("assumption") else ""
+        p.append(f'<tr><td>{_esc(f.get("factor"))}</td><td>{_esc(f.get("direction"))}</td>'
+                 f'<td>{_esc(f.get("pre_score"))}</td><td>{_esc(f.get("status"))}</td>'
+                 f'<td>{_esc(f.get("data_status"))}</td><td>{_esc(f.get("note"))}{asum}</td></tr>')
+    p.append("</table></div>")
+
+    # 10. model correction
+    mc = acct.get("model_correction") or {}
+    p.append(f'<div class="card"><h2>{_esc(A["s_correction"])}</h2>'
+             f'<div class="why">{_esc(mc.get("summary"))}</div><div class="chips" style="margin-top:8px">')
+    for ch in mc.get("changes") or []:
+        p.append(f'<span class="chip">{_esc(ch)}</span>')
+    for nd in mc.get("next_data") or []:
+        p.append(f'<span class="chip bad">{_esc(nd)}</span>')
+    p.append(f'</div><div class="refs">{_esc(mc.get("ref_doc"))}</div></div>')
+
+    # 11. operator recap copy + 12. customer hook copy
+    op = acct.get("operator_recap_copy") or {}
+    hook = acct.get("customer_hook_copy") or {}
+    p.append(f'<div class="card"><h2>{_esc(A["s_operator"])}</h2>'
+             f'<div class="draft">{_esc(op.get("text"))}</div>{_src_refs(op.get("source_refs"), A["source"])}</div>')
+    p.append(f'<div class="card"><h2>{_esc(A["s_hook"])}</h2>'
+             f'<div class="draft" style="background:#fff7ed;border-color:#f59e0b">{_esc(hook.get("text"))}</div></div>')
+
+    # 13. missing-data boundary
+    p.append(f'<div class="card"><h2>{_esc(A["s_boundary"])}</h2>')
+    for m in acct.get("missing_data_boundary") or []:
+        p.append(f'<div class="miss">⚠ {_esc(m)}</div>')
+    p.append("</div>")
+
+    # AI boundary
+    ab = acct.get("ai_boundary") or {}
+    p.append(f'<div class="card"><h2>{_esc(A["s_ai"])}</h2>'
+             f'<div class="note" style="color:#0e2a52;font-weight:700">{_esc(ab.get("note"))}</div>'
+             f'<div style="margin:6px 0 2px"><b>{_esc(L["ai_allowed"])}</b></div><div class="chips">')
+    for a in ab.get("allowed_fields") or []:
+        p.append(f'<span class="chip">{_esc(a)}</span>')
+    p.append(f'</div><div style="margin:6px 0 2px"><b>{_esc(L["ai_forbidden"])}</b></div><div class="chips">')
+    for a in ab.get("forbidden_fields") or []:
+        p.append(f'<span class="chip bad">{_esc(a)}</span>')
+    p.append("</div></div>")
+
+    # collapsed raw pack + ledger
+    p.append(f'<details class="card"><summary>{_esc(A["s_raw"])}</summary>{_render_data_sections(pack, lang)}'
+             f'{_render_missing(pack, lang)}</details>')
+    p.append(f'<details class="card"><summary>{_esc(A["s_ledger"])}</summary>{_render_ledger(pack, lang)}</details>')
+
+    return _page_shell(lang, f'{A["page_title"]} · {pack.get("fixture_id")}', "\n".join(p))
+
+
 def _authorized(request: Request, token: Optional[str]) -> bool:
     """In production, require the admin token (header or ?token=). Open in dev."""
     settings = get_settings()
@@ -563,8 +713,10 @@ def scout_pack_preview(
             f"{_esc(fixture_id)}</code></p>",
             status_code=404,
         )
-    # Default to the productized operator report when one exists for this lang;
-    # otherwise fall back to the raw scout-pack view (engineer-facing).
+    # Preference: prediction-accountability report → productized report → raw scout-pack view.
+    acct = _load_accountability(fixture_id, lang)
+    if acct is not None:
+        return HTMLResponse(_render_accountability(acct, pack, lang))
     report = _load_report(fixture_id, lang)
     if report is not None:
         return HTMLResponse(_render_report(report, pack, lang))

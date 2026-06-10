@@ -1,0 +1,420 @@
+{
+  "model_name": "ScoutScore v0.1",
+  "fixture_id": 855737,
+  "report_type": "prediction_accountability_v0",
+  "prediction_mode": "historical_replay",
+  "not_real_archived_prediction": true,
+  "last_checked_at": "2026-06-10T09:01:53.905199+00:00",
+  "public_ready": false,
+  "operation_status": "paused",
+  "model_recap_summary": "ScoutScore v0.1 历史回放:模型会把 Argentina 视为优势方,但结果是 Argentina 1–2 Saudi Arabia,Saudi Arabia 爆冷取胜——这是一个模型升级样本(判定:MISS)。",
+  "historical_replay_statement": "历史回放样例,用于验证产品流程;非真实赛前存档预测,不代表赛前命中。",
+  "pre_match_model_view": {
+    "expected_side": "Argentina",
+    "confidence_tier": "low",
+    "view": "赛前(回放)模型基于纸面强弱把 Argentina 视为优势方,置信度 low——因缺少近期状态/Elo/伤停/xG 等真实赛前数据,判断主要建立在假设上。",
+    "reasons_favored": [
+      "纸面强弱偏向 Argentina(假设,非接入数据)。"
+    ],
+    "source_refs": [
+      {
+        "field": "team_statistics",
+        "metric": "possession/shots",
+        "value": null,
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "actual_result": {
+    "score": "Argentina 1–2 Saudi Arabia",
+    "winner": "Saudi Arabia",
+    "text": "Saudi Arabia 以 1–2 取胜。",
+    "source_refs": [
+      {
+        "field": "fixture",
+        "metric": "final_score",
+        "value": "1-2",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "accountability_verdict": {
+    "status": "miss",
+    "text": "判定:MISS。模型倾向 Argentina,实际 Saudi Arabia 取胜。"
+  },
+  "what_model_got_right": [
+    {
+      "point": "模型预期 Argentina 控场——确实兑现(控球 69%、射门 15 次)。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession / Total Shots",
+          "value": "69% / 15",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "what_model_missed": [
+    {
+      "point": "射门效率:Saudi Arabia 2 射正 → 2 球 vs Argentina 6 射正 → 1 球。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal",
+          "value": "6 / 2",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "fixture",
+          "metric": "final_score",
+          "value": "1-2",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "门将:Saudi Arabia 门将评分 7.7 + 5 次扑救,Argentina 门将 6.0。",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "home 6.0 / away 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        },
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "0 / 5",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "事件动量:下半场 48' Saudi Arabia, 53' Saudi Arabia 完成反超。",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "second-half goals",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "过度依赖纸面强弱,且缺少近期状态/伤停/xG 数据。",
+      "source_refs": [],
+      "assumption": true
+    }
+  ],
+  "key_evidence": [
+    {
+      "title": "控球率",
+      "value": "69% / 31%",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "69% / 31%",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "总射门",
+      "value": "15 / 3",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Total Shots",
+          "value": "15 / 3",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "射正",
+      "value": "6 / 2",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal",
+          "value": "6 / 2",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "门将评分",
+      "value": "6.0 / 7.7",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "6.0 / 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "门将扑救",
+      "value": "0 / 5",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "0 / 5",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "factor_validation": [
+    {
+      "factor": "team_strength",
+      "direction": "argentina",
+      "pre_score": 2,
+      "status": "invalidated",
+      "data_status": "missing",
+      "note": "NOT validated — paper strength did not convert; the favoured side dominated play but lost. Over-weighted.",
+      "source_refs": [],
+      "assumption": true
+    },
+    {
+      "factor": "recent_form",
+      "direction": "unknown",
+      "pre_score": 0,
+      "status": "not_available",
+      "data_status": "missing",
+      "note": "Cannot validate (data missing).",
+      "source_refs": [],
+      "assumption": true
+    },
+    {
+      "factor": "lineup_formation",
+      "direction": "argentina",
+      "pre_score": 1,
+      "status": "partial",
+      "data_status": "replay_only",
+      "note": "Partial — the favoured side's setup created chances, but Saudi Arabia's compact block held the result.",
+      "source_refs": [
+        {
+          "field": "formation",
+          "metric": "formation",
+          "value": "4-4-2 / 4-1-4-1",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 855737
+        },
+        {
+          "field": "lineups",
+          "metric": "startXI",
+          "value": null,
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false
+    },
+    {
+      "factor": "match_control",
+      "direction": "argentina",
+      "pre_score": 1,
+      "status": "invalidated_as_predictor",
+      "data_status": "replay_only",
+      "note": "Validated as control (69% vs 31%), INVALIDATED as a result predictor — control did not convert.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "diff 38.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": true
+    },
+    {
+      "factor": "efficiency",
+      "direction": "unknown",
+      "pre_score": 0,
+      "status": "missed",
+      "data_status": "replay_only",
+      "note": "DECISIVE (missed): Saudi Arabia 2 on-target → 2 goals vs Argentina 6 on-target → 1; keeper ratings home 6.0 / away 7.7, saves 0 / 5.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal / Total Shots",
+          "value": "12.0 shot diff",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "home 6.0 / away 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false
+    },
+    {
+      "factor": "event_momentum",
+      "direction": "unknown",
+      "pre_score": 0,
+      "status": "missed",
+      "data_status": "replay_only",
+      "note": "DECISIVE (missed): second-half turnaround — 48' Saudi Arabia, 53' Saudi Arabia.",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "second-half goals",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false
+    },
+    {
+      "factor": "missing_risk",
+      "direction": "neutral",
+      "pre_score": 0,
+      "status": "confirmed_gap",
+      "data_status": "missing",
+      "note": "Confirmed — these gaps must be filled (injuries P0, xG P1).",
+      "source_refs": [
+        {
+          "field": "injuries",
+          "metric": "results",
+          "value": "0 (source required)",
+          "source": "api-football",
+          "endpoint": "/injuries",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false
+    }
+  ],
+  "model_correction": {
+    "summary": "下版需:下调纯纸面强弱权重;新增/上调 效率、门将、事件动量;接入 近期状态/Elo、伤停(P0)、xG(P1)。",
+    "changes": [
+      "下调 team_strength 权重",
+      "新增并提高 efficiency / goalkeeper / event_momentum 权重",
+      "接入 recent_form / Elo 基线"
+    ],
+    "next_data": [
+      "伤停(P0)",
+      "xG(P1)",
+      "近期状态 / Elo(P1)"
+    ],
+    "ref_doc": "docs/MVP2_NEXT_DATA_REQUIREMENTS.md"
+  },
+  "operator_recap_copy": {
+    "text": "这场爆冷说明,单看纸面强弱很容易高估 Argentina。ScoutScore v0.1 在历史回放中会把 Argentina 作为优势方,但赛后证据显示,Saudi Arabia 的下半场反超、门将高评分和射门效率,是模型必须提高权重的关键因素。也就是说,这场不是简单冷门,而是一个模型升级样本。历史表现不代表未来结果,仅供数据分析和球迷娱乐参考。",
+    "source_refs": [
+      {
+        "field": "team_statistics",
+        "metric": "possession/shots/saves",
+        "value": null,
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": 855737
+      },
+      {
+        "field": "events_summary",
+        "metric": "second-half goals",
+        "value": "48' Saudi Arabia; 53' Saudi Arabia",
+        "source": "api-football",
+        "endpoint": "/fixtures/events",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "customer_hook_copy": {
+    "text": "这不是预测失败就结束——模型据此锁定下一版要补强的关键变量:效率、门将、事件动量。看 AI 如何自我升级。"
+  },
+  "missing_data_boundary": [
+    "伤停:0 条返回,需二次数据源或当前赛季复验",
+    "xG:本轮未接入",
+    "近期状态 / Elo:未接入"
+  ],
+  "ai_boundary": {
+    "allowed_fields": [
+      "fixture",
+      "teams",
+      "lineups",
+      "formation",
+      "coach",
+      "events_summary",
+      "team_statistics",
+      "player_statistics",
+      "squad"
+    ],
+    "forbidden_fields": [
+      "injuries (unresolved — 0 results; do NOT state 'no injuries')",
+      "player_absence_impact",
+      "suspensions",
+      "any field not present in source_ledger",
+      "match outcome prediction or any financial / profit signal",
+      "claiming a real archived pre-match prediction",
+      "match-result prediction or financial signal"
+    ],
+    "note": "AI 仅可解释已验证字段,且必须声明历史回放。"
+  },
+  "source_refs": [
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "player_statistics",
+      "endpoint": "/fixtures/players",
+      "source": "api-football"
+    },
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    }
+  ],
+  "disclaimer": "历史表现不代表未来结果,仅供数据分析和球迷娱乐参考。"
+}

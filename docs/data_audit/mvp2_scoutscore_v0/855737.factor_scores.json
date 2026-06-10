@@ -1,0 +1,165 @@
+{
+  "model_name": "ScoutScore v0.1",
+  "model_type": "hybrid_factor_scoring_with_llm_reasoning",
+  "fixture_id": 855737,
+  "prediction_mode": "historical_replay",
+  "not_real_archived_prediction": true,
+  "orientation": "positive score favours HOME (Argentina); negative favours AWAY (Saudi Arabia)",
+  "favored_side_assumption": {
+    "side": "home",
+    "team": "Argentina",
+    "basis": "paper strength assumption — Elo/squad value NOT ingested"
+  },
+  "factors": [
+    {
+      "factor": "team_strength",
+      "direction": "argentina",
+      "weight": 2,
+      "score": 2,
+      "interpretation_pre_match": "Paper strength / reputation favours Argentina (world-class squad, star players).",
+      "post_match_validation": "NOT validated — paper strength did not convert; the favoured side dominated play but lost. Over-weighted.",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "missing",
+      "note": "Team strength / Elo / squad value is NOT ingested — this is a replay assumption."
+    },
+    {
+      "factor": "recent_form",
+      "direction": "unknown",
+      "weight": 1,
+      "score": 0,
+      "interpretation_pre_match": "Recent form not ingested — unknown pre-match.",
+      "post_match_validation": "Cannot validate (data missing).",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "missing"
+    },
+    {
+      "factor": "lineup_formation",
+      "direction": "argentina",
+      "weight": 1,
+      "score": 1,
+      "interpretation_pre_match": "Argentina 4-4-2 vs Saudi Arabia 4-1-4-1 (read from match lineup; replay).",
+      "post_match_validation": "Partial — the favoured side's setup created chances, but Saudi Arabia's compact block held the result.",
+      "source_refs": [
+        {
+          "field": "formation",
+          "metric": "formation",
+          "value": "4-4-2 / 4-1-4-1",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 855737
+        },
+        {
+          "field": "lineups",
+          "metric": "startXI",
+          "value": null,
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false,
+      "data_status": "replay_only"
+    },
+    {
+      "factor": "match_control",
+      "direction": "argentina",
+      "weight": 1,
+      "score": 1,
+      "interpretation_pre_match": "Model assumes the favoured side controls possession — an in-match factor, not a true pre-match input.",
+      "post_match_validation": "Validated as control (69% vs 31%), INVALIDATED as a result predictor — control did not convert.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "diff 38.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": true,
+      "data_status": "replay_only"
+    },
+    {
+      "factor": "efficiency",
+      "direction": "unknown",
+      "weight": 2,
+      "score": 0,
+      "interpretation_pre_match": "No shot-quality / finishing-efficiency factor pre-match — model blind spot.",
+      "post_match_validation": "DECISIVE (missed): Saudi Arabia 2 on-target → 2 goals vs Argentina 6 on-target → 1; keeper ratings home 6.0 / away 7.7, saves 0 / 5.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal / Total Shots",
+          "value": "12.0 shot diff",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "home 6.0 / away 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false,
+      "data_status": "replay_only"
+    },
+    {
+      "factor": "event_momentum",
+      "direction": "unknown",
+      "weight": 2,
+      "score": 0,
+      "interpretation_pre_match": "No momentum / turning-point factor pre-match — model blind spot.",
+      "post_match_validation": "DECISIVE (missed): second-half turnaround — 48' Saudi Arabia, 53' Saudi Arabia.",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "second-half goals",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false,
+      "data_status": "replay_only"
+    },
+    {
+      "factor": "missing_risk",
+      "direction": "neutral",
+      "weight": 1,
+      "score": 0,
+      "interpretation_pre_match": "Model blind spots: injuries (0 results) + xG (not ingested) — cannot assess availability or chance quality.",
+      "post_match_validation": "Confirmed — these gaps must be filled (injuries P0, xG P1).",
+      "source_refs": [
+        {
+          "field": "injuries",
+          "metric": "results",
+          "value": "0 (source required)",
+          "source": "api-football",
+          "endpoint": "/injuries",
+          "fixture_id": 855737
+        }
+      ],
+      "assumption": false,
+      "data_status": "missing"
+    }
+  ],
+  "aggregate_score": 6,
+  "expected_side": "Argentina",
+  "confidence_tier": "low",
+  "accountability_status": "miss",
+  "actual_result": {
+    "home": "Argentina",
+    "away": "Saudi Arabia",
+    "score": "1-2",
+    "winner_side": "away"
+  },
+  "disclaimer": "Historical replay only — not a real archived prediction; no win-rate, no feature-importance weights, no xG, no financial signal."
+}

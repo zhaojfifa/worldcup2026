@@ -1,0 +1,40 @@
+{
+  "model_name": "ScoutScore v0.1",
+  "fixture_id": 855737,
+  "prediction_mode": "historical_replay",
+  "not_real_archived_prediction": true,
+  "model_view_before_match": "In replay, ScoutScore v0.1 leans Argentina (aggregate 6), confidence low; the view rests largely on a paper-strength assumption with key pre-match inputs missing.",
+  "expected_side": "Argentina",
+  "confidence_tier": "low",
+  "factor_reasons_for_argentina": [
+    "team_strength (score 2, missing): Paper strength / reputation favours Argentina (world-class squad, star players).",
+    "lineup_formation (score 1, replay_only): Argentina 4-4-2 vs Saudi Arabia 4-1-4-1 (read from match lineup; replay).",
+    "match_control (score 1, replay_only): Model assumes the favoured side controls possession — an in-match factor, not a true pre-match input."
+  ],
+  "factor_reasons_for_saudi_arabia": [],
+  "factor_reasons_for_home": [
+    "team_strength (score 2, missing): Paper strength / reputation favours Argentina (world-class squad, star players).",
+    "lineup_formation (score 1, replay_only): Argentina 4-4-2 vs Saudi Arabia 4-1-4-1 (read from match lineup; replay).",
+    "match_control (score 1, replay_only): Model assumes the favoured side controls possession — an in-match factor, not a true pre-match input."
+  ],
+  "factor_reasons_for_away": [
+    "(none — the model had no pre-match factor favouring the underdog; efficiency & momentum were blind spots, revealed only post-match)"
+  ],
+  "known_missing_factors": [
+    "team_strength: Team strength / Elo / squad value is NOT ingested — this is a replay assumption.",
+    "recent_form: Recent form not ingested — unknown pre-match.",
+    "lineup_formation: Argentina 4-4-2 vs Saudi Arabia 4-1-4-1 (read from match lineup; replay).",
+    "match_control: Model assumes the favoured side controls possession — an in-match factor, not a true pre-match input.",
+    "efficiency: No shot-quality / finishing-efficiency factor pre-match — model blind spot.",
+    "event_momentum: No momentum / turning-point factor pre-match — model blind spot.",
+    "missing_risk: Model blind spots: injuries (0 results) + xG (not ingested) — cannot assess availability or chance quality."
+  ],
+  "actual_result": {
+    "home": "Argentina",
+    "away": "Saudi Arabia",
+    "score": "1-2",
+    "winner_side": "away"
+  },
+  "accountability_status": "miss",
+  "disclaimer": "Historical replay sample to validate the product flow — NOT a claim of a pre-match hit."
+}
