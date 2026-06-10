@@ -8,7 +8,9 @@
  * for zh + vi, fixtures 855737 (Argentina vs Saudi Arabia) and 855741
  * (Germany vs Japan).
  *
- * Usage: node scripts/qa/mvp2_scout_pack_shots.mjs [BASE_URL]
+ * Usage: node scripts/qa/mvp2_scout_pack_shots.mjs [BASE_URL] [fixture_id ...]
+ *   - no fixture args  -> captures the full set (855737 855741 977345 979139)
+ *   - fixture args      -> captures only those (e.g. ...mjs http://localhost:8099 977345 979139)
  * Output: docs/qa_screenshots/mvp2_real_data_operator_review/
  */
 import { spawn } from 'node:child_process';
@@ -19,12 +21,8 @@ const BASE = process.argv[2] || 'http://localhost:8099';
 const OUT = 'docs/qa_screenshots/mvp2_real_data_operator_review';
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PORT = 9355;
-const SHOTS = [
-  { lang: 'zh', fid: '855737' },
-  { lang: 'vi', fid: '855737' },
-  { lang: 'zh', fid: '855741' },
-  { lang: 'vi', fid: '855741' },
-];
+const FIXTURES = process.argv.slice(3).length ? process.argv.slice(3) : ['855737', '855741', '977345', '979139'];
+const SHOTS = FIXTURES.flatMap((fid) => [{ lang: 'zh', fid }, { lang: 'vi', fid }]);
 mkdirSync(OUT, { recursive: true });
 
 const chrome = spawn(CHROME, [
