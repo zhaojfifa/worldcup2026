@@ -1,0 +1,300 @@
+{
+  "source": "render_api",
+  "api_base": "https://worldcup2026-api-71n6.onrender.com/api/v1",
+  "checked_at": "2026-06-10T01:51:42.335685+00:00",
+  "mock_mode_at_check": true,
+  "total_matches": 67,
+  "finished_count": 64,
+  "scheduled_count": 3,
+  "status_counts": {
+    "finished": 64,
+    "scheduled": 3
+  },
+  "field_coverage": {
+    "id": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "external_id": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "kickoff_time": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "status": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "recommended_score": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "risk_level": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "risk_note": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "confidence": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "updated_at": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "tag": {
+      "present": 0,
+      "missing": 64,
+      "unknown": 0
+    },
+    "home_team": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "away_team": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "home_flag": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "away_flag": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "win_prob": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "free_note": {
+      "present": 64,
+      "missing": 0,
+      "unknown": 0
+    },
+    "live_correction": {
+      "present": 1,
+      "missing": 63,
+      "unknown": 0
+    },
+    "report_available": {
+      "present": 0,
+      "missing": 64,
+      "unknown": 0
+    },
+    "feature_factors": {
+      "present": 0,
+      "missing": 64,
+      "unknown": 0
+    },
+    "final_result_actual_winner": {
+      "present": 0,
+      "missing": 0,
+      "unknown": 64
+    },
+    "settled_status_per_match": {
+      "present": 0,
+      "missing": 0,
+      "unknown": 64
+    },
+    "prediction_outcome_per_match": {
+      "present": 0,
+      "missing": 0,
+      "unknown": 64
+    }
+  },
+  "report_coverage": {
+    "available": 0,
+    "missing": 64
+  },
+  "data_quality_notes": {
+    "generic_placeholder_flags": 95,
+    "note": "flag '⚽' is a generic placeholder for teams without a mapped country flag; team names present, flags partially placeholder"
+  },
+  "backtest_summary_internal_only": {
+    "total_settled": 64,
+    "hit_count": 27,
+    "hit_rate": 42.2,
+    "last7d_hit_rate": 42.2,
+    "high_confidence_hit_rate": 42.5,
+    "live_correction_uplift": -42.9,
+    "neutral_count": 0,
+    "risk_breakdown": {
+      "low": {
+        "settled": 23,
+        "hit_count": 11,
+        "hit_rate": 47.8
+      },
+      "medium": {
+        "settled": 24,
+        "hit_count": 12,
+        "hit_rate": 50.0
+      },
+      "high": {
+        "settled": 17,
+        "hit_count": 4,
+        "hit_rate": 23.5
+      }
+    },
+    "disclaimer": "历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。"
+  },
+  "not_exposed_via_public_api": [
+    "final_result / actual_winner (per match)",
+    "settled status (per match — only aggregate total_settled=64 is exposed)",
+    "prediction outcome (per match hit/miss — only aggregate hit_count=27 is exposed)"
+  ],
+  "sample_matches": [
+    {
+      "id": 8,
+      "title": "阿根廷 vs Saudi Arabia",
+      "status": "finished",
+      "report_available": false,
+      "available_fields": [
+        "id",
+        "external_id",
+        "home_team",
+        "away_team",
+        "flags",
+        "kickoff_time",
+        "status",
+        "win_prob",
+        "recommended_score(predicted)",
+        "risk_level",
+        "risk_note",
+        "confidence",
+        "updated_at",
+        "free_note",
+        "live_correction"
+      ],
+      "missing_fields": [
+        "coach",
+        "squad/player_list",
+        "starting_xi",
+        "substitutes",
+        "injuries/suspensions",
+        "media/news_signal",
+        "odds/market_movement",
+        "final_result/actual_winner",
+        "report/feature_factors"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "德国 vs Japan",
+      "status": "finished",
+      "report_available": false,
+      "available_fields": [
+        "id",
+        "external_id",
+        "home_team",
+        "away_team",
+        "flags",
+        "kickoff_time",
+        "status",
+        "win_prob",
+        "recommended_score(predicted)",
+        "risk_level",
+        "risk_note",
+        "confidence",
+        "updated_at",
+        "free_note"
+      ],
+      "missing_fields": [
+        "coach",
+        "squad/player_list",
+        "starting_xi",
+        "substitutes",
+        "injuries/suspensions",
+        "media/news_signal",
+        "odds/market_movement",
+        "final_result/actual_winner",
+        "report/feature_factors"
+      ]
+    },
+    {
+      "id": 58,
+      "title": "摩洛哥 vs 西班牙",
+      "status": "finished",
+      "report_available": false,
+      "available_fields": [
+        "id",
+        "external_id",
+        "home_team",
+        "away_team",
+        "flags",
+        "kickoff_time",
+        "status",
+        "win_prob",
+        "recommended_score(predicted)",
+        "risk_level",
+        "risk_note",
+        "confidence",
+        "updated_at",
+        "free_note"
+      ],
+      "missing_fields": [
+        "coach",
+        "squad/player_list",
+        "starting_xi",
+        "substitutes",
+        "injuries/suspensions",
+        "media/news_signal",
+        "odds/market_movement",
+        "final_result/actual_winner",
+        "report/feature_factors"
+      ]
+    },
+    {
+      "id": 67,
+      "title": "阿根廷 vs 法国",
+      "status": "finished",
+      "report_available": false,
+      "available_fields": [
+        "id",
+        "external_id",
+        "home_team",
+        "away_team",
+        "flags",
+        "kickoff_time",
+        "status",
+        "win_prob",
+        "recommended_score(predicted)",
+        "risk_level",
+        "risk_note",
+        "confidence",
+        "updated_at",
+        "free_note"
+      ],
+      "missing_fields": [
+        "coach",
+        "squad/player_list",
+        "starting_xi",
+        "substitutes",
+        "injuries/suspensions",
+        "media/news_signal",
+        "odds/market_movement",
+        "final_result/actual_winner",
+        "report/feature_factors"
+      ]
+    }
+  ]
+}
