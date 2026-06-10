@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useLocale, type Locale } from '../i18n/useLocale';
 import { api } from '../api/client';
 import { getBundledRecap, MORE_RECAPS, type RecapContent } from '../data/recapData';
+import { EVIDENCE_AVAILABLE } from '../data/evidenceData';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
@@ -13,21 +14,21 @@ const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
     sReplay: '模型回放 vs 实际结果', sMisses: '三个关键漏项', sEvidence: '真实证据卡',
     sCorrection: '下版模型修正', sNextData: '下一步接入数据', sOperator: '运营可用文案',
     sDataGaps: '数据缺口', sAi: 'AI 边界', sLedger: '数据来源 / Source Ledger（点击展开）',
-    sMore: '更多历史复盘', moreStatus: '数据已接入，复盘生成中', ctaQ: '想看当前比赛的 AI 情报？', ctaBtn: '查看今日 AI 观点',
+    sMore: '更多历史复盘', moreStatus: '数据已接入，复盘生成中', ctaQ: '想看当前比赛的 AI 情报？', ctaBtn: '查看今日 AI 观点', ebLink: '查看完整证据面板 · 逐因子',
   },
   vi: {
     back: 'Phục dựng lịch sử', replay: 'Mô hình phát lại', actual: 'Kết quả thực tế', conclusion: 'Kết luận phục dựng',
     sReplay: 'Mô hình phát lại vs Kết quả thực tế', sMisses: 'Ba điểm bỏ sót then chốt', sEvidence: 'Thẻ bằng chứng thật',
     sCorrection: 'Hiệu chỉnh mô hình bản sau', sNextData: 'Dữ liệu cần tích hợp tiếp', sOperator: 'Nội dung cho vận hành',
     sDataGaps: 'Khoảng trống dữ liệu', sAi: 'Giới hạn AI', sLedger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)',
-    sMore: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng', ctaQ: 'Muốn xem tin tức AI của trận hiện tại?', ctaBtn: 'Xem quan điểm AI hôm nay',
+    sMore: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng', ctaQ: 'Muốn xem tin tức AI của trận hiện tại?', ctaBtn: 'Xem quan điểm AI hôm nay', ebLink: 'Xem bảng bằng chứng đầy đủ · từng yếu tố',
   },
   en: {
     back: 'Historical recap', replay: 'Model replay', actual: 'Actual result', conclusion: 'Recap conclusion',
     sReplay: 'Model replay vs actual result', sMisses: 'Three key blind spots', sEvidence: 'Real evidence cards',
     sCorrection: 'Model correction (next version)', sNextData: 'Next data to ingest', sOperator: 'Operator-ready copy',
     sDataGaps: 'Data gaps', sAi: 'AI boundary', sLedger: 'Source Ledger (click to expand)',
-    sMore: 'More historical recaps', moreStatus: 'Data ingested, recap in progress', ctaQ: 'Want the AI read on a current match?', ctaBtn: "See today's AI view",
+    sMore: 'More historical recaps', moreStatus: 'Data ingested, recap in progress', ctaQ: 'Want the AI read on a current match?', ctaBtn: "See today's AI view", ebLink: 'Open the full Evidence Board · factor by factor',
   },
 };
 
@@ -109,6 +110,11 @@ export function RecapDetailPage() {
           <div className="recap-evcard" key={i}><div className="t">{e.label}</div><div className="v">{e.value}</div></div>
         ))}
       </div></div>
+
+      {/* 5b. Evidence Board v2 entry — additive factor-by-factor deep dive */}
+      {EVIDENCE_AVAILABLE.has(fixtureId) && (
+        <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
+      )}
 
       {/* 6. model correction + next data */}
       <div className="sec-en"><span className="zh">{L.sCorrection}</span><span className="en">CORRECTION</span></div>

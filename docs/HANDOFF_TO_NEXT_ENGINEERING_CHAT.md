@@ -3,7 +3,7 @@
 _Read `CLAUDE.md` first, then this. Date: 2026-06-10. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
 ## One-line status
-MVP-2 reached **Evidence Board v2 Gate Spec Ready** — real API-FOOTBALL Level-2 data → Scout Pack → ScoutScore v0.1 → a customer-readable historical recap wired into the frontend (`/recap/855737`, zh/vi), reviewed PASS WITH ISSUES (gaps fixed); v2 design closed + Gate Spec drafted. **Docs-only this round. No runtime change. PR #3 Draft. Operation paused.**
+MVP-2 reached **Evidence Board v2 — minimal implementation (internal)**: after Owner GO (Path A, 2026-06-10), an additive Evidence Board surface was built at **`/evidence/855737`** (zh/vi, vi Han=0) — AI-lean + confidence **tier (★, no %)**, **7 factor cards** (source / impact / interpretation + assumption flags), **5 evidence cards**, missing-data + AI-boundary cards, source ledger + raw Scout Pack collapsed; additive recap entry link; **homepage prediction main logic untouched**. Build PASS, vi Han=0 verified at runtime (body Han=0), forbidden-wording/vendor scans clean, review PASS WITH ISSUES (internal). **Bundled-only (no backend evidence endpoint this cut). PR #3 Draft. Operation paused. public_ready=false.** Operator real-device review + commit-to-Draft = Owner-pending.
 
 ## Branch / PR truth
 ```text
@@ -27,6 +27,7 @@ Recap continuation: "更多历史复盘" list + continuation CTA + home narrativ
 Backend recap proxy: GET /api/v1/recap/{fixture_id}?lang=zh|vi (en/mm -> 404 -> frontend bundled)
 User Review report (4 personas) = PASS WITH ISSUES, accepted; three gaps closed
 Evidence Board v2 design CLOSED (gate-ready) + Gate Spec DRAFT
+Evidence Board v2 MINIMAL IMPLEMENTATION (Owner GO Path A): additive /evidence/855737 (zh/vi); factor + evidence + missing-data + AI-boundary cards; tier+stars (no %); recap entry link; build PASS; review PASS WITH ISSUES (internal); bundled-only; operator real-device review pending
 ```
 
 ## Key files
@@ -50,6 +51,9 @@ docs/qa_screenshots/mvp2_historical_recap_product_flow/   [present: home_recap_e
 Runtime entry points (additive this MVP-2): backend `app/services/api_football_client.py`, `app/services/scout_pack/*`,
 `app/services/scoutscore/*`, `app/routers/{internal_scout_pack,recap}.py`; frontend `pages/RecapDetailPage.tsx`,
 `data/recapData.ts`, recap route in `App.tsx`, Home recap entry/bridge in `pages/HomePage.tsx`.
+**EBv2 (additive, 2026-06-10):** frontend `pages/EvidenceBoardPage.tsx`, `components/{EvidenceBoard,FactorCard,EvidenceCard,MissingDataCard,AiBoundaryCard}.tsx`,
+`data/evidenceData.ts`, `/evidence/:fixtureId` route + recap entry link in `App.tsx`/`RecapDetailPage.tsx`, `.eb-*`/`.factor-*` CSS in `styles/global.css`;
+QA shots `docs/qa_screenshots/mvp2_evidence_board_v2/`; QA driver `scripts/qa/mvp2_evidence_board_shots.mjs`. No backend change this cut.
 Build scripts (offline, no live LLM): `backend/scripts/mvp2_{ingest_scout_pack,build_productized_report,build_scoutscore}.py`.
 
 ## Current product judgment
@@ -62,16 +66,17 @@ fan/pre-paid/flow PASS-WITH-ISSUES (now fixed). Concept validated → recommend 
 ## Evidence Board v2 gate status
 - **Design CLOSED / gate-ready:** `docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md` (goals, core pages, IA, data contract, guardrails, v2-not-doing, Owner Q&A answers).
 - **Gate Spec DRAFT:** `docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` (allowed/forbidden paths, UI zones, data sources, API contracts, i18n, screenshot reqs, acceptance criteria, rollback, **Owner GO required**).
-- **Not approved for implementation.** No runtime built from the Gate Spec yet.
+- **Implemented (minimal, internal) — 2026-06-10:** Owner GO (Path A) → additive `/evidence/855737` built per the Gate Spec. Acceptance criteria met (build PASS, vi Han=0, every conclusion has `source_refs` or an `assumption` flag, additive-only diff, no vendor ref, no %/SHAP/xG/injury-inference). Review **PASS WITH ISSUES** (internal) — `docs/MVP2_USER_REVIEW_REPORT_EVIDENCE_BOARD_V2.md`. **Operator real-device review + commit-to-Draft = Owner-pending. Bundled-only; backend `GET /api/v1/evidence/{id}` NOT built this cut (forward-compatible).**
 
 ## Next Owner decisions
 ```text
-1. Approve Evidence Board v2 Gate Spec?
-2. Start Evidence Board v2 implementation?
-3. Productize 979139 Argentina vs France as a second recap type?
-4. Verify real DeepSeek / Gemini reasoning (currently template/mock fallback, draft-only)?
-5. Start TheSports trial / injuries second-source verification (P0 data gap)?
-6. Keep PR #3 Draft, or split a smaller PR?
+1. Review the EBv2 minimal implementation + commit it to the Draft branch (or hold uncommitted)?
+2. Operator real-device review of /evidence/855737 (zh/vi) to grant final PASS?
+3. Add a homepage entry to the Evidence Board, and/or build backend GET /api/v1/evidence/{id} proxy?
+4. Productize 979139 Argentina vs France as a second recap/evidence sample?
+5. Verify real DeepSeek / Gemini reasoning (currently template/mock fallback, draft-only)?
+6. Start TheSports trial / injuries second-source verification (P0 data gap)?
+7. Keep PR #3 Draft, or split a smaller PR?
 ```
 
 ## Hard guardrails

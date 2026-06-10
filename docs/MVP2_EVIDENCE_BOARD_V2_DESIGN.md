@@ -4,7 +4,11 @@
 > **Status:** **CLOSED design — gate-ready.** This document is the executable design baseline for an Evidence
 > Board v2; the boundary freeze lives in
 > [MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT](MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md).
-> **Design only — NOT implemented. Implementation requires a separate Owner GO.**
+> **Implementation status (2026-06-10): minimal implementation SHIPPED to the branch under Owner GO (Path A)** —
+> additive `/evidence/855737` (zh/vi, vi Han=0); factor + evidence + missing-data + AI-boundary cards; tier+stars (no %);
+> ledger/raw collapsed; bundled-only; recap entry link; homepage untouched. Review PASS WITH ISSUES (internal) —
+> see [MVP2_USER_REVIEW_REPORT_EVIDENCE_BOARD_V2](MVP2_USER_REVIEW_REPORT_EVIDENCE_BOARD_V2.md). Operation paused,
+> PR #3 Draft, operator real-device review pending. This design doc remains the baseline for any further v2 work.
 > Builds on ScoutScore v0.1 ([MVP2_SCOUTSCORE_V0_MODEL_CARD](MVP2_SCOUTSCORE_V0_MODEL_CARD.md)), the recap flow,
 > and the accepted User Review ([MVP2_USER_REVIEW_REPORT_855737](MVP2_USER_REVIEW_REPORT_855737.md), PASS WITH ISSUES).
 

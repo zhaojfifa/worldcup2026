@@ -11,13 +11,14 @@
 > Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`** (read after this).
 > Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.8).
 
-## Current Project Status — MVP-2 Evidence Board v2 Gate Spec Ready
+## Current Project Status — MVP-2 Evidence Board v2 Minimal Implementation (internal)
 
 **Current phase**
 ```text
 MVP-2 is no longer in API verification.
 MVP-2 is no longer in raw Scout Pack display.
-MVP-2 is now at Evidence Board v2 Gate Spec / implementation decision stage.
+MVP-2 has a minimal Evidence Board v2 IMPLEMENTED (internal, additive, mock): /evidence/855737 zh/vi.
+Next: Owner review + commit-to-Draft decision + operator real-device verification.
 ```
 
 **Branch / PR truth**
@@ -47,6 +48,9 @@ More recap placeholders added
 Homepage recap narrative bridge added
 Evidence Board v2 design closed (gate-ready)
 Gate Spec draft created
+Evidence Board v2 minimal implementation built (Owner GO Path A, 2026-06-10): additive /evidence/855737 zh/vi —
+AI-lean + tier(★,no %) + 7 factor cards + 5 evidence cards + missing-data + AI-boundary; ledger/raw collapsed;
+recap entry link; homepage untouched; build PASS; vi Han=0; review PASS WITH ISSUES (internal); operator review pending
 ```
 
 **Core product logic**
@@ -73,17 +77,19 @@ No token / raw payload commit
 
 **Next Owner decisions**
 ```text
-1. Whether to approve Evidence Board v2 Gate Spec.
-2. Whether to start Evidence Board v2 implementation.
-3. Whether to productize 979139 Argentina vs France as second recap type.
-4. Whether to verify real DeepSeek / Gemini reasoning.
-5. Whether to start TheSports trial / injuries second-source verification.
-6. Whether to keep PR #3 Draft or split a smaller PR.
+1. Whether to commit the EBv2 minimal implementation to the Draft branch (or hold uncommitted).
+2. Whether to grant final PASS after operator real-device review of /evidence/855737 (zh/vi).
+3. Whether to add a homepage Evidence Board entry and/or build backend GET /api/v1/evidence/{id}.
+4. Whether to productize 979139 Argentina vs France as second recap/evidence sample.
+5. Whether to verify real DeepSeek / Gemini reasoning.
+6. Whether to start TheSports trial / injuries second-source verification.
+7. Whether to keep PR #3 Draft or split a smaller PR.
 ```
 
 > MVP-2 detail docs: `docs/MVP2_SCOUTSCORE_V0_MODEL_CARD.md` · `docs/MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md` ·
 > `docs/MVP2_USER_REVIEW_REPORT_855737.md` · `docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md` ·
-> `docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` · `docs/MVP2_NEXT_DATA_REQUIREMENTS.md`.
+> `docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` · `docs/MVP2_USER_REVIEW_REPORT_EVIDENCE_BOARD_V2.md` ·
+> `docs/MVP2_NEXT_DATA_REQUIREMENTS.md`.
 > Below this is the prior v0.8 baseline (still valid for environment / language / social / hard rules).
 
 1. **Brand / Product:** **Company = LEIZE** (`CÔNG TY TNHH CÔNG NGHỆ SỐ LEIZE` / `LEIZE DIGITAL

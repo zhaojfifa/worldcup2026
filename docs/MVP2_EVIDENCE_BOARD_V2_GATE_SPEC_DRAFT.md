@@ -3,7 +3,10 @@
 > **Owner:** ClaudeT · **Date:** 2026-06-10 · **Branch:** `feature/mvp2-api-football-ingestion` (PR #3, Draft) ·
 > **Status:** **DRAFT boundary-freeze — NOT an implementation authorization.** Pairs with
 > [MVP2_EVIDENCE_BOARD_V2_DESIGN](MVP2_EVIDENCE_BOARD_V2_DESIGN.md). It defines *where a future v2 implementation
-> may and may not go*, and the bar it must clear. **No code is written from this draft until a separate Owner GO.**
+> may and may not go*, and the bar it must clear. **Implementation status (2026-06-10): Owner GO granted (Path A) —
+> minimal additive implementation built (`/evidence/855737`, zh/vi); acceptance criteria §8 met (build PASS, vi Han=0,
+> every conclusion has source_refs or assumption flag, additive-only, no vendor ref); review PASS WITH ISSUES (internal).
+> Operation paused, PR #3 Draft; operator real-device review + commit-to-Draft Owner-pending; backend `/evidence/{id}` not built this cut.**
 
 ---
 
