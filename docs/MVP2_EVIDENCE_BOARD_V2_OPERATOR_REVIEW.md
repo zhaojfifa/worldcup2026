@@ -11,7 +11,53 @@
 
 ---
 
-## 0. Owner ruling (2026-06-10) — review only, do NOT develop
+## ★ Owner Product Voice Review (2026-06-10) — supersedes the review-only hold below
+
+**Verdict: FAIL for customer-facing copy · PASS for engineering structure.** The EBv2 data, routing and
+guardrails are sound, but the surface read like a model self-audit, not a product a customer wants to read.
+
+**Owner-recorded core problems (8):**
+1. AI 痕迹太重。
+2. "MISS / historical replay / source required / no xG" 不应作为主视图。
+3. 用户不关心你缺什么数据，用户关心你给什么判断。
+4. 因子卡太密。
+5. 运营文案不自然，像解释给评审听，不像发给客户。
+6. 付费前用户没有兴趣继续看。
+7. 合规检查应后台存在，不应前台自我证明。
+8. 数据缺口不能直接摆给用户，应转为"模型仍需关注的变量"。
+
+**Owner ruling → MVP-2 Product Voice & Model Answer Sprint (bounded rework, NOT data expansion):** previous EBv2
+copy = **FAIL**; new target = **customer-readable AI judgement + post-match read**; review focus = **whether the
+customer wants to continue**. Frozen: no data expansion · no 979139 · no TheSports · no backend evidence proxy ·
+no live DeepSeek/Gemini · no PR ready · no merge · no public launch · no payment/Token. This supersedes the
+"review only, do NOT develop" hold in §0 for the **copy / page-order / model-answer / operator-copy** scope only.
+
+**What changed (frontend, additive, internal):**
+- First screen now **leads with the answer**: title「这场爆冷不是偶然：AI 赛前应重点盯住三个风险因子」+ subtitle +
+  4 cards (AI 赛前倾向 / 赛后验证 / 关键结论 / 用户价值) + a readable lead paragraph. **No MISS / source-required /
+  assumption / "not archived" on the first screen** (runtime-verified: `missInVisible=false`, `auditWordsInVisible=false`).
+- Factor cards: **default expand only the 3 decisive** (门将表现 / 射门效率 / 下半场事件动量); 纸面实力 / 近期状态 /
+  首发阵型 folded. Customer tags (已验证 / 需赛前重点关注 / 赛后影响明显 / 需重新加权) replace assumption/replay_only.
+- Data gaps → **"下一版 AI 需重点补强的变量"** (首发完整性 / 机会质量 / 近期状态 / 球员状态波动).
+- MISS accountability, AI boundary, raw missing_evidence, source ledger → moved into the **collapsed internal block**.
+- Compliance → a single bottom disclaimer; **the guarantee word "稳赢" in the Owner's operator-copy draft was
+  replaced with "不等于一定能赢"** (compliance floor is non-negotiable, even in a warning sentence).
+- Recap page (Task F): its "数据缺口 (source required / no xG)" reframed to "下一版 AI 需关注的变量".
+- Voice rules captured in [MVP2_PRODUCT_VOICE_GUIDE](MVP2_PRODUCT_VOICE_GUIDE.md).
+
+**Verification:** build PASS · vi Han=0 at runtime (body Han=0, zh + vi) · forbidden + guarantee-word scan clean ·
+vendor / token scans clean · no console errors · `git diff --check` clean.
+
+**Before / after screenshots** (`docs/qa_screenshots/mvp2_evidence_board_v2/`):
+- **before** (FAIL copy): `evidence_855737_{zh,vi}.png`, `recap_855737_{zh,vi}_eb_entry.png`
+- **after** (product voice): `evidence_855737_{zh,vi}_product_voice.png`, `recap_855737_{zh,vi}_product_voice.png`
+
+**Next:** operator real-device **re-review of the product-voice version** — does the customer want to continue?
+Apply the checklist below to the product-voice surface and record the verdict in §8.
+
+---
+
+## 0. Owner ruling (2026-06-10) — review only, do NOT develop (superseded by the Product Voice Sprint above)
 冻结(本阶段一律不做):
 ```text
 不再扩功能 · 不 mark PR #3 ready · 不 merge

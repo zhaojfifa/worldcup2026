@@ -6,30 +6,32 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-10) — Evidence Board v2 minimal implementation (internal)
+## ★ MVP-2 status (2026-06-10) — Evidence Board v2 Product Voice rework (internal)
 
 ```text
-MVP-2 status:           Evidence Board v2 — minimal implementation (internal, additive, mock)
+MVP-2 status:           Evidence Board v2 — Product Voice rework done (engineering PASS, copy reworked; internal)
 API-FOOTBALL ingestion: PASS (Level-2; 4 fixtures: 855737/855741/977345/979139)
 ScoutScore v0.1:        PASS (rule-based factors + historical-replay accountability)
 Historical recap flow:  PASS WITH ISSUES, continuation fixed (more-recaps + CTA + home bridge)
 Evidence Board v2 design: CLOSED / gate-ready (+ Gate Spec draft)
-Evidence Board v2 impl:  Owner GO (Path A) -> built /evidence/855737 (zh/vi, vi Han=0): AI-lean + tier(★, no %)
-                        + 7 factor cards + 5 evidence cards + missing-data + AI-boundary; ledger/raw collapsed;
-                        bundled-only; additive recap entry link; homepage untouched. Build PASS; review
-                        PASS WITH ISSUES (internal); operator real-device review pending.
+Evidence Board v2 impl:  /evidence/855737 (zh/vi, vi Han=0), bundled, additive, homepage untouched.
+                        Product Voice rework: first screen = the answer (title/subtitle/4 cards/lead; NO MISS /
+                        source-required / assumption up top); 3 decisive factors expanded + 3 folded; data gaps ->
+                        "下一版需补强的变量"; MISS / AI-boundary / ledger in a collapsed internal block; operator
+                        copy de-charged (no 稳赢). Build PASS. Engineering PASS; prior copy FAILED -> reworked.
 Branch:                 feature/mvp2-api-football-ingestion
 PR #3:                  Draft (base main, not ready, not merged) · PR #2 untouched · main untouched
 External operation:     paused · public_ready: false
-Next:                   Owner: review EBv2 impl + commit-to-Draft decision; 979139 / live-LLM / TheSports still gated
+Next:                   Operator product-voice re-review (does the customer want to continue?); 979139 / live-LLM / TheSports still gated
 ```
 
 MVP-2 docs: `MVP2_SCOUTSCORE_V0_MODEL_CARD.md` · `MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md` ·
 `MVP2_USER_REVIEW_REPORT_855737.md` · `MVP2_EVIDENCE_BOARD_V2_DESIGN.md` ·
 `MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` · `MVP2_USER_REVIEW_REPORT_EVIDENCE_BOARD_V2.md` ·
+`MVP2_EVIDENCE_BOARD_V2_OPERATOR_REVIEW.md` · `MVP2_PRODUCT_VOICE_GUIDE.md` ·
 `MVP2_NEXT_DATA_REQUIREMENTS.md` · `MVP2_OPERATOR_REAL_DATA_REVIEW.md`.
 EBv2 impl files: `frontend/src/pages/EvidenceBoardPage.tsx`, `frontend/src/components/{EvidenceBoard,FactorCard,
-EvidenceCard,MissingDataCard,AiBoundaryCard}.tsx`, `frontend/src/data/evidenceData.ts`; QA shots:
+EvidenceCard,NextVariablesCard,AiBoundaryCard}.tsx`, `frontend/src/data/evidenceData.ts`; QA shots (before + product_voice):
 `docs/qa_screenshots/mvp2_evidence_board_v2/`. Full handoff: `HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 
 ---

@@ -11,14 +11,16 @@
 > Full handoff for a new chat: **`docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`** (read after this).
 > Engineering status snapshot: **`docs/MVP_STATUS.md`** (v0.8).
 
-## Current Project Status — MVP-2 Evidence Board v2 Minimal Implementation (internal)
+## Current Project Status — MVP-2 Evidence Board v2 Product Voice rework (internal)
 
 **Current phase**
 ```text
 MVP-2 is no longer in API verification.
 MVP-2 is no longer in raw Scout Pack display.
-MVP-2 has a minimal Evidence Board v2 IMPLEMENTED (internal, additive, mock): /evidence/855737 zh/vi.
-Next: Owner review + commit-to-Draft decision + operator real-device verification.
+MVP-2 Evidence Board v2 reworked to CUSTOMER PRODUCT VOICE (internal, additive, mock): /evidence/855737 zh/vi —
+first screen = the answer; MISS / source-required / assumption folded into a collapsed internal block.
+Engineering structure PASS; prior customer copy FAILED -> reworked.
+Next: operator product-voice re-review (does the customer want to continue?).
 ```
 
 **Branch / PR truth**
@@ -51,6 +53,9 @@ Gate Spec draft created
 Evidence Board v2 minimal implementation built (Owner GO Path A, 2026-06-10): additive /evidence/855737 zh/vi —
 AI-lean + tier(★,no %) + 7 factor cards + 5 evidence cards + missing-data + AI-boundary; ledger/raw collapsed;
 recap entry link; homepage untouched; build PASS; vi Han=0; review PASS WITH ISSUES (internal); operator review pending
+Evidence Board v2 reworked to CUSTOMER PRODUCT VOICE (2026-06-10): first screen = the answer (title/subtitle/4 cards/
+lead); 3 decisive factors expanded + rest folded; data gaps -> "下一版需补强的变量"; MISS/boundary/ledger in collapsed
+internal block; operator copy de-charged; build PASS; vi Han=0; engineering PASS / prior copy FAIL -> reworked; operator product-voice re-review pending
 ```
 
 **Core product logic**
@@ -77,8 +82,8 @@ No token / raw payload commit
 
 **Next Owner decisions**
 ```text
-1. Whether to commit the EBv2 minimal implementation to the Draft branch (or hold uncommitted).
-2. Whether to grant final PASS after operator real-device review of /evidence/855737 (zh/vi).
+1. Operator product-voice re-review of /evidence/855737 (zh/vi) — does the customer want to continue?
+2. Whether the product-voice copy is approved, or needs another pass.
 3. Whether to add a homepage Evidence Board entry and/or build backend GET /api/v1/evidence/{id}.
 4. Whether to productize 979139 Argentina vs France as second recap/evidence sample.
 5. Whether to verify real DeepSeek / Gemini reasoning.
@@ -89,6 +94,7 @@ No token / raw payload commit
 > MVP-2 detail docs: `docs/MVP2_SCOUTSCORE_V0_MODEL_CARD.md` · `docs/MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md` ·
 > `docs/MVP2_USER_REVIEW_REPORT_855737.md` · `docs/MVP2_EVIDENCE_BOARD_V2_DESIGN.md` ·
 > `docs/MVP2_EVIDENCE_BOARD_V2_GATE_SPEC_DRAFT.md` · `docs/MVP2_USER_REVIEW_REPORT_EVIDENCE_BOARD_V2.md` ·
+> `docs/MVP2_EVIDENCE_BOARD_V2_OPERATOR_REVIEW.md` · `docs/MVP2_PRODUCT_VOICE_GUIDE.md` ·
 > `docs/MVP2_NEXT_DATA_REQUIREMENTS.md`.
 > Below this is the prior v0.8 baseline (still valid for environment / language / social / hard rules).
 

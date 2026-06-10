@@ -18,11 +18,14 @@ const BASE = process.argv[2] || 'http://localhost:5173';
 const OUT = 'docs/qa_screenshots/mvp2_evidence_board_v2';
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PORT = 9367;
+// Product Voice Sprint: capture the customer-voice rewrite. Earlier
+// evidence_855737_{zh,vi}.png (the FAIL-for-copy version) stay committed as the
+// "before" reference for the Owner Product Voice Review.
 const SHOTS = [
-  { path: '/evidence/855737?lang=zh', file: 'evidence_855737_zh.png' },
-  { path: '/evidence/855737?lang=vi', file: 'evidence_855737_vi.png' },
-  { path: '/recap/855737?lang=zh', file: 'recap_855737_zh_eb_entry.png' },
-  { path: '/recap/855737?lang=vi', file: 'recap_855737_vi_eb_entry.png' },
+  { path: '/evidence/855737?lang=zh', file: 'evidence_855737_zh_product_voice.png' },
+  { path: '/evidence/855737?lang=vi', file: 'evidence_855737_vi_product_voice.png' },
+  { path: '/recap/855737?lang=zh', file: 'recap_855737_zh_product_voice.png' },
+  { path: '/recap/855737?lang=vi', file: 'recap_855737_vi_product_voice.png' },
 ];
 mkdirSync(OUT, { recursive: true });
 
