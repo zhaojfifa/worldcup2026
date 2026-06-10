@@ -18,11 +18,13 @@ const BASE = process.argv[2] || 'http://localhost:5173';
 const OUT = 'docs/qa_screenshots/mvp2_historical_recap_product_flow';
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PORT = 9366;
+// Default set captures the continuation round (home bridge + recap continuation).
+// The original entry shots (home_recap_entry_*, recap_855737_*) remain committed.
 const SHOTS = [
-  { path: '/?lang=zh', file: 'home_recap_entry_zh.png' },
-  { path: '/recap/855737?lang=zh', file: 'recap_855737_zh.png' },
-  { path: '/?lang=vi', file: 'home_recap_entry_vi.png' },
-  { path: '/recap/855737?lang=vi', file: 'recap_855737_vi.png' },
+  { path: '/?lang=zh', file: 'home_recap_bridge_zh.png' },
+  { path: '/recap/855737?lang=zh', file: 'recap_855737_zh_continuation.png' },
+  { path: '/?lang=vi', file: 'home_recap_bridge_vi.png' },
+  { path: '/recap/855737?lang=vi', file: 'recap_855737_vi_continuation.png' },
 ];
 mkdirSync(OUT, { recursive: true });
 

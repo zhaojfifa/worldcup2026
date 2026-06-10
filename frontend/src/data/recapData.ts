@@ -154,6 +154,15 @@ export function getBundledRecap(fixtureId: string, loc: Locale): RecapContent | 
 // Fixtures that have a ScoutScore recap available (drives the Home recap entry).
 export const RECAP_AVAILABLE = new Set<string>(['855737']);
 
+// More historical fixtures whose Scout Pack data is ingested but whose recap is
+// not yet productized — shown as a non-clickable "recap in progress" list so the
+// page is not a dead-end (no fake productized recap, no empty detail jump).
+export const MORE_RECAPS: { fixtureId: string; teams: string }[] = [
+  { fixtureId: '855741', teams: 'Germany 1–2 Japan' },
+  { fixtureId: '977345', teams: 'Morocco 0–0 Spain' },
+  { fixtureId: '979139', teams: 'Argentina 3–3 France' },
+];
+
 // Map a Match to its recap fixture id (mock id '855737' or real external_id 'AF-855737').
 export function recapFixtureId(idOrExternal: { id: string; externalId?: string | null }): string | null {
   const ext = idOrExternal.externalId;

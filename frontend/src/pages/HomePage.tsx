@@ -206,6 +206,13 @@ export function HomePage() {
           </div>
           <div className="card recap-card">
             <div className="recap-sub">🗂️ {t.recapSectionSub}</div>
+            <div className="recap-bridge">
+              {loc === 'zh'
+                ? '我们不只给出赛前判断，也复盘模型为什么看对或看漏，用真实数据修正下一版分析。'
+                : loc === 'vi'
+                  ? 'Chúng tôi không chỉ đưa ra nhận định trước trận, mà còn phục dựng vì sao mô hình đúng hay bỏ sót, dùng dữ liệu thật để hiệu chỉnh bản phân tích sau.'
+                  : 'We don’t just call matches pre-game — we recap why the model was right or wrong, and correct the next version with real data.'}
+            </div>
             {recapMatches.map((m: Match) => {
               const rid = recapFixtureId(m);
               const hasRecap = !!rid && RECAP_AVAILABLE.has(rid);
