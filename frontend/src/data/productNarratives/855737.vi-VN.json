@@ -1,0 +1,174 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "855737",
+  "mode": "historical_recap",
+  "language": "vi-VN",
+  "hero_title": "ScoutScore nhận định Argentina trước Saudi Arabia: rủi ro đã hiện hữu ngay từ vạch xuất phát",
+  "hero_subtitle": "Trận đấu chứng minh mô hình cần thêm dữ liệu về hiệu suất dứt điểm và thủ môn để tránh bẫy đội được đánh giá cao.",
+  "short_title": "Argentina vs Saudi Arabia: bẫy của đội được đánh giá cao",
+  "screenshot_line": "Argentina 15 cú sút, 1 bàn; Saudi Arabia 3 cú sút, 2 bàn – hiệu suất dứt điểm là biến số mô hình chưa nắm được.",
+  "model_judgement": "Trước trận, ScoutScore dựa vào Elo chênh lệch 369 điểm và phong độ 10 trận (Argentina 8-2-0, Saudi Arabia 2-5-3) để nghiêng về Argentina. Tuy nhiên, mô hình cảnh báo rủi ro cao vì thiếu dữ liệu chấn thương, xG, và giá trị đội hình – tạo nên 'bẫy đội được đánh giá cao' kinh điển.",
+  "main_lean": "Nghiêng về Argentina nhưng mức độ tin cậy thấp do nhiều biến số mù.",
+  "scoreline_view": "Trước trận, mô hình ước tính tỷ số khả quan cho Argentina (2-0, 3-0, 1-0). Thực tế: Argentina 1-2 Saudi Arabia – kết quả nằm ngoài khoảng ước tính.",
+  "risk_level": "Cao – đội chênh lệch lớn + nhiều điểm mù dữ liệu tạo rủi ro bất ngờ.",
+  "risk_factors": [
+    {
+      "name": "Hiệu suất dứt điểm chênh lệch",
+      "text": "Argentina dứt điểm 15 lần (6 trúng đích) chỉ ghi 1 bàn; Saudi Arabia 3 lần (2 trúng đích) ghi 2 bàn. Mô hình không có xG để dự báo trước sự kém hiệu quả của Argentina.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Khoảng cách trình độ thủ môn",
+      "text": "Thủ môn Saudi Arabia (Mohammed Al-Owais) có 5 pha cứu thua, rating 7.7; thủ môn Argentina không có pha cứu thua nào. Mô hình thiếu dữ liệu phong độ thủ môn trước trận.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "saves 0/5"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Điểm mù dữ liệu mô hình",
+      "text": "Mô hình không có nguồn chấn thương, xG, giá trị đội hình – những yếu tố có thể thay đổi nhận định trước trận.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Rủi ro bất ngờ từ đội được đánh giá cao",
+      "text": "Chênh lệch Elo lớn (369) kết hợp với 3 điểm mù dữ liệu tạo ra rủi ro bất ngờ cao – kịch bản kinh điển của 'bẫy đội được đánh giá cao'.",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=369, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "Hiệu suất dứt điểm chênh lệch",
+      "text": "Đúng như rủi ro: Argentina dứt điểm nhiều hơn nhưng ghi ít bàn hơn. Saudi Arabia tận dụng tối đa cơ hội.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Khoảng cách trình độ thủ môn",
+      "text": "Thủ môn Saudi Arabia xuất sắc với 5 pha cứu thua, trong khi thủ môn Argentina không có pha cứu thua nào.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "saves 0/5"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Rủi ro bất ngờ từ đội được đánh giá cao",
+      "text": "Kết quả 1-2 xác nhận rủi ro bất ngờ là có thật. Mô hình đã cảnh báo đúng về mức độ rủi ro cao.",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=369, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Sức mạnh dài hạn (Elo) và phong độ gần đây",
+      "text": "Mô hình đặt quá nhiều trọng số vào Elo và phong độ 10 trận, không lường trước được sự thiếu hiệu quả trong tấn công của Argentina và sự xuất sắc của thủ môn Saudi Arabia.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2022-11-22",
+          "value": "Argentina 2053 / Saudi Arabia 1684"
+        },
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "Hiệu suất dứt điểm (shots/goals)",
+      "text": "Nếu đội được đánh giá cao có số cú sút nhiều nhưng tỷ lệ chuyển đổi thấp, đó là tín hiệu rủi ro. Cần theo dõi chỉ số này trong 30 phút đầu trận.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Phong độ thủ môn đối phương",
+      "text": "Nếu thủ môn đội yếu hơn có thành tích cứu thua tốt trong các trận gần đây, đó là yếu tố cần được mô hình cập nhật trước giờ bóng lăn.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Biến động đội hình phút chót",
+      "text": "Chấn thương hoặc thay đổi đội hình bất ngờ có thể thay đổi cục diện. Mô hình cần nguồn dữ liệu cập nhật theo thời gian thực.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "ScoutScore: Argentina 1-2 Saudi Arabia – mô hình đã cảnh báo rủi ro cao trước trận vì thiếu dữ liệu hiệu suất dứt điểm và thủ môn. Kết quả xác nhận: 15 cú sút chỉ ghi 1 bàn, thủ môn Saudi Arabia có 5 pha cứu thua. Trận sau, hãy theo dõi tín hiệu tương tự. Vào nhóm để xem phân tích đầy đủ.",
+  "subscription_hook": "Bản miễn phí cho thấy nhận định chính và mức rủi ro. Đăng ký để nhận: phân tích đầy đủ các yếu tố, cập nhật 30 phút trước giờ bóng lăn, và dải tỷ số ước tính chi tiết.",
+  "group_join_copy": "Muốn xem ScoutScore phân tích từng yếu tố trước trận? Tham gia nhóm Telegram của chúng tôi để nhận bản đầy đủ, cập nhật live trước giờ bóng lăn. Không spam, chỉ dữ liệu và nhận định.",
+  "today_cta": "Xem quan điểm AI hôm nay: ScoutScore phân tích rủi ro trước mỗi trận đấu.",
+  "social_post": "ScoutScore: Argentina 1-2 Saudi Arabia – mô hình cảnh báo rủi ro cao trước trận. 15 cú sút, 1 bàn; 3 cú sút, 2 bàn. Hiệu suất dứt điểm là biến số then chốt. Theo dõi để không bỏ lỡ tín hiệu.",
+  "internal_notes": [
+    "historical replay — NOT a real archived pre-match prediction",
+    "assumption_context: venue neutral (low impact), model blind spots (injuries/xG/squad value not ingested), upset band method",
+    "all factors with assumption_flag=true are contextual assumptions, not real data"
+  ],
+  "source_ref_map": {
+    "Hiệu suất dứt điểm chênh lệch": "api-football /fixtures/statistics fixture_id=855737 shots 15/3, sog 6/2",
+    "Khoảng cách trình độ thủ môn": "api-football /fixtures/statistics saves 0/5; /fixtures/players fixture_id=855737",
+    "Điểm mù dữ liệu mô hình": "assumption_context: model blind spots",
+    "Rủi ro bất ngờ từ đội được đánh giá cao": "method: upset_band(elo_gap=369, missing=3)",
+    "Sức mạnh dài hạn (Elo) và phong độ gần đây": "kaggle_intl_results elo_snapshot@2022-11-22, last10_form"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-10T17:17:57.937585+00:00"
+}

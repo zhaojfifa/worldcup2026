@@ -1,0 +1,91 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "2026_brazil_argentina",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "Giành Cup AI 判断：若巴阿淘汰赛相遇，模型倾向阿根廷但冷门风险不低",
+  "hero_subtitle": "Elo 差距 100 分 + 近 10 场 8 胜 1 平 1 负 vs 6 胜 1 平 3 负——阿根廷是纸面热门，但模型看到了三个冷门密码。",
+  "short_title": "巴阿若相遇：模型倾向阿根廷，但冷门风险偏高",
+  "screenshot_line": "Elo 阿根廷领先 100 分，近 10 场仅丢 3 球 vs 巴西丢 11 球——但模型警告：阵容未知、点球历史、效率波动，冷门概率不低。",
+  "model_judgement": "若两队在淘汰赛相遇，Giành Cup AI ScoutScore 的赛前判断是：阿根廷是更稳定的一方。Elo 基线（阿根廷 2064 vs 巴西 1964）和近 10 场状态（8W-1D-1L，仅丢 3 球）都指向阿根廷占优。但模型同时标记了三个风险因子：一是阵容未公布——核心球员缺阵可能翻转天平；二是点球历史——巴西近 5 次点球大战输了 3 次，阿根廷近 4 次赢了 3 次；三是效率差——巴西近 10 场进 25 球但丢 11 球，防守不稳，而阿根廷攻守均衡。所以倾向阿根廷，但冷门风险评为中。",
+  "main_lean": "赛前倾向 Argentina 胜，但冷门风险偏高",
+  "scoreline_view": "模型估计合理比分区间：1-1、2-1（阿根廷）、1-2（巴西）——淘汰赛低进球数概率大。",
+  "risk_level": "中——阿根廷是热门，但阵容未知和点球历史让冷门概率不可忽视。",
+  "risk_factors": [
+    {
+      "name": "阵容完整性未知",
+      "text": "两队首发未公布——若巴西缺少关键中场或阿根廷防线轮换，实力对比可能变化。赛前 30 分钟阵容确认后模型会重评。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "点球大战历史",
+      "text": "巴西近 5 次点球大战仅赢 2 次（2014 胜智利、2019 胜巴拉圭），2022 输克罗地亚、2024 输乌拉圭；阿根廷近 4 次赢 3 次（2021 胜哥伦比亚、2022 胜荷兰和法国），仅 2016 输智利。淘汰赛若拖入点球，阿根廷心理占优。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "防守稳定性差距",
+      "text": "巴西近 10 场丢 11 球（场均 1.1），阿根廷仅丢 3 球（场均 0.3）。淘汰赛防守更关键，阿根廷的稳固防线是重要优势。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "首发阵容确认",
+      "text": "赛前 30 分钟阵容公布后，模型会重新计算倾向和比分区间。重点关注巴西中场组织者和阿根廷防线核心是否出场。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将状态对比",
+      "text": "目前无门将数据——若赛前有门将近期表现信息，可评估扑点能力。阿根廷门将马丁内斯以扑点闻名，巴西门将尚无类似标签。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "战术对位",
+      "text": "2026 年两队教练战术安排未知——若巴西采用高压逼抢或阿根廷摆大巴，比赛走势会不同。赛前 30 分钟阵容可部分反映战术意图。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 巴阿若淘汰赛相遇，AI 怎么看？Elo 阿根廷领先 100 分，近 10 场仅丢 3 球——但模型警告：阵容未知+点球历史+防守差距，冷门风险不低。订阅解锁赛前 30 分钟重评，看阵容如何改变判断。入群聊球：链接在资料。",
+  "subscription_hook": "免费版看到主倾向和风险评级。订阅后额外获得：赛前 30 分钟阵容确认后的重新评分、完整因子拆解、比分区间深度分析——冷门信号一个不漏。",
+  "group_join_copy": "想第一时间知道 AI 怎么判断巴阿大战？加入我们的 Telegram 群，赛前 30 分钟收到模型重评推送，和球友一起聊数据、看信号。点这里入群。",
+  "today_cta": "今日 AI 观点：巴阿若相遇，阿根廷占优但冷门风险偏高——看完整因子拆解。",
+  "social_post": "巴阿若淘汰赛相遇，AI 倾向阿根廷但冷门风险不低。Elo 差 100 分，近 10 场丢球 3 vs 11——但阵容未知是 X 因素。你怎么看？#足球AI #巴阿对决",
+  "internal_notes": [
+    "hypothetical: Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario. Customer copy uses 'if they meet in the knockouts'.",
+    "assumption_context: lineup_integrity, goalkeeper_performance_gap, tactical_matchup, venue/heat impact for knockout, model blind spots (injuries, xG, squad value, FIFA rank) are assumptions — not real data.",
+    "historical_replay: this is a pre-match modeling output, not a recap."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results -> elo_snapshot@2026-06-11",
+    "Recent form (last 10)": "kaggle_intl_results -> last10_form",
+    "Finishing efficiency": "kaggle_intl_results -> goalscorers_last10",
+    "In-match momentum / late swings": "kaggle_intl_results -> h2h+shootouts",
+    "Venue / travel / climate": "kaggle_intl_results -> 2026_group_fixtures",
+    "Upset / volatility risk": "upset_band(elo_gap=100, missing=4)"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-10T17:01:34.039072+00:00"
+}

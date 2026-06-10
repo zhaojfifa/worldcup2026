@@ -1,0 +1,124 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "979139",
+  "mode": "historical_recap",
+  "language": "zh-CN",
+  "hero_title": "3-3翻盘剧本：ScoutScore赛前该在哪三处看见冷门密码",
+  "hero_subtitle": "阿根廷全场20射10正只进3球，法国10射5正也进3球——效率差本身就是冷门信号。",
+  "short_title": "3-3冷门复盘：模型该看见的三处风险",
+  "screenshot_line": "阿根廷20射10正 vs 法国10射5正，进球都是3个——效率差就是冷门本身。",
+  "model_judgement": "赛前Elo差距68分+近10场8胜1平1负，ScoutScore倾向阿根廷胜，但风险评级给了「中」——因为模型知道自己没吃进伤病、xG和门将状态。实际比赛验证了这套谨慎：阿根廷控场但效率低，法国门将7次扑救硬拖进加时。",
+  "main_lean": "赛前倾向阿根廷胜，但冷门风险偏高",
+  "scoreline_view": "模型估计合理区间2-1、3-1、1-1；实际3-3（加时后点球）落在区间外，属于高波动结果。",
+  "risk_level": "中——模型自知缺伤病/xG/门将数据，冷门敞口未完全覆盖",
+  "risk_factors": [
+    {
+      "name": "Elo差距+近况",
+      "text": "阿根廷Elo 2052 vs 法国1984，近10场8胜1平1负，表面占优。",
+      "source_refs": [
+        "kaggle_intl_results: elo_snapshot@2022-12-18",
+        "kaggle_intl_results: last10_form"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "效率盲区",
+      "text": "模型没有xG数据，无法提前判断阿根廷射门转化率偏低、法国门将状态火热。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将差距",
+      "text": "赛前无门将状态数据，实际法国门将7次扑救，阿根廷门将仅2次。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "伤病/阵容未知",
+      "text": "模型未摄入伤病和停赛信息，法国赛前有球员伤病传闻但未确认。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "Elo+近况指向阿根廷占优",
+      "text": "阿根廷控球54%，射门20次，场面优势符合Elo判断。",
+      "source_refs": [
+        "api-football: /fixtures/statistics fixture_id=979139"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "风险评级「中」正确",
+      "text": "模型提前标记了数据缺口，最终3-3证明冷门风险真实存在。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "射门效率差",
+      "text": "阿根廷20射10正只进3球，法国10射5正也进3球——效率差是冷门核心，但模型赛前无法量化。",
+      "source_refs": [
+        "api-football: /fixtures/statistics fixture_id=979139"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "门将表现差",
+      "text": "法国门将7次扑救vs阿根廷2次，直接让比赛进入加时。",
+      "source_refs": [
+        "api-football: /fixtures/statistics fixture_id=979139"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "姆巴佩个人爆发",
+      "text": "80分钟后连入两球，加时再进点球——超级球星个人能力是模型盲区。",
+      "source_refs": [
+        "api-football: /fixtures/events fixture_id=979139"
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "门将近期状态",
+      "text": "赛前30分钟应重新计算门将扑救率，若一方门将近期连续高扑救，需上调冷门权重。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "伤病/阵容确认",
+      "text": "赛前30分钟需确认双方首发，尤其核心球员是否带伤出战。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "射门效率趋势",
+      "text": "若一方近期射门多但进球少，效率差可能延续。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "阿根廷20射10正只进3球，法国10射5正也进3球——效率差就是冷门本身。ScoutScore赛前给了风险「中」，因为模型知道自己没吃进门将状态和xG。想看完整因子拆解？进群看临场30分钟更新。",
+  "subscription_hook": "免费版看到主倾向和风险等级。订阅后解锁：全部因子拆解、临场30分钟重新评分、比分区间深度分析、每日AI观点推送。",
+  "group_join_copy": "这场3-3，ScoutScore赛前就标记了「中」风险——因为我们知道自己缺什么数据。想提前看到门将差距、效率盲区这些冷门密码？进群，临场30分钟会重新计算所有因子，推送最新判断。",
+  "today_cta": "今日AI观点：阿根廷vs法国复盘——效率差是冷门密码",
+  "social_post": "阿根廷20射10正vs法国10射5正，进球都是3个。效率差就是冷门本身。ScoutScore赛前风险「中」——模型自知缺门将数据。想看完整因子？进群。",
+  "internal_notes": [
+    "historical_replay: 本复盘基于2022世界杯决赛真实数据，非赛前预测存档。",
+    "assumption_context: 效率盲区、门将差距、伤病阵容未知均为模型设定缺口，非真实赛前数据。",
+    "2026假想对阵声明：不适用。"
+  ],
+  "source_ref_map": {
+    "kaggle_intl_results: elo_snapshot@2022-12-18": "kaggle_intl_results dataset, derived elo",
+    "kaggle_intl_results: last10_form": "kaggle_intl_results dataset, derived form",
+    "api-football: /fixtures/statistics fixture_id=979139": "api-football statistics endpoint",
+    "api-football: /fixtures/events fixture_id=979139": "api-football events endpoint"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-10T16:50:40.219084+00:00"
+}

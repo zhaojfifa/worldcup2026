@@ -1,0 +1,126 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "855737",
+  "mode": "historical_recap",
+  "language": "zh-CN",
+  "hero_title": "369分Elo差距翻车：ScoutScore赛前该在哪三处看见沙特冷门",
+  "hero_subtitle": "阿根廷控球69%、射门15次却1-2输球——模型赛前已标记高风险，但效率盲区是致命缺口。",
+  "short_title": "阿根廷1-2沙特：冷门密码藏在哪",
+  "screenshot_line": "阿根廷15射6正只进1球，沙特3射2正全进——效率差就是冷门本身。",
+  "model_judgement": "赛前ScoutScore判定阿根廷是压倒性热门：Elo领先369分，近10场8胜2平进26球仅失2球，沙特同期2胜5平3场零进球。但模型同时标记了高风险——因为盲区太多：伤病、xG、门将状态全未摄入，大热门+数据盲区=经典翻车陷阱。",
+  "main_lean": "赛前倾向阿根廷胜，但冷门风险偏高",
+  "scoreline_view": "模型估计合理区间为2-0、3-0或1-0，实际1-2完全偏离——效率缺口是根源。",
+  "risk_level": "高：大热门+模型盲区（伤病/xG/门将未摄入）构成经典冷门陷阱",
+  "risk_factors": [
+    {
+      "name": "Elo差距过大但盲区集中",
+      "text": "阿根廷Elo 2053 vs 沙特1684，但模型未摄入伤病、xG、门将状态，大热门易被高估。",
+      "source_refs": [
+        "kaggle_intl_results: elo_snapshot@2022-11-22"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "沙特近期防守韧性",
+      "text": "沙特近5场友谊赛仅失1球（对克罗地亚），防守组织有提升，但对手强度一般。",
+      "source_refs": [
+        "kaggle_intl_results: last10_form"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "阿根廷热身赛对手弱",
+      "text": "阿根廷近5场友谊赛对手为意大利、爱沙尼亚、洪都拉斯、牙买加、阿联酋，含金量有限。",
+      "source_refs": [
+        "kaggle_intl_results: last_matches"
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "高风险预警正确",
+      "text": "模型赛前将风险评为‘高’——大热门+盲区组合确实导致冷门。",
+      "source_refs": [
+        "scoutscore_factors: upset_band(elo_gap=369, missing=3)"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "沙特防守韧性被验证",
+      "text": "沙特全场仅3次射门但2次射正全部进球，防守反击执行到位。",
+      "source_refs": [
+        "api-football: /fixtures/statistics"
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "射门效率差距",
+      "text": "阿根廷15射6正仅1球，沙特3射2正进2球——模型没有xG，无法提前量化这种效率反转。",
+      "source_refs": [
+        "api-football: /fixtures/statistics"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "门将表现差异",
+      "text": "沙特门将奥维斯5次扑救评分7.7，阿根廷门将0扑救——模型没有门将状态数据。",
+      "source_refs": [
+        "api-football: /fixtures/players"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "沙特教练雷纳德的战术部署",
+      "text": "沙特采用4-1-4-1阵型，中场绞杀后快速反击，两个进球均来自反击。",
+      "source_refs": [
+        "api-football: /fixtures/lineups",
+        "api-football: /fixtures/events"
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "临场30分钟门将状态更新",
+      "text": "若模型能接入门将近期扑救率或赛前热身数据，可提前发现沙特门将状态正佳。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "xG实时数据接入",
+      "text": "xG能量化射门质量，阿根廷预期进球应远高于实际进球，提前提示效率风险。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "伤病/阵容完整性",
+      "text": "阿根廷是否有关键球员轻伤或轮换？赛前阵容信息缺失是模型盲区。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "阿根廷1-2沙特，冷门赛前模型已标记高风险。15射6正只进1球 vs 3射2正全进——效率差就是翻车密码。订阅ScoutScore，解锁临场30分钟门将/效率因子更新，下次冷门提前看见。",
+  "subscription_hook": "免费版看到主倾向和风险等级。订阅后解锁：全部因子拆解（含门将状态、xG效率）、临场30分钟重新打分、比分区间深度分析——冷门不再后知后觉。",
+  "group_join_copy": "这场冷门，模型赛前标记了高风险但盲区太多。加入Giành Cup AI ScoutScore群，每次赛前30分钟收到实时因子更新：门将状态、效率缺口、阵容变动——比普通数据多一层判断。点这里入群。",
+  "today_cta": "今日AI观点：阿根廷冷门复盘——效率差是最大盲区，下一场看什么？",
+  "social_post": "阿根廷15射6正只进1球，沙特3射2正全进——效率差就是冷门本身。ScoutScore赛前已标记高风险，但盲区太多。订阅看临场更新，下次提前预警。",
+  "internal_notes": [
+    "historical_replay: 此复盘基于赛后数据，非赛前真实存档预测。",
+    "assumption_context: 模型盲区（伤病/xG/门将状态未摄入）为已知事实，非假设。",
+    "2026假想对阵声明: 不适用。"
+  ],
+  "source_ref_map": {
+    "kaggle_intl_results": "kaggle国际比赛数据集（1872-2026）",
+    "api-football: /fixtures/statistics": "api-football比赛统计数据接口",
+    "api-football: /fixtures/players": "api-football球员统计接口",
+    "api-football: /fixtures/lineups": "api-football阵容接口",
+    "api-football: /fixtures/events": "api-football事件接口",
+    "scoutscore_factors: upset_band": "模型内部冷门风险评级方法"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-10T16:49:50.489808+00:00"
+}

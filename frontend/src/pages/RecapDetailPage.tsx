@@ -6,6 +6,8 @@ import { getBundledRecap, MORE_RECAPS, type RecapContent } from '../data/recapDa
 import { EVIDENCE_AVAILABLE, getBundledEvidence } from '../data/evidenceData';
 import { getNarrative } from '../data/narrativeData';
 import { NarrativeView } from '../components/NarrativeView';
+import { getProductNarrative } from '../data/productNarrativeData';
+import { ProductRecapView } from '../components/ProductProofViews';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
@@ -59,6 +61,26 @@ export function RecapDetailPage() {
       .catch(() => { if (alive) setContent(getBundledRecap(fixtureId, loc)); });
     return () => { alive = false; };
   }, [fixtureId, loc]);
+
+  // ── Preferred: LLM PRODUCT narrative (v2 contract, guard-passed) ───────────
+  // Independent of the bundled recap content so newly productized fixtures
+  // (979139) render even without hand-written fallback copy.
+  const productNarr = getProductNarrative(fixtureId, loc);
+  if (productNarr && productNarr.mode === 'historical_recap') {
+    return (
+      <div className="page-enter">
+        <div className="backbar">
+          <button className="bk" onClick={() => navigate('/')}>←</button>
+          <span className="ti">{L.back}</span>
+        </div>
+        <div className="recap-banner">🗂️ {content?.badge ?? L.back}</div>
+        <ProductRecapView n={productNarr} loc={loc} />
+        {EVIDENCE_AVAILABLE.has(fixtureId) && (
+          <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
+        )}
+      </div>
+    );
+  }
 
   if (!content) {
     return (

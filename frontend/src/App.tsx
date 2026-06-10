@@ -7,6 +7,7 @@ import { TokenPage } from './pages/TokenPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { RecapDetailPage } from './pages/RecapDetailPage';
 import { EvidenceBoardPage } from './pages/EvidenceBoardPage';
+import { PredictPage } from './pages/PredictPage';
 import './styles/global.css';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="community" element={<CommunityPage />} />
           <Route path="recap/:fixtureId" element={<RecapDetailPage />} />
           <Route path="evidence/:fixtureId" element={<EvidenceBoardPage />} />
+          <Route path="predict/:slug" element={<PredictPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
