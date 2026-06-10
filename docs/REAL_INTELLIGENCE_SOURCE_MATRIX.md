@@ -31,7 +31,7 @@
 | **TheSports** | Y | ? *(verify)* | ? *(verify)* | med (sales quote) | med | **secondary** (deep; trial first) |
 | **Sportradar** | Y (on-venue) | Y | Y | high (~$500–1,000+/mo) | low (contract) | **enterprise future** |
 | **SerpApi** | P | ? (Google) | ? (Google) | low ($25/1k) | med (scraped) | **offline validation** (auxiliary) |
-| **Kaggle** | N | Y (1872→2026) | P (as played) | free | low (CC0 *confirm*) | **offline validation** |
+| **Kaggle** | N | Y (1872→2026) | P (as played) | free | low (CC0 *confirm*) | **offline validation — alignment pending** (Render side ready; `manual_download_needed`) |
 | **Highlightly** | Y | ? *(verify)* | ? *(verify)* | low (free / from $5.99/mo) | low | **secondary** (cheap; verify) |
 | **TheSportsDB** | P | Y | ? *(verify)* | free / Patreon | med (crowd-sourced) | **reference-only** |
 
@@ -41,7 +41,8 @@
 
 ## How the matrix maps to the 3 routes
 - **Route A (low-cost historical validation):** **Kaggle** (offline `final_score`/`winner`/form/H2H) + **Render API** +
-  optional **SerpApi** auxiliary cross-check. Cost: free–$25.
+  optional **SerpApi** auxiliary cross-check. Cost: free–$25. **Status (2026-06-10): alignment harness shipped
+  (`scripts/audit_kaggle_wc2022.py`); Render side ready; `manual_download_needed` — operator places the 3 CSVs to complete.**
 - **Route B (MVP deep intelligence):** **API-FOOTBALL** paid `primary`, with **Highlightly** / **TheSports** trials as
   `secondary` comparisons (lineup/player/coach/injury, live). Cost: ~$19–$39/mo + trials.
 - **Route C (enterprise):** **Sportradar** `enterprise future`. Cost: high. Defer.
