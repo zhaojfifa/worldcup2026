@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import health, matches, tokens, data_source, admin, performance, assets, social, rankings, llm
+from app.routers import health, matches, tokens, data_source, admin, performance, assets, social, rankings, llm, internal_scout_pack
 
 settings = get_settings()
 
@@ -44,6 +44,7 @@ app.include_router(assets.router)
 app.include_router(social.router)
 app.include_router(rankings.router)
 app.include_router(llm.router)  # admin-only, draft-only LLM copy generation
+app.include_router(internal_scout_pack.router)  # internal operator preview (not public nav)
 
 
 @app.on_event("startup")
