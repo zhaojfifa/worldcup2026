@@ -1,0 +1,637 @@
+{
+  "fixture_id": 855737,
+  "source": "api-football",
+  "report_type": "productized_scout_report_v0",
+  "last_checked_at": "2026-06-10T09:01:53.905199+00:00",
+  "public_ready": false,
+  "operation_status": "paused",
+  "match_verdict": {
+    "text": "Phân tích sau trận · Argentina 1–2 Saudi Arabia. Argentina vượt trội về kiểm soát bóng và số cú sút nhưng không thắng — một bất ngờ điển hình.",
+    "source_refs": [
+      {
+        "field": "team_statistics",
+        "metric": "possession/shots",
+        "value": null,
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": 855737
+      },
+      {
+        "field": "fixture",
+        "metric": "final_score",
+        "value": "1-2",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "why_it_happened": [
+    {
+      "point": "Diễn biến bàn thắng: 10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari.",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goal events",
+          "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "Kết quả bị lật ngược trong hiệp hai: 48' Saudi Arabia, 53' Saudi Arabia.",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "second-half goals",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "Kiểm soát bóng 69% so với 31%, số cú sút 15 so với 3; đội nhỉnh hơn về dữ liệu là Argentina.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession / Total Shots",
+          "value": "69%/31%, 15/3",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "Thủ môn: điểm nhà 6.0 / khách 7.7, cứu thua nhà 0 / khách 5.",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "home 6.0 / away 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        },
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "home 0 / away 5",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "evidence_board": [
+    {
+      "title": "Kiểm soát bóng",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "69% / 31%",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "69% / 31%",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "Tổng số cú sút",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "15 / 3",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Total Shots",
+          "value": "15 / 3",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "Sút trúng đích",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "6 / 2",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal",
+          "value": "6 / 2",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "Tỷ lệ chuyền chính xác",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "85% / 68%",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Passes %",
+          "value": "85% / 68%",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "Điểm thủ môn",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "6.0 / 7.7",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "6.0 / 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "Số lần cứu thua",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "0 / 5",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "0 / 5",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "Diễn biến bàn thắng",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goal events",
+          "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "feature_snapshot_summary": [
+    {
+      "label": "Độ phủ dữ liệu",
+      "value": "100%",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "metric": "coverage_score",
+          "value": "100%",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "Chênh kiểm soát (nhà-khách)",
+      "value": 38.0,
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "38.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "Chênh số cú sút (nhà-khách)",
+      "value": 12.0,
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Total Shots",
+          "value": "12.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "Lật ngược hiệp hai",
+      "value": true,
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goals",
+          "value": "True",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "Điểm cầu thủ cao nhất",
+      "value": 7.7,
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "rating",
+          "value": "7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "Thiếu dữ liệu chấn thương",
+      "value": true,
+      "source_refs": [
+        {
+          "field": "injuries",
+          "metric": "results",
+          "value": "True",
+          "source": "api-football",
+          "endpoint": "/injuries",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "Thiếu xG",
+      "value": true,
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "advanced stats not ingested",
+          "value": "True",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "model_notes": {
+    "model_type": "post_match_explanation_v0",
+    "is_prediction": false,
+    "signals": [
+      {
+        "name": "upset_case",
+        "value": true,
+        "interpretation": "Đội kiểm soát bóng nhiều hơn (Argentina) lại không thắng — đặc điểm của một trận gây bất ngờ.",
+        "source_refs": [
+          {
+            "field": "team_statistics",
+            "metric": "Ball Possession",
+            "value": "diff 38.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "fixture",
+            "metric": "final_score",
+            "value": "1-2",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "second_half_turnaround",
+        "value": true,
+        "interpretation": "Tỷ số bị lật ngược trong hiệp hai — kết quả được định đoạt ở hiệp hai.",
+        "source_refs": [
+          {
+            "field": "events_summary",
+            "metric": "second-half goals",
+            "value": "48' Saudi Arabia; 53' Saudi Arabia",
+            "source": "api-football",
+            "endpoint": "/fixtures/events",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "possession_result_contradiction",
+        "value": true,
+        "interpretation": "Chênh lệch kiểm soát bóng 38.0 điểm, nhưng đội kiểm soát ít hơn lại thắng — ưu thế kiểm soát không chuyển thành kết quả.",
+        "source_refs": [
+          {
+            "field": "team_statistics",
+            "metric": "Ball Possession",
+            "value": "diff 38.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "fixture",
+            "metric": "result_winner",
+            "value": "away",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "shot_efficiency_gap",
+        "value": true,
+        "interpretation": "Chênh lệch số cú sút 12.0, nhưng đội sút ít hơn lại ghi nhiều bàn hơn — hiệu suất dứt điểm chênh lệch rõ.",
+        "source_refs": [
+          {
+            "field": "team_statistics",
+            "metric": "Total Shots",
+            "value": "diff 12.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "team_statistics",
+            "metric": "Shots on Goal",
+            "value": "diff 4.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "fixture",
+            "metric": "final_score",
+            "value": "1-2",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "event_turning_point",
+        "value": true,
+        "interpretation": "Bước ngoặt nằm ở các bàn thắng hiệp hai: 48' Saudi Arabia, 53' Saudi Arabia.",
+        "source_refs": [
+          {
+            "field": "events_summary",
+            "metric": "goal events",
+            "value": "48' Saudi Arabia; 53' Saudi Arabia",
+            "source": "api-football",
+            "endpoint": "/fixtures/events",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "goalkeeper_impact_observed",
+        "value": true,
+        "interpretation": "Thủ môn đội thắng có điểm cao hơn (nhà 6.0 / khách 7.7), số lần cứu thua nhà 0.0 / khách 5.0 — màn trình diễn của thủ môn ảnh hưởng đến kết quả ở mức quan sát.",
+        "source_refs": [
+          {
+            "field": "player_statistics",
+            "metric": "goalkeeper rating",
+            "value": "home 6.0 / away 7.7",
+            "source": "api-football",
+            "endpoint": "/fixtures/players",
+            "fixture_id": 855737
+          },
+          {
+            "field": "team_statistics",
+            "metric": "Goalkeeper Saves",
+            "value": "home 0.0 / away 5.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "data_coverage_sufficient",
+        "value": true,
+        "interpretation": "Độ phủ dữ liệu 100% (9 mục cốt lõi đã có), đủ để giải thích sau trận.",
+        "source_refs": [
+          {
+            "field": "fixture",
+            "metric": "coverage_score",
+            "value": "100%",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "injuries_missing",
+        "value": true,
+        "interpretation": "Dữ liệu chấn thương chưa có, không thể giải thích ảnh hưởng vắng mặt / độ đầy đủ đội hình.",
+        "source_refs": [
+          {
+            "field": "injuries",
+            "metric": "results",
+            "value": "0 (source required)",
+            "source": "api-football",
+            "endpoint": "/injuries",
+            "fixture_id": 855737
+          }
+        ]
+      }
+    ],
+    "allowed_conclusions": [
+      "Có thể kết luận đây là mẫu trận gây bất ngờ: kiểm soát bóng tốt nhưng kết quả ngược lại",
+      "Các bàn thắng hiệp hai là bước ngoặt của kết quả",
+      "Màn trình diễn của thủ môn đội thắng ảnh hưởng đến kết quả ở mức quan sát",
+      "Dữ liệu hiện có đủ để giải thích sau trận"
+    ],
+    "forbidden_conclusions": [
+      "Không dự đoán kết quả trận đấu hoặc đưa ra lời khuyên liên quan tiền bạc, lợi nhuận",
+      "Không đánh giá ảnh hưởng chấn thương hay vắng mặt (chưa có dữ liệu chấn thương)",
+      "Không định lượng may rủi hay chất lượng cơ hội (vòng này không có xG / chỉ số nâng cao)",
+      "Không xuất mức quan trọng đặc trưng hay trọng số giải thích (không có mô hình dự đoán thật)"
+    ]
+  },
+  "operator_content_draft": {
+    "text": "[Tin sau trận] Argentina 1–2 Saudi Arabia. Một trận gây bất ngờ điển hình: Argentina kiểm soát bóng và số cú sút nhỉnh hơn nhưng Saudi Arabia mới là đội thắng. Bàn thắng: 10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari. ⚠ Thiếu dữ liệu chấn thương — không viết về ảnh hưởng vắng mặt; không có xG — không viết về yếu tố may mắn. Thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.",
+    "source_refs": [
+      {
+        "field": "fixture",
+        "metric": "final_score",
+        "value": "1-2",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": 855737
+      },
+      {
+        "field": "events_summary",
+        "metric": "goals",
+        "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+        "source": "api-football",
+        "endpoint": "/fixtures/events",
+        "fixture_id": 855737
+      },
+      {
+        "field": "team_statistics",
+        "metric": "possession/shots",
+        "value": null,
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "missing_data": [
+    "Chấn thương / treo giò: 0 kết quả, cần nguồn thứ hai hoặc mùa giải hiện tại",
+    "xG / chỉ số nâng cao: chưa tích hợp trong vòng này"
+  ],
+  "next_data_needed": [
+    {
+      "item": "Chấn thương / treo giò",
+      "purpose": "Giải thích vắng mặt trụ cột, độ đầy đủ đội hình, thay đổi đội hình",
+      "ref_doc": "docs/MVP2_NEXT_DATA_REQUIREMENTS.md"
+    },
+    {
+      "item": "xG / chỉ số nâng cao",
+      "purpose": "Giải thích chất lượng cơ hội và việc kiểm soát bóng không thành kết quả",
+      "ref_doc": "docs/MVP2_NEXT_DATA_REQUIREMENTS.md"
+    }
+  ],
+  "ai_boundary": {
+    "allowed_fields": [
+      "fixture",
+      "teams",
+      "lineups",
+      "formation",
+      "coach",
+      "events_summary",
+      "team_statistics",
+      "player_statistics",
+      "squad"
+    ],
+    "forbidden_fields": [
+      "injuries (unresolved — 0 results; do NOT state 'no injuries')",
+      "player_absence_impact",
+      "suspensions",
+      "any field not present in source_ledger",
+      "match outcome prediction or any financial / profit signal"
+    ],
+    "note": "AI chỉ được giải thích các trường đã được xác minh"
+  },
+  "source_refs": [
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "player_statistics",
+      "endpoint": "/fixtures/players",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    },
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "player_statistics",
+      "endpoint": "/fixtures/players",
+      "source": "api-football"
+    },
+    {
+      "field": "injuries",
+      "endpoint": "/injuries",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    }
+  ],
+  "disclaimer": "Thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ."
+}

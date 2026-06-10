@@ -1,0 +1,260 @@
+{
+  "fixture_id": 855737,
+  "model_type": "post_match_explanation_v0",
+  "is_prediction": false,
+  "signals": [
+    {
+      "name": "upset_case",
+      "value": true,
+      "interpretation": {
+        "zh": "控球占优的一方(Argentina)未能取胜,符合爆冷复盘特征。",
+        "vi": "Đội kiểm soát bóng nhiều hơn (Argentina) lại không thắng — đặc điểm của một trận gây bất ngờ.",
+        "en": "The side dominating possession (Argentina) did not win — an upset pattern."
+      },
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "diff 38.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "fixture",
+          "metric": "final_score",
+          "value": "1-2",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "second_half_turnaround",
+      "value": true,
+      "interpretation": {
+        "zh": "比分在下半场被反超,结果在下半场决定。",
+        "vi": "Tỷ số bị lật ngược trong hiệp hai — kết quả được định đoạt ở hiệp hai.",
+        "en": "The scoreline was overturned in the second half — the result was decided after the break."
+      },
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "second-half goals",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "possession_result_contradiction",
+      "value": true,
+      "interpretation": {
+        "zh": "控球差 38.0 个百分点,但控球少的一方赢球 — 控球与结果背离。",
+        "vi": "Chênh lệch kiểm soát bóng 38.0 điểm, nhưng đội kiểm soát ít hơn lại thắng — ưu thế kiểm soát không chuyển thành kết quả.",
+        "en": "A 38.0-point possession gap, yet the side with less possession won — possession did not convert to result."
+      },
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "diff 38.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "fixture",
+          "metric": "result_winner",
+          "value": "away",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "shot_efficiency_gap",
+      "value": true,
+      "interpretation": {
+        "zh": "射门差 12.0,但射门少的一方进球更多 — 射门转化效率差异明显。",
+        "vi": "Chênh lệch số cú sút 12.0, nhưng đội sút ít hơn lại ghi nhiều bàn hơn — hiệu suất dứt điểm chênh lệch rõ.",
+        "en": "A 12.0-shot gap, yet the side taking fewer shots scored more — a clear finishing-efficiency gap."
+      },
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Total Shots",
+          "value": "diff 12.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal",
+          "value": "diff 4.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        },
+        {
+          "field": "fixture",
+          "metric": "final_score",
+          "value": "1-2",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "event_turning_point",
+      "value": true,
+      "interpretation": {
+        "zh": "结果转折点出现在下半场进球:48' Saudi Arabia, 53' Saudi Arabia。",
+        "vi": "Bước ngoặt nằm ở các bàn thắng hiệp hai: 48' Saudi Arabia, 53' Saudi Arabia.",
+        "en": "The turning point was the second-half goal(s): 48' Saudi Arabia, 53' Saudi Arabia."
+      },
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goal events",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "goalkeeper_impact_observed",
+      "value": true,
+      "interpretation": {
+        "zh": "胜方门将评分更高(主 6.0 / 客 7.7),扑救 主 0.0 / 客 5.0 — 门将表现在观测层面影响结果。",
+        "vi": "Thủ môn đội thắng có điểm cao hơn (nhà 6.0 / khách 7.7), số lần cứu thua nhà 0.0 / khách 5.0 — màn trình diễn của thủ môn ảnh hưởng đến kết quả ở mức quan sát.",
+        "en": "The winner's keeper rated higher (home 6.0 / away 7.7); saves home 0.0 / away 5.0 — keeper performance observably affected the result."
+      },
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "home 6.0 / away 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        },
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "home 0.0 / away 5.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "data_coverage_sufficient",
+      "value": true,
+      "interpretation": {
+        "zh": "数据覆盖 100%(9 项核心已接入),足以支撑赛后复盘解释。",
+        "vi": "Độ phủ dữ liệu 100% (9 mục cốt lõi đã có), đủ để giải thích sau trận.",
+        "en": "Data coverage 100% (9 core sections present) — sufficient for a post-match read."
+      },
+      "source_refs": [
+        {
+          "field": "fixture",
+          "metric": "coverage_score",
+          "value": "100%",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "name": "injuries_missing",
+      "value": true,
+      "interpretation": {
+        "zh": "伤停数据未返回,不能解释主力缺阵/阵容完整性的影响。",
+        "vi": "Dữ liệu chấn thương chưa có, không thể giải thích ảnh hưởng vắng mặt / độ đầy đủ đội hình.",
+        "en": "Injuries data is unavailable — absence / squad-completeness impact cannot be explained."
+      },
+      "source_refs": [
+        {
+          "field": "injuries",
+          "metric": "results",
+          "value": "0 (source required)",
+          "source": "api-football",
+          "endpoint": "/injuries",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "allowed_conclusions": [
+    {
+      "zh": "可判断为控球占优但结果相反的爆冷复盘样例",
+      "vi": "Có thể kết luận đây là mẫu trận gây bất ngờ: kiểm soát bóng tốt nhưng kết quả ngược lại",
+      "en": "May conclude this is an upset: strong possession but the opposite result"
+    },
+    {
+      "zh": "下半场进球是结果转折点",
+      "vi": "Các bàn thắng hiệp hai là bước ngoặt của kết quả",
+      "en": "The second-half goals were the turning point"
+    },
+    {
+      "zh": "胜方门将表现在观测层面对结果有影响",
+      "vi": "Màn trình diễn của thủ môn đội thắng ảnh hưởng đến kết quả ở mức quan sát",
+      "en": "The winning keeper's performance observably affected the result"
+    },
+    {
+      "zh": "现有数据足以支撑赛后复盘解释",
+      "vi": "Dữ liệu hiện có đủ để giải thích sau trận",
+      "en": "Current data is sufficient for a post-match explanation"
+    }
+  ],
+  "forbidden_conclusions": [
+    {
+      "zh": "不得预测比赛结果或给出任何资金、盈利相关建议",
+      "vi": "Không dự đoán kết quả trận đấu hoặc đưa ra lời khuyên liên quan tiền bạc, lợi nhuận",
+      "en": "No match-result prediction or any money/profit-related advice"
+    },
+    {
+      "zh": "不得评估伤停或缺阵影响(无伤停数据)",
+      "vi": "Không đánh giá ảnh hưởng chấn thương hay vắng mặt (chưa có dữ liệu chấn thương)",
+      "en": "No injury/absence impact (no injuries data)"
+    },
+    {
+      "zh": "不得量化运气或机会质量(本轮无 xG / 进阶数据)",
+      "vi": "Không định lượng may rủi hay chất lượng cơ hội (vòng này không có xG / chỉ số nâng cao)",
+      "en": "No luck/chance-quality quantification (no xG / advanced stats this round)"
+    },
+    {
+      "zh": "不得输出特征重要度或权重解释(无真实预测模型)",
+      "vi": "Không xuất mức quan trọng đặc trưng hay trọng số giải thích (không có mô hình dự đoán thật)",
+      "en": "No feature-importance or weight explanations (no real prediction model)"
+    }
+  ],
+  "missing_data": [
+    {
+      "zh": "伤停 / 停赛:0 条返回,需二次数据源或当前赛季复验",
+      "vi": "Chấn thương / treo giò: 0 kết quả, cần nguồn thứ hai hoặc mùa giải hiện tại",
+      "en": "Injuries / suspensions: 0 results, second source or current-season re-check required"
+    },
+    {
+      "zh": "xG / 进阶数据:本轮未接入",
+      "vi": "xG / chỉ số nâng cao: chưa tích hợp trong vòng này",
+      "en": "xG / advanced stats: not ingested this round"
+    }
+  ],
+  "disclaimer": {
+    "zh": "复盘解释信号,非赛前预测;历史表现不代表未来结果,仅供数据分析和球迷娱乐参考。",
+    "vi": "Tín hiệu giải thích sau trận, không phải dự đoán trước trận; thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.",
+    "en": "Post-match explanation signals, not pre-match prediction; past performance does not represent future results — for data analysis and fan entertainment only."
+  }
+}

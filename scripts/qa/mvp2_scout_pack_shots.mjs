@@ -22,6 +22,7 @@ const OUT = 'docs/qa_screenshots/mvp2_real_data_operator_review';
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PORT = 9355;
 const FIXTURES = process.argv.slice(3).length ? process.argv.slice(3) : ['855737', '855741', '977345', '979139'];
+const SUFFIX = process.env.SHOT_SUFFIX || 'scout_pack';  // e.g. SHOT_SUFFIX=productized_report
 const SHOTS = FIXTURES.flatMap((fid) => [{ lang: 'zh', fid }, { lang: 'vi', fid }]);
 mkdirSync(OUT, { recursive: true });
 
@@ -61,7 +62,7 @@ async function shot(file) {
 async function run() {
   for (const { lang, fid } of SHOTS) {
     await nav(`${BASE}/internal/scout-pack?fixture_id=${fid}&lang=${lang}`);
-    await shot(`${lang}_${fid}_scout_pack.png`);
+    await shot(`${lang}_${fid}_${SUFFIX}.png`);
   }
 }
 try { await run(); } finally { ws.close(); chrome.kill(); }

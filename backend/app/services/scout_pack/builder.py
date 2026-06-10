@@ -236,7 +236,10 @@ def _build_team_statistics(res, fid, ts) -> dict:
     for team in res.response:
         stats = {}
         for s in (team.get("statistics") or [])[: C.MAX_TEAM_STATS_PER_TEAM]:
-            stats[s.get("type")] = s.get("value")
+            typ = s.get("type")
+            if typ and "expected" in typ.lower():  # exclude xG / expected_* (policy: not used this round)
+                continue
+            stats[typ] = s.get("value")
         value.append({"team": (team.get("team") or {}).get("name"), "stats": stats})
     return evidence_field(value, True, endpoint=_ep(res), fixture_id=fid, last_checked_at=ts,
                           confidence="high", license_status="ok", fallback_text=C.FALLBACK_TEAM_STATS)
@@ -264,8 +267,14 @@ def _build_player_statistics(res, fid, ts) -> dict:
             })
         rows.sort(key=lambda r: r["_rk"], reverse=True)
         top = [{k: v for k, v in r.items() if k != "_rk"} for r in rows[: C.MAX_PLAYER_STATS_PER_TEAM]]
+        # always capture each team's goalkeeper (the starter by minutes) — the GK is
+        # often outside the top-N-by-rating slice but needed for the feature snapshot.
+        gks = sorted((r for r in rows if r["pos"] == "G"),
+                     key=lambda r: (r["minutes"] or 0, r["_rk"]), reverse=True)
+        gk = {"name": gks[0]["name"], "rating": gks[0]["rating"]} if gks else None
         value.append({"team": (team.get("team") or {}).get("name"),
                       "players_count": len(team.get("players") or []),
+                      "goalkeeper": gk,
                       "top_by_rating": top})
     return evidence_field(value, True, endpoint=_ep(res), fixture_id=fid, last_checked_at=ts,
                           confidence="high", license_status="ok", fallback_text=C.FALLBACK_PLAYER_STATS)

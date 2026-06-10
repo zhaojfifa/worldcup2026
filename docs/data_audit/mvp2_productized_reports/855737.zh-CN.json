@@ -1,0 +1,637 @@
+{
+  "fixture_id": 855737,
+  "source": "api-football",
+  "report_type": "productized_scout_report_v0",
+  "last_checked_at": "2026-06-10T09:01:53.905199+00:00",
+  "public_ready": false,
+  "operation_status": "paused",
+  "match_verdict": {
+    "text": "赛后复盘 · Argentina 1–2 Saudi Arabia。Argentina 在控球与射门上占优却未取胜,属于典型爆冷。",
+    "source_refs": [
+      {
+        "field": "team_statistics",
+        "metric": "possession/shots",
+        "value": null,
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": 855737
+      },
+      {
+        "field": "fixture",
+        "metric": "final_score",
+        "value": "1-2",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "why_it_happened": [
+    {
+      "point": "进球顺序:10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari。",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goal events",
+          "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "结果在下半场被反超:48' Saudi Arabia, 53' Saudi Arabia。",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "second-half goals",
+          "value": "48' Saudi Arabia; 53' Saudi Arabia",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "控球 69% vs 31%、射门 15 vs 3,数据占优方为 Argentina。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession / Total Shots",
+          "value": "69%/31%, 15/3",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "point": "门将:评分 主 6.0 / 客 7.7,扑救 主 0 / 客 5。",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "home 6.0 / away 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        },
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "home 0 / away 5",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "evidence_board": [
+    {
+      "title": "控球率",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "69% / 31%",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "69% / 31%",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "总射门",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "15 / 3",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Total Shots",
+          "value": "15 / 3",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "射正",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "6 / 2",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Shots on Goal",
+          "value": "6 / 2",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "传球成功率",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "85% / 68%",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Passes %",
+          "value": "85% / 68%",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "门将评分",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "6.0 / 7.7",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "goalkeeper rating",
+          "value": "6.0 / 7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "门将扑救",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "0 / 5",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Goalkeeper Saves",
+          "value": "0 / 5",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "title": "进球时间线",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goal events",
+          "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "feature_snapshot_summary": [
+    {
+      "label": "数据覆盖",
+      "value": "100%",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "metric": "coverage_score",
+          "value": "100%",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "控球差(主-客)",
+      "value": 38.0,
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Ball Possession",
+          "value": "38.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "射门差(主-客)",
+      "value": 12.0,
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "Total Shots",
+          "value": "12.0",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "下半场反超",
+      "value": true,
+      "source_refs": [
+        {
+          "field": "events_summary",
+          "metric": "goals",
+          "value": "True",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "最高球员评分",
+      "value": 7.7,
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "metric": "rating",
+          "value": "7.7",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "伤停缺失",
+      "value": true,
+      "source_refs": [
+        {
+          "field": "injuries",
+          "metric": "results",
+          "value": "True",
+          "source": "api-football",
+          "endpoint": "/injuries",
+          "fixture_id": 855737
+        }
+      ]
+    },
+    {
+      "label": "xG 缺失",
+      "value": true,
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "metric": "advanced stats not ingested",
+          "value": "True",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": 855737
+        }
+      ]
+    }
+  ],
+  "model_notes": {
+    "model_type": "post_match_explanation_v0",
+    "is_prediction": false,
+    "signals": [
+      {
+        "name": "upset_case",
+        "value": true,
+        "interpretation": "控球占优的一方(Argentina)未能取胜,符合爆冷复盘特征。",
+        "source_refs": [
+          {
+            "field": "team_statistics",
+            "metric": "Ball Possession",
+            "value": "diff 38.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "fixture",
+            "metric": "final_score",
+            "value": "1-2",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "second_half_turnaround",
+        "value": true,
+        "interpretation": "比分在下半场被反超,结果在下半场决定。",
+        "source_refs": [
+          {
+            "field": "events_summary",
+            "metric": "second-half goals",
+            "value": "48' Saudi Arabia; 53' Saudi Arabia",
+            "source": "api-football",
+            "endpoint": "/fixtures/events",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "possession_result_contradiction",
+        "value": true,
+        "interpretation": "控球差 38.0 个百分点,但控球少的一方赢球 — 控球与结果背离。",
+        "source_refs": [
+          {
+            "field": "team_statistics",
+            "metric": "Ball Possession",
+            "value": "diff 38.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "fixture",
+            "metric": "result_winner",
+            "value": "away",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "shot_efficiency_gap",
+        "value": true,
+        "interpretation": "射门差 12.0,但射门少的一方进球更多 — 射门转化效率差异明显。",
+        "source_refs": [
+          {
+            "field": "team_statistics",
+            "metric": "Total Shots",
+            "value": "diff 12.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "team_statistics",
+            "metric": "Shots on Goal",
+            "value": "diff 4.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          },
+          {
+            "field": "fixture",
+            "metric": "final_score",
+            "value": "1-2",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "event_turning_point",
+        "value": true,
+        "interpretation": "结果转折点出现在下半场进球:48' Saudi Arabia, 53' Saudi Arabia。",
+        "source_refs": [
+          {
+            "field": "events_summary",
+            "metric": "goal events",
+            "value": "48' Saudi Arabia; 53' Saudi Arabia",
+            "source": "api-football",
+            "endpoint": "/fixtures/events",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "goalkeeper_impact_observed",
+        "value": true,
+        "interpretation": "胜方门将评分更高(主 6.0 / 客 7.7),扑救 主 0.0 / 客 5.0 — 门将表现在观测层面影响结果。",
+        "source_refs": [
+          {
+            "field": "player_statistics",
+            "metric": "goalkeeper rating",
+            "value": "home 6.0 / away 7.7",
+            "source": "api-football",
+            "endpoint": "/fixtures/players",
+            "fixture_id": 855737
+          },
+          {
+            "field": "team_statistics",
+            "metric": "Goalkeeper Saves",
+            "value": "home 0.0 / away 5.0",
+            "source": "api-football",
+            "endpoint": "/fixtures/statistics",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "data_coverage_sufficient",
+        "value": true,
+        "interpretation": "数据覆盖 100%(9 项核心已接入),足以支撑赛后复盘解释。",
+        "source_refs": [
+          {
+            "field": "fixture",
+            "metric": "coverage_score",
+            "value": "100%",
+            "source": "api-football",
+            "endpoint": "/fixtures",
+            "fixture_id": 855737
+          }
+        ]
+      },
+      {
+        "name": "injuries_missing",
+        "value": true,
+        "interpretation": "伤停数据未返回,不能解释主力缺阵/阵容完整性的影响。",
+        "source_refs": [
+          {
+            "field": "injuries",
+            "metric": "results",
+            "value": "0 (source required)",
+            "source": "api-football",
+            "endpoint": "/injuries",
+            "fixture_id": 855737
+          }
+        ]
+      }
+    ],
+    "allowed_conclusions": [
+      "可判断为控球占优但结果相反的爆冷复盘样例",
+      "下半场进球是结果转折点",
+      "胜方门将表现在观测层面对结果有影响",
+      "现有数据足以支撑赛后复盘解释"
+    ],
+    "forbidden_conclusions": [
+      "不得预测比赛结果或给出任何资金、盈利相关建议",
+      "不得评估伤停或缺阵影响(无伤停数据)",
+      "不得量化运气或机会质量(本轮无 xG / 进阶数据)",
+      "不得输出特征重要度或权重解释(无真实预测模型)"
+    ]
+  },
+  "operator_content_draft": {
+    "text": "【赛后情报】Argentina 1–2 Saudi Arabia。这是一场典型爆冷复盘:Argentina 控球 69%、射门占优,却被 Saudi Arabia 拿下。进球:10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari。⚠ 伤停数据缺失,不写主力缺阵影响;无 xG,不写运气成分。历史表现不代表未来结果,仅供数据分析和球迷娱乐参考。",
+    "source_refs": [
+      {
+        "field": "fixture",
+        "metric": "final_score",
+        "value": "1-2",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": 855737
+      },
+      {
+        "field": "events_summary",
+        "metric": "goals",
+        "value": "10' Argentina L. Messi; 48' Saudi Arabia Saleh Al Shehri; 53' Saudi Arabia Salem Al Dawsari",
+        "source": "api-football",
+        "endpoint": "/fixtures/events",
+        "fixture_id": 855737
+      },
+      {
+        "field": "team_statistics",
+        "metric": "possession/shots",
+        "value": null,
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": 855737
+      }
+    ]
+  },
+  "missing_data": [
+    "伤停 / 停赛:0 条返回,需二次数据源或当前赛季复验",
+    "xG / 进阶数据:本轮未接入"
+  ],
+  "next_data_needed": [
+    {
+      "item": "伤停 / 停赛",
+      "purpose": "解释主力缺阵、阵容完整性、首发变化",
+      "ref_doc": "docs/MVP2_NEXT_DATA_REQUIREMENTS.md"
+    },
+    {
+      "item": "xG / 进阶数据",
+      "purpose": "解释机会质量与控球-结果背离",
+      "ref_doc": "docs/MVP2_NEXT_DATA_REQUIREMENTS.md"
+    }
+  ],
+  "ai_boundary": {
+    "allowed_fields": [
+      "fixture",
+      "teams",
+      "lineups",
+      "formation",
+      "coach",
+      "events_summary",
+      "team_statistics",
+      "player_statistics",
+      "squad"
+    ],
+    "forbidden_fields": [
+      "injuries (unresolved — 0 results; do NOT state 'no injuries')",
+      "player_absence_impact",
+      "suspensions",
+      "any field not present in source_ledger",
+      "match outcome prediction or any financial / profit signal"
+    ],
+    "note": "AI 仅可解释已验证字段"
+  },
+  "source_refs": [
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "player_statistics",
+      "endpoint": "/fixtures/players",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    },
+    {
+      "field": "events_summary",
+      "endpoint": "/fixtures/events",
+      "source": "api-football"
+    },
+    {
+      "field": "player_statistics",
+      "endpoint": "/fixtures/players",
+      "source": "api-football"
+    },
+    {
+      "field": "injuries",
+      "endpoint": "/injuries",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    },
+    {
+      "field": "fixture",
+      "endpoint": "/fixtures",
+      "source": "api-football"
+    },
+    {
+      "field": "team_statistics",
+      "endpoint": "/fixtures/statistics",
+      "source": "api-football"
+    }
+  ],
+  "disclaimer": "历史表现不代表未来结果,仅供数据分析和球迷娱乐参考。"
+}

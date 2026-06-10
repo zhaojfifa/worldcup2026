@@ -1,0 +1,89 @@
+{
+  "fixture_id": 855737,
+  "source": "api-football",
+  "model_type": "observed_feature_snapshot_v0",
+  "context": {
+    "home": "Argentina",
+    "away": "Saudi Arabia",
+    "final_score": {
+      "home": 1,
+      "away": 2
+    },
+    "result_winner": "away"
+  },
+  "lineup_available": true,
+  "formation_available": true,
+  "coach_available": true,
+  "events_available": true,
+  "statistics_available": true,
+  "player_statistics_available": true,
+  "squad_available": true,
+  "goal_timeline": [
+    {
+      "minute": 10,
+      "minute_num": 10,
+      "team": "Argentina",
+      "player": "L. Messi",
+      "detail": "Penalty",
+      "score_after": "1-0",
+      "leader_after": "home"
+    },
+    {
+      "minute": 48,
+      "minute_num": 48,
+      "team": "Saudi Arabia",
+      "player": "Saleh Al Shehri",
+      "detail": "Normal Goal",
+      "score_after": "1-1",
+      "leader_after": "level"
+    },
+    {
+      "minute": 53,
+      "minute_num": 53,
+      "team": "Saudi Arabia",
+      "player": "Salem Al Dawsari",
+      "detail": "Normal Goal",
+      "score_after": "1-2",
+      "leader_after": "away"
+    }
+  ],
+  "lead_change": true,
+  "second_half_turnaround": true,
+  "event_density_per_90": 0.222,
+  "event_total": 20,
+  "card_count": 6,
+  "substitution_count": 9,
+  "shot_difference": 12.0,
+  "shots_on_goal_difference": 4.0,
+  "possession_difference": 38.0,
+  "pass_accuracy_difference": 17.0,
+  "top_player_rating": 7.7,
+  "goalkeeper_rating": {
+    "home": {
+      "name": "Emiliano Martínez",
+      "rating": 6.0
+    },
+    "away": {
+      "name": "Mohammed Al-Owais",
+      "rating": 7.7
+    }
+  },
+  "goalkeeper_saves": {
+    "home": 0.0,
+    "away": 5.0
+  },
+  "data_coverage_score": 100,
+  "missing_injuries": true,
+  "missing_xg": true,
+  "derived_from": [
+    "/fixtures",
+    "/fixtures/events",
+    "/fixtures/statistics",
+    "/fixtures/players"
+  ],
+  "disclaimer": {
+    "zh": "仅为已发生数据的观测特征,不是预测、不是命中率、不作为博彩或资金信号",
+    "vi": "Chỉ là đặc trưng quan sát từ dữ liệu đã xảy ra, không phải dự đoán, không phải tỷ lệ trúng, không phải tín hiệu tài chính",
+    "en": "Observed features from data that already happened — not a prediction, not a hit-rate, not a financial signal"
+  }
+}

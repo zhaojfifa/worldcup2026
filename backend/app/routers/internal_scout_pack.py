@@ -26,7 +26,10 @@ from app.config import get_settings
 
 router = APIRouter(prefix="/internal", tags=["internal"])
 
-SAMPLES_DIR = Path(__file__).resolve().parents[3] / "docs" / "data_audit" / "mvp2_scout_pack_samples"
+_REPO = Path(__file__).resolve().parents[3]
+SAMPLES_DIR = _REPO / "docs" / "data_audit" / "mvp2_scout_pack_samples"
+REPORTS_DIR = _REPO / "docs" / "data_audit" / "mvp2_productized_reports"
+REPORT_LANG_TAG = {"zh": "zh-CN", "vi": "vi-VN"}  # en falls back to the raw view
 SUPPORTED_LANGS = ("zh", "vi", "en")
 
 LABELS: dict[str, dict[str, Any]] = {
@@ -97,6 +100,30 @@ LABELS["en"] = {**LABELS["zh"], **{
     "winner": {"home": "Home win", "away": "Away win", "draw_or_unknown": "Draw/unconfirmed"},
 }}
 
+REPORT_LABELS = {
+    "zh": {"page_title": "真实数据情报报告", "s_verdict": "情报摘要", "s_why": "结果原因",
+           "s_evidence": "关键证据卡", "s_features": "特征快照", "s_notes": "模型解释笔记",
+           "s_content": "可运营文案草稿", "s_missing": "缺失数据", "s_next": "下一步需要的数据",
+           "s_ai": "AI 解释边界", "s_raw": "原始 Scout Pack（点击展开）",
+           "s_ledger": "证据来源 / Source Ledger（点击展开）", "source": "来源",
+           "allowed": "可得出的结论", "forbidden": "禁止得出的结论",
+           "not_prediction": "复盘解释信号,非赛前预测", "yes": "是", "no": "否"},
+    "vi": {"page_title": "Báo cáo tin tức dữ liệu thật", "s_verdict": "Tóm tắt tin tức", "s_why": "Nguyên nhân kết quả",
+           "s_evidence": "Thẻ bằng chứng chính", "s_features": "Ảnh chụp đặc trưng", "s_notes": "Ghi chú giải thích mô hình",
+           "s_content": "Bản nháp nội dung vận hành", "s_missing": "Dữ liệu còn thiếu", "s_next": "Dữ liệu cần tiếp theo",
+           "s_ai": "Giới hạn giải thích của AI", "s_raw": "Scout Pack gốc (nhấn để mở)",
+           "s_ledger": "Nguồn dữ liệu / Source Ledger (nhấn để mở)", "source": "Nguồn",
+           "allowed": "Kết luận được phép", "forbidden": "Kết luận bị cấm",
+           "not_prediction": "Tín hiệu giải thích sau trận, không phải dự đoán trước trận", "yes": "Có", "no": "Không"},
+}
+REPORT_LABELS["en"] = {"page_title": "Real-data Scout Report", "s_verdict": "Intelligence summary", "s_why": "Why it happened",
+                       "s_evidence": "Key evidence", "s_features": "Feature snapshot", "s_notes": "Model explanation notes",
+                       "s_content": "Operator content draft", "s_missing": "Missing data", "s_next": "Next data needed",
+                       "s_ai": "AI boundary", "s_raw": "Raw Scout Pack (click to expand)",
+                       "s_ledger": "Source Ledger (click to expand)", "source": "Source",
+                       "allowed": "Allowed conclusions", "forbidden": "Forbidden conclusions",
+                       "not_prediction": "Post-match explanation signals, not pre-match prediction", "yes": "Yes", "no": "No"}
+
 _CSS = """
 *{box-sizing:border-box}body{margin:0;background:#0b1f3a;color:#0b1f3a;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans',sans-serif}
 .wrap{max-width:1140px;margin:0 auto;padding:20px}
@@ -121,6 +148,20 @@ th{color:#5b6b82;font-weight:600;background:#f7f9fc}
 .chip.bad{background:#fde8e8;color:#b42318}
 .score{font-size:26px;font-weight:800;color:#0e2a52}
 small.mut{color:#7a8aa0}
+.hero{background:linear-gradient(135deg,#0e2a52,#1f6feb);color:#fff}
+.hero h2{color:#fff;border-left-color:#9ec5ff}
+.verdict{font-size:18px;font-weight:700;line-height:1.5;margin:4px 0}
+.why{font-size:14px;line-height:1.6;padding:7px 0;border-bottom:1px solid #f0f3f8}
+.evgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.evcard{background:#f7f9fc;border:1px solid #eef1f6;border-radius:10px;padding:10px}
+.evtitle{font-size:11px;color:#5b6b82}.evval{font-size:17px;font-weight:800;color:#0e2a52;margin:2px 0}
+.evteams{font-size:11px;color:#7a8aa0}
+.signal{font-size:13px;line-height:1.6;padding:6px 0;border-bottom:1px solid #f0f3f8}
+.draft{background:#f0f7ff;border:1px solid #cfe0f7;border-radius:10px;padding:12px;font-size:14px;line-height:1.7;white-space:pre-wrap}
+.refs{font-size:10.5px;color:#9aa7ba;margin-top:3px}
+.srcref{display:inline-block;background:#eef2ff;color:#3a4a6b;border-radius:6px;padding:1px 6px;margin:1px}
+details.card>summary{cursor:pointer;font-weight:700;color:#0e2a52;font-size:15px}
+details.card[open]>summary{margin-bottom:10px}
 """
 
 
@@ -152,14 +193,21 @@ def _fallback(env: dict, lang: str) -> str:
     return f'<div class="miss">⚠ {_esc(_loc(env.get("fallback_text"), lang))}</div>'
 
 
-def _render(pack: dict, lang: str) -> str:
-    L = LABELS.get(lang, LABELS["en"])
-    p: list[str] = []
-    fx = pack.get("fixture", {})
-    fxv = fx.get("value") or {}
+def _page_shell(lang: str, title: str, body: str) -> str:
+    return (
+        f'<!doctype html><html lang="{_esc(lang)}"><head><meta charset="utf-8">'
+        f'<meta name="viewport" content="width=device-width,initial-scale=1">'
+        f'<meta name="robots" content="noindex,nofollow">'
+        f'<title>{_esc(title)}</title>'
+        f"<style>{_CSS}</style></head><body><div class=\"wrap\">{body}</div></body></html>"
+    )
 
+
+def _render_header(pack: dict, lang: str) -> str:
+    L = LABELS.get(lang, LABELS["en"])
+    fxv = pack.get("fixture", {}).get("value") or {}
+    p: list[str] = []
     p.append(f'<div class="banner">⛔ {_esc(L["internal_banner"])}</div>')
-    # header
     p.append('<div class="head">')
     title = _esc(L["page_title"])
     if fxv:
@@ -176,6 +224,14 @@ def _render(pack: dict, lang: str) -> str:
     p.append(f'<div class="note">{_esc(_loc(pack.get("license_note"), lang))}</div>')
     p.append(f'<div class="note">{_esc(_loc(pack.get("feature_snapshot",{}).get("coverage_score_note"), lang))}</div>')
     p.append("</div>")
+    return "\n".join(p)
+
+
+def _render_data_sections(pack: dict, lang: str) -> str:
+    L = LABELS.get(lang, LABELS["en"])
+    p: list[str] = []
+    fx = pack.get("fixture", {})
+    fxv = fx.get("value") or {}
 
     # fixture
     p.append(f'<div class="card"><h2>{_esc(L["s_fixture"])}</h2>')
@@ -310,9 +366,12 @@ def _render(pack: dict, lang: str) -> str:
     else:
         p.append(_fallback(squad, lang))
     p.append("</div>")
+    return "\n".join(p)
 
-    # missing evidence (injuries highlighted)
-    p.append(f'<div class="card"><h2>{_esc(L["s_missing"])}</h2>')
+
+def _render_missing(pack: dict, lang: str) -> str:
+    L = LABELS.get(lang, LABELS["en"])
+    p = [f'<div class="card"><h2>{_esc(L["s_missing"])}</h2>']
     me = pack.get("missing_evidence") or {}
     if me:
         for k, m in me.items():
@@ -322,9 +381,12 @@ def _render(pack: dict, lang: str) -> str:
     else:
         p.append('<div class="kv">—</div>')
     p.append("</div>")
+    return "\n".join(p)
 
-    # source ledger
-    p.append(f'<div class="card"><h2>{_esc(L["s_ledger"])}</h2>')
+
+def _render_ledger(pack: dict, lang: str) -> str:
+    L = LABELS.get(lang, LABELS["en"])
+    p = [f'<div class="card"><h2>{_esc(L["s_ledger"])}</h2>']
     p.append(f'<table><tr><th>{_esc(L["field"])}</th><th>{_esc(L["source"])}</th><th>{_esc(L["endpoint"])}</th>'
              f'<th>{_esc(L["results"])}</th><th>{_esc(L["http"])}</th><th>{_esc(L["confidence"])}</th>'
              f'<th>{_esc(L["license"])}</th><th>{_esc(L["available"])}</th></tr>')
@@ -335,9 +397,12 @@ def _render(pack: dict, lang: str) -> str:
                  f'<td>{_esc(row.get("results"))}</td><td>{_esc(row.get("http_status"))}</td>'
                  f'<td>{_esc(row.get("confidence"))}</td><td>{_esc(row.get("license_status"))}</td><td>{pill}</td></tr>')
     p.append("</table></div>")
+    return "\n".join(p)
 
-    # AI boundary
-    p.append(f'<div class="card"><h2>{_esc(L["s_ai"])}</h2>')
+
+def _render_ai(pack: dict, lang: str) -> str:
+    L = LABELS.get(lang, LABELS["en"])
+    p = [f'<div class="card"><h2>{_esc(L["s_ai"])}</h2>']
     p.append(f'<div class="note" style="color:#0e2a52;font-weight:700">{_esc(L["ai_note"])}</div>')
     p.append(f'<div style="margin:8px 0 4px"><b>{_esc(L["ai_allowed"])}</b></div><div class="chips">')
     for a in pack.get("ai_allowed_explanations") or []:
@@ -347,15 +412,127 @@ def _render(pack: dict, lang: str) -> str:
     for a in pack.get("ai_forbidden_explanations") or []:
         p.append(f'<span class="chip bad">{_esc(a)}</span>')
     p.append("</div></div>")
+    return "\n".join(p)
 
-    body = "\n".join(p)
-    return (
-        f'<!doctype html><html lang="{_esc(lang)}"><head><meta charset="utf-8">'
-        f'<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f'<meta name="robots" content="noindex,nofollow">'
-        f'<title>{_esc(L["page_title"])} · {_esc(pack.get("fixture_id"))}</title>'
-        f"<style>{_CSS}</style></head><body><div class=\"wrap\">{body}</div></body></html>"
-    )
+
+def _render(pack: dict, lang: str) -> str:
+    """Raw scout-pack view (engineer-facing fallback when no productized report)."""
+    L = LABELS.get(lang, LABELS["en"])
+    body = (_render_header(pack, lang) + _render_data_sections(pack, lang)
+            + _render_missing(pack, lang) + _render_ledger(pack, lang) + _render_ai(pack, lang))
+    return _page_shell(lang, f'{L["page_title"]} · {pack.get("fixture_id")}', body)
+
+
+def _src_refs(refs: list, label: str) -> str:
+    if not refs:
+        return ""
+    tags = " ".join(f'<span class="srcref">{_esc(r.get("field"))} · {_esc(r.get("endpoint"))}</span>'
+                    for r in refs if r.get("field"))
+    return f'<div class="refs">{_esc(label)}: {tags}</div>' if tags else ""
+
+
+def _render_report(report: dict, pack: dict, lang: str) -> str:
+    """Operator-facing productized report (verdict-first); raw pack + ledger collapsed."""
+    L = LABELS.get(lang, LABELS["en"])
+    R = REPORT_LABELS.get(lang, REPORT_LABELS["en"])
+    p = [_render_header(pack, lang)]
+
+    # 1. intelligence summary (verdict)
+    mv = report.get("match_verdict") or {}
+    p.append(f'<div class="card hero"><h2>{_esc(R["s_verdict"])}</h2>'
+             f'<div class="verdict">{_esc(mv.get("text"))}</div>{_src_refs(mv.get("source_refs"), R["source"])}'
+             f'<div class="note" style="color:#ffe0b8">{_esc(report.get("disclaimer"))}</div></div>')
+
+    # 2. why it happened
+    p.append(f'<div class="card"><h2>{_esc(R["s_why"])}</h2>')
+    for b in report.get("why_it_happened") or []:
+        p.append(f'<div class="why">• {_esc(b.get("point"))}{_src_refs(b.get("source_refs"), R["source"])}</div>')
+    p.append("</div>")
+
+    # 3. key evidence cards
+    p.append(f'<div class="card"><h2>{_esc(R["s_evidence"])}</h2><div class="evgrid">')
+    for c in report.get("evidence_board") or []:
+        p.append(f'<div class="evcard"><div class="evtitle">{_esc(c.get("title"))}</div>'
+                 f'<div class="evval">{_esc(c.get("value"))}</div>'
+                 f'<div class="evteams">{_esc(c.get("home"))} / {_esc(c.get("away"))}</div></div>')
+    p.append("</div></div>")
+
+    # 3.5 feature snapshot (compact)
+    p.append(f'<div class="card"><h2>{_esc(R["s_features"])}</h2><div class="evgrid">')
+    for f in report.get("feature_snapshot_summary") or []:
+        p.append(f'<div class="evcard"><div class="evtitle">{_esc(f.get("label"))}</div>'
+                 f'<div class="evval">{_esc(f.get("value"))}</div></div>')
+    p.append("</div></div>")
+
+    # 4. model explanation notes
+    mn = report.get("model_notes") or {}
+    p.append(f'<div class="card"><h2>{_esc(R["s_notes"])}</h2>'
+             f'<div class="note" style="color:#0e2a52;font-weight:700">{_esc(R["not_prediction"])}</div>')
+    for s in mn.get("signals") or []:
+        v = s.get("value")
+        badge = "ok" if v is True else ("bad" if v is False else "warn")
+        vtext = R["yes"] if v is True else (R["no"] if v is False else _esc(v))
+        p.append(f'<div class="signal"><span class="pill {badge}">{_esc(s.get("name"))}: {vtext}</span> '
+                 f'{_esc(s.get("interpretation"))}{_src_refs(s.get("source_refs"), R["source"])}</div>')
+    p.append(f'<div style="margin-top:10px"><b>{_esc(R["allowed"])}</b></div><div class="chips">')
+    for a in mn.get("allowed_conclusions") or []:
+        p.append(f'<span class="chip">{_esc(a)}</span>')
+    p.append("</div>")
+    p.append(f'<div style="margin-top:8px"><b>{_esc(R["forbidden"])}</b></div><div class="chips">')
+    for a in mn.get("forbidden_conclusions") or []:
+        p.append(f'<span class="chip bad">{_esc(a)}</span>')
+    p.append("</div></div>")
+
+    # 5. operator content draft
+    cd = report.get("operator_content_draft") or {}
+    p.append(f'<div class="card"><h2>{_esc(R["s_content"])}</h2>'
+             f'<div class="draft">{_esc(cd.get("text"))}</div>{_src_refs(cd.get("source_refs"), R["source"])}</div>')
+
+    # 6. missing data
+    p.append(f'<div class="card"><h2>{_esc(R["s_missing"])}</h2>')
+    for m in report.get("missing_data") or []:
+        p.append(f'<div class="miss">⚠ {_esc(m)}</div>')
+    p.append("</div>")
+
+    # 7. next data needed
+    p.append(f'<div class="card"><h2>{_esc(R["s_next"])}</h2>')
+    for n in report.get("next_data_needed") or []:
+        p.append(f'<div class="why">• <b>{_esc(n.get("item"))}</b> — {_esc(n.get("purpose"))} '
+                 f'<small class="mut">({_esc(n.get("ref_doc"))})</small></div>')
+    p.append("</div>")
+
+    # 8. AI boundary
+    ab = report.get("ai_boundary") or {}
+    p.append(f'<div class="card"><h2>{_esc(R["s_ai"])}</h2>'
+             f'<div class="note" style="color:#0e2a52;font-weight:700">{_esc(ab.get("note"))}</div>')
+    p.append(f'<div style="margin:6px 0 2px"><b>{_esc(L["ai_allowed"])}</b></div><div class="chips">')
+    for a in ab.get("allowed_fields") or []:
+        p.append(f'<span class="chip">{_esc(a)}</span>')
+    p.append("</div>")
+    p.append(f'<div style="margin:6px 0 2px"><b>{_esc(L["ai_forbidden"])}</b></div><div class="chips">')
+    for a in ab.get("forbidden_fields") or []:
+        p.append(f'<span class="chip bad">{_esc(a)}</span>')
+    p.append("</div></div>")
+
+    # 9. raw scout pack (collapsed) + 10. source ledger (collapsed)
+    p.append(f'<details class="card"><summary>{_esc(R["s_raw"])}</summary>{_render_data_sections(pack, lang)}'
+             f'{_render_missing(pack, lang)}</details>')
+    p.append(f'<details class="card"><summary>{_esc(R["s_ledger"])}</summary>{_render_ledger(pack, lang)}</details>')
+
+    return _page_shell(lang, f'{R["page_title"]} · {pack.get("fixture_id")}', "\n".join(p))
+
+
+def _load_report(fixture_id: str, lang: str) -> Optional[dict]:
+    tag = REPORT_LANG_TAG.get(lang)
+    if not tag:
+        return None
+    path = REPORTS_DIR / f"{fixture_id}.{tag}.json"
+    if not path.is_file():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def _authorized(request: Request, token: Optional[str]) -> bool:
@@ -386,4 +563,9 @@ def scout_pack_preview(
             f"{_esc(fixture_id)}</code></p>",
             status_code=404,
         )
+    # Default to the productized operator report when one exists for this lang;
+    # otherwise fall back to the raw scout-pack view (engineer-facing).
+    report = _load_report(fixture_id, lang)
+    if report is not None:
+        return HTMLResponse(_render_report(report, pack, lang))
     return HTMLResponse(_render(pack, lang))
