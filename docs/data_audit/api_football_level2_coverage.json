@@ -1,0 +1,69 @@
+{
+  "source": "api-football",
+  "base_url": "https://v3.football.api-sports.io",
+  "checked_at": "2026-06-10T04:32:44.183976+00:00",
+  "status": "token_required",
+  "expected_env": [
+    "API_FOOTBALL_KEY",
+    "API_FOOTBALL_BASE_URL (optional)",
+    "WC_LEAGUE_ID (optional)"
+  ],
+  "planned_checks": [
+    {
+      "endpoint": "/status",
+      "query": "",
+      "level2_field": "account/plan"
+    },
+    {
+      "endpoint": "/leagues",
+      "query": "id=1",
+      "level2_field": "competition"
+    },
+    {
+      "endpoint": "/fixtures",
+      "query": "league=1&season=2022",
+      "level2_field": "WC2022 fixtures/results"
+    },
+    {
+      "endpoint": "/fixtures",
+      "query": "league=1&season=2026",
+      "level2_field": "WC2026 fixtures"
+    },
+    {
+      "endpoint": "/fixtures/lineups",
+      "query": "fixture=<wc2022_fixture>",
+      "level2_field": "starting lineup / formation"
+    },
+    {
+      "endpoint": "/fixtures/events",
+      "query": "fixture=<wc2022_fixture>",
+      "level2_field": "match events"
+    },
+    {
+      "endpoint": "/fixtures/players",
+      "query": "fixture=<wc2022_fixture>",
+      "level2_field": "per-match player stats"
+    },
+    {
+      "endpoint": "/injuries",
+      "query": "league=1&season=2022",
+      "level2_field": "injuries / suspensions"
+    },
+    {
+      "endpoint": "/players/squads",
+      "query": "team=<wc2022_team>",
+      "level2_field": "squad / player list"
+    },
+    {
+      "endpoint": "/coachs",
+      "query": "team=<wc2022_team>",
+      "level2_field": "coach"
+    },
+    {
+      "endpoint": "/teams",
+      "query": "league=1&season=2022",
+      "level2_field": "teams"
+    }
+  ],
+  "note": "No token in env → ZERO calls made. Operator sets $API_FOOTBALL_KEY (paid plan) and re-runs. Token is never printed or committed."
+}
