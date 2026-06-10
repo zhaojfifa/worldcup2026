@@ -16,9 +16,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   SerpApi auxiliary, StatsBomb WC2022 xG = non-commercial offline-only. Direction = **Data Source → Feature
   Engineering → Model Explanation → UI**; **no data, no AI deep analysis**; betting/竞猜/盘口/走地 downgraded, odds
   excluded. No backend/API/DB. Docs: `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign/matrix/strategy).
-- **API-FOOTBALL Day-2 coverage (2026-06-10):** verdict **`blocked_by_token`** — no key provisioned (4 var names +
-  local `.env` checked), zero calls, no fabrication. Verifier hardened + ready; operator provides a paid key to run.
-  `docs/API_FOOTBALL_COVERAGE_CHECK.md`.
+- **API-FOOTBALL Day-2 coverage (2026-06-10):** verdict **`PASS`** — WC2022 Level-2 core verified (lineups/formation/
+  events/stats/players/squad/coach/teams ✓; fixture ids mapped 8→855737/13/58/67). Caveat: **FREE plan → WC2026 locked
+  + rate-limited; paid plan required for WC2026**; injuries empty (historical). Token read from gitignored `backend/.env`,
+  never committed. → Adopt API-FOOTBALL as MVP-2 primary; upgrade plan. `docs/API_FOOTBALL_COVERAGE_CHECK.md`.
 - **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are now a
   clickable path — Home recap rows → `/detail?match_id=<id>`, `Xem phục dựng` → `/report?match_id=<id>`
   (deep-link `match_id`/`id`; default selection prefers current/non-finished). Real API verified (public GET):

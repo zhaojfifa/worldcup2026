@@ -14,11 +14,13 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 > `docs/FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign / requirements-matrix / source-strategy).
 > Latest commits on branch; main untouched; PR #2 stays Draft.
 
-> **API-FOOTBALL Day-2 coverage (2026-06-10):** ran `scripts/verify_api_football_level2.py` → verdict
-> **`blocked_by_token`** (no key under `API_FOOTBALL_KEY`/`API_KEY`/`API_TOKEN`/`API_SPORTS_KEY` or local `.env`;
-> ZERO calls; no fabrication). Verifier hardened (4 var names + `.env` loader + `/fixtures/statistics` + test-match
-> fixture-id resolution for 8/13/58/67 + auto verdict). Operator provides a paid key → re-run yields the full
-> pass/partial/fail. `docs/API_FOOTBALL_COVERAGE_CHECK.md`. External operation stays paused until Level-2 validated.
+> **API-FOOTBALL Day-2 coverage (2026-06-10):** ran `scripts/verify_api_football_level2.py` (token from gitignored
+> `backend/.env`, never committed) → verdict **`PASS`**. WC2022 Level-2 core verified: lineups (+formation), events,
+> statistics, fixture players, squad, coach, teams all return real data; fixture ids mapped (match 8→855737, 13→855741,
+> 58→977345, 67→979139). **Caveat: FREE plan → WC2026 season locked ("2022–2024 only") + rate-limited (429, 65s
+> backoff added); injuries empty (historical). Paid plan required for WC2026.** Next: adopt API-FOOTBALL as MVP-2
+> primary, upgrade plan, design backend schema/feature store (Owner-gated); TheSports = live/Level-3 candidate.
+> `docs/API_FOOTBALL_COVERAGE_CHECK.md`. External operation stays paused until paid re-verify + minimal Level-2 ship.
 
 > **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are a clickable
 > path now — Home recap rows → `/detail?match_id=<id>&lang=`, per-row `Xem phục dựng` → `/report?match_id=<id>`.

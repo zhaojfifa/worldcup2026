@@ -1,116 +1,153 @@
 {
   "source": "api-football",
   "base_url": "https://v3.football.api-sports.io",
-  "checked_at": "2026-06-10T04:53:29.526413+00:00",
-  "status": "token_required",
-  "verdict": "blocked_by_token",
-  "verdict_reason": "no API-FOOTBALL token in env (API_FOOTBALL_KEY / API_KEY / API_TOKEN / API_SPORTS_KEY) or local .env",
-  "token_var_used": null,
-  "accepted_token_vars": [
-    "API_FOOTBALL_KEY",
-    "API_KEY",
-    "API_TOKEN",
-    "API_SPORTS_KEY"
-  ],
+  "checked_at": "2026-06-10T05:13:05.969753+00:00",
+  "status": "probed",
+  "verdict": "pass",
+  "verdict_reason": "4/4 Level-2 core fields available and mapped to a WC2022 test match",
+  "token_var_used": "API_FOOTBALL_KEY",
+  "wc2022_fixture_probed": 855737,
+  "wc2022_team_probed": 1569,
   "test_matches": [
     {
       "home": "Argentina",
       "away": "Saudi Arabia",
       "render_id": 8,
-      "fixture_id": null
+      "fixture_id": 855737
     },
     {
       "home": "Germany",
       "away": "Japan",
       "render_id": 13,
-      "fixture_id": null
+      "fixture_id": 855741
     },
     {
       "home": "Morocco",
       "away": "Spain",
       "render_id": 58,
-      "fixture_id": null
+      "fixture_id": 977345
     },
     {
       "home": "Argentina",
       "away": "France",
       "render_id": 67,
-      "fixture_id": null
+      "fixture_id": 979139
     }
   ],
-  "planned_checks": [
+  "formation_readable_from_lineups": true,
+  "checks": [
     {
       "key": "status",
-      "endpoint": "/status",
-      "query": "",
-      "field": "account/plan"
+      "field": "account/plan",
+      "http_status": 200,
+      "results": 0,
+      "ok": false,
+      "errors": null
     },
     {
       "key": "leagues",
-      "endpoint": "/leagues",
-      "query": "id=1",
-      "field": "World Cup league id/season"
+      "field": "World Cup league id/season",
+      "http_status": 200,
+      "results": 1,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "fixtures2022",
-      "endpoint": "/fixtures",
-      "query": "league=1&season=2022",
-      "field": "WC2022 fixtures"
+      "field": "WC2022 fixtures",
+      "http_status": 200,
+      "results": 64,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "fixtures2026",
-      "endpoint": "/fixtures",
-      "query": "league=1&season=2026",
-      "field": "WC2026 fixtures"
+      "field": "WC2026 fixtures",
+      "http_status": 200,
+      "results": 0,
+      "ok": false,
+      "errors": {
+        "plan": "Free plans do not have access to this season, try from 2022 to 2024."
+      }
     },
     {
       "key": "lineups",
-      "endpoint": "/fixtures/lineups",
-      "query": "fixture=<f>",
-      "field": "starting lineup / formation"
+      "field": "starting lineup / formation",
+      "http_status": 200,
+      "results": 2,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "events",
-      "endpoint": "/fixtures/events",
-      "query": "fixture=<f>",
-      "field": "match events"
+      "field": "match events",
+      "http_status": 200,
+      "results": 20,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "statistics",
-      "endpoint": "/fixtures/statistics",
-      "query": "fixture=<f>",
-      "field": "match statistics"
+      "field": "match statistics",
+      "http_status": 200,
+      "results": 2,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "players",
-      "endpoint": "/fixtures/players",
-      "query": "fixture=<f>",
-      "field": "per-match player stats"
+      "field": "per-match player stats",
+      "http_status": 200,
+      "results": 2,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "injuries",
-      "endpoint": "/injuries",
-      "query": "league=1&season=2022",
-      "field": "injuries / suspensions"
+      "field": "injuries / suspensions",
+      "http_status": 200,
+      "results": 0,
+      "ok": false,
+      "errors": null
     },
     {
       "key": "squad",
-      "endpoint": "/players/squads",
-      "query": "team=<t>",
-      "field": "squad / player list"
+      "field": "squad / player list",
+      "http_status": 200,
+      "results": 1,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "coachs",
-      "endpoint": "/coachs",
-      "query": "team=<t>",
-      "field": "coach"
+      "field": "coach",
+      "http_status": 200,
+      "results": 1,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "teams",
-      "endpoint": "/teams",
-      "query": "league=1&season=2022",
-      "field": "teams"
+      "field": "teams",
+      "http_status": 200,
+      "results": 32,
+      "ok": true,
+      "errors": null
     }
   ],
-  "note": "ZERO calls made. Operator sets one of the accepted token vars (paid plan) and re-runs. Token never printed/committed."
+  "coverage_summary": {
+    "status": false,
+    "leagues": true,
+    "fixtures2022": true,
+    "fixtures2026": false,
+    "lineups": true,
+    "events": true,
+    "statistics": true,
+    "players": true,
+    "injuries": false,
+    "squad": true,
+    "coachs": true,
+    "teams": true
+  },
+  "note": "Read-only probe. 'ok=false' usually means the season/endpoint is not on the current plan. Token never printed/committed."
 }
