@@ -6,6 +6,12 @@
 > [MVP2_EVIDENCE_BOARD_V2_OPERATOR_REVIEW](MVP2_EVIDENCE_BOARD_V2_OPERATOR_REVIEW.md) §Owner Product Voice Review).
 > This guide defines the three voices so the surface speaks to a **customer**, not to a reviewer.
 
+> **★ HARD RULE (2026-06-10, LLM-Guided Narrative Refactor):** this voice is produced by the **LLM**
+> (DeepSeek/Gemini), **not** hand-written in frontend/backend templates. Engineering defines the schema, prompts,
+> guards and rendering only; the LLM writes the narrative / judgement / operator copy / zh+vi. This guide is the
+> **target the LLM output must hit** (and the guard enforces), not a script for engineers to hand-compose. mock
+> copy is allowed ONLY as a marked fallback (`llm_provider=mock`). See `MVP2_LLM_NARRATIVE_CONTRACT.md`.
+
 The product gives an **AI judgement + post-match read**, not a model self-audit. The same fixture data is
 expressed three ways depending on **where** it appears.
 

@@ -30,6 +30,10 @@
 - **No direct API-FOOTBALL call from `frontend/`** (grep `api-sports|apisports|v3.football|API_FOOTBALL` must stay empty).
 - **No injuries second-source integration**; **no real LLM auto-publish / production provider call** without Render verification.
 - **No secrets** (`.env`, keys) committed or printed; **no raw vendor payload** committed.
+- **No hand-written product narrative in templates** (2026-06-10 rule): the customer narrative / judgement /
+  recap / operator copy / zh+vi must be **LLM-generated** (DeepSeek/Gemini) per `MVP2_LLM_NARRATIVE_CONTRACT.md`;
+  engineering may define schema / prompts / guards / rendering only; mock is allowed ONLY as a marked fallback
+  (`llm_provider=mock`). No engineering string-concatenated football analysis.
 
 ## 3. UI zones (fixed)
 - **First glance:** customer-language verdict / AI lean + confidence **tier** (no %); never a table first.

@@ -6,7 +6,7 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-10) — Evidence Board v2 Product Voice rework (internal)
+## ★ MVP-2 status (2026-06-10) — LLM-Guided Product Narrative Refactor
 
 ```text
 MVP-2 status:           Evidence Board v2 — Product Voice rework done (engineering PASS, copy reworked; internal)
@@ -23,6 +23,9 @@ Recap sync + SPA fix:    Live diag: deploy was CURRENT (Product Voice in live bu
                         reworked (only /evidence was) + no SPA fallback (deep links 404). Owner 二次 GO -> /recap/855737
                         reworked to Product Voice (answer-led, MISS/replay folded into internal block); render.yaml SPA
                         rewrite added (operator must also set the Render dashboard rewrite rule). Verdict was LIVE FAIL — RECAP NOT UPDATED.
+RULE PIVOT:              MVP-2 = LLM-Guided Product Narrative Refactor. Narrative (judgement/recap/operator/zh+vi) must be
+                        LLM-generated (DeepSeek/Gemini), NOT hand-written in templates. Engineering = stage; LLM = intelligence;
+                        mock only as marked fallback (llm_provider=mock). See MVP2_LLM_NARRATIVE_{ARCHITECTURE,CONTRACT} + prompts.
 Branch:                 feature/mvp2-api-football-ingestion
 PR #3:                  Draft (base main, not ready, not merged) · PR #2 untouched · main untouched
 External operation:     paused · public_ready: false
