@@ -10,6 +10,16 @@ this is a review, not a sign-off.
 
 ---
 
+## Owner Decision (2026-06-10)
+- **Overall User Review Verdict: PASS WITH ISSUES — accepted.**
+- **Next step:** Recap continuation + **Evidence Board v2 design** (see
+  [MVP2_EVIDENCE_BOARD_V2_DESIGN](MVP2_EVIDENCE_BOARD_V2_DESIGN.md)).
+- **Shipped in the continuation round (2026-06-10):** "更多历史复盘" entry on the recap page (no dead-end),
+  a compliant continuation CTA ("查看今日 AI 观点" → home, no payment), and a home recap-module narrative bridge.
+- **PR #3 remains Draft. External operation remains paused.** No payment, no Token, no public launch.
+
+---
+
 ## A. 普通用户视角 (ordinary football fan) — **PASS WITH ISSUES**
 - **第一眼是否知道这场为什么值得看？** ✅ 强标题「这场爆冷不是偶然：ScoutScore 发现传统强弱判断的三个盲区」一眼抓住。
 - **是否理解模型原来怎么判断？** ✅「模型回放：偏 Argentina」直白。
