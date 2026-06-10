@@ -265,6 +265,15 @@ const ZH = {
   evidencePackScoutNote: '保守复盘结论：基于已接入的赛程、赛果与基线概率，本场仅作历史校准参考，非完整深度预测。',
   scoutHookRecap: '这是一场已完赛比赛的保守复盘。Giành Cup 情报官仅基于已接入数据做历史校准，不是完整赛前深度预测。',
 
+  // ── Real result recap (WC2022 derived, model-calibration sample) ──
+  realResultTitle: '真实赛果复盘',
+  realScoreLabel: '真实比分',
+  actualWinnerLabel: '实际胜者',
+  aiTendencyLabel: 'AI 原始倾向',
+  tagFavoriteFailed: '大热失手',
+  tagUpset: '爆冷',
+  calibrationNote: 'AI 模型校准样例 · 非当前预测',
+
   // ── Telegram open fallback sheet ──
   tgSheetTitle: 'Telegram 打开方式',
   tgOpen: '打开 Telegram',
@@ -511,6 +520,15 @@ const VI: Partial<Copy> = {
   evidencePackNextNote: 'Sau khi vận hành đồng bộ lịch/kết quả thật và các trường thông tin trên Render, trận này sẽ nâng cấp thành báo cáo mô hình đầy đủ.',
   evidencePackScoutNote: 'Nhận định phục dựng thận trọng: dựa trên lịch, kết quả và xác suất cơ sở đã có, đây chỉ là tham chiếu hiệu chỉnh lịch sử — không phải dự đoán chuyên sâu đầy đủ.',
   scoutHookRecap: 'Đây là phần phục dựng thận trọng của một trận đã kết thúc. Giành Cup Scout chỉ hiệu chỉnh trên dữ liệu đã có — không phải dự đoán chuyên sâu trước trận.',
+
+  // ── Real result recap (WC2022 derived) ──
+  realResultTitle: 'Phục dựng kết quả thật',
+  realScoreLabel: 'Kết quả thật',
+  actualWinnerLabel: 'Đội thắng thật',
+  aiTendencyLabel: 'Xu hướng ban đầu của AI',
+  tagFavoriteFailed: 'Đội mạnh sẩy chân',
+  tagUpset: 'Bất ngờ',
+  calibrationNote: 'Mẫu hiệu chỉnh mô hình AI · không phải dự đoán hiện tại',
 
   tgSheetTitle: 'Mở Telegram',
   tgOpen: 'Mở Telegram',

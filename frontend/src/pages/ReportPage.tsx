@@ -4,6 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 import { FeatureBars } from '../components/FeatureBars';
 import { MatchHeader } from '../components/MatchHeader';
 import { EvidencePack } from '../components/EvidencePack';
+import { RealResultRecap } from '../components/RealResultRecap';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
 import { homeWinLoc, awayWinLoc, drawLoc, riskShortLoc, noteLoc, scoutHookLoc, contrarianLoc, watchLoc } from '../i18n/viMapping';
@@ -125,6 +126,9 @@ export function ReportPage() {
           </div>
         </div>
       </div>
+
+      {/* Real WC2022 result recap (derived from Kaggle alignment) — model-calibration sample */}
+      {reportIncomplete && <RealResultRecap match={match} />}
 
       {/* Evidence Pack — recap / detailed report not generated (no fake full report) */}
       {reportIncomplete && <EvidencePack />}

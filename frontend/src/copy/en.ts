@@ -259,6 +259,15 @@ export const EN: Copy = {
   evidencePackScoutNote: 'Conservative recap read: based on connected fixtures, results and baseline probability, this is a historical-calibration reference only — not a full deep prediction.',
   scoutHookRecap: 'This is a conservative recap of a finished match. The Giành Cup Scout calibrates on connected data only — not a full pre-match deep prediction.',
 
+  // Real result recap (WC2022 derived, model-calibration sample)
+  realResultTitle: 'Real result recap',
+  realScoreLabel: 'Real score',
+  actualWinnerLabel: 'Actual winner',
+  aiTendencyLabel: 'AI original lean',
+  tagFavoriteFailed: 'Favorite failed',
+  tagUpset: 'Upset',
+  calibrationNote: 'AI model-calibration sample · not a current prediction',
+
   tgSheetTitle: 'Open Telegram',
   tgOpen: 'Open Telegram',
   tgCopy: 'Copy link',
