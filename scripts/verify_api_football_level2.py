@@ -15,7 +15,7 @@ SAFETY:
 Run:  API_FOOTBALL_KEY=... python scripts/verify_api_football_level2.py
 Output: docs/data_audit/api_football_level2_coverage.json
 """
-import json, os, urllib.request, urllib.error
+import json, os, time, urllib.request, urllib.error
 from datetime import datetime, timezone
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,13 +73,16 @@ def headers(base, key):
         return {"x-rapidapi-key": key, "x-rapidapi-host": base.split("//")[-1].split("/")[0]}
     return {"x-apisports-key": key}
 
-def get(base, key, endpoint, query=""):
+def get(base, key, endpoint, query="", _retry=True):
     url = "%s%s%s" % (base, endpoint, ("?" + query if query else ""))
     req = urllib.request.Request(url, headers=headers(base, key))
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             return r.status, json.loads(r.read().decode())
     except urllib.error.HTTPError as e:
+        if e.code == 429 and _retry:  # free-plan per-minute cap — wait for the window to reset, retry once
+            time.sleep(65)
+            return get(base, key, endpoint, query, _retry=False)
         try:
             return e.code, json.loads(e.read().decode())
         except Exception:
