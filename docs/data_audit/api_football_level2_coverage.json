@@ -1,7 +1,7 @@
 {
   "source": "api-football",
   "base_url": "https://v3.football.api-sports.io",
-  "checked_at": "2026-06-10T05:13:05.969753+00:00",
+  "checked_at": "2026-06-10T06:33:06.314151+00:00",
   "status": "probed",
   "verdict": "pass",
   "verdict_reason": "4/4 Level-2 core fields available and mapped to a WC2022 test match",
@@ -64,11 +64,9 @@
       "key": "fixtures2026",
       "field": "WC2026 fixtures",
       "http_status": 200,
-      "results": 0,
-      "ok": false,
-      "errors": {
-        "plan": "Free plans do not have access to this season, try from 2022 to 2024."
-      }
+      "results": 72,
+      "ok": true,
+      "errors": null
     },
     {
       "key": "lineups",
@@ -139,7 +137,7 @@
     "status": false,
     "leagues": true,
     "fixtures2022": true,
-    "fixtures2026": false,
+    "fixtures2026": true,
     "lineups": true,
     "events": true,
     "statistics": true,

@@ -17,17 +17,18 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 > **API-FOOTBALL Day-2 coverage (2026-06-10):** ran `scripts/verify_api_football_level2.py` (token from gitignored
 > `backend/.env`, never committed) → verdict **`PASS`**. WC2022 Level-2 core verified: lineups (+formation), events,
 > statistics, fixture players, squad, coach, teams all return real data; fixture ids mapped (match 8→855737, 13→855741,
-> 58→977345, 67→979139). **Caveat: FREE plan → WC2026 season locked ("2022–2024 only") + rate-limited (429, 65s
-> backoff added); injuries empty (historical). Paid plan required for WC2026.** Next: adopt API-FOOTBALL as MVP-2
-> primary, upgrade plan, design backend schema/feature store (Owner-gated); TheSports = live/Level-3 candidate.
-> `docs/API_FOOTBALL_COVERAGE_CHECK.md`. External operation stays paused until paid re-verify + minimal Level-2 ship.
+> 58→977345, 67→979139). **Latest real run: WC2022=64 + WC2026=72 both return (prior FREE WC2026 lock lifted); open
+> gap = injuries=0 unresolved (second-source / current-season). Paid-plan reasons now rate-limit/commercial/injuries,
+> not WC2026.** Token from gitignored `backend/.env` (never committed); `worldcup2026-api.env` gitignored. Next: adopt
+> API-FOOTBALL as MVP-2 primary, plan-verify, design backend schema/feature store (Owner-gated); TheSports =
+> live/Level-3 candidate. `docs/API_FOOTBALL_COVERAGE_CHECK.md`. External operation stays paused.
 
 > **MVP-2 Pre-match Scout Pack Architecture (2026-06-10, branch, docs-only):** Owner accepted Day-2 PASS → API-FOOTBALL
 > **confirmed MVP-2 primary-source candidate**; **State: Internal Level-2 feasibility proven · Commercial MVP-2 NOT
 > ready.** Designed backend schema (~18 tables: canonical_*/source_*_mapping/match_mapping/lineup/event/statistics/
 > player_stats/injury/coach/scout_feature/source_ledger) + feature store + Evidence Board v2 (provenance-enveloped
 > fields) + cache/rate-limit + paid-plan gate. Owner-recommend **API-FOOTBALL paid plan = GO** (Pro $19, verify) to
-> re-verify WC2026/injuries/rate-limit; external operation paused; TheSports=live/Level-3; Sportmonks/Highlightly=
+> re-verify injuries/rate-limit/commercial (WC2026 already returns 72); external operation paused; TheSports=live/Level-3; Sportmonks/Highlightly=
 > supplementary. Docs: `MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`, `API_FOOTBALL_PAID_PLAN_DECISION.md`. No DB/backend/
 > frontend/odds. PR #2 stays Draft.
 

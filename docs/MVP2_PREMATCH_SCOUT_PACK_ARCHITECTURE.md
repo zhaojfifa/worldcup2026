@@ -7,9 +7,10 @@
 > [API_FOOTBALL_PAID_PLAN_DECISION](API_FOOTBALL_PAID_PLAN_DECISION.md).
 >
 > **State: Internal Level-2 feasibility proven · Commercial MVP-2 not yet ready.**
-> **Caveats carried (must stay visible):** (1) FREE plan WC2026 locked; (2) FREE rate-limit tight (429); (3) injuries
-> empty on WC2022 historical; (4) WC2026/injuries/rate-limit need **paid-plan re-verify**; (5) **frontend never calls
-> API-FOOTBALL directly**; (6) **no token / no large payload committed**; odds excluded.
+> **Caveats carried (must stay visible):** (1) **WC2026 fixtures now return (72)** — the prior FREE-plan lock is
+> lifted; (2) **injuries empty on WC2022 historical → unresolved** (second-source / current-season verify); (3)
+> production rate-limit / commercial-use / SLA need **plan-verify**; (4) **frontend never calls API-FOOTBALL
+> directly**; (5) **no token / no large payload committed**; odds excluded.
 
 ---
 
@@ -45,7 +46,7 @@ Verification status from Day-2 (FREE plan): ✅ verified · ⚠️ empty/uncerta
 | endpoint | purpose | required params | expected fields | status | rate-limit risk | cache | UI usage | fallback if missing |
 |---|---|---|---|---|---|---|---|---|
 | `/leagues` | confirm WC league/season | `id=1` | league, seasons | ✅ id=1 | low | static (days) | none (internal) | block |
-| `/fixtures` | fixtures/results | `league=1&season=` | fixture id, teams, date, venue, status, score | ✅ 2022=64 · 🔒 2026 | low | season: long; live: short | match_core | "fixtures unavailable" |
+| `/fixtures` | fixtures/results | `league=1&season=` | fixture id, teams, date, venue, status, score | ✅ 2022=64 · ✅ 2026=72 | low | season: long; live: short | match_core | "fixtures unavailable" |
 | `/fixtures/lineups` | lineup + formation | `fixture=` | XI, subs, **formation**, coach, positions | ✅ | med (per fixture) | pre-match: T-60 refresh; post: frozen | lineup_board, formation_context | "首发未接入" |
 | `/fixtures/events` | events history | `fixture=` | minute, type, team, player, detail | ✅ (20) | med | live: short; post: frozen | event_context | hide events |
 | `/fixtures/statistics` | team match stats | `fixture=` | shots, possession, corners… | ✅ | med | live: short; post: frozen | team_statistics | hide stats |
@@ -152,8 +153,8 @@ Field<T> = {
 
 | check | FREE result | paid re-verify target |
 |---|---|---|
-| WC2026 fixtures | 🔒 locked ("2022–2024 only") | fixtures returned (or confirmed unpublished) |
-| injuries | ⚠️ empty (WC2022) | non-empty on a current/upcoming fixture |
+| WC2026 fixtures | ✅ **returned (72)** | resolved (confirm refresh SLA as tournament nears) |
+| injuries | ⚠️ empty (WC2022) | non-empty on a current/upcoming fixture **or second source** |
 | current-season availability | unknown | current season endpoints return data |
 | rate limit | ~10/min, 100/day (429s) | req/min + req/day sufficient for fixture-day load |
 | commercial usage | unconfirmed | commercial use permitted by plan terms |

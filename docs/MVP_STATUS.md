@@ -12,9 +12,9 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   **PASS** → API-FOOTBALL **confirmed MVP-2 primary-source candidate**; Level-2 feasibility PASS. **State: Internal
   Level-2 feasibility proven · Commercial MVP-2 NOT ready.** Designed backend schema (~18 tables) + feature store +
   Evidence Board v2 contract + cache/rate-limit + paid-plan gate (`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`,
-  `API_FOOTBALL_PAID_PLAN_DECISION.md`). Owner-recommend **API-FOOTBALL paid plan = GO** (Pro $19, verify) for
-  WC2026/injuries/rate-limit re-verify; **external operation stays paused**; TheSports = live/Level-3;
-  Sportmonks/Highlightly = supplementary. No DB/backend/frontend/odds.
+  `API_FOOTBALL_PAID_PLAN_DECISION.md`, `MVP2_IMPLEMENTATION_PLAN.md`). Owner-recommend **plan-verify = GO** (Pro $19,
+  verify) for **injuries/rate-limit/commercial** (WC2026 already returns 72); **external operation stays paused**;
+  TheSports = live/Level-3; Sportmonks/Highlightly = supplementary. No DB/backend/frontend/odds.
 - **Data Integration Blueprint + Real Data Perception MVP (2026-06-10, branch, docs-first + frontend):** Kaggle↔Render
   alignment PASS (64/64, 23 upsets); Real Result recap shipped for match 8 (Argentina 1-2 Saudi Arabia) and match 13
   (Germany 1-2 Japan) — real score/winner/AI-lean/upset, vi Han=0, no 42.2%. Owner adopted the designer's integrated
@@ -23,10 +23,10 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
   SerpApi auxiliary, StatsBomb WC2022 xG = non-commercial offline-only. Direction = **Data Source → Feature
   Engineering → Model Explanation → UI**; **no data, no AI deep analysis**; betting/竞猜/盘口/走地 downgraded, odds
   excluded. No backend/API/DB. Docs: `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign/matrix/strategy).
-- **API-FOOTBALL Day-2 coverage (2026-06-10):** verdict **`PASS`** — WC2022 Level-2 core verified (lineups/formation/
-  events/stats/players/squad/coach/teams ✓; fixture ids mapped 8→855737/13/58/67). Caveat: **FREE plan → WC2026 locked
-  + rate-limited; paid plan required for WC2026**; injuries empty (historical). Token read from gitignored `backend/.env`,
-  never committed. → Adopt API-FOOTBALL as MVP-2 primary; upgrade plan. `docs/API_FOOTBALL_COVERAGE_CHECK.md`.
+- **API-FOOTBALL Real Run (2026-06-10):** verdict **`PASS`** — **WC2022=64 + WC2026=72** + Level-2 core ✓ (lineups/
+  formation/events/stats/players/squad/coach/teams; fixture ids mapped 8→855737/13/58/67). **Open gap: injuries=0
+  unresolved** (2nd-source/current-season). Token read from gitignored `backend/.env`, never committed;
+  `worldcup2026-api.env` gitignored. → API-FOOTBALL = MVP-2 primary candidate. `docs/API_FOOTBALL_COVERAGE_CHECK.md`.
 - **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are now a
   clickable path — Home recap rows → `/detail?match_id=<id>`, `Xem phục dựng` → `/report?match_id=<id>`
   (deep-link `match_id`/`id`; default selection prefers current/non-finished). Real API verified (public GET):

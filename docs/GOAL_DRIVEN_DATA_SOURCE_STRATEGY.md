@@ -14,13 +14,15 @@ Owner adopted the designer's integrated data-source plan → `FOOTBALL_INTELLIGE
 pending (**no longer blocks Level-2**), Sportmonks/Highlightly alternatives. Direction = Data Source → Feature
 Engineering → Model Explanation → UI; **no data, no AI deep analysis**; betting framing downgraded, odds excluded.
 
-**Day-2 (2026-06-10):** API-FOOTBALL Level-2 coverage = **`PASS`** on WC2022 (lineups/formation/events/stats/players/
-squad/coach/teams ✓; fixture ids mapped for 8/13/58/67). Caveat: **FREE plan → WC2026 season locked + rate-limited**;
-**paid plan required for WC2026**. → Adopt as MVP-2 primary; upgrade plan. See `API_FOOTBALL_COVERAGE_CHECK.md`.
+**Real Run (2026-06-10):** API-FOOTBALL Level-2 coverage = **`PASS`** — **WC2022=64 + WC2026=72** both return;
+lineups/formation/events/stats/players/squad/coach/teams ✓; fixture ids mapped for 8/13/58/67. **Open gap:
+`injuries=0` unresolved** (second-source / current-season). Paid-plan reasons are now rate-limit/commercial/injuries,
+**not** WC2026 access. See `API_FOOTBALL_COVERAGE_CHECK.md`.
 
-**Owner decision (2026-06-10):** API-FOOTBALL = **MVP-2 primary-source candidate (confirmed)**; paid plan = **GO**
-(recommended) for WC2026/injuries/rate-limit re-verify; then MVP-2 backend schema. Architecture:
-`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`; budget brief: `API_FOOTBALL_PAID_PLAN_DECISION.md`. Operation paused.
+**Owner decision (2026-06-10):** API-FOOTBALL = **MVP-2 primary-source candidate (confirmed)**; MVP-2 implementation
+planning can start; plan-verify = **GO** (recommended) for injuries/rate-limit/commercial (WC2026 already returns 72).
+Architecture: `MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`; build: `MVP2_IMPLEMENTATION_PLAN.md`; budget:
+`API_FOOTBALL_PAID_PLAN_DECISION.md`. Operation paused.
 
 ## Goal 1 — Historical recap credible  (→ Level 1)
 - **Data needs:** `final_score` · `actual_winner` · H2H · recent_form · model baseline.

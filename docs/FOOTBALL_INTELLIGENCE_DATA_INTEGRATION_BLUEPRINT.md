@@ -192,7 +192,7 @@ PRs off `main`, and keep the discovery docs (PR-A/PR-C content) as the reference
 | Day | Task | Output | Gate |
 |---|---|---|---|
 | **1** | API-FOOTBALL Level-2 verification script | `scripts/verify_api_football_level2.py` (**shipped this sprint**; token_required until operator runs) | operator token |
-| **2** | API-FOOTBALL coverage report | **Day-2 = `PASS`** (WC2022 Level-2 core ✓: lineups/formation/events/stats/players/squad/coach/teams; FREE plan → WC2026 locked, needs paid) → `docs/API_FOOTBALL_COVERAGE_CHECK.md` | paid plan for WC2026 |
+| **2** | API-FOOTBALL coverage report | **Real Run = `PASS`** (WC2022=64 + **WC2026=72** + Level-2 core ✓: lineups/formation/events/stats/players/squad/coach/teams; **injuries=0 unresolved**) → `docs/API_FOOTBALL_COVERAGE_CHECK.md` | injuries 2nd-source / prod budget |
 | **3** | TheSports trial form / token follow-up | trial applied; `docs/THESPORTS_TRIAL_VERIFICATION.md` (19-pt checklist) | Owner/operator |
 | **4** | Sportmonks / Highlightly account feasibility | quick feasibility note (free plan / trial) | operator |
 | **5** | Kaggle H2H / recent_form derive | extend `audit_kaggle_wc2022.py` (offline; internal) | none (offline) |
@@ -203,8 +203,9 @@ PRs off `main`, and keep the discovery docs (PR-A/PR-C content) as the reference
 
 **Status (2026-06-10):** Day-1 verifier + Day-2 **PASS** done → API-FOOTBALL **confirmed MVP-2 primary-source
 candidate**. MVP-2 backend schema / feature store / Evidence Board v2 / cache designed in
-`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`; paid-plan gate in `API_FOOTBALL_PAID_PLAN_DECISION.md`. Operation paused
-until paid re-verify (WC2026/injuries/rate-limit).
+`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`; paid-plan gate in `API_FOOTBALL_PAID_PLAN_DECISION.md`; build sequence in
+`MVP2_IMPLEMENTATION_PLAN.md`. Real Run: **WC2022=64 + WC2026=72**, Level-2 core ✓, **injuries=0 unresolved**.
+Operation paused until plan-verify (injuries/rate-limit/commercial).
 
 ## 8. Compliance downgrade mapping (design input → product)
 
