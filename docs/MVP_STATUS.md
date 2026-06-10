@@ -8,6 +8,36 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **MVP-2 Pre-match Scout Pack Architecture (2026-06-10, branch, docs-only):** Owner verdict on API-FOOTBALL Day-2 =
+  **PASS** → API-FOOTBALL **confirmed MVP-2 primary-source candidate**; Level-2 feasibility PASS. **State: Internal
+  Level-2 feasibility proven · Commercial MVP-2 NOT ready.** Designed backend schema (~18 tables) + feature store +
+  Evidence Board v2 contract + cache/rate-limit + paid-plan gate (`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`,
+  `API_FOOTBALL_PAID_PLAN_DECISION.md`, `MVP2_IMPLEMENTATION_PLAN.md`). Owner-recommend **plan-verify = GO** (Pro $19,
+  verify) for **injuries/rate-limit/commercial** (WC2026 already returns 72); **external operation stays paused**;
+  TheSports = live/Level-3; Sportmonks/Highlightly = supplementary. No DB/backend/frontend/odds.
+- **Data Integration Blueprint + Real Data Perception MVP (2026-06-10, branch, docs-first + frontend):** Kaggle↔Render
+  alignment PASS (64/64, 23 upsets); Real Result recap shipped for match 8 (Argentina 1-2 Saudi Arabia) and match 13
+  (Germany 1-2 Japan) — real score/winner/AI-lean/upset, vi Han=0, no 42.2%. Owner adopted the designer's integrated
+  data-source plan: **API-FOOTBALL first** (Level-2 verifier `scripts/verify_api_football_level2.py`, token-gated),
+  TheSports pending (**no longer blocks Level-2**), Sportmonks/Highlightly alternatives, Sportradar enterprise-defer,
+  SerpApi auxiliary, StatsBomb WC2022 xG = non-commercial offline-only. Direction = **Data Source → Feature
+  Engineering → Model Explanation → UI**; **no data, no AI deep analysis**; betting/竞猜/盘口/走地 downgraded, odds
+  excluded. No backend/API/DB. Docs: `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign/matrix/strategy).
+- **API-FOOTBALL Real Run (2026-06-10):** verdict **`PASS`** — **WC2022=64 + WC2026=72** + Level-2 core ✓ (lineups/
+  formation/events/stats/players/squad/coach/teams; fixture ids mapped 8→855737/13/58/67). **Open gap: injuries=0
+  unresolved** (2nd-source/current-season). Token read from gitignored `backend/.env`, never committed;
+  `worldcup2026-api.env` gitignored. → API-FOOTBALL = MVP-2 primary candidate. `docs/API_FOOTBALL_COVERAGE_CHECK.md`.
+- **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are now a
+  clickable path — Home recap rows → `/detail?match_id=<id>`, `Xem phục dựng` → `/report?match_id=<id>`
+  (deep-link `match_id`/`id`; default selection prefers current/non-finished). Real API verified (public GET):
+  67 matches (64 finished + 3 seed). vi Han=0; 42.2% not in UI; build PASS; no backend/API/DB.
+  Evidence: `docs/HISTORICAL_RECAP_MODE_PROPOSAL.md` §11 + `qa_screenshots/real_data_zh_vi_verification_linked_recap/`.
+- **Real Data Verification Sprint (2026-06-10, branch `feature/real-data-zh-vi-verification`):** rollback
+  tag **`v0.8-real-data-verify-start`**; zh+vi verification (mm not broken). Data re-pull operator-run
+  (BLOCKED for Claude; last known 2026=0 / WC2022=64). Small frontend clarity: **Report evidence caption
+  recap-aware** for finished matches; 42.2% still not in UI; build PASS, vi Han=0. On branch (not main);
+  **final PASS pending operator review.** Evidence: `docs/REAL_DATA_ZH_VI_OPERATOR_REVIEW.md` +
+  `docs/qa_screenshots/real_data_zh_vi_verification/`.
 - **Historical Recap separation SHIPPED (2026-06-09, frontend-only):** `/matches` mixing fixed without
   backend/API/DB change — `Match.status` carried through transform; Home current surfaces filter
   `status !== 'finished'`; finished WC-2022 matches show only under a labelled **Historical Recap · WC2022**

@@ -65,6 +65,13 @@ export function HomePage() {
     navigate('/detail');
   }
 
+  // Historical recap → deep-linked detail/report (?match_id=) so the URL is shareable.
+  function goRecap(kind: 'detail' | 'report', id: string) {
+    safeTrack('click_detail', Number(id));
+    setSelectedMatch(id);
+    navigate(`/${kind}?match_id=${id}&lang=${loc}`);
+  }
+
   async function handleCheckIn() {
     if (checkedIn) { toast(t.checkinToastDone); return; }
     await checkIn();
@@ -206,9 +213,12 @@ export function HomePage() {
           <div className="card recap-card">
             <div className="recap-sub">🗂️ {t.recapSectionSub}</div>
             {recapMatches.map((m: Match) => (
-              <div className="recap-row" key={m.id} onClick={() => goDetail(m.id)}>
+              <div className="recap-row" key={m.id}>
                 <span className="recap-badge">{t.recapBadge}</span>
-                <span className="recap-teams">{m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}</span>
+                <span className="recap-teams" onClick={() => goRecap('detail', m.id)}>
+                  {m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}
+                </span>
+                <span className="recap-report-cta" onClick={() => goRecap('report', m.id)}>{t.recapReportCta} →</span>
               </div>
             ))}
           </div>

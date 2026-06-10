@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { FeatureBars } from '../components/FeatureBars';
 import { MatchHeader } from '../components/MatchHeader';
+import { EvidencePack } from '../components/EvidencePack';
+import { RealResultRecap } from '../components/RealResultRecap';
 import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
 import { homeWinLoc, awayWinLoc, drawLoc, riskShortLoc, noteLoc, scoutHookLoc, contrarianLoc, watchLoc } from '../i18n/viMapping';
@@ -19,14 +21,28 @@ export function ReportPage() {
   const navigate = useNavigate();
   const t = useCopy();
   const loc = useLocale();
-  const { matches, selectedMatchId, loadReport } = useAppStore();
-  const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
+  const { matches, selectedMatchId, setSelectedMatch, loadReport } = useAppStore();
+  // Deep-link support: /report?match_id=8 (or ?id=8) → select that match (e.g. historical recap).
+  const sp = new URLSearchParams(window.location.search);
+  const urlMatchId = sp.get('match_id') || sp.get('id');
+  const resolvedId = (urlMatchId && matches.some(m => m.id === urlMatchId)) ? urlMatchId : selectedMatchId;
+  const match = matches.find(m => m.id === resolvedId) ?? matches[0];
 
   useEffect(() => {
-    if (selectedMatchId) loadReport(selectedMatchId);
-  }, [selectedMatchId]);  // eslint-disable-line react-hooks/exhaustive-deps
+    if (urlMatchId && matches.some(m => m.id === urlMatchId) && urlMatchId !== selectedMatchId) {
+      setSelectedMatch(urlMatchId);
+    }
+  }, [urlMatchId, matches, selectedMatchId, setSelectedMatch]);
+
+  useEffect(() => {
+    if (resolvedId) loadReport(resolvedId);
+  }, [resolvedId]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!match) return null;
+
+  // Recap / finished match → no detailed model report (/reports 404). Show the
+  // Evidence Pack instead of a hollow "full report", and a conservative hook.
+  const reportIncomplete = match.status === 'finished';
 
   const hasTrend = match.trendHistory.length > 0;
   const maxTrend = hasTrend ? Math.max(...match.trendHistory.map(t => t.prob)) : 100;
@@ -53,14 +69,14 @@ export function ReportPage() {
 
       {/* Historical recap banner — finished match is calibration, not a current prediction */}
       {match.status === 'finished' && (
-        <div className="recap-banner">🗂️ {t.recapBadge} · {t.recapDetailNote}</div>
+        <div className="recap-banner">🗂️ {t.recapDetailNote}</div>
       )}
 
       {/* Evidence strip — signal sources (labels only; provenance-tagged, no fabricated data) */}
       <div className="evidence-strip">
         <div className="ev-title">🛰️ {t.evidenceTitle}</div>
         <div className="ev-sources">{t.evidenceSources}</div>
-        <div className="ev-mode">{t.evidenceMode}</div>
+        <div className="ev-mode">{match.status === 'finished' ? t.evidenceModeRecap : t.evidenceMode}</div>
       </div>
 
       {/* Scout verdict + gauge */}
@@ -70,7 +86,7 @@ export function ReportPage() {
           <span className="en">{t.scoutSub}</span>
         </div>
         <MatchHeader match={match} />
-        <p className="scout-hook">{scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
+        <p className="scout-hook">{reportIncomplete ? t.scoutHookRecap : scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
 
         <div className="gauge-wrap mt12">
           <div className="gauge" style={{ background: `conic-gradient(var(--blue) ${conf * 3.6}deg, var(--line) 0)` }}>
@@ -97,7 +113,7 @@ export function ReportPage() {
 
         <div className="stats">
           <div className="stat">
-            <div className="v" style={{ color: 'var(--blueMid)' }}>{match.recommendedScore.split(' / ')[0] || '—'}</div>
+            <div className="v" style={{ color: 'var(--blueMid)' }}>{reportIncomplete ? '—' : (match.recommendedScore.split(' / ')[0] || '—')}</div>
             <div className="l">{t.recommendedScore}</div>
           </div>
           <div className="stat">
@@ -110,6 +126,12 @@ export function ReportPage() {
           </div>
         </div>
       </div>
+
+      {/* Real WC2022 result recap (derived from Kaggle alignment) — model-calibration sample */}
+      {reportIncomplete && <RealResultRecap match={match} />}
+
+      {/* Evidence Pack — recap / detailed report not generated (no fake full report) */}
+      {reportIncomplete && <EvidencePack />}
 
       {/* Key factor contribution */}
       {match.features.length > 0 && (
@@ -124,6 +146,9 @@ export function ReportPage() {
         </>
       )}
 
+      {/* Contrarian / Watch / Risk radar — full-report depth; hidden on recap (no fake prediction) */}
+      {!reportIncomplete && (
+      <>
       {/* Contrarian / Risk watch — the "why this could be wrong" angle */}
       <div className="sec-en">
         <span className="zh">{t.contrarianTitle}</span>
@@ -163,6 +188,8 @@ export function ReportPage() {
           {t.radarNote}
         </p>
       </div>
+      </>
+      )}
 
       {/* Tactics explanation */}
       {match.tacticsNote && (
@@ -202,8 +229,8 @@ export function ReportPage() {
         </>
       )}
 
-      {/* Live correction record */}
-      {match.liveCorrection && (
+      {/* Live correction record — hidden on recap (a 2022 match must not show a live prediction artifact) */}
+      {!reportIncomplete && match.liveCorrection && (
         <>
           <div className="sec-en">
             <span className="zh">{t.lwLogTitle}</span>

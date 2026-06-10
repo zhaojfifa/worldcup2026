@@ -49,7 +49,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   tasks: MOCK_TASKS,
   matches: MOCK_MATCHES,
   matchesLoading: false,
-  selectedMatchId: MOCK_MATCHES[0].id,
+  // Default to a CURRENT (non-finished) match so the default view is a current preview, not a recap.
+  selectedMatchId: (MOCK_MATCHES.find(m => m.status !== 'finished') ?? MOCK_MATCHES[0]).id,
   unlockedMatchIds: new Set(),
   subscribed: false,
   syncedAt: new Date().toISOString(),
@@ -63,9 +64,12 @@ export const useAppStore = create<AppState>((set, get) => ({
     try {
       const items = await api.getMatches();
       const matches = items.map(listItemToMatch);
+      // Default to the first CURRENT (non-finished) match so the default Detail/signal is a current
+      // preview, not a historical recap (e.g. synced WC-2022 finished matches must not be the default).
+      const firstCurrent = matches.find(m => m.status !== 'finished') ?? matches[0];
       set({
         matches,
-        selectedMatchId: matches[0]?.id ?? null,
+        selectedMatchId: firstCurrent?.id ?? null,
         syncedAt: new Date().toISOString(),
         matchesLoading: false,
       });

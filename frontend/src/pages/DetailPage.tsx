@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { WinBar } from '../components/WinBar';
 import { MatchHeader } from '../components/MatchHeader';
+import { EvidencePack } from '../components/EvidencePack';
 import { Modal } from '../components/Modal';
 import { toast } from '../components/Toast';
 import { deriveOps, reasonBullets } from '../ops/derive';
@@ -26,23 +27,38 @@ export function DetailPage() {
   const price = getPrice(loc);
   const tn = (name: string) => teamLoc(name, loc);
   const {
-    balance, matches, selectedMatchId,
+    balance, matches, selectedMatchId, setSelectedMatch,
     loadDetail, unlockWithCash, unlockWithToken, simulateCorrection,
   } = useAppStore();
 
-  const match = matches.find(m => m.id === selectedMatchId) ?? matches[0];
+  // Deep-link support: /detail?match_id=8 (or ?id=8) → select that match (e.g. historical recap).
+  // No API change; reads from the already-loaded /matches list, falls back to current selection.
+  const sp = new URLSearchParams(window.location.search);
+  const urlMatchId = sp.get('match_id') || sp.get('id');
+  const resolvedId = (urlMatchId && matches.some(m => m.id === urlMatchId)) ? urlMatchId : selectedMatchId;
+  const match = matches.find(m => m.id === resolvedId) ?? matches[0];
   const [modal, setModal] = useState<null | { em: string; title: string; body: string; okLabel: string; onOk: () => void }>(null);
   const [lineupSimulated, setLineupSimulated] = useState(!!match?.liveCorrection);
 
   useEffect(() => {
-    if (selectedMatchId) loadDetail(selectedMatchId);
-  }, [selectedMatchId]);  // eslint-disable-line react-hooks/exhaustive-deps
+    if (urlMatchId && matches.some(m => m.id === urlMatchId) && urlMatchId !== selectedMatchId) {
+      setSelectedMatch(urlMatchId);
+    }
+  }, [urlMatchId, matches, selectedMatchId, setSelectedMatch]);
+
+  useEffect(() => {
+    if (resolvedId) loadDetail(resolvedId);
+  }, [resolvedId]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (match?.liveCorrection) setLineupSimulated(true);
   }, [match?.liveCorrection]);
 
   if (!match) return null;
+
+  // Recap / finished match → no detailed model report. Show the Evidence Pack
+  // (data-status) and suppress live-prediction sections; keep the honest basics.
+  const reportIncomplete = match.status === 'finished';
 
   const ops = deriveOps(match);
   const bullets = loc === 'zh' ? reasonBullets(match) : reasonBulletsLoc(match, loc);
@@ -100,7 +116,7 @@ export function DetailPage() {
 
       {/* Historical recap banner — finished match is calibration, not a current prediction */}
       {match.status === 'finished' && (
-        <div className="recap-banner">🗂️ {t.recapBadge} · {t.recapDetailNote}</div>
+        <div className="recap-banner">🗂️ {t.recapDetailNote}</div>
       )}
 
       {/* Condensed evidence strip (signal sources — labels only) */}
@@ -109,13 +125,16 @@ export function DetailPage() {
         <div className="ev-sources">{t.evidenceSources}</div>
       </div>
 
+      {/* Evidence Pack — recap / detailed report not generated (no fake full report) */}
+      {reportIncomplete && <EvidencePack />}
+
       {/* ── 1. Scout 结论卡（置顶） ──────────────────────────────────── */}
       <div className="verdict-card">
         <div className="verdict-top">
           <span className="zh">🔮 {t.scoutVerdictTitle}</span>
           <span className="en">{t.scoutSub}</span>
         </div>
-        <p className="scout-hook">{scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
+        <p className="scout-hook">{reportIncomplete ? t.scoutHookRecap : scoutHookLoc(match.homeTeam.name, match.awayTeam.name, loc)}</p>
         <div className="verdict-grid">
           <div className="verdict-cell">
             <div className="l">{t.tendency}</div>
@@ -184,6 +203,9 @@ export function DetailPage() {
         )}
       </div>
 
+      {/* LINEUP WATCH + Contrarian — live-prediction depth; hidden on recap (a 2022 match must not simulate a live correction) */}
+      {!reportIncomplete && (
+      <>
       {/* ── 5. LINEUP WATCH ───────────────────────────────────────── */}
       <div className="lineup-watch">
         <div className="lw-head">
@@ -225,6 +247,8 @@ export function DetailPage() {
           ⚔️ {contrarianLoc(match.homeTeam.name, match.awayTeam.name, loc)}
         </p>
       </div>
+      </>
+      )}
 
       {/* ── 6. 付费解锁 / 社群引导 ────────────────────────────────── */}
       <div className="sec-en">

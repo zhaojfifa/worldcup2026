@@ -1,7 +1,10 @@
 # Environment
 .env
 .env.*
+*.env
 !.env.example
+# Local secret env exports (e.g. operator Render dumps) — never commit
+worldcup2026-api.env
 
 # Local tooling / preview config
 .claude/
@@ -33,6 +36,11 @@ data/raw/
 data/cache/
 data/processed/
 data/tmp/
+
+# External datasets (Kaggle etc.) — never commit raw CSVs (large + license-gated)
+data/external/
+data/raw_external/
+data/**/*.csv
 
 # OS / IDE
 .DS_Store
