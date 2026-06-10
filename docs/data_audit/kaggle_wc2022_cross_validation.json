@@ -1,0 +1,90 @@
+{
+  "source": "kaggle",
+  "dataset": "martj42/international-football-results-from-1872-to-2017 (now 1872->2026)",
+  "dataset_url": "https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017",
+  "license_status": "CC0 / Public Domain per dataset page — UNCONFIRMED until operator verifies at download; NOT for customer UI until license confirmed + Owner sign-off",
+  "checked_at": "2026-06-10T02:38:03.742213+00:00",
+  "render_wc2022_matches": 64,
+  "render_side": {
+    "wc2022_match_count": 64,
+    "distinct_team_count": 32,
+    "teams_zh_to_canonical": {
+      "阿根廷": "Argentina",
+      "法国": "France",
+      "摩洛哥": "Morocco",
+      "巴西": "Brazil",
+      "西班牙": "Spain",
+      "德国": "Germany"
+    },
+    "english_normalizations": {
+      "USA": "United States"
+    },
+    "normalization_verify_at_download": [
+      "Iran",
+      "South Korea"
+    ],
+    "match_keys_sample": [
+      {
+        "id": 4,
+        "date": "2022-11-20",
+        "home": "Qatar",
+        "away": "Ecuador"
+      },
+      {
+        "id": 5,
+        "date": "2022-11-21",
+        "home": "England",
+        "away": "Iran"
+      },
+      {
+        "id": 6,
+        "date": "2022-11-21",
+        "home": "Senegal",
+        "away": "Netherlands"
+      },
+      {
+        "id": 7,
+        "date": "2022-11-21",
+        "home": "United States",
+        "away": "Wales"
+      },
+      {
+        "id": 8,
+        "date": "2022-11-22",
+        "home": "Argentina",
+        "away": "Saudi Arabia"
+      },
+      {
+        "id": 9,
+        "date": "2022-11-22",
+        "home": "Denmark",
+        "away": "Tunisia"
+      }
+    ]
+  },
+  "status": "manual_download_needed",
+  "expected_paths": [
+    "data/external/kaggle/results.csv",
+    "data/external/kaggle/goalscorers.csv",
+    "data/external/kaggle/shootouts.csv"
+  ],
+  "kaggle_wc2022_rows": null,
+  "matched_count": null,
+  "unmatched_render": null,
+  "unmatched_kaggle": null,
+  "field_coverage": {
+    "final_score": {
+      "status": "pending_download"
+    },
+    "actual_winner": {
+      "status": "pending_download"
+    }
+  },
+  "derived_candidates": {
+    "recent_form_5": "derivable offline once results.csv present (full 1872->2026 history)",
+    "head_to_head": "derivable offline once results.csv present (full history)",
+    "upset_cases": "derivable once final_score/actual_winner present (vs predicted favorite)",
+    "favorite_failed_cases": "derivable once final_score present"
+  },
+  "note": "Render side prepared (64 matches + normalizer). Awaiting operator Kaggle download. No data fabricated."
+}
