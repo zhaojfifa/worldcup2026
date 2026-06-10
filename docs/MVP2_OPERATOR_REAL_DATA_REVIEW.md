@@ -8,6 +8,12 @@
 >
 > **Updated 2026-06-10 (Operator Real-Data Acceptance Sprint):** four sample fixtures — **855737, 855741,
 > 977345, 979139** — with a four-match comparison (§3.1) and an **Operator Acceptance Decision** form (§13).
+>
+> **Updated 2026-06-10 (Data-to-Scout-Report Productization Sprint):** 855737 now has a **productized operator
+> report** (data → features → model notes → zh/vi report); the internal preview is **report-first** (raw + ledger
+> collapsed). See the **Productized Scout Report Review** (§14), design
+> [MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN](MVP2_PRODUCTIZED_SCOUT_REPORT_DESIGN.md), and next-data
+> [MVP2_NEXT_DATA_REQUIREMENTS](MVP2_NEXT_DATA_REQUIREMENTS.md).
 
 ---
 
@@ -138,6 +144,51 @@ accepts fixture-id args, defaults to all four).
 | ready for public operation | **NO** (Owner-fixed; operation paused) | ☑ no (locked) |
 | ready for Evidence Board v2 design | engineer: data contract is sufficient to start design | ☐ yes ☐ no |
 | ready for backend schema migration | engineer: schema proposal exists (architecture §3); needs Owner GO | ☐ yes ☐ no |
+
+**Operator sign-off:** name ____________ · date ____________ · decision: ☐ accept ☐ accept-with-conditions ☐ reject
+**Final Owner decision:** ____________________________________________
+
+---
+
+## 14. Productized Scout Report Review
+
+The raw scout-pack page is engineer-facing; this round turns **855737 (Argentina 1–2 Saudi Arabia)** into an
+operator-readable **product report**, proving the full flow `data → features → model notes → scout report →
+zh/vi content → operator review → data gap list`.
+
+**Artifacts (all real, derived offline from the cached pack):**
+- Feature snapshot: `docs/data_audit/mvp2_feature_snapshots/855737.json`
+- Model notes (post-match explanation, not prediction): `docs/data_audit/mvp2_model_notes/855737.json`
+- Productized report: `docs/data_audit/mvp2_productized_reports/855737.zh-CN.json` · `855737.vi-VN.json`
+- Screenshots: `docs/qa_screenshots/mvp2_real_data_operator_review/zh_855737_productized_report.png` ·
+  `vi_855737_productized_report.png`
+- Build script (offline, no API): `backend/scripts/mvp2_build_productized_report.py`
+
+**What the report shows (real data):** verdict ("控球占优却 1–2 不敌 → 典型爆冷"); why (Messi 10' pen → Saudi
+48'/53' second-half turnaround); evidence cards (possession 69%/31%, shots 15/3, pass acc 85%/68%, **GK rating
+6.0/7.7, GK saves 0/5**); 8 explanation signals each with `source_refs`; an operator content draft (zh + vi);
+missing data (injuries unresolved, xG not ingested); next data needed; AI boundary. Raw Scout Pack + Source
+Ledger are retained but **collapsed**.
+
+**Verified:** every conclusion carries `source_refs`; **no** win probability / odds / betting / market / SHAP /
+xG value / injury inference; vi report Han = **0**; report-first preview confirmed; build/contract/route checks pass.
+
+### Productized Scout Report — operator checklist
+> Engineer pre-assessment = evidence from this round; **operator decision** is the operator's to mark.
+
+| check item | engineer pre-assessment | operator decision |
+|---|---|---|
+| real report readable | YES — verdict-first, prose then cards | ☐ yes ☐ no |
+| match verdict understandable | YES — one-line upset verdict | ☐ yes ☐ no |
+| evidence cards understandable | YES — possession/shots/GK as home/away | ☐ yes ☐ no |
+| model notes understandable | YES — 8 signals + interpretation + source | ☐ yes ☐ no |
+| content draft useful | YES (engineer) — shareable zh/vi post + disclaimer | ☐ yes ☐ no |
+| missing data clear | YES — injuries source-required, xG not ingested | ☐ yes ☐ no |
+| next data needed clear | YES — P0 injuries, P1 xG, → requirements doc | ☐ yes ☐ no |
+| AI boundary clear | YES — allowed vs forbidden fields shown | ☐ yes ☐ no |
+| zh usable for operation | YES (engineer) | ☐ yes ☐ no |
+| vi usable for operation | YES (engineer, Han=0) | ☐ yes ☐ no |
+| ready for Evidence Board v2 design | engineer: yes — pipeline + contract proven | ☐ yes ☐ no |
 
 **Operator sign-off:** name ____________ · date ____________ · decision: ☐ accept ☐ accept-with-conditions ☐ reject
 **Final Owner decision:** ____________________________________________
