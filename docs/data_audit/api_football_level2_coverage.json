@@ -1,0 +1,151 @@
+{
+  "source": "api-football",
+  "base_url": "https://v3.football.api-sports.io",
+  "checked_at": "2026-06-10T06:33:06.314151+00:00",
+  "status": "probed",
+  "verdict": "pass",
+  "verdict_reason": "4/4 Level-2 core fields available and mapped to a WC2022 test match",
+  "token_var_used": "API_FOOTBALL_KEY",
+  "wc2022_fixture_probed": 855737,
+  "wc2022_team_probed": 1569,
+  "test_matches": [
+    {
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "render_id": 8,
+      "fixture_id": 855737
+    },
+    {
+      "home": "Germany",
+      "away": "Japan",
+      "render_id": 13,
+      "fixture_id": 855741
+    },
+    {
+      "home": "Morocco",
+      "away": "Spain",
+      "render_id": 58,
+      "fixture_id": 977345
+    },
+    {
+      "home": "Argentina",
+      "away": "France",
+      "render_id": 67,
+      "fixture_id": 979139
+    }
+  ],
+  "formation_readable_from_lineups": true,
+  "checks": [
+    {
+      "key": "status",
+      "field": "account/plan",
+      "http_status": 200,
+      "results": 0,
+      "ok": false,
+      "errors": null
+    },
+    {
+      "key": "leagues",
+      "field": "World Cup league id/season",
+      "http_status": 200,
+      "results": 1,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "fixtures2022",
+      "field": "WC2022 fixtures",
+      "http_status": 200,
+      "results": 64,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "fixtures2026",
+      "field": "WC2026 fixtures",
+      "http_status": 200,
+      "results": 72,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "lineups",
+      "field": "starting lineup / formation",
+      "http_status": 200,
+      "results": 2,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "events",
+      "field": "match events",
+      "http_status": 200,
+      "results": 20,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "statistics",
+      "field": "match statistics",
+      "http_status": 200,
+      "results": 2,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "players",
+      "field": "per-match player stats",
+      "http_status": 200,
+      "results": 2,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "injuries",
+      "field": "injuries / suspensions",
+      "http_status": 200,
+      "results": 0,
+      "ok": false,
+      "errors": null
+    },
+    {
+      "key": "squad",
+      "field": "squad / player list",
+      "http_status": 200,
+      "results": 1,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "coachs",
+      "field": "coach",
+      "http_status": 200,
+      "results": 1,
+      "ok": true,
+      "errors": null
+    },
+    {
+      "key": "teams",
+      "field": "teams",
+      "http_status": 200,
+      "results": 32,
+      "ok": true,
+      "errors": null
+    }
+  ],
+  "coverage_summary": {
+    "status": false,
+    "leagues": true,
+    "fixtures2022": true,
+    "fixtures2026": true,
+    "lineups": true,
+    "events": true,
+    "statistics": true,
+    "players": true,
+    "injuries": false,
+    "squad": true,
+    "coachs": true,
+    "teams": true
+  },
+  "note": "Read-only probe. 'ok=false' usually means the season/endpoint is not on the current plan. Token never printed/committed."
+}
