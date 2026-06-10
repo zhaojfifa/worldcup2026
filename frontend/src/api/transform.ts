@@ -27,6 +27,7 @@ function toCorrection(c: ApiLiveCorrection | null): LiveCorrection | undefined {
 export function listItemToMatch(m: ApiMatchListItem): Match {
   return {
     id: String(m.id),
+    externalId: m.external_id,
     homeTeam: { name: m.home_team.name, flag: m.home_team.flag },
     awayTeam: { name: m.away_team.name, flag: m.away_team.flag },
     kickoffTime: m.kickoff_time,

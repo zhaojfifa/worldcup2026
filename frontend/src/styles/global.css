@@ -373,7 +373,39 @@ body {
   background: #ECE4FB; border-radius: 999px; padding: 2px 8px;
 }
 .recap-teams { font-size: 12.5px; color: #3A4A60; font-weight: 600; }
+.recap-go { margin-left: auto; flex-shrink: 0; font-size: 11px; font-weight: 800; color: #5B3FA8; }
 .lang-mm .recap-banner { font-size: 11px; line-height: 1.6; }
+
+/* ── ScoutScore recap detail (customer-readable product page) ─────────────── */
+.recap-hero { background: linear-gradient(135deg, #2A1E5C, #5B3FA8); color: #fff; border: none; }
+.recap-headline { margin: 0 0 8px; font-size: 19px; line-height: 1.4; font-weight: 800; }
+.recap-oneliner { margin: 0; font-size: 13.5px; line-height: 1.7; color: #E7E0FA; }
+.recap-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.recap-vs-cell { background: #F7F9FC; border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.recap-vs-cell .l { font-size: 11px; color: #5b6b82; margin-bottom: 3px; }
+.recap-vs-cell .v { font-size: 13.5px; font-weight: 700; color: #0e2a52; }
+.recap-verdict { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.pillv { font-size: 12px; font-weight: 800; border-radius: 999px; padding: 3px 12px; }
+.pillv.red { background: #FEE8E9; color: #b42318; }
+.pillv.green { background: #E3F4EA; color: #1a7f37; }
+.pillv.amber { background: #FFF6E2; color: #92400e; }
+.recap-conclusion { font-size: 12.5px; color: #3A4A60; line-height: 1.6; }
+.recap-miss { font-size: 13px; color: #92400e; background: #FFF7ED; border: 1px dashed #f59e0b;
+  border-radius: 10px; padding: 9px 11px; margin-bottom: 8px; line-height: 1.6; }
+.recap-evgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 9px; }
+.recap-evcard { background: #F7F9FC; border: 1px solid var(--line); border-radius: 10px; padding: 9px; text-align: center; }
+.recap-evcard .t { font-size: 10.5px; color: #5b6b82; }
+.recap-evcard .v { font-size: 15px; font-weight: 800; color: #0e2a52; margin-top: 2px; }
+.recap-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.recap-chip { background: #ECE4FB; color: #4B2E8F; border-radius: 8px; padding: 4px 9px; font-size: 11.5px; font-weight: 700; }
+.recap-chip.need { background: #FEE8E9; color: #b42318; }
+.recap-sub2 { font-size: 11px; color: #5b6b82; font-weight: 700; margin: 10px 0 6px; }
+.recap-copybox { background: #F0F7FF; border: 1px solid #CFE0F7; border-radius: 10px; padding: 12px;
+  font-size: 13px; line-height: 1.75; color: #243B5E; white-space: pre-wrap; }
+.recap-gap { font-size: 12.5px; color: #92400e; line-height: 1.7; }
+.recap-ledger summary { cursor: pointer; font-weight: 800; color: #0e2a52; font-size: 13px; }
+.recap-ledger-tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 8px; }
+.recap-ledger-tbl td { padding: 5px 6px; border-bottom: 1px solid #eef1f6; color: #3A4A60; }
 
 /* Myanmar density: scout layer needs a touch more breathing room */
 .lang-mm .scout-hook { font-size: 12.5px; line-height: 1.6; }

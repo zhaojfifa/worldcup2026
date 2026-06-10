@@ -21,6 +21,7 @@ export interface LiveCorrection {
 
 export interface Match {
   id: string;
+  externalId?: string | null;  // e.g. "AF-855737" (API-FOOTBALL fixture) — used to resolve recap
   homeTeam: { name: string; flag: string };
   awayTeam: { name: string; flag: string };
   kickoffTime: string;        // ISO string

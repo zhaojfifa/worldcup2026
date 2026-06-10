@@ -3,6 +3,8 @@
  * Never passes API keys; the backend handles all sensitive credentials.
  */
 
+import type { RecapContent } from '../data/recapData';
+
 const BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? 'http://localhost:8000';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -66,6 +68,7 @@ export const api = {
   getMatches:      ()             => request<ApiMatchListItem[]>('/api/v1/matches'),
   getMatch:        (id: number)   => request<ApiMatchDetail>(`/api/v1/matches/${id}`),
   getReport:       (id: number)   => request<ApiReport>(`/api/v1/reports/${id}`),
+  getRecap:        (fixtureId: string, lang: string) => request<RecapContent>(`/api/v1/recap/${fixtureId}?lang=${lang}`),
 
   getWallet:       (userId: number)                      => request<{ balance: number; total_earned: number; total_spent: number; last_checkin_date: string | null }>(`/api/v1/tokens/wallet/${userId}`),
   checkIn:         (userId: number)                      => request<{ success: boolean; earned: number; balance: number; message: string }>('/api/v1/tokens/checkin', { method: 'POST', body: JSON.stringify({ user_id: userId }) }),

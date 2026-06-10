@@ -86,6 +86,27 @@ export const MOCK_MATCHES: Match[] = [
     ],
     updatedAt: '2026-06-02T10:30:00+08:00',
   },
+  // Historical recap fixture (WC2022) — finished; drives the Home "Historical Recap"
+  // surface and the ScoutScore recap detail. English team names match the real API
+  // (and keep vi Han-free). status='finished' keeps it out of current predictions.
+  {
+    id: '855737',
+    externalId: 'AF-855737',
+    homeTeam: { name: 'Argentina', flag: '🇦🇷' },
+    awayTeam: { name: 'Saudi Arabia', flag: '🇸🇦' },
+    kickoffTime: '2022-11-22T18:00:00+08:00',
+    status: 'finished',
+    winProb: { home: 64, draw: 22, away: 14 },
+    recommendedScore: '—',
+    riskLevel: 'high',
+    riskNote: '历史复盘样例：纸面优势方未能取胜，用于模型校准。',
+    confidence: 40,
+    features: [],
+    tacticsNote: '历史复盘 / 模型校准，不是当前比赛预测。',
+    freeNote: '历史复盘 / 模型校准，不是当前比赛预测。',
+    trendHistory: [],
+    updatedAt: '2022-11-22T20:00:00+08:00',
+  },
 ];
 
 export const MOCK_TASKS: TokenTask[] = [

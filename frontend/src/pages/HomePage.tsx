@@ -9,6 +9,7 @@ import { useCopy } from '../i18n/dict';
 import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
+import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -205,12 +206,19 @@ export function HomePage() {
           </div>
           <div className="card recap-card">
             <div className="recap-sub">🗂️ {t.recapSectionSub}</div>
-            {recapMatches.map((m: Match) => (
-              <div className="recap-row" key={m.id} onClick={() => goDetail(m.id)}>
-                <span className="recap-badge">{t.recapBadge}</span>
-                <span className="recap-teams">{m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}</span>
-              </div>
-            ))}
+            {recapMatches.map((m: Match) => {
+              const rid = recapFixtureId(m);
+              const hasRecap = !!rid && RECAP_AVAILABLE.has(rid);
+              const recapCta = loc === 'zh' ? '查看复盘 ▸' : loc === 'vi' ? 'Xem phục dựng ▸' : 'View recap ▸';
+              return (
+                <div className="recap-row" key={m.id}
+                     onClick={() => (hasRecap ? navigate(`/recap/${rid}`) : goDetail(m.id))}>
+                  <span className="recap-badge">{t.recapBadge}</span>
+                  <span className="recap-teams">{m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}</span>
+                  {hasRecap && <span className="recap-go">{recapCta}</span>}
+                </div>
+              );
+            })}
           </div>
         </>
       )}
