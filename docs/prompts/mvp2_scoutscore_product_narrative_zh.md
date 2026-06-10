@@ -60,7 +60,8 @@ assumption 标记) / `kaggle_baseline`(Elo 快照、近 10 场状态、H2H) / `k
   "llm_provider": ""                 // 由脚本回填，可留空
 }
 ```
-- 因子条目必须用 `name` + `text` 两个键；每条**有 source_refs（真实证据）或 assumption_flag=true**，二选一必有。
+- 因子条目必须用 `name` + `text` 两个键；每条**必须**带 `source_refs`（直接从 INPUT 对应因子的
+  `source_refs` 复制）**或** `assumption_flag: true`——任何一条都不允许两者皆无。
 - `watch_next_signals` 是前瞻信号，默认 `assumption_flag: true`（除非引用真实数据）。
 
 ## 产品语言要求（这是上一版被否的原因，必须做到）
@@ -79,6 +80,7 @@ assumption 标记) / `kaggle_baseline`(Elo 快照、近 10 场状态、H2H) / `k
 - ❌ 编造伤病 / xG / 停赛 / 转会费；把 assumption 写成事实
 - ❌ 工程审计词：MISS / replay / assumption / data_status / source_refs / snake_case 字段名出现在客户正文
 - ❌ 纯新闻标题（只有比分没有模型视角）；通用赛后评论腔（「这是一场精彩的比赛」）
+- ❌ 在任何客户字段写 URL / 链接 / t.me 群链接——入口按钮由产品端注入，你只写文案本身
 - 2026 样例：Brazil vs Argentina 是**假想淘汰赛相遇**，客户正文用「若两队在淘汰赛相遇」表述，
   `internal_notes` 写明 hypothetical；绝不写成已排定赛程。
 

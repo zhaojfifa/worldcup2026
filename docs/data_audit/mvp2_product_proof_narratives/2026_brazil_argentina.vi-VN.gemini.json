@@ -1,0 +1,137 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "2026_brazil_argentina",
+  "mode": "pre_match_2026_modeling",
+  "language": "vi-VN",
+  "hero_title": "Giành Cup AI ScoutScore: Argentina Nhỉnh Hơn Nếu Gặp Brazil Ở Knock-out 2026",
+  "hero_subtitle": "Mô hình ScoutScore dự đoán Argentina có lợi thế dựa trên Elo và phong độ gần đây, nhưng rủi ro luân chuyển đội hình cần được theo dõi sát.",
+  "short_title": "Argentina Nhỉnh Hơn Brazil (Knock-out 2026)",
+  "screenshot_line": "ScoutScore chỉ ra Argentina có Elo cao hơn 100 điểm và phong độ 8W-1D-1L, tạo lợi thế rõ ràng trước Brazil.",
+  "model_judgement": "ScoutScore nhận định Argentina có lợi thế rõ ràng hơn Brazil nếu hai đội gặp nhau trong vòng knock-out World Cup 2026. Điều này dựa trên chênh lệch Elo 100 điểm nghiêng về Argentina và phong độ ấn tượng 8 thắng-1 hòa-1 thua trong 10 trận gần nhất, so với Brazil là 6 thắng-1 hòa-3 thua. Khả năng dứt điểm của Argentina cũng được đánh giá cao với Messi dẫn đầu danh sách ghi bàn.",
+  "main_lean": "Argentina được mô hình dự đoán sẽ có lợi thế thắng Brazil trong kịch bản knock-out.",
+  "scoreline_view": "ScoutScore ước tính khoảng tỷ số hợp lý trước trận là 1-1, 2-1 hoặc 1-2, cho thấy một trận đấu cân bằng nhưng Argentina có khả năng thắng sít sao.",
+  "risk_level": "Trung bình",
+  "risk_factors": [
+    {
+      "name": "Tính toàn vẹn đội hình ra sân",
+      "text": "Hiện tại chưa có thông tin đội hình chính thức. Việc thiếu dữ liệu về đội hình xuất phát có thể tạo ra biến số lớn, đặc biệt là các thay đổi ở trục dọc đội hình.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Khoảng cách hiệu suất thủ môn",
+      "text": "Mô hình chưa có dữ liệu chi tiết về phong độ thủ môn của cả hai đội. Hiệu suất của người gác đền có thể là yếu tố then chốt trong một trận đấu loại trực tiếp.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Yếu tố chiến thuật",
+      "text": "Các kế hoạch chiến thuật và đội hình cụ thể cho World Cup 2026 của hai HLV chưa được mô hình phân tích sâu. Những điều chỉnh chiến thuật bất ngờ có thể thay đổi cục diện trận đấu.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Địa điểm và khí hậu",
+      "text": "Nếu trận đấu diễn ra tại Mỹ vào mùa hè 2026, các yếu tố về nhiệt độ và quãng đường di chuyển giữa các thành phố chủ nhà có thể ảnh hưởng đến thể lực cầu thủ, đặc biệt là sau lịch thi đấu vòng bảng dày đặc.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "2026_group_fixtures"
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình chính thức 30 phút trước trận",
+      "text": "Theo dõi sát đội hình ra sân cuối cùng. Bất kỳ thay đổi lớn nào, đặc biệt là ở các vị trí chủ chốt, sẽ kích hoạt mô hình tính toán lại nhận định.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Phong độ thủ môn",
+      "text": "Tìm kiếm các thông tin cập nhật về phong độ gần đây của thủ môn chính thức. Một thủ môn đang có phong độ cao có thể tạo ra khác biệt lớn trong các trận knock-out.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Chiến thuật dự kiến",
+      "text": "Quan sát các dấu hiệu về sơ đồ chiến thuật và cách tiếp cận trận đấu của hai đội trong các buổi tập cuối cùng hoặc phát biểu của HLV. Điều này sẽ giúp đánh giá rủi ro chiến thuật.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Giành Cup AI ScoutScore dự đoán Argentina nhỉnh hơn Brazil nếu hai đội gặp nhau ở vòng knock-out 2026. Mô hình dựa trên Elo cao hơn 100 điểm và phong độ 8W-1D-1L của Argentina. Tuy nhiên, các yếu tố như đội hình ra sân và phong độ thủ môn vẫn là biến số cần theo dõi sát. Đăng ký để nhận cập nhật 30 phút trước giờ bóng lăn và phân tích chuyên sâu!",
+  "subscription_hook": "Bạn đang xem bản phân tích miễn phí của Giành Cup AI ScoutScore với nhận định chính và mức độ rủi ro. Đăng ký ngay để mở khóa toàn bộ: phân tích đầy đủ các yếu tố, cập nhật nhận định của mô hình 30 phút trước giờ bóng lăn (bao gồm đội hình ra sân và thay đổi chiến thuật), và khoảng tỷ số chi tiết của mô hình AI.",
+  "group_join_copy": "Muốn xem phân tích sâu hơn và cập nhật nhanh nhất từ Giành Cup AI ScoutScore? Vào nhóm Telegram của chúng tôi ngay! Bạn sẽ nhận được các bài phân tích đầy đủ, cập nhật nhận định AI trước trận 30 phút và thảo luận cùng cộng đồng người hâm mộ bóng đá thông thái.",
+  "today_cta": "Quan điểm AI hôm nay",
+  "social_post": "Giành Cup AI ScoutScore dự đoán Argentina nhỉnh hơn Brazil nếu gặp nhau ở knock-out World Cup 2026. Với Elo cao hơn 100 điểm và phong độ ấn tượng 8W-1D-1L, Argentina có lợi thế rõ ràng. Tuy nhiên, rủi ro về đội hình và thủ môn vẫn cần theo dõi. Xem phân tích đầy đủ và cập nhật 30 phút trước trận!",
+  "internal_notes": [
+    "historical_replay: false",
+    "assumption_context: Lineup integrity, Goalkeeper performance gap, Tactical matchup, Venue / travel / climate (impact), Model blind spots",
+    "hypothetical_fixture: Brazil vs Argentina is NOT scheduled in the 2026 group stage — a meeting is a knockout scenario."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "elo_snapshot@2026-06-11",
+        "value": "Brazil 1964 / Argentina 2064"
+      },
+      {
+        "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+      }
+    ],
+    "Recent form (last 10)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "last10_form"
+      }
+    ],
+    "Lineup integrity": [],
+    "Finishing efficiency": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "goalscorers_last10"
+      }
+    ],
+    "Goalkeeper performance gap": [],
+    "In-match momentum / late swings": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "h2h+shootouts"
+      }
+    ],
+    "Tactical matchup": [],
+    "Venue / travel / climate": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "2026_group_fixtures"
+      }
+    ],
+    "Model blind spots": [],
+    "Upset / volatility risk": [
+      {
+        "method": "upset_band(elo_gap=100, missing=4)"
+      }
+    ]
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-10T16:54:42.588538+00:00"
+}

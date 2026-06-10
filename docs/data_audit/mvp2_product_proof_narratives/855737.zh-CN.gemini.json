@@ -1,0 +1,217 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "855737",
+  "mode": "historical_recap",
+  "language": "zh-CN",
+  "hero_title": "Giành Cup AI 复盘：阿根廷爆冷，ScoutScore 赛前该看清哪三处风险？",
+  "hero_subtitle": "这场世界杯冷门，验证了 AI 模型在面对强弱分明对决时，仍需警惕的「盲点陷阱」。",
+  "short_title": "阿根廷爆冷门复盘：AI 预测如何避坑？",
+  "screenshot_line": "阿根廷 1-2 沙特：模型赛前低估了沙特门将的逆天表现，以及战术效率差带来的冷门风险。",
+  "model_judgement": "赛前 Giành Cup AI ScoutScore 模型倾向阿根廷取胜，这基于其高达 369 的 Elo 积分优势和近 10 场 8 胜 2 平 0 负的压倒性状态。然而，模型也警示了「高风险」：在缺乏实时伤病、xG 和球员身价数据时，强弱对决反而可能成为冷门温床。沙特门将的超神发挥和极高的进攻效率，正是模型赛前难以捕捉的关键变量。",
+  "main_lean": "赛前倾向阿根廷胜，但模型已标记为高风险对局。",
+  "scoreline_view": "模型赛前估计比分区间为 1-0, 2-0, 3-0，实际比分阿根廷 1-2 沙特，远超模型预期。",
+  "risk_level": "高：豪门对阵弱旅，但模型数据盲点多，且沙特战术风格可能带来不确定性。",
+  "risk_factors": [
+    {
+      "name": "模型盲点",
+      "text": "ScoutScore 模型在赛前未能获取实时伤病、xG（预期进球）和球队身价数据，这使得在判断比赛走势时存在信息缺口，尤其在评估弱队爆冷潜力时。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "战术对冲风险",
+      "text": "沙特队可能采取的 4-1-4-1 阵型，与阿根廷的 4-4-2 阵型形成战术碰撞。在世界杯这种大赛舞台，弱队往往会祭出高强度防守反击，这本身就是一种冷门因子。",
+      "source_refs": [
+        {
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "855737"
+        },
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "possession 69%/31%"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "情绪与临场爆发",
+      "text": "世界杯首战，弱队往往能爆发出超常的斗志。这种情绪因素和临场发挥，是模型难以量化的风险，但历史经验表明，它能改变比赛走向。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "长期实力与近期状态",
+      "text": "阿根廷的 Elo 积分和近 10 场不败战绩确实反映了其强大的纸面实力，比赛中也一度领先。这证明了模型对强队基本面的判断是准确的。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2022-11-22",
+          "value": "Argentina 2053 / Saudi Arabia 1684"
+        },
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "高风险预警",
+      "text": "模型赛前对这场比赛给出了「高风险」评级，这在一定程度上预示了冷门的可能性。尽管未能精准预测比分，但对风险的警示是正确的。",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=369, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "临场战术碰撞",
+      "text": "沙特队在比赛中展现了极高的战术纪律性，通过高位压迫和快速反击，成功限制了阿根廷的进攻，并抓住了转瞬即逝的机会。",
+      "source_refs": [
+        {
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "855737"
+        },
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "possession 69%/31%"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "门将超常发挥",
+      "text": "沙特门将穆罕默德·奥韦斯全场贡献 5 次关键扑救，其中不乏世界级表现，直接扑灭了阿根廷的多次必进球机会。模型赛前无法预测这种超常的个人发挥。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "saves 0/5"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "进攻效率极端化",
+      "text": "沙特全场仅 3 次射门 2 次射正，却打入 2 球，效率极高。阿根廷 15 次射门 6 次射正仅打入 1 球。这种极端化的效率差异，是模型赛前无法预估的冷门密码。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "关键时刻的心理韧性",
+      "text": "沙特队在下半场开局 5 分钟内连入两球，展现了惊人的心理韧性和把握机会的能力。这种在短时间内扭转局势的爆发力，是模型赛前难以量化的。",
+      "source_refs": [
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "门将状态与扑救效率",
+      "text": "未来比赛中，Giành Cup AI 将更关注门将的近期状态和历史扑救数据，尝试将其纳入风险评估，避免再次低估门将的决定性作用。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "进攻效率与防守反击",
+      "text": "当强弱对决时，模型会更深入分析弱队的防守反击成功率和关键球员的终结能力，尤其关注对手的射门转化率，以捕捉潜在的效率型冷门。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "临场 30 分钟战术调整",
+      "text": "未来 Giành Cup AI 在比赛开球前 30 分钟会重新计算：双方首发阵容的完整性、门将表现的潜在差距、以及实时战术对位。这些因子会重新调整主队倾向、比分区间和风险等级。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "阿根廷爆冷输沙特，Giành Cup AI 赛前虽倾向阿根廷，但已提示「高风险」。这场比赛证明：即使是豪门，也可能被门将超神和战术效率差击败。想看 AI 如何捕捉下一场冷门信号？入群看完整分析和临场预测！",
+  "subscription_hook": "免费版 Giành Cup AI ScoutScore 让你看到比赛主队倾向和风险等级。订阅后，你将解锁完整的因子分析、临场 30 分钟更新的预测、以及更深度的比分区间估计。别再错过关键信号！",
+  "group_join_copy": "想知道 Giành Cup AI 是如何从海量数据中洞察比赛风险，并提前捕捉冷门信号的吗？加入我们的 Telegram/Zalo 私域群，你不仅能看到每场比赛的完整因子解读、模型实时更新，还能参与讨论，和资深球迷一起提升看球体验！群内还有更多独家 AI 观点等你解锁。",
+  "today_cta": "今日 AI 观点",
+  "social_post": "阿根廷 1-2 沙特，世界杯超级冷门！Giành Cup AI 赛前已预警高风险，但沙特门将和超高效率仍超预期。AI 预测如何避坑？#世界杯 #阿根廷 #沙特 #AI预测",
+  "internal_notes": [
+    "historical replay — NOT a real archived pre-match prediction",
+    "assumption_context: Venue / travel / climate (neutral venue, low differential impact assumed)",
+    "assumption_context: Model blind spots (injuries/suspensions, xG, squad market value not ingested)"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      "kaggle_intl_results",
+      "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+    ],
+    "Recent form (last 10)": [
+      "kaggle_intl_results"
+    ],
+    "Lineup integrity": [
+      "api-football:/fixtures/lineups"
+    ],
+    "Finishing efficiency": [
+      "api-football:/fixtures/statistics"
+    ],
+    "Goalkeeper performance gap": [
+      "api-football:/fixtures/statistics",
+      "api-football:/fixtures/players"
+    ],
+    "In-match momentum / late swings": [
+      "api-football:/fixtures/events"
+    ],
+    "Tactical matchup": [
+      "api-football:/fixtures/lineups",
+      "api-football:/fixtures/statistics"
+    ],
+    "Venue / travel / climate": [
+      "fixture_venue_assumption"
+    ],
+    "Model blind spots": [
+      "model_blind_spots_assumption"
+    ],
+    "Upset / volatility risk": [
+      "upset_band(elo_gap=369, missing=3)"
+    ]
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-10T16:52:46.589903+00:00"
+}

@@ -1,0 +1,184 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "855737",
+  "mode": "historical_recap",
+  "language": "vi-VN",
+  "hero_title": "ScoutScore: Argentina trước Saudi Arabia – Mô hình thấy 'bẫy' nhưng không kịp cảnh báo",
+  "hero_subtitle": "Trận đấu chứng minh điểm mù của AI khi chỉ dựa vào Elo và phong độ",
+  "short_title": "Argentina vs Saudi Arabia: Bài học về điểm mù AI",
+  "screenshot_line": "Argentina dứt điểm 15 lần, chỉ ghi 1 bàn; Saudi Arabia 3 lần, ghi 2 bàn – hiệu suất là biến số AI chưa lường trước.",
+  "model_judgement": "ScoutScore trước trận nghiêng hẳn về Argentina nhờ Elo chênh 369 điểm và phong độ 8 thắng 2 hòa. Nhưng mô hình cũng gắn cờ rủi ro cao vì thiếu dữ liệu chấn thương, xG và giá trị đội hình – đây là 'bẫy' kinh điển khi đội cửa trên quá mạnh trên giấy.",
+  "main_lean": "Argentina được đánh giá cao hơn, nhưng rủi ro upset ở mức cao.",
+  "scoreline_view": "Trước trận, mô hình ước tính tỷ số hợp lý trong khoảng 2-0, 3-0 hoặc 1-0. Thực tế Argentina thua 1-2.",
+  "risk_level": "Cao – Argentina là đội được yêu thích tuyệt đối, nhưng mô hình thiếu dữ liệu về hiệu suất dứt điểm và thủ môn đối phương.",
+  "risk_factors": [
+    {
+      "name": "Upset / volatility risk",
+      "text": "Chênh lệch Elo lớn (369) nhưng mô hình thiếu 3 đầu vào quan trọng (chấn thương, xG, giá trị đội hình) – đây là công thức cho một cú sốc.",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=369, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Finishing efficiency",
+      "text": "Không có dữ liệu xG trước trận – hiệu suất dứt điểm là ẩn số lớn.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "Không có dữ liệu phong độ thủ môn trước trận – Saudi Arabia có thủ môn xuất sắc (5 pha cứu thua, rating 7.7).",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "saves 0/5"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Argentina mạnh hơn về Elo và kiểm soát thế trận (69% possession), nhưng không đủ để thắng.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "elo_snapshot@2022-11-22",
+          "value": "Argentina 2053 / Saudi Arabia 1684"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "Argentina bất bại 10 trận gần nhất (8W-2D), trong khi Saudi Arabia chỉ thắng 2 – phong độ phản ánh đúng sức mạnh nhưng không quyết định kết quả.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Finishing efficiency",
+      "text": "Mô hình không có xG nên đánh giá thấp khả năng tận dụng cơ hội của Saudi Arabia (3 sút trúng đích ghi 2 bàn) và sự kém hiệu quả của Argentina (6 sút trúng đích chỉ 1 bàn).",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "Thủ môn Saudi Arabia (Mohammed Al-Owais) có 5 pha cứu thua, rating 7.7 – mô hình không có dữ liệu này trước trận.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "saves 0/5"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "Hiệu suất dứt điểm (xG)",
+      "text": "Nếu có dữ liệu xG trước trận, mô hình sẽ cảnh báo sớm về sự chênh lệch giữa số cơ hội và bàn thắng thực tế.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Phong độ thủ môn đối phương",
+      "text": "Cập nhật chỉ số cứu thua và rating thủ môn 30 phút trước giờ bóng lăn giúp điều chỉnh nhận định.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Đội hình ra sân và chấn thương",
+      "text": "Thiếu vắng cầu thủ chủ chốt hoặc thay đổi chiến thuật bất ngờ là tín hiệu cần theo dõi sát.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "ScoutScore: Argentina thua Saudi Arabia dù Elo chênh 369 điểm. Mô hình thấy rủi ro cao nhưng thiếu dữ liệu hiệu suất và thủ môn. Trận tới, hãy để AI cập nhật 30 phút trước giờ bóng lăn – đăng ký ngay!",
+  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và mức rủi ro. Đăng ký để xem toàn bộ yếu tố phân tích, cập nhật 30 phút trước giờ bóng lăn với thông tin đội hình, phong độ thủ môn, và dải tỷ số chi tiết.",
+  "group_join_copy": "Vào nhóm Telegram để nhận phân tích AI đầy đủ mỗi trận, thảo luận cùng cộng đồng và xem các tín hiệu cảnh báo sớm. Link trong bio!",
+  "today_cta": "Xem ngay 'Quan điểm AI hôm nay' để không bỏ lỡ nhận định trước giờ bóng lăn.",
+  "social_post": "Argentina thua Saudi Arabia dù dứt điểm 15 lần? AI ScoutScore đã gắn cờ rủi ro cao vì thiếu dữ liệu xG và thủ môn. Trận tới, hãy để AI cập nhật 30 phút trước giờ bóng lăn! #ScoutScore #WorldCup",
+  "internal_notes": [
+    "historical replay – NOT a real archived pre-match prediction",
+    "assumption_context: venue/travel/climate (neutral) – low impact",
+    "assumption_context: model blind spots (injuries, xG, squad value) – gaps identified",
+    "assumption_context: upset/volatility risk band derived from elo_gap and missing factors"
+  ],
+  "source_ref_map": {
+    "Upset / volatility risk": {
+      "method": "upset_band(elo_gap=369, missing=3)"
+    },
+    "Finishing efficiency": {
+      "field": "team_statistics",
+      "source": "api-football",
+      "endpoint": "/fixtures/statistics",
+      "fixture_id": "855737"
+    },
+    "Goalkeeper performance gap": {
+      "field": "team_statistics",
+      "source": "api-football",
+      "endpoint": "/fixtures/statistics",
+      "fixture_id": "855737"
+    },
+    "Long-run strength (Elo baseline)": {
+      "source": "kaggle_intl_results",
+      "metric": "elo_snapshot@2022-11-22"
+    },
+    "Recent form (last 10)": {
+      "source": "kaggle_intl_results",
+      "metric": "last10_form"
+    }
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-10T16:58:58.797864+00:00"
+}

@@ -1,0 +1,92 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "2026_brazil_argentina",
+  "mode": "pre_match_2026_modeling",
+  "language": "vi-VN",
+  "hero_title": "ScoutScore nhận định: Argentina cửa trên rõ ràng nếu gặp Brazil ở vòng knock-out World Cup 2026",
+  "hero_subtitle": "Elo chênh 100 điểm, phong độ 10 trận vượt trội — nhưng biến số đội hình và thể thức loại trực tiếp có thể thay đổi mọi thứ.",
+  "short_title": "Argentina cửa trên nếu gặp Brazil",
+  "screenshot_line": "Argentina 8W-1D-1L, Brazil 6W-1D-3L — Elo chênh 100 điểm, ScoutScore nghiêng về Argentina.",
+  "model_judgement": "Dựa trên Elo baseline (Argentina 2064 vs Brazil 1964, gap 100) và phong độ 10 trận gần nhất (Argentina 8W-1D-1L, ghi 23 bàn, thủng lưới 3; Brazil 6W-1D-3L, ghi 25 bàn, thủng lưới 11), mô hình Giành Cup AI ScoutScore nhận định Argentina là đội cửa trên rõ ràng nếu hai đội gặp nhau ở vòng knock-out. Lịch sử đối đầu gần đây cũng ủng hộ: Argentina thắng 4/5 trận gần nhất, gần đây nhất là 4-1 tháng 3/2025. Tuy nhiên, thể thức loại trực tiếp và khả năng luân lưu là yếu tố rủi ro — Argentina có thành tích luân lưu tốt hơn (4/5 gần đây), Brazil chỉ 2/5.",
+  "main_lean": "Argentina thắng (nếu gặp nhau ở vòng knock-out)",
+  "scoreline_view": "Mô hình ước tính tỷ số khả quan: 1-2 hoặc 1-1 nghiêng về Argentina.",
+  "risk_level": "Trung bình — Elo và phong độ nghiêng hẳn về Argentina, nhưng thiếu dữ liệu đội hình và chiến thuật là biến số lớn.",
+  "risk_factors": [
+    {
+      "name": "Đội hình xuất phát chưa công bố",
+      "text": "Chưa có lineup feed — cả hai đội chưa công bố đội hình; đây là biến số cần theo dõi sát trước giờ bóng lăn.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thể thức loại trực tiếp và luân lưu",
+      "text": "Trận knock-out có thể kéo dài sang hiệp phụ và luân lưu. Argentina có thành tích luân lưu 4/5 gần đây, Brazil chỉ 2/5.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "shootout_history"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Tác động sân bãi và khí hậu",
+      "text": "World Cup 2026 tổ chức tại Mỹ mùa hè; nhiệt độ và di chuyển giữa các thành phố có thể ảnh hưởng thể lực.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "2026_group_fixtures"
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình chính thức",
+      "text": "Khi lineup được công bố (khoảng 30 phút trước giờ bóng lăn), mô hình sẽ cập nhật lại nhận định. Chú ý sự vắng mặt của trụ cột hai bên.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn xuất phát",
+      "text": "Không có dữ liệu phong độ thủ môn hiện tại — đây là biến số cần theo dõi trực tiếp.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Sơ đồ chiến thuật",
+      "text": "Chưa có thông tin về đội hình và chiến thuật dự kiến; nếu có tin đồn về sơ đồ bất ngờ, cần cập nhật.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "ScoutScore nhận định: Argentina cửa trên nếu gặp Brazil ở knock-out World Cup 2026. Elo chênh 100, phong độ 8W-1D-1L, đối đầu 4/5 trận gần nhất thắng. Rủi ro: chưa có lineup, thể thức loại trực tiếp. Theo dõi bản cập nhật 30 phút trước giờ bóng lăn để biết lean mới nhất.",
+  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và mức rủi ro. Đăng ký để nhận: phân tích đầy đủ 10+ yếu tố, bản cập nhật 30 phút trước giờ bóng lăn (khi có lineup), và dải tỷ số chi tiết từ mô hình.",
+  "group_join_copy": "Vào nhóm Telegram 'Giành Cup AI ScoutScore' để xem phân tích đầy đủ trước mỗi trận cầu đỉnh cao. Ở đó có bản cập nhật live 30 phút trước kick-off, nhận định chi tiết từng yếu tố, và thảo luận cùng cộng đồng.",
+  "today_cta": "Xem ngay: Quan điểm AI hôm nay về cặp đấu Brazil vs Argentina nếu gặp nhau ở vòng knock-out.",
+  "social_post": "ScoutScore: Argentina cửa trên nếu gặp Brazil ở knock-out World Cup 2026. Elo chênh 100, phong độ 8W-1D-1L. Rủi ro: chưa có lineup. Theo dõi bản cập nhật 30 phút trước giờ bóng lăn! #WorldCup2026 #AI",
+  "internal_notes": [
+    "Hypothetical scenario: Brazil vs Argentina is not a scheduled 2026 group fixture; this analysis assumes they meet in the knockout stage.",
+    "Assumption_context used: lineup_integrity, goalkeeper_performance_gap, tactical_matchup, venue/climate impact.",
+    "No injuries, xG, squad value, or FIFA rank ingested — these are known gaps.",
+    "Historical replay mode: pre_match_2026_modeling, not a recap."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results: elo_snapshot@2026-06-11",
+    "Recent form (last 10)": "kaggle_intl_results: last10_form",
+    "Finishing efficiency": "kaggle_intl_results: goalscorers_last10",
+    "In-match momentum / late swings": "kaggle_intl_results: h2h+shootouts",
+    "Venue / travel / climate": "kaggle_intl_results: 2026_group_fixtures",
+    "Upset / volatility risk": "model_frame_outputs: upset_band"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-10T16:52:16.668863+00:00"
+}

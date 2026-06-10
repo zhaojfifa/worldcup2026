@@ -1,0 +1,282 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "979139",
+  "mode": "historical_recap",
+  "language": "vi-VN",
+  "hero_title": "Giành Cup AI: Argentina Vô Địch, Pháp Sống Dậy Từ Cõi Chết – Mô Hình Bỏ Lỡ Gì?",
+  "hero_subtitle": "Trận chung kết World Cup 2022 là thử thách cực đại cho khả năng nhận diện rủi ro từ mô hình AI ScoutScore.",
+  "short_title": "Argentina vs Pháp: AI ScoutScore & Rủi Ro Bị Bỏ Lỡ",
+  "screenshot_line": "Mô hình ScoutScore đã nghiêng về Argentina dựa trên Elo và phong độ, nhưng rủi ro hiệu suất dứt điểm và thủ môn là điểm mù trước trận.",
+  "model_judgement": "Trước trận chung kết World Cup 2022, Giành Cup AI ScoutScore nhận định Argentina là đội có lợi thế dựa trên chỉ số Elo vượt trội 68 điểm và phong độ gần đây (8 thắng, 1 hòa, 1 thua so với 6 thắng, 1 hòa, 3 thua của Pháp). Mô hình dự đoán một chiến thắng cho Argentina, nhưng cảnh báo về một trận đấu không dễ dàng.",
+  "main_lean": "Argentina được mô hình đánh giá cao hơn, nhưng Pháp có tiềm năng tạo bất ngờ.",
+  "scoreline_view": "Trước trận, mô hình ước tính khoảng tỷ số hợp lý là 2-1, 3-1 hoặc 1-1 nghiêng về Argentina. Tỷ số thật 3-3 (Argentina thắng luân lưu) cho thấy trận đấu kịch tính hơn nhiều so với dự đoán ban đầu.",
+  "risk_level": "Trung bình",
+  "risk_factors": [
+    {
+      "name": "Hiệu suất dứt điểm",
+      "text": "Mô hình không có dữ liệu xG (bàn thắng kỳ vọng) trước trận, đây là một điểm mù lớn khi đánh giá khả năng chuyển hóa cơ hội thành bàn thắng của cả hai đội. Điều này khiến việc dự đoán chính xác số bàn thắng trở nên khó khăn.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Khoảng cách trình độ thủ môn",
+      "text": "Không có dữ liệu về phong độ thủ môn trước trận là một rủi ro. Sự xuất sắc hay sai lầm của người gác đền có thể thay đổi cục diện trận đấu, đặc biệt ở một trận chung kết.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Động lực trong trận và khả năng lội ngược dòng",
+      "text": "Các khoảnh khắc bùng nổ hoặc lội ngược dòng là rủi ro cố hữu trong bóng đá. Mô hình chỉ có thể dùng 'khả năng bị dẫn trước của đội mạnh' làm proxy, nhưng không thể dự đoán chính xác thời điểm và tác động của các pha xoay chuyển cục diện.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "Sức mạnh dài hạn (Elo baseline)",
+      "text": "Mô hình đã đúng khi xác định Argentina là đội cửa trên với chỉ số Elo 2052 so với 1984 của Pháp, tạo khoảng cách 68 điểm. Argentina cuối cùng đã vô địch, dù phải nhờ đến loạt luân lưu.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2022-12-18",
+          "value": "Argentina 2052 / France 1984"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Phong độ gần đây (10 trận)",
+      "text": "Phong độ ổn định của Argentina (8 thắng, 1 hòa, 1 thua, ghi 28 bàn, thủng lưới 5) so với Pháp (6 thắng, 1 hòa, 3 thua, ghi 16 bàn, thủng lưới 9) là yếu tố được mô hình nhận diện chính xác. Argentina đã chơi tốt phần lớn trận đấu.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Sự trung lập của địa điểm",
+      "text": "Trận đấu diễn ra tại sân vận động Lusail Iconic ở Qatar, địa điểm trung lập. Điều này được mô hình giả định là không tạo ra khác biệt đáng kể và thực tế đã đúng, không có lợi thế sân nhà cho đội nào.",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Hiệu suất dứt điểm",
+      "text": "Mô hình đã đánh giá thấp khả năng chuyển hóa cơ hội của Pháp. Pháp chỉ có 10 cú sút và 5 cú sút trúng đích nhưng ghi được 3 bàn, cho thấy hiệu suất đáng kinh ngạc. Trong khi đó, Argentina cần tới 20 cú sút và 10 cú sút trúng đích để có 3 bàn.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "shots 20/10, sog 10/5"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Khoảng cách trình độ thủ môn",
+      "text": "Mô hình không lường trước được tầm ảnh hưởng của Hugo Lloris (Pháp), người đã có 7 pha cứu thua, trong khi thủ môn Argentina chỉ có 2. Sự xuất sắc của Lloris đã giúp Pháp trụ vững và lội ngược dòng.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "saves 2/7"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Động lực trong trận và khả năng lội ngược dòng",
+      "text": "Mô hình đã bỏ lỡ hoàn toàn khả năng Pháp tạo ra hai cú lội ngược dòng ngoạn mục (từ 0-2 thành 2-2, rồi từ 2-3 thành 3-3) nhờ các bàn thắng ở phút 80, 81 và 118. Đây là những khoảnh khắc bùng nổ không thể dự đoán trước trận.",
+      "source_refs": [
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "Dữ liệu xG (Bàn thắng kỳ vọng)",
+      "text": "Để cải thiện độ chính xác về hiệu suất dứt điểm, mô hình cần tích hợp dữ liệu xG trước trận. Điều này sẽ giúp đánh giá khả năng ghi bàn thực tế của các đội thay vì chỉ dựa vào số cú sút.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Chỉ số phong độ thủ môn",
+      "text": "Trong các trận đấu tiếp theo, cần theo dõi sát các chỉ số phong độ thủ môn như tỷ lệ cứu thua, khả năng cản phá phạt đền. Đây là yếu tố then chốt có thể xoay chuyển kết quả, như Lloris đã làm.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Khả năng phản ứng chiến thuật của HLV",
+      "text": "Xem xét cách các HLV điều chỉnh chiến thuật khi bị dẫn trước hoặc khi cần ghi bàn. Điều này có thể là tín hiệu cho khả năng lội ngược dòng hoặc duy trì lợi thế của một đội.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Trận chung kết World Cup 2022: Argentina vs Pháp là bài học lớn cho Giành Cup AI ScoutScore! Mô hình đã đúng khi nghiêng về Argentina dựa trên Elo và phong độ, nhưng bỏ lỡ rủi ro hiệu suất dứt điểm siêu hạng của Pháp (3 bàn từ 5 cú sút trúng đích) và màn trình diễn xuất thần của thủ môn Lloris. Trận đấu này chứng minh: dữ liệu xG và phong độ thủ môn là biến số cần theo dõi sát sao hơn nữa. Đăng ký ngay để xem cập nhật 30 phút trước giờ bóng lăn!",
+  "subscription_hook": "Phiên bản miễn phí cho bạn thấy nhận định chính, mức độ rủi ro và một phần yếu tố phân tích. Đăng ký Giành Cup AI ScoutScore để mở khóa toàn bộ phân tích chuyên sâu, cập nhật nhận định 30 phút trước giờ bóng lăn, chi tiết khoảng tỷ số và nguồn cấp dữ liệu AI hàng ngày. Đừng bỏ lỡ những góc nhìn độc quyền!",
+  "group_join_copy": "Bạn muốn xem phân tích đầy đủ và trao đổi cùng cộng đồng người hâm mộ bóng đá thông minh? Tham gia nhóm Telegram của Giành Cup AI ScoutScore ngay hôm nay! Chúng tôi chia sẻ nhận định chuyên sâu, cập nhật dữ liệu và thảo luận về các tín hiệu đáng chú ý trước mỗi trận đấu lớn. Nhấn vào link để vào nhóm!",
+  "today_cta": "Quan điểm AI hôm nay:",
+  "social_post": "Argentina vs Pháp: Chung kết World Cup 2022! Giành Cup AI ScoutScore đã nghiêng về Argentina nhưng bỏ lỡ màn lội ngược dòng khó tin của Pháp. 3 bàn từ 5 cú sút trúng đích của Pháp là tín hiệu gì? Đăng ký ngay để xem AI cập nhật dữ liệu xG và phong độ thủ môn trước mỗi trận!",
+  "internal_notes": [
+    "historical replay — NOT a real archived pre-match prediction",
+    "assumption_context: no pre-match xG feed, no pre-match GK form feed, momentum windows are an in-match risk; pre-match proxy = comeback exposure of the favourite",
+    "assumption_context: Qatar 2022 neutral venue — low differential impact assumed",
+    "assumption_context: model was blind on injuries, xG, squad value at kickoff",
+    "timeline entries at minute '120+x' are SHOOTOUT kicks, not match goals"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "elo_snapshot@2022-12-18",
+        "value": "Argentina 2052 / France 1984"
+      },
+      {
+        "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+      }
+    ],
+    "Recent form (last 10)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "last10_form"
+      }
+    ],
+    "Lineup integrity": [
+      {
+        "field": "lineups",
+        "source": "api-football",
+        "endpoint": "/fixtures/lineups",
+        "fixture_id": "979139"
+      }
+    ],
+    "Finishing efficiency": [
+      {
+        "field": "team_statistics",
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": "979139",
+        "value": "shots 20/10, sog 10/5"
+      }
+    ],
+    "Goalkeeper performance gap": [
+      {
+        "field": "team_statistics",
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": "979139",
+        "value": "saves 2/7"
+      },
+      {
+        "field": "player_statistics",
+        "source": "api-football",
+        "endpoint": "/fixtures/players",
+        "fixture_id": "979139"
+      }
+    ],
+    "In-match momentum / late swings": [
+      {
+        "field": "events",
+        "source": "api-football",
+        "endpoint": "/fixtures/events",
+        "fixture_id": "979139"
+      }
+    ],
+    "Tactical matchup": [
+      {
+        "field": "lineups+coach",
+        "source": "api-football",
+        "endpoint": "/fixtures/lineups",
+        "fixture_id": "979139"
+      },
+      {
+        "field": "team_statistics",
+        "source": "api-football",
+        "endpoint": "/fixtures/statistics",
+        "fixture_id": "979139",
+        "value": "possession 54%/46%"
+      }
+    ],
+    "Venue / travel / climate": [
+      {
+        "field": "fixture",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": "979139"
+      }
+    ],
+    "Model blind spots": [],
+    "Upset / volatility risk": [
+      {
+        "method": "upset_band(elo_gap=68, missing=3)"
+      }
+    ],
+    "Hiệu suất dứt điểm": [],
+    "Khoảng cách trình độ thủ môn": [],
+    "Động lực trong trận và khả năng lội ngược dòng": [],
+    "Sức mạnh dài hạn (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "elo_snapshot@2022-12-18",
+        "value": "Argentina 2052 / France 1984"
+      }
+    ],
+    "Phong độ gần đây (10 trận)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "last10_form"
+      }
+    ],
+    "Sự trung lập của địa điểm": [
+      {
+        "field": "fixture",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": "979139"
+      }
+    ],
+    "Dữ liệu xG (Bàn thắng kỳ vọng)": [],
+    "Chỉ số phong độ thủ môn": [],
+    "Khả năng phản ứng chiến thuật của HLV": []
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-10T16:55:46.192391+00:00"
+}

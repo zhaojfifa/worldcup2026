@@ -63,7 +63,9 @@ giá trị đội hình, đội hình ra sân.
   "llm_provider": ""                 // script tự điền, có thể để trống
 }
 ```
-- Mỗi mục yếu tố dùng đúng hai khóa `name` + `text`; mỗi mục **có source_refs thật HOẶC assumption_flag=true**.
+- Mỗi mục yếu tố dùng đúng hai khóa `name` + `text`; mỗi mục **bắt buộc** có `source_refs` (sao chép
+  từ `source_refs` của yếu tố tương ứng trong INPUT) **HOẶC** `assumption_flag: true` — không mục nào
+  được thiếu cả hai.
 - `watch_next_signals` hướng tới tương lai, mặc định `assumption_flag: true` trừ khi trích dữ liệu thật.
 
 ## Yêu cầu ngôn ngữ sản phẩm
@@ -80,12 +82,16 @@ giá trị đội hình, đội hình ra sân.
 
 ## Cấm tuyệt đối (mọi trường khách hàng)
 - ❌ **ZERO chữ Hán** — toàn bộ output không một ký tự Trung Quốc nào
-- ❌ cá cược / đặt cược / kèo / tỷ lệ kèo / nhà cái / soi kèo — mọi từ ngữ cá cược
+- ❌ cá cược / đặt cược / kèo / lật kèo / kèo trên / kèo dưới / tỷ lệ kèo / nhà cái / soi kèo — mọi từ
+  ngữ mang hơi hướng cá cược, kể cả tiếng lóng (thay "lật kèo" bằng "lật ngược nhận định / tạo địa chấn";
+  thay "kèo trên" bằng "bên được đánh giá cao hơn")
 - ❌ chắc thắng / bao thắng / cam kết trúng / lợi nhuận (kể cả trong câu phủ định)
 - ❌ tỷ lệ thắng / xác suất phần trăm kiểu dự đoán (số liệu trận đấu thật như "kiểm soát bóng 69%" thì được)
 - ❌ bịa chấn thương / xG / treo giò; biến assumption thành sự thật
 - ❌ từ kỹ thuật trong văn khách hàng: MISS / replay / assumption / data_status / source_refs / tên trường snake_case
 - ❌ tiêu đề thuần tin tức; giọng bình luận sau trận chung chung
+- ❌ viết URL / liên kết / link t.me trong bất kỳ trường khách hàng nào — nút bấm do sản phẩm gắn,
+  bạn chỉ viết phần lời
 - Mẫu 2026: Brazil vs Argentina là **kịch bản giả định vòng loại trực tiếp** — văn khách hàng dùng
   "nếu hai đội gặp nhau ở vòng knock-out", `internal_notes` ghi rõ hypothetical; không viết như lịch đã xếp.
 

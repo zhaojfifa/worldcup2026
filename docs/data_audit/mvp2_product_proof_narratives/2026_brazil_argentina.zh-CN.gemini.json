@@ -1,0 +1,137 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "2026_brazil_argentina",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "Giành Cup AI 预测：若淘汰赛相遇，阿根廷能否延续对巴西的强势？",
+  "hero_subtitle": "ScoutScore 深度解析：梅西领衔的阿根廷，在假想淘汰赛中，模型判断优势何在。",
+  "short_title": "AI 预测：巴西 vs 阿根廷，谁能晋级？",
+  "screenshot_line": "ScoutScore 预警：阿根廷近 10 场 8 胜 1 负，防线固若金汤，巴西面临硬仗！",
+  "model_judgement": "如果两队在 2026 世界杯淘汰赛相遇，Giành Cup AI ScoutScore 模型认为阿根廷占据明显优势。这不仅基于其高达 2064 的 Elo 积分，更在于近 10 场比赛中，阿根廷 8 胜 1 平 1 负，仅失 3 球的防守表现令人印象深刻。相比之下，巴西近 10 场 6 胜 1 平 3 负，虽然进攻火力不俗（打入 25 球），但防线稳定性略逊一筹，失球数达到 11 个。历史交锋也显示，阿根廷在关键战役中多次压制巴西，尤其在点球大战经验上，阿根廷近年表现更胜一筹。",
+  "main_lean": "模型赛前倾向阿根廷胜，但考虑到这是南美德比，冷门风险偏高。",
+  "scoreline_view": "模型估计合理比分区间：1-1，2-1（阿根廷胜），1-2（巴西胜）。",
+  "risk_level": "中高。虽然阿根廷数据占优，但南美德比的激烈程度、淘汰赛的偶然性，以及模型当前对门将表现、战术细节等关键信息的缺失，都增加了比赛的不确定性。",
+  "risk_factors": [
+    {
+      "name": "阵容完整性",
+      "text": "目前双方大名单均未公布，首发阵容是决定比赛走向的关键。任何核心球员的缺席或意外首发，都可能改变比赛平衡。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将表现",
+      "text": "淘汰赛中门将的临场发挥至关重要，特别是面对高水平射门和点球大战。模型目前缺少门将状态的实时数据，这是一个潜在的风险点。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "战术对位",
+      "text": "两队教练的战术部署和临场调整将直接影响比赛进程。模型目前无法获取 2026 年的详细战术信息，这可能导致对比赛走势的判断出现偏差。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "场地与气候",
+      "text": "2026 世界杯在美国夏季举行，比赛场地和不同城市间的旅途、炎热气候都可能对球员体能和表现产生影响。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "2026_group_fixtures"
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "临场阵容公布",
+      "text": "比赛前 30 分钟，双方首发阵容的公布将是模型重新评估比赛走向的关键信号。特别是核心攻击手和防守中坚的到位情况。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将状态更新",
+      "text": "如果能获取到双方首发门将的近期状态和伤病信息，模型将能更准确地判断防守稳定性和点球大战的潜力。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "战术情报",
+      "text": "任何关于教练战术意图、阵型选择的赛前消息，都将帮助模型更细致地分析两队在场上的对位优劣。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Giành Cup AI 预测：巴西 vs 阿根廷，如果淘汰赛相遇，阿根廷优势明显！近 10 场仅失 3 球，防线固若金汤。但德比战风险高，AI 临场 30 分钟会根据阵容再更新。想看最新 AI 观点和比分区间？入群获取！",
+  "subscription_hook": "免费版 Giành Cup AI ScoutScore 为您提供核心判断和风险提示。订阅后，您将解锁完整的因子分析、临场 30 分钟的实时模型更新、更深度的比分区间预测，以及每日 AI 观点，助您洞察先机！",
+  "group_join_copy": "想第一时间获取 Giành Cup AI ScoutScore 的独家预测？加入我们的 Telegram 群！在这里，您不仅能看到每场比赛的完整 AI 分析、关键因子解读，还能在开赛前 30 分钟收到模型根据最终阵容更新的最新判断，以及社群专属的深度比分区间分析。和懂球的朋友一起，用 AI 视角看球！",
+  "today_cta": "今日 AI 观点：点击查看 Giành Cup AI ScoutScore 更多预测",
+  "social_post": "巴西 vs 阿根廷，AI 预测谁能赢？ScoutScore 模型认为阿根廷优势明显，但德比战冷门风险高！想看临场 30 分钟更新？#GiànhCupAI #世界杯2026 #足球预测",
+  "internal_notes": [
+    "historical_replay: false",
+    "assumption_context: Lineup integrity (no lineup feed yet), Goalkeeper performance gap (no GK form feed), Tactical matchup (2026 formations/coach plans not ingested), Venue / travel / climate (venue/heat impact for a knockout meeting is scenario context)",
+    "2026 hypothetical knockout meeting: Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "elo_snapshot@2026-06-11",
+        "value": "Brazil 1964 / Argentina 2064"
+      },
+      {
+        "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+      }
+    ],
+    "Recent form (last 10)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "last10_form"
+      }
+    ],
+    "Lineup integrity": [],
+    "Finishing efficiency": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "goalscorers_last10"
+      }
+    ],
+    "Goalkeeper performance gap": [],
+    "In-match momentum / late swings": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "h2h+shootouts"
+      }
+    ],
+    "Tactical matchup": [],
+    "Venue / travel / climate": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "2026_group_fixtures"
+      }
+    ],
+    "Model blind spots": [],
+    "Upset / volatility risk": [
+      {
+        "method": "upset_band(elo_gap=100, missing=4)"
+      }
+    ]
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-10T16:54:29.149675+00:00"
+}

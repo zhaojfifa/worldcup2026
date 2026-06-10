@@ -1,0 +1,643 @@
+{
+  "model_name": "ScoutScore v0.2",
+  "mode": "pre_match_2026_modeling",
+  "fixture_id": "2026_brazil_argentina",
+  "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
+  "generated_at": "2026-06-10T16:45:54.498789+00:00",
+  "hypothetical_fixture": true,
+  "hypothetical_note": "Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario. Customer copy must say 'if they meet in the knockouts'.",
+  "fixture": {
+    "home": "Brazil",
+    "away": "Argentina",
+    "date": null,
+    "venue": null,
+    "competition": "FIFA World Cup 2026 (hypothetical knockout meeting)"
+  },
+  "kaggle_baseline": {
+    "elo": {
+      "Brazil": 1964,
+      "Argentina": 2064,
+      "gap": 100,
+      "favoured": "Argentina",
+      "asof": "2026-06-11",
+      "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+    },
+    "recent_form": {
+      "Brazil": {
+        "matches": [
+          {
+            "date": "2025-09-04",
+            "opponent": "Chile",
+            "score": "3-0",
+            "result": "W",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-09-09",
+            "opponent": "Bolivia",
+            "score": "0-1",
+            "result": "L",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-10-10",
+            "opponent": "South Korea",
+            "score": "5-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2025-10-14",
+            "opponent": "Japan",
+            "score": "2-3",
+            "result": "L",
+            "tournament": "Kirin Cup"
+          },
+          {
+            "date": "2025-11-15",
+            "opponent": "Senegal",
+            "score": "2-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2025-11-18",
+            "opponent": "Tunisia",
+            "score": "1-1",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "France",
+            "score": "1-2",
+            "result": "L",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-31",
+            "opponent": "Croatia",
+            "score": "3-1",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-05-31",
+            "opponent": "Panama",
+            "score": "6-2",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-06-06",
+            "opponent": "Egypt",
+            "score": "2-1",
+            "result": "W",
+            "tournament": "Friendly"
+          }
+        ],
+        "record": "6W-1D-3L",
+        "goals_for": 25,
+        "goals_against": 11,
+        "n": 10
+      },
+      "Argentina": {
+        "matches": [
+          {
+            "date": "2025-06-05",
+            "opponent": "Chile",
+            "score": "1-0",
+            "result": "W",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-06-10",
+            "opponent": "Colombia",
+            "score": "1-1",
+            "result": "D",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-09-04",
+            "opponent": "Venezuela",
+            "score": "3-0",
+            "result": "W",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-09-09",
+            "opponent": "Ecuador",
+            "score": "0-1",
+            "result": "L",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-10-10",
+            "opponent": "Venezuela",
+            "score": "1-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2025-10-14",
+            "opponent": "Puerto Rico",
+            "score": "6-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2025-11-14",
+            "opponent": "Angola",
+            "score": "2-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "Mauritania",
+            "score": "2-1",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-31",
+            "opponent": "Zambia",
+            "score": "5-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-06-06",
+            "opponent": "Honduras",
+            "score": "2-0",
+            "result": "W",
+            "tournament": "Friendly"
+          }
+        ],
+        "record": "8W-1D-1L",
+        "goals_for": 23,
+        "goals_against": 3,
+        "n": 10
+      }
+    },
+    "h2h_last10": [
+      {
+        "date": "2015-11-13",
+        "fixture": "Argentina 1-1 Brazil",
+        "tournament": "FIFA World Cup qualification"
+      },
+      {
+        "date": "2016-11-10",
+        "fixture": "Brazil 3-0 Argentina",
+        "tournament": "FIFA World Cup qualification"
+      },
+      {
+        "date": "2017-06-09",
+        "fixture": "Argentina 1-0 Brazil",
+        "tournament": "Superclásico de las Américas"
+      },
+      {
+        "date": "2018-10-16",
+        "fixture": "Argentina 0-1 Brazil",
+        "tournament": "Superclásico de las Américas"
+      },
+      {
+        "date": "2019-07-02",
+        "fixture": "Brazil 2-0 Argentina",
+        "tournament": "Copa América"
+      },
+      {
+        "date": "2019-11-15",
+        "fixture": "Brazil 0-1 Argentina",
+        "tournament": "Superclásico de las Américas"
+      },
+      {
+        "date": "2021-07-10",
+        "fixture": "Brazil 0-1 Argentina",
+        "tournament": "Copa América"
+      },
+      {
+        "date": "2021-11-16",
+        "fixture": "Argentina 0-0 Brazil",
+        "tournament": "FIFA World Cup qualification"
+      },
+      {
+        "date": "2023-11-21",
+        "fixture": "Brazil 0-1 Argentina",
+        "tournament": "FIFA World Cup qualification"
+      },
+      {
+        "date": "2025-03-25",
+        "fixture": "Argentina 4-1 Brazil",
+        "tournament": "FIFA World Cup qualification"
+      }
+    ],
+    "recent_scorers": {
+      "Brazil": [
+        {
+          "scorer": "Estêvão Willian",
+          "goals": 1
+        },
+        {
+          "scorer": "Lucas Paquetá",
+          "goals": 1
+        },
+        {
+          "scorer": "Bruno Guimarães",
+          "goals": 1
+        }
+      ],
+      "Argentina": [
+        {
+          "scorer": "Lionel Messi",
+          "goals": 2
+        },
+        {
+          "scorer": "Julián Alvarez",
+          "goals": 1
+        },
+        {
+          "scorer": "Thiago Almada",
+          "goals": 1
+        },
+        {
+          "scorer": "Lautaro Martínez",
+          "goals": 1
+        }
+      ]
+    },
+    "shootout_history": {
+      "Brazil": [
+        {
+          "date": "2014-06-28",
+          "vs": "Chile",
+          "won": true
+        },
+        {
+          "date": "2015-06-27",
+          "vs": "Paraguay",
+          "won": false
+        },
+        {
+          "date": "2019-06-27",
+          "vs": "Paraguay",
+          "won": true
+        },
+        {
+          "date": "2022-12-09",
+          "vs": "Croatia",
+          "won": false
+        },
+        {
+          "date": "2024-07-06",
+          "vs": "Uruguay",
+          "won": false
+        }
+      ],
+      "Argentina": [
+        {
+          "date": "2016-06-26",
+          "vs": "Chile",
+          "won": false
+        },
+        {
+          "date": "2021-07-06",
+          "vs": "Colombia",
+          "won": true
+        },
+        {
+          "date": "2022-12-09",
+          "vs": "Netherlands",
+          "won": true
+        },
+        {
+          "date": "2022-12-18",
+          "vs": "France",
+          "won": true
+        },
+        {
+          "date": "2024-07-04",
+          "vs": "Ecuador",
+          "won": true
+        }
+      ]
+    }
+  },
+  "factors": [
+    {
+      "factor": "baseline_strength",
+      "value": {
+        "elo": {
+          "Brazil": 1964,
+          "Argentina": 2064
+        },
+        "gap": 100,
+        "favoured": "Argentina"
+      },
+      "pre_match_interpretation": "kaggle-derived elo: Brazil 1964 vs Argentina 2064 (gap 100)",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-11",
+          "value": "Brazil 1964 / Argentina 2064"
+        },
+        {
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    },
+    {
+      "factor": "recent_form",
+      "value": {
+        "Brazil": "6W-1D-3L",
+        "Argentina": "8W-1D-1L"
+      },
+      "pre_match_interpretation": "last-10: Brazil 6W-1D-3L (gf25 ga11) vs Argentina 8W-1D-1L (gf23 ga3); includes 2026-03/06 friendlies",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    },
+    {
+      "factor": "lineup_integrity",
+      "value": null,
+      "pre_match_interpretation": "no lineup feed yet — both squads unannounced; becomes a live-30min trigger",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "assumption_context"
+    },
+    {
+      "factor": "finishing_efficiency",
+      "value": {
+        "recent_scorers": {
+          "Brazil": [
+            {
+              "scorer": "Estêvão Willian",
+              "goals": 1
+            },
+            {
+              "scorer": "Lucas Paquetá",
+              "goals": 1
+            },
+            {
+              "scorer": "Bruno Guimarães",
+              "goals": 1
+            }
+          ],
+          "Argentina": [
+            {
+              "scorer": "Lionel Messi",
+              "goals": 2
+            },
+            {
+              "scorer": "Julián Alvarez",
+              "goals": 1
+            },
+            {
+              "scorer": "Thiago Almada",
+              "goals": 1
+            },
+            {
+              "scorer": "Lautaro Martínez",
+              "goals": 1
+            }
+          ]
+        }
+      },
+      "pre_match_interpretation": "proxy = last-10 goals-for + scorer spread; no xG feed",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "goalscorers_last10"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived_proxy"
+    },
+    {
+      "factor": "goalkeeper_delta",
+      "value": null,
+      "pre_match_interpretation": "no GK form feed — flagged as pre-match watch variable",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "assumption_context"
+    },
+    {
+      "factor": "event_momentum",
+      "value": {
+        "h2h_volatility": [
+          {
+            "date": "2019-11-15",
+            "fixture": "Brazil 0-1 Argentina",
+            "tournament": "Superclásico de las Américas"
+          },
+          {
+            "date": "2021-07-10",
+            "fixture": "Brazil 0-1 Argentina",
+            "tournament": "Copa América"
+          },
+          {
+            "date": "2021-11-16",
+            "fixture": "Argentina 0-0 Brazil",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2023-11-21",
+            "fixture": "Brazil 0-1 Argentina",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-03-25",
+            "fixture": "Argentina 4-1 Brazil",
+            "tournament": "FIFA World Cup qualification"
+          }
+        ],
+        "shootout_history": {
+          "Brazil": [
+            {
+              "date": "2014-06-28",
+              "vs": "Chile",
+              "won": true
+            },
+            {
+              "date": "2015-06-27",
+              "vs": "Paraguay",
+              "won": false
+            },
+            {
+              "date": "2019-06-27",
+              "vs": "Paraguay",
+              "won": true
+            },
+            {
+              "date": "2022-12-09",
+              "vs": "Croatia",
+              "won": false
+            },
+            {
+              "date": "2024-07-06",
+              "vs": "Uruguay",
+              "won": false
+            }
+          ],
+          "Argentina": [
+            {
+              "date": "2016-06-26",
+              "vs": "Chile",
+              "won": false
+            },
+            {
+              "date": "2021-07-06",
+              "vs": "Colombia",
+              "won": true
+            },
+            {
+              "date": "2022-12-09",
+              "vs": "Netherlands",
+              "won": true
+            },
+            {
+              "date": "2022-12-18",
+              "vs": "France",
+              "won": true
+            },
+            {
+              "date": "2024-07-04",
+              "vs": "Ecuador",
+              "won": true
+            }
+          ]
+        }
+      },
+      "pre_match_interpretation": "knockout context: late-swing + pens exposure judged from h2h and shootout records",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    },
+    {
+      "factor": "tactical_matchup",
+      "value": null,
+      "pre_match_interpretation": "2026 formations/coach plans not ingested — assumption_context for the LLM",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "assumption_context"
+    },
+    {
+      "factor": "travel_environment",
+      "value": {
+        "context": "2026 US summer venues; heat/travel between host cities",
+        "group_schedule": {
+          "Brazil": [
+            "Brazil-Morocco 06-13",
+            "Brazil-Haiti 06-19",
+            "Scotland-Brazil 06-24"
+          ],
+          "Argentina": [
+            "Argentina-Algeria 06-16",
+            "Argentina-Austria 06-22",
+            "Jordan-Argentina 06-27"
+          ]
+        }
+      },
+      "pre_match_interpretation": "group schedules are real (results.csv 2026 fixtures); venue/heat impact for a knockout meeting is scenario context",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "2026_group_fixtures"
+        }
+      ],
+      "assumption": true,
+      "data_status": "mixed"
+    },
+    {
+      "factor": "missing_data_risk",
+      "value": {
+        "not_ingested": [
+          "injuries/suspensions",
+          "xG",
+          "squad market value",
+          "official FIFA rank",
+          "2026 knockout venue"
+        ]
+      },
+      "pre_match_interpretation": "pre-match blind spots -> phrased to the user as variables to track",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "missing"
+    },
+    {
+      "factor": "upset_risk",
+      "value": {
+        "band": "medium"
+      },
+      "pre_match_interpretation": "clear favourite but gaps are partially covered",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=100, missing=4)"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    }
+  ],
+  "live_30min_update_trigger": {
+    "would_recompute": [
+      "lineup_integrity (XI in/out, spine changes)",
+      "goalkeeper_delta (starting GK)",
+      "tactical_matchup (formation)"
+    ],
+    "then_reissue": [
+      "main_lean",
+      "scoreline_band",
+      "risk_level"
+    ],
+    "note": "this is the subscription-layer live update: 30' before kickoff the model re-scores and re-issues its lean"
+  },
+  "outputs": {
+    "pre_match_main_lean": {
+      "side": "Argentina",
+      "strength": "clear",
+      "basis": "elo gap 100 + form",
+      "label": "model_estimate"
+    },
+    "risk_level_basis": "medium",
+    "scoreline_band_basis": {
+      "plausible_bands": [
+        "1-1",
+        "2-1",
+        "1-2"
+      ],
+      "method": "poisson(last10 gf avg, knockout-damped) — coarse model_estimate, NOT a claim",
+      "label": "model_estimate"
+    }
+  },
+  "known_gaps": [
+    "injuries/suspensions not ingested",
+    "xG not ingested",
+    "squad market value not ingested",
+    "official FIFA ranking not ingested (kaggle-derived elo used)",
+    "no scheduled fixture — hypothetical knockout"
+  ],
+  "source_ledger_ref": "data/external/kaggle (local, untracked raw)"
+}
