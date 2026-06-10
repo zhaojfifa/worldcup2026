@@ -1,6 +1,7 @@
-// AI boundary — which fields the AI MAY explain vs MUST NOT touch (injuries =
-// source required; no result prediction / no financial signal). Stacked for
-// mobile readability.
+// AI boundary — which fields the AI MAY explain vs MUST NOT touch. In the
+// customer product voice this lives inside the collapsed INTERNAL block (it is
+// engineering/compliance truth, not a customer selling point), so it renders
+// without its own card wrapper.
 interface Props {
   allowed: string[];
   forbidden: string[];
@@ -10,7 +11,7 @@ interface Props {
 
 export function AiBoundaryCard({ allowed, forbidden, allowedTitle, forbiddenTitle }: Props) {
   return (
-    <div className="card eb-boundary">
+    <div className="eb-boundary">
       <div className="eb-bcol allow">
         <div className="eb-btitle">✓ {allowedTitle}</div>
         {allowed.map((a, i) => <div className="eb-bitem" key={i}>{a}</div>)}

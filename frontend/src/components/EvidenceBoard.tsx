@@ -2,97 +2,107 @@ import type { Locale } from '../i18n/useLocale';
 import type { EvidenceBoardContent } from '../data/evidenceData';
 import { FactorCard } from './FactorCard';
 import { EvidenceCard } from './EvidenceCard';
-import { MissingDataCard } from './MissingDataCard';
+import { NextVariablesCard } from './NextVariablesCard';
 import { AiBoundaryCard } from './AiBoundaryCard';
 
-// Reusable Evidence Board panel: factor cards + evidence cards + missing-data +
-// AI boundary, with the source ledger and raw Scout Pack kept collapsed at the
-// foot. Designed to be shared by the recap page (now) and a future prediction
-// detail page. vi/mm fall back to English labels (never Chinese).
+// Evidence panel in customer product voice: the 3 decisive factors expanded,
+// the rest folded, real supporting data, forward "next variables", an
+// operator-ready copy block, and a collapsed INTERNAL block that retains the
+// engineering + compliance truth (model replay / MISS, AI boundary, raw gaps,
+// source ledger). vi/mm fall back to English labels (never Chinese).
 const PANEL_LABELS = {
   zh: {
-    sFactors: '模型因素卡', enFactors: 'FACTORS',
-    sEvidence: '真实证据卡', enEvidence: 'EVIDENCE',
-    sMissing: '缺失数据 / 边界', enMissing: 'MISSING DATA',
-    sBoundary: 'AI 边界', enBoundary: 'AI BOUNDARY',
-    source: '来源', impact: '影响', interp: '解读', assumption: '假设',
+    sDecisive: '决定结果的三个因子', enDecisive: 'KEY FACTORS',
+    sMore: '更多因子（点击展开）',
+    sEvidence: '真实数据支撑', enEvidence: 'EVIDENCE',
+    sNext: '下一版 AI 需重点补强的变量', enNext: 'NEXT FOR THE MODEL',
+    sOperator: '运营可发文案', enOperator: 'OPERATOR COPY',
+    impact: '赛后影响', interp: '解读', source: '来源',
+    sInternal: '内部资料 / 数据来源（点击展开）',
     allowedTitle: 'AI 可解释', forbiddenTitle: 'AI 禁止',
-    sLedger: '数据来源 / Source Ledger（点击展开）',
-    sRaw: '原始 Scout Pack（折叠）', derived: '派生自',
+    sMissingRaw: '真实数据缺口（内部）', derived: '派生自',
   },
   vi: {
-    sFactors: 'Thẻ yếu tố mô hình', enFactors: 'FACTORS',
-    sEvidence: 'Thẻ bằng chứng thật', enEvidence: 'EVIDENCE',
-    sMissing: 'Dữ liệu còn thiếu / giới hạn', enMissing: 'MISSING DATA',
-    sBoundary: 'Giới hạn AI', enBoundary: 'AI BOUNDARY',
-    source: 'Nguồn', impact: 'Tác động', interp: 'Diễn giải', assumption: 'Giả định',
+    sDecisive: 'Ba yếu tố quyết định kết quả', enDecisive: 'KEY FACTORS',
+    sMore: 'Thêm yếu tố (nhấn để mở)',
+    sEvidence: 'Dữ liệu thật hỗ trợ', enEvidence: 'EVIDENCE',
+    sNext: 'Biến số AI cần bổ sung ở bản sau', enNext: 'NEXT FOR THE MODEL',
+    sOperator: 'Nội dung cho vận hành', enOperator: 'OPERATOR COPY',
+    impact: 'Sau trận', interp: 'Diễn giải', source: 'Nguồn',
+    sInternal: 'Tài liệu nội bộ / nguồn dữ liệu (nhấn để mở)',
     allowedTitle: 'AI được giải thích', forbiddenTitle: 'AI không được',
-    sLedger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)',
-    sRaw: 'Scout Pack gốc (thu gọn)', derived: 'Dẫn xuất từ',
+    sMissingRaw: 'Khoảng trống dữ liệu thật (nội bộ)', derived: 'Dẫn xuất từ',
   },
   en: {
-    sFactors: 'Factor cards', enFactors: 'FACTORS',
-    sEvidence: 'Real evidence', enEvidence: 'EVIDENCE',
-    sMissing: 'Missing data / boundary', enMissing: 'MISSING DATA',
-    sBoundary: 'AI boundary', enBoundary: 'AI BOUNDARY',
-    source: 'Source', impact: 'Impact', interp: 'Interpretation', assumption: 'Assumption',
+    sDecisive: 'The three factors that decided it', enDecisive: 'KEY FACTORS',
+    sMore: 'More factors (tap to expand)',
+    sEvidence: 'Real supporting data', enEvidence: 'EVIDENCE',
+    sNext: 'Variables the next model must add', enNext: 'NEXT FOR THE MODEL',
+    sOperator: 'Operator-ready copy', enOperator: 'OPERATOR COPY',
+    impact: 'Impact', interp: 'Read', source: 'Source',
+    sInternal: 'Internal notes / data sources (tap to expand)',
     allowedTitle: 'AI may explain', forbiddenTitle: 'AI must not',
-    sLedger: 'Source Ledger (click to expand)',
-    sRaw: 'Raw Scout Pack (collapsed)', derived: 'Derived from',
+    sMissingRaw: 'Real data gaps (internal)', derived: 'Derived from',
   },
 };
 
 export function EvidenceBoard({ content: c, loc }: { content: EvidenceBoardContent; loc: Locale }) {
   const L = loc === 'zh' ? PANEL_LABELS.zh : loc === 'vi' ? PANEL_LABELS.vi : PANEL_LABELS.en;
+  const fl = { impact: L.impact, interp: L.interp, source: L.source };
+  const decisive = c.factors.filter(f => f.decisive);
+  const context = c.factors.filter(f => !f.decisive);
 
   return (
     <>
-      {/* Factor cards — the model's pre-match factors + post-match validation */}
-      <div className="sec-en"><span className="zh">{L.sFactors}</span><span className="en">{L.enFactors}</span></div>
+      {/* the 3 decisive factors — expanded on first read */}
+      <div className="sec-en"><span className="zh">{L.sDecisive}</span><span className="en">{L.enDecisive}</span></div>
       <div className="factor-list">
-        {c.factors.map(f => (
-          <FactorCard
-            key={f.key}
-            factor={f}
-            labels={{ source: L.source, impact: L.impact, interp: L.interp, assumption: L.assumption }}
-          />
-        ))}
+        {decisive.map(f => <FactorCard key={f.key} factor={f} labels={fl} />)}
       </div>
 
-      {/* Real evidence cards (provenance-tagged) */}
+      {/* context factors — folded so the page isn't a wall of cards */}
+      {context.length > 0 && (
+        <details className="card eb-fold">
+          <summary>{L.sMore}</summary>
+          <div className="factor-list eb-fold-list">
+            {context.map(f => <FactorCard key={f.key} factor={f} labels={fl} />)}
+          </div>
+        </details>
+      )}
+
+      {/* real supporting data */}
       <div className="sec-en"><span className="zh">{L.sEvidence}</span><span className="en">{L.enEvidence}</span></div>
       <div className="card"><div className="eb-evgrid">
         {c.evidence.map((e, i) => <EvidenceCard key={i} item={e} />)}
       </div></div>
 
-      {/* Missing data / honest gaps */}
-      <div className="sec-en"><span className="zh">{L.sMissing}</span><span className="en">{L.enMissing}</span></div>
-      <MissingDataCard items={c.missingData} />
+      {/* forward variables (was "data gaps") */}
+      <div className="sec-en"><span className="zh">{L.sNext}</span><span className="en">{L.enNext}</span></div>
+      <NextVariablesCard items={c.nextVariables} />
 
-      {/* AI boundary */}
-      <div className="sec-en"><span className="zh">{L.sBoundary}</span><span className="en">{L.enBoundary}</span></div>
-      <AiBoundaryCard
-        allowed={c.aiAllowed}
-        forbidden={c.aiForbidden}
-        allowedTitle={L.allowedTitle}
-        forbiddenTitle={L.forbiddenTitle}
-      />
+      {/* operator-ready group copy */}
+      <div className="sec-en"><span className="zh">{L.sOperator}</span><span className="en">{L.enOperator}</span></div>
+      <div className="card"><div className="recap-copybox">{c.operatorCopy}</div></div>
 
-      {/* Source ledger — always present, collapsed at the foot */}
-      <details className="card recap-ledger">
-        <summary>{L.sLedger}</summary>
+      {/* INTERNAL — engineering + compliance truth, collapsed (not the main view) */}
+      <details className="card recap-ledger eb-internal">
+        <summary>{L.sInternal}</summary>
+        <p className="eb-internal-view">{c.internalModelView}</p>
+        <AiBoundaryCard
+          allowed={c.aiAllowed}
+          forbidden={c.aiForbidden}
+          allowedTitle={L.allowedTitle}
+          forbiddenTitle={L.forbiddenTitle}
+        />
+        <div className="eb-internal-sub">{L.sMissingRaw}</div>
+        {c.missingEvidenceRaw.map((m, i) => <div className="eb-internal-line" key={i}>· {m}</div>)}
         <table className="recap-ledger-tbl"><tbody>
           {c.sourceLedger.map((r, i) => (
             <tr key={i}><td>{r.field}</td><td>{r.endpoint}</td><td>API-FOOTBALL</td></tr>
           ))}
         </tbody></table>
-      </details>
-
-      {/* Raw Scout Pack — collapsed, secondary (kept in internal preview, not dumped here) */}
-      <details className="card recap-ledger">
-        <summary>{L.sRaw}</summary>
-        <p className="small sub" style={{ marginTop: 8, lineHeight: 1.7 }}>{c.rawNote}</p>
         <div className="eb-derived">{L.derived}: {c.derivedFrom.join(' · ')}</div>
+        <p className="eb-internal-note">{c.rawNote}</p>
       </details>
     </>
   );

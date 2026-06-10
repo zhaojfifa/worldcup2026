@@ -13,21 +13,21 @@ const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
     back: '历史复盘', replay: '模型回放', actual: '实际结果', conclusion: '复盘结论',
     sReplay: '模型回放 vs 实际结果', sMisses: '三个关键漏项', sEvidence: '真实证据卡',
     sCorrection: '下版模型修正', sNextData: '下一步接入数据', sOperator: '运营可用文案',
-    sDataGaps: '数据缺口', sAi: 'AI 边界', sLedger: '数据来源 / Source Ledger（点击展开）',
+    sDataGaps: '下一版 AI 需关注的变量', sAi: 'AI 边界', sLedger: '数据来源 / Source Ledger（点击展开）',
     sMore: '更多历史复盘', moreStatus: '数据已接入，复盘生成中', ctaQ: '想看当前比赛的 AI 情报？', ctaBtn: '查看今日 AI 观点', ebLink: '查看完整证据面板 · 逐因子',
   },
   vi: {
     back: 'Phục dựng lịch sử', replay: 'Mô hình phát lại', actual: 'Kết quả thực tế', conclusion: 'Kết luận phục dựng',
     sReplay: 'Mô hình phát lại vs Kết quả thực tế', sMisses: 'Ba điểm bỏ sót then chốt', sEvidence: 'Thẻ bằng chứng thật',
     sCorrection: 'Hiệu chỉnh mô hình bản sau', sNextData: 'Dữ liệu cần tích hợp tiếp', sOperator: 'Nội dung cho vận hành',
-    sDataGaps: 'Khoảng trống dữ liệu', sAi: 'Giới hạn AI', sLedger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)',
+    sDataGaps: 'Biến số AI cần theo dõi ở bản sau', sAi: 'Giới hạn AI', sLedger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)',
     sMore: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng', ctaQ: 'Muốn xem tin tức AI của trận hiện tại?', ctaBtn: 'Xem quan điểm AI hôm nay', ebLink: 'Xem bảng bằng chứng đầy đủ · từng yếu tố',
   },
   en: {
     back: 'Historical recap', replay: 'Model replay', actual: 'Actual result', conclusion: 'Recap conclusion',
     sReplay: 'Model replay vs actual result', sMisses: 'Three key blind spots', sEvidence: 'Real evidence cards',
     sCorrection: 'Model correction (next version)', sNextData: 'Next data to ingest', sOperator: 'Operator-ready copy',
-    sDataGaps: 'Data gaps', sAi: 'AI boundary', sLedger: 'Source Ledger (click to expand)',
+    sDataGaps: 'Variables to watch next', sAi: 'AI boundary', sLedger: 'Source Ledger (click to expand)',
     sMore: 'More historical recaps', moreStatus: 'Data ingested, recap in progress', ctaQ: 'Want the AI read on a current match?', ctaBtn: "See today's AI view", ebLink: 'Open the full Evidence Board · factor by factor',
   },
 };
@@ -129,8 +129,8 @@ export function RecapDetailPage() {
       <div className="card"><div className="recap-copybox">{c.operatorCopy}</div></div>
 
       {/* 8. data gaps */}
-      <div className="sec-en"><span className="zh">{L.sDataGaps}</span><span className="en">DATA GAPS</span></div>
-      <div className="card">{c.dataGaps.map((g, i) => <div className="recap-gap" key={i}>⚠ {g}</div>)}</div>
+      <div className="sec-en"><span className="zh">{L.sDataGaps}</span><span className="en">WATCH NEXT</span></div>
+      <div className="card">{c.dataGaps.map((g, i) => <div className="recap-gap" key={i}>🎯 {g}</div>)}</div>
 
       {/* 9. AI boundary */}
       <div className="sec-en"><span className="zh">{L.sAi}</span><span className="en">AI BOUNDARY</span></div>

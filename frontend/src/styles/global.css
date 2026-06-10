@@ -1358,3 +1358,56 @@ body {
 /* Myanmar density (mm uses English copy but keep factor rows roomy) */
 .lang-mm .fc-v, .lang-mm .eb-bitem { font-size: 11.5px; line-height: 1.7; }
 .lang-mm .fc-k { width: 54px; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   Evidence Board v2 — CUSTOMER PRODUCT VOICE (Product Voice Sprint).
+   First screen = answer cards; decisive factors emphasised; gaps reframed
+   forward; engineering/compliance truth lives in the collapsed internal block.
+   ════════════════════════════════════════════════════════════════════════ */
+.eb-hero .recap-headline { font-size: 18px; }
+.eb-replaynote { font-size: 10.5px; color: #94A4BB; line-height: 1.5; margin: 0 2px 14px; }
+
+/* first-screen answer cards (label + text) */
+.eb-fs-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.eb-fs-card {
+  display: flex; gap: 11px; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--line); border-radius: 13px;
+  padding: 12px 13px; box-shadow: var(--shadow);
+}
+.eb-fs-card.verify   { border-color: rgba(30,158,90,.4); }
+.eb-fs-card.takeaway { border-color: rgba(16,119,195,.45); }
+.eb-fs-label { flex: 0 0 76px; font-size: 11px; font-weight: 800; color: var(--blueMid); line-height: 1.4; }
+.eb-fs-text  { flex: 1; font-size: 13px; font-weight: 700; color: #0e2a52; line-height: 1.5; }
+.eb-lead { font-size: 13.5px; color: #243B5E; line-height: 1.8; }
+
+/* decisive factor emphasis + customer-voice tags */
+.factor-card.decisive { border-color: rgba(16,119,195,.4); }
+.factor-card.decisive .fc-name::before { content: "▸ "; color: var(--blueMid); font-weight: 900; }
+.factor-tag.postmatch-impact { background: #E3F0FB; color: #1059a3; }
+.factor-tag.verified         { background: #E3F4EA; color: #1a7f37; }
+.factor-tag.prematch-watch   { background: #FFF6E2; color: #b45309; }
+.factor-tag.reweight         { background: #ECE4FB; color: #5B3FA8; }
+.fc-srcline { font-size: 10.5px; color: #94A4BB; margin-top: 7px; }
+.eb-evcard .s { font-family: inherit; font-size: 9.5px; }
+
+/* folded "more factors" */
+.eb-fold > summary { cursor: pointer; font-weight: 800; color: #0e2a52; font-size: 13px; }
+.eb-fold-list { margin-top: 10px; }
+
+/* forward "next variables" (positive framing) */
+.eb-next { border-color: rgba(16,119,195,.3); }
+.eb-next-row { padding: 9px 0; border-top: 1px solid var(--line); }
+.eb-next-row:first-of-type { border-top: none; }
+.eb-next-name { font-size: 13px; font-weight: 800; color: #0e2a52; }
+.eb-next-note { font-size: 11.5px; color: #5b6b82; line-height: 1.6; margin-top: 3px; }
+
+/* internal fold — secondary, muted */
+.eb-internal > summary { color: #5C6B82; }
+.eb-internal-view { font-size: 12px; color: #3A4A60; line-height: 1.7; margin: 8px 0 4px; }
+.eb-internal-sub { font-size: 11px; font-weight: 800; color: var(--blueMid); margin: 12px 0 6px; }
+.eb-internal-line { font-size: 11px; color: #5b6b82; line-height: 1.6; font-family: ui-monospace, Menlo, monospace; }
+.eb-internal-note { font-size: 10.5px; color: #94A4BB; margin-top: 8px; line-height: 1.6; }
+
+/* Myanmar density for the product-voice surface */
+.lang-mm .eb-fs-text, .lang-mm .eb-lead, .lang-mm .eb-next-note { line-height: 1.7; }
+.lang-mm .eb-fs-label { flex-basis: 90px; }

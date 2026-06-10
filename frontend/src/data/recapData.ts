@@ -66,7 +66,7 @@ const ZH: RecapContent = {
     '这场爆冷说明，单看纸面强弱很容易高估 Argentina。ScoutScore 在历史回放中会把 Argentina 作为优势方，' +
     '但赛后证据显示，Saudi Arabia 的下半场反超、门将高评分和射门效率，是模型必须提高权重的关键因素。' +
     '也就是说，这场不是简单冷门，而是一个模型升级样本。历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。',
-  dataGaps: ['伤停：需二次数据源（source required）', 'xG：暂未接入', 'Elo / 近期状态：待接入', '不做博彩，仅供数据分析与球迷娱乐'],
+  dataGaps: ['首发完整性 / 伤停变化：赛前 30 分钟重点关注', '机会质量：射门含金量需持续跟踪', '近期状态 / Elo：下一版纳入'],
   aiBoundary: 'AI 仅解释已验证数据，不伪造赛前命中、伤停、xG 或资金建议。',
   sourceLedger: SOURCE_LEDGER,
   disclaimer: '历史回放样例，非真实赛前存档预测；历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。',
@@ -100,7 +100,7 @@ const VI: RecapContent = {
     'Cú sốc này cho thấy chỉ nhìn sức mạnh trên giấy rất dễ đánh giá quá cao Argentina. Trong phát lại lịch sử, ScoutScore xem Argentina là đội nhỉnh hơn, ' +
     'nhưng bằng chứng sau trận cho thấy màn lội ngược dòng hiệp hai, điểm thủ môn cao và hiệu suất dứt điểm của Saudi Arabia là những yếu tố mô hình phải tăng trọng số. ' +
     'Nói cách khác, đây không chỉ là một cú sốc, mà là một mẫu để nâng cấp mô hình. Thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.',
-  dataGaps: ['Chấn thương: cần nguồn thứ hai (source required)', 'xG: chưa tích hợp', 'Elo / phong độ: chờ tích hợp', 'Không làm cờ bạc, chỉ phân tích dữ liệu và giải trí cho người hâm mộ'],
+  dataGaps: ['Mức đầy đủ đội hình / chấn thương: theo dõi 30 phút trước trận', 'Chất lượng cơ hội: độ nguy hiểm cú sút cần theo dõi liên tục', 'Phong độ gần đây / Elo: đưa vào bản sau'],
   aiBoundary: 'AI chỉ giải thích dữ liệu đã xác minh, không bịa ra dự đoán trước trận, chấn thương, xG hay lời khuyên tài chính.',
   sourceLedger: SOURCE_LEDGER,
   disclaimer: 'Mẫu phát lại lịch sử, không phải dự đoán lưu trữ trước trận; thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.',
@@ -134,7 +134,7 @@ const EN: RecapContent = {
     'This upset shows paper strength easily over-rates Argentina. In replay, ScoutScore leans Argentina, but post-match evidence — ' +
     'Saudi Arabia’s second-half turnaround, high keeper rating and finishing efficiency — are factors the model must weight higher. ' +
     'So this isn’t just a shock; it’s a model-upgrade sample. Past performance does not represent future results — for data analysis and fan entertainment only.',
-  dataGaps: ['Injuries: source required', 'xG: not ingested', 'Elo / recent form: pending', 'No gambling — data analysis and fan entertainment only'],
+  dataGaps: ['Squad completeness / injuries: watch 30 min before kickoff', 'Chance quality: shot danger needs continuous tracking', 'Recent form / Elo: add next version'],
   aiBoundary: 'AI only explains verified data; it never fabricates a pre-match hit, injuries, xG, or financial advice.',
   sourceLedger: SOURCE_LEDGER,
   disclaimer: 'Historical-replay sample, not a real archived pre-match prediction; past performance does not represent future results — for data analysis and fan entertainment only.',
