@@ -3,32 +3,34 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useLocale, type Locale } from '../i18n/useLocale';
 import { api } from '../api/client';
 import { getBundledRecap, MORE_RECAPS, type RecapContent } from '../data/recapData';
-import { EVIDENCE_AVAILABLE } from '../data/evidenceData';
+import { EVIDENCE_AVAILABLE, getBundledEvidence } from '../data/evidenceData';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
-// Section labels (chrome). vi/mm fall back to English (never Chinese).
+// Customer product voice (synced with /evidence). The recap leads with the AI
+// answer; model replay / MISS verdict / correction / AI boundary are folded into
+// a collapsed internal block. vi/mm fall back to English (never Chinese).
 const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
   zh: {
-    back: '历史复盘', replay: '模型回放', actual: '实际结果', conclusion: '复盘结论',
-    sReplay: '模型回放 vs 实际结果', sMisses: '三个关键漏项', sEvidence: '真实证据卡',
-    sCorrection: '下版模型修正', sNextData: '下一步接入数据', sOperator: '运营可用文案',
-    sDataGaps: '下一版 AI 需关注的变量', sAi: 'AI 边界', sLedger: '数据来源 / Source Ledger（点击展开）',
-    sMore: '更多历史复盘', moreStatus: '数据已接入，复盘生成中', ctaQ: '想看当前比赛的 AI 情报？', ctaBtn: '查看今日 AI 观点', ebLink: '查看完整证据面板 · 逐因子',
+    back: '历史复盘', lead: 'AI 怎么看这场', factors: '决定结果的三个因子', evidence: '真实数据支撑',
+    operator: '运营可发文案', dataGaps: '下一版 AI 需关注的变量', internal: '模型回放与赛后判定（点击展开）',
+    replay: '模型回放', actual: '实际结果', correction: '下版模型修正', nextData: '下一步接入数据', ai: 'AI 边界',
+    ledger: '数据来源 / Source Ledger（点击展开）', more: '更多历史复盘', moreStatus: '数据已接入，复盘生成中',
+    ctaQ: '想看当前比赛的 AI 情报？', ctaBtn: '查看今日 AI 观点', ebLink: '查看完整证据面板 · 逐因子',
   },
   vi: {
-    back: 'Phục dựng lịch sử', replay: 'Mô hình phát lại', actual: 'Kết quả thực tế', conclusion: 'Kết luận phục dựng',
-    sReplay: 'Mô hình phát lại vs Kết quả thực tế', sMisses: 'Ba điểm bỏ sót then chốt', sEvidence: 'Thẻ bằng chứng thật',
-    sCorrection: 'Hiệu chỉnh mô hình bản sau', sNextData: 'Dữ liệu cần tích hợp tiếp', sOperator: 'Nội dung cho vận hành',
-    sDataGaps: 'Biến số AI cần theo dõi ở bản sau', sAi: 'Giới hạn AI', sLedger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)',
-    sMore: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng', ctaQ: 'Muốn xem tin tức AI của trận hiện tại?', ctaBtn: 'Xem quan điểm AI hôm nay', ebLink: 'Xem bảng bằng chứng đầy đủ · từng yếu tố',
+    back: 'Phục dựng lịch sử', lead: 'AI nhìn trận này thế nào', factors: 'Ba yếu tố quyết định kết quả', evidence: 'Dữ liệu thật hỗ trợ',
+    operator: 'Nội dung cho vận hành', dataGaps: 'Biến số AI cần theo dõi ở bản sau', internal: 'Mô hình phát lại & kết luận sau trận (nhấn để mở)',
+    replay: 'Mô hình phát lại', actual: 'Kết quả thực tế', correction: 'Hiệu chỉnh mô hình bản sau', nextData: 'Dữ liệu cần tích hợp tiếp', ai: 'Giới hạn AI',
+    ledger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)', more: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng',
+    ctaQ: 'Muốn xem tin tức AI của trận hiện tại?', ctaBtn: 'Xem quan điểm AI hôm nay', ebLink: 'Xem bảng bằng chứng đầy đủ · từng yếu tố',
   },
   en: {
-    back: 'Historical recap', replay: 'Model replay', actual: 'Actual result', conclusion: 'Recap conclusion',
-    sReplay: 'Model replay vs actual result', sMisses: 'Three key blind spots', sEvidence: 'Real evidence cards',
-    sCorrection: 'Model correction (next version)', sNextData: 'Next data to ingest', sOperator: 'Operator-ready copy',
-    sDataGaps: 'Variables to watch next', sAi: 'AI boundary', sLedger: 'Source Ledger (click to expand)',
-    sMore: 'More historical recaps', moreStatus: 'Data ingested, recap in progress', ctaQ: 'Want the AI read on a current match?', ctaBtn: "See today's AI view", ebLink: 'Open the full Evidence Board · factor by factor',
+    back: 'Historical recap', lead: 'How the AI reads this match', factors: 'The three factors that decided it', evidence: 'Real supporting data',
+    operator: 'Operator-ready copy', dataGaps: 'Variables to watch next', internal: 'Model replay & post-match verdict (expand)',
+    replay: 'Model replay', actual: 'Actual result', correction: 'Model correction (next version)', nextData: 'Next data to ingest', ai: 'AI boundary',
+    ledger: 'Source Ledger (click to expand)', more: 'More historical recaps', moreStatus: 'Data ingested, recap in progress',
+    ctaQ: 'Want the AI read on a current match?', ctaBtn: "See today's AI view", ebLink: 'Open the full Evidence Board · factor by factor',
   },
 };
 
@@ -66,7 +68,12 @@ export function RecapDetailPage() {
   }
 
   const c = content;
+  // Product-voice answer (shared with /evidence). Falls back to recap fields if absent.
+  const eb = getBundledEvidence(fixtureId, loc);
   const vClass = c.verdict === 'hit' ? 'green' : c.verdict === 'partial' ? 'amber' : 'red';
+  const heroTitle = eb ? eb.title : c.headline;
+  const heroSub = eb ? eb.subtitle : c.oneLiner;
+  const operatorCopy = eb ? eb.operatorCopy : c.operatorCopy;
 
   return (
     <div className="page-enter">
@@ -75,19 +82,62 @@ export function RecapDetailPage() {
         <span className="ti">{L.back}</span>
       </div>
 
-      {/* 0. badge + replay disclaimer */}
+      {/* replay statement kept small, does not dominate */}
       <div className="recap-banner">🗂️ {c.badge}</div>
 
-      {/* 1. strong headline + 2. one-liner */}
+      {/* hero — customer answer headline */}
       <div className="card recap-hero">
-        <h1 className="recap-headline">{c.headline}</h1>
-        <p className="recap-oneliner">{c.oneLiner}</p>
+        <h1 className="recap-headline">{heroTitle}</h1>
+        <p className="recap-oneliner">{heroSub}</p>
       </div>
 
-      {/* 3. model replay vs actual */}
-      <div className="sec-en"><span className="zh">{L.sReplay}</span><span className="en">REPLAY vs ACTUAL</span></div>
+      {/* first screen — the answer (AI lean / post-match check / takeaway / value) */}
+      {eb && (
+        <>
+          <div className="eb-fs-list">
+            {eb.firstCards.map(fc => (
+              <div className={`eb-fs-card ${fc.key}`} key={fc.key}>
+                <span className="eb-fs-label">{fc.label}</span>
+                <span className="eb-fs-text">{fc.text}</span>
+              </div>
+            ))}
+          </div>
+          <div className="sec-en"><span className="zh">{L.lead}</span><span className="en">AI READ</span></div>
+          <div className="card"><p className="eb-lead">{eb.customerLead}</p></div>
+        </>
+      )}
+
+      {/* the three factors that decided it (reframed from "blind spots") */}
+      <div className="sec-en"><span className="zh">{L.factors}</span><span className="en">KEY FACTORS</span></div>
       <div className="card">
-        <div className="recap-vs">
+        {c.keyMisses.map((m, i) => <div className="recap-keyfactor" key={i}>▸ {m}</div>)}
+      </div>
+
+      {/* real evidence */}
+      <div className="sec-en"><span className="zh">{L.evidence}</span><span className="en">EVIDENCE</span></div>
+      <div className="card"><div className="recap-evgrid">
+        {c.evidence.map((e, i) => (
+          <div className="recap-evcard" key={i}><div className="t">{e.label}</div><div className="v">{e.value}</div></div>
+        ))}
+      </div></div>
+
+      {/* Evidence Board v2 entry — additive factor-by-factor deep dive */}
+      {EVIDENCE_AVAILABLE.has(fixtureId) && (
+        <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
+      )}
+
+      {/* forward variables */}
+      <div className="sec-en"><span className="zh">{L.dataGaps}</span><span className="en">WATCH NEXT</span></div>
+      <div className="card">{c.dataGaps.map((g, i) => <div className="recap-gap" key={i}>🎯 {g}</div>)}</div>
+
+      {/* operator-ready copy (de-charged, shared with /evidence) */}
+      <div className="sec-en"><span className="zh">{L.operator}</span><span className="en">OPERATOR COPY</span></div>
+      <div className="card"><div className="recap-copybox">{operatorCopy}</div></div>
+
+      {/* INTERNAL — model replay / MISS verdict / correction / AI boundary, collapsed */}
+      <details className="card recap-ledger eb-internal">
+        <summary>{L.internal}</summary>
+        <div className="recap-vs" style={{ marginTop: 10 }}>
           <div className="recap-vs-cell"><div className="l">{L.replay}</div><div className="v">{c.modelReplay}</div></div>
           <div className="recap-vs-cell"><div className="l">{L.actual}</div><div className="v">{c.actualResult}</div></div>
         </div>
@@ -95,50 +145,17 @@ export function RecapDetailPage() {
           <span className={`pillv ${vClass}`}>{c.verdictLabel}</span>
           <span className="recap-conclusion">{c.replayConclusion}</span>
         </div>
-      </div>
-
-      {/* 4. three key misses */}
-      <div className="sec-en"><span className="zh">{L.sMisses}</span><span className="en">BLIND SPOTS</span></div>
-      <div className="card">
-        {c.keyMisses.map((m, i) => <div className="recap-miss" key={i}>✘ {m}</div>)}
-      </div>
-
-      {/* 5. real evidence cards */}
-      <div className="sec-en"><span className="zh">{L.sEvidence}</span><span className="en">EVIDENCE</span></div>
-      <div className="card"><div className="recap-evgrid">
-        {c.evidence.map((e, i) => (
-          <div className="recap-evcard" key={i}><div className="t">{e.label}</div><div className="v">{e.value}</div></div>
-        ))}
-      </div></div>
-
-      {/* 5b. Evidence Board v2 entry — additive factor-by-factor deep dive */}
-      {EVIDENCE_AVAILABLE.has(fixtureId) && (
-        <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
-      )}
-
-      {/* 6. model correction + next data */}
-      <div className="sec-en"><span className="zh">{L.sCorrection}</span><span className="en">CORRECTION</span></div>
-      <div className="card">
+        <div className="eb-internal-sub">{L.correction}</div>
         <div className="recap-chips">{c.modelCorrection.map((m, i) => <span className="recap-chip" key={i}>{m}</span>)}</div>
-        <div className="recap-sub2">{L.sNextData}</div>
+        <div className="recap-sub2">{L.nextData}</div>
         <div className="recap-chips">{c.nextData.map((m, i) => <span className="recap-chip need" key={i}>{m}</span>)}</div>
-      </div>
+        <div className="eb-internal-sub">{L.ai}</div>
+        <p className="small" style={{ color: '#3A4A60', lineHeight: 1.7 }}>{c.aiBoundary}</p>
+      </details>
 
-      {/* 7. operator-ready copy */}
-      <div className="sec-en"><span className="zh">{L.sOperator}</span><span className="en">OPERATOR COPY</span></div>
-      <div className="card"><div className="recap-copybox">{c.operatorCopy}</div></div>
-
-      {/* 8. data gaps */}
-      <div className="sec-en"><span className="zh">{L.sDataGaps}</span><span className="en">WATCH NEXT</span></div>
-      <div className="card">{c.dataGaps.map((g, i) => <div className="recap-gap" key={i}>🎯 {g}</div>)}</div>
-
-      {/* 9. AI boundary */}
-      <div className="sec-en"><span className="zh">{L.sAi}</span><span className="en">AI BOUNDARY</span></div>
-      <div className="card"><p className="small" style={{ color: '#3A4A60', lineHeight: 1.7 }}>{c.aiBoundary}</p></div>
-
-      {/* 10. source ledger (collapsed; raw data kept secondary) */}
+      {/* source ledger (collapsed; raw data secondary) */}
       <details className="card recap-ledger">
-        <summary>{L.sLedger}</summary>
+        <summary>{L.ledger}</summary>
         <table className="recap-ledger-tbl"><tbody>
           {c.sourceLedger.map((r, i) => (
             <tr key={i}><td>{r.field}</td><td>{r.endpoint}</td><td>API-FOOTBALL</td></tr>
@@ -146,8 +163,8 @@ export function RecapDetailPage() {
         </tbody></table>
       </details>
 
-      {/* 11. more historical recaps — non-clickable status, no dead-end */}
-      <div className="sec-en"><span className="zh">{L.sMore}</span><span className="en">MORE RECAPS</span></div>
+      {/* more historical recaps — non-clickable status, no dead-end */}
+      <div className="sec-en"><span className="zh">{L.more}</span><span className="en">MORE RECAPS</span></div>
       <div className="card">
         {MORE_RECAPS.map(r => (
           <div className="recap-more-row" key={r.fixtureId}>
@@ -157,7 +174,7 @@ export function RecapDetailPage() {
         ))}
       </div>
 
-      {/* 12. continuation CTA — back to current AI view (compliant, no payment) */}
+      {/* continuation CTA — back to current AI view (compliant, no payment) */}
       <div className="card recap-cta">
         <div className="recap-cta-q">{L.ctaQ}</div>
         <button className="recap-cta-btn" onClick={() => navigate('/')}>{L.ctaBtn} ▸</button>

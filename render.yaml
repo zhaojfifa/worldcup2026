@@ -1,0 +1,25 @@
+# Render Blueprint — Giành Cup frontend (static site).
+#
+# PRIMARY PURPOSE: declare the SPA rewrite so deep links like /recap/855737 and
+# /evidence/855737 are served index.html instead of returning 404. Today the live
+# static site has NO fallback rewrite, so hard-loading any client route 404s.
+#
+# IMPORTANT — operator action:
+#   If the live static site was created manually (not from this Blueprint), Render
+#   will NOT auto-apply this file. The immediate fix is to add the SAME rule in the
+#   dashboard:  Settings -> Redirects/Rewrites -> Add Rule
+#     Source: /*    Destination: /index.html    Action: Rewrite
+#   Before connecting this Blueprint, verify the build/publish settings below match
+#   the existing service (they are best-effort, inferred from the repo).
+services:
+  - type: web
+    runtime: static
+    name: worldcup2026-izid
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      # SPA fallback — every non-asset path renders the app shell (client routing).
+      - type: rewrite
+        source: /*
+        destination: /index.html

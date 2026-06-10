@@ -1411,3 +1411,10 @@ body {
 /* Myanmar density for the product-voice surface */
 .lang-mm .eb-fs-text, .lang-mm .eb-lead, .lang-mm .eb-next-note { line-height: 1.7; }
 .lang-mm .eb-fs-label { flex-basis: 90px; }
+
+/* recap "three factors that decided it" (reframed from the amber "blind spot" look) */
+.recap-keyfactor {
+  font-size: 13px; color: #243B5E; background: #F0F7FF; border: 1px solid #CFE0F7;
+  border-radius: 10px; padding: 9px 11px; margin-bottom: 8px; line-height: 1.6;
+}
+.recap-keyfactor:last-child { margin-bottom: 0; }
