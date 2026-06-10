@@ -3,54 +3,24 @@
   "fixture_id": "855737",
   "mode": "historical_recap",
   "language": "vi-VN",
-  "hero_title": "Giành Cup AI: Địa chấn World Cup 2022 và bài học rủi ro cho mô hình dự đoán",
-  "hero_subtitle": "Trận đấu này là thử thách lớn, phơi bày những điểm mù quan trọng trong mô hình dự đoán dựa trên Elo và phong độ.",
-  "short_title": "AI ScoutScore: Argentina vs Saudi Arabia (WC 2022)",
-  "screenshot_line": "ScoutScore đã đánh giá thấp khả năng tạo địa chấn của Saudi Arabia, dù đã nhận diện rủi ro cao.",
-  "model_judgement": "Trước trận, Giành Cup AI ScoutScore nhận định Argentina là bên được đánh giá cao hơn rõ rệt dựa trên chênh lệch Elo 369 điểm và phong độ hủy diệt (8 thắng, 2 hòa trong 10 trận gần nhất). Tuy nhiên, mô hình cũng đã cảnh báo về rủi ro biến động cao do thiếu dữ liệu về chấn thương, xG và giá trị đội hình, tạo ra một 'cái bẫy' cho đội mạnh.",
-  "main_lean": "Argentina được đánh giá cao hơn trước trận, nhưng kết quả thực tế là một bất ngờ lớn.",
-  "scoreline_view": "Trước trận, mô hình ước tính khoảng tỷ số hợp lý cho Argentina là 1-0, 2-0 hoặc 3-0. Tỷ số thực tế 1-2 hoàn toàn nằm ngoài dự kiến.",
+  "hero_title": "Giành Cup AI: Địa chấn của Saudi Arabia trước Argentina — Mô hình đã thấy rủi ro nào?",
+  "hero_subtitle": "Trận đấu này là thử thách lớn với các mô hình dự đoán, cho thấy tầm quan trọng của việc đánh giá rủi ro ngoài các yếu tố cơ bản.",
+  "short_title": "Địa chấn Argentina vs Saudi Arabia: AI nói gì?",
+  "screenshot_line": "ScoutScore đã nhận định Argentina là bên được đánh giá cao hơn, nhưng cũng cảnh báo RỦI RO CAO từ các điểm mù của mô hình.",
+  "model_judgement": "Giành Cup AI ScoutScore nhận định Argentina là bên được đánh giá cao hơn rõ rệt dựa trên chênh lệch Elo 369 điểm và phong độ 10 trận gần nhất (8 thắng, 2 hòa, 0 thua). Tuy nhiên, mô hình cũng chỉ ra rủi ro cao từ các điểm mù như hiệu suất dứt điểm và phong độ thủ môn, vốn không có dữ liệu trước trận.",
+  "main_lean": "Argentina được đánh giá cao hơn trước trận, nhưng kết quả thực tế là một cú sốc.",
+  "scoreline_view": "Trước trận, ScoutScore ước tính các khoảng tỷ số hợp lý cho Argentina thắng là 2-0, 3-0 hoặc 1-0. Tỷ số thực tế 1-2 hoàn toàn nằm ngoài dự đoán.",
   "risk_level": "Cao",
   "risk_factors": [
     {
-      "name": "Long-run strength (Elo baseline)",
-      "text": "Chênh lệch Elo 369 điểm nghiêng về Argentina là một chỉ số mạnh mẽ, nhưng không đủ để dự đoán kết quả cuối cùng.",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-          "derived": true,
-          "metric": "elo_snapshot@2022-11-22",
-          "value": "Argentina 2053 / Saudi Arabia 1684"
-        },
-        {
-          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "Recent form (last 10)",
-      "text": "Phong độ 10 trận gần nhất của Argentina áp đảo với 8 thắng, 2 hòa, ghi 26 bàn và chỉ thủng lưới 2 bàn, trong khi Saudi Arabia chỉ thắng 2, hòa 5, thua 3, ghi 4 bàn và thủng lưới 5 bàn.",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-          "derived": true,
-          "metric": "last10_form"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "Model blind spots",
-      "text": "Mô hình không được cung cấp dữ liệu về chấn thương/treo giò, chỉ số bàn thắng kỳ vọng (xG) và giá trị đội hình trước trận, tạo ra những điểm mù đáng kể.",
+      "name": "Điểm mù của mô hình",
+      "text": "Mô hình không có dữ liệu về chấn thương/treo giò, chỉ số bàn thắng kỳ vọng (xG) và giá trị đội hình trước trận. Đây là những biến số quan trọng có thể ảnh hưởng lớn đến kết quả.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Upset / volatility risk",
-      "text": "Sự chênh lệch lớn giữa hai đội cộng với các điểm mù của mô hình đã được xác định là một 'cái bẫy' tiềm ẩn cho đội được đánh giá cao hơn, với mức độ rủi ro địa chấn được xếp vào nhóm cao.",
+      "name": "Rủi ro bất ngờ / biến động",
+      "text": "Với một đội được đánh giá cao áp đảo và nhiều điểm mù dữ liệu, khả năng xảy ra bất ngờ được xếp ở mức cao. Đây là 'cái bẫy' kinh điển cho các đội được đánh giá cao.",
       "source_refs": [
         {
           "method": "upset_band(elo_gap=369, missing=3)"
@@ -61,23 +31,8 @@
   ],
   "validated_factors": [
     {
-      "name": "In-match momentum / late swings",
-      "text": "Rủi ro biến động trong trận đã được kiểm chứng khi Saudi Arabia ghi liên tiếp 2 bàn ở phút 48 và 53, lật ngược thế trận sau khi bị dẫn trước từ phút thứ 10.",
-      "source_refs": [
-        {
-          "field": "events",
-          "source": "api-football",
-          "endpoint": "/fixtures/events",
-          "fixture_id": "855737"
-        }
-      ],
-      "assumption_flag": false
-    }
-  ],
-  "underweighted_factors": [
-    {
-      "name": "Finishing efficiency",
-      "text": "Mô hình đã đánh giá thấp khả năng chuyển hóa cơ hội của Saudi Arabia và sự kém hiệu quả của Argentina. Argentina có 15 cú sút (6 trúng đích) nhưng chỉ ghi 1 bàn, trong khi Saudi Arabia chỉ có 3 cú sút (2 trúng đích) nhưng ghi tới 2 bàn.",
+      "name": "Hiệu suất dứt điểm",
+      "text": "Argentina có 15 cú sút, 6 trúng đích nhưng chỉ ghi 1 bàn. Trong khi đó, Saudi Arabia chỉ có 3 cú sút, 2 trúng đích nhưng ghi được 2 bàn. Hiệu suất chuyển hóa cơ hội của Saudi Arabia vượt trội hoàn toàn.",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -90,8 +45,8 @@
       "assumption_flag": false
     },
     {
-      "name": "Goalkeeper performance gap",
-      "text": "Hiệu suất xuất thần của thủ môn Saudi Arabia, Mohammed Al-Owais (được chấm 7.7 điểm và có 5 pha cứu thua), là một yếu tố mà mô hình không thể dự đoán trước trận.",
+      "name": "Phong độ thủ môn",
+      "text": "Thủ môn Mohammed Al-Owais của Saudi Arabia đã có 5 pha cứu thua xuất sắc, góp phần quan trọng giữ vững tỷ số. Đây là yếu tố mà mô hình không thể đánh giá trước trận.",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -110,21 +65,46 @@
       "assumption_flag": false
     },
     {
-      "name": "Tactical matchup",
-      "text": "Mặc dù Argentina kiểm soát bóng tới 69%, nhưng sự chắc chắn trong phòng ngự và khả năng phản công sắc bén của Saudi Arabia với sơ đồ 4-1-4-1 dưới thời HLV H. Renard đã bị mô hình đánh giá thấp.",
+      "name": "Động lực trong trận",
+      "text": "Saudi Arabia đã lật ngược thế trận chỉ trong 5 phút đầu hiệp hai, ghi hai bàn liên tiếp vào các phút 48 và 53, thay đổi hoàn toàn cục diện trận đấu sau khi bị dẫn trước từ phút thứ 10.",
       "source_refs": [
         {
-          "field": "lineups+coach",
+          "field": "events",
           "source": "api-football",
-          "endpoint": "/fixtures/lineups",
+          "endpoint": "/fixtures/events",
           "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Sức mạnh dài hạn (Elo baseline)",
+      "text": "Chênh lệch Elo 369 điểm nghiêng hẳn về Argentina, nhưng kết quả trận đấu cho thấy chỉ số này không đủ để dự đoán một trận đấu cụ thể khi có các yếu tố bất ngờ khác.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2022-11-22",
+          "value": "Argentina 2053 / Saudi Arabia 1684"
         },
         {
-          "field": "team_statistics",
-          "source": "api-football",
-          "endpoint": "/fixtures/statistics",
-          "fixture_id": "855737",
-          "value": "possession 69%/31%"
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Phong độ gần đây (10 trận cuối)",
+      "text": "Phong độ hủy diệt của Argentina (8 thắng, 2 hòa, 0 thua, ghi 26 bàn, thủng lưới 2) đã không được duy trì trước một đối thủ chơi phòng ngự phản công hiệu quả.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
         }
       ],
       "assumption_flag": false
@@ -132,34 +112,34 @@
   ],
   "watch_next_signals": [
     {
-      "name": "Phân tích hiệu suất dứt điểm",
-      "text": "Mô hình cần theo dõi sát hơn các chỉ số hiệu quả dứt điểm (xG, xGOT) để nhận diện sớm các đội có khả năng chuyển hóa cơ hội tốt hoặc kém hiệu quả, đặc biệt khi có chênh lệch lớn về số cú sút và bàn thắng.",
+      "name": "Hiệu suất dứt điểm thực tế",
+      "text": "Với các trận đấu có đội được đánh giá cao áp đảo, cần theo dõi sát chỉ số sút trúng đích và bàn thắng thực tế trong 30 phút đầu để đánh giá hiệu suất chuyển hóa cơ hội.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Đánh giá thủ môn",
-      "text": "Cần tích hợp dữ liệu đánh giá phong độ thủ môn trước trận để phát hiện các 'người gác đền' có khả năng tạo đột biến, đặc biệt trong các trận đấu mà đội cửa dưới có thể phải đối mặt với nhiều cú sút.",
+      "name": "Phong độ thủ môn",
+      "text": "Trong các trận đấu tiếp theo, ScoutScore sẽ tìm cách tích hợp dữ liệu phong độ thủ môn gần nhất để giảm thiểu điểm mù này, đặc biệt khi có chênh lệch lớn về chất lượng đội hình.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Chiến thuật phòng ngự phản công",
-      "text": "Khi một đội cửa dưới có HLV nổi tiếng về khả năng tổ chức phòng ngự chặt chẽ và phản công nhanh, mô hình cần tăng trọng số rủi ro cho đội cửa trên, ngay cả khi các chỉ số Elo và phong độ đang áp đảo.",
+      "name": "Khả năng lật ngược tình thế",
+      "text": "Mô hình cần được huấn luyện thêm về các kịch bản đội yếu hơn có thể tạo địa chấn, đặc biệt là khi bị dẫn trước nhưng có khả năng phản công nhanh và dứt điểm hiệu quả.",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "Địa chấn Argentina 1-2 Saudi Arabia tại World Cup 2022 là lời nhắc nhở đắt giá: ngay cả khi Elo chênh lệch 369 điểm và phong độ hủy diệt, những điểm mù về hiệu suất dứt điểm và phong độ thủ môn vẫn có thể lật ngược mọi dự đoán. Giành Cup AI ScoutScore đã nhận diện rủi ro cao, nhưng chưa đủ để thấy bàn thắng của Saudi Arabia. Trận sau xem gì? Theo dõi các yếu tố bất ngờ này cùng chúng tôi!",
-  "subscription_hook": "Phiên bản miễn phí của Giành Cup AI ScoutScore cho bạn cái nhìn tổng quan về nhận định chính và mức độ rủi ro. Đăng ký ngay để mở khóa toàn bộ phân tích chuyên sâu về từng yếu tố, cập nhật nhận định 30 phút trước giờ bóng lăn, và phân tích khoảng tỷ số chi tiết – những thông tin then chốt để không bỏ lỡ bất ngờ nào!",
-  "group_join_copy": "Muốn hiểu sâu hơn vì sao Giành Cup AI lại 'thấy' rủi ro cao trong trận Argentina vs Saudi Arabia? Tham gia nhóm Telegram của chúng tôi để nhận các phân tích đầy đủ, thảo luận cùng cộng đồng và cập nhật liên tục các tín hiệu đáng chú ý cho những trận đấu sắp tới. Đừng bỏ lỡ góc nhìn chuyên sâu từ AI ScoutScore!",
+  "operator_copy": "Địa chấn World Cup 2022: Saudi Arabia 2-1 Argentina! Giành Cup AI ScoutScore đã nhận định Argentina là bên được đánh giá cao hơn nhưng cũng cảnh báo RỦI RO CAO từ các điểm mù dữ liệu. Kết quả cho thấy hiệu suất dứt điểm và phong độ thủ môn của Saudi Arabia đã tạo nên khác biệt. Xem tiếp để hiểu sâu hơn về các yếu tố lật ngược dự đoán!",
+  "subscription_hook": "Phiên bản miễn phí của Giành Cup AI ScoutScore cho bạn nhận định chính, mức độ rủi ro và một phần phân tích yếu tố. Đăng ký ngay để mở khóa toàn bộ phân tích chuyên sâu, cập nhật nhận định 30 phút trước giờ bóng lăn và khám phá các khoảng tỷ số tiềm năng — đừng bỏ lỡ bất kỳ biến số nào!",
+  "group_join_copy": "Bạn muốn xem phân tích đầy đủ các yếu tố ẩn sau mỗi trận đấu? Tham gia nhóm Telegram của Giành Cup AI ScoutScore ngay! Chúng tôi sẽ cùng bạn mổ xẻ từng dữ liệu, từ chênh lệch Elo đến chiến thuật đội hình, để bạn luôn có góc nhìn sắc bén nhất. Nhấn nút để vào nhóm và nhận thêm nhiều thông tin giá trị!",
   "today_cta": "Quan điểm AI hôm nay",
-  "social_post": "Địa chấn World Cup 2022: Argentina 1-2 Saudi Arabia! 🤯 Giành Cup AI ScoutScore đã cảnh báo rủi ro cao, nhưng vẫn đánh giá thấp hiệu suất dứt điểm và thủ môn Saudi Arabia. Bài học lớn về điểm mù mô hình. Đăng ký để không bỏ lỡ những phân tích rủi ro chuyên sâu, cập nhật 30 phút trước trận và góc nhìn AI độc quyền! #GiànhCupAI #WorldCup2022 #BóngĐá",
+  "social_post": "Địa chấn World Cup 2022: Saudi Arabia 2-1 Argentina! Giành Cup AI ScoutScore đã nhận định Argentina là bên được đánh giá cao hơn nhưng cũng cảnh báo RỦI RO CAO. Hiệu suất dứt điểm và thủ môn Saudi Arabia đã tạo nên bất ngờ. Bài học lớn về các điểm mù dữ liệu! #GiànhCupAI #ScoutScore #WorldCup2022 #BóngĐá",
   "internal_notes": [
-    "historical replay — NOT a real archived pre-match prediction",
-    "assumption_context: Venue / travel / climate (neutral venue, low differential impact)",
-    "assumption_context: Model blind spots (injuries/suspensions, xG, squad market value not ingested)",
-    "assumption_context: Watch next signals (future model enhancements)"
+    "historical replay — NOT a real archived pre-match prediction; say so in internal_notes only",
+    "assumption_context: Venue / travel / climate (neutral venue, low differential impact assumed)",
+    "assumption_context: Model blind spots (no pre-match xG/injuries/squad value)",
+    "assumption_context: Watch next signals are forward-looking assumptions"
   ],
   "source_ref_map": {
     "Long-run strength (Elo baseline)": [
@@ -254,5 +234,5 @@
   },
   "llm_provider": "gemini",
   "model": "gemini-2.5-flash",
-  "generated_at": "2026-06-10T16:59:16.512601+00:00"
+  "generated_at": "2026-06-10T17:18:43.301102+00:00"
 }

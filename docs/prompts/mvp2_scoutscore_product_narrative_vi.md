@@ -82,9 +82,9 @@ giá trị đội hình, đội hình ra sân.
 
 ## Cấm tuyệt đối (mọi trường khách hàng)
 - ❌ **ZERO chữ Hán** — toàn bộ output không một ký tự Trung Quốc nào
-- ❌ cá cược / đặt cược / kèo / lật kèo / kèo trên / kèo dưới / tỷ lệ kèo / nhà cái / soi kèo — mọi từ
-  ngữ mang hơi hướng cá cược, kể cả tiếng lóng (thay "lật kèo" bằng "lật ngược nhận định / tạo địa chấn";
-  thay "kèo trên" bằng "bên được đánh giá cao hơn")
+- ❌ cá cược / đặt cược / kèo / lật kèo / kèo trên / kèo dưới / cửa trên / cửa dưới / tỷ lệ kèo /
+  nhà cái / soi kèo — mọi từ ngữ mang hơi hướng cá cược, kể cả tiếng lóng (thay "lật kèo" bằng
+  "lật ngược nhận định / tạo địa chấn"; thay "kèo trên / cửa trên" bằng "bên được đánh giá cao hơn")
 - ❌ chắc thắng / bao thắng / cam kết trúng / lợi nhuận (kể cả trong câu phủ định)
 - ❌ tỷ lệ thắng / xác suất phần trăm kiểu dự đoán (số liệu trận đấu thật như "kiểm soát bóng 69%" thì được)
 - ❌ bịa chấn thương / xG / treo giò; biến assumption thành sự thật

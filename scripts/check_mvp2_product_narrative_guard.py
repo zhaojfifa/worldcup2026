@@ -40,8 +40,8 @@ FORBIDDEN = [
     # betting / gambling (zh)
     "下注", "投注", "赔率", "盘口", "竞猜", "串关", "购彩", "博彩", "彩票", "庄家",
     "稳赚", "稳赢", "必中", "必赢", "包赢", "跟单", "回报率", "返奖", "收益承诺", "现金奖池",
-    # vi
-    "cá cược", "đặt cược", "kèo", "nhà cái", "soi kèo", "chắc thắng", "bao thắng", "ăn chắc",
+    # vi (incl. handicap slang: kèo / cửa trên / cửa dưới)
+    "cá cược", "đặt cược", "kèo", "cửa trên", "cửa dưới", "nhà cái", "soi kèo", "chắc thắng", "bao thắng", "ăn chắc",
     # en
     "betting", "odds", "wager", "bookmaker", "parlay", "guaranteed win", "sure win",
 ]

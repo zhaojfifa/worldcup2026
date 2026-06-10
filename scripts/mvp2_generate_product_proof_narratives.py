@@ -160,7 +160,7 @@ def call_deepseek(api_key, system, user):
         headers={"Authorization": "Bearer " + api_key, "Content-Type": "application/json"},
         json={"model": "deepseek-chat",
               "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-              "temperature": 0.5, "max_tokens": 3000,
+              "temperature": 0.5, "max_tokens": 4500,
               "response_format": {"type": "json_object"}},
         timeout=120.0,
     )
