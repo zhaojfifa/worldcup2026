@@ -3,7 +3,7 @@
   "dataset": "martj42/international-football-results-from-1872-to-2017 (now 1872->2026)",
   "dataset_url": "https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017",
   "license_status": "CC0 / Public Domain per dataset page — UNCONFIRMED until operator verifies at download; NOT for customer UI until license confirmed + Owner sign-off",
-  "checked_at": "2026-06-10T02:38:03.742213+00:00",
+  "checked_at": "2026-06-10T03:05:52.569813+00:00",
   "render_wc2022_matches": 64,
   "render_side": {
     "wc2022_match_count": 64,
@@ -62,29 +62,249 @@
       }
     ]
   },
-  "status": "manual_download_needed",
-  "expected_paths": [
-    "data/external/kaggle/results.csv",
-    "data/external/kaggle/goalscorers.csv",
-    "data/external/kaggle/shootouts.csv"
-  ],
-  "kaggle_wc2022_rows": null,
-  "matched_count": null,
-  "unmatched_render": null,
-  "unmatched_kaggle": null,
+  "status": "alignment_complete",
+  "kaggle_wc2022_rows": 64,
+  "matched_count": 64,
+  "unmatched_render": [],
+  "unmatched_kaggle": [],
   "field_coverage": {
     "final_score": {
-      "status": "pending_download"
+      "present": 64,
+      "missing": 0
     },
     "actual_winner": {
-      "status": "pending_download"
+      "present": 64,
+      "missing": 0
     }
   },
+  "upset_cases_count": 23,
+  "upset_cases": [
+    {
+      "id": 4,
+      "date": "2022-11-20",
+      "home": "Qatar",
+      "away": "Ecuador",
+      "final_score": "0-2",
+      "actual_winner": "Ecuador",
+      "decided_by": "regulation",
+      "predicted_favorite": "Qatar",
+      "favorite_failed": true
+    },
+    {
+      "id": 5,
+      "date": "2022-11-21",
+      "home": "England",
+      "away": "Iran",
+      "final_score": "6-2",
+      "actual_winner": "England",
+      "decided_by": "regulation",
+      "predicted_favorite": "Iran",
+      "favorite_failed": true
+    },
+    {
+      "id": 6,
+      "date": "2022-11-21",
+      "home": "Senegal",
+      "away": "Netherlands",
+      "final_score": "0-2",
+      "actual_winner": "Netherlands",
+      "decided_by": "regulation",
+      "predicted_favorite": "Senegal",
+      "favorite_failed": true
+    },
+    {
+      "id": 8,
+      "date": "2022-11-22",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "final_score": "1-2",
+      "actual_winner": "Saudi Arabia",
+      "decided_by": "regulation",
+      "predicted_favorite": "Argentina",
+      "favorite_failed": true
+    },
+    {
+      "id": 13,
+      "date": "2022-11-23",
+      "home": "Germany",
+      "away": "Japan",
+      "final_score": "1-2",
+      "actual_winner": "Japan",
+      "decided_by": "regulation",
+      "predicted_favorite": "Germany",
+      "favorite_failed": true
+    },
+    {
+      "id": 24,
+      "date": "2022-11-26",
+      "home": "Tunisia",
+      "away": "Australia",
+      "final_score": "0-1",
+      "actual_winner": "Australia",
+      "decided_by": "regulation",
+      "predicted_favorite": "Tunisia",
+      "favorite_failed": true
+    },
+    {
+      "id": 29,
+      "date": "2022-11-27",
+      "home": "Belgium",
+      "away": "Morocco",
+      "final_score": "0-2",
+      "actual_winner": "Morocco",
+      "decided_by": "regulation",
+      "predicted_favorite": "Belgium",
+      "favorite_failed": true
+    },
+    {
+      "id": 33,
+      "date": "2022-11-28",
+      "home": "South Korea",
+      "away": "Ghana",
+      "final_score": "2-3",
+      "actual_winner": "Ghana",
+      "decided_by": "regulation",
+      "predicted_favorite": "South Korea",
+      "favorite_failed": true
+    },
+    {
+      "id": 34,
+      "date": "2022-11-28",
+      "home": "Brazil",
+      "away": "Switzerland",
+      "final_score": "1-0",
+      "actual_winner": "Brazil",
+      "decided_by": "regulation",
+      "predicted_favorite": "Switzerland",
+      "favorite_failed": true
+    },
+    {
+      "id": 35,
+      "date": "2022-11-28",
+      "home": "Portugal",
+      "away": "Uruguay",
+      "final_score": "2-0",
+      "actual_winner": "Portugal",
+      "decided_by": "regulation",
+      "predicted_favorite": "Uruguay",
+      "favorite_failed": true
+    },
+    {
+      "id": 39,
+      "date": "2022-11-29",
+      "home": "Wales",
+      "away": "England",
+      "final_score": "0-3",
+      "actual_winner": "England",
+      "decided_by": "regulation",
+      "predicted_favorite": "Wales",
+      "favorite_failed": true
+    },
+    {
+      "id": 38,
+      "date": "2022-11-29",
+      "home": "Iran",
+      "away": "United States",
+      "final_score": "0-1",
+      "actual_winner": "United States",
+      "decided_by": "regulation",
+      "predicted_favorite": "Iran",
+      "favorite_failed": true
+    },
+    {
+      "id": 40,
+      "date": "2022-11-30",
+      "home": "Australia",
+      "away": "Denmark",
+      "final_score": "1-0",
+      "actual_winner": "Australia",
+      "decided_by": "regulation",
+      "predicted_favorite": "Denmark",
+      "favorite_failed": true
+    },
+    {
+      "id": 42,
+      "date": "2022-11-30",
+      "home": "Saudi Arabia",
+      "away": "Mexico",
+      "final_score": "1-2",
+      "actual_winner": "Mexico",
+      "decided_by": "regulation",
+      "predicted_favorite": "Saudi Arabia",
+      "favorite_failed": true
+    },
+    {
+      "id": 46,
+      "date": "2022-12-01",
+      "home": "Japan",
+      "away": "Spain",
+      "final_score": "2-1",
+      "actual_winner": "Japan",
+      "decided_by": "regulation",
+      "predicted_favorite": "Spain",
+      "favorite_failed": true
+    },
+    {
+      "id": 47,
+      "date": "2022-12-01",
+      "home": "Costa Rica",
+      "away": "Germany",
+      "final_score": "2-4",
+      "actual_winner": "Germany",
+      "decided_by": "regulation",
+      "predicted_favorite": "Costa Rica",
+      "favorite_failed": true
+    },
+    {
+      "id": 55,
+      "date": "2022-12-04",
+      "home": "England",
+      "away": "Senegal",
+      "final_score": "3-0",
+      "actual_winner": "England",
+      "decided_by": "regulation",
+      "predicted_favorite": "Senegal",
+      "favorite_failed": true
+    },
+    {
+      "id": 57,
+      "date": "2022-12-05",
+      "home": "Brazil",
+      "away": "South Korea",
+      "final_score": "4-1",
+      "actual_winner": "Brazil",
+      "decided_by": "regulation",
+      "predicted_favorite": "South Korea",
+      "favorite_failed": true
+    },
+    {
+      "id": 58,
+      "date": "2022-12-06",
+      "home": "Morocco",
+      "away": "Spain",
+      "final_score": "0-0",
+      "actual_winner": "Morocco",
+      "decided_by": "penalties",
+      "predicted_favorite": "Spain",
+      "favorite_failed": true
+    },
+    {
+      "id": 59,
+      "date": "2022-12-06",
+      "home": "Portugal",
+      "away": "Switzerland",
+      "final_score": "6-1",
+      "actual_winner": "Portugal",
+      "decided_by": "regulation",
+      "predicted_favorite": "Switzerland",
+      "favorite_failed": true
+    }
+  ],
   "derived_candidates": {
-    "recent_form_5": "derivable offline once results.csv present (full 1872->2026 history)",
-    "head_to_head": "derivable offline once results.csv present (full history)",
-    "upset_cases": "derivable once final_score/actual_winner present (vs predicted favorite)",
-    "favorite_failed_cases": "derivable once final_score present"
+    "recent_form_5": "derivable (compute from full results.csv history)",
+    "head_to_head": "derivable (full history)",
+    "upset_cases": "computed: 23 favorite-failed of 64 matched",
+    "favorite_failed_cases": "23 cases"
   },
-  "note": "Render side prepared (64 matches + normalizer). Awaiting operator Kaggle download. No data fabricated."
+  "note": "Alignment from LOCAL Kaggle CSV only. Internal validation; customer UI needs license confirmation + Owner sign-off."
 }
