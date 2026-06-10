@@ -8,6 +8,12 @@
 
 ---
 
+## Update (2026-06-10) — Data Integration Blueprint
+Owner adopted the designer's integrated data-source plan → `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md`.
+**Priority: API-FOOTBALL first** (Level-2 verifier `scripts/verify_api_football_level2.py`, token-gated), TheSports
+pending (**no longer blocks Level-2**), Sportmonks/Highlightly alternatives. Direction = Data Source → Feature
+Engineering → Model Explanation → UI; **no data, no AI deep analysis**; betting framing downgraded, odds excluded.
+
 ## Goal 1 — Historical recap credible  (→ Level 1)
 - **Data needs:** `final_score` · `actual_winner` · H2H · recent_form · model baseline.
 - **Candidates:** **Kaggle** (martj42, CC0 *confirm*) · **current Render API** (baseline, fixtures).

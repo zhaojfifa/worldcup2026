@@ -8,6 +8,14 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **Data Integration Blueprint + Real Data Perception MVP (2026-06-10, branch, docs-first + frontend):** Kaggle↔Render
+  alignment PASS (64/64, 23 upsets); Real Result recap shipped for match 8 (Argentina 1-2 Saudi Arabia) and match 13
+  (Germany 1-2 Japan) — real score/winner/AI-lean/upset, vi Han=0, no 42.2%. Owner adopted the designer's integrated
+  data-source plan: **API-FOOTBALL first** (Level-2 verifier `scripts/verify_api_football_level2.py`, token-gated),
+  TheSports pending (**no longer blocks Level-2**), Sportmonks/Highlightly alternatives, Sportradar enterprise-defer,
+  SerpApi auxiliary, StatsBomb WC2022 xG = non-commercial offline-only. Direction = **Data Source → Feature
+  Engineering → Model Explanation → UI**; **no data, no AI deep analysis**; betting/竞猜/盘口/走地 downgraded, odds
+  excluded. No backend/API/DB. Docs: `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign/matrix/strategy).
 - **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are now a
   clickable path — Home recap rows → `/detail?match_id=<id>`, `Xem phục dựng` → `/report?match_id=<id>`
   (deep-link `match_id`/`id`; default selection prefers current/non-finished). Real API verified (public GET):

@@ -3,6 +3,17 @@
 _Snapshot for the next Claude engineering chat. Read `CLAUDE.md` first, then this._
 _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/LLM-draft phase._
 
+> **Data Integration Blueprint + Real Data Perception MVP (2026-06-10, branch `feature/real-data-zh-vi-verification`,
+> PR #2 Draft):** Kaggle↔Render alignment PASS (64/64, 23 upsets); Real Result recap shipped for **match 8**
+> (Argentina 1-2 Saudi Arabia) and **match 13** (Germany 1-2 Japan) — real score/winner/AI-lean/upset tag, vi Han=0,
+> no 42.2%. Owner adopted the designer's integrated data-source plan: priority **API-FOOTBALL first** (Level-2
+> verifier `scripts/verify_api_football_level2.py`, token-gated), **TheSports no longer blocks Level-2** (trial
+> pending), Sportmonks/Highlightly alternatives, Sportradar enterprise-defer, SerpApi auxiliary, StatsBomb WC2022 xG =
+> non-commercial offline-only. Direction = **Data Source → Feature Engineering → Model Explanation → UI**; **no data,
+> no AI deep analysis**; betting framing downgraded, odds excluded. Blueprint:
+> `docs/FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (+ redesign / requirements-matrix / source-strategy).
+> Latest commits on branch; main untouched; PR #2 stays Draft.
+
 > **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are a clickable
 > path now — Home recap rows → `/detail?match_id=<id>&lang=`, per-row `Xem phục dựng` → `/report?match_id=<id>`.
 > Detail/Report read `match_id` (or `id`) from `URLSearchParams`, find it in the loaded `/matches`, select it,

@@ -6,6 +6,12 @@ Rollback tag: `v0.8-real-data-verify-start`. zh + vi are the verification langua
 > **Status: pending operator.** Engineer self-verification done (build PASS, vi Han=0, zh regression,
 > 42.2% absent from UI). **Final PASS pending operator real-device review.** No screenshot = no PASS.
 
+> **Update (2026-06-10) — Data Integration Blueprint adopted.** Real Result recap shipped for match 8/13 (Kaggle
+> 64/64). Owner adopted the designer's integrated data-source plan: **API-FOOTBALL first** (Level-2 verifier shipped,
+> token-gated), TheSports pending (no longer blocks Level-2), Sportmonks/Highlightly alternatives. Direction = Data
+> Source → Feature Engineering → Model Explanation → UI; **no data, no AI deep analysis**; betting framing downgraded,
+> odds excluded. See `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md`.
+
 ## Data-type legend
 `current_preview` = seed scheduled (not real-synced) · `historical_recap` = WC-2022 finished (calibration,
 not current) · `real_synced` = real fixtures pulled from provider · `seed_preview` = seed demo data.

@@ -12,6 +12,11 @@ ai_gen = can_ai_generate_without_data (`N` = must come from data; `summary` = AI
 
 ---
 
+## Update (2026-06-10) — Data Integration Blueprint
+This matrix feeds `FOOTBALL_INTELLIGENCE_DATA_INTEGRATION_BLUEPRINT.md` (Product Module → Data Requirement → Source
+matrix + Feature Engineering). Owner adopted the integrated plan: **API-FOOTBALL first**, TheSports pending (no longer
+blocks Level-2), Sportmonks/Highlightly alternatives; **no data, no AI deep analysis**; odds excluded.
+
 ## A. Match Result Layer
 | field | user | model | content | source_candidate | now | lvl | must | ai_gen | if_missing_ui |
 |---|---|---|---|---|---|---|---|---|---|
