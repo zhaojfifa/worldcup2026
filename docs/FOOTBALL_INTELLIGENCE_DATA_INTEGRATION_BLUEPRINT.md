@@ -201,6 +201,11 @@ PRs off `main`, and keep the discovery docs (PR-A/PR-C content) as the reference
 
 ---
 
+**Status (2026-06-10):** Day-1 verifier + Day-2 **PASS** done → API-FOOTBALL **confirmed MVP-2 primary-source
+candidate**. MVP-2 backend schema / feature store / Evidence Board v2 / cache designed in
+`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`; paid-plan gate in `API_FOOTBALL_PAID_PLAN_DECISION.md`. Operation paused
+until paid re-verify (WC2026/injuries/rate-limit).
+
 ## 8. Compliance downgrade mapping (design input → product)
 
 | Design-input term (gambling) | Product term (compliant) |

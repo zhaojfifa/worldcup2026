@@ -8,6 +8,11 @@
 
 ## Verdict — `PASS` (Level-2 core verified on WC2022) · plan caveats apply
 
+> **Owner decision (2026-06-10):** API-FOOTBALL **confirmed MVP-2 primary-source candidate**; Level-2 feasibility
+> **PASS**. State = *Internal Level-2 feasibility proven · Commercial MVP-2 not ready.* Next: **paid plan = GO
+> (recommended)** → re-verify WC2026/injuries/rate-limit, then design backend schema (see
+> `MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md` / `API_FOOTBALL_PAID_PLAN_DECISION.md`). Operation stays paused.
+
 API-FOOTBALL **does** serve the Level-2 pre-match scout core for World Cup 2022: **lineups (+ formation), match
 events, match statistics, per-match player stats, squad, coach, teams** all returned real data, and **all four test
 matches mapped to API-FOOTBALL fixture ids.** → API-FOOTBALL is a **viable MVP-2 primary source.**

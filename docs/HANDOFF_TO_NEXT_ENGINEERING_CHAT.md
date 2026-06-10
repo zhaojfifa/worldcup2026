@@ -22,6 +22,15 @@ _Version: **MVP v0.8** · origin/main synced · multilingual + real data/model/L
 > primary, upgrade plan, design backend schema/feature store (Owner-gated); TheSports = live/Level-3 candidate.
 > `docs/API_FOOTBALL_COVERAGE_CHECK.md`. External operation stays paused until paid re-verify + minimal Level-2 ship.
 
+> **MVP-2 Pre-match Scout Pack Architecture (2026-06-10, branch, docs-only):** Owner accepted Day-2 PASS → API-FOOTBALL
+> **confirmed MVP-2 primary-source candidate**; **State: Internal Level-2 feasibility proven · Commercial MVP-2 NOT
+> ready.** Designed backend schema (~18 tables: canonical_*/source_*_mapping/match_mapping/lineup/event/statistics/
+> player_stats/injury/coach/scout_feature/source_ledger) + feature store + Evidence Board v2 (provenance-enveloped
+> fields) + cache/rate-limit + paid-plan gate. Owner-recommend **API-FOOTBALL paid plan = GO** (Pro $19, verify) to
+> re-verify WC2026/injuries/rate-limit; external operation paused; TheSports=live/Level-3; Sportmonks/Highlightly=
+> supplementary. Docs: `MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`, `API_FOOTBALL_PAID_PLAN_DECISION.md`. No DB/backend/
+> frontend/odds. PR #2 stays Draft.
+
 > **Linked Historical Recap (2026-06-10, branch, frontend-only):** WC2022 finished matches are a clickable
 > path now — Home recap rows → `/detail?match_id=<id>&lang=`, per-row `Xem phục dựng` → `/report?match_id=<id>`.
 > Detail/Report read `match_id` (or `id`) from `URLSearchParams`, find it in the loaded `/matches`, select it,

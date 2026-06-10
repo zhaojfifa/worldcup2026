@@ -8,6 +8,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
 ## v0.8 current-state summary (2026-06-08)
 
+- **MVP-2 Pre-match Scout Pack Architecture (2026-06-10, branch, docs-only):** Owner verdict on API-FOOTBALL Day-2 =
+  **PASS** → API-FOOTBALL **confirmed MVP-2 primary-source candidate**; Level-2 feasibility PASS. **State: Internal
+  Level-2 feasibility proven · Commercial MVP-2 NOT ready.** Designed backend schema (~18 tables) + feature store +
+  Evidence Board v2 contract + cache/rate-limit + paid-plan gate (`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`,
+  `API_FOOTBALL_PAID_PLAN_DECISION.md`). Owner-recommend **API-FOOTBALL paid plan = GO** (Pro $19, verify) for
+  WC2026/injuries/rate-limit re-verify; **external operation stays paused**; TheSports = live/Level-3;
+  Sportmonks/Highlightly = supplementary. No DB/backend/frontend/odds.
 - **Data Integration Blueprint + Real Data Perception MVP (2026-06-10, branch, docs-first + frontend):** Kaggle↔Render
   alignment PASS (64/64, 23 upsets); Real Result recap shipped for match 8 (Argentina 1-2 Saudi Arabia) and match 13
   (Germany 1-2 Japan) — real score/winner/AI-lean/upset, vi Han=0, no 42.2%. Owner adopted the designer's integrated

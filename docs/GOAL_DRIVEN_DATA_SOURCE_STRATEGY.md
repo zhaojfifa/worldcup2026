@@ -18,6 +18,10 @@ Engineering → Model Explanation → UI; **no data, no AI deep analysis**; bett
 squad/coach/teams ✓; fixture ids mapped for 8/13/58/67). Caveat: **FREE plan → WC2026 season locked + rate-limited**;
 **paid plan required for WC2026**. → Adopt as MVP-2 primary; upgrade plan. See `API_FOOTBALL_COVERAGE_CHECK.md`.
 
+**Owner decision (2026-06-10):** API-FOOTBALL = **MVP-2 primary-source candidate (confirmed)**; paid plan = **GO**
+(recommended) for WC2026/injuries/rate-limit re-verify; then MVP-2 backend schema. Architecture:
+`MVP2_PREMATCH_SCOUT_PACK_ARCHITECTURE.md`; budget brief: `API_FOOTBALL_PAID_PLAN_DECISION.md`. Operation paused.
+
 ## Goal 1 — Historical recap credible  (→ Level 1)
 - **Data needs:** `final_score` · `actual_winner` · H2H · recent_form · model baseline.
 - **Candidates:** **Kaggle** (martj42, CC0 *confirm*) · **current Render API** (baseline, fixtures).
