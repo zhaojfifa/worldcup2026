@@ -1,0 +1,31 @@
+{
+  "item_id": "1489369.trial_rescore.zh-CN.deepseek.r20260611T1528Z-prematch",
+  "fixture_id": "1489369",
+  "job": "A2_prematch",
+  "surface": "trial_rescore",
+  "language": "zh-CN",
+  "provider": "deepseek",
+  "run_id": "r20260611T1528Z-prematch",
+  "artifact_path": "docs/data_audit/mvp2_rescore_models/1489369.zh-CN.deepseek.json",
+  "artifact_sha256": "sha256:ffe69858c6a5d305e4dc2ab61f8ab20a504c716b2ec3cb52acddb62dfb0e3fc4",
+  "guard_report_path": "docs/data_audit/mvp2_ops_runs/r20260611T1528Z-prematch/guard_report.json",
+  "inputs_hash": "sha256:4240decf5808d8a68ad52f3840b8c67ea31afa7be274dc67a4b38d7294cf9825",
+  "status": "guard_passed",
+  "status_history": [
+    {
+      "status": "generated",
+      "at": "2026-06-11T15:28:24+00:00",
+      "by": "pipeline"
+    },
+    {
+      "status": "guard_passed",
+      "at": "2026-06-11T15:28:24+00:00",
+      "by": "guard"
+    }
+  ],
+  "expires_at": "2026-06-11T19:00:00+00:00",
+  "approved_by": null,
+  "review_note": null,
+  "superseded_by": null,
+  "sent_record": null
+}

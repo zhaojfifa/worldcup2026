@@ -13,7 +13,39 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-11 (latest) — Track A Automation + Track B Scout-Referral HEAVY DESIGN SHIPPED (docs only, Owner review pending)**
+**★ 2026-06-11 (latest) — Track A P0 IMPLEMENTED (A-GO-1; dry-run on 1489371 done; Owner review pending)**
+```text
+Owner signed A-GO-1 only — Track A P0 implemented exactly per the design doc; Track B remains
+design-only (ZERO referral tables/routes/UX/QR/rewards). New runtime = scripts + files ONLY (no DB
+tables, no API routes, no cron/worker, no CI secrets, no auto-send, no deploy):
+- scripts/mvp2_ops.py — operator CLI (scan/prematch/watch/rescore/recap/bundle/queue/status); run
+  manifests (failures/blocks included) + per-fixture manifests + quota ledger; T-12 abort line;
+  send-kits assembled ONLY from guard-passed LLM fields ([群链接由运营填写] placeholder).
+- scripts/mvp2_ops_queue.py — file review queue (generated/guard_passed/needs_review/approved/
+  sent/expired/rejected/superseded), sha256 tamper-reject, mock/expired unapprovable,
+  needs_review->approved requires note, mark-sent needs channel+group+screenshot; selftest 12/12.
+- scripts/mvp2_daily_scan.py (A1: real scan — found NEXT key match 1539000 Canada-Bosnia 06-12,
+  host_nation, needs A2), mvp2_build_rescore_diff.py (A3 facts-only XI/GK/formation diff skeleton;
+  LLM-only author; artifacts ONLY on guard pass), mvp2_build_recap_frame_real.py (A4 real_recap
+  frame; archived-prediction provenance path+sha256+generated_at; proof generator learned
+  real_recap mode). Guard: +real_recap rules (provenance citation required, hindsight-brag bans —
+  bare 马后炮 NOT banned, existing 不是马后炮 negation), +trial_rescore_update checker; selftest 6/6.
+- ★ DRY-RUN FINDING (real compliance gap, fixed): \bAI\b regex misses zh-embedded AI (Python \w
+  includes CJK) — 4 zh narratives carried 今日AI观点/AI战术解读 past de-model. Hardened to ASCII
+  lookarounds in 4 gates; zh prompt self-conflict fixed (schema comment still said 今日 AI 观点 —
+  5 retries couldn't converge until the PROMPT was fixed, same lesson as De-Modeling sprint);
+  4 zh narratives regenerated (DeepSeek, 4/4 PASS), re-registered (supersede), re-bundled.
+  Also fixed: per-surface guard dispatch (rescore models are NOT narrative contract; strip saved
+  meta before re-check) + bundle source precedence (NARR > stale PROOF for same fixture/lang).
+- Dry-run (docs/MVP2_TRACK_A_P0_DRYRUN_REPORT.md): A1 real, A2 register path 6/6 clean + supersede
+  proven, A3/A4 honestly blocked_by_time_or_data (lineups not out / fixture NS) with run manifests;
+  first real A3/A4 window = 1489371 kickoff 06-13 22:00 UTC. Gates: queue 12/12 · guard selftest
+  6/6 · narrative guard ALL PASS · BUILD PASS · visible scan 15/15 (hardened). GO/NO-GO got §4b
+  Track A ops section. PR #3 still Draft · main untouched · operation paused · small private trial
+  only · nothing sent · no payment/token · no betting/odds · no public launch.
+```
+
+**★ 2026-06-11 — Track A Automation + Track B Scout-Referral HEAVY DESIGN SHIPPED (docs only, Owner review pending)**
 ```text
 Owner ordered heavy PLANNING (no implementation) for two tracks; three design docs shipped, ZERO
 runtime change (no code, no guard edits, no tables, no endpoints, nothing sent):

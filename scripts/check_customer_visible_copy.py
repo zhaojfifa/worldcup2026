@@ -85,7 +85,8 @@ def main():
                     re.findall(r"\b%s\b" % re.escape(term), t, flags=re.I))
                 if n:
                     errs.append("%s ×%d" % (term, n))
-            ai_hits = re.findall(r"\bAI\b", t)
+            # ASCII-boundary pattern: \b misses zh-embedded AI (今日AI观点) because CJK is \w
+            ai_hits = re.findall(r"(?<![A-Za-z0-9_])AI(?![A-Za-z0-9_])", t)
             if ai_hits:
                 errs.append("AI ×%d (visible, outside allowed zones)" % len(ai_hits))
             if lang in ("vi", "my"):

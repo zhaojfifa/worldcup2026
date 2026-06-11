@@ -1,0 +1,28 @@
+{
+  "run_id": "r20260611T1515Z-recap",
+  "job": "recap",
+  "fixtures": [
+    "1489371"
+  ],
+  "started_at": "2026-06-11T15:15:19+00:00",
+  "finished_at": "2026-06-11T15:15:21+00:00",
+  "git_rev": "f5c1d9b",
+  "steps": [
+    {
+      "name": "real_recap_frame",
+      "status": "blocked",
+      "at": "2026-06-11T15:15:21+00:00",
+      "detail": "fixture status is 'NS' — recap runs after FT/AET/PEN",
+      "artifact_paths": []
+    }
+  ],
+  "api_request_ledger": {
+    "count": 1,
+    "by_endpoint": {
+      "/fixtures": 1
+    }
+  },
+  "llm_calls": {},
+  "guard_summary": null,
+  "status": "blocked_by_time_or_data"
+}

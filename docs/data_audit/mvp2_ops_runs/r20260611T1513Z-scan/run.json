@@ -1,0 +1,28 @@
+{
+  "run_id": "r20260611T1513Z-scan",
+  "job": "scan",
+  "fixtures": [],
+  "started_at": "2026-06-11T15:13:54+00:00",
+  "finished_at": "2026-06-11T15:13:56+00:00",
+  "git_rev": "f5c1d9b",
+  "steps": [
+    {
+      "name": "scan",
+      "status": "ok",
+      "at": "2026-06-11T15:13:56+00:00",
+      "detail": "docs/data_audit/mvp2_daily_scan/2026-06-11.json",
+      "artifact_paths": [
+        "docs/data_audit/mvp2_daily_scan/2026-06-11.json"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 1,
+    "by_endpoint": {
+      "/fixtures": 1
+    }
+  },
+  "llm_calls": {},
+  "guard_summary": null,
+  "status": "ok"
+}

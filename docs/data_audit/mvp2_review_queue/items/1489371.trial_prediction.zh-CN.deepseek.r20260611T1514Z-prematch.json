@@ -1,0 +1,37 @@
+{
+  "item_id": "1489371.trial_prediction.zh-CN.deepseek.r20260611T1514Z-prematch",
+  "fixture_id": "1489371",
+  "job": "A2_prematch",
+  "surface": "trial_prediction",
+  "language": "zh-CN",
+  "provider": "deepseek",
+  "run_id": "r20260611T1514Z-prematch",
+  "artifact_path": "docs/data_audit/mvp2_trial_prediction_narratives/1489371.zh-CN.deepseek.json",
+  "artifact_sha256": "sha256:748077fd49d1bd03ad9791dbc011fe7731df876202051877831300ce4697930d",
+  "guard_report_path": "docs/data_audit/mvp2_ops_runs/r20260611T1514Z-prematch/guard_report.json",
+  "inputs_hash": "sha256:6095e661043be2fb2eba400074612aadf9f7aeb189378ecefed770a9a270e561",
+  "status": "superseded",
+  "status_history": [
+    {
+      "status": "generated",
+      "at": "2026-06-11T15:14:56+00:00",
+      "by": "pipeline"
+    },
+    {
+      "status": "guard_passed",
+      "at": "2026-06-11T15:14:56+00:00",
+      "by": "guard"
+    },
+    {
+      "status": "superseded",
+      "at": "2026-06-11T15:28:24+00:00",
+      "by": "pipeline",
+      "note": "superseded by 1489371.trial_prediction.zh-CN.deepseek.r20260611T1528Z-prematch"
+    }
+  ],
+  "expires_at": "2026-06-13T22:00:00+00:00",
+  "approved_by": null,
+  "review_note": null,
+  "superseded_by": "1489371.trial_prediction.zh-CN.deepseek.r20260611T1528Z-prematch",
+  "sent_record": null
+}

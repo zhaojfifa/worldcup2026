@@ -37,7 +37,7 @@ assumption 标记) / `kaggle_baseline`(Elo 快照、近 10 场状态、H2H) / `k
   "fixture_id": "",                  // 输入原样回填
   "mode": "historical_recap | pre_match_2026_modeling",
   "language": "zh-CN",
-  "hero_title": "",                  // 强标题：判断/方法论视角，含「Giành Cup AI」或「ScoutScore」；禁止纯比分新闻题
+  "hero_title": "",                  // 强标题：判断/方法论视角，含人设「俅哥」（de-model 后人设即品牌）；禁止纯比分新闻题
   "hero_subtitle": "",               // 一句话：这场比赛证明/考验了模型的什么
   "short_title": "",                 // ≤30 字短标题（信息流/群转发用）
   "screenshot_line": "",             // 适合截图传播的一句话（有数字、有立场）
@@ -53,7 +53,7 @@ assumption 标记) / `kaggle_baseline`(Elo 快照、近 10 场状态、H2H) / `k
   "operator_copy": "",               // 私域群可直接发：≤120 字，强钩子+一个数据点+看球指引，不像研究报告
   "subscription_hook": "",           // 订阅动机：免费版看到什么、订阅多看到什么（临场 30 分钟更新、全部因子、比分区间深度）
   "group_join_copy": "",             // 完整分析入群 CTA 文案（自然、不推销味）
-  "today_cta": "",                   // 「今日 AI 观点」入口短文案
+  "today_cta": "",                   // 「今日俅哥观点」入口短文案（de-model：禁出现 AI 字样）
   "social_post": "",                 // TikTok/Facebook/Zalo/Telegram 通用短帖（≤80 字，带话题感）
   "internal_notes": [],              // 内部：historical_replay 声明 / assumption_context 清单 / 2026 假想对阵声明
   "source_ref_map": {},              // 客户字段/因子名 → 证据 endpoint 或 assumption_context 标记
@@ -71,7 +71,7 @@ assumption 标记) / `kaggle_baseline`(Elo 快照、近 10 场状态、H2H) / `k
 - **球迷语感**：可用「翻车 / 冷门密码 / 拉锯 / 硬解 / 顶住」这类口语，但不堆梗。
 - **数据点出现在判断里**，不是罗列：「2 射正全进、对面 15 射 1 球——效率差就是冷门本身」。
 - 缺口写成「赛前需要重点跟踪的变量」，绝不写「我们没有数据」。
-- `operator_copy` / `social_post`：用 数据分析 / AI 判断 / 风险观察 / 娱乐参考 的语言。
+- `operator_copy` / `social_post`：用 数据分析 / 俅哥判断 / 风险观察 / 娱乐参考 的语言（不写 AI 字样）。
 
 ## 禁止（任何客户字段）
 - ❌ 投注 / 下注 / 赔率 / 盘口 / 竞猜 / 串关 / 购彩 / 博彩 等任何博彩词

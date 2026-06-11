@@ -28,6 +28,10 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 NARR_DIR = ROOT / "docs" / "data_audit" / "mvp2_product_proof_narratives"
 HAN = re.compile(r"[一-鿿]")
+# Case-sensitive standalone "AI" with ASCII-only boundaries: Python \b treats CJK as \w,
+# so r"\bAI\b" misses zh-embedded tokens like 今日AI观点 (Track A P0 hardening; lowercase
+# Vietnamese "ai" = who stays allowed).
+AI_TOKEN = re.compile(r"(?<![A-Za-z0-9_])AI(?![A-Za-z0-9_])")
 
 TEXT_FIELDS = ["hero_title", "hero_subtitle", "short_title", "screenshot_line", "model_judgement",
                "main_lean", "scoreline_view", "risk_level", "operator_copy", "subscription_hook",
@@ -64,6 +68,13 @@ AUDIT_TOKENS = [
 TONE_BANS = ["一场精彩", "精彩的比赛", "精彩对决", "综上所述", "总而言之", "值得注意的是", "总体而言",
              "不难发现", "让我们拭目以待", "nhìn chung", "tóm lại", "đáng chú ý là", "có thể thấy rằng"]
 RESEARCH_TONE = ["研究报告", "本报告", "本文", "审计", "白皮书", "báo cáo nghiên cứu", "this report"]
+# real_recap (Track A A4): the pre-match judgement is a REAL archived prediction, so the
+# recap must stay honest — no hindsight-brag / "told you so" voice in customer prose.
+# NOTE: bare 马后炮 is NOT banned — existing narratives legitimately use the negation
+# 「不是马后炮」; only positive brag phrasings are listed.
+HINDSIGHT_BANS = ["早就说过", "我早说", "看吧，我说", "i told you so",
+                  "đã bảo mà", "thấy chưa, tôi đã nói"]
+RECAP_MODES = ("historical_recap", "real_recap")
 
 
 def has_model_estimate_marker(text):
@@ -99,6 +110,8 @@ def check(path):
         obj = json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return ["invalid JSON: %s" % e]
+    if obj.get("product_surface") == "trial_rescore_update":
+        return check_rescore_update_obj(obj, path.name)
     return check_obj(obj, path.name)
 
 
@@ -106,7 +119,8 @@ def check_obj(obj, filename=""):
     """Full guard on a narrative dict (also imported by the generator's retry loop)."""
     errs = []
     mode = obj.get("mode", "")
-    is_recap = mode == "historical_recap"
+    is_recap = mode in RECAP_MODES
+    is_real_recap = mode == "real_recap"
     is_pre = mode == "pre_match_2026_modeling"
     is_vi = obj.get("language") == "vi-VN" or ".vi-VN." in filename
     is_my = obj.get("language") == "my-MM" or ".my-MM." in filename
@@ -115,8 +129,8 @@ def check_obj(obj, filename=""):
     for f in REQUIRED:
         if f not in obj:
             errs.append("missing field: %s" % f)
-    if mode not in ("historical_recap", "pre_match_2026_modeling"):
-        errs.append("mode must be historical_recap | pre_match_2026_modeling (got %r)" % mode)
+    if mode not in ("historical_recap", "real_recap", "pre_match_2026_modeling"):
+        errs.append("mode must be historical_recap | real_recap | pre_match_2026_modeling (got %r)" % mode)
     if not isinstance(obj.get("internal_notes"), list) or not obj.get("internal_notes"):
         errs.append("internal_notes must be a non-empty list")
     if not isinstance(obj.get("source_ref_map"), dict) or not obj.get("source_ref_map"):
@@ -140,9 +154,17 @@ def check_obj(obj, filename=""):
     if is_recap:
         for k in ("validated_factors", "underweighted_factors"):
             if not obj.get(k):
-                errs.append("historical_recap requires non-empty %s" % k)
-        notes = walk_strings(obj.get("internal_notes", [])).lower()
-        if "replay" not in notes and "archived" not in notes and "phục dựng" not in notes and "回放" not in walk_strings(obj.get("internal_notes", [])):
+                errs.append("%s requires non-empty %s" % (mode, k))
+        notes_raw_all = walk_strings(obj.get("internal_notes", []))
+        notes = notes_raw_all.lower()
+        if is_real_recap:
+            # the pre-match judgement is a REAL archived prediction: internal_notes must
+            # cite the stored artifact (path + sha256 + timestamp), NOT a replay disclaimer.
+            if "sha256:" not in notes:
+                errs.append("real_recap internal_notes must cite the archived pre-match artifact hash (sha256:…)")
+            if "docs/data_audit/" not in notes_raw_all:
+                errs.append("real_recap internal_notes must cite the archived pre-match artifact path (docs/data_audit/…)")
+        elif "replay" not in notes and "archived" not in notes and "phục dựng" not in notes and "回放" not in notes_raw_all:
             errs.append("internal_notes must disclose the historical-replay nature")
     if is_pre:
         for k in ("risk_level", "scoreline_view"):
@@ -227,8 +249,9 @@ def check_obj(obj, filename=""):
         for term in ("模型", "盲区", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
             if term in blob_l:
                 errs.append("de-model violation in customer prose: %r" % term)
-        # case-sensitive whole-word AI (lowercase 'ai' is the Vietnamese word for 'who')
-        if re.search(r"\bAI\b", blob):
+        # case-sensitive standalone AI (lowercase 'ai' is the Vietnamese word for 'who');
+        # ASCII-boundary pattern catches zh-embedded AI (今日AI观点) that \b misses
+        if AI_TOKEN.search(blob):
             errs.append("de-model violation in customer prose: 'AI'")
     for term in FORBIDDEN:
         if term.lower() in blob_l:
@@ -248,6 +271,11 @@ def check_obj(obj, filename=""):
     for term in RESEARCH_TONE:
         if term.lower() in blob_l:
             errs.append("research-report tone in customer prose: %r" % term)
+    # hindsight bans only for real_recap (NEW mode) — historical_recap baseline untouched
+    if is_real_recap:
+        for term in HINDSIGHT_BANS:
+            if term.lower() in blob_l:
+                errs.append("hindsight-brag tone in recap prose: %r" % term)
     # links are engineering stage (real CTA buttons) — the LLM must never invent one
     if re.search(r"https?://|t\.me/|www\.", blob):
         errs.append("URL in customer prose (links are injected by the page, never written by the LLM)")
@@ -261,7 +289,141 @@ def check_obj(obj, filename=""):
     return errs
 
 
+# ── Track A A3 surface: trial_rescore_update (LLM update on a facts-only diff skeleton) ──
+RESCORE_UPDATE_PERSONA = {"zh-CN": "俅哥", "vi-VN": "Tiên Tri", "my-MM": "Football Oracle"}
+
+
+def check_rescore_update_obj(obj, filename=""):
+    """Guard for `trial_rescore_update` artifacts (Track A A3). Customer prose =
+    what_changed texts + updated_* + group_update_message + no_change_note;
+    based_on / lineup_facts are the engineering skeleton (internal)."""
+    errs = []
+    lang = obj.get("language") or ""
+    if obj.get("product_surface") != "trial_rescore_update":
+        errs.append("product_surface must be trial_rescore_update")
+    if not obj.get("llm_provider") or obj.get("llm_provider") == "mock":
+        errs.append("rescore updates must be REAL LLM output (llm_provider=%r)" % obj.get("llm_provider"))
+    for f in ("fixture_id", "language", "voice", "updated_lean", "updated_risk_level",
+              "updated_score_range", "group_update_message", "expires_at"):
+        if not str(obj.get(f, "")).strip():
+            errs.append("missing/empty field: %s" % f)
+    based = obj.get("based_on") or {}
+    if not (isinstance(based, dict) and based.get("judgement_path") and based.get("inputs_hash")):
+        errs.append("based_on must carry judgement_path + inputs_hash (provenance of the original judgement)")
+    if not isinstance(obj.get("lineup_facts"), dict) or not obj.get("lineup_facts"):
+        errs.append("lineup_facts (engineering skeleton) must be a non-empty object")
+    wc = obj.get("what_changed")
+    if not isinstance(wc, list):
+        errs.append("what_changed must be a list")
+        wc = []
+    if not wc and not str(obj.get("no_change_note", "")).strip():
+        errs.append("empty what_changed requires a no_change_note")
+    for i, ch in enumerate(wc):
+        if not isinstance(ch, dict):
+            errs.append("what_changed[%d] not an object" % i)
+            continue
+        for f in ("name", "before", "now", "effect"):
+            if not str(ch.get(f, "")).strip():
+                errs.append("what_changed[%d].%s empty" % (i, f))
+        if not str(ch.get("fired_rule", "")).strip() and not ch.get("assumption_flag"):
+            errs.append("what_changed[%d] needs fired_rule OR assumption_flag=true" % i)
+    rng = str(obj.get("updated_score_range", ""))
+    if rng and not has_model_estimate_marker(rng):
+        errs.append("updated_score_range must carry the persona reference-band marker")
+    # customer prose scans (skeleton fields excluded — they are internal engineering facts)
+    prose = [str(obj.get(k, "")) for k in ("updated_lean", "updated_risk_level",
+                                           "updated_score_range", "group_update_message", "no_change_note")]
+    for ch in wc:
+        if isinstance(ch, dict):
+            prose.append(" ".join(str(ch.get(k, "")) for k in ("name", "before", "now", "effect")))
+    blob = "\n".join(prose)
+    bl = blob.lower()
+    for term in ("模型", "盲区", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm",
+                 "pipeline", "schema", "provider"):
+        if term in bl:
+            errs.append("de-model violation in customer prose: %r" % term)
+    if AI_TOKEN.search(blob):
+        errs.append("de-model violation in customer prose: 'AI'")
+    for term in FORBIDDEN + FAKE_PROB + TONE_BANS + HINDSIGHT_BANS:
+        if term.lower() in bl:
+            errs.append("forbidden/tone wording in customer prose: %r" % term)
+    if re.search(r"https?://|t\.me/|www\.", blob):
+        errs.append("URL in customer prose (links are page-injected, never LLM-written)")
+    persona = RESCORE_UPDATE_PERSONA.get(lang)
+    if persona and persona not in blob:
+        errs.append("%s rescore update must speak as %s" % (lang, persona))
+    if lang in ("vi-VN", "my-MM"):
+        han = HAN.findall(walk_strings(obj))
+        if han:
+            errs.append("%s has %d Han char(s): %s" % (lang, len(han), "".join(han[:20])))
+    return errs
+
+
+def _selftest_tracka():
+    """Synthetic vectors for the Track A guard extensions (no artifacts written)."""
+    base = json.loads((NARR_DIR / "855737.zh-CN.deepseek.json").read_text(encoding="utf-8"))
+    results = []
+
+    rr_ok = dict(base)
+    rr_ok["mode"] = "real_recap"
+    rr_ok["internal_notes"] = [
+        "real recap of an archived pre-match judgement",
+        "pre-match artifact: docs/data_audit/mvp2_trial_prediction_narratives/855737.zh-CN.deepseek.json "
+        "(sha256:deadbeef) generated_at 2026-06-11T05:00:00+00:00",
+    ]
+    results.append(("real_recap provenance PASS", not check_obj(rr_ok)))
+
+    rr_bad = dict(rr_ok)
+    rr_bad["internal_notes"] = ["real recap, no citation"]
+    e = check_obj(rr_bad)
+    results.append(("real_recap missing provenance FAIL", any("sha256" in x for x in e)))
+
+    rr_brag = dict(rr_ok)
+    rr_brag = json.loads(json.dumps(rr_brag, ensure_ascii=False))
+    rr_brag["model_judgement"] = rr_brag["model_judgement"] + " 俅哥早就说过这场要爆冷。"
+    e = check_obj(rr_brag)
+    results.append(("real_recap hindsight-brag FAIL", any("hindsight" in x for x in e)))
+
+    ru_ok = {
+        "product_surface": "trial_rescore_update", "fixture_id": "1489371", "language": "zh-CN",
+        "voice": "qiuge_v2", "llm_provider": "deepseek", "expires_at": "2026-06-13T22:00:00+00:00",
+        "based_on": {"judgement_path": "docs/data_audit/mvp2_trial_prediction_narratives/1489371.zh-CN.deepseek.json",
+                      "inputs_hash": "sha256:abc"},
+        "lineup_facts": {"home_xi": ["..."], "gk": {"Brazil": "Alisson"}},
+        "what_changed": [{"name": "门将人选确认", "before": "门将未定", "now": "首发门将已确认",
+                           "effect": "后防稳定性判断上调", "fired_rule": "favourite_spine_intact"}],
+        "updated_lean": "俅哥维持巴西方向，信心略升",
+        "updated_risk_level": "中高——锋线依赖仍在",
+        "updated_score_range": "俅哥给出的赛前参考区间：2-0、2-1、1-1",
+        "group_update_message": "【俅哥临场修正】首发出了：巴西中轴完整，俅哥维持原判断，比分参考区间收窄。",
+    }
+    results.append(("rescore_update PASS", not check_rescore_update_obj(ru_ok)))
+
+    ru_bad = json.loads(json.dumps(ru_ok, ensure_ascii=False))
+    ru_bad["llm_provider"] = "mock"
+    ru_bad["what_changed"][0].pop("fired_rule")
+    ru_bad["group_update_message"] = "盘口告诉你们：必中。"
+    e = check_rescore_update_obj(ru_bad)
+    results.append(("rescore_update mock+rule+betting FAIL",
+                    any("mock" in x.lower() for x in e) and any("fired_rule" in x for x in e)
+                    and any("盘口" in x for x in e)))
+
+    ru_noband = json.loads(json.dumps(ru_ok, ensure_ascii=False))
+    ru_noband["updated_score_range"] = "2-0"
+    e = check_rescore_update_obj(ru_noband)
+    results.append(("rescore_update missing band marker FAIL", any("reference-band" in x for x in e)))
+
+    failed = [n for n, good in results if not good]
+    for n, good in results:
+        print("%s  %s" % ("PASS" if good else "FAIL", n))
+    print("\nTRACK-A GUARD SELFTEST %s (%d/%d)" % ("PASS" if not failed else "FAIL",
+                                                    len(results) - len(failed), len(results)))
+    sys.exit(1 if failed else 0)
+
+
 def main():
+    if "--selftest-tracka" in sys.argv:
+        _selftest_tracka()
     files = [pathlib.Path(a) for a in sys.argv[1:]] or sorted(NARR_DIR.glob("*.json"))
     if not files:
         print("no narrative files found in %s" % NARR_DIR); sys.exit(2)

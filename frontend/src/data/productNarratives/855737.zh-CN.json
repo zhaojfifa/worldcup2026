@@ -3,39 +3,22 @@
   "fixture_id": "855737",
   "mode": "historical_recap",
   "language": "zh-CN",
-  "hero_title": "阿根廷翻车，俅哥赛前该在哪三处看见冷门信号？",
-  "hero_subtitle": "一场 1-2 爆冷，考验的不是阿根廷有多强，而是赛前有没有盯住效率差、门将差和临场变量。",
-  "short_title": "阿根廷爆冷，赛前该看见什么？",
-  "screenshot_line": "阿根廷15射6正只进1球，沙特3射2正全进——效率差就是冷门本身。",
-  "model_judgement": "赛前倾向阿根廷胜，但俅哥把这场列为高风险——不是因为沙特更强，而是首发、门将和锋线效率都还没完全看清。阿根廷纸面占优，但这些变量一旦出问题，大热就容易被拖进麻烦。",
+  "hero_title": "阿根廷1-2沙特：俅哥赛前该在哪三处看见冷门密码",
+  "hero_subtitle": "一场比赛证明：纸面碾压不等于赢球，效率差才是冷门本身。",
+  "short_title": "阿根廷翻车：效率差才是冷门密码",
+  "screenshot_line": "15射6正只进1球，3射2正全进——效率差就是冷门本身。",
+  "model_judgement": "俅哥赛前判断：阿根廷赢面大，但冷门风险偏高。原因有三：一是阿根廷近10场8胜2平，但对手偏弱；二是沙特虽然排名低，但近5场只输1场（0-1克罗地亚），防守有韧性；三是俅哥赛前没看清的几个变量——首发门将状态、锋线效率、伤病——这些一旦出问题，大热就容易翻车。",
   "main_lean": "赛前倾向阿根廷胜，但冷门风险偏高",
-  "scoreline_view": "俅哥给出的赛前参考区间：2-0、3-0、1-0",
-  "risk_level": "高——阿根廷纸面碾压，但赛前没看清的变量太多，冷门信号已经亮起",
+  "scoreline_view": "俅哥给出的赛前参考区间：2-0、3-0、1-0；实际比分1-2，沙特爆冷。",
+  "risk_level": "高——阿根廷纸面占优，但赛前没看清的变量太多，翻车风险大。",
   "risk_factors": [
     {
-      "name": "长期实力差距（Elo）",
-      "text": "Elo 差距 369 分，阿根廷大幅占优，但大热本身就需要额外警惕。",
+      "name": "锋线效率未知",
+      "text": "赛前没有xG数据，阿根廷近10场进26球但对手偏弱，面对沙特密集防守能否高效转化是未知数。",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-          "derived": true,
-          "metric": "elo_snapshot@2022-11-22",
-          "value": "Argentina 2053 / Saudi Arabia 1684"
-        },
-        {
-          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "近期状态（近10场）",
-      "text": "阿根廷 8胜2平0负，进26失2；沙特 2胜5平3负，进4失5——状态差距悬殊，但沙特近5场只输克罗地亚，防守有韧性。",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "dataset": "international football results 1872-2026",
           "derived": true,
           "metric": "last10_form"
         }
@@ -43,119 +26,29 @@
       "assumption_flag": false
     },
     {
-      "name": "阵容完整性",
-      "text": "阿根廷 4-4-2，沙特 4-1-4-1，但赛前没有伤病/停赛数据，首发名单是开球前才确认的变量。",
+      "name": "门将状态待确认",
+      "text": "赛前没有门将状态数据，沙特门将Al-Owais在近5场热身赛中表现稳定（仅失5球），但阿根廷门将状态未知。",
       "source_refs": [
         {
-          "field": "lineups",
-          "source": "api-football",
-          "endpoint": "/fixtures/lineups",
-          "fixture_id": "855737"
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
         }
       ],
       "assumption_flag": false
     },
     {
-      "name": "射门效率差",
-      "text": "赛前没有 xG 数据，效率是没看清的地方。实际阿根廷 15 射 6 正进 1，沙特 3 射 2 正进 2——效率差就是冷门本身。",
-      "source_refs": [
-        {
-          "field": "team_statistics",
-          "source": "api-football",
-          "endpoint": "/fixtures/statistics",
-          "fixture_id": "855737",
-          "value": "shots 15/3, sog 6/2"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "门将表现差",
-      "text": "沙特门将 Al-Owais 评分 7.7，5 次扑救；阿根廷门将 0 扑救。赛前没有门将状态数据，这是开球前需要确认的关键变量。",
-      "source_refs": [
-        {
-          "field": "team_statistics",
-          "source": "api-football",
-          "endpoint": "/fixtures/statistics",
-          "fixture_id": "855737",
-          "value": "saves 0/5"
-        },
-        {
-          "field": "player_statistics",
-          "source": "api-football",
-          "endpoint": "/fixtures/players",
-          "fixture_id": "855737"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "比赛节奏与逆转窗口",
-      "text": "阿根廷第10分钟点球领先，但沙特下半场48、53分钟连进两球逆转。大热领先后容易松懈，这是赛前可以预判的风险。",
-      "source_refs": [
-        {
-          "field": "events",
-          "source": "api-football",
-          "endpoint": "/fixtures/events",
-          "fixture_id": "855737"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "战术对位",
-      "text": "阿根廷 4-4-2 控球 69%，沙特 4-1-4-1 反击效率极高。赛前从阵型可以判断沙特会收缩，但反击质量是开球后才能看到的。",
-      "source_refs": [
-        {
-          "field": "lineups+coach",
-          "source": "api-football",
-          "endpoint": "/fixtures/lineups",
-          "fixture_id": "855737"
-        },
-        {
-          "field": "team_statistics",
-          "source": "api-football",
-          "endpoint": "/fixtures/statistics",
-          "fixture_id": "855737",
-          "value": "possession 69%/31%"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "场地/旅行/气候",
-      "text": "卡塔尔中立场地，对双方影响不大，不是本场关键变量。",
-      "source_refs": [
-        {
-          "field": "fixture",
-          "source": "api-football",
-          "endpoint": "/fixtures",
-          "fixture_id": "855737"
-        }
-      ],
-      "assumption_flag": true
-    },
-    {
-      "name": "赛前未接入的数据",
-      "text": "伤病/停赛、xG、球队身价等数据赛前未接入，这些是开球前需要重点跟踪的变量。",
+      "name": "伤病/阵容未公布",
+      "text": "赛前没有伤病和阵容信息，阿根廷是否全主力出战、沙特是否有核心缺阵，都是开球前才能确认的变量。",
       "source_refs": [],
       "assumption_flag": true
-    },
-    {
-      "name": "冷门/波动风险",
-      "text": "大热 + 多个赛前没看清的变量 = 经典大热陷阱，俅哥赛前就把这场列为高风险。",
-      "source_refs": [
-        {
-          "method": "upset_band(elo_gap=369, missing=3)"
-        }
-      ],
-      "assumption_flag": false
     }
   ],
   "validated_factors": [
     {
-      "name": "射门效率差",
-      "text": "阿根廷 15 射 6 正进 1，沙特 3 射 2 正进 2——效率差直接决定了冷门，赛前应该更重视这个信号。",
+      "name": "锋线效率差距",
+      "text": "阿根廷15射6正只进1球，沙特3射2正全进——效率差直接决定结果。赛前如果能看到xG，冷门风险会更早暴露。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -168,8 +61,8 @@
       "assumption_flag": false
     },
     {
-      "name": "门将表现差",
-      "text": "沙特门将 5 扑救 0 失球，阿根廷门将 0 扑救——门将差距是冷门的关键推手，赛前没有门将状态数据是重大缺口。",
+      "name": "门将表现差距",
+      "text": "沙特门将Al-Owais做出5次扑救，评分7.7；阿根廷门将0扑救。赛前门将状态是重要盲点。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -188,11 +81,14 @@
       "assumption_flag": false
     },
     {
-      "name": "冷门/波动风险",
-      "text": "赛前将风险定为高，最终 1-2 爆冷，验证了大热 + 变量不清 = 高风险的正确判断。",
+      "name": "沙特防守韧性",
+      "text": "沙特近5场仅失5球，包括0-1小负克罗地亚，防守组织比纸面排名强。阿根廷69%控球但难以转化为进球。",
       "source_refs": [
         {
-          "method": "upset_band(elo_gap=369, missing=3)"
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
         }
       ],
       "assumption_flag": false
@@ -200,27 +96,28 @@
   ],
   "underweighted_factors": [
     {
-      "name": "沙特防守韧性",
-      "text": "沙特近 5 场只输克罗地亚 0-1，防守组织比纸面数据强，赛前低估了他们的抗压能力。",
+      "name": "沙特的反击效率",
+      "text": "赛前低估了沙特的反击质量——3次射门2次射正全部进球，效率极高。",
       "source_refs": [
         {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-          "derived": true,
-          "metric": "last10_form"
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
         }
       ],
       "assumption_flag": false
     },
     {
-      "name": "阿根廷领先后松懈",
-      "text": "阿根廷第10分钟领先，但下半场被逆转，大热领先后容易松懈的心理因素赛前没有充分量化。",
+      "name": "阿根廷的防守专注度",
+      "text": "阿根廷近10场仅失2球，但面对沙特的反击，防线在48分钟和53分钟连续失误。赛前没有足够信号表明防守有漏洞。",
       "source_refs": [
         {
-          "field": "events",
-          "source": "api-football",
-          "endpoint": "/fixtures/events",
-          "fixture_id": "855737"
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
         }
       ],
       "assumption_flag": false
@@ -228,49 +125,48 @@
   ],
   "watch_next_signals": [
     {
-      "name": "首发名单确认",
-      "text": "开球前 30 分钟，首发名单会重新改写判断——尤其要确认阿根廷锋线和中场是否全主力。",
+      "name": "首发门将名单",
+      "text": "开球前30分钟确认门将人选——门将状态是冷门的关键变量。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "门将状态",
-      "text": "门将人选和近期表现会影响判断，开球前需要确认。",
+      "name": "锋线球员近期射门转化率",
+      "text": "如果赛前能接入xG或射门转化率数据，可以更早判断阿根廷的进球效率风险。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "机会质量临场校准",
-      "text": "xG 数据赛前未接入，开球后前 15 分钟的射门质量会帮助校准效率判断。",
+      "name": "沙特防守阵型紧凑度",
+      "text": "沙特4-1-4-1阵型在热身赛中对克罗地亚只失1球，防守紧凑度值得赛前重点分析。",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "阿根廷 1-2 沙特，冷门不是偶然。俅哥赛前就把这场列为高风险——不是因为沙特更强，而是首发、门将和效率都没看清。15射6正只进1球 vs 3射2正全进，效率差就是冷门本身。想看更多赛前判断？进群看临场修正。",
-  "subscription_hook": "免费版看到方向（主胜倾向 + 高风险），订阅版多看到：全部因子拆解、开球前30分钟重算后的最新判断、比分区间深度分析、每日AI观点推送。",
-  "group_join_copy": "想看俅哥更多赛前判断？加入 Telegram 群，开球前30分钟会重新计算首发、门将、战术对位，给出修正后的方向。群内还有每日俅哥观点和深度分析，免费加入，不推销。",
-  "today_cta": "俅哥今日判断：阿根廷翻车复盘——赛前该看见的三个冷门信号",
-  "social_post": "阿根廷15射6正只进1球，沙特3射2正全进——效率差就是冷门本身。俅哥赛前就把这场列为高风险，不是马后炮。想看更多？进群。",
+  "operator_copy": "阿根廷15射6正只进1球，沙特3射2正全进——效率差就是冷门本身。俅哥赛前判断：阿根廷赢面大，但冷门风险偏高。免费版看方向，群内看临场修正。",
+  "subscription_hook": "免费版看到方向+风险等级；订阅版解锁全部因子、临场30分钟重算、比分区间深度分析。",
+  "group_join_copy": "想看俅哥赛前怎么判断冷门？加入群聊，每场赛前30分钟收到首发确认后的修正判断，还有更多因子拆解。",
+  "today_cta": "今日俅哥观点：阿根廷翻车不是偶然——效率差才是冷门密码。",
+  "social_post": "阿根廷15射6正只进1球，沙特3射2正全进——效率差就是冷门本身。俅哥赛前已提示冷门风险偏高。",
   "internal_notes": [
-    "historical_replay — NOT a real archived pre-match prediction",
-    "assumption_context: venue/travel/climate factor is assumption_flag=true; pre-match unknowns factor is assumption_flag=true",
-    "all source_refs copied from INPUT scoutscore_factors",
-    "post-edit: label-only replacement 「AI 观点」->「俅哥观点/俅哥今日判断」(de-model sprint; judgement prose untouched)"
+    "historical_replay: 本分析基于已完赛的2022世界杯阿根廷vs沙特比赛，并非赛前预测。",
+    "assumption_context: 伤病/阵容未公布、xG未接入、门将状态数据未接入——这些在赛前是盲点，分析中已标注assumption_flag。"
   ],
   "source_ref_map": {
-    "Long-run strength (Elo baseline)": "kaggle_intl_results (elo_snapshot@2022-11-22)",
-    "Recent form (last 10)": "kaggle_intl_results (last10_form)",
-    "Lineup integrity": "api-football /fixtures/lineups (fixture_id 855737)",
-    "Finishing efficiency": "api-football /fixtures/statistics (fixture_id 855737)",
-    "Goalkeeper performance gap": "api-football /fixtures/statistics + /fixtures/players (fixture_id 855737)",
-    "In-match momentum / late swings": "api-football /fixtures/events (fixture_id 855737)",
-    "Tactical matchup": "api-football /fixtures/lineups + /fixtures/statistics (fixture_id 855737)",
-    "Venue / travel / climate": "api-football /fixtures (fixture_id 855737) [assumption]",
-    "Pre-match unknowns (confirm before kickoff)": "no source_refs [assumption]",
-    "Upset / volatility risk": "upset_band(elo_gap=369, missing=3)"
+    "锋线效率未知": "kaggle_intl_results last10_form",
+    "门将状态待确认": "kaggle_intl_results last10_form",
+    "伤病/阵容未公布": "assumption: 赛前未接入伤病/阵容数据",
+    "锋线效率差距": "api-football /fixtures/statistics fixture_id=855737",
+    "门将表现差距": "api-football /fixtures/statistics + /fixtures/players fixture_id=855737",
+    "沙特防守韧性": "kaggle_intl_results last10_form",
+    "沙特的反击效率": "api-football /fixtures/statistics fixture_id=855737",
+    "阿根廷的防守专注度": "kaggle_intl_results last10_form",
+    "首发门将名单": "assumption: 开球前30分钟确认",
+    "锋线球员近期射门转化率": "assumption: 赛前未接入xG数据",
+    "沙特防守阵型紧凑度": "assumption: 基于热身赛表现分析"
   },
   "llm_provider": "deepseek",
   "voice": "qiuge_v2",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T06:49:40.964538+00:00"
+  "generated_at": "2026-06-11T15:25:45.700971+00:00"
 }

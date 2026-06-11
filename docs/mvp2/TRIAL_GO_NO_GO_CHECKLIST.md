@@ -48,6 +48,19 @@
 - [ ] 合规区 C 任一命中 → 单独标红上报
 - [ ] 汇总转入 `TRIAL_FEEDBACK_REPORT.md`（工程据此出试用反馈报告）
 
+## 4b. Track A 运行节（A-GO-1 已实施；工具 = scripts/mvp2_ops.py，逐项勾选）
+- [ ] 晨：`mvp2_ops.py scan` 已跑已审；key 场确认/override（`mvp2_ops_registry/key_match_overrides.json`）；配额账本 <70%。
+- [ ] 每 key 场：`prematch --fixture ID` 完成；guard report 在 run 目录；三语队列条目全部评审
+      （`queue list --fixture ID`，或部分语言决策已记录）；send-kit 仅含 guard-passed 字段；§0 Owner 条件仍全绿。
+- [ ] T-2h 时效复查：`watch --fixture ID --once`（lineups 仍 0，或已重生成）。
+- [ ] T-90 起 `watch --fixture ID` 常驻；运营守到开球（无人值守=不发送，规则本身）。
+- [ ] A3 演练记录：XI 时刻 / 生成时长 / guard 结果 / 评审时长 / 发送时刻（每场一行——核心时序证据）。
+- [ ] T-12 后不再发起任何新生成（CLI 强制拒绝；只发 A2 预批提醒模板）。
+- [ ] 开球：`queue sweep`；确认无 approved-未发 赛前条目残留。
+- [ ] 赛后：`recap --fixture ID`；复盘评审后才 `bundle`；build + 15 面可见扫描 PASS 才考虑部署（部署需 Owner 单独确认）。
+- [ ] 发送仍为人工：approve 后由运营粘贴，再 `queue mark-sent ITEM --channel … --group … --screenshot …` 登记。
+- [ ] 任何 guard override（needs_review→approved --note）列入当日记录。
+
 ## 5. 试用裁决（Owner 在反馈汇总后选择其一）
 | 裁决 | 含义 | 下一步 |
 |---|---|---|

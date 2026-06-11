@@ -1,0 +1,44 @@
+{
+  "run_id": "r20260611T1514Z-prematch",
+  "job": "prematch",
+  "fixtures": [
+    "1489371"
+  ],
+  "started_at": "2026-06-11T15:14:56+00:00",
+  "finished_at": "2026-06-11T15:14:56+00:00",
+  "git_rev": "f5c1d9b",
+  "steps": [
+    {
+      "name": "register_existing",
+      "status": "ok",
+      "at": "2026-06-11T15:14:56+00:00",
+      "detail": "skipping generation; registering existing artifacts",
+      "artifact_paths": []
+    },
+    {
+      "name": "guard",
+      "status": "ok",
+      "at": "2026-06-11T15:14:56+00:00",
+      "detail": "6/6 artifacts clean",
+      "artifact_paths": [
+        "docs/data_audit/mvp2_ops_runs/r20260611T1514Z-prematch/guard_report.json"
+      ]
+    },
+    {
+      "name": "send_kit",
+      "status": "ok",
+      "at": "2026-06-11T15:14:56+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_send_kits/1489371.prematch.md"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 0,
+    "by_endpoint": {}
+  },
+  "llm_calls": {},
+  "guard_summary": "6/6 clean",
+  "status": "ok"
+}

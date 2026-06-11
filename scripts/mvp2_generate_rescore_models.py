@@ -141,6 +141,8 @@ def check(obj, language):
     for term in ("模型", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema"):
         if term in bl:
             errs.append("de-model violation: %r" % term)
+    if GUARD.AI_TOKEN.search(blob):
+        errs.append("de-model violation: 'AI' (standalone, incl. zh-embedded)")
     for term in GUARD.FORBIDDEN + GUARD.FAKE_PROB + GUARD.TONE_BANS:
         if term.lower() in bl:
             errs.append("forbidden/tone wording: %r" % term)

@@ -91,7 +91,12 @@ def naturalize(frame):
 
 
 def build_input(sample_id, language):
-    frame = json.loads((FRAMES / ("%s.factor_frame.json" % sample_id)).read_text(encoding="utf-8"))
+    # Track A A4: a real-recap frame (post-match, archived-prediction provenance) takes
+    # precedence over the pre-match frame once the fixture is finished and built.
+    frame_path = FRAMES / ("%s.real_recap.factor_frame.json" % sample_id)
+    if not frame_path.exists():
+        frame_path = FRAMES / ("%s.factor_frame.json" % sample_id)
+    frame = json.loads(frame_path.read_text(encoding="utf-8"))
     mode = frame["mode"]
     fx = frame["fixture"]
     kb = frame["kaggle_baseline"]
@@ -115,10 +120,19 @@ def build_input(sample_id, language):
         "product_goal": PRODUCT_GOAL,
         "growth_brief": GROWTH_BRIEF,
     }
-    if mode == "historical_recap":
+    if mode in ("historical_recap", "real_recap"):
         inp["score"] = {"final": fx.get("final_score"), "winner": fx.get("result_winner"),
                         "shootout_winner": fx.get("shootout_winner")}
-        inp["replay_notice"] = "historical replay — NOT a real archived pre-match prediction; say so in internal_notes only"
+        if mode == "real_recap":
+            inp["prematch_provenance"] = frame.get("prematch_provenance") or {}
+            inp["real_recap_notice"] = (
+                "REAL recap: the pre-match judgement was a REAL archived prediction (stored in git "
+                "BEFORE kickoff — see prematch_provenance). internal_notes MUST cite the archived "
+                "artifact exactly as given (path + sha256 + generated_at). Customer prose = honest "
+                "validation of that judgement (what it got right / what it under-weighted); NEVER "
+                "hindsight-brag ('早就说过' / 'i told you so' phrasing is banned).")
+        else:
+            inp["replay_notice"] = "historical replay — NOT a real archived pre-match prediction; say so in internal_notes only"
         if frame.get("shootout_events_note"):
             inp["data_note"] = frame["shootout_events_note"]
     else:
@@ -255,7 +269,7 @@ def mock_narrative(sample_id, language, mode):
                            "historical replay disclosure n/a (mock)" if mode == "historical_recap" else "hypothetical fixture disclosure n/a (mock)"],
         "source_ref_map": {"all": ["mock_fallback"]},
     }
-    if mode == "historical_recap":
+    if mode in ("historical_recap", "real_recap"):
         base["validated_factors"] = base["underweighted_factors"] = [
             {"name": t("数据更新中", "Đang cập nhật"), "text": t("完整复盘稍后可看。", "Bản phục dựng đầy đủ sẽ có sau."), "source_refs": [], "assumption_flag": True}]
     return base

@@ -1,0 +1,120 @@
+{
+  "date": "2026-06-11",
+  "generated_at": "2026-06-11T15:13:56+00:00",
+  "degraded": false,
+  "league": 1,
+  "season": 2026,
+  "opening_date": "2026-06-11",
+  "elo_available": true,
+  "fixtures_today": [
+    {
+      "fixture_id": 1489369,
+      "match": "Mexico vs South Africa",
+      "kickoff_utc": "2026-06-11T19:00:00+00:00",
+      "status_short": "NS",
+      "round": "Group Stage - 1",
+      "venue": "Estadio Azteca",
+      "is_today": true,
+      "date": "2026-06-11",
+      "key_match": true,
+      "key_forced": false,
+      "key_reasons": [
+        "opening_day",
+        "host_nation"
+      ],
+      "pipeline": {
+        "frame": true,
+        "narratives": {
+          "zh-CN": true,
+          "vi-VN": true,
+          "my-MM": true
+        },
+        "rescore_models": {
+          "zh-CN": true,
+          "vi-VN": true,
+          "my-MM": true
+        },
+        "bundled": {
+          "zh-CN": true,
+          "vi-VN": true,
+          "my-MM": true
+        }
+      },
+      "actions_needed": [
+        "start `mvp2_ops.py watch --fixture 1489369` at T-90"
+      ]
+    }
+  ],
+  "fixtures_next_day": [
+    {
+      "fixture_id": 1538999,
+      "match": "South Korea vs Czech Republic",
+      "kickoff_utc": "2026-06-12T02:00:00+00:00",
+      "status_short": "NS",
+      "round": "Group Stage - 1",
+      "venue": "Estadio Akron",
+      "is_today": false,
+      "date": "2026-06-12",
+      "key_match": false,
+      "key_forced": false,
+      "key_reasons": [],
+      "pipeline": {
+        "frame": false,
+        "narratives": {
+          "zh-CN": false,
+          "vi-VN": false,
+          "my-MM": false
+        },
+        "rescore_models": {
+          "zh-CN": false,
+          "vi-VN": false,
+          "my-MM": false
+        },
+        "bundled": {
+          "zh-CN": false,
+          "vi-VN": false,
+          "my-MM": false
+        }
+      },
+      "actions_needed": []
+    },
+    {
+      "fixture_id": 1539000,
+      "match": "Canada vs Bosnia & Herzegovina",
+      "kickoff_utc": "2026-06-12T19:00:00+00:00",
+      "status_short": "NS",
+      "round": "Group Stage - 1",
+      "venue": "BMO Field",
+      "is_today": false,
+      "date": "2026-06-12",
+      "key_match": true,
+      "key_forced": false,
+      "key_reasons": [
+        "host_nation"
+      ],
+      "pipeline": {
+        "frame": false,
+        "narratives": {
+          "zh-CN": false,
+          "vi-VN": false,
+          "my-MM": false
+        },
+        "rescore_models": {
+          "zh-CN": false,
+          "vi-VN": false,
+          "my-MM": false
+        },
+        "bundled": {
+          "zh-CN": false,
+          "vi-VN": false,
+          "my-MM": false
+        }
+      },
+      "actions_needed": [
+        "A2 prematch: build frame + narratives + rescore models"
+      ]
+    }
+  ],
+  "key_match_cap_per_day": 2,
+  "api_requests_this_scan": 1
+}
