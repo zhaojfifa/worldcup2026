@@ -81,8 +81,11 @@ assumption 标记) / `kaggle_baseline`(Elo 快照、近 10 场状态、H2H) / `k
 - ❌ 工程审计词：MISS / replay / assumption / data_status / source_refs / snake_case 字段名出现在客户正文
 - ❌ 纯新闻标题（只有比分没有模型视角）；通用赛后评论腔（「这是一场精彩的比赛」）
 - ❌ 在任何客户字段写 URL / 链接 / t.me 群链接——入口按钮由产品端注入，你只写文案本身
-- 2026 样例：Brazil vs Argentina 是**假想淘汰赛相遇**，客户正文用「若两队在淘汰赛相遇」表述，
+- 2026 假想样例（输入带 `hypothetical_notice`）：客户正文用「若两队在淘汰赛相遇」表述，
   `internal_notes` 写明 hypothetical；绝不写成已排定赛程。
+- 2026 真实赛程（输入带 `real_fixture_notice` / `fixture_basis: real_scheduled`）：这是 **AI 战术室赛前版**——
+  开球时间/球场/轮次是真实的，直接用；**禁止**「若相遇」措辞；首发/阵型未公布：`internal_notes` 必须写明
+  「首发阵容未公布」，预期打法/关键对位只能作为 `assumption_flag: true` 的条目；临场 30 分钟重算是订阅钩子主轴。
 
 ## 自检后输出
 合法 JSON；所有键齐全；复盘有 validated/underweighted；预测有 main_lean/risk_level/scoreline_view

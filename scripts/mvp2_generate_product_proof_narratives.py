@@ -34,7 +34,7 @@ PROMPTS = ROOT / "docs" / "prompts"
 HAN = re.compile(r"[一-鿿]")
 
 PRODUCT_NAME = "Giành Cup AI ScoutScore"
-SAMPLES = ["855737", "979139", "2026_brazil_argentina"]
+SAMPLES = ["855737", "979139", "2026_brazil_argentina", "1489369", "1489371"]
 
 # natural factor names sent to the LLM — raw snake_case keys must never reach prose
 FACTOR_NAME = {
@@ -122,9 +122,18 @@ def build_input(sample_id, language):
         if frame.get("shootout_events_note"):
             inp["data_note"] = frame["shootout_events_note"]
     else:
-        inp["hypothetical_notice"] = frame.get("hypothetical_note")
         inp["baseline"]["recent_scorers"] = kb.get("recent_scorers")
         inp["baseline"]["shootout_history"] = kb.get("shootout_history")
+        basis = frame.get("fixture_basis") or ("hypothetical_scenario" if frame.get("hypothetical_fixture") else "hypothetical_scenario")
+        inp["fixture_basis"] = basis
+        if basis == "real_scheduled":
+            inp["real_fixture_notice"] = (
+                "REAL scheduled World Cup 2026 fixture — kickoff/venue/round above are real. This is the "
+                "AI tactical-room pre-match view. Starting XI / formations are NOT announced: internal_notes "
+                "must state lineups are pending; expected shapes / key duels only as assumption_flag entries; "
+                "NEVER 'if they meet' phrasing — the match is on the calendar.")
+        else:
+            inp["hypothetical_notice"] = frame.get("hypothetical_note")
     return inp
 
 
@@ -246,6 +255,8 @@ def generate(provider, sample_id, language, keys):
     meta = {"product_name": PRODUCT_NAME, "fixture_id": sample_id, "mode": inp["mode"],
             "language": language, "llm_provider": provider,
             "model": "deepseek-chat" if provider == "deepseek" else "gemini-2.5-flash"}
+    if inp.get("fixture_basis"):
+        meta["fixture_basis"] = inp["fixture_basis"]
     if key:
         for attempt in (1, 2, 3):
             try:
@@ -277,6 +288,8 @@ def generate(provider, sample_id, language, keys):
     obj.update({"product_name": PRODUCT_NAME, "fixture_id": sample_id, "mode": inp["mode"],
                 "language": language, "llm_provider": used, "model": model,
                 "generated_at": datetime.now(timezone.utc).isoformat()})
+    if inp.get("fixture_basis"):
+        obj["fixture_basis"] = inp["fixture_basis"]
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / ("%s.%s.%s.json" % (sample_id, language, provider))
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

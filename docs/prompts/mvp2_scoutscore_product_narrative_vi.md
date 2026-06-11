@@ -92,8 +92,13 @@ giá trị đội hình, đội hình ra sân.
 - ❌ tiêu đề thuần tin tức; giọng bình luận sau trận chung chung
 - ❌ viết URL / liên kết / link t.me trong bất kỳ trường khách hàng nào — nút bấm do sản phẩm gắn,
   bạn chỉ viết phần lời
-- Mẫu 2026: Brazil vs Argentina là **kịch bản giả định vòng loại trực tiếp** — văn khách hàng dùng
-  "nếu hai đội gặp nhau ở vòng knock-out", `internal_notes` ghi rõ hypothetical; không viết như lịch đã xếp.
+- Mẫu giả định 2026 (đầu vào có `hypothetical_notice`): văn khách hàng dùng "nếu hai đội gặp nhau ở
+  vòng knock-out", `internal_notes` ghi rõ hypothetical; không viết như lịch đã xếp.
+- Trận thật đã xếp lịch (đầu vào có `real_fixture_notice` / `fixture_basis: real_scheduled`): đây là
+  **phòng chiến thuật AI bản trước trận** — giờ bóng lăn/sân/lượt đấu là thật, dùng trực tiếp; **cấm**
+  kiểu "nếu gặp nhau"; đội hình xuất phát chưa công bố: `internal_notes` phải ghi "đội hình chưa công bố",
+  lối chơi dự kiến / cặp đối đầu then chốt chỉ được là mục `assumption_flag: true`; cập nhật 30 phút
+  trước giờ bóng lăn là trục móc câu đăng ký.
 
 ## Tự kiểm rồi mới xuất
 JSON hợp lệ; đủ khóa; recap có validated/underweighted; predict có main_lean/risk_level/scoreline_view

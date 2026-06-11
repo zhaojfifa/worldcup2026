@@ -1,0 +1,205 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "Giành Cup AI 战术室：墨西哥首战非洲劲旅，警惕世界杯揭幕战的“冷门密码”",
+  "hero_subtitle": "ScoutScore 模型赛前判断：墨西哥实力占优，但多重风险因子提示首轮爆冷可能。",
+  "short_title": "墨西哥vs南非：AI警示冷门风险",
+  "screenshot_line": "Giành Cup AI 模型：墨西哥实力占优，但首轮冷门风险评级为「高」！",
+  "model_judgement": "Giành Cup AI ScoutScore 模型赛前判断，墨西哥在世界杯小组赛首轮面对南非，整体实力占据明显优势。从长周期 Elo 积分看，墨西哥高达 1880 分，远超南非的 1624 分，这 256 分的差距是硬实力体现。近期状态，墨西哥 10 场 6 胜 3 平 1 负，攻入 16 球仅失 4 球，防守稳固。然而，模型也捕捉到这场比赛的潜在风险：世界杯揭幕战的紧张氛围、尚未公布的首发阵容，以及模型目前无法获取的伤病和 xG 数据，都增加了不确定性。南非虽然整体实力偏弱，但近期 10 场 5 胜 2 平 3 负，攻入 15 球，并非毫无还手之力，尤其在世界杯首战，往往有超常发挥。",
+  "main_lean": "赛前倾向墨西哥胜，但小组赛首轮冷门风险偏高，需警惕平局甚至小负。",
+  "scoreline_view": "模型估计合理比分区间：1-1，1-0，0-1。墨西哥小胜或平局的可能性不低。",
+  "risk_level": "高：世界杯小组赛首轮，强队面对弱队，但模型缺乏关键临场数据（首发、伤病、xG），导致预测盲点，冷门风险被放大。",
+  "risk_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "墨西哥 Elo 积分 1880，南非 1624，两者差距 256 分，墨西哥实力明显占优。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-11",
+          "value": "Mexico 1880 / South Africa 1624"
+        },
+        {
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "墨西哥近 10 场 6 胜 3 平 1 负，进 16 球失 4 球；南非 5 胜 2 平 3 负，进 15 球失 10 球。墨西哥状态更佳，防守稳固。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Lineup integrity",
+      "text": "双方大名单已公布，但首发阵容未知。世界杯首战，教练战术选择和球员临场状态对比赛影响巨大，需等待赛前 30 分钟模型重算。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Model blind spots",
+      "text": "模型目前无法获取伤病、预期进球（xG）、转会身价等关键数据。这些信息缺失增加了预测的不确定性，尤其对强队可能存在的“冷门陷阱”。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Upset / volatility risk",
+      "text": "强弱分明的对阵，加上模型盲点（首发、伤病、xG 未知），使得这场比赛的冷门风险被评定为“高”。",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=256, missing=4)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "In-match momentum / late swings",
+      "text": "世界杯小组赛揭幕战，球员普遍紧张，比赛进程可能出现意外。历史交锋中，两队有大比分，也有平局，南非曾在金杯赛击败墨西哥，说明其具备爆冷能力。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "首发阵容与战术",
+      "text": "比赛前 30 分钟，一旦官方公布首发阵容，Giành Cup AI 模型将立即重新计算，评估关键球员的缺阵或奇兵的登场对战局的影响。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将状态",
+      "text": "墨西哥和南非的门将名单已确定，但谁将首发，近期状态如何，将直接影响防守端表现。这是模型临场会重点关注的变量。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "临场伤病报告",
+      "text": "赛前是否有突发伤病或停赛，将是影响比赛走势的关键。Giành Cup AI 会在获取最新信息后，即时更新预测。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "主教练临场布阵",
+      "text": "墨西哥主教练 J. Aguirre 和南非主教练 M. Ntseki 的战术选择，尤其是在世界杯首战的保守或激进，将是比赛的胜负手。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "世界杯小组赛首轮，墨西哥对阵南非！Giành Cup AI 模型提示：墨西哥实力占优，但这场比赛的冷门风险评级高达「高」！首发阵容未定，临场变数多。想看模型赛前 30 分钟的最终判断？加入我们的社群，获取最新 AI 战术室情报！",
+  "subscription_hook": "免费版只能看到 Giành Cup AI 的主倾向和风险评级。订阅后，您将解锁完整的因子分析、模型在开赛前 30 分钟根据首发阵容重算的最新预测、更精准的比分区间深度解读，以及每日独家 AI 观点。别让关键信息溜走，成为 Giành Cup AI 战术室的深度用户！",
+  "group_join_copy": "想第一时间掌握 Giành Cup AI 战术室的全部预测细节？加入我们的 Telegram/Zalo 社群！在这里，您不仅能看到所有影响比赛的关键因子分析，还能获取模型在开赛前 30 分钟根据首发阵容更新的最终判断，以及社群专属的深度比分区间解读。和志同道合的球迷一起，用 AI 视角看懂世界杯！",
+  "today_cta": "今日 AI 观点",
+  "social_post": "世界杯首战，墨西哥vs南非！Giành Cup AI 模型警示：实力差距明显，但冷门风险却很高！首发未定，变数太多。想看 AI 临场怎么说？#GiànhCupAI #世界杯 #足球预测",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture — kickoff/venue/round above are real. This is the AI tactical-room pre-match view. Starting XI / formations are NOT announced: internal_notes must state lineups are pending; expected shapes / key duels only as assumption_flag entries; NEVER 'if they meet' phrasing — the match is on the calendar.",
+    "assumption_context: Lineup integrity (starting XI is NOT announced), Goalkeeper performance gap (starting GK + form unknown), Tactical matchup (formations not announced), Model blind spots (injuries, xG, market value, FIFA rank not ingested)."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "elo_snapshot@2026-06-11",
+        "value": "Mexico 1880 / South Africa 1624"
+      },
+      {
+        "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+      }
+    ],
+    "Recent form (last 10)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "last10_form"
+      }
+    ],
+    "Lineup integrity": [
+      {
+        "field": "squad",
+        "source": "api-football",
+        "endpoint": "/players/squads",
+        "fixture_id": "1489369"
+      }
+    ],
+    "Finishing efficiency": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "goalscorers_last10"
+      }
+    ],
+    "Goalkeeper performance gap": [
+      {
+        "field": "squad",
+        "source": "api-football",
+        "endpoint": "/players/squads",
+        "fixture_id": "1489369"
+      }
+    ],
+    "In-match momentum / late swings": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "h2h+shootouts"
+      }
+    ],
+    "Tactical matchup": [
+      {
+        "field": "coach",
+        "source": "api-football",
+        "endpoint": "/coachs",
+        "fixture_id": "1489369"
+      }
+    ],
+    "Venue / travel / climate": [
+      {
+        "field": "fixture",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": "1489369"
+      }
+    ],
+    "Model blind spots": [],
+    "Upset / volatility risk": [
+      {
+        "method": "upset_band(elo_gap=256, missing=4)"
+      }
+    ]
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "fixture_basis": "real_scheduled",
+  "generated_at": "2026-06-11T00:38:17.962720+00:00"
+}

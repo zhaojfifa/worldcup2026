@@ -1,0 +1,177 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489371",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "Giành Cup AI 战术室：巴西 vs 摩洛哥，世界杯揭幕战的「冷门密码」",
+  "hero_subtitle": "ScoutScore 模型指出巴西实力占优，但摩洛哥的防守韧性是潜在的爆冷风险。",
+  "short_title": "巴西 vs 摩洛哥：AI 预测冷门风险",
+  "screenshot_line": "ScoutScore 赛前预警：巴西虽有 65 Elo 优势，但摩洛哥近 10 场仅失 3 球，防守硬度不容小觑。",
+  "model_judgement": "Giành Cup AI ScoutScore 模型认为，巴西在长期实力（Elo 值 1964）上明显领先摩洛哥（Elo 值 1899），这是巴西被看好的主要依据。然而，摩洛哥近期状态火热，近 10 场比赛 7 胜 3 平保持不败，仅失 3 球，展现了极强的防守韧性。相比之下，巴西近期虽进攻火力强劲（25 球），但防守端失球数（11 球）偏多，这可能成为摩洛哥制造冷门的关键。",
+  "main_lean": "赛前倾向巴西获胜，但摩洛哥的防守反击能力和近期不败的势头，使得这场小组赛首战冷门风险偏高。",
+  "scoreline_view": "模型估计合理比分区间：2-1, 1-1, 2-2。考虑到摩洛哥的防守强度，巴西想轻松大胜并不容易。",
+  "risk_level": "中高。巴西虽然实力占优，但摩洛哥的防守反击和近期不败状态，加上世界杯小组赛首战的紧张气氛，都增加了比赛的不确定性。",
+  "risk_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "巴西的 Elo 积分高达 1964，而摩洛哥为 1899，两者有 65 分的差距，模型认为巴西在长期实力上占据优势。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-13",
+          "value": "Brazil 1964 / Morocco 1899"
+        },
+        {
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "摩洛哥近期状态惊人，近 10 场比赛 7 胜 3 平保持不败，仅失 3 球，防守表现极其稳固。巴西同期 6 胜 1 平 3 负，虽然进攻火力强劲（25 球），但失球数（11 球）相对较多。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Finishing efficiency",
+      "text": "巴西近期进球分散，Estêvão Willian、Lucas Paquetá、Bruno Guimarães 各有 1 球入账。摩洛哥则有 Brahim Díaz 贡献 3 球，Ayoub El Kaabi 贡献 2 球，进攻点相对集中。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "goalscorers_last10"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "In-match momentum / late swings",
+      "text": "世界杯小组赛首战往往充满变数，两队在 2023 年友谊赛中摩洛哥曾 2-1 战胜巴西，显示出其爆冷能力。点球大战历史显示巴西近期表现不佳，而摩洛哥则在 2022 年世界杯和 2026 年非洲杯预选赛中均赢下点球大战，心理素质过硬。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Upset / volatility risk",
+      "text": "尽管巴西是明显热门，但模型认为这场比赛的冷门风险处于中等水平，主要因为摩洛哥的防守硬度以及小组赛首轮的不确定性。",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=65, missing=4)"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Lineup integrity",
+      "text": "首发阵容是比赛的关键。模型将在赛前 30 分钟根据官方公布的首发名单进行重新计算，重点关注核心球员的出场情况和球队的整体阵型。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "两队首发门将的状态将直接影响比赛走势。模型将持续关注首发门将的临场表现和近期数据。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Tactical matchup",
+      "text": "教练的战术布置和临场调整至关重要。模型会根据公布的阵型和比赛进程，评估两队战术对位的优劣。",
+      "source_refs": [
+        {
+          "field": "coach",
+          "source": "api-football",
+          "endpoint": "/coachs",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Model blind spots",
+      "text": "模型目前未能获取伤病、停赛、xG（预期进球）和球员身价等关键数据。这些是赛前需要重点跟踪的变量，它们可能对比赛结果产生重大影响。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "世界杯小组赛首战，巴西对阵摩洛哥！Giành Cup AI ScoutScore 模型认为巴西实力占优，但摩洛哥近 10 场仅失 3 球，防守硬度不容小觑，冷门风险偏高。赛前 30 分钟，模型将根据首发阵容再次更新预测，入群获取最新动态！",
+  "subscription_hook": "免费版用户可查看核心判断和风险等级。订阅 Giành Cup AI ScoutScore，您将解锁：完整的因子分析、赛前 30 分钟模型基于首发阵容的实时更新、更精准的比分区间深度解析，以及每日 AI 观点独家推送！",
+  "group_join_copy": "想看懂世界杯，不再只看比分？加入 Giành Cup AI ScoutScore 足球情报群！这里有模型对每场比赛的深度分析，包括哪些因子影响判断、哪些风险需要警惕，以及临场 30 分钟根据首发阵容更新的独家预测。和我们一起，用 AI 视角解锁足球的奥秘！",
+  "today_cta": "今日 AI 观点",
+  "social_post": "世界杯揭幕战！巴西 vs 摩洛哥，Giành Cup AI 预测巴西占优，但摩洛哥防守固若金汤，冷门风险不低！#世界杯 #AI预测 #足球",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture — kickoff/venue/round above are real.",
+    "This is the AI tactical-room pre-match view.",
+    "Starting XI / formations are NOT announced: internal_notes must state lineups are pending; expected shapes / key duels only as assumption_flag entries; NEVER 'if they meet' phrasing — the match is on the calendar.",
+    "assumption_context: Lineup integrity, Goalkeeper performance gap, Tactical matchup, Model blind spots are marked as assumptions because their detailed data (e.g., starting XI, specific GK form, exact formations) is not available pre-match and will be re-evaluated closer to kickoff."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      "kaggle_intl_results",
+      "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+    ],
+    "Recent form (last 10)": [
+      "kaggle_intl_results"
+    ],
+    "Lineup integrity": [
+      "api-football"
+    ],
+    "Finishing efficiency": [
+      "kaggle_intl_results"
+    ],
+    "Goalkeeper performance gap": [
+      "api-football"
+    ],
+    "In-match momentum / late swings": [
+      "kaggle_intl_results"
+    ],
+    "Tactical matchup": [
+      "api-football"
+    ],
+    "Venue / travel / climate": [
+      "api-football"
+    ],
+    "Model blind spots": [],
+    "Upset / volatility risk": [
+      "upset_band(elo_gap=65, missing=4)"
+    ]
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "fixture_basis": "real_scheduled",
+  "generated_at": "2026-06-11T00:39:01.049891+00:00"
+}

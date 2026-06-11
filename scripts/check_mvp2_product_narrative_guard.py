@@ -139,9 +139,17 @@ def check_obj(obj, filename=""):
         sv = str(obj.get("scoreline_view", ""))
         if sv and not has_model_estimate_marker(sv):
             errs.append("scoreline_view must carry a model-estimate marker (e.g. 模型估计 / mô hình ước tính)")
-        notes_blob = walk_strings(obj.get("internal_notes", [])).lower()
-        if "hypothetical" not in notes_blob and "giả định" not in notes_blob and "假想" not in walk_strings(obj.get("internal_notes", [])):
-            errs.append("internal_notes must disclose the hypothetical 2026 fixture")
+        basis = obj.get("fixture_basis")
+        notes_raw = walk_strings(obj.get("internal_notes", []))
+        notes_blob = notes_raw.lower()
+        if basis not in ("real_scheduled", "hypothetical_scenario"):
+            errs.append("pre_match requires fixture_basis = real_scheduled | hypothetical_scenario (got %r)" % basis)
+        elif basis == "hypothetical_scenario":
+            if "hypothetical" not in notes_blob and "giả định" not in notes_blob and "假想" not in notes_raw:
+                errs.append("internal_notes must disclose the hypothetical fixture")
+        else:  # real_scheduled: pre-match view on a real fixture — lineups-pending disclosure required
+            if not any(t in notes_blob for t in ("lineup", "đội hình")) and not any(t in notes_raw for t in ("阵容", "首发")):
+                errs.append("internal_notes must disclose that lineups/XI are not announced (real_scheduled)")
 
     # 5. CTA presence
     if not str(obj.get("subscription_hook", "")).strip() and not str(obj.get("group_join_copy", "")).strip():

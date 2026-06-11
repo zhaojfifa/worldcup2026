@@ -1,0 +1,180 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "vi-VN",
+  "hero_title": "Giành Cup AI: Mexico Thách Thức Rủi Ro Khó Lường Trước Nam Phi",
+  "hero_subtitle": "Trận mở màn World Cup 2026 sẽ kiểm chứng khả năng của mô hình khi đối mặt với các biến số chưa công bố.",
+  "short_title": "Mexico vs Nam Phi: AI Đọc Rủi Ro Mở Màn WC",
+  "screenshot_line": "ScoutScore nhận định Mexico có lợi thế rõ ràng (Elo 1880 vs 1624) nhưng rủi ro cao vì đội hình chưa chốt.",
+  "model_judgement": "ScoutScore nhận định Mexico là bên được đánh giá cao hơn rõ rệt dựa trên chỉ số Elo dài hạn (1880 so với 1624 của Nam Phi) và phong độ gần đây (Mexico thắng 6/10 trận). Tuy nhiên, mô hình cảnh báo rủi ro cao do nhiều yếu tố then chốt như đội hình xuất phát và chiến thuật chưa được công bố, có thể tạo ra bất ngờ lớn.",
+  "main_lean": "Mexico được dự đoán có lợi thế rõ ràng để giành chiến thắng.",
+  "scoreline_view": "Ước tính của mô hình: khoảng tỷ số hợp lý nhất là 1-1, 1-0 hoặc 0-1, cho thấy một trận đấu chặt chẽ, ít bàn thắng.",
+  "risk_level": "Cao",
+  "risk_factors": [
+    {
+      "name": "Đội hình ra sân chưa chốt",
+      "text": "Đội hình xuất phát chính thức của cả Mexico và Nam Phi vẫn chưa được công bố. Đây là biến số cực kỳ quan trọng, có thể thay đổi hoàn toàn cục diện trận đấu, đặc biệt là ở vị trí xương sống của đội.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Khoảng cách hiệu suất thủ môn",
+      "text": "Danh sách thủ môn của hai đội đã được biết, nhưng thủ môn bắt chính và phong độ hiện tại của họ lại là ẩn số. Sự khác biệt ở vị trí này có thể ảnh hưởng lớn đến kết quả cuối cùng.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Chiến thuật chưa rõ ràng",
+      "text": "Huấn luyện viên của hai đội đã được xác nhận, nhưng sơ đồ chiến thuật cụ thể chưa được công bố. Điều này khiến mô hình khó lòng dự đoán chính xác các cặp đối đầu then chốt và cách triển khai lối chơi.",
+      "source_refs": [
+        {
+          "field": "coach",
+          "source": "api-football",
+          "endpoint": "/coachs",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Điểm mù của mô hình",
+      "text": "Mô hình hiện chưa có dữ liệu về chấn thương, thẻ phạt, chỉ số bàn thắng kỳ vọng (xG), giá trị đội hình hay thứ hạng FIFA chính thức. Những yếu tố này có thể tạo ra những bất ngờ không lường trước.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình ra sân chính thức",
+      "text": "Theo dõi sát đội hình xuất phát được công bố khoảng 30 phút trước giờ bóng lăn. Bất kỳ thay đổi bất ngờ nào ở các vị trí chủ chốt có thể là tín hiệu cho một trận đấu khó lường.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn bắt chính",
+      "text": "Xác định thủ môn bắt chính và xem xét phong độ gần đây của họ. Một thủ môn đang có phong độ cao có thể tạo ra sự khác biệt lớn trong một trận đấu World Cup.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Sơ đồ chiến thuật",
+      "text": "Quan sát sơ đồ chiến thuật mà hai đội áp dụng. Liệu có đội nào chơi phòng ngự chặt chẽ hay tấn công phủ đầu? Điều này sẽ định hình nhịp độ và số cơ hội ghi bàn.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Tâm lý trận mở màn",
+      "text": "Với tính chất là trận mở màn vòng bảng World Cup, áp lực tâm lý có thể khiến các đội chơi thận trọng. Hãy xem liệu có đội nào mạo hiểm đẩy cao đội hình sớm hay không.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Giành Cup AI ScoutScore dự đoán Mexico có lợi thế rõ ràng trước Nam Phi ở trận mở màn World Cup 2026. Chỉ số Elo cho thấy Mexico mạnh hơn đáng kể (1880 vs 1624). Tuy nhiên, mô hình cảnh báo rủi ro CAO vì đội hình ra sân chưa chốt. Đừng bỏ lỡ phân tích đầy đủ các yếu tố rủi ro và cập nhật đội hình 30 phút trước trận đấu trong nhóm!",
+  "subscription_hook": "Bản miễn phí cho bạn cái nhìn nhanh về nhận định chính và mức độ rủi ro. Đăng ký ngay để mở khóa toàn bộ phân tích chuyên sâu các yếu tố, nhận cập nhật đội hình và dự đoán lại 30 phút trước giờ bóng lăn, cùng với góc nhìn AI hàng ngày về các trận đấu khác.",
+  "group_join_copy": "Tham gia nhóm Telegram Giành Cup AI ScoutScore để nhận phân tích đầy đủ và chi tiết nhất. Chúng tôi sẽ cập nhật đội hình ra sân, các biến động trước trận và đưa ra nhận định AI cuối cùng 30 phút trước khi bóng lăn. Đừng bỏ lỡ những thông tin độc quyền giúp bạn hiểu sâu hơn về trận đấu!",
+  "today_cta": "Quan điểm AI hôm nay: Mexico vs Nam Phi",
+  "social_post": "Giành Cup AI ScoutScore nhận định Mexico có lợi thế rõ ràng trước Nam Phi (Elo 1880 vs 1624) ở trận mở màn World Cup 2026. Nhưng cảnh báo rủi ro CAO vì đội hình chưa chốt! Liệu có bất ngờ nào chờ đợi? Xem phân tích đầy đủ và cập nhật đội hình 30 phút trước trận trong nhóm Giành Cup AI!",
+  "internal_notes": [
+    "historical_replay: FALSE",
+    "assumption_context: đội hình chưa công bố, thủ môn bắt chính chưa biết, chiến thuật chưa rõ ràng, điểm mù mô hình.",
+    "real_fixture_notice: REAL scheduled World Cup 2026 fixture — kickoff/venue/round above are real. This is the AI tactical-room pre-match view. Starting XI / formations are NOT announced: internal_notes must state lineups are pending; expected shapes / key duels only as assumption_flag entries; NEVER 'if they meet' phrasing — the match is on the calendar.",
+    "đội hình chưa công bố"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "elo_snapshot@2026-06-11",
+        "value": "Mexico 1880 / South Africa 1624"
+      },
+      {
+        "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+      }
+    ],
+    "Recent form (last 10)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "last10_form"
+      }
+    ],
+    "Lineup integrity": [
+      {
+        "field": "squad",
+        "source": "api-football",
+        "endpoint": "/players/squads",
+        "fixture_id": "1489369"
+      }
+    ],
+    "Finishing efficiency": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "goalscorers_last10"
+      }
+    ],
+    "Goalkeeper performance gap": [
+      {
+        "field": "squad",
+        "source": "api-football",
+        "endpoint": "/players/squads",
+        "fixture_id": "1489369"
+      }
+    ],
+    "In-match momentum / late swings": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true,
+        "metric": "h2h+shootouts"
+      }
+    ],
+    "Tactical matchup": [
+      {
+        "field": "coach",
+        "source": "api-football",
+        "endpoint": "/coachs",
+        "fixture_id": "1489369"
+      }
+    ],
+    "Venue / travel / climate": [
+      {
+        "field": "fixture",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": "1489369"
+      }
+    ],
+    "Model blind spots": [],
+    "Upset / volatility risk": [
+      {
+        "method": "upset_band(elo_gap=256, missing=4)"
+      }
+    ]
+  },
+  "llm_provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "fixture_basis": "real_scheduled",
+  "generated_at": "2026-06-11T00:38:46.721806+00:00"
+}
