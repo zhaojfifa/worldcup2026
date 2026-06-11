@@ -3,18 +3,18 @@
   "fixture_id": "1489369",
   "mode": "pre_match_2026_modeling",
   "language": "zh-CN",
-  "hero_title": "中文先知判断：墨西哥大热，但冷门密码藏在三个盲区里",
-  "hero_subtitle": "Elo 差 256、近 10 场 6 胜、主场阿兹特克——但模型风险评级「高」，因为首发未知、门将未知、锋线效率未知。",
-  "short_title": "墨西哥 vs 南非：大热有冷门密码",
-  "screenshot_line": "中文先知：墨西哥 Elo 1880 vs 南非 1624，但风险评级「高」——开球前 30 分钟，首发名单会重新改写判断。",
-  "model_judgement": "中文先知判断：墨西哥是纸面强队，Elo 领先 256 分，近 10 场 6 胜 3 平 1 负，主场阿兹特克高原加成。但模型把风险标成「高」——因为三个关键变量全是盲区：首发阵容没公布、门将状态未知、南非锋线依赖 Appollis 和 Makgopa 的效率。这种大热，最容易翻车。",
-  "main_lean": "赛前倾向墨西哥胜，但冷门风险偏高",
-  "scoreline_view": "模型估计合理比分区间：1-1、1-0、0-1",
-  "risk_level": "高 —— 大热 + 三个模型盲区（首发、门将、锋线效率），经典盲区陷阱",
+  "hero_title": "俅哥看这场：墨西哥 vs 南非——大热翻车密码已浮现",
+  "hero_subtitle": "Elo 差 256 分，但 ScoutScore 风险标了「高」——不是不看好墨西哥，是盲区太多。",
+  "short_title": "墨西哥 vs 南非：大热暗藏冷门密码",
+  "screenshot_line": "Elo 差 256 分，风险标「高」——俅哥说这场翻车密码已浮现",
+  "model_judgement": "俅哥判断：墨西哥是明显更强的一方——Elo 领先 256 分、近 10 场 6 胜 3 平 1 负、防守端近 10 场 7 次零封。但 ScoutScore 的风险等级是「高」。原因不是墨西哥不强，而是模型有几个赛前盲区：首发阵容没公布、门将谁上不确定、南非近期进攻虽然慢热但关键射手有硬解能力（Oswin Appollis 3 球、Lyle Foster 2 球）。再加上阿兹特克球场海拔 2200 米、揭幕战气氛——这些变量任何一个出意外，都可能让「大热」翻车。",
+  "main_lean": "赛前倾向 Mexico 胜，但冷门风险偏高",
+  "scoreline_view": "模型估计合理比分区间：1-0、1-1、0-1",
+  "risk_level": "高——大热 + 阵容盲区 + 南非反击变量，经典陷阱局",
   "risk_factors": [
     {
-      "name": "首发不确定性",
-      "text": "两队首发 11 人、阵型均未公布。墨西哥若缺少 2 名以上中轴线主力（中卫/门将/前锋），战力可能打折。",
+      "name": "阵容不确定性",
+      "text": "双方首发 11 人未公布，墨西哥若缺少 2 名以上中轴线主力（中卫/门将/前锋），实力折扣明显。",
       "source_refs": [
         {
           "field": "lineups",
@@ -27,7 +27,7 @@
     },
     {
       "name": "门将风险",
-      "text": "墨西哥三门 Acevedo、Ochoa、Rangel 谁首发未知；南非三门 Chaine、Goss、Williams 状态未知。门将临场发挥是冷门放大器。",
+      "text": "墨西哥门将三人候选（Acevedo/Ochoa/Rangel），南非三人（Chaine/Goss/Williams），谁首发、近期状态如何——开球前才能确认。",
       "source_refs": [
         {
           "field": "squad",
@@ -39,20 +39,20 @@
       "assumption_flag": true
     },
     {
-      "name": "锋线效率依赖",
-      "text": "墨西哥近 5 场进 9 球、南非近 5 场仅 4 球，但南非 20% 的进球来自 Appollis（3 球）和 Makgopa（2 球），若他们抓住有限机会，效率差就是冷门本身。",
+      "name": "南非终结能力",
+      "text": "南非近 5 场只进 4 球，但关键射手 Appollis（3 球）、Makgopa（2 球）、Foster（2 球）具备单点爆破能力，效率差可能制造冷门。",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true
         }
       ],
       "assumption_flag": false
     },
     {
-      "name": "高原与揭幕战氛围",
-      "text": "阿兹特克海拔约 2200 米，南非适应能力未知；揭幕战主场压力可能让墨西哥急躁。",
+      "name": "场地与揭幕战压力",
+      "text": "阿兹特克球场海拔约 2200 米，加上揭幕战氛围，可能影响墨西哥的高位逼抢强度。",
       "source_refs": [
         {
           "field": "fixture",
@@ -68,8 +68,8 @@
   "underweighted_factors": [],
   "watch_next_signals": [
     {
-      "name": "首发名单（开球前 30 分钟）",
-      "text": "墨西哥是否派出全主力中轴线？南非是否摆出五后卫铁桶？——这两条会直接触发模型重算。",
+      "name": "首发阵容确认",
+      "text": "开球前约 30 分钟：墨西哥中轴线是否完整？南非是否摆出三中卫防反？这会改变俅哥判断。",
       "source_refs": [
         {
           "field": "lineups",
@@ -82,7 +82,7 @@
     },
     {
       "name": "门将状态",
-      "text": "谁守门？近期比赛扑救率如何？——临场 30 分钟更新会纳入。",
+      "text": "谁守门、近期比赛表现——临场 30 分钟重新评估风险等级。",
       "source_refs": [
         {
           "field": "squad",
@@ -94,31 +94,21 @@
       "assumption_flag": true
     },
     {
-      "name": "天气与高原反应",
-      "text": "墨西哥城傍晚温度、湿度是否影响南非体能？——临场观察。",
-      "source_refs": [
-        {
-          "field": "fixture",
-          "source": "api-football",
-          "endpoint": "/fixtures",
-          "fixture_id": 1489369
-        }
-      ],
+      "name": "南非开局策略",
+      "text": "如果南非前 15 分钟死守 + 偷一个，墨西哥的耐心和体能会被考验。",
+      "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "tactical_read": "墨西哥预期控球压制，利用边路传中找禁区高点；南非大概率收缩防守、快速反击，依赖 Appollis 和 Makgopa 的速度与抢点。关键对位：墨西哥双中卫 vs 南非双前锋的空中对抗，以及墨西哥门将面对远射的稳定性。节奏上，墨西哥想快，南非想拖——谁先进球将决定走势。",
-  "operator_copy": "中文先知看墨西哥vs南非：Elo 差 256，但风险高！首发、门将、锋线效率三个盲区，开球前 30 分钟名单一出，判断可能翻转。免费版看方向，群内看临场修正。",
-  "subscription_hook": "免费版看到主方向与风险评级；订阅后解锁：全部因子深度解读、开球前 30 分钟首发公布后的实时重算、比分区间精析。",
-  "group_join_copy": "想第一时间拿到中文先知对这场墨西哥vs南非的临场修正？开球前 30 分钟，首发名单一出，模型会重新算一遍主倾向和比分区间。群里直接看更新，不用等赛后。",
-  "today_cta": "今日 AI 观点：墨西哥 vs 南非——大热有冷门密码",
-  "social_post": "中文先知：墨西哥 Elo 1880 vs 南非 1624，但风险高！首发未知、门将未知、锋线效率未知——开球前 30 分钟见分晓。",
+  "operator_copy": "俅哥看这场：墨西哥 vs 南非，Elo 差 256 分但风险标「高」。阵容没公布、门将不确定、南非有硬解射手——大热翻车密码已浮现。免费版看方向，群内等 30 分钟首发重判。",
+  "subscription_hook": "免费版看主方向 + 风险等级；订阅后解锁完整因子拆解、临场 30 分钟首发重判、比分区间深度分析。",
+  "group_join_copy": "想看俅哥在首发公布后怎么修正判断？群内 30 分钟临场重判——门将谁上、阵型怎么摆、风险升还是降。扫码进群，开球前收到更新。",
+  "today_cta": "今日 AI 观点：墨西哥 vs 南非——大热翻车密码已浮现",
+  "social_post": "墨西哥 vs 南非：Elo 差 256 分但风险标「高」。阵容盲区 + 门将未知 + 南非有冷枪手。开球前 30 分钟，俅哥在群内重判。",
   "internal_notes": [
-    "real_scheduled fixture: 2026 World Cup Group Stage, kickoff/venue/round real.",
-    "Lineups NOT announced: all lineup/formation references are assumption_flag=true.",
-    "Injury news gap: 0 results pre-match; never stated as 'no injuries'.",
-    "Persona: 中文先知 (Chinese Oracle) used in hero and judgement.",
-    "tactical_read is required extra field for trial_prediction surface."
+    "real_fixture_notice: REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Lineups NOT announced: expected shapes only as assumption_flag entries; never invent injuries.",
+    "首发阵容未公布，所有预期打法和关键对位均为 assumption_flag 条目。",
+    "injury news gap: 0 results pre-match — internal only, not stated as 'no injuries'."
   ],
   "source_ref_map": {
     "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
@@ -126,16 +116,17 @@
     "Head-to-head": "kaggle_intl_results (derived)",
     "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
     "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
-    "Squad stability": "api-football /players/squads (assumption_flag)",
-    "Goalkeeper risk": "api-football /players/squads (assumption_flag)",
+    "Squad stability": "api-football /players/squads (assumption: XI continuity unknown)",
+    "Goalkeeper risk": "api-football /players/squads (assumption: starter unknown)",
     "Striker dependence / finishing": "kaggle_intl_results (derived)",
-    "Venue / altitude / context": "api-football /fixtures (assumption_flag)",
-    "Lineup uncertainty": "api-football /fixtures/lineups (assumption_flag)",
-    "30-minute pre-kickoff re-score": "internal mechanic (assumption_flag)"
+    "Venue / altitude / context": "api-football /fixtures (assumption: altitude/crowd impact scenario)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (assumption: not available)",
+    "30-minute pre-kickoff re-score": "subscription mechanic"
   },
   "llm_provider": "deepseek",
+  "tactical_read": "俅哥战术解读：墨西哥在阿吉雷治下大概率 4-3-3 控场，利用海拔和主场压迫南非。南非恩特塞基预计 5-4-1 防反，靠 Appollis 和 Foster 的速度打身后。关键对位：墨西哥边锋 vs 南非边翼卫的 1v1，谁能赢直接决定比赛节奏。开球前阵型未公布，这只是预期——首发出来俅哥再修正。",
   "product_surface": "trial_prediction",
   "fixture_basis": "real_scheduled",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T03:23:35.101514+00:00"
+  "generated_at": "2026-06-11T05:05:04.797353+00:00"
 }

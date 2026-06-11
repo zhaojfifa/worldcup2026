@@ -36,7 +36,7 @@ def _load(name, path):
 GEN = _load("ppgen", ROOT / "scripts" / "mvp2_generate_product_proof_narratives.py")
 GUARD = GEN.GUARD
 
-PERSONA = {"zh-CN": "中文先知", "vi-VN": "Tiên Tri Bóng Đá"}
+PERSONA = {"zh-CN": "俅哥（俅哥说球）", "vi-VN": "Tiên Tri Bóng Đá"}
 FACTOR_NAME = {
     "baseline_strength": "Long-run strength (Elo baseline)", "recent_form": "Recent form (last 10)",
     "h2h": "Head-to-head", "goal_trend": "Goal trend (last 5 vs prev 5)",
@@ -126,6 +126,7 @@ def generate(provider, sample_id, language, keys):
                 cand.update(meta)
                 probs = GUARD.check_obj(cand)
                 probs += ["missing field: %s" % k for k in REQUIRED_EXTRA if not str(cand.get(k, "")).strip()]
+                probs += ["%s must be a plain string" % k for k in REQUIRED_EXTRA if cand.get(k) is not None and not isinstance(cand.get(k), str)]
                 if not probs:
                     obj = cand
                     break

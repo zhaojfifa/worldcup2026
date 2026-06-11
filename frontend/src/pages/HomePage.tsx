@@ -124,10 +124,12 @@ export function HomePage() {
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <div className="hero-banner">
         <div className="hero-kicker">GIÀNH CUP</div>
-        <div className="hero-title">{t.heroTitlePre}<span className="accent">{t.heroTitleAccent}</span></div>
+        <div className="hero-title">
+          {loc === 'zh' ? <>俅哥<span className="accent">说球</span></> : <>{t.heroTitlePre}<span className="accent">{t.heroTitleAccent}</span></>}
+        </div>
         <div className="hero-en">{BRAND.heroEn}</div>
         <div className="hero-sub hero-persona">
-          {loc === 'zh' ? '中文先知赛前模型' : loc === 'vi' ? 'Mô hình trước trận Tiên Tri Bóng Đá' : 'Giành Cup pre-match scout model'}
+          {loc === 'zh' ? '世界杯赛前判断 · 临场 30 分钟修正' : loc === 'vi' ? 'Mô hình trước trận Tiên Tri Bóng Đá' : 'Giành Cup pre-match scout model'}
         </div>
         <div className="hero-sub">
           {loc === 'zh' ? '不只看胜率，更看为什么这样判断。'

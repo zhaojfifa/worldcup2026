@@ -1490,3 +1490,11 @@ body {
 .pp-morevars > summary { font-size: 11.5px; font-weight: 700; color: var(--blueMid); cursor: pointer; padding: 8px 0 2px; }
 .pp-hot-line { font-size: 12.5px; line-height: 1.5; }
 .lang-vi .pp-tier-i { font-size: 10.5px; }
+
+/* QiuGe 30-min rescore block */
+.rs-head { display: flex; flex-direction: column; gap: 6px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.rs-teaser { font-size: 12.5px; font-weight: 700; color: #2A1E5C; line-height: 1.6; }
+.rs-status { font-size: 10px; font-weight: 700; color: #92400e; background: #FFF6E2; border-radius: 999px; padding: 2px 7px; margin-left: 6px; }
+.rs-impact { font-size: 11px; color: #4B2E8F; margin-top: 3px; line-height: 1.6; }
+.rs-rule { font-size: 11px; color: #3A4A60; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; margin: 5px 0; line-height: 1.6; }
+.rs-rule b { color: #0e2a52; }

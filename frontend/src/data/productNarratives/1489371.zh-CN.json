@@ -3,18 +3,18 @@
   "fixture_id": "1489371",
   "mode": "pre_match_2026_modeling",
   "language": "zh-CN",
-  "hero_title": "中文先知判断：巴西 vs 摩洛哥——冷门密码藏在防守端",
-  "hero_subtitle": "Elo 差距 65 分，但摩洛哥近 10 场不败+7 场零封，模型赛前已标黄风险。",
-  "short_title": "巴西 vs 摩洛哥：防守定冷热",
-  "screenshot_line": "巴西 65 分 Elo 优势，但摩洛哥 7 场零封——冷门密码在防守端。",
-  "model_judgement": "中文先知判断：巴西是纸面更强的一方，Elo 领先 65 分，近 10 场 6 胜 1 平 3 负，进攻火力稳定（近 5 场 13 球）。但摩洛哥近 10 场 7 胜 3 平 0 负，防守端 7 场零封，近 5 场仅失 3 球，韧性极强。2023 年友谊赛摩洛哥 2-1 赢过巴西，不是没翻过车。模型给的 risk_level 是「中」，因为 lineup_uncertainty 和 goalkeeper_risk 两个关键变量还没落地。",
-  "main_lean": "赛前倾向巴西胜，但冷门风险偏高，摩洛哥防守反击有爆冷基因。",
-  "scoreline_view": "模型估计合理比分区间：2-1、1-1、2-2。",
-  "risk_level": "中——巴西是明确热门，但摩洛哥的防守数据和历史冷门让风险不可忽视。",
+  "hero_title": "俅哥看这场：巴西 vs 摩洛哥——冷门密码藏在哪？",
+  "hero_subtitle": "一场看似强弱分明的对决，但 ScoutScore 的赛前判断告诉你：风险比想象中大。",
+  "short_title": "俅哥：巴西vs摩洛哥，冷门密码",
+  "screenshot_line": "巴西 Elo 领先 65 分，但摩洛哥近 10 场不败、7 场零封——这冷门密码，ScoutScore 赛前就标了。",
+  "model_judgement": "俅哥判断：巴西是纸面更强的一方，Elo 领先 65 分，近 10 场 6 胜，但摩洛哥的状态太扎眼——7 胜 3 平不败，近 10 场 7 次零封。巴西的进攻效率（近 5 场 13 球）和摩洛哥的防守（近 5 场仅丢 3 球）形成鲜明反差。而且巴西的头号射手 Estêvão Willian 只进了 1 个球，进攻点分散但缺乏绝对终结者；摩洛哥的 Brahim Díaz 一个人包了 3 球，依赖度更高但状态火热。这场的关键不是名气，是巴西能不能把优势转化成进球。",
+  "main_lean": "赛前倾向 Brazil 胜，但冷门风险偏高",
+  "scoreline_view": "模型估计合理比分区间：2-1、1-1、2-2",
+  "risk_level": "中 — 巴西是明确热门，但摩洛哥的防守韧性和近期状态让冷门概率明显高于常规",
   "risk_factors": [
     {
       "name": "阵容不确定性",
-      "text": "双方首发 11 人未公布，巴西若缺少 2 名以上核心（中卫/门将/前锋），战力打折。",
+      "text": "首发阵容和阵型未公布，巴西若缺少 2 名以上中轴线主力（中卫/门将/前锋），风险会显著升高。",
       "source_refs": [
         {
           "field": "lineups",
@@ -26,8 +26,8 @@
       "assumption_flag": true
     },
     {
-      "name": "门将风险",
-      "text": "巴西三门将（阿利松、埃德森、韦弗顿）谁首发未知；摩洛哥布努状态火热但未确认。门将临场发挥可改变比赛。",
+      "name": "门将状态盲区",
+      "text": "巴西三选一（Alisson、Ederson、Weverton），摩洛哥 Bounou 是世界杯英雄——但谁首发、状态如何，开球前才能确认。",
       "source_refs": [
         {
           "field": "squad",
@@ -39,24 +39,24 @@
       "assumption_flag": true
     },
     {
-      "name": "前锋终结效率",
-      "text": "巴西近 10 场最佳射手仅 1 球，进球分散但缺乏稳定终结点；摩洛哥布拉欣·迪亚斯 3 球，依赖度更高。",
+      "name": "巴西终结效率",
+      "text": "巴西近 10 场头号射手仅 1 球，进攻分散但缺少稳定得分点；摩洛哥近 10 场 7 次零封，防守纪律性强。",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "dataset": "international football results 1872-2026",
           "derived": true
         }
       ],
       "assumption_flag": false
     },
     {
-      "name": "防守趋势对比",
-      "text": "巴西近 5 场失 7 球，防守下滑；摩洛哥近 5 场仅失 3 球，7 场零封。摩洛哥的防线更稳。",
+      "name": "摩洛哥近期状态",
+      "text": "摩洛哥近 10 场 7 胜 3 平不败，且近 5 场只丢 3 球，防守端极其稳固。",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "dataset": "international football results 1872-2026",
           "derived": true
         }
       ],
@@ -67,8 +67,8 @@
   "underweighted_factors": [],
   "watch_next_signals": [
     {
-      "name": "首发 11 人 vs 预期脊柱",
-      "text": "开球前 30 分钟，看巴西中卫、门将、前锋是否全主力；摩洛哥中场配置是否偏防守。",
+      "name": "首发阵容（开球前 30 分钟）",
+      "text": "巴西中轴线（中卫、门将、前锋）是否全主力；摩洛哥是否延续 4-3-3 防守阵型。",
       "source_refs": [
         {
           "field": "lineups",
@@ -80,8 +80,8 @@
       "assumption_flag": true
     },
     {
-      "name": "门将状态临场确认",
-      "text": "谁守门？布努 vs 巴西三门，门将的近期表现和大赛经验是变量。",
+      "name": "门将对位",
+      "text": "巴西谁守门？摩洛哥 Bounou 是否首发——这会改变俅哥对防守强度的判断。",
       "source_refs": [
         {
           "field": "squad",
@@ -93,47 +93,41 @@
       "assumption_flag": true
     },
     {
-      "name": "天气/场地影响",
-      "text": "美国夏季晚场，湿热可能影响巴西高位逼抢的体能。",
-      "source_refs": [
-        {
-          "field": "fixture",
-          "source": "api-football",
-          "endpoint": "/fixtures",
-          "fixture_id": 1489371
-        }
-      ],
-      "assumption_flag": true
-    },
-    {
-      "name": "摩洛哥开局抢攻",
-      "text": "若摩洛哥前 15 分钟进球，比赛节奏可能被颠覆，巴西心态受压。",
+      "name": "临场 30 分钟重算",
+      "text": "ScoutScore 会在开球前 30 分钟根据已公布的 XI 重新计算主倾向、比分区间和风险等级。",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "🇧🇷巴西 vs 🇲🇦摩洛哥，中文先知赛前判断：巴西 Elo 领先 65 分，但摩洛哥 7 场零封、近 10 场不败。风险中，冷门密码在防守。开球前 30 分钟看首发，群内发临场修正。",
-  "subscription_hook": "免费版看方向（主胜倾向+风险等级）。订阅版解锁：全部因子拆解、首发公布后 30 分钟重算比分区间、临场门将状态评估。",
-  "group_join_copy": "想第一时间收到中文先知的首发解读和临场比分修正？加入 Giành Cup 球迷群，开球前 30 分钟推送 AI 重算结果。入群方式由运营提供。",
-  "today_cta": "今日 AI 观点：巴西 vs 摩洛哥——防守端定冷热",
-  "social_post": "巴西 Elo 领先 65 分，但摩洛哥 7 场零封、近 10 场不败。冷门密码在防守。中文先知判断：风险中，开球前 30 分钟看首发。",
+  "tactical_read": "俅哥战术解读：巴西在安切洛蒂治下预期以 4-3-3 控球为主，利用边路内切和肋部渗透；摩洛哥大概率延续世界杯上的紧凑 4-3-3 或 4-1-4-1，中后场密集，抓转换。关键对位：巴西边锋 vs 摩洛哥边翼卫，摩洛哥双后腰 vs 巴西中场三人组。节奏上，巴西想快，摩洛哥想慢——谁先开瓶谁占优。注意：阵型未公布，以上为预期设定。",
+  "operator_copy": "🇧🇷🇲🇦 俅哥看这场：巴西 vs 摩洛哥。Elo 领先 65 分，但摩洛哥近 10 场不败、7 次零封——冷门密码 ScoutScore 赛前就标了。免费看方向，群内等 30 分钟首发重算。",
+  "subscription_hook": "免费版看到主倾向和风险等级；订阅后解锁全部因子分解、开球前 30 分钟的首发重算（主倾向/比分区间/风险等级更新），以及比分区间深度分析。",
+  "group_join_copy": "想第一时间收到俅哥的临场修正？开球前 30 分钟，ScoutScore 根据已公布的 XI 重新计算判断——首发门将是谁、阵型怎么摆，都会改写风险。加入群聊，免费看方向，群内看重算。",
+  "today_cta": "今日 AI 观点：巴西 vs 摩洛哥——冷门密码已标",
+  "social_post": "🇧🇷🇲🇦 巴西 Elo 领先 65 分，但摩洛哥近 10 场不败、7 次零封。俅哥说：这场冷门概率比想象中高。开球前 30 分钟首发重算见群。",
   "internal_notes": [
-    "real_scheduled fixture: kickoff/venue/round are real World Cup 2026 data.",
-    "lineups NOT announced at build time: all lineup/formation expectations are assumption_flag entries.",
-    "injury data unavailable: never stated as 'no injuries'; internal only.",
-    "trial_persona '中文先知' used in hero and judgement.",
-    "tactical_read is expected approach based on team profiles, not confirmed."
+    "real_fixture_notice: REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
+    "Lineups NOT announced: internal_notes must say so; expected shapes only as assumption_flag entries; never invent injuries.",
+    "assumption_context items: lineup_uncertainty, goalkeeper_risk, venue/altitude/context, squad_stability (partial), injury_news_gap (internal only).",
+    "tactical_read contains expected setups only, flagged as assumption."
   ],
   "source_ref_map": {
-    "kaggle_intl_results": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-    "api-football /fixtures": "endpoint /fixtures, fixture_id 1489371",
-    "api-football /players/squads": "endpoint /players/squads, fixture_id 1489371",
-    "api-football /fixtures/lineups": "endpoint /fixtures/lineups, fixture_id 1489371"
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
+    "Recent form (last 10)": "kaggle_intl_results (derived)",
+    "Head-to-head": "kaggle_intl_results (derived)",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
+    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
+    "Squad stability": "api-football /players/squads (assumption)",
+    "Goalkeeper risk": "api-football /players/squads (assumption)",
+    "Striker dependence / finishing": "kaggle_intl_results (derived)",
+    "Venue / altitude / context": "api-football /fixtures (assumption)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (assumption)",
+    "Injury news gap": "api-football /injuries (assumption, internal only)",
+    "30-minute pre-kickoff re-score": "internal mechanic (verified)"
   },
   "llm_provider": "deepseek",
-  "tactical_read": "中文先知战术解读：巴西在安切洛蒂治下预期控球主导，边路进攻+中场渗透，但中锋终结点分散。摩洛哥大概率 5-4-1 防守反击，依靠布拉欣·迪亚斯和埃尔·卡比的个人能力打身后。关键对位：巴西边后卫 vs 摩洛哥边锋，摩洛哥双后腰能否切断巴西中场输送。节奏上，巴西想快，摩洛哥想慢。开球前 30 分钟的首发将验证这些预期。",
   "product_surface": "trial_prediction",
   "fixture_basis": "real_scheduled",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T03:25:06.318864+00:00"
+  "generated_at": "2026-06-11T05:13:43.167705+00:00"
 }

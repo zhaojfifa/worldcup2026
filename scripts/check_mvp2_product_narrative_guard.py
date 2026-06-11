@@ -46,6 +46,7 @@ FORBIDDEN = [
     "betting", "odds", "wager", "bookmaker", "parlay", "guaranteed win", "sure win",
     # brand / voice bans (June-11 trial): football product must not surface Cloud or generic AI-analysis voice
     "cloud", "ai 分析", "ai分析", "我们没有数据", "không có dữ liệu nên", "thiếu dữ liệu", "缺数据", "缺少数据",
+    "数据缺失", "模型自证",
 ]
 FAKE_PROB = ["命中率", "胜率", "中奖率", "win rate", "win probability", "tỷ lệ thắng", "tỷ lệ trúng", "xác suất thắng"]
 AUDIT_TOKENS = [
@@ -114,8 +115,8 @@ def check_obj(obj, filename=""):
 
     # 2. product name in the hero block
     hero_blob = " ".join(str(obj.get(k, "")) for k in ("hero_title", "hero_subtitle", "model_judgement"))
-    if not any(b in hero_blob for b in ("Giành Cup", "ScoutScore", "中文先知", "Tiên Tri")):
-        errs.append("brand/persona (Giành Cup / ScoutScore / 中文先知 / Tiên Tri) missing from hero block")
+    if not any(b in hero_blob for b in ("Giành Cup", "ScoutScore", "俅哥", "中文先知", "Tiên Tri")):
+        errs.append("brand/persona (Giành Cup / ScoutScore / 俅哥 / Tiên Tri) missing from hero block")
 
     # 3. core judgement fields
     for k in ("model_judgement", "main_lean"):
@@ -161,8 +162,8 @@ def check_obj(obj, filename=""):
         if is_vi:
             if "Tiên Tri" not in whole:
                 errs.append("vi trial narrative must speak as Tiên Tri Bóng Đá")
-        elif obj.get("language") == "zh-CN" and "中文先知" not in whole:
-            errs.append("zh trial narrative must speak as 中文先知")
+        elif obj.get("language") == "zh-CN" and "俅哥" not in whole:
+            errs.append("zh trial narrative must speak as 俅哥 (俅哥说球)")
 
     # 5. CTA presence
     if not str(obj.get("subscription_hook", "")).strip() and not str(obj.get("group_join_copy", "")).strip():

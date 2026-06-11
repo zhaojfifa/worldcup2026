@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Locale } from '../i18n/useLocale';
 import type { ProductFactor, ProductNarrative } from '../data/productNarrativeData';
 import { PRODUCT_RECAPS } from '../data/productNarrativeData';
+import { getRescore } from '../data/rescoreData';
 import { MORE_RECAPS } from '../data/recapData';
 
 // Renders the LLM-generated PRODUCT narrative (judgement / lean / risk / factors /
@@ -10,10 +11,10 @@ import { MORE_RECAPS } from '../data/recapData';
 // Section labels/buttons below are UI chrome (stage), not narrative.
 const L10N = {
   zh: {
-    judgement: '中文先知怎么判断', lean: 'AI 倾向', scoreline: '比分区间', risk: '风险评级',
+    judgement: '俅哥怎么判断', lean: 'AI 倾向', scoreline: '比分区间', risk: '风险评级',
     gotRight: '模型抓对了什么', underweighted: '模型低估了什么', decisive: '决定性因子', evidence: '数据证据',
-    watchNext: '下次看类似比赛该盯什么', live30: '中文先知临场 30 分钟修正', keyFactors: '关键因子', tactical: '中文先知战术解读',
-    freeFull: '免费版 vs 完整分析', joinGroup: '加入赛前情报群', today: '查看中文先知判断', live30cta: '查看临场修正逻辑', moreVars: '更多变量', freeTier: '免费版', fullTier: '完整版（群内）', freeItems: ['主倾向与风险评级', '关键变量（部分）', '战术解读方向'], fullItems: ['全部变量逐条拆解', '开球前 30 分钟首发重算', '比分区间深度解析'],
+    watchNext: '下次看类似比赛该盯什么', live30: '俅哥临场 30 分钟修正', keyFactors: '关键因子', tactical: '俅哥战术解读',
+    freeFull: '免费版 vs 完整分析', joinGroup: '加入赛前情报群', today: '查看俅哥判断', live30cta: '查看临场修正逻辑', moreVars: '更多变量', freeTier: '免费版', fullTier: '完整版（群内）', rsBadge: '开球前 30 分钟重算', rsRules: '俅哥的修正规则（示例）', rsWait: '加入赛前情报群，等俅哥临场修正', freeItems: ['主倾向与风险评级', '关键变量（部分）', '战术解读方向'], fullItems: ['全部变量逐条拆解', '开球前 30 分钟首发重算', '比分区间深度解析'],
     internal: '模型依据 / 内部来源（点击展开）', opsKit: '运营素材（内部）', notes: '内部备注', sources: '来源映射',
     by: '本页判断与文案由模型生成', moreRecaps: '更多历史复盘', moreStatus: '数据已接入，复盘生成中',
     predictLink: '2026 赛前建模样例：Brazil vs Argentina', estBadge: '模型估计',
@@ -24,7 +25,7 @@ const L10N = {
     judgement: 'Tiên Tri Bóng Đá nhận định thế nào', lean: 'Thiên hướng AI', scoreline: 'Khoảng tỷ số', risk: 'Mức rủi ro',
     gotRight: 'Mô hình bắt đúng điều gì', underweighted: 'Mô hình đánh giá thấp điều gì', decisive: 'Yếu tố quyết định', evidence: 'Bằng chứng dữ liệu',
     watchNext: 'Trận tương tự lần sau nên nhìn gì', live30: 'Cập nhật 30 phút trước trận', keyFactors: 'Yếu tố then chốt', tactical: 'Thẻ chiến thuật Tiên Tri',
-    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tình báo trước trận', today: 'Xem nhận định Tiên Tri Bóng Đá', live30cta: 'Xem cập nhật 30 phút trước trận', moreVars: 'Thêm biến số', freeTier: 'Bản miễn phí', fullTier: 'Bản đầy đủ (trong nhóm)', freeItems: ['Thiên hướng chính và mức rủi ro', 'Một phần biến số then chốt', 'Hướng đọc chiến thuật'], fullItems: ['Bóc tách đủ mọi biến số', 'Tính lại 30 phút trước giờ bóng lăn theo đội hình', 'Phân tích sâu khoảng tỷ số'],
+    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tình báo trước trận', today: 'Xem nhận định Tiên Tri Bóng Đá', live30cta: 'Xem cập nhật 30 phút trước trận', moreVars: 'Thêm biến số', freeTier: 'Bản miễn phí', fullTier: 'Bản đầy đủ (trong nhóm)', rsBadge: 'Tính lại 30 phút trước giờ bóng lăn', rsRules: 'Quy tắc hiệu chỉnh của Tiên Tri (ví dụ)', rsWait: 'Vào nhóm tình báo, chờ Tiên Tri hiệu chỉnh sát giờ', freeItems: ['Thiên hướng chính và mức rủi ro', 'Một phần biến số then chốt', 'Hướng đọc chiến thuật'], fullItems: ['Bóc tách đủ mọi biến số', 'Tính lại 30 phút trước giờ bóng lăn theo đội hình', 'Phân tích sâu khoảng tỷ số'],
     internal: 'Cơ sở mô hình / nguồn nội bộ (nhấn để mở)', opsKit: 'Bộ nội dung vận hành (nội bộ)', notes: 'Ghi chú nội bộ', sources: 'Bản đồ nguồn',
     by: 'Nhận định và lời văn trên trang do mô hình tạo', moreRecaps: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng',
     predictLink: 'Mẫu mô hình hóa trước trận 2026: Brazil vs Argentina', estBadge: 'Mô hình ước tính',
@@ -35,7 +36,7 @@ const L10N = {
     judgement: 'How the Giành Cup scout reads it', lean: 'AI lean', scoreline: 'Scoreline band', risk: 'Risk level',
     gotRight: 'What the model got right', underweighted: 'What the model under-weighted', decisive: 'Decisive factors', evidence: 'Data evidence',
     watchNext: 'What to watch in a similar match', live30: 'What re-computes 30 minutes before kickoff', keyFactors: 'Key factors', tactical: 'Tactical read',
-    freeFull: 'Free vs full analysis', joinGroup: 'Join the group for the full analysis', today: 'See the scout call', live30cta: 'See the 30-min re-score logic', moreVars: 'More variables', freeTier: 'Free', fullTier: 'Full (in group)', freeItems: ['Main lean and risk level', 'Part of the key variables', 'Tactical direction'], fullItems: ['Every variable unpacked', '30-min pre-kickoff re-score on the XI', 'Scoreline band deep-dive'],
+    freeFull: 'Free vs full analysis', joinGroup: 'Join the group for the full analysis', today: 'See the scout call', live30cta: 'See the 30-min re-score logic', moreVars: 'More variables', freeTier: 'Free', fullTier: 'Full (in group)', rsBadge: 'Re-scored 30 min before kickoff', rsRules: 'Re-score rules (examples)', rsWait: 'Join the group for the live re-score', freeItems: ['Main lean and risk level', 'Part of the key variables', 'Tactical direction'], fullItems: ['Every variable unpacked', '30-min pre-kickoff re-score on the XI', 'Scoreline band deep-dive'],
     internal: 'Model basis / internal sources (expand)', opsKit: 'Operator kit (internal)', notes: 'Internal notes', sources: 'Source map',
     by: 'Judgement and copy on this page are model-generated', moreRecaps: 'More historical recaps', moreStatus: 'Data ingested, recap in progress',
     predictLink: '2026 pre-match modeling sample: Brazil vs Argentina', estBadge: 'Model estimate',
@@ -198,6 +199,51 @@ export function ProductRecapView({ n, loc }: { n: ProductNarrative; loc: Locale 
   );
 }
 
+/** 30-Min ReScore product block (QiuGe sprint): free = 3 triggers; group = full list + rules. */
+function RescoreBlock({ fixtureId, loc, L }: { fixtureId: string; loc: Locale; L: ReturnType<typeof ppLabels> }) {
+  const navigate = useNavigate();
+  const rs = getRescore(fixtureId, loc);
+  if (!rs) return null;
+  const free = rs.rescore_triggers.slice(0, 3);
+  const locked = rs.rescore_triggers.slice(3);
+  return (
+    <>
+      <div id="rescore" />
+      <Sec zh={L.live30} en="30-MIN RE-SCORE" />
+      <div className="card">
+        <div className="rs-head">
+          <span className="recap-chip">{L.rsBadge}</span>
+          <span className="rs-teaser">{rs.public_teaser}</span>
+        </div>
+        {free.map((t, i) => (
+          <div className="nv-signal" key={i}>
+            <div className="nv-name">{t.name} <span className="rs-status">{t.current_status}</span></div>
+            <div className="nv-text">{t.free_copy}</div>
+            <div className="rs-impact">→ {t.possible_impact}</div>
+          </div>
+        ))}
+      </div>
+      <div className="card pp-lock">
+        <div className="pp-tier-h">{L.fullTier}</div>
+        {locked.map((t, i) => (
+          <div className="nv-signal" key={i}>
+            <div className="nv-name">{t.name}</div>
+            <div className="nv-text">{t.subscriber_copy}</div>
+          </div>
+        ))}
+        <div className="eb-internal-sub" style={{ marginTop: 10 }}>{L.rsRules}</div>
+        {rs.rescore_decision_rules.slice(0, 2).map((r, i) => (
+          <div className="rs-rule" key={i}>
+            <b>{r.condition}</b> → {r.change_to_lean} · {r.change_to_risk} · {r.change_to_score_range}
+          </div>
+        ))}
+        <div className="recap-cta-q" style={{ marginTop: 10 }}>{rs.group_join_hook}</div>
+        <button className="recap-cta-btn" style={{ width: '100%' }} onClick={() => navigate('/community')}>{L.rsWait} ▸</button>
+      </div>
+    </>
+  );
+}
+
 /** 2026 pre-match modeling product view — structure per plan §5 (predict). */
 export function ProductPredictView({ n, loc, opsOpen }: { n: ProductNarrative; loc: Locale; opsOpen?: boolean }) {
   const navigate = useNavigate();
@@ -224,8 +270,14 @@ export function ProductPredictView({ n, loc, opsOpen }: { n: ProductNarrative; l
       <FactorList items={n.risk_factors} top={3} moreLabel={L.moreVars} />
 
       <div id="live30" />
-      <Sec zh={L.live30} en="LIVE 30-MIN RE-SCORE" />
-      <FactorList items={n.watch_next_signals} />
+      {getRescore(n.fixture_id, loc) ? (
+        <RescoreBlock fixtureId={n.fixture_id} loc={loc} L={L} />
+      ) : (
+        <>
+          <Sec zh={L.live30} en="LIVE 30-MIN RE-SCORE" />
+          <FactorList items={n.watch_next_signals} />
+        </>
+      )}
 
       <Sec zh={L.freeFull} en="FREE VS FULL" />
       <div className="card pp-lock">

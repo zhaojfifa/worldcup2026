@@ -16,13 +16,13 @@ import { useLocale, FALLBACK_CHAIN, type Locale } from './useLocale';
 const ZH = {
   // ── Header / brand ──
   brandName: 'Giành Cup',
-  brandRole: '世界杯 AI 足球情报社区',
+  brandRole: '俅哥说球 · 世界杯足球情报',
   headerSub: '不只看胜率，更看 AI 为什么这样判断',
   brandHeroEn: '2026 World Cup AI Football Intelligence',
 
   // ── Bottom nav ──
   navHome: '首页',
-  navDetail: '中文先知',
+  navDetail: '俅哥说球',
   navToken: 'MTC积分',
   navCommunity: '社群',
 
