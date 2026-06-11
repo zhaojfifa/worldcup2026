@@ -1,5 +1,10 @@
 # MVP-2 Track A P0 · 干跑报告（fixture 1489371 Brazil vs Morocco）
 
+> **状态（2026-06-12）：Owner 验收 PASS WITH CONDITIONS（基线 54026ad；验证轮 b458fd5 增补了
+> kaggle 队名别名修复 + 1539000 首次全链 A2 + 1489371 运行单）。** 试用发送被部署门阻塞：
+> 运营手动部署 b458fd5+ → SPA rewrite → 线上扫描 PASS。后续执行以
+> `docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md` 与 HANDOFF ★★ 节为准；本文 §5 的"下一步"已由其取代。
+
 > 执行日 2026-06-11（UTC 15:14–15:35）· 分支 `feature/mvp2-api-football-ingestion` · A-GO-1 范围。
 > 原则：真实数据真实跑；跑不到的环节**诚实标记 blocked_by_time_or_data**，不造数、不发送、不部署。
 

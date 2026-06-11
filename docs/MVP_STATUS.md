@@ -1,12 +1,39 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-11 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
+_Last updated: 2026-06-12 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-11, latest) — June 11 Real Match Trial Prediction Sprint
+## ★ MVP-2 status (2026-06-12, latest) — Track A P0 ACCEPTED · deploy-verification handoff
+
+```text
+Owner verdict: Track A P0 = PASS WITH CONDITIONS. Branch feature/mvp2-api-football-ingestion @
+b458fd5 (acceptance base 54026ad) · PR #3 OPEN+Draft · main untouched · public operation paused ·
+small private trial only · Track B design-only (must NOT be implemented).
+Track A P0 implemented + dry-run verified: scripts/mvp2_ops.py (scan/prematch/watch/rescore/recap/
+bundle/queue/status, run+fixture manifests, T-12 abort) · scripts/mvp2_ops_queue.py (file review
+queue, sha256 tamper-reject, mock/expired unapprovable; selftest 12/12) · A1 daily scan (real) ·
+A3 facts-only rescore diff (artifacts only on guard pass) · A4 real_recap frames (archived-
+prediction provenance, guard-enforced). Trilingual product zh/vi/my intact (15-surface scan).
+First FULL A2 done on 1539000 Canada–Bosnia: exposed + fixed a real data bug (kaggle team-name
+mismatch -> silent elo 1500 cold start -> FAKE gap 314 in narratives; now KAGGLE_TEAM_ALIASES at
+every lookup + cold-start flags assumption; frame rebuilt Bosnia 1626/gap 188; 6/6 regenerated
+guard-clean). zh prompt self-conflict fixed (今日 AI 观点 schema残留); \bAI\b CJK-boundary hole
+hardened in 4 gates; 4 zh narratives regenerated clean.
+TRIAL GATE (Owner conditions, blocking sends): 1) operator manually deploys b458fd5+ to
+worldcup2026-izid (live bundle was still pre-54026ad w/ old 今日AI观点 at last check; NO auto-
+deploy; render.yaml alone does not affect the manually created service) · 2) operator sets Render
+SPA rewrite /* -> /index.html (deep links 404 until then) · 3) LIVE visible-copy scan must PASS
+before any link is sent (`python3 scripts/check_customer_visible_copy.py https://worldcup2026-izid.onrender.com`)
+· 4) all sends manual + Owner GO per fixture.
+Next thread: deploy verification -> live scan -> 1539000 / 1489371 A2/A3/A4 per
+docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md (kickoff 06-13 22:00 UTC) -> evidence report.
+Start command + checklist + report format: HANDOFF ★★ section.
+```
+
+## ★ MVP-2 status (2026-06-11) — June 11 Real Match Trial Prediction Sprint
 
 ```text
 De-Modeling sprint (same day, Owner: customer voice cleanup): visible customer copy now speaks ONLY as

@@ -13,7 +13,26 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-11/12 (latest) — Track A P0 ACCEPTED (PASS WITH CONDITIONS) · real-trial validation round SHIPPED**
+**★ 2026-06-12 (latest) — THREAD CLOSED · Track A P0 accepted · DEPLOY-VERIFICATION HANDOFF**
+```text
+Closure round (docs-only, zero runtime change). Owner verdict: Track A P0 = PASS WITH CONDITIONS.
+State: branch @ b458fd5 · PR #3 OPEN+Draft · main untouched · operation paused · small private
+trial only · Track A P0 implemented + dry-run verified · Track B DESIGN-ONLY (do NOT implement) ·
+no auto-send / payment / betting / odds / handicap / casino wording.
+TRIAL GATE (blocking all sends): 1) operator MANUALLY deploys b458fd5+ to worldcup2026-izid
+(live was still pre-54026ad with old 今日AI观点 in the last verified window; no auto-deploy;
+render.yaml alone does not affect the manually created service) · 2) Render SPA rewrite
+/* -> /index.html (deep links 404 until set) · 3) LIVE visible-copy scan must PASS before any
+trial link is sent · 4) sends manual + Owner GO per fixture.
+NEXT THREAD: do NOT start with features. Deploy verification -> live 15-surface scan (zh/vi/my)
+-> 1539000 A2 verify (Bosnia alias fix: Elo gap must read 188, NOT 314) -> 1489371 A3/A4 per
+docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md (kickoff 06-13 22:00 UTC; A3 group_update_message only
+after guard_passed + review approve; A4 must cite archived prematch artifact path+sha256+time)
+-> evidence report (12-section format). Start command verbatim + checklist:
+docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md ★★ section. Status snapshot: docs/MVP_STATUS.md.
+```
+
+**★ 2026-06-11/12 — Track A P0 ACCEPTED (PASS WITH CONDITIONS) · real-trial validation round SHIPPED**
 ```text
 Owner accepted P0 @54026ad. This round: (1) DEPLOY GATE — live fingerprinted PRE-54026ad (old
 今日AI观点 ×1 still in live bundle index-HLZD2ZGB.js; deep links still 404, SPA rewrite unset);

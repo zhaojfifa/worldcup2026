@@ -57,7 +57,10 @@ Owner 首响五条（确认分支/PR、两轨理解、先查清单、设计先�
 ## 4. Owner 待签字项（逐条，缺一不动工）
 
 **Track A**
-- [ ] **A-GO-1：P0 实施 GO**（纯脚本 + docs/data_audit 文件注册表；零 DB/API/基建变更）
+- [x] **A-GO-1：P0 实施 GO** — ✅ 2026-06-11 Owner 签发并实施；2026-06-12 Owner 验收
+      **PASS WITH CONDITIONS**（@ 54026ad，验证轮 b458fd5；条件 = 运营手动部署 b458fd5+ 至试用前端 +
+      配置 SPA rewrite + 线上可见扫描 PASS 后才可发送 + 每场发送需 Owner GO。
+      证据：docs/MVP2_TRACK_A_P0_DRYRUN_REPORT.md · 交接：HANDOFF ★★ 节）
 - [ ] A-GO-2（P1）：双模式叙事端点 `GET /api/v1/narratives/...`（API 形状变更）
 - [ ] A-GO-3（P1）：评审队列镜像后端表 + admin 端点（DB 扩展）
 - [ ] A-GO-4（P1，可单独）：GitHub Actions 远程 runner 的密钥托管裁决（密钥进 GitHub secret store 与否）

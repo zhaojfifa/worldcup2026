@@ -1,8 +1,78 @@
 # MVP-2 Next Engineering Thread Handoff
 
-_Read `CLAUDE.md` first, then this. Date: 2026-06-11. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
+_Read `CLAUDE.md` first, then this. Date: 2026-06-12. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
-## ★★ Current handoff state — MVP-2 small private trial（THREAD CLOSED 2026-06-11）
+## ★★ Current handoff state — Track A P0 accepted · deploy-verification handoff（THREAD CLOSED 2026-06-12）
+
+**Owner verdict: Track A P0 = PASS WITH CONDITIONS.** Engineering baseline accepted; the small
+private trial CANNOT proceed until the trial frontend is manually deployed at `b458fd5`+ and the
+Render SPA rewrite is configured. This thread is closed docs-only; the next thread starts from
+**deploy verification + real match trial execution**, NOT from new product features.
+
+```text
+Frozen state (A):
+  branch feature/mvp2-api-football-ingestion @ b458fd5 (latest accepted; P0 acceptance base 54026ad) ·
+  PR #3 OPEN + Draft · main untouched · public operation paused · small private trial only ·
+  Track A P0 IMPLEMENTED + dry-run verified (scan/prematch/watch/rescore/recap/bundle/queue/status;
+  file review queue w/ sha256 tamper-reject; A1 real scans; first FULL A2 done on 1539000) ·
+  Track B remains DESIGN-ONLY — MUST NOT be implemented yet (no referral tables/routes/UX/QR/rewards) ·
+  no auto-send · no payment · no betting/odds/handicap/casino wording anywhere customer-facing.
+
+Owner conditions (B):
+  1. Operator manually deploys b458fd5+ to the trial frontend (worldcup2026-izid).
+  2. Operator configures Render SPA rewrite: Settings -> Redirects/Rewrites -> /* -> /index.html -> Rewrite.
+  3. After deploy, the LIVE visible-copy scan must PASS before any trial links are sent.
+  4. All trial sends remain MANUAL and require Owner GO per fixture.
+
+Live deployment truth (C) — recorded honestly, last verified 2026-06-11 ~16:05 UTC:
+  - b458fd5 is NOT live until verified after an operator deploy — do not claim otherwise.
+  - The live bundle (assets/index-HLZD2ZGB.js) still contained OLD wording (今日AI观点 ×1) in the
+    last verification window = pre-54026ad content on customer pages.
+  - Deep links (/predict/*, /recap/*) still 404 until the SPA rewrite is configured.
+  - render.yaml alone may NOT affect the manually created Render static service — the dashboard
+    rewrite rule is required; no auto-deploy materialized after pushes (operator deploys only).
+  - Clean evidence pre-staged: 54026ad+ production-build fingerprint (今日AI观点 ×0), prod-build
+    15-surface scan 15/15 PASS, shots in docs/qa_screenshots/mvp2_tracka_deploy_verify/.
+
+Next engineering objective (D):
+  Deploy verification -> live visible-copy scan -> fixture A2/A3/A4 execution (1539000, 1489371)
+  -> operator review -> manual-send readiness -> evidence report.
+```
+
+**Next Engineer Start Command（copy-paste · E）**
+
+> Owner has accepted Track A P0 with conditions. Start by verifying branch
+> feature/mvp2-api-football-ingestion at b458fd5 or later, PR #3 Draft, main untouched, and
+> Track B runtime absent. Do not implement new features first. First verify whether b458fd5+ is
+> deployed to the trial frontend and whether SPA rewrite is configured. Then run live
+> visible-copy scan on home / predict / recap pages across zh / vi / my. Only after live scan
+> passes, continue Track A fixture operations for 1539000 and 1489371 according to the runsheet.
+
+**Next execution checklist (F)**
+1. Operator deploys `b458fd5`+ to the worldcup2026-izid trial frontend (manual deploy).
+2. Operator configures SPA rewrite: `/*` → `/index.html` → Rewrite (Render dashboard).
+3. Run: `python3 scripts/check_customer_visible_copy.py https://worldcup2026-izid.onrender.com`
+4. Verify all 15 surfaces (/, /predict/1489369, /predict/1489371, /recap/855737, /recap/979139 × zh/vi/my).
+5. Verify NO visible old AI/model/process wording on customer surfaces (outside disclaimer/internal folds).
+6. Verify the four deep links load directly (no 404).
+7. For 1539000: verify A2 artifacts + the Bosnia kaggle-alias fix — **Elo gap must read 188, not 314**.
+8. For 1489371: follow `docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md` (T-90 watch → A3 rescore → review →
+   manual send → kickoff sweep → FT+45 recap; kickoff 2026-06-13 22:00 UTC).
+9. A3 `group_update_message` is usable ONLY after guard_passed + review approved (queue enforces).
+10. A4 recap must cite the archived prematch artifact path + sha256 + timestamp (guard enforces).
+
+**Required report format for the next engineer (G)**
+1 Branch/commit/PR Draft status · 2 whether b458fd5+ is deployed · 3 live bundle proof + screenshots ·
+4 SPA rewrite status · 5 live visible-copy scan result · 6 1539000 A2 result · 7 1489371 A3/A4
+execution or readiness · 8 generated artifacts · 9 guard/build/visible scan results ·
+10 blocked_by_time_or_data records · 11 operator actions still required · 12 GO/NO-GO recommendation.
+
+Track A operating docs: `docs/MVP2_TRACK_A_AUTOMATED_OPERATION_DESIGN.md` (design) ·
+`docs/MVP2_TRACK_A_P0_DRYRUN_REPORT.md` (dry-run + findings) ·
+`docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md` (match-day procedure) ·
+GO/NO-GO §4b (Track A ops checklist) · tools `scripts/mvp2_ops.py` / `scripts/mvp2_ops_queue.py`.
+
+## ★ Prior handoff state — MVP-2 small private trial（closed 2026-06-11, superseded by the section above）
 
 **Owner verdict: PASS WITH CONDITIONS for small private trial.** This thread is closed for feature
 work; the next thread starts from trial feedback, not from code.
