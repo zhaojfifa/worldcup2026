@@ -13,7 +13,39 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-11 (latest) — VI Naming Consolidation + MY Locale Replication Sprint SHIPPED (Owner review pending)**
+**★ 2026-06-11 (latest) — Track A Automation + Track B Scout-Referral HEAVY DESIGN SHIPPED (docs only, Owner review pending)**
+```text
+Owner ordered heavy PLANNING (no implementation) for two tracks; three design docs shipped, ZERO
+runtime change (no code, no guard edits, no tables, no endpoints, nothing sent):
+- docs/MVP2_TRACK_A_AUTOMATED_OPERATION_DESIGN.md — automated football-intelligence operation:
+  jobs A1 daily scan / A2 pre-match gen / A3 30-min rescore / A4 post-match recap / A5 operator
+  review queue (generated/guard_passed/needs_review/approved/sent/expired + rejected/superseded).
+  Key decisions: P0 = LOCAL orchestrator scripts/mvp2_ops.py + T-90 lineup watch (GitHub Actions
+  scheduled = structurally unusable off-main + 3-15min drift + key-custody = Owner item; Render
+  cron = scaling, Owner item); A3 in-window = review-package-first (group message IS the product
+  moment; page redeploy when window allows); file-based review queue in docs/data_audit (sha256
+  tamper-reject enforces "no manual rewrite"); new surfaces trial_rescore_update + real_recap
+  (LLM-only author, archived-prediction provenance, no hindsight-brag tone). P0 ≈ 5-6 d.
+- docs/MVP2_TRACK_B_SCOUT_REFERRAL_DESIGN.md — gambling-agent reference TRANSFORMED to compliant
+  content growth (俅哥情报官 / Cộng tác viên Tiên Tri Bóng Đá / Football Oracle Scout): 6-row
+  mechanism mapping (every gambling part rejected: no recharge commission / win-loss settlement /
+  agent hierarchy / odds promo / cash-out / CS agent links); P0 = operator-issued invite codes only
+  (honest re DEMO_USER_ID=1; shadow User per code, rewards via existing wallet_service._credit →
+  TokenLog); 6 tables (campaigns/links/events/rewards/scout_profiles/review_logs, no money fields
+  possible); attribution = attention only; rewards MTC/unlock/badge/role manual-grant capped;
+  weekly growth report artifact (counts only); ?scout=1 flag-gated trilingual UX; QR = operator
+  script; guard plan adds 4-lang agent/commission word lists w/ FP analysis (bare 提现 keeps the
+  不可提现 negation exemption; my ဒိုင်=referee not banned, only လောင်းဒိုင်); risk register #1 =
+  Myanmar tipster-culture misread. P0 ≈ 2.5 d (includes tables+endpoints = needs its own GO).
+- docs/MVP2_TRACKAB_ENGINEERING_REVIEW.md — deliverable mapping (A 8/8, B 9/9), sequencing
+  (A first; 1489371 kicks off 06-13 22:00 UTC), Owner sign-off items A-GO-1..5/A-CONF-1 +
+  B-GO-1..5/B-CONF-1, compliance red lines, isolation: tonight's trial stays on the existing
+  manual GO/NO-GO path. NOTHING in either track is implemented until Owner signs the GO items.
+PR #3 still Draft · main untouched · operation paused · small private trial only · no payment/
+token · no betting/odds · no public launch.
+```
+
+**★ 2026-06-11 — VI Naming Consolidation + MY Locale Replication Sprint SHIPPED (Owner review pending)**
 ```text
 Trial product is now zh/vi/my TRILINGUAL (中 / 越 / 缅 private-trial product). Locale: canonical 'my'
 (legacy 'mm' alias normalized at every entry point: URL/localStorage; NEW browser-language detection
