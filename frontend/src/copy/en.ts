@@ -16,7 +16,7 @@ export const EN: Copy = {
 
   // Bottom nav
   navHome: 'Home',
-  navDetail: 'AI Pick',
+  navDetail: 'Scout',
   navToken: 'MTC',
   navCommunity: 'Community',
 

@@ -1478,3 +1478,15 @@ body {
 .home-demo-fold > summary { font-size: 11px; color: #8A97AB; font-weight: 700; cursor: pointer; }
 .home-demo-fold .signal-card { margin-top: 10px; }
 .lang-vi .th-teams { font-size: 16.5px; }
+
+/* Trial shell v2: tiers / hot reads / hero persona / more-vars fold */
+.hero-persona { font-weight: 800; color: #FFE9A8; margin-top: 6px; }
+.pp-tiers { display: flex; gap: 8px; margin-bottom: 10px; }
+.pp-tier { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; }
+.pp-tier.full { background: #F4EFFF; border-color: #D8CCF4; }
+.pp-tier-h { font-size: 11px; font-weight: 800; color: var(--blueMid); margin-bottom: 5px; }
+.pp-tier.full .pp-tier-h { color: #4B2E8F; }
+.pp-tier-i { font-size: 11px; color: #3A4A60; line-height: 1.6; }
+.pp-morevars > summary { font-size: 11.5px; font-weight: 700; color: var(--blueMid); cursor: pointer; padding: 8px 0 2px; }
+.pp-hot-line { font-size: 12.5px; line-height: 1.5; }
+.lang-vi .pp-tier-i { font-size: 10.5px; }

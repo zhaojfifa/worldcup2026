@@ -10,7 +10,7 @@ import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
-import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip } from '../components/UpcomingTacticalStrip';
+import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection } from '../components/UpcomingTacticalStrip';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -64,7 +64,7 @@ export function HomePage() {
   function goDetail(id: string) {
     safeTrack('click_detail', Number(id));
     setSelectedMatch(id);
-    navigate('/detail');
+    navigate('/detail?demo=1'); // demo escape: trial /detail redirects to the real tactical room
   }
 
   async function handleCheckIn() {
@@ -126,7 +126,14 @@ export function HomePage() {
         <div className="hero-kicker">GIÀNH CUP</div>
         <div className="hero-title">{t.heroTitlePre}<span className="accent">{t.heroTitleAccent}</span></div>
         <div className="hero-en">{BRAND.heroEn}</div>
-        <div className="hero-sub">{t.heroSub}</div>
+        <div className="hero-sub hero-persona">
+          {loc === 'zh' ? '中文先知赛前模型' : loc === 'vi' ? 'Mô hình trước trận Tiên Tri Bóng Đá' : 'Giành Cup pre-match scout model'}
+        </div>
+        <div className="hero-sub">
+          {loc === 'zh' ? '不只看胜率，更看为什么这样判断。'
+            : loc === 'vi' ? 'Không chỉ xem ai thắng, hãy hiểu vì sao Tiên Tri nhận định như vậy.'
+              : 'Not just who wins — why the call.'}
+        </div>
       </div>
 
       {/* ── Capability bar ────────────────────────────────────────── */}
@@ -160,6 +167,9 @@ export function HomePage() {
 
       {/* ── 1b. secondary real fixtures ─────────────────────────────── */}
       <UpcomingTacticalStrip loc={loc} excludeId="1489369" />
+
+      {/* ── 1c. 中文先知今日热点 — real content entries (LLM short_title hooks) ── */}
+      <HotTopicsSection loc={loc} />
 
       {/* ── Historical Recap · WC2022 (labelled; NOT current prediction) ──────── */}
       {recapMatches.length > 0 && (
@@ -266,9 +276,7 @@ export function HomePage() {
           </div>
         </div>
       ))}
-      </details>
-
-      {/* ── 4. AI 情报战绩 (待真实赛果回灌) ────────────────────────── */}
+      {/* ── demo 4. AI 情报战绩 (pending placeholder) ────────────────── */}
       <div className="sec-en">
         <span className="zh">{t.recordTitle}</span>
         <span className="en">{HOME.recordEn}</span>
@@ -329,6 +337,7 @@ export function HomePage() {
         </div>
       </div>
       <div className="compliance">{t.mtcStatement}</div>
+      </details>
 
       <div className="muted-note">{t.complianceFooter}</div>
     </div>

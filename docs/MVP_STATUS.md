@@ -9,6 +9,13 @@ Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 ## ★ MVP-2 status (2026-06-11, latest) — June 11 Real Match Trial Prediction Sprint
 
 ```text
+Shell v2 (same day, Owner Trial Homepage+Detail sprint): home hierarchy v2 (persona hero line, 今日
+status, 中文先知今日热点 = 4 LLM short_title entries, legacy mock/heat/record/MTC tiles all folded);
+CTA deep routes (查看中文先知判断 -> /predict/1489369, 临场修正逻辑 anchor; nav AI预测 -> 中文先知);
+/detail -> TrialDetailGate redirect to the tactical room (Qatar vs Ecuador OUT of trial flow, ?demo=1
+internal escape); predict = top-3 variables + more-fold + free-vs-full tier card. Path review:
+docs/MVP2_TRIAL_PRODUCT_PATH_REVIEW.md. Guard 36/36 PASS; build PASS; vi visible Han=0.
+
 Persona product trial for the opening window (Owner naming rules applied): 中文先知 / Tiên Tri Bóng Đá
 front the football product; engine=ScoutScore; NO Cloud on customer surfaces; <title> -> English.
 Pipeline: re-verified fixtures (mvp2_june11_real_fixture_verification.json; 1489369 opener TODAY 19:00

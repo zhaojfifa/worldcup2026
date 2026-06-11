@@ -22,7 +22,7 @@ const ZH = {
 
   // ── Bottom nav ──
   navHome: '首页',
-  navDetail: 'AI预测',
+  navDetail: '中文先知',
   navToken: 'MTC积分',
   navCommunity: '社群',
 
@@ -267,7 +267,7 @@ const VI: Partial<Copy> = {
   brandRole: 'Cộng đồng thông tin bóng đá AI World Cup',
   headerSub: 'Không chỉ xem tỷ lệ, hãy hiểu vì sao AI đưa ra nhận định.',
   navHome: 'Trang chủ',
-  navDetail: 'Dự đoán AI',
+  navDetail: 'Tiên Tri',
   navToken: 'Điểm MTC',
   navCommunity: 'Cộng đồng',
   aiTicker: 'Thông tin AI',

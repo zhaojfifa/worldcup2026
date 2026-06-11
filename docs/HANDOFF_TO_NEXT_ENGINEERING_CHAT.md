@@ -4,6 +4,13 @@ _Read `CLAUDE.md` first, then this. Date: 2026-06-11. Supersedes the prior v0.8 
 
 ## ★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint: SHIPPED (Owner trial-send review)
 
+Shell v2 (same day, Owner Trial Homepage+Detail sprint): home hierarchy v2 (persona hero line, 今日
+status, 中文先知今日热点 = 4 LLM short_title entries, legacy mock/heat/record/MTC tiles all folded);
+CTA deep routes (查看中文先知判断 -> /predict/1489369, 临场修正逻辑 anchor; nav AI预测 -> 中文先知);
+/detail -> TrialDetailGate redirect to the tactical room (Qatar vs Ecuador OUT of trial flow, ?demo=1
+internal escape); predict = top-3 variables + more-fold + free-vs-full tier card. Path review:
+docs/MVP2_TRIAL_PRODUCT_PATH_REVIEW.md. Guard 36/36 PASS; build PASS; vi visible Han=0.
+
 ```text
 What changed on top of the tactical-room round:
 PERSONA: 中文先知 (zh) / Tiên Tri Bóng Đá (vi) now front all football product surfaces (labels, CTAs,

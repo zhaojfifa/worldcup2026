@@ -15,9 +15,9 @@ const L10N = {
 
 const HERO = {
   zh: { badge: '⚡ World Cup 2026 揭幕窗口 · 真实比赛', enter: '进入中文先知战术室', join: '加入赛前情报群',
-        status: '🔮 中文先知已生成赛前判断 · 临场 30 分钟将重新计算 · 数据同步 ' },
+        status: '🔮 中文先知已生成今日赛前判断 · 临场 30 分钟将重新计算 · 数据同步 ' },
   vi: { badge: '⚡ World Cup 2026 · Trận thật', enter: 'Vào phòng chiến thuật Tiên Tri', join: 'Vào nhóm tình báo trước trận',
-        status: '🔮 Tiên Tri Bóng Đá đã có nhận định trước trận · Tính lại 30 phút trước giờ bóng lăn · Đồng bộ ' },
+        status: '🔮 Tiên Tri Bóng Đá đã có nhận định hôm nay · Tính lại 30 phút trước giờ bóng lăn · Đồng bộ ' },
   en: { badge: '⚡ World Cup 2026 · Real fixture', enter: 'Open the Tactical Room', join: 'Join the pre-match group',
         status: '🔮 Pre-match view ready · Re-scored 30 minutes before kickoff · Synced ' },
 };
@@ -86,6 +86,49 @@ export function UpcomingTacticalStrip({ loc, excludeId }: { loc: Locale; exclude
             </button>
           );
         })}
+      </div>
+    </>
+  );
+}
+
+// ── 中文先知今日热点 (Owner Task E): real-content entries, no fake engagement ──
+// Hook lines are the LLM-written short_title of each guard-passed narrative
+// (never hand-written); engineering only provides the link frame + tags.
+const HOT = {
+  zh: { title: '中文先知今日热点', en: 'HOT READS', room: '战术室', recap: '复盘' },
+  vi: { title: 'Điểm nóng hôm nay của Tiên Tri', en: 'HOT READS', room: 'Phòng chiến thuật', recap: 'Phục dựng' },
+  en: { title: "Today's hot reads", en: 'HOT READS', room: 'Tactical room', recap: 'Recap' },
+};
+const HOT_ENTRIES: { id: string; to: string; kind: 'room' | 'recap' }[] = [
+  { id: '1489369', to: '/predict/1489369', kind: 'room' },
+  { id: '1489371', to: '/predict/1489371', kind: 'room' },
+  { id: '855737', to: '/recap/855737', kind: 'recap' },
+  { id: '979139', to: '/recap/979139', kind: 'recap' },
+];
+
+export function HotTopicsSection({ loc }: { loc: Locale }) {
+  const navigate = useNavigate();
+  const H = loc === 'zh' ? HOT.zh : loc === 'vi' ? HOT.vi : HOT.en;
+  const rows = HOT_ENTRIES
+    .map(e => ({ ...e, n: getProductNarrative(e.id, loc) }))
+    .filter(e => !!e.n);
+  if (!rows.length) return null;
+  return (
+    <>
+      <div className="sec-en">
+        <span className="zh">🔥 {H.title}</span>
+        <span className="en">{H.en}</span>
+      </div>
+      <div className="card ut-card">
+        {rows.map(e => (
+          <button className="ut-row" key={e.id} onClick={() => navigate(e.to)}>
+            <div className="ut-main">
+              <span className="ut-teams pp-hot-line">{e.n!.short_title}</span>
+            </div>
+            <span className={`ut-chip ${e.kind === 'room' ? 'today' : ''}`}>{e.kind === 'room' ? H.room : H.recap}</span>
+            <span className="pp-arrow">▸</span>
+          </button>
+        ))}
       </div>
     </>
   );

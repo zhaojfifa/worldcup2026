@@ -26,6 +26,14 @@
   （怎么判断 / 战术解读 / 临场 30 分钟修正）/ narrative 正文（hero/judgement/群文案，guard 强制）。
 - en 层保持品牌中性（Giành Cup Tactical Room）——en 为系统回退层，无 persona。
 
+## 2b. ★ Shell v2（同日补充 — Trial Homepage + Detail + Single-Match Replacement）
+首页层级 v2：persona hero 行（中文先知赛前模型/不只看胜率，更看为什么这样判断）+ 今日热点（4 条 LLM
+short_title 真实入口，无假热度）+ 旧 mock（信号卡/列表/爆冷/热度/战绩/MTC tiles）全部默认折叠；
+「查看今日 AI 观点」类 CTA 全量替换为 persona 深路由（→ /predict/1489369 / 页内临场锚点）；底部 nav
+「AI预测」→「中文先知」；**/detail 经 TrialDetailGate 重定向战术室（Qatar vs Ecuador 退出试运营流），
+?demo=1 为内部演示逃生口**；战术室 top-3 变量 + 更多折叠 + 免费/完整对照卡。
+详见 `MVP2_TRIAL_PRODUCT_PATH_REVIEW.md`。
+
 ## 3. 残余风险
 1. **时效**：揭幕战 19:00 UTC 开球——开球后主发文案过期（运营包 §10 已设 Do-NOT-send）。
 2. 既有 dev-only 噪音：内联 CSS 注释含中文（prod minify 后不存在）；浏览器 title 已改英文，分享卡 OG 标签未配置（后续）。

@@ -13,7 +13,7 @@ const L10N = {
     judgement: '中文先知怎么判断', lean: 'AI 倾向', scoreline: '比分区间', risk: '风险评级',
     gotRight: '模型抓对了什么', underweighted: '模型低估了什么', decisive: '决定性因子', evidence: '数据证据',
     watchNext: '下次看类似比赛该盯什么', live30: '中文先知临场 30 分钟修正', keyFactors: '关键因子', tactical: '中文先知战术解读',
-    freeFull: '免费版 vs 完整分析', joinGroup: '加入赛前情报群', today: '查看今日 AI 观点',
+    freeFull: '免费版 vs 完整分析', joinGroup: '加入赛前情报群', today: '查看中文先知判断', live30cta: '查看临场修正逻辑', moreVars: '更多变量', freeTier: '免费版', fullTier: '完整版（群内）', freeItems: ['主倾向与风险评级', '关键变量（部分）', '战术解读方向'], fullItems: ['全部变量逐条拆解', '开球前 30 分钟首发重算', '比分区间深度解析'],
     internal: '模型依据 / 内部来源（点击展开）', opsKit: '运营素材（内部）', notes: '内部备注', sources: '来源映射',
     by: '本页判断与文案由模型生成', moreRecaps: '更多历史复盘', moreStatus: '数据已接入，复盘生成中',
     predictLink: '2026 赛前建模样例：Brazil vs Argentina', estBadge: '模型估计',
@@ -24,7 +24,7 @@ const L10N = {
     judgement: 'Tiên Tri Bóng Đá nhận định thế nào', lean: 'Thiên hướng AI', scoreline: 'Khoảng tỷ số', risk: 'Mức rủi ro',
     gotRight: 'Mô hình bắt đúng điều gì', underweighted: 'Mô hình đánh giá thấp điều gì', decisive: 'Yếu tố quyết định', evidence: 'Bằng chứng dữ liệu',
     watchNext: 'Trận tương tự lần sau nên nhìn gì', live30: 'Cập nhật 30 phút trước trận', keyFactors: 'Yếu tố then chốt', tactical: 'Thẻ chiến thuật Tiên Tri',
-    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tình báo trước trận', today: 'Xem quan điểm AI hôm nay',
+    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tình báo trước trận', today: 'Xem nhận định Tiên Tri Bóng Đá', live30cta: 'Xem cập nhật 30 phút trước trận', moreVars: 'Thêm biến số', freeTier: 'Bản miễn phí', fullTier: 'Bản đầy đủ (trong nhóm)', freeItems: ['Thiên hướng chính và mức rủi ro', 'Một phần biến số then chốt', 'Hướng đọc chiến thuật'], fullItems: ['Bóc tách đủ mọi biến số', 'Tính lại 30 phút trước giờ bóng lăn theo đội hình', 'Phân tích sâu khoảng tỷ số'],
     internal: 'Cơ sở mô hình / nguồn nội bộ (nhấn để mở)', opsKit: 'Bộ nội dung vận hành (nội bộ)', notes: 'Ghi chú nội bộ', sources: 'Bản đồ nguồn',
     by: 'Nhận định và lời văn trên trang do mô hình tạo', moreRecaps: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng',
     predictLink: 'Mẫu mô hình hóa trước trận 2026: Brazil vs Argentina', estBadge: 'Mô hình ước tính',
@@ -35,7 +35,7 @@ const L10N = {
     judgement: 'How the Giành Cup scout reads it', lean: 'AI lean', scoreline: 'Scoreline band', risk: 'Risk level',
     gotRight: 'What the model got right', underweighted: 'What the model under-weighted', decisive: 'Decisive factors', evidence: 'Data evidence',
     watchNext: 'What to watch in a similar match', live30: 'What re-computes 30 minutes before kickoff', keyFactors: 'Key factors', tactical: 'Tactical read',
-    freeFull: 'Free vs full analysis', joinGroup: 'Join the group for the full analysis', today: "See today's AI view",
+    freeFull: 'Free vs full analysis', joinGroup: 'Join the group for the full analysis', today: 'See the scout call', live30cta: 'See the 30-min re-score logic', moreVars: 'More variables', freeTier: 'Free', fullTier: 'Full (in group)', freeItems: ['Main lean and risk level', 'Part of the key variables', 'Tactical direction'], fullItems: ['Every variable unpacked', '30-min pre-kickoff re-score on the XI', 'Scoreline band deep-dive'],
     internal: 'Model basis / internal sources (expand)', opsKit: 'Operator kit (internal)', notes: 'Internal notes', sources: 'Source map',
     by: 'Judgement and copy on this page are model-generated', moreRecaps: 'More historical recaps', moreStatus: 'Data ingested, recap in progress',
     predictLink: '2026 pre-match modeling sample: Brazil vs Argentina', estBadge: 'Model estimate',
@@ -60,15 +60,27 @@ function riskClass(text: string): string {
   return 'amber';
 }
 
-function FactorList({ items }: { items: ProductFactor[] }) {
+function FactorRow({ f }: { f: ProductFactor }) {
+  return (
+    <div className="nv-signal">
+      <div className="nv-name">{f.name}</div>
+      <div className="nv-text">{f.text}</div>
+    </div>
+  );
+}
+
+function FactorList({ items, top, moreLabel }: { items: ProductFactor[]; top?: number; moreLabel?: string }) {
+  const head = top ? items.slice(0, top) : items;
+  const rest = top ? items.slice(top) : [];
   return (
     <div className="card">
-      {items.map((f, i) => (
-        <div className="nv-signal" key={i}>
-          <div className="nv-name">{f.name}</div>
-          <div className="nv-text">{f.text}</div>
-        </div>
-      ))}
+      {head.map((f, i) => <FactorRow f={f} key={i} />)}
+      {rest.length > 0 && (
+        <details className="pp-morevars">
+          <summary>{moreLabel ?? 'More'} ({rest.length})</summary>
+          {rest.map((f, i) => <FactorRow f={f} key={i} />)}
+        </details>
+      )}
     </div>
   );
 }
@@ -138,7 +150,7 @@ function MoreAndToday({ n, L, currentId }: { n: ProductNarrative; L: ReturnType<
       </div>
       <div className="card recap-cta">
         <div className="recap-cta-q">{n.today_cta}</div>
-        <button className="recap-cta-btn" onClick={() => navigate('/')}>{L.today} ▸</button>
+        <button className="recap-cta-btn" onClick={() => navigate('/predict/1489369')}>{L.today} ▸</button>
       </div>
     </>
   );
@@ -209,18 +221,29 @@ export function ProductPredictView({ n, loc, opsOpen }: { n: ProductNarrative; l
       )}
 
       <Sec zh={L.keyFactors} en="KEY FACTORS" />
-      <FactorList items={n.risk_factors} />
+      <FactorList items={n.risk_factors} top={3} moreLabel={L.moreVars} />
 
+      <div id="live30" />
       <Sec zh={L.live30} en="LIVE 30-MIN RE-SCORE" />
       <FactorList items={n.watch_next_signals} />
 
       <Sec zh={L.freeFull} en="FREE VS FULL" />
       <div className="card pp-lock">
+        <div className="pp-tiers">
+          <div className="pp-tier">
+            <div className="pp-tier-h">{L.freeTier}</div>
+            {L.freeItems.map((x, i) => <div className="pp-tier-i" key={i}>· {x}</div>)}
+          </div>
+          <div className="pp-tier full">
+            <div className="pp-tier-h">{L.fullTier}</div>
+            {L.fullItems.map((x, i) => <div className="pp-tier-i" key={i}>· {x}</div>)}
+          </div>
+        </div>
         <div className="recap-copybox">{n.subscription_hook}</div>
         <div className="recap-cta-q" style={{ marginTop: 10 }}>{n.group_join_copy}</div>
         <div className="pp-cta-row">
           <button className="recap-cta-btn" onClick={() => navigate('/community')}>{L.joinGroup} ▸</button>
-          <button className="recap-cta-btn alt" onClick={() => navigate('/')}>{L.today} ▸</button>
+          <button className="recap-cta-btn alt" onClick={() => document.getElementById('live30')?.scrollIntoView({ behavior: 'smooth' })}>{L.live30cta} ▸</button>
         </div>
       </div>
 

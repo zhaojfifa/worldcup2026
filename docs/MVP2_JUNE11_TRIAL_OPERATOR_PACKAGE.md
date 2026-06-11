@@ -68,8 +68,14 @@ Thành tích quá khứ không đại diện cho kết quả tương lai; chỉ 
 ```
 
 ## 8. 截图包
-`docs/qa_screenshots/mvp2_june11_trial/`：home_zh_trial / home_vi_trial / predict_1489369_zh_trial /
-predict_1489369_vi_trial / operator_copy_zh_trial / operator_copy_vi_trial（`?ops=1` 展开运营素材折叠）。
+`docs/qa_screenshots/mvp2_june11_trial/`：
+- 试发素材：home_zh_trial / home_vi_trial / predict_1489369_{zh,vi}_trial / operator_copy_{zh,vi}_trial（`?ops=1`）
+- **试看产品路径**（2026-06-11 shell v2）：home_first_{zh,vi}（首屏=真实比赛）· home_realmatch_{zh,vi}
+  （主卡+次卡+中文先知今日热点全景）· predict_1489369_{zh,vi}_v2（战术室分层）· cta_area_{zh,vi}
+  （免费 vs 完整 + 入群 CTA）· **detail_redirect_zh（/detail 已重定向战术室，无 Qatar/Ecuador 旧占位）**
+  · recap_calibration_zh（复盘=模型校准证明）。
+产品路径：首页 → 中文先知战术室 → 详情分层（免费试看→完整入群）→ 临场 30 分钟修正（群内）——
+全路径评审见 `MVP2_TRIAL_PRODUCT_PATH_REVIEW.md`。
 
 ## 9. 发送 checklist（操作者逐项勾选）
 1. Owner GO 已取得（书面）。
