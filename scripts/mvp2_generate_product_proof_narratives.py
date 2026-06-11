@@ -277,7 +277,10 @@ def generate(provider, sample_id, language, keys):
                 if attempt < 3:
                     user += ("\n\nSTRICT RETRY: your previous output failed the gate: " + "; ".join(probs[:6])
                              + ". Fix ALL of these. Every factor entry needs source_refs (copy from INPUT) or "
-                               "assumption_flag=true. vi-VN must contain ZERO Han characters. All keys required.")
+                               "assumption_flag=true. vi-VN must contain ZERO Han characters. All keys required. "
+                               "ABSOLUTE vi vocabulary ban (betting slang): kèo, cửa trên, cửa dưới, nhà cái, "
+                               "chắc thắng — write 'bên được đánh giá cao hơn/thấp hơn' instead. Data gaps: "
+                               "write 'đội hình chưa công bố' / 'biến số cần canh sát giờ', never 'thiếu dữ liệu'.")
                 else:
                     obj = cand  # keep best-effort; the standalone guard gives the final verdict
     if obj is not None:

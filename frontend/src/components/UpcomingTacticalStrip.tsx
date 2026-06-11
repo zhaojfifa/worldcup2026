@@ -1,16 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 import type { Locale } from '../i18n/useLocale';
-import { UPCOMING_FIXTURES } from '../data/upcomingFixtures';
+import { UPCOMING_FIXTURES, getUpcomingFixture } from '../data/upcomingFixtures';
 import { getProductNarrative } from '../data/productNarrativeData';
 
-// Home strip: REAL World Cup 2026 fixtures (bundled engineering facts) whose AI
-// tactical-room narrative (LLM-generated, guard-passed) is ready. Section labels are
-// UI chrome; the football intelligence lives behind /predict/:id.
+// Home entry for REAL World Cup 2026 fixtures (bundled engineering facts) whose
+// persona tactical-room narrative (LLM-generated, guard-passed) is ready.
+// Persona: zh 中文先知 · vi Tiên Tri Bóng Đá (Giành Cup, engine ScoutScore).
+// Section labels/buttons are UI chrome; the football intelligence lives in /predict/:id.
 const L10N = {
-  zh: { title: 'World Cup 2026 · 真实赛程', en: 'AI TACTICAL ROOM', cta: 'AI 战术室', today: '今日开球', upcoming: '即将开球' },
-  vi: { title: 'World Cup 2026 · Lịch thi đấu thật', en: 'AI TACTICAL ROOM', cta: 'Phòng chiến thuật AI', today: 'Đá hôm nay', upcoming: 'Sắp diễn ra' },
-  en: { title: 'World Cup 2026 · Real fixtures', en: 'AI TACTICAL ROOM', cta: 'AI Tactical Room', today: 'Kicks off today', upcoming: 'Upcoming' },
+  zh: { title: 'World Cup 2026 · 真实赛程', en: 'TACTICAL ROOM', cta: '中文先知战术室', today: '今日开球', upcoming: '即将开球' },
+  vi: { title: 'World Cup 2026 · Lịch thi đấu thật', en: 'TACTICAL ROOM', cta: 'Phòng chiến thuật Tiên Tri', today: 'Đá hôm nay', upcoming: 'Sắp diễn ra' },
+  en: { title: 'World Cup 2026 · Real fixtures', en: 'TACTICAL ROOM', cta: 'Giành Cup Tactical Room', today: 'Kicks off today', upcoming: 'Upcoming' },
 };
+
+const HERO = {
+  zh: { badge: '⚡ World Cup 2026 揭幕窗口 · 真实比赛', enter: '进入中文先知战术室', join: '加入赛前情报群',
+        status: '🔮 中文先知已生成赛前判断 · 临场 30 分钟将重新计算 · 数据同步 ' },
+  vi: { badge: '⚡ World Cup 2026 · Trận thật', enter: 'Vào phòng chiến thuật Tiên Tri', join: 'Vào nhóm tình báo trước trận',
+        status: '🔮 Tiên Tri Bóng Đá đã có nhận định trước trận · Tính lại 30 phút trước giờ bóng lăn · Đồng bộ ' },
+  en: { badge: '⚡ World Cup 2026 · Real fixture', enter: 'Open the Tactical Room', join: 'Join the pre-match group',
+        status: '🔮 Pre-match view ready · Re-scored 30 minutes before kickoff · Synced ' },
+};
+
+function heroFor(loc: Locale) {
+  return loc === 'zh' ? HERO.zh : loc === 'vi' ? HERO.vi : HERO.en;
+}
 
 function kickoffLabel(iso: string, loc: Locale): string {
   const d = new Date(iso);
@@ -18,11 +32,39 @@ function kickoffLabel(iso: string, loc: Locale): string {
   return d.toLocaleString(locale, { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
 }
 
-export function UpcomingTacticalStrip({ loc }: { loc: Locale }) {
+/** Persona status strip (Owner hierarchy item 1). syncTime is the app's data-sync stamp. */
+export function TrialStatusStrip({ loc, syncTime }: { loc: Locale; syncTime: string }) {
+  const H = heroFor(loc);
+  return <div className="trial-status">{H.status}{syncTime}</div>;
+}
+
+/** Main trial entry card (Owner hierarchy item 2): the selected real fixture. */
+export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: string }) {
+  const navigate = useNavigate();
+  const H = heroFor(loc);
+  const fx = getUpcomingFixture(fixtureId);
+  if (!fx) return null;
+  const n = getProductNarrative(fixtureId, loc);
+  return (
+    <div className="card th-hero">
+      <div className="th-badge">{H.badge}</div>
+      <div className="th-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</div>
+      <div className="th-meta">{kickoffLabel(fx.kickoffUtc, loc)} · {fx.venue} ({fx.city}) · {fx.round}</div>
+      {n && <div className="th-hook">“{n.short_title}”</div>}
+      <div className="pp-cta-row">
+        <button className="recap-cta-btn" onClick={() => navigate(`/predict/${fixtureId}`)}>{H.enter} ▸</button>
+        <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
+      </div>
+    </div>
+  );
+}
+
+/** Secondary upcoming fixtures (Owner hierarchy item 3). */
+export function UpcomingTacticalStrip({ loc, excludeId }: { loc: Locale; excludeId?: string }) {
   const navigate = useNavigate();
   const L = loc === 'zh' ? L10N.zh : loc === 'vi' ? L10N.vi : L10N.en;
   const todayIso = new Date().toISOString().slice(0, 10);
-  const rows = UPCOMING_FIXTURES.filter(f => getProductNarrative(f.id, loc));
+  const rows = UPCOMING_FIXTURES.filter(f => f.id !== excludeId && getProductNarrative(f.id, loc));
   if (!rows.length) return null;
   return (
     <>

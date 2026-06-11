@@ -3,44 +3,18 @@
   "fixture_id": "1489371",
   "mode": "pre_match_2026_modeling",
   "language": "vi-VN",
-  "hero_title": "Brazil vs Morocco: ScoutScore nhận định Selecao thắng, nhưng đây là bẫy của lịch sử?",
-  "hero_subtitle": "Trận ra quân World Cup 2026: mô hình AI nghiêng về Brazil nhờ Elo + phong độ, nhưng Morocco bất bại 10 trận và đã từng hạ Brazil năm 2023.",
-  "short_title": "Brazil vs Morocco: AI nhận định ra sao?",
-  "screenshot_line": "ScoutScore: Brazil thắng 2-1? Morocco bất bại 10 trận, Elo chỉ chênh 65 – rủi ro trung bình.",
-  "model_judgement": "ScoutScore nhận định Brazil là bên được đánh giá cao hơn nhờ lợi thế Elo (1964 vs 1899, gap 65) và phong độ 6W-1D-3L gần đây. Tuy nhiên, Morocco đang bất bại 7W-3D-0L ở 10 trận gần nhất, chỉ để thủng lưới 3 bàn – hàng thủ cực kỳ chắc chắn. Yếu tố lịch sử đối đầu: Morocco thắng Brazil 2-1 năm 2023. Mô hình xếp rủi ro ở mức Trung bình vì thiếu dữ liệu đội hình xuất phát và chấn thương.",
-  "main_lean": "Brazil thắng – nhưng không dễ, Morocco đủ sức gây bất ngờ.",
-  "scoreline_view": "Mô hình ước tính tỷ số khả quan nhất cho Brazil là 2-1, nhưng các kịch bản 1-1 hoặc 2-2 cũng nằm trong vùng hợp lý.",
-  "risk_level": "Trung bình – Morocco bất bại 10 trận, đã thắng Brazil gần nhất; đội hình chưa công bố tạo biến số.",
+  "hero_title": "Tiên Tri Bóng Đá: Brazil được đánh giá cao hơn, nhưng Morocco có phong độ bất bại – trận mở màn World Cup 2026 đầy biến số",
+  "hero_subtitle": "ScoutScore phát hiện khoảng cách Elo 65 điểm nghiêng về Brazil, nhưng Morocco bất bại 10 trận gần nhất – đây là bài kiểm tra cho mô hình dự đoán.",
+  "short_title": "Brazil vs Morocco: Ai sẽ thắng trận mở màn?",
+  "screenshot_line": "Brazil Elo 1964, Morocco 1899 – nhưng Morocco bất bại 10 trận, ghi 22 bàn, chỉ thủng lưới 3. Liệu mô hình có bỏ sót điều gì?",
+  "model_judgement": "Tiên Tri Bóng Đá nhận định: Brazil là bên được đánh giá cao hơn nhờ lợi thế Elo lịch sử (1964 vs 1899) và phong độ ghi bàn ổn định (25 bàn/10 trận). Tuy nhiên, Morocco đang có chuỗi bất bại 7 thắng 3 hòa, hàng thủ chắc chắn (chỉ lọt lưới 3 bàn) và đã từng hạ Brazil 2-1 năm 2023. Yếu tố đội hình xuất phát chưa công bố và thủ môn bắt chính là rủi ro lớn – mô hình sẽ cập nhật lại 30 phút trước giờ bóng lăn.",
+  "main_lean": "Brazil nhỉnh hơn, nhưng Morocco đủ sức tạo bất ngờ – trận đấu có thể kết thúc với tỷ số sát nút.",
+  "scoreline_view": "Mô hình ước tính khoảng tỷ số khả thi: 2-1, 1-1, 2-2 (dựa trên Poisson với trung bình bàn thắng 10 trận gần nhất, có điều chỉnh theo tính chất trận mở màn vòng bảng).",
+  "risk_level": "Trung bình – khoảng cách Elo 65 điểm cho thấy Brazil được đánh giá cao, nhưng Morocco bất bại và có lịch sử đối đầu gần đây thuận lợi; đội hình chưa công bố là biến số lớn.",
   "risk_factors": [
     {
-      "name": "Phong độ gần đây (10 trận)",
-      "text": "Morocco bất bại 7W-3D-0L, chỉ thủng lưới 3 bàn – hàng thủ rất đáng gờm. Brazil 6W-1D-3L, thua 2 trận gần nhất trước France và Croatia.",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "last10_form"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "Lịch sử đối đầu gần nhất",
-      "text": "Morocco thắng Brazil 2-1 năm 2023 – tinh thần không sợ đối thủ lớn.",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "h2h+shootouts"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "Đội hình chưa công bố",
-      "text": "Danh sách 26 cầu thủ đã có, nhưng đội hình xuất phát chưa được công bố – biến số lớn trước giờ bóng lăn.",
+      "name": "Đội hình xuất phát chưa công bố",
+      "text": "Danh sách 26 cầu thủ đã đăng ký, nhưng đội hình chính thức chưa được công bố. Đây là biến số quan trọng – mô hình sẽ đánh giá lại ngay khi có thông tin.",
       "source_refs": [
         {
           "field": "squad",
@@ -52,38 +26,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Hiệu suất dứt điểm",
-      "text": "Brazil phụ thuộc vào các chân sút không quá nổi bật gần đây (Estêvão Willian, Paquetá, Bruno Guimarães – mỗi người 1 bàn). Morocco có Brahim Díaz (3 bàn) và El Kaabi (2 bàn) – hiệu quả hơn.",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "goalscorers_last10"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "Tâm lý loạt sút luân lưu",
-      "text": "Brazil thua 3/5 loạt sút gần nhất (Croatia 2022, Uruguay 2024…). Morocco thắng 2 loạt gần nhất (Spain 2022, Nigeria 2026). Nếu trận đấu căng thẳng, Morocco có lợi thế tâm lý.",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "h2h+shootouts"
-        }
-      ],
-      "assumption_flag": false
-    }
-  ],
-  "validated_factors": [],
-  "underweighted_factors": [],
-  "watch_next_signals": [
-    {
-      "name": "Đội hình xuất phát chính thức",
-      "text": "Ai đá chính ở trung vệ và tiền vệ trung tâm? Nếu Brazil thiếu vắng cầu thủ chủ chốt, cán cân có thể nghiêng.",
+      "name": "Thủ môn bắt chính chưa xác định",
+      "text": "Brazil có Alisson, Ederson, Weverton; Morocco có Bounou, Mohamedi, Tagnaouti. Ai bắt chính sẽ ảnh hưởng lớn đến khả năng phòng ngự.",
       "source_refs": [
         {
           "field": "squad",
@@ -95,21 +39,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Thủ môn bắt chính",
-      "text": "Alisson hay Ederson? Bounou hay Mohamedi? Sự khác biệt có thể quyết định tỷ số.",
-      "source_refs": [
-        {
-          "field": "squad",
-          "source": "api-football",
-          "endpoint": "/players/squads",
-          "fixture_id": "1489371"
-        }
-      ],
-      "assumption_flag": true
-    },
-    {
-      "name": "Sơ đồ chiến thuật",
-      "text": "Ancelotti vs Halilhodžić: ai thắng trong đấu pháp? Chờ công bố đội hình để phân tích.",
+      "name": "Sơ đồ chiến thuật chưa rõ",
+      "text": "HLV Ancelotti (Brazil) và Halilhodžić (Morocco) đã xác nhận, nhưng đội hình và sơ đồ chưa công bố. Cặp đấu then chốt dự kiến sẽ được phân tích sau khi có đội hình.",
       "source_refs": [
         {
           "field": "coach",
@@ -119,32 +50,82 @@
         }
       ],
       "assumption_flag": true
+    },
+    {
+      "name": "Biến số sân bãi và khí hậu",
+      "text": "Trận đấu tại MetLife Stadium (New York/New Jersey), giờ địa phương 18:00 – nhiệt độ và độ ẩm có thể ảnh hưởng đến thể lực, nhưng chưa có dữ liệu cụ thể.",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
     }
   ],
-  "operator_copy": "ScoutScore: Brazil thắng nhờ Elo + phong độ, nhưng Morocco bất bại 10 trận, đã thắng Brazil 2023. Rủi ro trung bình. Đội hình chưa có – theo dõi bản cập nhật 30 phút trước giờ bóng lăn để biết chắc. Vào nhóm Telegram nhận ngay!",
-  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và rủi ro. Đăng ký để xem đầy đủ 10 yếu tố, cập nhật 30 phút trước giờ bóng lăn khi đội hình công bố, và dải tỷ số chi tiết từ mô hình.",
-  "group_join_copy": "Muốn xem ScoutScore phân tích đầy đủ cho mọi trận World Cup? Tham gia nhóm Telegram – mỗi trận đều có nhận định AI, cập nhật live trước giờ bóng lăn. Vào nhóm ngay!",
-  "today_cta": "Xem 'Quan điểm AI hôm nay' để biết ScoutScore đánh giá các trận còn lại.",
-  "social_post": "Brazil vs Morocco: AI chọn Brazil, nhưng Morocco bất bại 10 trận và từng thắng 2-1 năm 2023. Rủi ro trung bình. Theo dõi bản cập nhật 30 phút trước giờ bóng lăn! #WorldCup2026 #ScoutScore",
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình chính thức – ai đá chính ở trục dọc?",
+      "text": "Khi đội hình được công bố (khoảng 30 phút trước giờ bóng lăn), hãy xem ai đá chính ở vị trí trung vệ, tiền vệ trung tâm và tiền đạo – đó là những vị trí quyết định thế trận.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn bắt chính – Bounou hay Alisson?",
+      "text": "Nếu Bounou bắt chính cho Morocco, khả năng cản phá penalty và phản xạ của anh ấy là tài sản lớn. Alisson bên phía Brazil cũng là thủ môn đẳng cấp thế giới.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Tốc độ trận đấu – Morocco có pressing tầm cao?",
+      "text": "Morocco dưới thời Halilhodžić thường chơi pressing tầm cao. Nếu họ áp đặt được nhịp độ, Brazil có thể gặp khó khăn trong việc triển khai bóng.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Tiên Tri Bóng Đá nhận định: Brazil nhỉnh hơn nhờ Elo 1964, nhưng Morocco bất bại 10 trận (7W-3D) – hàng thủ chỉ lọt lưới 3 bàn. Đội hình chưa công bố là biến số lớn. Vào nhóm để xem hiệu chỉnh 30 phút trước giờ bóng lăn!",
+  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và mức rủi ro. Đăng ký để nhận: phân tích đầy đủ 5 yếu tố, cập nhật 30 phút trước giờ bóng lăn khi đội hình công bố (mô hình đánh giá lại hoàn toàn), và dải tỷ số chi tiết.",
+  "group_join_copy": "Muốn xem bản phân tích đầy đủ trước trận? Vào nhóm Telegram – bạn sẽ nhận được bản hiệu chỉnh sát giờ từ Tiên Tri Bóng Đá, kèm nhận định chiến thuật và cập nhật đội hình. Tham gia ngay để không bỏ lỡ!",
+  "today_cta": "Xem ngay: Brazil vs Morocco – mô hình AI phân tích trước trận mở màn World Cup 2026.",
+  "social_post": "Brazil vs Morocco: Elo 1964 vs 1899, nhưng Morocco bất bại 10 trận. Tiên Tri Bóng Đá nhận định Brazil nhỉnh hơn, nhưng rủi ro trung bình. Đội hình chưa công bố – cập nhật 30 phút trước giờ bóng lăn. Vào nhóm xem chi tiết!",
   "internal_notes": [
-    "REAL scheduled World Cup 2026 fixture – kickoff/venue/round are real. This is the AI tactical-room pre-match view.",
+    "REAL scheduled World Cup 2026 fixture — kickoff/venue/round are real. This is the AI tactical-room pre-match view.",
     "Starting XI / formations are NOT announced: lineups are pending; expected shapes / key duels only as assumption_flag entries.",
-    "Assumption_context: lineup_integrity, goalkeeper_performance_gap, tactical_matchup, venue/travel/climate, model blind spots."
+    "Never 'if they meet' phrasing — the match is on the calendar.",
+    "Assumption context: lineup integrity, goalkeeper performance gap, tactical matchup, venue/travel/climate, model blind spots."
   ],
   "source_ref_map": {
-    "Long-run strength (Elo baseline)": "kaggle_intl_results: elo_snapshot@2026-06-13",
-    "Recent form (last 10)": "kaggle_intl_results: last10_form",
-    "Lineup integrity": "api-football: /players/squads (assumption_context)",
-    "Finishing efficiency": "kaggle_intl_results: goalscorers_last10",
-    "Goalkeeper performance gap": "api-football: /players/squads (assumption_context)",
-    "In-match momentum / late swings": "kaggle_intl_results: h2h+shootouts",
-    "Tactical matchup": "api-football: /coachs (assumption_context)",
-    "Venue / travel / climate": "api-football: /fixtures (assumption_context)",
-    "Model blind spots": "assumption_context: no injuries/xG/market value/FIFA rank/starting XI",
-    "Upset / volatility risk": "method: upset_band(elo_gap=65, missing=4)"
+    "Long-run strength (Elo baseline)": {
+      "source": "kaggle_intl_results",
+      "dataset": "international football results 1872-2026",
+      "metric": "elo_snapshot@2026-06-13",
+      "value": "Brazil 1964 / Morocco 1899"
+    },
+    "Recent form (last 10)": {
+      "source": "kaggle_intl_results",
+      "dataset": "international football results 1872-2026",
+      "metric": "last10_form"
+    },
+    "Finishing efficiency": {
+      "source": "kaggle_intl_results",
+      "dataset": "international football results 1872-2026",
+      "metric": "goalscorers_last10"
+    },
+    "In-match momentum / late swings": {
+      "source": "kaggle_intl_results",
+      "dataset": "international football results 1872-2026",
+      "metric": "h2h+shootouts"
+    },
+    "Upset / volatility risk": {
+      "method": "upset_band(elo_gap=65, missing=4)"
+    }
   },
   "llm_provider": "deepseek",
   "model": "deepseek-chat",
   "fixture_basis": "real_scheduled",
-  "generated_at": "2026-06-11T00:37:47.437611+00:00"
+  "generated_at": "2026-06-11T03:38:49.300858+00:00"
 }

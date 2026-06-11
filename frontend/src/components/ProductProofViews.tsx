@@ -10,10 +10,10 @@ import { MORE_RECAPS } from '../data/recapData';
 // Section labels/buttons below are UI chrome (stage), not narrative.
 const L10N = {
   zh: {
-    judgement: 'Giành Cup AI ScoutScore 怎么判断', lean: 'AI 倾向', scoreline: '比分区间', risk: '风险评级',
+    judgement: '中文先知怎么判断', lean: 'AI 倾向', scoreline: '比分区间', risk: '风险评级',
     gotRight: '模型抓对了什么', underweighted: '模型低估了什么', decisive: '决定性因子', evidence: '数据证据',
-    watchNext: '下次看类似比赛该盯什么', live30: '临场 30 分钟会重新计算什么', keyFactors: '关键因子',
-    freeFull: '免费版 vs 完整分析', joinGroup: '完整分析入群', today: '查看今日 AI 观点',
+    watchNext: '下次看类似比赛该盯什么', live30: '中文先知临场 30 分钟修正', keyFactors: '关键因子', tactical: '中文先知战术解读',
+    freeFull: '免费版 vs 完整分析', joinGroup: '加入赛前情报群', today: '查看今日 AI 观点',
     internal: '模型依据 / 内部来源（点击展开）', opsKit: '运营素材（内部）', notes: '内部备注', sources: '来源映射',
     by: '本页判断与文案由模型生成', moreRecaps: '更多历史复盘', moreStatus: '数据已接入，复盘生成中',
     predictLink: '2026 赛前建模样例：Brazil vs Argentina', estBadge: '模型估计',
@@ -21,10 +21,10 @@ const L10N = {
     predictDisclaimer: 'AI 数据观点，非结果承诺；历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。',
   },
   vi: {
-    judgement: 'Giành Cup AI ScoutScore nhận định thế nào', lean: 'Thiên hướng AI', scoreline: 'Khoảng tỷ số', risk: 'Mức rủi ro',
+    judgement: 'Tiên Tri Bóng Đá nhận định thế nào', lean: 'Thiên hướng AI', scoreline: 'Khoảng tỷ số', risk: 'Mức rủi ro',
     gotRight: 'Mô hình bắt đúng điều gì', underweighted: 'Mô hình đánh giá thấp điều gì', decisive: 'Yếu tố quyết định', evidence: 'Bằng chứng dữ liệu',
-    watchNext: 'Trận tương tự lần sau nên nhìn gì', live30: '30 phút trước giờ bóng lăn sẽ tính lại gì', keyFactors: 'Yếu tố then chốt',
-    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm xem phân tích đầy đủ', today: 'Xem quan điểm AI hôm nay',
+    watchNext: 'Trận tương tự lần sau nên nhìn gì', live30: 'Cập nhật 30 phút trước trận', keyFactors: 'Yếu tố then chốt', tactical: 'Thẻ chiến thuật Tiên Tri',
+    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tình báo trước trận', today: 'Xem quan điểm AI hôm nay',
     internal: 'Cơ sở mô hình / nguồn nội bộ (nhấn để mở)', opsKit: 'Bộ nội dung vận hành (nội bộ)', notes: 'Ghi chú nội bộ', sources: 'Bản đồ nguồn',
     by: 'Nhận định và lời văn trên trang do mô hình tạo', moreRecaps: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng',
     predictLink: 'Mẫu mô hình hóa trước trận 2026: Brazil vs Argentina', estBadge: 'Mô hình ước tính',
@@ -32,9 +32,9 @@ const L10N = {
     predictDisclaimer: 'Quan điểm dữ liệu AI, không phải cam kết kết quả; thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.',
   },
   en: {
-    judgement: 'How Giành Cup AI ScoutScore reads it', lean: 'AI lean', scoreline: 'Scoreline band', risk: 'Risk level',
+    judgement: 'How the Giành Cup scout reads it', lean: 'AI lean', scoreline: 'Scoreline band', risk: 'Risk level',
     gotRight: 'What the model got right', underweighted: 'What the model under-weighted', decisive: 'Decisive factors', evidence: 'Data evidence',
-    watchNext: 'What to watch in a similar match', live30: 'What re-computes 30 minutes before kickoff', keyFactors: 'Key factors',
+    watchNext: 'What to watch in a similar match', live30: 'What re-computes 30 minutes before kickoff', keyFactors: 'Key factors', tactical: 'Tactical read',
     freeFull: 'Free vs full analysis', joinGroup: 'Join the group for the full analysis', today: "See today's AI view",
     internal: 'Model basis / internal sources (expand)', opsKit: 'Operator kit (internal)', notes: 'Internal notes', sources: 'Source map',
     by: 'Judgement and copy on this page are model-generated', moreRecaps: 'More historical recaps', moreStatus: 'Data ingested, recap in progress',
@@ -95,9 +95,9 @@ function LeanRiskCards({ n, L, withScoreline }: { n: ProductNarrative; L: Return
   );
 }
 
-function InternalFold({ n, L }: { n: ProductNarrative; L: ReturnType<typeof ppLabels> }) {
+function InternalFold({ n, L, open }: { n: ProductNarrative; L: ReturnType<typeof ppLabels>; open?: boolean }) {
   return (
-    <details className="card recap-ledger eb-internal">
+    <details className="card recap-ledger eb-internal" open={open}>
       <summary>{L.internal}</summary>
       <div className="eb-internal-sub">{L.notes}</div>
       {n.internal_notes.map((x, i) => <div className="eb-internal-line" key={i}>· {x}</div>)}
@@ -155,7 +155,7 @@ export function ProductRecapView({ n, loc }: { n: ProductNarrative; loc: Locale 
         <p className="recap-oneliner">{n.hero_subtitle}</p>
       </div>
 
-      <Sec zh={L.judgement} en="AI READ" />
+      <Sec zh={L.judgement} en="SCOUT READ" />
       <div className="card"><p className="eb-lead">{n.model_judgement}</p></div>
       <LeanRiskCards n={n} L={L} withScoreline={true} />
 
@@ -187,7 +187,7 @@ export function ProductRecapView({ n, loc }: { n: ProductNarrative; loc: Locale 
 }
 
 /** 2026 pre-match modeling product view — structure per plan §5 (predict). */
-export function ProductPredictView({ n, loc }: { n: ProductNarrative; loc: Locale }) {
+export function ProductPredictView({ n, loc, opsOpen }: { n: ProductNarrative; loc: Locale; opsOpen?: boolean }) {
   const navigate = useNavigate();
   const L = ppLabels(loc);
   return (
@@ -197,9 +197,16 @@ export function ProductPredictView({ n, loc }: { n: ProductNarrative; loc: Local
         <p className="recap-oneliner">{n.hero_subtitle}</p>
       </div>
 
-      <Sec zh={L.judgement} en="AI READ" />
+      <Sec zh={L.judgement} en="SCOUT READ" />
       <div className="card"><p className="eb-lead">{n.model_judgement}</p></div>
       <LeanRiskCards n={n} L={L} withScoreline={true} />
+
+      {n.tactical_read && (
+        <>
+          <Sec zh={L.tactical} en="TACTICAL CARD" />
+          <div className="card pp-tactical"><p className="eb-lead">{n.tactical_read}</p></div>
+        </>
+      )}
 
       <Sec zh={L.keyFactors} en="KEY FACTORS" />
       <FactorList items={n.risk_factors} />
@@ -217,7 +224,7 @@ export function ProductPredictView({ n, loc }: { n: ProductNarrative; loc: Local
         </div>
       </div>
 
-      <InternalFold n={n} L={L} />
+      <InternalFold n={n} L={L} open={opsOpen} />
       <div className="muted-note">{L.predictDisclaimer}</div>
     </>
   );

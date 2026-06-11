@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative, predictSlugToId } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
@@ -9,12 +9,12 @@ import { ProductPredictView } from '../components/ProductProofViews';
 // fixtures (numeric ids — the AI tactical room). Engineering renders the stage only;
 // zh/vi only for this proof; en/mm show a neutral placeholder.
 const BARS = {
-  zh: { back: '赛前建模', backReal: 'AI 战术室', banner: '🔮 2026 World Cup · 赛前建模样例',
-        bannerReal: '⚡ World Cup 2026 · AI 战术室（赛前版）', none: '该样例暂未提供此语言版本', kickoff: '开球', venue: '球场' },
-  vi: { back: 'Mô hình hóa trước trận', backReal: 'Phòng chiến thuật AI', banner: '🔮 World Cup 2026 · Mẫu mô hình hóa trước trận',
-        bannerReal: '⚡ World Cup 2026 · Phòng chiến thuật AI (trước trận)', none: 'Mẫu này chưa có bản ngôn ngữ hiện tại', kickoff: 'Giờ bóng lăn', venue: 'Sân' },
-  en: { back: 'Pre-match modeling', backReal: 'AI Tactical Room', banner: '🔮 2026 World Cup · pre-match modeling sample',
-        bannerReal: '⚡ World Cup 2026 · AI Tactical Room (pre-match)', none: 'This sample is not available in the current language yet', kickoff: 'Kickoff', venue: 'Venue' },
+  zh: { back: '赛前建模', backReal: '中文先知战术室', banner: '🔮 2026 World Cup · 赛前建模样例',
+        bannerReal: '⚡ World Cup 2026 · 中文先知战术室（赛前判断）', none: '该样例暂未提供此语言版本', kickoff: '开球', venue: '球场' },
+  vi: { back: 'Mô hình hóa trước trận', backReal: 'Phòng chiến thuật Tiên Tri Bóng Đá', banner: '🔮 World Cup 2026 · Mẫu mô hình hóa trước trận',
+        bannerReal: '⚡ World Cup 2026 · Phòng chiến thuật Tiên Tri Bóng Đá', none: 'Mẫu này chưa có bản ngôn ngữ hiện tại', kickoff: 'Giờ bóng lăn', venue: 'Sân' },
+  en: { back: 'Pre-match modeling', backReal: 'Giành Cup Tactical Room', banner: '🔮 2026 World Cup · pre-match modeling sample',
+        bannerReal: '⚡ World Cup 2026 · Giành Cup Tactical Room (pre-match)', none: 'This sample is not available in the current language yet', kickoff: 'Kickoff', venue: 'Venue' },
 };
 
 function kickoffLocal(iso: string, loc: string): string {
@@ -27,11 +27,13 @@ export function PredictPage() {
   const navigate = useNavigate();
   const loc = useLocale();
   const { slug = '2026-brazil-argentina' } = useParams();
+  const [search] = useSearchParams();
   const B = loc === 'zh' ? BARS.zh : loc === 'vi' ? BARS.vi : BARS.en;
   const id = predictSlugToId(slug);
   const n = getProductNarrative(id, loc);
   const fx = getUpcomingFixture(id);
   const isReal = n?.fixture_basis === 'real_scheduled' || !!fx;
+  const opsOpen = search.get('ops') === '1'; // QA/operator helper: open the internal fold for screenshots
 
   return (
     <div className="page-enter">
@@ -47,7 +49,7 @@ export function PredictPage() {
         </div>
       )}
       {n ? (
-        <ProductPredictView n={n} loc={loc} />
+        <ProductPredictView n={n} loc={loc} opsOpen={opsOpen} />
       ) : (
         <div className="status-card"><div className="ic">🔮</div><div className="st">{B.none}</div></div>
       )}

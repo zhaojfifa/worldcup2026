@@ -3,36 +3,36 @@
   "fixture_id": "2026_brazil_argentina",
   "mode": "pre_match_2026_modeling",
   "language": "vi-VN",
-  "hero_title": "Giành Cup AI ScoutScore: Argentina Nhỉnh Hơn Nếu Gặp Brazil Ở Knock-out 2026",
-  "hero_subtitle": "Mô hình ScoutScore dự đoán Argentina có lợi thế dựa trên Elo và phong độ gần đây, nhưng rủi ro luân chuyển đội hình cần được theo dõi sát.",
-  "short_title": "Argentina Nhỉnh Hơn Brazil (Knock-out 2026)",
-  "screenshot_line": "ScoutScore chỉ ra Argentina có Elo cao hơn 100 điểm và phong độ 8W-1D-1L, tạo lợi thế rõ ràng trước Brazil.",
-  "model_judgement": "ScoutScore nhận định Argentina có lợi thế rõ ràng hơn Brazil nếu hai đội gặp nhau trong vòng knock-out World Cup 2026. Điều này dựa trên chênh lệch Elo 100 điểm nghiêng về Argentina và phong độ ấn tượng 8 thắng-1 hòa-1 thua trong 10 trận gần nhất, so với Brazil là 6 thắng-1 hòa-3 thua. Khả năng dứt điểm của Argentina cũng được đánh giá cao với Messi dẫn đầu danh sách ghi bàn.",
-  "main_lean": "Argentina được mô hình dự đoán sẽ có lợi thế thắng Brazil trong kịch bản knock-out.",
-  "scoreline_view": "ScoutScore ước tính khoảng tỷ số hợp lý trước trận là 1-1, 2-1 hoặc 1-2, cho thấy một trận đấu cân bằng nhưng Argentina có khả năng thắng sít sao.",
+  "hero_title": "Tiên Tri Bóng Đá: Argentina Được Ưu Ái Hơn Nếu Đối Đầu Brazil Tại World Cup 2026",
+  "hero_subtitle": "Mô hình ScoutScore thử thách nhận định về sức mạnh Nam Mỹ trong kịch bản knock-out giả định.",
+  "short_title": "Argentina vs Brazil: Ai mạnh hơn tại World Cup 2026?",
+  "screenshot_line": "ScoutScore nhận định Argentina có chỉ số Elo cao hơn 100 điểm và phong độ gần đây vượt trội so với Brazil.",
+  "model_judgement": "Tiên Tri Bóng Đá của Giành Cup AI ScoutScore nhận định Argentina là bên được đánh giá cao hơn nếu hai đội chạm trán ở vòng knock-out World Cup 2026. Dựa trên chỉ số Elo dài hạn (Argentina 2064 so với Brazil 1964) và phong độ 10 trận gần nhất (Argentina 8 thắng, 1 hòa, 1 thua; Brazil 6 thắng, 1 hòa, 3 thua), Argentina cho thấy sự ổn định và hiệu quả hơn. Đặc biệt, lịch sử đối đầu gần đây cũng nghiêng về phía Argentina với 4 chiến thắng trong 5 trận gần nhất.",
+  "main_lean": "Argentina có thiên hướng thắng rõ ràng hơn Brazil.",
+  "scoreline_view": "Mô hình ước tính khoảng tỷ số hợp lý nhất là Argentina thắng 1-0 hoặc 2-1, hoặc hòa 1-1 trong 90 phút.",
   "risk_level": "Trung bình",
   "risk_factors": [
     {
-      "name": "Tính toàn vẹn đội hình ra sân",
-      "text": "Hiện tại chưa có thông tin đội hình chính thức. Việc thiếu dữ liệu về đội hình xuất phát có thể tạo ra biến số lớn, đặc biệt là các thay đổi ở trục dọc đội hình.",
+      "name": "Tính toàn vẹn đội hình",
+      "text": "Chưa có thông tin đội hình ra sân chính thức. Sự vắng mặt của các trụ cột hoặc thay đổi ở xương sống đội hình có thể ảnh hưởng lớn đến cục diện trận đấu.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
       "name": "Khoảng cách hiệu suất thủ môn",
-      "text": "Mô hình chưa có dữ liệu chi tiết về phong độ thủ môn của cả hai đội. Hiệu suất của người gác đền có thể là yếu tố then chốt trong một trận đấu loại trực tiếp.",
+      "text": "Chưa có dữ liệu về phong độ thủ môn. Đây là biến số quan trọng cần theo dõi sát giờ bóng lăn, đặc biệt trong một trận đấu loại trực tiếp.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Yếu tố chiến thuật",
-      "text": "Các kế hoạch chiến thuật và đội hình cụ thể cho World Cup 2026 của hai HLV chưa được mô hình phân tích sâu. Những điều chỉnh chiến thuật bất ngờ có thể thay đổi cục diện trận đấu.",
+      "name": "Đối đầu chiến thuật",
+      "text": "Các sơ đồ chiến thuật và kế hoạch huấn luyện viên cho World Cup 2026 chưa được mô hình hóa. Điều này tạo ra một khoảng trống về cách hai đội sẽ tiếp cận trận đấu.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Địa điểm và khí hậu",
-      "text": "Nếu trận đấu diễn ra tại Mỹ vào mùa hè 2026, các yếu tố về nhiệt độ và quãng đường di chuyển giữa các thành phố chủ nhà có thể ảnh hưởng đến thể lực cầu thủ, đặc biệt là sau lịch thi đấu vòng bảng dày đặc.",
+      "name": "Địa điểm / di chuyển / khí hậu",
+      "text": "Kịch bản World Cup 2026 tại Mỹ với các địa điểm thi đấu và điều kiện khí hậu mùa hè có thể ảnh hưởng đến thể lực cầu thủ, đặc biệt là sau lịch thi đấu vòng bảng của mỗi đội.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -48,33 +48,35 @@
   "underweighted_factors": [],
   "watch_next_signals": [
     {
-      "name": "Đội hình chính thức 30 phút trước trận",
-      "text": "Theo dõi sát đội hình ra sân cuối cùng. Bất kỳ thay đổi lớn nào, đặc biệt là ở các vị trí chủ chốt, sẽ kích hoạt mô hình tính toán lại nhận định.",
+      "name": "Đội hình xuất phát",
+      "text": "30 phút trước giờ bóng lăn, mô hình sẽ cập nhật lại nhận định dựa trên đội hình chính thức. Bất kỳ sự thay đổi bất ngờ nào ở các vị trí chủ chốt đều có thể đảo ngược dự đoán ban đầu.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
       "name": "Phong độ thủ môn",
-      "text": "Tìm kiếm các thông tin cập nhật về phong độ gần đây của thủ môn chính thức. Một thủ môn đang có phong độ cao có thể tạo ra khác biệt lớn trong các trận knock-out.",
+      "text": "Hiệu suất của thủ môn bắt chính có thể là yếu tố then chốt quyết định kết quả, đặc biệt nếu trận đấu phải giải quyết bằng loạt sút luân lưu.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Chiến thuật dự kiến",
-      "text": "Quan sát các dấu hiệu về sơ đồ chiến thuật và cách tiếp cận trận đấu của hai đội trong các buổi tập cuối cùng hoặc phát biểu của HLV. Điều này sẽ giúp đánh giá rủi ro chiến thuật.",
+      "name": "Chiến thuật bất ngờ",
+      "text": "Huấn luyện viên có thể tung ra những miếng đánh chiến thuật mới lạ. Khả năng thích ứng của các cầu thủ với chiến thuật đó sẽ rất quan trọng.",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "Giành Cup AI ScoutScore dự đoán Argentina nhỉnh hơn Brazil nếu hai đội gặp nhau ở vòng knock-out 2026. Mô hình dựa trên Elo cao hơn 100 điểm và phong độ 8W-1D-1L của Argentina. Tuy nhiên, các yếu tố như đội hình ra sân và phong độ thủ môn vẫn là biến số cần theo dõi sát. Đăng ký để nhận cập nhật 30 phút trước giờ bóng lăn và phân tích chuyên sâu!",
-  "subscription_hook": "Bạn đang xem bản phân tích miễn phí của Giành Cup AI ScoutScore với nhận định chính và mức độ rủi ro. Đăng ký ngay để mở khóa toàn bộ: phân tích đầy đủ các yếu tố, cập nhật nhận định của mô hình 30 phút trước giờ bóng lăn (bao gồm đội hình ra sân và thay đổi chiến thuật), và khoảng tỷ số chi tiết của mô hình AI.",
-  "group_join_copy": "Muốn xem phân tích sâu hơn và cập nhật nhanh nhất từ Giành Cup AI ScoutScore? Vào nhóm Telegram của chúng tôi ngay! Bạn sẽ nhận được các bài phân tích đầy đủ, cập nhật nhận định AI trước trận 30 phút và thảo luận cùng cộng đồng người hâm mộ bóng đá thông thái.",
+  "operator_copy": "Tiên Tri Bóng Đá nhận định Argentina có lợi thế rõ ràng hơn Brazil nếu gặp nhau ở knock-out World Cup 2026. Chỉ số Elo của Argentina cao hơn 100 điểm, cùng phong độ 8 thắng/10 trận gần nhất. Đừng bỏ lỡ phân tích sâu hơn về các yếu tố rủi ro và cập nhật sát giờ bóng lăn. Vào nhóm để xem đầy đủ!",
+  "subscription_hook": "Bản miễn phí cho bạn thấy nhận định chính và mức độ rủi ro. Đăng ký để mở khóa toàn bộ phân tích chuyên sâu các yếu tố, cập nhật liên tục 30 phút trước giờ bóng lăn, và dự đoán khoảng tỷ số chi tiết từ Giành Cup AI ScoutScore.",
+  "group_join_copy": "Tham gia nhóm Giành Cup AI ScoutScore ngay để nhận bản phân tích đầy đủ, các hiệu chỉnh nhận định sát giờ bóng lăn, và những góc nhìn độc quyền từ Tiên Tri Bóng Đá. Đừng bỏ lỡ bất kỳ biến số quan trọng nào!",
   "today_cta": "Quan điểm AI hôm nay",
-  "social_post": "Giành Cup AI ScoutScore dự đoán Argentina nhỉnh hơn Brazil nếu gặp nhau ở knock-out World Cup 2026. Với Elo cao hơn 100 điểm và phong độ ấn tượng 8W-1D-1L, Argentina có lợi thế rõ ràng. Tuy nhiên, rủi ro về đội hình và thủ môn vẫn cần theo dõi. Xem phân tích đầy đủ và cập nhật 30 phút trước trận!",
+  "social_post": "Tiên Tri Bóng Đá của Giành Cup AI ScoutScore nhận định: Argentina được đánh giá cao hơn Brazil nếu đối đầu tại World Cup 2026. Với Elo cao hơn 100 điểm và phong độ gần đây vượt trội, Argentina có lợi thế. Tuy nhiên, các biến số như đội hình ra sân và phong độ thủ môn sẽ quyết định. #GiànhCupAI #ScoutScore #WorldCup2026 #Argentina #Brazil",
   "internal_notes": [
     "historical_replay: false",
-    "assumption_context: Lineup integrity, Goalkeeper performance gap, Tactical matchup, Venue / travel / climate (impact), Model blind spots",
-    "hypothetical_fixture: Brazil vs Argentina is NOT scheduled in the 2026 group stage — a meeting is a knockout scenario."
+    "assumption_context: lineup integrity, goalkeeper performance gap, tactical matchup, venue/travel/climate",
+    "hypothetical_fixture: Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario. Customer copy must say 'if they meet in the knockouts'.",
+    "forbidden wording 'cửa trên' replaced with 'bên được đánh giá cao hơn'.",
+    "đội hình chưa công bố"
   ],
   "source_ref_map": {
     "Long-run strength (Elo baseline)": [
@@ -133,6 +135,6 @@
   },
   "llm_provider": "gemini",
   "model": "gemini-2.5-flash",
-  "generated_at": "2026-06-10T16:54:42.588538+00:00",
-  "fixture_basis": "hypothetical_scenario"
+  "fixture_basis": "hypothetical_scenario",
+  "generated_at": "2026-06-11T03:36:20.525611+00:00"
 }

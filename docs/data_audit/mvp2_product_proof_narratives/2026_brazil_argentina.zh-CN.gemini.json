@@ -3,36 +3,92 @@
   "fixture_id": "2026_brazil_argentina",
   "mode": "pre_match_2026_modeling",
   "language": "zh-CN",
-  "hero_title": "Giành Cup AI 预测：若淘汰赛相遇，阿根廷能否延续对巴西的强势？",
-  "hero_subtitle": "ScoutScore 深度解析：梅西领衔的阿根廷，在假想淘汰赛中，模型判断优势何在。",
-  "short_title": "AI 预测：巴西 vs 阿根廷，谁能晋级？",
-  "screenshot_line": "ScoutScore 预警：阿根廷近 10 场 8 胜 1 负，防线固若金汤，巴西面临硬仗！",
-  "model_judgement": "如果两队在 2026 世界杯淘汰赛相遇，Giành Cup AI ScoutScore 模型认为阿根廷占据明显优势。这不仅基于其高达 2064 的 Elo 积分，更在于近 10 场比赛中，阿根廷 8 胜 1 平 1 负，仅失 3 球的防守表现令人印象深刻。相比之下，巴西近 10 场 6 胜 1 平 3 负，虽然进攻火力不俗（打入 25 球），但防线稳定性略逊一筹，失球数达到 11 个。历史交锋也显示，阿根廷在关键战役中多次压制巴西，尤其在点球大战经验上，阿根廷近年表现更胜一筹。",
-  "main_lean": "模型赛前倾向阿根廷胜，但考虑到这是南美德比，冷门风险偏高。",
-  "scoreline_view": "模型估计合理比分区间：1-1，2-1（阿根廷胜），1-2（巴西胜）。",
-  "risk_level": "中高。虽然阿根廷数据占优，但南美德比的激烈程度、淘汰赛的偶然性，以及模型当前对门将表现、战术细节等关键信息的缺失，都增加了比赛的不确定性。",
+  "hero_title": "中文先知：若巴西阿根廷世界杯淘汰赛相遇，潘帕斯雄鹰更具优势",
+  "hero_subtitle": "ScoutScore 模型赛前预判，阿根廷在长期实力和近期状态上均领先巴西，但桑巴军团的冷门潜力不容忽视。",
+  "short_title": "中文先知：巴阿假想对决，阿根廷占优",
+  "screenshot_line": "Giành Cup AI 判断：阿根廷面对巴西，Elo 领先 100 分，近 10 场 8 胜，但需警惕巴西的锋线效率。",
+  "model_judgement": "中文先知 ScoutScore 模型判断，如果巴西和阿根廷在 2026 年世界杯淘汰赛相遇，阿根廷将是更被看好的一方。这主要基于其在 Elo 积分上的长期领先优势（高出巴西 100 分），以及过去 10 场比赛 8 胜 1 平 1 负的稳定状态。巴西虽然近期也有 6 胜 1 平 3 负的表现，但防守端失球数是阿根廷的近四倍，这在强强对话中可能是致命弱点。不过，巴西的锋线效率和历史交锋中的冷门属性，也让这场潜在的对决充满变数。",
+  "main_lean": "赛前倾向阿根廷胜，但巴西的冷门风险偏高。",
+  "scoreline_view": "模型估计比分区间：1-1, 2-1 (阿根廷), 1-2 (巴西)。",
+  "risk_level": "中高。尽管阿根廷有明显优势，但巴西的锋线实力和历史交锋的复杂性，使得比赛结果仍有较大不确定性。",
   "risk_factors": [
     {
+      "name": "长期实力 (Elo 基线)",
+      "text": "巴西 Elo 1964 分，阿根廷 Elo 2064 分，阿根廷领先 100 分。这反映了阿根廷在过去一段时间内整体表现更稳定，积累了更高的实力评价。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-11",
+          "value": "Brazil 1964 / Argentina 2064"
+        },
+        {
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "近期状态 (近 10 场)",
+      "text": "阿根廷近 10 场 8 胜 1 平 1 负，进 23 球失 3 球，状态非常出色。巴西同期 6 胜 1 平 3 负，进 25 球失 11 球，进攻火力不俗但防守端存在隐患。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "终结效率",
+      "text": "阿根廷的进球分布更集中在梅西、阿尔瓦雷斯等核心球员，而巴西的进球点相对分散，这可能影响关键时刻的得分稳定性。不过，巴西的整体进球数不低，显示其进攻端有制造威胁的能力。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "goalscorers_last10"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "淘汰赛心态与点球",
+      "text": "在世界杯淘汰赛这种高压环境下，比赛的拉锯和点球大战的风险会显著增加。两队历史交锋不乏小比分和胶着，且都有点球大战的经验。阿根廷在近年的点球大战中表现更稳健，而巴西则有几次关键失利。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
       "name": "阵容完整性",
-      "text": "目前双方大名单均未公布，首发阵容是决定比赛走向的关键。任何核心球员的缺席或意外首发，都可能改变比赛平衡。",
+      "text": "目前双方的 2026 年世界杯阵容均未公布，任何核心球员的伤病或状态波动都可能对比赛产生巨大影响。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "门将表现",
-      "text": "淘汰赛中门将的临场发挥至关重要，特别是面对高水平射门和点球大战。模型目前缺少门将状态的实时数据，这是一个潜在的风险点。",
+      "name": "门将表现差距",
+      "text": "门将在淘汰赛中的发挥至关重要。目前没有关于 2026 年世界杯双方主力门将的详细状态数据，这会是临场需要重点关注的变量。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
       "name": "战术对位",
-      "text": "两队教练的战术部署和临场调整将直接影响比赛进程。模型目前无法获取 2026 年的详细战术信息，这可能导致对比赛走势的判断出现偏差。",
+      "text": "两队在 2026 年世界杯的预期阵型和教练战术部署尚未可知。巴西的进攻天赋与阿根廷的整体防守反击体系如何碰撞，将是决定胜负的关键。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "场地与气候",
-      "text": "2026 世界杯在美国夏季举行，比赛场地和不同城市间的旅途、炎热气候都可能对球员体能和表现产生影响。",
+      "name": "比赛环境",
+      "text": "2026 年世界杯在美国夏季进行，场地条件、长途旅行以及不同城市间的气候变化（例如高温）都可能对球员体能和比赛节奏产生影响。",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -48,32 +104,38 @@
   "underweighted_factors": [],
   "watch_next_signals": [
     {
-      "name": "临场阵容公布",
-      "text": "比赛前 30 分钟，双方首发阵容的公布将是模型重新评估比赛走向的关键信号。特别是核心攻击手和防守中坚的到位情况。",
+      "name": "首发阵容与核心伤病",
+      "text": "开球前 30 分钟，双方的首发阵容和任何突发伤病信息将是模型重新计算判断的关键。特别是中轴线和关键进攻球员的变化，会直接影响比赛走势。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "门将状态更新",
-      "text": "如果能获取到双方首发门将的近期状态和伤病信息，模型将能更准确地判断防守稳定性和点球大战的潜力。",
+      "name": "门将状态",
+      "text": "临场确认双方首发门将的状态和近期表现，这将直接影响防守端的稳定性，尤其是在淘汰赛中，门将的扑救能力和出击时机至关重要。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "战术情报",
-      "text": "任何关于教练战术意图、阵型选择的赛前消息，都将帮助模型更细致地分析两队在场上的对位优劣。",
+      "name": "实际战术部署",
+      "text": "比赛开始后，双方的实际阵型和教练的临场调整将是判断比赛走向的重要信号。例如，是巴西主攻还是阿根廷采取更保守的反击策略。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "实时数据流（2026 展望）",
+      "text": "若有实时 xG (预期进球)、控球率、射门转化率等数据，将能更精准地捕捉比赛进程中的势头变化和效率差异。",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "Giành Cup AI 预测：巴西 vs 阿根廷，如果淘汰赛相遇，阿根廷优势明显！近 10 场仅失 3 球，防线固若金汤。但德比战风险高，AI 临场 30 分钟会根据阵容再更新。想看最新 AI 观点和比分区间？入群获取！",
-  "subscription_hook": "免费版 Giành Cup AI ScoutScore 为您提供核心判断和风险提示。订阅后，您将解锁完整的因子分析、临场 30 分钟的实时模型更新、更深度的比分区间预测，以及每日 AI 观点，助您洞察先机！",
-  "group_join_copy": "想第一时间获取 Giành Cup AI ScoutScore 的独家预测？加入我们的 Telegram 群！在这里，您不仅能看到每场比赛的完整 AI 分析、关键因子解读，还能在开赛前 30 分钟收到模型根据最终阵容更新的最新判断，以及社群专属的深度比分区间分析。和懂球的朋友一起，用 AI 视角看球！",
-  "today_cta": "今日 AI 观点：点击查看 Giành Cup AI ScoutScore 更多预测",
-  "social_post": "巴西 vs 阿根廷，AI 预测谁能赢？ScoutScore 模型认为阿根廷优势明显，但德比战冷门风险高！想看临场 30 分钟更新？#GiànhCupAI #世界杯2026 #足球预测",
+  "operator_copy": "Giành Cup AI 预测：如果巴西和阿根廷在 2026 世界杯淘汰赛相遇，中文先知模型认为阿根廷在长期实力和近期状态上更占优。但巴西的冷门风险不容小觑。想看临场 30 分钟更新的最终判断和比分区间深度分析？立即入群，获取第一手 AI 战术室情报！",
+  "subscription_hook": "免费版能看到 Giành Cup AI 的核心倾向和风险评级。订阅后，您将解锁完整的因子分析、临场开球前 30 分钟的实时模型重算与更新判断，以及更精准的比分区间深度解读。不错过任何关键信息，让 AI 成为你的观赛利器！",
+  "group_join_copy": "想深入了解 Giành Cup AI ScoutScore 模型如何拆解巴西与阿根廷的潜在对决？我们群里有更详细的战术解读、历史数据复盘，以及开球前 30 分钟的独家临场更新。扫描下方二维码，或点击链接加入 LEIZE AI 足球情报群，与更多球迷一起，用 AI 视角看懂比赛！",
+  "today_cta": "今日 AI 观点：巴西 vs 阿根廷（假想对决）",
+  "social_post": "中文先知预测：2026 世界杯若巴阿相遇，阿根廷更被看好！但巴西的冷门潜力不容忽视。你觉得谁会赢？#世界杯2026 #巴西vs阿根廷 #足球预测 #GiànhCupAI",
   "internal_notes": [
-    "historical_replay: false",
-    "assumption_context: Lineup integrity (no lineup feed yet), Goalkeeper performance gap (no GK form feed), Tactical matchup (2026 formations/coach plans not ingested), Venue / travel / climate (venue/heat impact for a knockout meeting is scenario context)",
+    "historical_replay: N/A",
+    "assumption_context: Lineup integrity, Goalkeeper performance gap, Tactical matchup, Venue / travel / climate are based on assumptions as real data is not available for 2026 hypothetical scenario.",
     "2026 hypothetical knockout meeting: Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario."
   ],
   "source_ref_map": {
@@ -133,6 +195,6 @@
   },
   "llm_provider": "gemini",
   "model": "gemini-2.5-flash",
-  "generated_at": "2026-06-10T16:54:29.149675+00:00",
-  "fixture_basis": "hypothetical_scenario"
+  "fixture_basis": "hypothetical_scenario",
+  "generated_at": "2026-06-11T03:21:49.273868+00:00"
 }

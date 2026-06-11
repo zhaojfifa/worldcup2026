@@ -3,71 +3,31 @@
   "fixture_id": "2026_brazil_argentina",
   "mode": "pre_match_2026_modeling",
   "language": "vi-VN",
-  "hero_title": "Giành Cup AI: Argentina là ứng viên nặng ký nếu gặp Brazil ở vòng knock-out World Cup 2026",
-  "hero_subtitle": "Elo chênh 100 điểm, phong độ 10 trận vượt trội — nhưng ScoutScore cảnh báo biến số đội hình và sút luân lưu có thể lật ngược thế cờ.",
-  "short_title": "ScoutScore: Argentina nhỉnh hơn Brazil ở mọi chỉ số",
-  "screenshot_line": "Elo 2064 vs 1964, 8 thắng 1 hòa 1 thua trong 10 trận gần nhất — Argentina dẫn trước Brazil mọi mặt số liệu.",
-  "model_judgement": "ScoutScore nhận định Argentina là bên được đánh giá cao hơn nếu hai đội gặp nhau ở vòng knock-out World Cup 2026. Yếu tố chính: chênh lệch Elo 100 điểm nghiêng về Argentina (2064 so với 1964 của Brazil), phong độ 10 trận gần nhất của Argentina áp đảo (8W-1D-1L, chỉ thủng lưới 3 bàn) so với Brazil (6W-1D-3L, thủng lưới 11 bàn). Lịch sử đối đầu 5 trận gần nhất cũng ủng hộ Argentina với 4 chiến thắng. Tuy nhiên, rủi ro trung bình vì còn thiếu dữ liệu đội hình và thủ môn.",
-  "main_lean": "Argentina nhỉnh hơn, nhưng trận knock-out luôn tiềm ẩn bất ngờ.",
-  "scoreline_view": "Mô hình ước tính tỷ số khả quan cho Argentina trong khoảng 1-1, 2-1 nghiêng về Argentina, hoặc 1-2.",
-  "risk_level": "Trung bình – Argentina là ứng viên rõ rệt, nhưng thiếu dữ liệu đội hình và thủ môn khiến mô hình chưa thể khẳng định chắc chắn.",
+  "hero_title": "Tiên Tri Bóng Đá nhận định: Argentina vượt trội Brazil về Elo và phong độ – nhưng knockout là chuyện khác",
+  "hero_subtitle": "ScoutScore chỉ ra Argentina là bên được đánh giá cao hơn, nhưng lịch sử đối đầu và loạt luân lưu là biến số lớn.",
+  "short_title": "Argentina vs Brazil: Ai thắng nếu gặp ở knock-out?",
+  "screenshot_line": "Elo Argentina 2064 – Brazil 1964, chênh 100 điểm; 8/10 trận gần nhất Argentina thắng.",
+  "model_judgement": "Tiên Tri Bóng Đá nhận định: Argentina là bên được đánh giá cao hơn nhờ Elo vượt trội (2064 vs 1964) và phong độ hủy diệt (8W-1D-1L, chỉ thủng lưới 3 bàn). Brazil có hàng công tốt (25 bàn/10 trận) nhưng phòng ngự lỏng lẻo (11 bàn thua). Yếu tố then chốt: lịch sử đối đầu nghiêng về Argentina (4-1-5 trong 10 trận gần nhất, thắng 4 trận gần đây), và khả năng luân lưu của Argentina (thắng 4/5 gần đây) so với Brazil (thua 3/5). Nếu hai đội gặp nhau ở vòng knock-out, Argentina chiếm ưu thế, nhưng Brazil vẫn đủ sức tạo địa chấn.",
+  "main_lean": "Argentina được đánh giá cao hơn, nhưng trận knock-out có thể kéo dài và phân định bằng luân lưu.",
+  "scoreline_view": "Mô hình ước tính tỷ số khả quan: 1-1, 2-1 nghiêng Argentina, hoặc 1-2 nghiêng Brazil. Khả năng luân lưu rất cao.",
+  "risk_level": "Trung bình – Argentina là ứng cử viên sáng giá, nhưng Brazil có thể tận dụng sơ hở và lịch sử luân lưu bất lợi cho họ.",
   "risk_factors": [
     {
-      "name": "Lineup integrity",
-      "text": "Chưa có đội hình ra sân – đây là biến số sống còn trước giờ bóng lăn. Một mất mát quan trọng ở hàng thủ hoặc tiền vệ trụ có thể thay đổi cục diện.",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "Goalkeeper performance gap",
-      "text": "Không có dữ liệu phong độ thủ môn – ở trận knock-out, một pha cứu thua xuất thần hoặc sai lầm cá nhân có thể định đoạt số phận.",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "Tactical matchup",
-      "text": "Sơ đồ chiến thuật và kế hoạch của HLV chưa được đưa vào mô hình – đây là yếu tố con người khó đoán ở các trận cầu đỉnh cao.",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "Venue / travel / climate",
-      "text": "Nếu hai đội gặp nhau ở vòng knock-out, địa điểm và điều kiện thời tiết mùa hè nước Mỹ có thể ảnh hưởng đến thể lực và lối chơi.",
+      "name": "Phong độ gần đây",
+      "text": "Argentina thắng 8/10 trận, chỉ thua 1, thủng lưới 3 bàn. Brazil thắng 6/10, thua 3, thủng lưới 11 bàn.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
           "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true,
-          "metric": "2026_group_fixtures"
+          "metric": "last10_form"
         }
       ],
-      "assumption_flag": true
+      "assumption_flag": false
     },
     {
-      "name": "Model blind spots",
-      "text": "Các biến số như chấn thương, thẻ phạt, giá trị đội hình, và thứ hạng FIFA chính thức chưa được tích hợp – người xem cần theo dõi sát các kênh tin tức trước trận.",
-      "source_refs": [],
-      "assumption_flag": true
-    }
-  ],
-  "validated_factors": [],
-  "underweighted_factors": [],
-  "watch_next_signals": [
-    {
-      "name": "Lineup integrity",
-      "text": "Đội hình ra sân chính thức: ai đá chính, ai vắng mặt? Đặc biệt chú ý hàng thủ và tiền vệ trung tâm của cả hai bên.",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "Goalkeeper performance gap",
-      "text": "Thủ môn nào bắt chính? Phong độ gần đây ra sao? Một thủ môn xuất sắc có thể hóa giải mọi ưu thế đối thủ.",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "In-match momentum / late swings",
-      "text": "Trận knock-out có thể kéo dài sang hiệp phụ và luân lưu. Lịch sử đối đầu cho thấy Argentina thắng 4/5 loạt luân lưu gần nhất, Brazil thua 3/5 – đây là tín hiệu cần theo dõi nếu trận đấu căng thẳng.",
+      "name": "Lịch sử đối đầu",
+      "text": "10 trận gần nhất: Argentina thắng 5, hòa 2, thua 3. 4 trận gần đây Argentina toàn thắng, gồm trận 4-1 năm 2025.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -77,28 +37,80 @@
         }
       ],
       "assumption_flag": false
+    },
+    {
+      "name": "Khả năng luân lưu",
+      "text": "Argentina thắng 4/5 loạt luân lưu gần đây (gồm chung kết World Cup 2022). Brazil thua 3/5 gần đây.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Đội hình chưa công bố",
+      "text": "Chưa có đội hình xuất phát – đây là biến số cần canh sát giờ. Sự vắng mặt của trụ cột có thể thay đổi cục diện.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn",
+      "text": "Chưa có dữ liệu phong độ thủ môn – cần theo dõi sát trước trận.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Chiến thuật",
+      "text": "Chưa có thông tin đội hình và sơ đồ dự kiến – sẽ được cập nhật 30 phút trước giờ bóng lăn.",
+      "source_refs": [],
+      "assumption_flag": true
     }
   ],
-  "operator_copy": "🔥 ScoutScore nhận định: Argentina nhỉnh hơn Brazil nếu gặp ở vòng knock-out World Cup 2026. Elo chênh 100, phong độ 10 trận vượt trội (8W-1D-1L, thủng lưới chỉ 3 bàn). Nhưng biến số đội hình và thủ môn có thể thay đổi tất cả. Theo dõi bản tin 30 phút trước giờ bóng lăn để cập nhật nhận định mới nhất!",
-  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và rủi ro. Khi đăng ký, bạn nhận được bản phân tích đầy đủ tất cả yếu tố, bản cập nhật 30 phút trước giờ bóng lăn khi đội hình ra sân và mô hình tái đánh giá, cùng dải tỷ số chi tiết. Đăng ký ngay để không bỏ lỡ bất kỳ biến động nào!",
-  "group_join_copy": "Muốn xem phân tích chi tiết từng yếu tố, cập nhật live 30 phút trước trận và thảo luận cùng cộng đồng? Vào nhóm Telegram của Giành Cup AI ScoutScore – nơi mô hình và người hâm mộ cùng nhau giải mã bóng đá.",
-  "today_cta": "Xem ngay: Quan điểm AI hôm nay – Argentina nhỉnh hơn Brazil, nhưng rủi ro nào có thể tạo địa chấn?",
-  "social_post": "ScoutScore: Argentina nhỉnh hơn Brazil nếu gặp ở knock-out World Cup 2026. Elo 2064 vs 1964, phong độ 10 trận 8W-1D-1L. Nhưng đội hình và thủ môn là ẩn số. Theo dõi bản tin 30 phút trước giờ bóng lăn! #WorldCup2026 #Brazil #Argentina",
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình chính thức",
+      "text": "Ai đá chính? Có thiếu vắng bất ngờ nào không? Đây là tín hiệu số một trước giờ bóng lăn.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn xuất phát",
+      "text": "Thủ môn bên nào bắt chính? Phong độ gần đây ra sao? Ảnh hưởng lớn đến khả năng luân lưu.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Sơ đồ chiến thuật",
+      "text": "HLV bố trí đội hình ra sao? Có bất ngờ về nhân sự không?",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Tiên Tri Bóng Đá: Argentina hơn Brazil 100 điểm Elo, phong độ 8-1-1, đối đầu 4-1-5. Nhưng knock-out là chuyện khác. Đội hình chưa có – canh sát giờ! Vào nhóm xem hiệu chỉnh 30 phút trước giờ bóng lăn.",
+  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và rủi ro. Đăng ký để nhận: phân tích đầy đủ yếu tố, cập nhật 30 phút trước giờ bóng lăn (đội hình, thủ môn, sơ đồ), và dải tỷ số chi tiết.",
+  "group_join_copy": "Muốn xem Tiên Tri Bóng Đá hiệu chỉnh nhận định sát giờ? Tham gia nhóm Telegram – mỗi trận knock-out có bản tin riêng trước 30 phút.",
+  "today_cta": "Xem ngay: Quan điểm AI hôm nay về Brazil vs Argentina – ai sẽ thắng nếu gặp nhau ở knock-out?",
+  "social_post": "Tiên Tri Bóng Đá: Argentina hơn Brazil 100 Elo, 8/10 trận gần nhất thắng. Nhưng knock-out là chuyện khác. Đội hình chưa có – canh sát giờ! #GianhCup #ScoutScore",
   "internal_notes": [
-    "hypothetical: Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario. Customer copy must say 'if they meet in the knockouts'.",
-    "assumption_context: lineup_integrity, goalkeeper_performance_gap, tactical_matchup, venue/travel/climate, model_blind_spots are flagged assumption.",
-    "historical_replay: false, pre_match_2026_modeling: true."
+    "hypothetical_scenario: Brazil vs Argentina chưa được xếp lịch ở vòng knock-out World Cup 2026 – đây là kịch bản giả định.",
+    "assumption_context: đội hình chưa công bố, thủ môn chưa xác định, chiến thuật chưa rõ – viết dưới dạng biến số cần theo dõi.",
+    "trial_persona: Tiên Tri Bóng Đá."
   ],
   "source_ref_map": {
-    "Long-run strength (Elo baseline)": "kaggle_intl_results -> elo_snapshot@2026-06-11",
-    "Recent form (last 10)": "kaggle_intl_results -> last10_form",
-    "Finishing efficiency": "kaggle_intl_results -> goalscorers_last10",
-    "In-match momentum / late swings": "kaggle_intl_results -> h2h+shootouts",
-    "Venue / travel / climate": "kaggle_intl_results -> 2026_group_fixtures",
-    "Upset / volatility risk": "upset_band(elo_gap=100, missing=4)"
+    "Long-run strength (Elo baseline)": "kaggle_intl_results: elo_snapshot@2026-06-11",
+    "Recent form (last 10)": "kaggle_intl_results: last10_form",
+    "Finishing efficiency": "kaggle_intl_results: goalscorers_last10",
+    "In-match momentum / late swings": "kaggle_intl_results: h2h+shootouts",
+    "Upset / volatility risk": "method: upset_band(elo_gap=100, missing=4)"
   },
   "llm_provider": "deepseek",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-10T17:12:37.083011+00:00",
-  "fixture_basis": "hypothetical_scenario"
+  "fixture_basis": "hypothetical_scenario",
+  "generated_at": "2026-06-11T03:41:33.038262+00:00"
 }
