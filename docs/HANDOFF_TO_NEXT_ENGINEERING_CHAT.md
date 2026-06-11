@@ -2,6 +2,54 @@
 
 _Read `CLAUDE.md` first, then this. Date: 2026-06-11. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
+## ★★ Current handoff state — MVP-2 small private trial（THREAD CLOSED 2026-06-11）
+
+**Owner verdict: PASS WITH CONDITIONS for small private trial.** This thread is closed for feature
+work; the next thread starts from trial feedback, not from code.
+
+```text
+Frozen state:
+  branch feature/mvp2-api-football-ingestion @ d03fdf5 (de-model customer voice) · PR #3 Draft/OPEN ·
+  main untouched (e372616) · build PASS · narrative guard 36/36 + trial 8/8 + rescore 4/4 PASS ·
+  customer visible-copy scan 10/10 PASS (scripts/check_customer_visible_copy.py) · vi visible Han=0 ·
+  betting/guarantee wording 0.
+Trial scope (hard): internal operators · a few trusted fans · ONE private test group ·
+  Mexico vs South Africa (1489369) only · send window closes at kickoff 2026-06-11 19:00 UTC ·
+  NO public launch · NO payment/token/public subscription.
+Live URLs: home https://worldcup2026-izid.onrender.com/ (HTTP 200, trial shell live);
+  deep links /predict/1489369 · /predict/1489371 · /recap/855737 · /recap/979139 = HTTP 404 direct
+  (Render dashboard SPA rewrite STILL PENDING — render.yaml rule exists; in-app navigation from home works).
+
+Product path: Home → 俅哥战术室 (/predict/1489369) → 俅哥临场30分钟修正 (#rescore) → 入群 CTA → feedback.
+Core product hypothesis: users join NOT for a prediction result, but because they want the
+  30-minute-before-kickoff re-check once lineups and late variables appear.
+
+Trial docs (new, docs/mvp2/): TRIAL_SEND_PACKAGE.md (zh/vi messages, teaser, screenshot rec,
+  30-min template, stop rule, operator say/don't-say) · TRIAL_FEEDBACK_FORM.md (fan/operator/
+  compliance questions) · TRIAL_GO_NO_GO_CHECKLIST.md (pre-send / 30-min / stop / feedback /
+  PASS·PASS-WITH-ISSUES·FAIL·BLOCKED decision).
+
+Known weaknesses (carry into next sprint):
+  - brand naming still needs final unification (俅哥说球 zh vs Giành Cup global vs LEIZE hierarchy);
+  - vi persona name (Tiên Tri Bóng Đá) still temporary — needs Owner/operator confirmation;
+  - some "AI" remains in global brand/footer/legacy internal places (allowed zones, but unify later);
+  - public launch still paused; payment/token untouched;
+  - 30-minute rescore is a MANUAL pipeline rerun (mvp2_generate_rescore_models.py), not scheduled automation;
+  - SPA rewrite may still require Render dashboard operation (deep links 404 until then);
+  - /predict/2026-brazil-argentina (hypothetical sample, out of trial scope) still uses pre-de-model wording.
+
+Next heavy engineering direction: feedback-driven Product Trial Iteration Sprint.
+```
+
+**Next Engineer Start Command（copy-paste）**
+
+> Start by reading CLAUDE.md, docs/MVP_STATUS.md, docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md,
+> docs/mvp2/TRIAL_SEND_PACKAGE.md, docs/mvp2/TRIAL_FEEDBACK_FORM.md,
+> docs/mvp2/TRIAL_GO_NO_GO_CHECKLIST.md, and the latest screenshots in
+> docs/qa_screenshots/mvp2_june11_trial/. Do not start coding. First summarize trial feedback,
+> classify issues into copy / product flow / data / LLM prompt / guard / deployment, then propose
+> the next heavy engineering sprint.
+
 ## ★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint: SHIPPED (Owner trial-send review)
 
 De-Modeling sprint (same day, Owner: customer voice cleanup): visible customer copy now speaks ONLY as
