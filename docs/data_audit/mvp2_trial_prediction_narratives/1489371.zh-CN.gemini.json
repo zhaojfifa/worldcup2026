@@ -1,0 +1,186 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489371",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "中文先知：巴西 vs 摩洛哥，桑巴军团能否顶住非洲黑马的冲击？",
+  "hero_subtitle": "Giành Cup AI ScoutScore 赛前判断：巴西实力占优，但摩洛哥的韧性与近期状态将是最大考验。",
+  "short_title": "巴西vs摩洛哥：中文先知看好巴西，警惕冷门",
+  "screenshot_line": "Giành Cup AI ScoutScore 赛前判断：巴西虽是热门，但摩洛哥近10场不败，冷门风险不容小觑！",
+  "model_judgement": "中文先知认为，巴西队凭借其在 Elo 积分榜上的长期优势（比摩洛哥高出65分），在这场世界杯小组赛中占据上风。然而，摩洛哥近10场7胜3平0负的强势表现，以及在2023年曾2-1击败巴西的交锋记录，都预示着这场比赛绝非坦途。巴西虽然进攻火力不俗，近5场打入13球，但防守端失球数有所增加；反观摩洛哥，近10场有7场零封对手，防守稳固是其最大资本。这场比赛的关键在于巴西能否有效突破摩洛哥的防线，并避免被对手抓住反击机会。",
+  "main_lean": "中文先知赛前倾向巴西胜，但摩洛哥的强劲防守和近期状态使得冷门风险偏高。",
+  "scoreline_view": "模型估计比分区间：2-1, 1-1, 2-2。巴西小胜或平局的可能性并存，进球数不会太高。",
+  "risk_level": "中",
+  "risk_why": "巴西虽是明显热门，但摩洛哥近期状态火热且防守稳固，加上阵容不确定性，冷门风险不容忽视。",
+  "risk_factors": [
+    {
+      "name": "长期实力基线 (Elo 积分)",
+      "text": "巴西队在 Elo 积分上领先摩洛哥65分，显示其长期竞技实力更强，是本场比赛的传统强队。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "近期状态 (近10场)",
+      "text": "摩洛哥在近10场比赛中取得7胜3平0负的骄人战绩，保持不败，状态远超巴西的6胜1平3负，显示出极强的竞争力。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "历史交锋",
+      "text": "两队最近一次交锋发生在2023年，摩洛哥曾以2-1击败巴西，这给摩洛哥带来了心理优势，也提醒巴西不能掉以轻心。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "防守趋势 + 零封能力",
+      "text": "摩洛哥在防守端表现出色，近10场比赛有7场零封对手，防线固若金汤。而巴西近5场失球数有所增加，防守稳定性不如对手。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "阵容不确定性",
+      "text": "双方首发阵容尚未公布，核心球员的缺阵或战术调整都可能对比赛结果产生重大影响，这是赛前最大的不确定因素。",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将状态",
+      "text": "双方主力门将的临场状态至关重要，尤其是摩洛哥的布努，他能否延续出色表现将直接影响比赛走势。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "核心射手依赖度",
+      "text": "摩洛哥的布拉欣·迪亚兹在近10场比赛中贡献3球，占全队进球的14%，是球队主要得分点。巴西的进球分布相对分散，没有绝对的依赖。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "比赛场地与环境",
+      "text": "比赛将在纽约大都会体育场进行，正值美国夏季。高温可能会影响球员体能和比赛节奏，尤其是对巴西这种依赖快速进攻的球队。",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "首发阵容公布",
+      "text": "开球前30分钟，双方公布的首发阵容将是决定性因素。巴西若有核心球员缺阵，或摩洛哥排出意外的攻击性阵型，都可能改变中文先知的判断。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将与后防线状态",
+      "text": "尤其是摩洛哥的门将布努，他的临场发挥将直接影响球队的防守韧性。巴西的后防线能否顶住摩洛哥的反击，也是一大看点。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "早期进球与比赛节奏",
+      "text": "如果摩洛哥能早早取得进球，可能会彻底打乱巴西的部署，并激发摩洛哥的防守反击战术。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "天气对体能的影响",
+      "text": "纽约夏季的炎热天气可能会让比赛节奏放缓，这可能对巴西的快速进攻战术造成影响。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Giành Cup AI ScoutScore 赛前判断：巴西 vs 摩洛哥，中文先知看好巴西，但摩洛哥近期10场不败，实力不容小觑！冷门风险中等。免费版看方向，群内独享开球前30分钟临场修正，关键阵容变化一网打尽！",
+  "subscription_hook": "免费版 Giành Cup AI ScoutScore 助你把握比赛大方向和核心风险。订阅后可解锁：开球前30分钟的临场阵容分析与实时比分区间修正、全部关键因子深度解读，以及每日独家 AI 观点推送，助你快人一步洞察赛场。",
+  "group_join_copy": "想看 Giành Cup AI ScoutScore 更完整的赛前分析？加入我们的专属球迷群！这里不仅有中文先知对本场比赛的战术解读、关键对位，更有开球前30分钟的临场阵容修正和比分区间精细预测。群内还有更多独家内容和球迷互动，一起见证 AI 预测的魅力！",
+  "today_cta": "今日 AI 观点：巴西 vs 摩洛哥，中文先知如何看？",
+  "social_post": "世界杯小组赛：巴西 vs 摩洛哥！Giành Cup AI ScoutScore 中文先知：巴西实力占优，但摩洛哥近10场不败，冷门风险不容小觑！ #世界杯2026 #巴西 #摩洛哥 #足球预测",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement. Lineups NOT announced: internal_notes must say so; expected shapes only as assumption_flag entries; never invent injuries. Speak AS the persona.",
+    "assumption_context: formation not announced — expected tactical setup is an LLM assumption_flag item",
+    "assumption_context: GK names real from squads; starter + form unknown -> 30min recheck",
+    "assumption_context: venue/kickoff verified from /fixtures; altitude/heat/crowd impact is scenario assumption",
+    "assumption_context: XI/formation not announced at build time — phrased to customers as the 30min variable",
+    "assumption_context: 0 injury results pre-match (unresolved) — NEVER stated as 'no injuries'; internal only"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results",
+    "Recent form (last 10)": "kaggle_intl_results",
+    "Head-to-head": "kaggle_intl_results",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results",
+    "Defensive trend + clean sheets": "kaggle_intl_results",
+    "Squad stability": "api-football",
+    "Goalkeeper risk": "api-football",
+    "Striker dependence / finishing": "kaggle_intl_results",
+    "Venue / altitude / context": "api-football",
+    "Lineup uncertainty": "api-football",
+    "Injury news gap": "api-football",
+    "30-minute pre-kickoff re-score": "assumption_context"
+  },
+  "llm_provider": "gemini",
+  "tactical_read": {
+    "home_approach": "中文先知预计巴西将采取控球主导的进攻战术，利用边路突破和中场渗透制造威胁。面对摩洛哥的密集防守，巴西需要耐心寻找空档，并警惕对手的反击。预计会是4-3-3或4-2-3-1阵型，强调技术和个人能力。",
+    "away_approach": "摩洛哥很可能延续其世界杯上的成功经验，采取稳固的防守反击策略。他们会通过高强度的逼抢限制巴西的进攻空间，并在抢断后迅速通过边路或中路直塞发动快速反击。预计会是5-4-1或4-4-2的防守阵型，注重整体性和纪律性。",
+    "key_duels": [
+      "巴西中场核心 vs 摩洛哥防守型中场：巴西能否在中路打开局面，取决于中场球员的创造力能否突破摩洛哥的拦截。",
+      "巴西边锋 vs 摩洛哥边后卫：摩洛哥的边路防守强度将是关键，能否限制巴西边锋的突破和传中。",
+      "巴西中后卫 vs 摩洛哥反击尖刀：摩洛哥的反击速度很快，巴西中卫能否及时回防并限制对手的射门机会，至关重要。"
+    ],
+    "tempo_prediction": "比赛初期可能会呈现巴西控球、摩洛哥防守的局面，节奏相对缓慢。随着比赛深入，如果巴西迟迟无法破门，节奏可能会加快，摩洛哥也会伺机通过反击提速。预计下半场比赛节奏会更加激烈。"
+  },
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-11T03:27:12.611860+00:00"
+}

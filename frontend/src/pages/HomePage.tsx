@@ -10,7 +10,7 @@ import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
-import { UpcomingTacticalStrip } from '../components/UpcomingTacticalStrip';
+import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip } from '../components/UpcomingTacticalStrip';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -118,6 +118,9 @@ export function HomePage() {
         </div>
       </div>
 
+      {/* ── June-11 trial: persona status strip ─────────────────────── */}
+      <TrialStatusStrip loc={loc} syncTime={syncTime} />
+
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <div className="hero-banner">
         <div className="hero-kicker">GIÀNH CUP</div>
@@ -152,54 +155,11 @@ export function HomePage() {
         </div>
       )}
 
-      {/* ── 1. 今日 AI 最强信号 (C-position) ───────────────────────── */}
-      <div className="signal-card" onClick={() => goDetail(signal.id)}>
-        <div className="signal-head">
-          <span className="signal-badge">⭐ {t.signalTitle}</span>
-          <span className="signal-en">{BRAND.signalTag}</span>
-        </div>
-        <div className="signal-teams">
-          <div className="t"><div className="fl">{signal.homeTeam.flag}</div><div className="nm">{tn(signal.homeTeam.name)}</div></div>
-          <div className="vs">VS</div>
-          <div className="t"><div className="fl">{signal.awayTeam.flag}</div><div className="nm">{tn(signal.awayTeam.name)}</div></div>
-        </div>
-        <div className="signal-row">
-          <span className="signal-tend">{t.tendency}：{pick(sOps.aiPickLabel)}</span>
-          <span className="signal-star">{sOps.confidenceStars}</span>
-        </div>
-        <div style={{ margin: '4px 0 10px' }}>
-          <WinBar prob={signal.winProb} homeLabel={homeWinLabel(signal)} awayLabel={awayWinLabel(signal)} />
-        </div>
-        <div className="signal-risk">⚠️ {t.topRisk}：{note(sOps.topRisk)}</div>
-        <div className="signal-cta">
-          <span className="b1" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaView}</span>
-          <span className="b2" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaUnlock}</span>
-        </div>
-      </div>
+      {/* ── 1. June-11 trial main entry: real-match tactical room ───── */}
+      <TrialHeroCard loc={loc} fixtureId="1489369" />
 
-      {/* ── 1b. World Cup 2026 真实赛程 · AI 战术室（bundled real fixtures） ── */}
-      <UpcomingTacticalStrip loc={loc} />
-
-      {/* ── 2. 今日比赛简表 ────────────────────────────────────────── */}
-      <div className="sec-en">
-        <span className="zh">{t.listTitle}</span>
-        <span className="en">{HOME.listEn}</span>
-        <span style={{ marginLeft: 'auto' }} className="src-pill"><span className="sync-dot" />{t.syncLabel} {syncTime}</span>
-      </div>
-      {currentMatches.map((m: Match) => {
-        const ops = deriveOps(m);
-        return (
-          <div className="simrow" key={m.id} onClick={() => goDetail(m.id)}>
-            <div className="time">{fmtDate(m.kickoffTime)}<br />{fmtTime(m.kickoffTime)}</div>
-            <div className="teams">{m.homeTeam.flag} {tn(m.homeTeam.name)}<span className="vs">vs</span>{tn(m.awayTeam.name)} {m.awayTeam.flag}</div>
-            <div className="chips">
-              <span className="tend">{pick(ops.aiPickLabel)}</span>
-              <span className={`risk-chip ${m.riskLevel}`}>{riskShort(m.riskLevel)}</span>
-              <span className="heat-chip">{heatLbl(ops.heatLabel)}</span>
-            </div>
-          </div>
-        );
-      })}
+      {/* ── 1b. secondary real fixtures ─────────────────────────────── */}
+      <UpcomingTacticalStrip loc={loc} excludeId="1489369" />
 
       {/* ── Historical Recap · WC2022 (labelled; NOT current prediction) ──────── */}
       {recapMatches.length > 0 && (
@@ -234,7 +194,61 @@ export function HomePage() {
         </>
       )}
 
-      {/* ── 3. 今日爆冷风险 TOP3 ───────────────────────────────────── */}
+      {/* ── demo fold: legacy mock blocks (demoted — internal demo data) ── */}
+      <details className="card home-demo-fold">
+        <summary>
+          {loc === 'zh' ? '内部演示数据（mock 比赛 · 点击展开）'
+            : loc === 'vi' ? 'Dữ liệu demo nội bộ (trận mock · nhấn để mở)'
+              : 'Internal demo data (mock matches · expand)'}
+        </summary>
+
+      {/* ── demo 1. 今日 AI 最强信号 (mock) ─────────────────────────── */}
+      <div className="signal-card" onClick={() => goDetail(signal.id)}>
+        <div className="signal-head">
+          <span className="signal-badge">⭐ {t.signalTitle}</span>
+          <span className="signal-en">{BRAND.signalTag}</span>
+        </div>
+        <div className="signal-teams">
+          <div className="t"><div className="fl">{signal.homeTeam.flag}</div><div className="nm">{tn(signal.homeTeam.name)}</div></div>
+          <div className="vs">VS</div>
+          <div className="t"><div className="fl">{signal.awayTeam.flag}</div><div className="nm">{tn(signal.awayTeam.name)}</div></div>
+        </div>
+        <div className="signal-row">
+          <span className="signal-tend">{t.tendency}：{pick(sOps.aiPickLabel)}</span>
+          <span className="signal-star">{sOps.confidenceStars}</span>
+        </div>
+        <div style={{ margin: '4px 0 10px' }}>
+          <WinBar prob={signal.winProb} homeLabel={homeWinLabel(signal)} awayLabel={awayWinLabel(signal)} />
+        </div>
+        <div className="signal-risk">⚠️ {t.topRisk}：{note(sOps.topRisk)}</div>
+        <div className="signal-cta">
+          <span className="b1" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaView}</span>
+          <span className="b2" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaUnlock}</span>
+        </div>
+      </div>
+
+      {/* ── demo 2. 今日比赛简表 (mock) ─────────────────────────────── */}
+      <div className="sec-en">
+        <span className="zh">{t.listTitle}</span>
+        <span className="en">{HOME.listEn}</span>
+        <span style={{ marginLeft: 'auto' }} className="src-pill"><span className="sync-dot" />{t.syncLabel} {syncTime}</span>
+      </div>
+      {currentMatches.map((m: Match) => {
+        const ops = deriveOps(m);
+        return (
+          <div className="simrow" key={m.id} onClick={() => goDetail(m.id)}>
+            <div className="time">{fmtDate(m.kickoffTime)}<br />{fmtTime(m.kickoffTime)}</div>
+            <div className="teams">{m.homeTeam.flag} {tn(m.homeTeam.name)}<span className="vs">vs</span>{tn(m.awayTeam.name)} {m.awayTeam.flag}</div>
+            <div className="chips">
+              <span className="tend">{pick(ops.aiPickLabel)}</span>
+              <span className={`risk-chip ${m.riskLevel}`}>{riskShort(m.riskLevel)}</span>
+              <span className="heat-chip">{heatLbl(ops.heatLabel)}</span>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* ── demo 3. 今日爆冷风险 TOP3 (mock) ────────────────────────── */}
       <div className="sec-en">
         <span className="zh">{t.upsetTitle}</span>
         <span className="en">{HOME.upsetEn}</span>
@@ -252,6 +266,7 @@ export function HomePage() {
           </div>
         </div>
       ))}
+      </details>
 
       {/* ── 4. AI 情报战绩 (待真实赛果回灌) ────────────────────────── */}
       <div className="sec-en">

@@ -1,0 +1,130 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "中文先知：墨西哥揭幕战占尽天时地利，但冷门风险为何偏高？",
+  "hero_subtitle": "ScoutScore 指出，尽管墨西哥实力占优，但阵容不确定性与高原主场双重考验，可能让揭幕战充满变数。",
+  "short_title": "墨西哥揭幕战，中文先知看好主队，警惕冷门",
+  "screenshot_line": "中文先知判断：墨西哥赢面大，但有『高』风险因子未明朗，临场盯好首发！",
+  "model_judgement": "Giành Cup AI 的中文先知判断，墨西哥在主场阿兹台克迎战南非，实力上占据明显优势。长线 Elo 积分领先 256 分，近 10 场 6 胜 3 平 1 负的战绩也更稳定。但揭幕战的压力、高原主场对体能的考验，以及赛前阵容的未知数，都让这场比赛充满冷门风险。",
+  "main_lean": "中文先知赛前倾向墨西哥胜，但冷门风险偏高，需要重点关注临场变数。",
+  "scoreline_view": "模型估计比分区间：1-1, 1-0, 0-1。中文先知认为墨西哥有望小胜，但南非爆冷逼平甚至取胜的概率不容忽视。",
+  "risk_level": "高",
+  "risk_why": "墨西哥作为明显热门，但赛前首发阵容、门将状态、以及高原主场对双方体能的影响都是模型需要临场验证的盲点，容易出现热门翻车。",
+  "risk_factors": [
+    {
+      "name": "Lineup uncertainty",
+      "text": "目前双方首发阵容尚未公布。墨西哥若有核心球员缺阵，战力将大打折扣。",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Goalkeeper risk",
+      "text": "双方首发门将状态未知。门将是防线的最后一道屏障，其临场发挥将直接影响比赛走势。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Striker dependence / finishing",
+      "text": "南非队对少数几名射手依赖度较高，Oswin Appollis 贡献了球队近 10 场进球的 20%。一旦他们被限制，进攻将陷入停滞。墨西哥则缺乏明显的核心射手数据，可能意味着进球点分散，也可能意味着缺乏一锤定音的能力。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Venue / altitude / context",
+      "text": "阿兹台克体育场海拔约 2200 米，高原环境对客队南非是挑战，但对主队墨西哥队员的体能分配也是考验。揭幕战的巨大压力也可能影响双方发挥。",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Lineup/XI spine",
+      "text": "开球前 30 分钟，请务必关注官方公布的首发阵容。墨西哥若有主力中卫、门将或关键前锋缺阵，将大幅提升冷门风险。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Starting GK",
+      "text": "双方首发门将是谁？他们的近期状态如何？这直接关系到防守端的稳定性。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Formation matchup",
+      "text": "两队公布的阵型将如何碰撞？南非是否会采取更保守的防守反击策略，以应对墨西哥的主场攻势？",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Late injury/suspension news",
+      "text": "比赛前最后一刻是否有突发伤病或停赛消息？这些信息可能在赛前 30 分钟内浮出水面，并迅速影响比赛走势。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🏆 中文先知：墨西哥揭幕战，主场优势巨大，但冷门风险超高！ScoutScore 模型指出，墨西哥 Elo 积分高出南非 256 分，但阵容未定、高原主场变数多。开球前 30 分钟，我们将在群内更新首发阵容后的最终判断！",
+  "subscription_hook": "免费版，你看到的是中文先知对本场比赛的胜平负倾向和风险等级。订阅 Giành Cup AI ScoutScore，你将获得完整的因子分析、临场 30 分钟首发阵容公布后的实时重算结果、以及更精准的比分区间深度解读。不要错过任何关键信息！",
+  "group_join_copy": "想看更全面的比赛分析和临场判断？立即加入 Giành Cup AI 足球情报群！这里有中文先知对每场比赛的独家战术解读、关键因子深度分析，以及最重磅的：开球前 30 分钟，我们会在首发阵容公布后，第一时间给出模型重新计算的最终胜负倾向和风险修正！群内还有更多球迷互动和讨论，等你来！",
+  "today_cta": "今日 AI 观点",
+  "social_post": "世界杯揭幕战，墨西哥坐镇高原主场，中文先知看好，但模型警示冷门风险高！首发阵容是关键，开球前 30 分钟，Giành Cup AI ScoutScore 将实时更新！#世界杯2026 #墨西哥 #南非 #足球预测",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement. Lineups NOT announced: internal_notes must say so; expected shapes only as assumption_flag entries; never invent injuries. Speak AS the persona.",
+    "assumption_context: formation not announced — expected tactical setup is an LLM assumption_flag item",
+    "assumption_context: 26-man squads registered (real); XI continuity unknown until lineups",
+    "assumption_context: GK names real from squads; starter + form unknown -> 30min recheck",
+    "assumption_context: venue/kickoff verified from /fixtures; altitude/heat/crowd impact is scenario assumption",
+    "assumption_context: XI/formation not announced at build time — phrased to customers as the 30min variable",
+    "assumption_context: 0 injury results pre-match (unresolved) — NEVER stated as 'no injuries'; internal only"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results",
+    "Recent form (last 10)": "kaggle_intl_results",
+    "Head-to-head": "kaggle_intl_results",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results",
+    "Defensive trend + clean sheets": "kaggle_intl_results",
+    "Squad stability": "api-football:/players/squads",
+    "Goalkeeper risk": "api-football:/players/squads",
+    "Striker dependence / finishing": "kaggle_intl_results",
+    "Venue / altitude / context": "api-football:/fixtures",
+    "Lineup uncertainty": "api-football:/fixtures/lineups",
+    "Injury news gap": "api-football:/injuries",
+    "30-minute pre-kickoff re-score": "internal_mechanic"
+  },
+  "llm_provider": "gemini",
+  "tactical_read": "中文先知战术解读：\n**墨西哥（主队）预期打法：** 预计会利用主场优势和高原环境，开场采取高位逼抢，力求快速压制南非。中场控制和边路渗透将是主要进攻手段。考虑到是揭幕战，可能会在领先或体能下降后适当回收，稳固防守。\n**南非（客队）预期打法：** 面对实力更强的墨西哥和高原主场，南非大概率会摆出防守反击阵型，以稳固防守为主，利用速度型边锋和前锋寻求反击机会。定位球也将是他们重要的得分手段。\n**关键对位：** 墨西哥中场对南非快速反击的拦截能力，以及南非防线能否顶住墨西哥的持续冲击，将是决定比赛走向的关键。\n**节奏预判：** 上半场墨西哥可能会主导进攻，节奏较快；下半场若墨西哥未能早早锁定胜局，比赛节奏可能会放缓，南非的反击威胁将随体能下降而增加。",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-11T03:26:03.968366+00:00"
+}

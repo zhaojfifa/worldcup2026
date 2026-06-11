@@ -1464,3 +1464,17 @@ body {
 .ut-cta { font-size: 11.5px; font-weight: 800; color: var(--blueMid); white-space: nowrap; }
 .ut-fixmeta { display: flex; flex-direction: column; gap: 4px; background: linear-gradient(135deg, #F4F8FF, #EDF3FF); border: 1px solid #CFE0F7; }
 .lang-vi .ut-teams { font-size: 13px; }
+
+/* June-11 trial: persona status strip + trial hero + demo fold */
+.trial-status { font-size: 11px; font-weight: 700; color: #2A1E5C; background: linear-gradient(90deg, #F4EFFF, #EAF3FF);
+  border: 1px solid #D8CCF4; border-radius: 10px; padding: 7px 12px; margin-bottom: 10px; line-height: 1.5; }
+.th-hero { background: linear-gradient(135deg, #0E2A52, #2A1E5C); color: #fff; border: none; }
+.th-badge { font-size: 10.5px; font-weight: 800; letter-spacing: .4px; color: #C9BCF1; margin-bottom: 8px; }
+.th-teams { font-size: 18px; font-weight: 800; line-height: 1.4; }
+.th-teams .ut-vs { color: #9FB3D9; }
+.th-meta { font-size: 11.5px; color: #B9C8E4; margin: 4px 0 8px; }
+.th-hook { font-size: 13px; font-weight: 700; color: #FFE9A8; line-height: 1.6; margin-bottom: 10px; }
+.th-hero .recap-cta-btn.alt { background: rgba(255,255,255,.12); color: #fff; border: 1.5px solid rgba(255,255,255,.45); }
+.home-demo-fold > summary { font-size: 11px; color: #8A97AB; font-weight: 700; cursor: pointer; }
+.home-demo-fold .signal-card { margin-top: 10px; }
+.lang-vi .th-teams { font-size: 16.5px; }

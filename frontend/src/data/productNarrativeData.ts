@@ -31,6 +31,8 @@ export interface ProductNarrative {
   mode: 'historical_recap' | 'pre_match_2026_modeling';
   language: string;
   fixture_basis?: 'real_scheduled' | 'hypothetical_scenario';
+  product_surface?: string;
+  tactical_read?: string;
   hero_title: string;
   hero_subtitle: string;
   short_title: string;

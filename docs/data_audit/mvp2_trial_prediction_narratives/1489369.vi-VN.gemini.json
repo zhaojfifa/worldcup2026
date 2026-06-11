@@ -1,0 +1,208 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "vi-VN",
+  "hero_title": "Tiên Tri Bóng Đá: Mexico Thắng Nhưng Cẩn Trọng Cạm Bẫy Khai Mạc World Cup",
+  "hero_subtitle": "Trận mở màn này thử thách khả năng của mô hình Giành Cup AI trong việc nhận diện rủi ro ẩn sau một đội được đánh giá cao hơn rõ rệt.",
+  "short_title": "Mexico vs Nam Phi: Cạm Bẫy Khai Mạc?",
+  "screenshot_line": "ScoutScore nhận định Mexico có lợi thế lớn (Elo 1880 so với 1624), nhưng rủi ro đội hình và áp lực sân nhà có thể tạo bất ngờ.",
+  "model_judgement": "Tiên Tri Bóng Đá của Giành Cup AI ScoutScore nhận định Mexico là bên được đánh giá cao hơn rõ rệt dựa trên sức mạnh dài hạn (Elo chênh lệch 256 điểm) và phong độ gần đây (6 thắng, 3 hòa, 1 thua trong 10 trận). Tuy nhiên, với trận mở màn World Cup tại sân nhà Estadio Azteca, Mexico phải đối mặt với áp lực lớn và những biến số chưa lường hết về đội hình ra sân.",
+  "main_lean": "Mexico được dự đoán sẽ thắng trong trận đấu này.",
+  "scoreline_view": "Ước tính của mô hình cho thấy tỷ số có thể nằm trong khoảng 1-1, 1-0 hoặc 0-1, phản ánh khả năng Mexico thắng sát nút hoặc một kết quả hòa bất ngờ.",
+  "risk_level": "Cao",
+  "risk_why": "Là đội được đánh giá cao hơn nhưng mô hình đang có những điểm mù về đội hình xuất phát, thủ môn và khả năng dứt điểm. Đây là cạm bẫy kinh điển cho các đội 'cửa trên' nếu không có thông tin chi tiết sát giờ.",
+  "risk_factors": [
+    {
+      "name": "Lineup uncertainty",
+      "text": "Đội hình ra sân chính thức chưa được công bố, khiến việc đánh giá các cặp đối đầu then chốt và sự ăn ý của đội hình trở nên khó khăn. Đây là biến số lớn nhất trước giờ bóng lăn.",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Goalkeeper risk",
+      "text": "Thủ môn bắt chính của cả hai đội chưa được xác nhận. Phong độ và kinh nghiệm của người gác đền có thể ảnh hưởng lớn đến kết quả, đặc biệt trong một trận đấu căng thẳng như World Cup.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Striker dependence / finishing",
+      "text": "Mexico không có cầu thủ ghi bàn nổi bật trong 10 trận gần nhất, cho thấy khả năng dứt điểm có thể phân tán hoặc thiếu một mũi nhọn sắc bén. Ngược lại, Nam Phi có Oswin Appollis đóng góp 20% số bàn thắng của đội.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Venue / altitude / context",
+      "text": "Thi đấu tại Estadio Azteca (Mexico City) với độ cao khoảng 2200m có thể ảnh hưởng đến thể lực cầu thủ, đặc biệt là đội khách Nam Phi. Áp lực từ đám đông sân nhà trong trận khai mạc cũng là một yếu tố tâm lý đáng kể.",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Squad stability",
+      "text": "Cả hai đội đều đăng ký 26 cầu thủ, nhưng mức độ ổn định của đội hình chính và sự ăn ý giữa các tuyến vẫn là một biến số cần theo dõi sát trước trận.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Mexico: Khả năng chuyển hóa cơ hội",
+      "text": "Với lợi thế sân nhà và sức mạnh tổng thể, Mexico cần chứng tỏ khả năng chuyển hóa cơ hội thành bàn thắng. Nếu họ tạo ra nhiều tình huống nguy hiểm nhưng không dứt điểm tốt, đó sẽ là tín hiệu rủi ro cho các trận sau.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Nam Phi: Phản công và sự phụ thuộc vào Appollis",
+      "text": "Xem Nam Phi khai thác tốc độ phản công và mức độ phụ thuộc vào Oswin Appollis. Nếu Appollis bị kèm chặt, liệu có cầu thủ nào khác có thể tạo đột biến?",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Tác động của độ cao",
+      "text": "Quan sát thể lực của các cầu thủ Nam Phi trong hiệp hai. Nếu họ xuống sức rõ rệt, điều đó sẽ xác nhận tác động của độ cao tại Estadio Azteca.",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Giành Cup AI ScoutScore nhận định: Mexico được đánh giá cao hơn Nam Phi với chênh lệch Elo 256 điểm và phong độ tốt hơn (6 thắng/10 trận). Tuy nhiên, Tiên Tri Bóng Đá cảnh báo rủi ro cao ở trận khai mạc World Cup này. Các biến số như đội hình ra sân, thủ môn chính thức và áp lực sân nhà có thể tạo bất ngờ. Đừng bỏ lỡ bản cập nhật 30 phút trước giờ bóng lăn trong nhóm để xem hiệu chỉnh sát giờ!",
+  "subscription_hook": "Bản miễn phí bạn đang xem cung cấp nhận định chính (main lean) và mức độ rủi ro. Đăng ký để nhận phân tích đầy đủ các yếu tố, dự đoán khoảng tỷ số chi tiết, và quan trọng nhất là cập nhật hiệu chỉnh sát giờ (30 phút trước giờ bóng lăn) khi đội hình chính thức được công bố!",
+  "group_join_copy": "Vào nhóm Giành Cup AI ngay để nhận phân tích đầy đủ, cập nhật đội hình chính thức và hiệu chỉnh nhận định sát giờ bóng lăn. Tiên Tri Bóng Đá sẽ đưa ra những góc nhìn sâu sắc nhất mà bạn không thể tìm thấy ở đâu khác!",
+  "today_cta": "Quan điểm AI hôm nay: Mexico vs South Africa",
+  "social_post": "Tiên Tri Bóng Đá nhận định Mexico có lợi thế rõ rệt trước Nam Phi (Elo 1880 vs 1624). Nhưng đây là trận khai mạc World Cup, áp lực sân nhà và đội hình chưa công bố tiềm ẩn rủi ro cao. Liệu Mexico có tránh được cạm bẫy? Cập nhật sát giờ trong nhóm Giành Cup AI!",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement. Lineups NOT announced: expected shapes only as assumption_flag entries; never invent injuries. Speak AS the persona.",
+    "assumption_context: expected tactical setup is an LLM assumption_flag item",
+    "assumption_context: XI continuity unknown until lineups",
+    "assumption_context: starter + form unknown -> 30min recheck",
+    "assumption_context: altitude/heat/crowd impact is scenario assumption",
+    "assumption_context: XI/formation not announced at build time — phrased to customers as the 30min variable",
+    "đội hình chưa công bố"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true
+      }
+    ],
+    "Recent form (last 10)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true
+      }
+    ],
+    "Head-to-head": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true
+      }
+    ],
+    "Goal trend (last 5 vs prev 5)": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true
+      }
+    ],
+    "Defensive trend + clean sheets": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true
+      }
+    ],
+    "Squad stability": [
+      {
+        "field": "squad",
+        "source": "api-football",
+        "endpoint": "/players/squads",
+        "fixture_id": 1489369
+      }
+    ],
+    "Goalkeeper risk": [
+      {
+        "field": "squad",
+        "source": "api-football",
+        "endpoint": "/players/squads",
+        "fixture_id": 1489369
+      }
+    ],
+    "Striker dependence / finishing": [
+      {
+        "source": "kaggle_intl_results",
+        "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+        "derived": true
+      }
+    ],
+    "Venue / altitude / context": [
+      {
+        "field": "fixture",
+        "source": "api-football",
+        "endpoint": "/fixtures",
+        "fixture_id": 1489369
+      }
+    ],
+    "Lineup uncertainty": [
+      {
+        "field": "lineups",
+        "source": "api-football",
+        "endpoint": "/fixtures/lineups",
+        "fixture_id": 1489369
+      }
+    ],
+    "Injury news gap": [
+      {
+        "field": "injuries",
+        "source": "api-football",
+        "endpoint": "/injuries",
+        "fixture_id": 1489369
+      }
+    ],
+    "30-minute pre-kickoff re-score": []
+  },
+  "llm_provider": "gemini",
+  "tactical_read": "Dự kiến Mexico sẽ nhập cuộc với lối chơi kiểm soát bóng, cố gắng áp đặt thế trận và tận dụng lợi thế sân nhà. Các cầu thủ chạy cánh và tiền vệ trung tâm sẽ đóng vai trò quan trọng trong việc tạo ra cơ hội. Nam Phi nhiều khả năng sẽ chọn lối chơi phòng ngự phản công, tập trung vào sự chắc chắn ở tuyến dưới và chờ đợi cơ hội từ những pha chuyển trạng thái nhanh. Cặp đối đầu then chốt có thể là các tiền vệ trung tâm của Mexico trong việc phá vỡ hàng thủ Nam Phi, và các hậu vệ biên của Nam Phi đối phó với tốc độ của Mexico. Nhịp độ trận đấu có thể bắt đầu nhanh, nhưng sẽ chậm lại nếu Mexico không thể sớm có bàn thắng, hoặc Nam Phi thành công trong việc làm giảm hưng phấn của đối thủ.",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-06-11T03:26:55.922171+00:00"
+}
