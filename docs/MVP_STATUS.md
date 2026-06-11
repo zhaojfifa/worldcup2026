@@ -6,7 +6,22 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-11) — LLM-Driven Product Proof Sprint (3 samples SHIPPED)
+## ★ MVP-2 status (2026-06-11, later) — Real-Match AI Tactical Room (2 real fixtures SHIPPED)
+
+```text
+Real-fixture round (WC2026 opening day): /fixtures league=1 season=2026 -> 1489369 Mexico-South Africa
+(opener, today) + 1489371 Brazil-Morocco (06-13). Ingest: squads/coach/teams real; lineups/events/stats/
+injuries empty pre-match -> missing_evidence. v0.2 prematch_real_frame (fixture_basis=real_scheduled):
+Elo 1880v1624 (gap 256, risk high, blind-favourite trap) / 1964v1899 (gap 65, Morocco 10-match unbeaten,
+beat Brazil 2023, risk medium). Narratives 8/8 real LLM (0 mock), guard 20/20 PASS (in-loop guard again
+intercepted vi handicap slang). Home strip "World Cup 2026 · 真实赛程 AI TACTICAL ROOM" (today/upcoming
+chips) -> /predict/:id with real kickoff/venue meta card; existing home logic untouched; build PASS;
+0 console errors; 8 screenshots -> docs/qa_screenshots/mvp2_realmatch_tactical_room/.
+Send-to-group judgement: READY pending Owner GO — docs/MVP2_REAL_MATCH_TACTICAL_ROOM_REVIEW.md
+(operation still paused; nothing posted; payment/Token untouched). PR #3 still Draft.
+```
+
+## MVP-2 status (2026-06-11) — LLM-Driven Product Proof Sprint (3 samples SHIPPED)
 
 ```text
 Sprint:                 MVP-2 LLM-Driven Product Proof (Owner: heavy engineering GO). Engineering = stage;

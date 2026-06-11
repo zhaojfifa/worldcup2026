@@ -13,6 +13,21 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
+**★ 2026-06-11 (later) — Real-Match AI Tactical Room round SHIPPED (send-to-group READY, Owner GO pending)**
+```text
+Pipeline extended to REAL upcoming fixtures on WC2026 opening day: API-FOOTBALL /fixtures (league=1,
+season=2026) -> picked 1489369 Mexico-South Africa (opener, Estadio Azteca, TODAY) + 1489371
+Brazil-Morocco (06-13) -> Level-2 ingest (squads/coach real; lineups/stats/injuries pre-match empty ->
+missing_evidence, never faked) -> ScoutScore v0.2 prematch_real_frame (fixture_basis=real_scheduled;
+Elo gap 256 / 65, Morocco 7W-3D-0L unbeaten, Morocco beat Brazil 2023 — all real Kaggle data) ->
+DeepSeek/Gemini tactical-room narratives (8/8 real, 0 mock; in-loop guard again caught vi cửa trên) ->
+Home "World Cup 2026 · 真实赛程 AI TACTICAL ROOM" strip (today/upcoming chips -> /predict/:id; existing
+home sections untouched) -> /predict/{1489369,1489371} (real kickoff/venue meta card + LLM narrative)
+-> screenshots docs/qa_screenshots/mvp2_realmatch_tactical_room/ -> send-readiness review
+docs/MVP2_REAL_MATCH_TACTICAL_ROOM_REVIEW.md: READY TO SEND pending Owner GO (operation still paused,
+nothing posted). Guard total 20/20 PASS. Frontend still never calls vendor/LLM (bundled).
+```
+
 **★ 2026-06-11 — LLM-Driven Product Proof Sprint SHIPPED (Owner review pending)**
 ```text
 The 2026-06-10 next-sprint was executed as the LLM-Driven Product Proof Sprint. 3 product samples live

@@ -2,6 +2,27 @@
 
 _Read `CLAUDE.md` first, then this. Date: 2026-06-11. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
+## ★ 2026-06-11 (later) — Real-Match AI Tactical Room: SHIPPED, send-READY (Owner GO pending)
+
+WC2026 opened today; the proof pipeline now runs on REAL upcoming fixtures end-to-end:
+home strip → real fixture → API-FOOTBALL ingest → v0.2 `prematch_real_frame` (`fixture_basis=
+real_scheduled`) → DeepSeek/Gemini tactical room → ops preview → screenshots → send-readiness verdict.
+
+```text
+Fixtures: 1489369 Mexico-South Africa (opener, Estadio Azteca, 2026-06-11 19:00 UTC) · 1489371 Brazil-
+          Morocco (06-13 MetLife). Real: squads(26)/coach/kickoff/venue + Kaggle Elo/form/H2H/pens
+          (Morocco 7W-3D-0L, beat Brazil 2023). Pre-match unknowns (XI/GK/injuries/xG) = assumption_context
+          + live-30min triggers; guard real_scheduled branch forces "lineups pending" internal disclosure.
+Output:   8/8 narratives real LLM (0 mock); guard 20/20; home strip (today/upcoming chips, zero changes to
+          existing home sections); /predict/{id} real-meta card; 8 screenshots; 0 console errors.
+Ops:      zh/vi group copy + social posts + join/today CTAs all LLM-written (no URLs in prose — links are
+          page/context-injected). Send judgement: READY pending Owner GO; OPERATION STILL PAUSED — nothing
+          was posted. Review: docs/MVP2_REAL_MATCH_TACTICAL_ROOM_REVIEW.md.
+Watch:    opener kicks off today — pre-match send window closes at kickoff (then it becomes recap material);
+          1489371 internal_notes echo an English engineering instruction (internal fold only, cosmetic);
+          subscription layer remains CTA-only (no payment/Token).
+```
+
 ## ★ 2026-06-11 — LLM-Driven Product Proof Sprint: SHIPPED (Owner review pending)
 
 The 2026-06-10 next-sprint (betting-logic prompt revision) was executed as the **LLM-Driven Product
