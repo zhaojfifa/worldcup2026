@@ -1,0 +1,622 @@
+{
+  "model_name": "ScoutScore v0.2",
+  "mode": "pre_match_2026_modeling",
+  "fixture_id": "1489369",
+  "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
+  "generated_at": "2026-06-11T00:33:37.935383+00:00",
+  "fixture_basis": "real_scheduled",
+  "fixture": {
+    "home": "Mexico",
+    "away": "South Africa",
+    "date": "2026-06-11T19:00:00+00:00",
+    "venue": {
+      "name": "Estadio Azteca",
+      "city": "Mexico City"
+    },
+    "competition": "World Cup 2026 · Group Stage - 1",
+    "status": "Not Started"
+  },
+  "kaggle_baseline": {
+    "elo": {
+      "Mexico": 1880,
+      "South Africa": 1624,
+      "gap": 256,
+      "favoured": "Mexico",
+      "asof": "2026-06-11",
+      "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+    },
+    "recent_form": {
+      "Mexico": {
+        "matches": [
+          {
+            "date": "2025-11-15",
+            "opponent": "Uruguay",
+            "score": "0-0",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2025-11-18",
+            "opponent": "Paraguay",
+            "score": "1-2",
+            "result": "L",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-01-22",
+            "opponent": "Panama",
+            "score": "1-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-01-25",
+            "opponent": "Bolivia",
+            "score": "1-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-02-25",
+            "opponent": "Iceland",
+            "score": "4-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "Portugal",
+            "score": "0-0",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-31",
+            "opponent": "Belgium",
+            "score": "1-1",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-05-22",
+            "opponent": "Ghana",
+            "score": "2-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-05-30",
+            "opponent": "Australia",
+            "score": "1-0",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-06-04",
+            "opponent": "Serbia",
+            "score": "5-1",
+            "result": "W",
+            "tournament": "Friendly"
+          }
+        ],
+        "record": "6W-3D-1L",
+        "goals_for": 16,
+        "goals_against": 4,
+        "n": 10
+      },
+      "South Africa": {
+        "matches": [
+          {
+            "date": "2025-10-14",
+            "opponent": "Rwanda",
+            "score": "3-0",
+            "result": "W",
+            "tournament": "FIFA World Cup qualification"
+          },
+          {
+            "date": "2025-11-15",
+            "opponent": "Zambia",
+            "score": "3-1",
+            "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2025-12-22",
+            "opponent": "Angola",
+            "score": "2-1",
+            "result": "W",
+            "tournament": "African Cup of Nations"
+          },
+          {
+            "date": "2025-12-26",
+            "opponent": "Egypt",
+            "score": "0-1",
+            "result": "L",
+            "tournament": "African Cup of Nations"
+          },
+          {
+            "date": "2025-12-29",
+            "opponent": "Zimbabwe",
+            "score": "3-2",
+            "result": "W",
+            "tournament": "African Cup of Nations"
+          },
+          {
+            "date": "2026-01-04",
+            "opponent": "Cameroon",
+            "score": "1-2",
+            "result": "L",
+            "tournament": "African Cup of Nations"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "Panama",
+            "score": "1-1",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-31",
+            "opponent": "Panama",
+            "score": "1-2",
+            "result": "L",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-05-29",
+            "opponent": "Nicaragua",
+            "score": "0-0",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-06-06",
+            "opponent": "Jamaica",
+            "score": "1-0",
+            "result": "W",
+            "tournament": "Friendly"
+          }
+        ],
+        "record": "5W-2D-3L",
+        "goals_for": 15,
+        "goals_against": 10,
+        "n": 10
+      }
+    },
+    "h2h_last10": [
+      {
+        "date": "1993-10-06",
+        "fixture": "Mexico 4-0 South Africa",
+        "tournament": "Friendly"
+      },
+      {
+        "date": "2000-06-07",
+        "fixture": "Mexico 4-2 South Africa",
+        "tournament": "USA Cup"
+      },
+      {
+        "date": "2005-07-08",
+        "fixture": "South Africa 2-1 Mexico",
+        "tournament": "Gold Cup"
+      },
+      {
+        "date": "2010-06-11",
+        "fixture": "South Africa 1-1 Mexico",
+        "tournament": "FIFA World Cup"
+      }
+    ],
+    "recent_scorers": {
+      "Mexico": [],
+      "South Africa": [
+        {
+          "scorer": "Oswin Appollis",
+          "goals": 3
+        },
+        {
+          "scorer": "Evidence Makgopa",
+          "goals": 2
+        },
+        {
+          "scorer": "Lyle Foster",
+          "goals": 2
+        },
+        {
+          "scorer": "Thalente Mbatha",
+          "goals": 1
+        }
+      ]
+    },
+    "shootout_history": {
+      "Mexico": [
+        {
+          "date": "2005-06-26",
+          "vs": "Argentina",
+          "won": false
+        },
+        {
+          "date": "2009-07-23",
+          "vs": "Costa Rica",
+          "won": true
+        },
+        {
+          "date": "2019-06-29",
+          "vs": "Costa Rica",
+          "won": true
+        },
+        {
+          "date": "2021-06-03",
+          "vs": "Costa Rica",
+          "won": true
+        },
+        {
+          "date": "2023-11-21",
+          "vs": "Honduras",
+          "won": true
+        }
+      ],
+      "South Africa": [
+        {
+          "date": "2021-07-18",
+          "vs": "Senegal",
+          "won": true
+        },
+        {
+          "date": "2022-07-13",
+          "vs": "Mozambique",
+          "won": false
+        },
+        {
+          "date": "2023-07-16",
+          "vs": "Malawi",
+          "won": true
+        },
+        {
+          "date": "2024-02-03",
+          "vs": "Cape Verde",
+          "won": true
+        },
+        {
+          "date": "2024-02-07",
+          "vs": "Nigeria",
+          "won": false
+        }
+      ]
+    }
+  },
+  "factors": [
+    {
+      "factor": "baseline_strength",
+      "value": {
+        "elo": {
+          "Mexico": 1880,
+          "South Africa": 1624
+        },
+        "gap": 256,
+        "favoured": "Mexico"
+      },
+      "pre_match_interpretation": "kaggle-derived elo: Mexico 1880 vs South Africa 1624 (gap 256)",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-11",
+          "value": "Mexico 1880 / South Africa 1624"
+        },
+        {
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    },
+    {
+      "factor": "recent_form",
+      "value": {
+        "Mexico": "6W-3D-1L",
+        "South Africa": "5W-2D-3L"
+      },
+      "pre_match_interpretation": "last-10: Mexico 6W-3D-1L (gf16 ga4) vs South Africa 5W-2D-3L (gf15 ga10)",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    },
+    {
+      "factor": "lineup_integrity",
+      "value": {
+        "squad_announced": {
+          "Mexico": 26,
+          "South Africa": 26
+        }
+      },
+      "pre_match_interpretation": "squads registered (26 players) but the starting XI is NOT announced — re-scores ~30' before kickoff",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption": true,
+      "data_status": "mixed"
+    },
+    {
+      "factor": "finishing_efficiency",
+      "value": {
+        "recent_scorers": {
+          "Mexico": [],
+          "South Africa": [
+            {
+              "scorer": "Oswin Appollis",
+              "goals": 3
+            },
+            {
+              "scorer": "Evidence Makgopa",
+              "goals": 2
+            },
+            {
+              "scorer": "Lyle Foster",
+              "goals": 2
+            },
+            {
+              "scorer": "Thalente Mbatha",
+              "goals": 1
+            }
+          ]
+        }
+      },
+      "pre_match_interpretation": "proxy = last-10 goals-for + scorer spread; no xG feed",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "goalscorers_last10"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived_proxy"
+    },
+    {
+      "factor": "goalkeeper_delta",
+      "value": {
+        "squad_goalkeepers": {
+          "Mexico": [
+            "C. Acevedo",
+            "G. Ochoa",
+            "J. Rangel"
+          ],
+          "South Africa": [
+            "S. Chaine",
+            "R. Goss",
+            "R. Williams"
+          ]
+        }
+      },
+      "pre_match_interpretation": "GK names known from squads; starting GK + form unknown -> watch variable",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption": true,
+      "data_status": "mixed"
+    },
+    {
+      "factor": "event_momentum",
+      "value": {
+        "h2h": [
+          {
+            "date": "1993-10-06",
+            "fixture": "Mexico 4-0 South Africa",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2000-06-07",
+            "fixture": "Mexico 4-2 South Africa",
+            "tournament": "USA Cup"
+          },
+          {
+            "date": "2005-07-08",
+            "fixture": "South Africa 2-1 Mexico",
+            "tournament": "Gold Cup"
+          },
+          {
+            "date": "2010-06-11",
+            "fixture": "South Africa 1-1 Mexico",
+            "tournament": "FIFA World Cup"
+          }
+        ],
+        "shootout_history": {
+          "Mexico": [
+            {
+              "date": "2005-06-26",
+              "vs": "Argentina",
+              "won": false
+            },
+            {
+              "date": "2009-07-23",
+              "vs": "Costa Rica",
+              "won": true
+            },
+            {
+              "date": "2019-06-29",
+              "vs": "Costa Rica",
+              "won": true
+            },
+            {
+              "date": "2021-06-03",
+              "vs": "Costa Rica",
+              "won": true
+            },
+            {
+              "date": "2023-11-21",
+              "vs": "Honduras",
+              "won": true
+            }
+          ],
+          "South Africa": [
+            {
+              "date": "2021-07-18",
+              "vs": "Senegal",
+              "won": true
+            },
+            {
+              "date": "2022-07-13",
+              "vs": "Mozambique",
+              "won": false
+            },
+            {
+              "date": "2023-07-16",
+              "vs": "Malawi",
+              "won": true
+            },
+            {
+              "date": "2024-02-03",
+              "vs": "Cape Verde",
+              "won": true
+            },
+            {
+              "date": "2024-02-07",
+              "vs": "Nigeria",
+              "won": false
+            }
+          ]
+        }
+      },
+      "pre_match_interpretation": "group-stage opener context: nerves/late-swing exposure judged from h2h volatility",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    },
+    {
+      "factor": "tactical_matchup",
+      "value": {
+        "coach": {
+          "home": "J. Aguirre",
+          "away": "M. Ntseki"
+        }
+      },
+      "pre_match_interpretation": "coaches confirmed; formations not announced -> assumption_context for the LLM",
+      "source_refs": [
+        {
+          "field": "coach",
+          "source": "api-football",
+          "endpoint": "/coachs",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption": true,
+      "data_status": "mixed"
+    },
+    {
+      "factor": "travel_environment",
+      "value": {
+        "venue": {
+          "name": "Estadio Azteca",
+          "city": "Mexico City"
+        },
+        "kickoff_utc": "2026-06-11T19:00:00+00:00",
+        "round": "Group Stage - 1"
+      },
+      "pre_match_interpretation": "venue/kickoff real from the fixture; altitude/heat/crowd impact is scenario context (not measured)",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption": true,
+      "data_status": "mixed"
+    },
+    {
+      "factor": "missing_data_risk",
+      "value": {
+        "not_ingested": [
+          "injuries (0 results pre-match)",
+          "xG",
+          "squad market value",
+          "official FIFA rank",
+          "starting XI / formation"
+        ]
+      },
+      "pre_match_interpretation": "pre-match blind spots -> phrased to the user as variables to track",
+      "source_refs": [],
+      "assumption": true,
+      "data_status": "missing"
+    },
+    {
+      "factor": "upset_risk",
+      "value": {
+        "band": "high"
+      },
+      "pre_match_interpretation": "big favourite + model blind spots (lineup/injury/xG not ingested) = classic blind-favourite trap",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=256, missing=4)"
+        }
+      ],
+      "assumption": false,
+      "data_status": "derived"
+    }
+  ],
+  "live_30min_update_trigger": {
+    "would_recompute": [
+      "lineup_integrity (XI in/out, spine changes)",
+      "goalkeeper_delta (starting GK)",
+      "tactical_matchup (formation)"
+    ],
+    "then_reissue": [
+      "main_lean",
+      "scoreline_band",
+      "risk_level"
+    ],
+    "note": "subscription layer: ~30' before kickoff the model re-scores on the announced XI and re-issues its lean"
+  },
+  "outputs": {
+    "pre_match_main_lean": {
+      "side": "Mexico",
+      "strength": "clear",
+      "basis": "elo gap 256 + form",
+      "label": "model_estimate"
+    },
+    "risk_level_basis": "high",
+    "scoreline_band_basis": {
+      "plausible_bands": [
+        "1-1",
+        "1-0",
+        "0-1"
+      ],
+      "method": "poisson(last10 gf avg, group-stage damped) — coarse model_estimate, NOT a claim",
+      "label": "model_estimate"
+    }
+  },
+  "known_gaps": [
+    "injuries/suspensions not ingested (0 pre-match results)",
+    "xG not ingested",
+    "squad market value not ingested",
+    "official FIFA ranking not ingested (kaggle-derived elo used)",
+    "starting XI / formation not announced yet"
+  ],
+  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/1489369.json#source_ledger"
+}

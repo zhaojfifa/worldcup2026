@@ -365,11 +365,109 @@ def prematch_2026_frame(rows):
     return frame
 
 
+def prematch_real_frame(fid, rows):
+    """Real scheduled (not started) WC2026 fixture — tactical-room pre-match frame.
+
+    Real feeds: fixture meta (kickoff/venue/round), squads + coach from the Scout Pack,
+    kaggle-derived elo / form / h2h / shootouts / scorers. Lineups / injuries / GK form
+    are pre-match unknowns -> assumption_context + live-30min triggers (never invented).
+    """
+    d = json.loads((PACKS / ("%s.json" % fid)).read_text(encoding="utf-8"))
+    fx = d["fixture"]["value"]
+    home, away = fx["home_team"]["name"], fx["away_team"]["name"]
+    kickoff = fx["date"]
+    date = kickoff[:10]
+    squad = (d.get("squad") or {}).get("value") or {}
+    coach = (d.get("coach") or {}).get("value") or {}
+    gk_names = {}
+    for side, team in (("home", home), ("away", away)):
+        s = squad.get(side) or {}
+        gk_names[team] = [p["name"] for p in (s.get("sample") or []) if p.get("position") == "Goalkeeper"][:3]
+    R = elo_snapshot(rows, date)
+    eh, ea = round(R.get(home, 1500)), round(R.get(away, 1500))
+    gap = abs(eh - ea)
+    fav = home if eh >= ea else away
+    form = {home: recent_form(rows, home, date), away: recent_form(rows, away, date)}
+    meetings = h2h(rows, home, away, date)
+    scorers = {home: recent_scorers(rows, home, date), away: recent_scorers(rows, away, date)}
+    sh = {home: shootout_history(home, date), away: shootout_history(away, date)}
+    band, band_why = upset_band(gap, 4)
+    lam_h = max(0.5, min(2.4, form[home]["goals_for"] / max(1, form[home]["n"]) * 0.85))
+    lam_a = max(0.5, min(2.4, form[away]["goals_for"] / max(1, form[away]["n"]) * 0.85))
+
+    factors = [
+        {"factor": "baseline_strength", "value": {"elo": {home: eh, away: ea}, "gap": gap, "favoured": fav},
+         "pre_match_interpretation": "kaggle-derived elo: %s %d vs %s %d (gap %d)" % (home, eh, away, ea, gap),
+         "source_refs": [kref("elo_snapshot@" + date, "%s %d / %s %d" % (home, eh, away, ea)), {"method": ELO_METHOD}],
+         "assumption": False, "data_status": "derived"},
+        {"factor": "recent_form", "value": {home: form[home]["record"], away: form[away]["record"]},
+         "pre_match_interpretation": "last-10: %s %s (gf%d ga%d) vs %s %s (gf%d ga%d)" % (
+             home, form[home]["record"], form[home]["goals_for"], form[home]["goals_against"],
+             away, form[away]["record"], form[away]["goals_for"], form[away]["goals_against"]),
+         "source_refs": [kref("last10_form")], "assumption": False, "data_status": "derived"},
+        {"factor": "lineup_integrity", "value": {"squad_announced": {t: (squad.get(s) or {}).get("players_count") for s, t in (("home", home), ("away", away))}},
+         "pre_match_interpretation": "squads registered (26 players) but the starting XI is NOT announced — re-scores ~30' before kickoff",
+         "source_refs": [ref("squad", "/players/squads", fid)], "assumption": True, "data_status": "mixed"},
+        {"factor": "finishing_efficiency", "value": {"recent_scorers": scorers},
+         "pre_match_interpretation": "proxy = last-10 goals-for + scorer spread; no xG feed",
+         "source_refs": [kref("goalscorers_last10")], "assumption": False, "data_status": "derived_proxy"},
+        {"factor": "goalkeeper_delta", "value": {"squad_goalkeepers": gk_names},
+         "pre_match_interpretation": "GK names known from squads; starting GK + form unknown -> watch variable",
+         "source_refs": [ref("squad", "/players/squads", fid)], "assumption": True, "data_status": "mixed"},
+        {"factor": "event_momentum", "value": {"h2h": meetings[-5:], "shootout_history": sh},
+         "pre_match_interpretation": "group-stage opener context: nerves/late-swing exposure judged from h2h volatility",
+         "source_refs": [kref("h2h+shootouts")], "assumption": False, "data_status": "derived"},
+        {"factor": "tactical_matchup", "value": {"coach": {k: (v or {}).get("name") for k, v in coach.items()}},
+         "pre_match_interpretation": "coaches confirmed; formations not announced -> assumption_context for the LLM",
+         "source_refs": [ref("coach", "/coachs", fid)], "assumption": True, "data_status": "mixed"},
+        {"factor": "travel_environment", "value": {"venue": fx.get("venue"), "kickoff_utc": kickoff,
+                                                    "round": fx["league"].get("round")},
+         "pre_match_interpretation": "venue/kickoff real from the fixture; altitude/heat/crowd impact is scenario context (not measured)",
+         "source_refs": [ref("fixture", "/fixtures", fid)], "assumption": True, "data_status": "mixed"},
+        {"factor": "missing_data_risk", "value": {"not_ingested": ["injuries (0 results pre-match)", "xG", "squad market value", "official FIFA rank", "starting XI / formation"]},
+         "pre_match_interpretation": "pre-match blind spots -> phrased to the user as variables to track",
+         "source_refs": [], "assumption": True, "data_status": "missing"},
+        {"factor": "upset_risk", "value": {"band": band},
+         "pre_match_interpretation": band_why,
+         "source_refs": [{"method": "upset_band(elo_gap=%d, missing=4)" % gap}], "assumption": False, "data_status": "derived"},
+    ]
+    frame = {
+        "model_name": "ScoutScore v0.2", "mode": "pre_match_2026_modeling", "fixture_id": fid,
+        "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "fixture_basis": "real_scheduled",
+        "fixture": {"home": home, "away": away, "date": kickoff, "venue": fx.get("venue"),
+                    "competition": "%s %s · %s" % (fx["league"]["name"], fx["league"].get("season", ""), fx["league"].get("round", "")),
+                    "status": fx.get("status")},
+        "kaggle_baseline": {"elo": {home: eh, away: ea, "gap": gap, "favoured": fav, "asof": date, "method": ELO_METHOD},
+                            "recent_form": form, "h2h_last10": meetings,
+                            "recent_scorers": scorers, "shootout_history": sh},
+        "factors": factors,
+        "live_30min_update_trigger": {
+            "would_recompute": ["lineup_integrity (XI in/out, spine changes)", "goalkeeper_delta (starting GK)", "tactical_matchup (formation)"],
+            "then_reissue": ["main_lean", "scoreline_band", "risk_level"],
+            "note": "subscription layer: ~30' before kickoff the model re-scores on the announced XI and re-issues its lean"},
+        "outputs": {
+            "pre_match_main_lean": {"side": fav, "strength": "slight" if gap < 60 else "clear", "basis": "elo gap %d + form" % gap, "label": "model_estimate"},
+            "risk_level_basis": band,
+            "scoreline_band_basis": {"plausible_bands": poisson_bands(lam_h, lam_a),
+                                      "method": "poisson(last10 gf avg, group-stage damped) — coarse model_estimate, NOT a claim",
+                                      "label": "model_estimate"},
+        },
+        "known_gaps": ["injuries/suspensions not ingested (0 pre-match results)", "xG not ingested",
+                       "squad market value not ingested", "official FIFA ranking not ingested (kaggle-derived elo used)",
+                       "starting XI / formation not announced yet"],
+        "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/%s.json#source_ledger" % fid,
+    }
+    return frame
+
+
 def main():
     global RESULTS
     RESULTS = load_results()
     OUT.mkdir(parents=True, exist_ok=True)
-    frames = [recap_frame("855737", RESULTS), recap_frame("979139", RESULTS), prematch_2026_frame(RESULTS)]
+    frames = [recap_frame("855737", RESULTS), recap_frame("979139", RESULTS), prematch_2026_frame(RESULTS),
+              prematch_real_frame("1489369", RESULTS), prematch_real_frame("1489371", RESULTS)]
     for fr in frames:
         p = OUT / ("%s.factor_frame.json" % fr["fixture_id"])
         p.write_text(json.dumps(fr, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

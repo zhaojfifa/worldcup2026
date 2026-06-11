@@ -1,25 +1,28 @@
 {
   "model_name": "ScoutScore v0.2",
   "mode": "pre_match_2026_modeling",
-  "fixture_id": "2026_brazil_argentina",
+  "fixture_id": "1489371",
   "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
-  "generated_at": "2026-06-11T00:33:37.697356+00:00",
-  "hypothetical_fixture": true,
-  "hypothetical_note": "Brazil vs Argentina is NOT scheduled in the 2026 group stage — both are group hosts' side; a meeting is a knockout scenario. Customer copy must say 'if they meet in the knockouts'.",
+  "generated_at": "2026-06-11T00:33:38.178769+00:00",
+  "fixture_basis": "real_scheduled",
   "fixture": {
     "home": "Brazil",
-    "away": "Argentina",
-    "date": null,
-    "venue": null,
-    "competition": "FIFA World Cup 2026 (hypothetical knockout meeting)"
+    "away": "Morocco",
+    "date": "2026-06-13T22:00:00+00:00",
+    "venue": {
+      "name": "MetLife Stadium",
+      "city": "New York New Jersey"
+    },
+    "competition": "World Cup 2026 · Group Stage - 1",
+    "status": "Not Started"
   },
   "kaggle_baseline": {
     "elo": {
       "Brazil": 1964,
-      "Argentina": 2064,
-      "gap": 100,
-      "favoured": "Argentina",
-      "asof": "2026-06-11",
+      "Morocco": 1899,
+      "gap": 65,
+      "favoured": "Brazil",
+      "asof": "2026-06-13",
       "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
     },
     "recent_form": {
@@ -101,135 +104,100 @@
         "goals_against": 11,
         "n": 10
       },
-      "Argentina": {
+      "Morocco": {
         "matches": [
           {
-            "date": "2025-06-05",
-            "opponent": "Chile",
-            "score": "1-0",
-            "result": "W",
-            "tournament": "FIFA World Cup qualification"
-          },
-          {
-            "date": "2025-06-10",
-            "opponent": "Colombia",
-            "score": "1-1",
-            "result": "D",
-            "tournament": "FIFA World Cup qualification"
-          },
-          {
-            "date": "2025-09-04",
-            "opponent": "Venezuela",
+            "date": "2025-12-29",
+            "opponent": "Zambia",
             "score": "3-0",
             "result": "W",
-            "tournament": "FIFA World Cup qualification"
+            "tournament": "African Cup of Nations"
           },
           {
-            "date": "2025-09-09",
-            "opponent": "Ecuador",
-            "score": "0-1",
-            "result": "L",
-            "tournament": "FIFA World Cup qualification"
-          },
-          {
-            "date": "2025-10-10",
-            "opponent": "Venezuela",
+            "date": "2026-01-04",
+            "opponent": "Tanzania",
             "score": "1-0",
             "result": "W",
-            "tournament": "Friendly"
+            "tournament": "African Cup of Nations"
           },
           {
-            "date": "2025-10-14",
-            "opponent": "Puerto Rico",
-            "score": "6-0",
-            "result": "W",
-            "tournament": "Friendly"
-          },
-          {
-            "date": "2025-11-14",
-            "opponent": "Angola",
+            "date": "2026-01-09",
+            "opponent": "Cameroon",
             "score": "2-0",
             "result": "W",
-            "tournament": "Friendly"
+            "tournament": "African Cup of Nations"
+          },
+          {
+            "date": "2026-01-14",
+            "opponent": "Nigeria",
+            "score": "0-0",
+            "result": "D",
+            "tournament": "African Cup of Nations"
+          },
+          {
+            "date": "2026-01-18",
+            "opponent": "Senegal",
+            "score": "3-0",
+            "result": "W",
+            "tournament": "African Cup of Nations"
           },
           {
             "date": "2026-03-27",
-            "opponent": "Mauritania",
+            "opponent": "Ecuador",
+            "score": "1-1",
+            "result": "D",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-03-31",
+            "opponent": "Paraguay",
             "score": "2-1",
             "result": "W",
             "tournament": "Friendly"
           },
           {
-            "date": "2026-03-31",
-            "opponent": "Zambia",
+            "date": "2026-05-26",
+            "opponent": "Burundi",
             "score": "5-0",
             "result": "W",
             "tournament": "Friendly"
           },
           {
-            "date": "2026-06-06",
-            "opponent": "Honduras",
-            "score": "2-0",
+            "date": "2026-06-02",
+            "opponent": "Madagascar",
+            "score": "4-0",
             "result": "W",
+            "tournament": "Friendly"
+          },
+          {
+            "date": "2026-06-07",
+            "opponent": "Norway",
+            "score": "1-1",
+            "result": "D",
             "tournament": "Friendly"
           }
         ],
-        "record": "8W-1D-1L",
-        "goals_for": 23,
+        "record": "7W-3D-0L",
+        "goals_for": 22,
         "goals_against": 3,
         "n": 10
       }
     },
     "h2h_last10": [
       {
-        "date": "2015-11-13",
-        "fixture": "Argentina 1-1 Brazil",
-        "tournament": "FIFA World Cup qualification"
+        "date": "1997-10-09",
+        "fixture": "Brazil 2-0 Morocco",
+        "tournament": "Friendly"
       },
       {
-        "date": "2016-11-10",
-        "fixture": "Brazil 3-0 Argentina",
-        "tournament": "FIFA World Cup qualification"
+        "date": "1998-06-16",
+        "fixture": "Brazil 3-0 Morocco",
+        "tournament": "FIFA World Cup"
       },
       {
-        "date": "2017-06-09",
-        "fixture": "Argentina 1-0 Brazil",
-        "tournament": "Superclásico de las Américas"
-      },
-      {
-        "date": "2018-10-16",
-        "fixture": "Argentina 0-1 Brazil",
-        "tournament": "Superclásico de las Américas"
-      },
-      {
-        "date": "2019-07-02",
-        "fixture": "Brazil 2-0 Argentina",
-        "tournament": "Copa América"
-      },
-      {
-        "date": "2019-11-15",
-        "fixture": "Brazil 0-1 Argentina",
-        "tournament": "Superclásico de las Américas"
-      },
-      {
-        "date": "2021-07-10",
-        "fixture": "Brazil 0-1 Argentina",
-        "tournament": "Copa América"
-      },
-      {
-        "date": "2021-11-16",
-        "fixture": "Argentina 0-0 Brazil",
-        "tournament": "FIFA World Cup qualification"
-      },
-      {
-        "date": "2023-11-21",
-        "fixture": "Brazil 0-1 Argentina",
-        "tournament": "FIFA World Cup qualification"
-      },
-      {
-        "date": "2025-03-25",
-        "fixture": "Argentina 4-1 Brazil",
-        "tournament": "FIFA World Cup qualification"
+        "date": "2023-03-25",
+        "fixture": "Morocco 2-1 Brazil",
+        "tournament": "Friendly"
       }
     ],
     "recent_scorers": {
@@ -247,21 +215,17 @@
           "goals": 1
         }
       ],
-      "Argentina": [
+      "Morocco": [
         {
-          "scorer": "Lionel Messi",
+          "scorer": "Brahim Díaz",
+          "goals": 3
+        },
+        {
+          "scorer": "Ayoub El Kaabi",
           "goals": 2
         },
         {
-          "scorer": "Julián Alvarez",
-          "goals": 1
-        },
-        {
-          "scorer": "Thiago Almada",
-          "goals": 1
-        },
-        {
-          "scorer": "Lautaro Martínez",
+          "scorer": "Ismael Saibari",
           "goals": 1
         }
       ]
@@ -294,30 +258,30 @@
           "won": false
         }
       ],
-      "Argentina": [
+      "Morocco": [
         {
-          "date": "2016-06-26",
-          "vs": "Chile",
+          "date": "2002-09-17",
+          "vs": "Iran",
           "won": false
         },
         {
-          "date": "2021-07-06",
-          "vs": "Colombia",
+          "date": "2019-07-05",
+          "vs": "Benin",
+          "won": false
+        },
+        {
+          "date": "2021-12-11",
+          "vs": "Algeria",
+          "won": false
+        },
+        {
+          "date": "2022-12-06",
+          "vs": "Spain",
           "won": true
         },
         {
-          "date": "2022-12-09",
-          "vs": "Netherlands",
-          "won": true
-        },
-        {
-          "date": "2022-12-18",
-          "vs": "France",
-          "won": true
-        },
-        {
-          "date": "2024-07-04",
-          "vs": "Ecuador",
+          "date": "2026-01-14",
+          "vs": "Nigeria",
           "won": true
         }
       ]
@@ -329,19 +293,19 @@
       "value": {
         "elo": {
           "Brazil": 1964,
-          "Argentina": 2064
+          "Morocco": 1899
         },
-        "gap": 100,
-        "favoured": "Argentina"
+        "gap": 65,
+        "favoured": "Brazil"
       },
-      "pre_match_interpretation": "kaggle-derived elo: Brazil 1964 vs Argentina 2064 (gap 100)",
+      "pre_match_interpretation": "kaggle-derived elo: Brazil 1964 vs Morocco 1899 (gap 65)",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
           "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true,
-          "metric": "elo_snapshot@2026-06-11",
-          "value": "Brazil 1964 / Argentina 2064"
+          "metric": "elo_snapshot@2026-06-13",
+          "value": "Brazil 1964 / Morocco 1899"
         },
         {
           "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
@@ -354,9 +318,9 @@
       "factor": "recent_form",
       "value": {
         "Brazil": "6W-1D-3L",
-        "Argentina": "8W-1D-1L"
+        "Morocco": "7W-3D-0L"
       },
-      "pre_match_interpretation": "last-10: Brazil 6W-1D-3L (gf25 ga11) vs Argentina 8W-1D-1L (gf23 ga3); includes 2026-03/06 friendlies",
+      "pre_match_interpretation": "last-10: Brazil 6W-1D-3L (gf25 ga11) vs Morocco 7W-3D-0L (gf22 ga3)",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -370,11 +334,23 @@
     },
     {
       "factor": "lineup_integrity",
-      "value": null,
-      "pre_match_interpretation": "no lineup feed yet — both squads unannounced; becomes a live-30min trigger",
-      "source_refs": [],
+      "value": {
+        "squad_announced": {
+          "Brazil": 26,
+          "Morocco": 26
+        }
+      },
+      "pre_match_interpretation": "squads registered (26 players) but the starting XI is NOT announced — re-scores ~30' before kickoff",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
       "assumption": true,
-      "data_status": "assumption_context"
+      "data_status": "mixed"
     },
     {
       "factor": "finishing_efficiency",
@@ -394,21 +370,17 @@
               "goals": 1
             }
           ],
-          "Argentina": [
+          "Morocco": [
             {
-              "scorer": "Lionel Messi",
+              "scorer": "Brahim Díaz",
+              "goals": 3
+            },
+            {
+              "scorer": "Ayoub El Kaabi",
               "goals": 2
             },
             {
-              "scorer": "Julián Alvarez",
-              "goals": 1
-            },
-            {
-              "scorer": "Thiago Almada",
-              "goals": 1
-            },
-            {
-              "scorer": "Lautaro Martínez",
+              "scorer": "Ismael Saibari",
               "goals": 1
             }
           ]
@@ -428,40 +400,50 @@
     },
     {
       "factor": "goalkeeper_delta",
-      "value": null,
-      "pre_match_interpretation": "no GK form feed — flagged as pre-match watch variable",
-      "source_refs": [],
+      "value": {
+        "squad_goalkeepers": {
+          "Brazil": [
+            "Alisson Becker",
+            "Ederson",
+            "Weverton"
+          ],
+          "Morocco": [
+            "Y. Bounou",
+            "M. Mohamedi",
+            "A. Tagnaouti"
+          ]
+        }
+      },
+      "pre_match_interpretation": "GK names known from squads; starting GK + form unknown -> watch variable",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
       "assumption": true,
-      "data_status": "assumption_context"
+      "data_status": "mixed"
     },
     {
       "factor": "event_momentum",
       "value": {
-        "h2h_volatility": [
+        "h2h": [
           {
-            "date": "2019-11-15",
-            "fixture": "Brazil 0-1 Argentina",
-            "tournament": "Superclásico de las Américas"
+            "date": "1997-10-09",
+            "fixture": "Brazil 2-0 Morocco",
+            "tournament": "Friendly"
           },
           {
-            "date": "2021-07-10",
-            "fixture": "Brazil 0-1 Argentina",
-            "tournament": "Copa América"
+            "date": "1998-06-16",
+            "fixture": "Brazil 3-0 Morocco",
+            "tournament": "FIFA World Cup"
           },
           {
-            "date": "2021-11-16",
-            "fixture": "Argentina 0-0 Brazil",
-            "tournament": "FIFA World Cup qualification"
-          },
-          {
-            "date": "2023-11-21",
-            "fixture": "Brazil 0-1 Argentina",
-            "tournament": "FIFA World Cup qualification"
-          },
-          {
-            "date": "2025-03-25",
-            "fixture": "Argentina 4-1 Brazil",
-            "tournament": "FIFA World Cup qualification"
+            "date": "2023-03-25",
+            "fixture": "Morocco 2-1 Brazil",
+            "tournament": "Friendly"
           }
         ],
         "shootout_history": {
@@ -492,36 +474,36 @@
               "won": false
             }
           ],
-          "Argentina": [
+          "Morocco": [
             {
-              "date": "2016-06-26",
-              "vs": "Chile",
+              "date": "2002-09-17",
+              "vs": "Iran",
               "won": false
             },
             {
-              "date": "2021-07-06",
-              "vs": "Colombia",
+              "date": "2019-07-05",
+              "vs": "Benin",
+              "won": false
+            },
+            {
+              "date": "2021-12-11",
+              "vs": "Algeria",
+              "won": false
+            },
+            {
+              "date": "2022-12-06",
+              "vs": "Spain",
               "won": true
             },
             {
-              "date": "2022-12-09",
-              "vs": "Netherlands",
-              "won": true
-            },
-            {
-              "date": "2022-12-18",
-              "vs": "France",
-              "won": true
-            },
-            {
-              "date": "2024-07-04",
-              "vs": "Ecuador",
+              "date": "2026-01-14",
+              "vs": "Nigeria",
               "won": true
             }
           ]
         }
       },
-      "pre_match_interpretation": "knockout context: late-swing + pens exposure judged from h2h and shootout records",
+      "pre_match_interpretation": "group-stage opener context: nerves/late-swing exposure judged from h2h volatility",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -535,36 +517,41 @@
     },
     {
       "factor": "tactical_matchup",
-      "value": null,
-      "pre_match_interpretation": "2026 formations/coach plans not ingested — assumption_context for the LLM",
-      "source_refs": [],
+      "value": {
+        "coach": {
+          "home": "C. Ancelotti",
+          "away": "V. Halilhodžić"
+        }
+      },
+      "pre_match_interpretation": "coaches confirmed; formations not announced -> assumption_context for the LLM",
+      "source_refs": [
+        {
+          "field": "coach",
+          "source": "api-football",
+          "endpoint": "/coachs",
+          "fixture_id": "1489371"
+        }
+      ],
       "assumption": true,
-      "data_status": "assumption_context"
+      "data_status": "mixed"
     },
     {
       "factor": "travel_environment",
       "value": {
-        "context": "2026 US summer venues; heat/travel between host cities",
-        "group_schedule": {
-          "Brazil": [
-            "Brazil-Morocco 06-13",
-            "Brazil-Haiti 06-19",
-            "Scotland-Brazil 06-24"
-          ],
-          "Argentina": [
-            "Argentina-Algeria 06-16",
-            "Argentina-Austria 06-22",
-            "Jordan-Argentina 06-27"
-          ]
-        }
+        "venue": {
+          "name": "MetLife Stadium",
+          "city": "New York New Jersey"
+        },
+        "kickoff_utc": "2026-06-13T22:00:00+00:00",
+        "round": "Group Stage - 1"
       },
-      "pre_match_interpretation": "group schedules are real (results.csv 2026 fixtures); venue/heat impact for a knockout meeting is scenario context",
+      "pre_match_interpretation": "venue/kickoff real from the fixture; altitude/heat/crowd impact is scenario context (not measured)",
       "source_refs": [
         {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-          "derived": true,
-          "metric": "2026_group_fixtures"
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "1489371"
         }
       ],
       "assumption": true,
@@ -574,11 +561,11 @@
       "factor": "missing_data_risk",
       "value": {
         "not_ingested": [
-          "injuries/suspensions",
+          "injuries (0 results pre-match)",
           "xG",
           "squad market value",
           "official FIFA rank",
-          "2026 knockout venue"
+          "starting XI / formation"
         ]
       },
       "pre_match_interpretation": "pre-match blind spots -> phrased to the user as variables to track",
@@ -594,7 +581,7 @@
       "pre_match_interpretation": "clear favourite but gaps are partially covered",
       "source_refs": [
         {
-          "method": "upset_band(elo_gap=100, missing=4)"
+          "method": "upset_band(elo_gap=65, missing=4)"
         }
       ],
       "assumption": false,
@@ -612,32 +599,32 @@
       "scoreline_band",
       "risk_level"
     ],
-    "note": "this is the subscription-layer live update: 30' before kickoff the model re-scores and re-issues its lean"
+    "note": "subscription layer: ~30' before kickoff the model re-scores on the announced XI and re-issues its lean"
   },
   "outputs": {
     "pre_match_main_lean": {
-      "side": "Argentina",
+      "side": "Brazil",
       "strength": "clear",
-      "basis": "elo gap 100 + form",
+      "basis": "elo gap 65 + form",
       "label": "model_estimate"
     },
     "risk_level_basis": "medium",
     "scoreline_band_basis": {
       "plausible_bands": [
-        "1-1",
         "2-1",
-        "1-2"
+        "1-1",
+        "2-2"
       ],
-      "method": "poisson(last10 gf avg, knockout-damped) — coarse model_estimate, NOT a claim",
+      "method": "poisson(last10 gf avg, group-stage damped) — coarse model_estimate, NOT a claim",
       "label": "model_estimate"
     }
   },
   "known_gaps": [
-    "injuries/suspensions not ingested",
+    "injuries/suspensions not ingested (0 pre-match results)",
     "xG not ingested",
     "squad market value not ingested",
     "official FIFA ranking not ingested (kaggle-derived elo used)",
-    "no scheduled fixture — hypothetical knockout"
+    "starting XI / formation not announced yet"
   ],
-  "source_ledger_ref": "data/external/kaggle (local, untracked raw)"
+  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/1489371.json#source_ledger"
 }
