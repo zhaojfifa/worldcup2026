@@ -1,0 +1,173 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "855737",
+  "mode": "historical_recap",
+  "language": "my-MM",
+  "hero_title": "Football Oracle ၏ သတိပေးချက်- အာဂျင်တီးနားအတွက် ထောင်ချောက်ပွဲ",
+  "hero_subtitle": "အားသာချက်ကြီးမားသော်လည်း မမြင်ရသော အန္တရာယ်များကို Oracle က ကြိုတင်သိရှိခဲ့သည်",
+  "short_title": "အာဂျင်တီးနား 1-2 ဆော်ဒီအာရေးဗီးယား- Oracle ၏ ထောင်ချောက်ပွဲ",
+  "screenshot_line": "အာဂျင်တီးနား 369 Elo သာလွန်သော်လည်း ဆော်ဒီက 2-1 အနိုင်ရခဲ့သည်",
+  "model_judgement": "Football Oracle က ဒီပွဲကို အန္တရာယ်မြင့်မားသော ထောင်ချောက်ပွဲအဖြစ် မြင်သည်။ Elo ကွာဟချက် 369 နှင့် အာဂျင်တီးနား၏ ပုံစံကောင်း (နောက်ဆုံး 10 ပွဲတွင် 8-2-0) က အာဂျင်တီးနားကို ထောက်ခံသော်လည်း လူစာရင်း၊ ဒဏ်ရာ၊ xG နှင့် ဂိုးသမား စွမ်းဆောင်ရည် အချက်အလက်များ မရှိခြင်းက အားနည်းချက်ကို ဖန်တီးသည်။ ဆော်ဒီအာရေးဗီးယားသည် ခိုင်မာသော ခံစစ်နှင့် အံ့အားသင့်စရာ ကောင်းသော အသွင်ကူးပြောင်းမှုဖြင့် လာနိုင်သည်။",
+  "main_lean": "အာဂျင်တီးနား အနိုင်ရရန် အလားအလာရှိသော်လည်း အန္တရာယ်မြင့်မားသည်",
+  "scoreline_view": "Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား: 2-0, 3-0, 1-0",
+  "risk_level": "မြင့်မားသော အန္တရာယ် — အာဂျင်တီးနား၏ ကြီးမားသော အားသာချက်သည် မမြင်ရသော အားနည်းချက်များကို ဖုံးကွယ်ထားသည်",
+  "risk_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Elo ကွာဟချက် 369 က အာဂျင်တီးနားကို သာလွန်စေသည်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "elo_snapshot@2022-11-22",
+          "value": "Argentina 2053 / Saudi Arabia 1684"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "အာဂျင်တီးနား 8-2-0 နှင့် ဆော်ဒီ 2-5-3 — ပုံစံကွာဟမှု ကြီးမားသည်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Upset / volatility risk",
+      "text": "ကြီးမားသော အကြိုက်ဆုံးနှင့် မျက်မမြင်အချက်များ — ဂန္ထဝင် ထောင်ချောက်ပွဲ",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=369, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Pre-match unknowns (confirm before kickoff)",
+      "text": "ဒဏ်ရာ၊ xG၊ လူစာရင်း အချက်အလက်များ မရှိသေးပါ — ပွဲမစခင် မိနစ် 30 တွင် ပြန်လည်စစ်ဆေးရန် လိုအပ်သည်",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "Finishing efficiency",
+      "text": "အာဂျင်တီးနား 15 ကြိမ်ပစ်ခတ်/6 ကြိမ်မှန်း → 1 ဂိုး; ဆော်ဒီ 3 ကြိမ်ပစ်ခတ်/2 ကြိမ်မှန်း → 2 ဂိုး — ထိရောက်မှု ကွာဟချက်ကို အတည်ပြုသည်",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "shots 15/3, sog 6/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "ဆော်ဒီဂိုးသမား Mohammed Al-Owais 5 ကြိမ်ကာကွယ် (အဆင့် 7.7) — အာဂျင်တီးနား 0 ကြိမ် — ဂိုးသမား စွမ်းဆောင်ရည်က ပွဲရလဒ်ကို ပြောင်းလဲစေသည်",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "saves 0/5"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "In-match momentum / late swings",
+      "text": "အာဂျင်တီးနား 10' က ပင်နယ်တီဂိုး ရသော်လည်း ဆော်ဒီက ဒုတိယပိုင်း 48' နှင့် 53' တွင် ပြန်လည်ဂိုးသွင်းကာ အနိုင်ရခဲ့သည် — အသွင်ကူးပြောင်းမှုကို အတည်ပြုသည်",
+      "source_refs": [
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "855737"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Tactical matchup",
+      "text": "ဆော်ဒီ၏ 4-1-4-1 ခံစစ်ပုံစံသည် အာဂျင်တီးနား၏ 4-4-2 ကို ထိရောက်စွာ ချေဖျက်နိုင်ခဲ့သည် — Oracle က ဤအချက်ကို လျှော့တွက်ခဲ့သည်",
+      "source_refs": [
+        {
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "855737"
+        },
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "855737",
+          "value": "possession 69%/31%"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "Lineup integrity check",
+      "text": "ပွဲမစခင် မိနစ် 30 တွင် လူစာရင်းကို ပြန်လည်စစ်ဆေးပါ — အံ့အားသင့်စရာ စတင်သူများ ရှိနိုင်သည်",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Goalkeeper form delta",
+      "text": "ဂိုးသမား စွမ်းဆောင်ရည် ကွာဟချက်ကို စောင့်ကြည့်ပါ — ဤပွဲတွင် အဓိက အချက်ဖြစ်ခဲ့သည်",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Finishing efficiency under pressure",
+      "text": "အခွင့်အရေးများကို ဂိုးအဖြစ် ပြောင်းလဲနိုင်မှုကို စောင့်ကြည့်ပါ — အာဂျင်တီးနား ပျက်ကွက်ခဲ့သည်",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 Football Oracle က ဒီပွဲကို ထောင်ချောက်ပွဲလို့ သတိပေးခဲ့တယ်။ အာဂျင်တီးနား Elo 369 သာလွန်ပေမယ့် ဆော်ဒီက 2-1 နဲ့ အနိုင်ရခဲ့တယ်။ ပွဲကြိုအချက်တွေကို သိချင်ရင် အဖွဲ့ထဲမှာ စောင့်ကြည့်ပါ။",
+  "subscription_hook": "အခမဲ့ဗားရှင်းက ဦးတည်ချက်နဲ့ အန္တရာယ်အဆင့်ကို ပြသည်။ စာရင်းသွင်းပါက ပွဲမစခင် မိနစ် 30 တွင် ပြန်လည်အဆင့်သတ်မှတ်ချက်၊ အချက်အလက်အပြည့်အစုံနှင့် ရည်ညွှန်းအပိုင်းအခြား နက်ရှိုင်းစွာ ခွဲခြမ်းစိတ်ဖြာမှုကို ရရှိမည်။",
+  "group_join_copy": "🚀 Football Oracle ၏ နောက်ဆုံးပေါ် အဆင့်သတ်မှတ်ချက်ကို လက်လွတ်မခံပါနှင့်။ အဖွဲ့ထဲတွင် ပွဲမစခင် မိနစ် 30 တွင် ပြန်လည်တွက်ချက်မှုကို စောင့်ကြည့်ပါ။ ယခုပဲ ဝင်ရောက်ပါ။",
+  "today_cta": "ယနေ့ Oracle ၏ အမြင်ကို ကြည့်ရှုရန် ဤနေရာကို နှိပ်ပါ။",
+  "social_post": "Football Oracle က သတိပေးခဲ့သည် — အာဂျင်တီးနား 1-2 ဆော်ဒီအာရေးဗီးယား။ Elo 369 သာလွန်သော်လည်း မမြင်ရသော အန္တရာယ်များကို Oracle က ကြိုတင်သိရှိခဲ့သည်။ နောက်ထပ် ခွဲခြမ်းစိတ်ဖြာမှုအတွက် အဖွဲ့ထဲတွင် စောင့်ကြည့်ပါ။",
+  "internal_notes": [
+    "historical replay — NOT a real archived pre-match prediction",
+    "lineups not announced pre-match; formations are from actual match data",
+    "injuries/suspensions, xG, squad value not ingested in pre-match model"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results derived elo_snapshot@2022-11-22",
+    "Recent form (last 10)": "kaggle_intl_results derived last10_form",
+    "Upset / volatility risk": "upset_band(elo_gap=369, missing=3)",
+    "Finishing efficiency": "api-football /fixtures/statistics fixture_id=855737",
+    "Goalkeeper performance gap": "api-football /fixtures/statistics and /fixtures/players fixture_id=855737",
+    "In-match momentum / late swings": "api-football /fixtures/events fixture_id=855737",
+    "Tactical matchup": "api-football /fixtures/lineups and /fixtures/statistics fixture_id=855737"
+  },
+  "llm_provider": "deepseek",
+  "voice": "oracle_v2",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T08:31:58.395925+00:00"
+}

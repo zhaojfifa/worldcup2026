@@ -1,0 +1,135 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "my-MM",
+  "hero_title": "Football Oracle က Mexico vs South Africa ကို ဒီလိုမြင်တယ်",
+  "hero_subtitle": "အင်အားကွာဟမှုကြီးပေမယ့် မျက်စိလည်စရာ အန္တရာယ်တွေ ရှိနေတဲ့ပွဲ",
+  "short_title": "Mexico vs South Africa: Oracle ရဲ့ ပွဲကြိုသုံးသပ်ချက်",
+  "screenshot_line": "Mexico Elo 1880 vs South Africa 1624 — ဒါပေမယ့် လူစာရင်းမထွက်သေးတဲ့အတွက် အန္တရာယ်မြင့်မားနေတယ်",
+  "model_judgement": "Football Oracle က ဒီပွဲကို Elo ကွာဟချက် ၂၅၆ မှတ်၊ မက္ကဆီကိုရဲ့ လက်ရှိပုံစံ (နောက်ဆုံး ၁၀ ပွဲမှာ ၆ နိုင် ၃ သရေ ၁ ရှုံး) နဲ့ ခံစစ်ကြံ့ခိုင်မှု (နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ကြိမ် ဂိုးမပေး) တို့ကို ကြည့်ပြီး မက္ကဆီကိုဘက်ကို ဦးတည်တယ်။ ဒါပေမယ့် တောင်အာဖရိကရဲ့ နောက်ဆုံး ၅ ပွဲမှာ ဂိုးပေါင်း ၄ ဂိုးပဲ သွင်းနိုင်တာက ခြေစွမ်းကျဆင်းနေတဲ့ လက္ခဏာပဲ။ ပွဲကြီးပွဲကောင်း အတွေ့အကြုံ၊ အာဇတီကာ ကွင်းရဲ့ အမြင့်ပေ ၂၂၀၀ နဲ့ ပရိသတ်ရှေ့မှာ ကစားရမယ့် ဖိအားတွေက မက္ကဆီကိုအတွက် အသာစီးဖြစ်စေတယ်။ ဒါပေမယ့် လူစာရင်းမထွက်သေးတာ၊ ဂိုးသမားအနေအထားနဲ့ ဒဏ်ရာသတင်းတွေက မသေချာမှုတွေ ဖြစ်စေတယ် — ဒါတွေက ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်ရမယ့် အချက်တွေပဲ။",
+  "main_lean": "မက္ကဆီကိုဘက်ကို ဦးတည်တယ် — ဒါပေမယ့် အန္တရာယ်မြင့်မားတဲ့အတွက် သေချာစဉ်းစားရမယ်",
+  "scoreline_view": "Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား: 1-0, 1-1, 0-1",
+  "risk_level": "မြင့်မား — အင်အားကွာဟမှုကြီးပေမယ့် လူစာရင်းနဲ့ ဒဏ်ရာသတင်းတွေ မသေချာတာက မျက်စိလည်စရာ အန္တရာယ်ဖြစ်စေတယ်",
+  "risk_factors": [
+    {
+      "name": "လူစာရင်း မသေချာမှု",
+      "text": "မက္ကဆီကိုရဲ့ ပွဲထွက် ၁၁ ယောက်နဲ့ ပုံစံကို မသိရသေးဘူး — ကျောရိုးတန်း (နောက်ခံ/ဂိုးသမား/တိုက်စစ်) မှာ ကစားသမားကြီးတွေ ပါမပါ စောင့်ကြည့်ရမယ်",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "ဂိုးသမား အနေအထား",
+      "text": "မက္ကဆီကိုမှာ Ochoa, Acevedo, Rangel — တောင်အာဖရိကမှာ Chaine, Goss, Williams — ဘယ်သူအစပြုမလဲ၊ လက်ရှိပုံစံက ဘယ်လိုလဲဆိုတာ ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်ရမယ်",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "တိုက်စစ် အားကိုးရမှု",
+      "text": "တောင်အာဖရိကရဲ့ ဂိုးတွေက Appollis (၃ ဂိုး), Makgopa (၂), Foster (၂) ပေါ်မှာ မူတည်နေတယ် — သူတို့ ပိတ်မိရင် ဂိုးရဖို့ ခက်မယ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "အိမ်ကွင်း/အမြင့်ပေ/ပွဲကြီး",
+      "text": "အာဇတီကာ ကွင်းက အမြင့်ပေ ၂၂၀၀ မှာ ရှိပြီး ပရိသတ်ရှေ့မှာ ကစားရမယ် — မက္ကဆီကိုအတွက် အသာစီးဖြစ်ပေမယ့် တောင်အာဖရိကအတွက် စိန်ခေါ်မှုကြီးပဲ",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "ပွဲထွက်လူစာရင်း ထွက်လာချိန်",
+      "text": "မက္ကဆီကိုရဲ့ ကျောရိုးတန်း ကစားသမားတွေ ပါမပါ စစ်ဆေးပါ — နောက်ခံလူချုပ်၊ ဂိုးသမားနဲ့ တိုက်စစ်မှူး ပါမပါက အဓိကပဲ",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "တောင်အာဖရိက ဂိုးသမား ပုံစံ",
+      "text": "တောင်အာဖရိက ဂိုးသမား ဘယ်သူအစပြုလဲ၊ သူ့ရဲ့ လက်ရှိပုံစံက ဘယ်လိုလဲ — ဒါက ပွဲရဲ့ ဦးတည်ချက်ကို ပြောင်းလဲနိုင်တယ်",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489369
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "အစောပိုင်း ဂိုး",
+      "text": "တောင်အာဖရိက အစောပိုင်းဂိုးရရင် ပွဲရဲ့ အရှိန်အဟုန်ကို ပြောင်းလဲနိုင်တယ် — မက္ကဆီကိုအတွက် ဖိအားဖြစ်စေမယ်",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 Football Oracle ရဲ့ Mexico vs South Africa ပွဲကြို သုံးသပ်ချက် — Elo 256 ကွာဟပေမယ့် လူစာရင်းမထွက်သေးတဲ့အတွက် အန္တရာယ်မြင့်မားတယ်။ ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းနဲ့ ဂိုးသမားကို ပြန်စစ်ပြီး အမြင်ကို ပြန်ရေးမယ်။ အခမဲ့ဗားရှင်းက ဦးတည်ချက်ပြတယ် — အဖွဲ့ထဲမှာ နောက်ဆုံးပြန်တွက်ချက် စောင့်ကြည့်ပါ။",
+  "subscription_hook": "အခမဲ့ဗားရှင်းက ဦးတည်ချက်နဲ့ အန္တရာယ်အဆင့်ကို ပြတယ်။ အဖွဲ့ဝင်ဖြစ်ရင် ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းအရ ပြန်တွက်ချက်ထားတဲ့ အဓိကဦးတည်ချက်၊ ဂိုးအပိုင်းအခြားနဲ့ အန္တရာယ်အဆင့်ကို ရရှိမယ်။ ဒါ့အပြင် အချက်အလက်အပြည့်အစုံနဲ့ ဂိုးအပိုင်းအခြား နက်နက်နဲနဲ သုံးသပ်ချက်ကိုပါ ရနိုင်မယ်။",
+  "group_join_copy": "Football Oracle ရဲ့ ပွဲကြိုသုံးသပ်ချက်ကို လက်လွတ်မခံပါနဲ့။ အဖွဲ့ထဲမှာ ပွဲမစခင် မိနစ် ၃၀ မှာ နောက်ဆုံးပြန်တွက်ချက်ကို ရရှိမယ်။ ဒီနေ့ပဲ Join လိုက်ပါ — မက္ကဆီကိုနဲ့ တောင်အာဖရိကပွဲအတွက် အဆင်သင့်ဖြစ်နေပါစေ။",
+  "today_cta": "ဒီနေ့ပွဲအတွက် Football Oracle ရဲ့ အမြင်ကို ကြည့်ရအောင် — Mexico vs South Africa ပွဲကြီးမှာ ဘာတွေ ဖြစ်လာနိုင်လဲ။",
+  "social_post": "🔥 Mexico vs South Africa: Football Oracle ရဲ့ ပွဲကြိုသုံးသပ်ချက် — Elo 256 ကွာဟပေမယ့် အန္တရာယ်မြင့်မား။ လူစာရင်းမထွက်သေး၊ ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်မယ်။ အဖွဲ့ထဲမှာ နောက်ဆုံးပြန်တွက်ချက် စောင့်ကြည့်ပါ။",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
+    "Lineups NOT announced: expected shapes only as assumption_flag entries; never invent injuries.",
+    "Historical replay disclosure: not applicable — this is a real pre-match prediction.",
+    "Injury news gap: 0 results from api-football — internal only, not stated to customers."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
+    "Recent form (last 10)": "kaggle_intl_results (derived)",
+    "Head-to-head": "kaggle_intl_results (derived)",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
+    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
+    "Squad stability": "api-football /players/squads (assumption)",
+    "Goalkeeper risk": "api-football /players/squads (assumption)",
+    "Striker dependence / finishing": "kaggle_intl_results (derived)",
+    "Venue / altitude / context": "api-football /fixtures (assumption)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (assumption)",
+    "Injury news gap": "api-football /injuries (assumption, internal only)",
+    "30-minute pre-kickoff re-score": "subscription mechanic"
+  },
+  "llm_provider": "deepseek",
+  "tactical_read": "မက္ကဆီကိုက အိမ်ရှင်အသင်းအနေနဲ့ ဘောလုံးပိုင်ဆိုင်မှုကို ထိန်းချုပ်ပြီး တောင်အာဖရိကရဲ့ ခံစစ်ကို ဖြိုဖျက်ဖို့ ကြိုးစားမယ်လို့ မျှော်လင့်ရတယ်။ တောင်အာဖရိကကတော့ ခံစစ်ကို အာရုံစိုက်ပြီး မြန်ဆန်တဲ့ တန်ပြန်တိုက်စစ်နဲ့ အခွင့်အရေးရှာမယ်။ အဓိက ပြိုင်ဆိုင်မှုက မက္ကဆီကိုရဲ့ တိုက်စစ်နဲ့ တောင်အာဖရိကရဲ့ ခံစစ်ကြားမှာ ဖြစ်လိမ့်မယ်။ ပွဲအရှိန်က မက္ကဆီကိုရဲ့ ဖိအားပေးမှုအပေါ် မူတည်ပြီး အနှေးလိုက်နိုင်တယ်။",
+  "voice": "oracle_v2",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T08:30:08.721987+00:00"
+}

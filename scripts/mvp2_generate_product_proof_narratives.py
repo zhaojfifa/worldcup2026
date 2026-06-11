@@ -137,11 +137,29 @@ def build_input(sample_id, language):
     return inp
 
 
+VOICE = {"zh-CN": "qiuge_v2", "vi-VN": "tientri_v2", "my-MM": "oracle_v2"}
+PROMPT_FILE = {"zh-CN": "mvp2_scoutscore_product_narrative_zh.md",
+               "vi-VN": "mvp2_scoutscore_product_narrative_vi.md",
+               "my-MM": "mvp2_scoutscore_product_narrative_my.md"}
+
+
 def prompt_body(language):
-    name = "mvp2_scoutscore_product_narrative_vi.md" if language == "vi-VN" else "mvp2_scoutscore_product_narrative_zh.md"
+    name = PROMPT_FILE.get(language, "mvp2_scoutscore_product_narrative_zh.md")
     text = (PROMPTS / name).read_text(encoding="utf-8")
     parts = text.split("\n---\n", 1)
     return (parts[1] if len(parts) == 2 else text).strip()
+
+
+# Burmese script is token-heavy — a my-MM narrative truncates at the zh/vi budget.
+def max_tokens_for(language):
+    return 7800 if language == "my-MM" else 4500
+
+
+MY_RETRY_NOTE = (" my-MM RULES: ZERO Han characters; ZERO Vietnamese; Burmese script only "
+                 "(Latin team names / Oracle / Elo OK); persona 'Football Oracle' must appear in "
+                 "hero/judgement; NEVER မော်ဒယ်/AI/ScoutScore in customer prose; no betting or "
+                 "guarantee words in any language; scoreline_view must read "
+                 "'Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား: …'.")
 
 
 def _extract_json(text):
@@ -162,32 +180,32 @@ def _extract_json(text):
     return None
 
 
-def call_deepseek(api_key, system, user):
+def call_deepseek(api_key, system, user, max_tokens=4500):
     import httpx
     resp = httpx.post(
         "https://api.deepseek.com/v1/chat/completions",
         headers={"Authorization": "Bearer " + api_key, "Content-Type": "application/json"},
         json={"model": "deepseek-chat",
               "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-              "temperature": 0.3, "max_tokens": 4500,
+              "temperature": 0.3, "max_tokens": max_tokens,
               "response_format": {"type": "json_object"}},
-        timeout=120.0,
+        timeout=180.0,
     )
     resp.raise_for_status()
     return (resp.json().get("choices") or [{}])[0].get("message", {}).get("content")
 
 
-def call_gemini(api_key, system, user):
+def call_gemini(api_key, system, user, max_tokens=4600):
     import httpx
     resp = httpx.post(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
         params={"key": api_key}, headers={"Content-Type": "application/json"},
         json={"system_instruction": {"parts": [{"text": system}]},
               "contents": [{"role": "user", "parts": [{"text": user}]}],
-              "generationConfig": {"temperature": 0.5, "maxOutputTokens": 4600,
+              "generationConfig": {"temperature": 0.5, "maxOutputTokens": max_tokens,
                                    "responseMimeType": "application/json",
                                    "thinkingConfig": {"thinkingBudget": 0}}},
-        timeout=120.0,
+        timeout=180.0,
     )
     resp.raise_for_status()
     parts = (((resp.json().get("candidates") or [{}])[0].get("content") or {}).get("parts") or [{}])
@@ -254,7 +272,7 @@ def generate(provider, sample_id, language, keys):
     call = call_deepseek if provider == "deepseek" else call_gemini
     meta = {"product_name": PRODUCT_NAME, "fixture_id": sample_id, "mode": inp["mode"],
             "language": language,
-            "voice": "qiuge_v2" if language == "zh-CN" else "tientri_v2",
+            "voice": VOICE.get(language, "tientri_v2"),
             "llm_provider": provider,
             "model": "deepseek-chat" if provider == "deepseek" else "gemini-2.5-flash"}
     if inp.get("fixture_basis"):
@@ -262,7 +280,7 @@ def generate(provider, sample_id, language, keys):
     if key:
         for attempt in (1, 2, 3, 4, 5):
             try:
-                cand = _extract_json(call(key, system, user))
+                cand = _extract_json(call(key, system, user, max_tokens_for(language)))
             except Exception as e:
                 print("  ! %s attempt %d failed (%s)" % (provider, attempt, type(e).__name__))
                 cand = None
@@ -282,12 +300,18 @@ def generate(provider, sample_id, language, keys):
                                "assumption_flag=true. vi-VN must contain ZERO Han characters. All keys required. "
                                "ABSOLUTE vi vocabulary ban (betting slang): kèo, cửa trên, cửa dưới, nhà cái, "
                                "chắc thắng — write 'bên được đánh giá cao hơn/thấp hơn' instead. Data gaps: "
-                               "write 'đội hình chưa công bố' / 'biến số cần canh sát giờ', never 'thiếu dữ liệu'.")
+                               "write 'đội hình chưa công bố' / 'biến số cần canh sát giờ', never 'thiếu dữ liệu'."
+                             + (MY_RETRY_NOTE if language == "my-MM" else ""))
                 else:
                     obj = cand  # keep best-effort; the standalone guard gives the final verdict
     if obj is not None:
         used, model = meta["llm_provider"], meta["model"]
     if obj is None:
+        if language == "my-MM":
+            # my narratives must be REAL LLM output — never bundle a my mock; the page
+            # simply has no my entry until a real generation passes the guard.
+            print("  !! %s FAILED after retries -> NOT writing a my-MM mock" % provider)
+            return "failed"
         obj = mock_narrative(sample_id, language, inp["mode"])
         used, model = "mock", "fallback"
     obj.update({"product_name": PRODUCT_NAME, "fixture_id": sample_id, "mode": inp["mode"],

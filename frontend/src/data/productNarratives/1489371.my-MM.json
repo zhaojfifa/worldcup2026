@@ -1,0 +1,159 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489371",
+  "mode": "pre_match_2026_modeling",
+  "language": "my-MM",
+  "hero_title": "Football Oracle က ဒီပွဲကို ဒီလိုမြင်တယ် — Brazil vs Morocco",
+  "hero_subtitle": "အင်အားကွာဟမှုရှိပေမယ့် မော်ရိုကိုရဲ့ ခံစစ်စံချိန်က အန္တရာယ်ပေးနိုင်",
+  "short_title": "Brazil vs Morocco: Oracle ရဲ့ ပွဲကြိုအမြင်",
+  "screenshot_line": "Brazil Elo 1964 vs Morocco 1899 — ကွာဟမှု ၆၅ မှတ်ရှိပေမယ့် မော်ရိုကိုက နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ပွဲ သွင်းဂိုးမပေးဘူး။",
+  "model_judgement": "Football Oracle က ဒီပွဲကို Brazil ဘက်က အနည်းငယ်သာသာနဲ့ မြင်တယ်။ Elo ကွာဟမှု ၆၅ မှတ်နဲ့ လက်ရှိပုံစံ (Brazil 6W-1D-3L, Morocco 7W-3D-0L) က Brazil ကို ဦးစားပေးစေတယ်။ ဒါပေမယ့် မော်ရိုကိုရဲ့ ခံစစ်အားကောင်းမှု — နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ကြိမ် သွင်းဂိုးမပေး — က အန္တရာယ်များတဲ့အချက်ပဲ။ ဒါ့အပြင် လူစာရင်းနဲ့ ဂိုးသမားရွေးချယ်မှုက ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်ရမယ့် အဓိကကိန်းရှင်တွေပါ။",
+  "main_lean": "Brazil အနိုင်ရရန် ဦးစားပေး",
+  "scoreline_view": "Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား: 2-1, 1-1, 2-2",
+  "risk_level": "အလယ်အလတ် — အင်အားကွာဟမှုရှိပေမယ့် မော်ရိုကိုရဲ့ ခံစစ်စံချိန်နဲ့ လူစာရင်းမသိရသေးတဲ့အန္တရာယ်က သတိထားရမယ်",
+  "risk_factors": [
+    {
+      "name": "လူစာရင်းမသိရသေးမှု",
+      "text": "ပွဲထွက် ၁၁ ယောက်နဲ့ ဖွဲ့စည်းပုံကို မကြေညာရသေးပါ — Brazil ရဲ့ ကျောရိုးလိုင်း (တိုက်စစ်/ခံစစ်) ပျောက်ဆုံးပါက အန္တရာယ်ရှိနိုင်",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "ဂိုးသမားအန္တရာယ်",
+      "text": "Brazil မှာ Alisson, Ederson, Weverton ရှိပြီး Morocco မှာ Bounou, Mohamedi, Tagnaouti — ဘယ်သူစတင်မလဲဆိုတာ ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်ရမယ်",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "တိုက်စစ်မှီခိုမှု",
+      "text": "Brazil ရဲ့ ဂိုးသွင်းရှယ်ယာ ၄% က ထိပ်တန်းသုံးယောက်မှာ ပျံ့နှံ့နေပြီး Morocco က ၁၄% — မော်ရိုကိုက Brahim Díaz (၃ ဂိုး) ကို ပိုမှီခိုနေရ",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "ခံစစ်လမ်းကြောင်း",
+      "text": "Morocco က နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ကြိမ် သွင်းဂိုးမပေးဘဲ နောက်ဆုံး ၅ ပွဲမှာ ၃ ဂိုးသာ ပေးထား — Brazil ရဲ့ တိုက်စစ်ကို စိန်ခေါ်နိုင်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "ပွဲကြီးပွဲကောင်း အတွေ့အကြုံ",
+      "text": "Morocco က ၂၀၂၃ မှာ Brazil ကို 2-1 နဲ့ အနိုင်ရခဲ့ဖူးပြီး စိတ်ပိုင်းဆိုင်ရာ အားသာချက်ရှိနိုင်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "ရာသီဥတုနဲ့ အားကစားကွင်း",
+      "text": "MetLife Stadium, New York — နွေရာသီအပူချိန်က ကစားသမားတွေရဲ့ ခံနိုင်ရည်ကို သက်ရောက်မှုရှိနိုင်",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "ပွဲထွက်စာရင်း ထွက်လာချိန်",
+      "text": "ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းထွက်လာတာနဲ့ Brazil ရဲ့ ကျောရိုးလိုင်း ပျောက်ဆုံးမှုရှိမရှိ စစ်ဆေးပါ",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "ဂိုးသမားရွေးချယ်မှု",
+      "text": "Morocco မှာ Bounou စတင်ရင် ခံစစ်ပိုမိုခိုင်မာနိုင် — ပွဲမစခင် ပြန်စစ်ပါ",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "အစောပိုင်းဂိုး",
+      "text": "Morocco က အစောပိုင်းဂိုးရရင် Brazil ရဲ့ စိတ်ဓာတ်ကို ထိခိုက်စေနိုင် — ပထမ ၁၅ မိနစ်ကို အာရုံစိုက်ပါ",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 Football Oracle က Brazil vs Morocco ကို ဒီလိုမြင်တယ် — Brazil က ဦးစားပေးပေမယ့် မော်ရိုကိုရဲ့ ခံစစ် (နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ကြိမ် သွင်းဂိုးမပေး) က အန္တရာယ်ပေးနိုင်။ လူစာရင်းမသိရသေးတဲ့အတွက် ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲမှာ ပြန်တွက်ချက်ပေးမယ်။ စောင့်ကြည့်ပါ။",
+  "subscription_hook": "အခမဲ့ဗားရှင်းက ဦးတည်ချက်ပြတယ် — အဖွဲ့ဝင်ဖြစ်ရင် ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းနဲ့အတူ ပြန်တွက်ချက်တဲ့ ရမှတ်၊ ဂိုးအပိုင်းအခြားအသေးစိတ်နဲ့ အချက်အလက်အပြည့်အစုံကို ရရှိမယ်။",
+  "group_join_copy": "Football Oracle ရဲ့ ပွဲကြိုအမြင်ကို လက်လွတ်မခံပါနဲ့ — အဖွဲ့ထဲမှာ ပွဲမစခင် မိနစ် ၃၀ မှာ နောက်ဆုံးပြန်တွက်ချက်တာကို စောင့်ကြည့်ပါ။ လူစာရင်းထွက်လာတာနဲ့ ချက်ချင်း update ပေးမယ်။",
+  "today_cta": "ဒီနေ့ပွဲအတွက် Football Oracle ရဲ့ အမြင်ကို ကြည့်ရအောင် — Brazil vs Morocco ပွဲကြီးပွဲကောင်း",
+  "social_post": "Football Oracle က Brazil vs Morocco ကို ဒီလိုမြင်တယ် — Brazil က ဦးစားပေးပေမယ့် မော်ရိုကိုရဲ့ ခံစစ်က အန္တရာယ်ပေးနိုင်။ လူစာရင်းမသိရသေးတဲ့အတွက် ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲမှာ ပြန်တွက်ချက်ပေးမယ်။",
+  "internal_notes": [
+    "historical replay — not a real archived pre-match prediction",
+    "lineups not announced; expected shapes only as assumption_flag entries",
+    "no injury data available; never stated as 'no injuries'",
+    "venue/kickoff real from fixture data",
+    "trial send-to-group pre-match judgement"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
+    "Recent form (last 10)": "kaggle_intl_results (derived)",
+    "Head-to-head": "kaggle_intl_results (derived)",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
+    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
+    "Squad stability": "api-football /players/squads (assumption)",
+    "Goalkeeper risk": "api-football /players/squads (assumption)",
+    "Striker dependence / finishing": "kaggle_intl_results (derived)",
+    "Venue / altitude / context": "api-football /fixtures (assumption)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (assumption)",
+    "30-minute pre-kickoff re-score": "subscription mechanic"
+  },
+  "llm_provider": "deepseek",
+  "tactical_read": "Brazil က Ancelotti လက်အောက်မှာ 4-3-3 ပုံစံနဲ့ ဘောလုံးပိုင်ဆိုင်မှုကို ထိန်းချုပ်ပြီး ဘေးတောင်ပံကနေ ဖိအားပေးဖွယ်ရှိတယ်။ Morocco က Halilhodžić လက်အောက်မှာ 4-4-2 သို့မဟုတ် 4-3-3 ခံစစ်အနေအထားနဲ့ ပြန်လည်တိုက်ခိုက်ဖို့ စောင့်ဆိုင်းနိုင်တယ်။ အဓိကတိုက်ပွဲက Brazil ရဲ့ ဘေးတောင်ပံတိုက်စစ်နဲ့ Morocco ရဲ့ ဗဟိုခံစစ်ကြားမှာ ဖြစ်လိမ့်မယ် — မော်ရိုကိုရဲ့ ခံစစ်စည်းကမ်းက သော့ချက်ပဲ။",
+  "voice": "oracle_v2",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T08:31:23.988522+00:00"
+}

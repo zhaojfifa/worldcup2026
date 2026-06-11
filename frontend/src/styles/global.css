@@ -49,11 +49,13 @@ body {
   flex-direction: column;
 }
 
-/* Topbar */
+/* Topbar — z-index 50: above the bottom nav (40) so the language-selector sheet
+   (a fixed child of the topbar's stacking context) overlays it; still below
+   toast (60) and modal (70). */
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 40;
+  z-index: 50;
   display: flex;
   align-items: center;
   gap: 8px;

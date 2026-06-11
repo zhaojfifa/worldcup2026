@@ -5,8 +5,10 @@
 import type { Locale } from '../i18n/useLocale';
 import r69zh from './rescoreModels/1489369.zh-CN.json';
 import r69vi from './rescoreModels/1489369.vi-VN.json';
+import r69my from './rescoreModels/1489369.my-MM.json';
 import r71zh from './rescoreModels/1489371.zh-CN.json';
 import r71vi from './rescoreModels/1489371.vi-VN.json';
+import r71my from './rescoreModels/1489371.my-MM.json';
 
 export interface RescoreTrigger {
   key: string;
@@ -39,8 +41,8 @@ export interface RescoreModel {
 }
 
 const DATA: Record<string, Partial<Record<Locale, RescoreModel>>> = {
-  '1489369': { zh: r69zh as RescoreModel, vi: r69vi as RescoreModel },
-  '1489371': { zh: r71zh as RescoreModel, vi: r71vi as RescoreModel },
+  '1489369': { zh: r69zh as RescoreModel, vi: r69vi as RescoreModel, my: r69my as RescoreModel },
+  '1489371': { zh: r71zh as RescoreModel, vi: r71vi as RescoreModel, my: r71my as RescoreModel },
 };
 
 export function getRescore(id: string, loc: Locale): RescoreModel | null {

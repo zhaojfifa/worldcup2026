@@ -1,0 +1,295 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "979139",
+  "mode": "historical_recap",
+  "language": "my-MM",
+  "hero_title": "Football Oracle ၏ ဖိုင်နယ်ပွဲကြီး အကဲဖြတ်ချက် — Argentina vs France 2022",
+  "hero_subtitle": "အားသာချက်တွေရှိပေမဲ့ အန္တရာယ်ကို ကြိုမြင်ခဲ့တဲ့ပွဲ",
+  "short_title": "Argentina vs France: Oracle ရဲ့ဖိုင်နယ်အကဲဖြတ်",
+  "screenshot_line": "Argentina Elo 2052 vs France 1984 — ဒါပေမဲ့ ဂိုးပြတ်ကွာဟမှုက 3-3 ပဲရှိတယ်",
+  "model_judgement": "Football Oracle က ဒီပွဲကို ဒီလိုမြင်တယ် — Argentina က Elo သာလွန်မှု (၆၈ မှတ်) နဲ့ လတ်တလောပုံစံ (၁၀ပွဲ ၈နိုင်) ကြောင့် ဦးစားပေးခံရပေမဲ့ ပြင်သစ်ရဲ့ ပြန်လည်ထကြွလာနိုင်မှုကို သတိပေးခဲ့တယ်။ ပွဲကြိုမှာ ဒဏ်ရာ၊ xG နဲ့ ဂိုးသမားပုံစံတွေ မသိရသေးတဲ့အတွက် အန္တရာယ်အလယ်အလတ်လို့ သတ်မှတ်ခဲ့တယ်။ နောက်ဆုံးရလဒ် 3-3 က ဒီသတိပေးချက်ကို အတည်ပြုလိုက်တယ်။",
+  "main_lean": "Argentina ဘက်ကို အားပေးတယ် (သို့သော် ပြင်သစ်က ပြန်လည်ထကြွလာနိုင်)",
+  "scoreline_view": "Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား: 2-1, 3-1, 1-1",
+  "risk_level": "အလယ်အလတ် — Elo သာလွန်မှုရှိပေမဲ့ ဒဏ်ရာ/xG/ဂိုးသမားဒေတာ မရှိသေးတဲ့အတွက် အန္တရာယ်ရှိ",
+  "risk_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Argentina Elo 2052 vs France 1984 — သာလွန်မှု ၆၈ မှတ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "elo_snapshot@2022-12-18",
+          "value": "Argentina 2052 / France 1984"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "Argentina 8W-1D-1L (gf28 ga5) vs France 6W-1D-3L (gf16 ga9)",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Lineup integrity",
+      "text": "Argentina 4-3-3 vs France 4-2-3-1 — ပွဲကြိုမှာ လူစာရင်းသေချာစစ်ရန်",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Finishing efficiency",
+      "text": "ပွဲကြို xG မရှိ — အခွင့်အရေးကို ဂိုးပြောင်းနိုင်မှုက မသိရသေးတဲ့အချက်",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "ဂိုးသမားပုံစံ ပွဲကြိုမသိရ — ပြင်သစ်ဂိုးသမား Lloris ရဲ့ စွမ်းဆောင်ရည်က အန္တရာယ်ရှိ",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "In-match momentum / late swings",
+      "text": "ပြင်သစ်က နောက်ကျမှ ပြန်ထကြွလေ့ရှိ — ပွဲကြိုမှာ သတိထားရမယ့်အချက်",
+      "source_refs": [
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Tactical matchup",
+      "text": "Scaloni vs Deschamps — 4-3-3 vs 4-2-3-1 ပွဲစဉ်တိုက်ဆိုင်မှု",
+      "source_refs": [
+        {
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Venue / travel / climate",
+      "text": "ကာတာ ကြားနေကွင်း — ခရီးသွားအကျိုးသက်ရောက်မှုနည်း",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Pre-match unknowns (confirm before kickoff)",
+      "text": "ဒဏ်ရာ၊ xG၊ လူစာရင်းတန်ဖိုး — ပွဲမစခင် ပြန်စစ်ရမည့်အချက်များ",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Upset / volatility risk",
+      "text": "Elo ကွာဟမှု ၆၈ နဲ့ ဒေတာကွာဟချက် ၃ ခုကြောင့် အန္တရာယ်အလယ်အလတ်",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=68, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Argentina က Elo သာလွန်မှုရှိပေမဲ့ ပွဲက 3-3 ဖြစ်သွားတယ် — သာလွန်မှုက အနိုင်မသေချာဘူးဆိုတာ အတည်ပြု",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "elo_snapshot@2022-12-18",
+          "value": "Argentina 2052 / France 1984"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "Argentina ရဲ့ ပုံစံကောင်းက ပွဲအစမှာ ထင်ဟပ်ခဲ့ (၂၃' နဲ့ ၃၆' ဂိုး) ဒါပေမဲ့ ပြင်သစ်က ပြန်လည်ထကြွလာတယ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Lineup integrity",
+      "text": "လူစာရင်းအတည်ပြုပြီး — Argentina 4-3-3, France 4-2-3-1 အတိုင်း ကစားခဲ့",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Finishing efficiency",
+      "text": "Argentina 20 ချက်/10 မှန်ကန် → ၃ ဂိုး; France 10 ချက်/5 မှန်ကန် → ၃ ဂိုး — ပြင်သစ်က ပိုထိရောက်တယ်",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "shots 20/10, sog 10/5"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "France GK Lloris ၇ ကြိမ်ကာကွယ် (rating 7.2) — Argentina GK က ၂ ကြိမ်သာ — ဂိုးသမားကွာဟမှုက ပွဲရလဒ်ကို သက်ရောက်မှုရှိ",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "saves 2/7"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "In-match momentum / late swings",
+      "text": "ပြင်သစ်က ၈၀' နဲ့ ၈၁' မှာ ပြန်လည်ထကြွလာပြီး ၁၁၈' မှာ ထပ်မံချိတ်ဆက် — နောက်ကျမှ ပြန်ထကြွလေ့ရှိတဲ့ အင်္ဂါရပ်ကို အတည်ပြု",
+      "source_refs": [
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Finishing efficiency",
+      "text": "ပြင်သစ်ရဲ့ ထိရောက်မှုကို လျှော့တွက်မိ — ၁၀ ချက်ပစ်ပြီး ၃ ဂိုး (၃၀%) က Argentina ရဲ့ ၁၅% ထက် သာလွန်",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "shots 20/10, sog 10/5"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "Lloris ရဲ့ စွမ်းဆောင်ရည်ကို ပွဲကြိုမှာ ထည့်မတွက်မိ — ၇ ကြိမ်ကာကွယ်မှုက ပွဲရလဒ်ကို ပြောင်းလဲစေခဲ့",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "saves 2/7"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "ဂိုးသမားပုံစံ စောင့်ကြည့်ရန်",
+      "text": "ပွဲမစခင် မိနစ် ၃၀ မှာ ဂိုးသမားရဲ့ လတ်တလောပုံစံကို ပြန်စစ်ပါ — ဒီပွဲမှာ Lloris ရဲ့ စွမ်းဆောင်ရည်က အဓိကဖြစ်ခဲ့",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "ပြန်လည်ထကြွလာနိုင်မှု အန္တရာယ်",
+      "text": "ပြင်သစ်လို အသင်းမျိုးက နောက်ကျမှ ပြန်ထကြွလေ့ရှိ — ပွဲကြိုမှာ ဒီအချက်ကို အလေးပေးစဉ်းစားပါ",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "ထိရောက်မှုကွာဟချက်",
+      "text": "အခွင့်အရေးအရေအတွက်တင်မကဘဲ ဂိုးပြောင်းနိုင်မှုကိုပါ ကြည့်ရန် — xG ဒေတာကို ပွဲကြိုမှာ ထည့်သွင်းစဉ်းစားပါ",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 Football Oracle က Argentina vs France ဖိုင်နယ်ကို ဒီလိုမြင်တယ် — Elo သာလွန်မှုရှိပေမဲ့ ပြင်သစ်ရဲ့ ပြန်လည်ထကြွလာနိုင်မှုကို သတိပေးခဲ့တယ်။ ရလဒ် 3-3 က ဒီသတိပေးချက်ကို အတည်ပြုလိုက်တယ်။ နောက်ပွဲအတွက် ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်တွက်ချက်တဲ့ အဆင့်မြှင့်တင်မှုကို အဖွဲ့ထဲမှာ စောင့်ကြည့်ပါ။",
+  "subscription_hook": "အခမဲ့ဗားရှင်းက ဦးတည်ချက်နဲ့ အန္တရာယ်အဆင့်ကို ပြပေးတယ်။ စာရင်းသွင်းလိုက်ရင် ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်တွက်ချက်တဲ့ အဆင့်မြှင့်တင်မှု၊ အချက်အလက်အပြည့်အစုံနဲ့ ရည်ညွှန်းအပိုင်းအခြားကို နက်နက်နဲနဲ သုံးသပ်ချက်တွေကို ရရှိမယ်။",
+  "group_join_copy": "Football Oracle ရဲ့ အကဲဖြတ်ချက်ကို လိုက်ကြည့်ချင်လား။ အဖွဲ့ထဲမှာ ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်တွက်ချက်တဲ့ အဆင့်မြှင့်တင်မှု၊ အချက်အလက်အပြည့်အစုံနဲ့ နောက်ဆုံးရသုံးသပ်ချက်တွေကို ရရှိမယ်။ ဝင်ရောက်ပြီး အခမဲ့ကြည့်ရှုလိုက်ပါ။",
+  "today_cta": "ဒီနေ့ရဲ့ Oracle အကဲဖြတ်ချက်ကို ကြည့်ရှုရန် ဤနေရာကိုနှိပ်ပါ။",
+  "social_post": "Football Oracle က Argentina vs France ဖိုင်နယ်ကို ဒီလိုမြင်တယ် — Elo 68 သာလွန်ပေမဲ့ ပြင်သစ်ရဲ့ ပြန်လည်ထကြွလာနိုင်မှုကို သတိပေးခဲ့တယ်။ ရလဒ် 3-3 က အတည်ပြုလိုက်တယ်။ နောက်ပွဲအတွက် ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်တွက်ချက်တာကို အဖွဲ့ထဲမှာ စောင့်ကြည့်ပါ။",
+  "internal_notes": [
+    "historical replay — NOT a real archived pre-match prediction",
+    "lineups not announced pre-match; used actual lineups from replay",
+    "injuries/suspensions, xG, squad market value not ingested — flagged as unknowns",
+    "scoreline band is model_estimate from coarse Poisson, not a claim"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results -> elo_snapshot@2022-12-18",
+    "Recent form (last 10)": "kaggle_intl_results -> last10_form",
+    "Lineup integrity": "api-football /fixtures/lineups fixture_id=979139",
+    "Finishing efficiency": "api-football /fixtures/statistics fixture_id=979139",
+    "Goalkeeper performance gap": "api-football /fixtures/statistics + /fixtures/players fixture_id=979139",
+    "In-match momentum / late swings": "api-football /fixtures/events fixture_id=979139",
+    "Tactical matchup": "api-football /fixtures/lineups + /fixtures/statistics fixture_id=979139",
+    "Venue / travel / climate": "api-football /fixtures fixture_id=979139 (assumption)",
+    "Pre-match unknowns (confirm before kickoff)": "assumption_context",
+    "Upset / volatility risk": "upset_band method"
+  },
+  "llm_provider": "deepseek",
+  "voice": "oracle_v2",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T08:33:39.333934+00:00"
+}

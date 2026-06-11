@@ -36,7 +36,8 @@ def _load(name, path):
 GEN = _load("ppgen", ROOT / "scripts" / "mvp2_generate_product_proof_narratives.py")
 GUARD = GEN.GUARD
 
-PERSONA = {"zh-CN": "俅哥（俅哥说球）", "vi-VN": "Tiên Tri Bóng Đá"}
+PERSONA = {"zh-CN": "俅哥（俅哥说球）", "vi-VN": "Tiên Tri Bóng Đá",
+           "my-MM": "Football Oracle"}  # temporary trial name — Burmese persona pending Owner
 FACTOR_NAME = {
     "baseline_strength": "Long-run strength (Elo baseline)", "recent_form": "Recent form (last 10)",
     "h2h": "Head-to-head", "goal_trend": "Goal trend (last 5 vs prev 5)",
@@ -106,7 +107,7 @@ def generate(provider, sample_id, language, keys):
               "No markdown, no prose.")
     meta = {"product_name": "Giành Cup AI ScoutScore", "fixture_id": sample_id,
             "mode": "pre_match_2026_modeling", "language": language,
-            "voice": "qiuge_v2" if language == "zh-CN" else "tientri_v2",
+            "voice": GEN.VOICE.get(language, "tientri_v2"),
             "product_surface": "trial_prediction", "fixture_basis": "real_scheduled",
             "llm_provider": provider,
             "model": "deepseek-chat" if provider == "deepseek" else "gemini-2.5-flash"}
@@ -116,7 +117,7 @@ def generate(provider, sample_id, language, keys):
     if key:
         for attempt in (1, 2, 3):
             try:
-                cand = GEN._extract_json(call(key, system, user))
+                cand = GEN._extract_json(call(key, system, user, GEN.max_tokens_for(language)))
             except Exception as e:
                 print("  ! %s attempt %d failed (%s)" % (provider, attempt, type(e).__name__))
                 cand = None
@@ -140,11 +141,16 @@ def generate(provider, sample_id, language, keys):
                                "kèo, cửa trên, cửa dưới, nhà cái, chắc thắng — write 'bên được đánh giá cao "
                                "hơn/thấp hơn' instead; never any form of 'kèo'. Data gaps: write 'đội hình "
                                "chưa công bố' / 'biến số cần canh sát giờ', never 'thiếu dữ liệu'."
-                               % PERSONA[language])
+                               % PERSONA[language]
+                             + (GEN.MY_RETRY_NOTE if language == "my-MM" else ""))
                 else:
                     obj = cand
     used, model = (meta["llm_provider"], meta["model"]) if obj is not None else ("mock", "fallback")
     if obj is None:
+        if language == "my-MM":
+            # my trial narratives must be REAL LLM output — never write a my mock.
+            print("  !! %s FAILED after retries -> NOT writing a my-MM mock" % provider)
+            return
         obj = GEN.mock_narrative(sample_id, language, "pre_match_2026_modeling")
         obj["tactical_read"] = obj["model_judgement"]
         print("  !! %s FAILED after retries -> MARKED mock fallback recorded" % provider)

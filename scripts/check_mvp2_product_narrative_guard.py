@@ -42,13 +42,17 @@ FORBIDDEN = [
     "稳赚", "稳赢", "必中", "必赢", "包赢", "跟单", "回报率", "返奖", "收益承诺", "现金奖池",
     # vi (incl. handicap slang: kèo / cửa trên / cửa dưới)
     "cá cược", "đặt cược", "kèo", "cửa trên", "cửa dưới", "nhà cái", "soi kèo", "chắc thắng", "bao thắng", "ăn chắc",
+    # my (Burmese gambling/odds/guarantee vocabulary — banned even in negation in narrative prose;
+    # the UI compliance footer keeps its negated form OUTSIDE narrative JSON)
+    "လောင်းကစား", "လောင်းကြေး", "အလောင်းအစား", "လောင်းထား", "ကြေးပေါက်", "ပေါက်ကြေး", "သေချာပေါက်",
     # en
     "betting", "odds", "wager", "bookmaker", "parlay", "guaranteed win", "sure win",
     # brand / voice bans (June-11 trial): football product must not surface Cloud or generic AI-analysis voice
     "cloud", "ai 分析", "ai分析", "我们没有数据", "không có dữ liệu nên", "thiếu dữ liệu", "缺数据", "缺少数据",
     "数据缺失", "模型自证",
 ]
-FAKE_PROB = ["命中率", "胜率", "中奖率", "win rate", "win probability", "tỷ lệ thắng", "tỷ lệ trúng", "xác suất thắng"]
+FAKE_PROB = ["命中率", "胜率", "中奖率", "win rate", "win probability", "tỷ lệ thắng", "tỷ lệ trúng", "xác suất thắng",
+             "အောင်နှုန်း"]
 AUDIT_TOKENS = [
     "MISS", "source required", "source_required", "historical replay", "历史回放", "phát lại lịch sử",
     "assumption", "replay_only", "data_status", "missing_evidence", "source_refs", "assumption_flag",
@@ -64,12 +68,13 @@ RESEARCH_TONE = ["研究报告", "本报告", "本文", "审计", "白皮书", "
 
 def has_model_estimate_marker(text):
     """scoreline_view must read as a non-promise band: legacy model-estimate phrasing OR
-    de-modeled persona reference-band phrasing (俅哥…参考区间 / khoảng tham khảo…Tiên Tri)."""
+    de-modeled persona reference-band phrasing (俅哥…参考区间 / khoảng tham khảo…Tiên Tri /
+    Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား)."""
     t = str(text).lower()
     est = any(m in t for m in ("估计", "预估", "ước tính", "estimate"))
     subj = any(m in t for m in ("模型", "mô hình", "scoutscore", "giành cup ai", "model"))
-    ref = any(m in t for m in ("参考区间", "参考比分", "tham khảo"))
-    persona = any(m in t for m in ("俅哥", "tiên tri", "赛前", "trước trận"))
+    ref = any(m in t for m in ("参考区间", "参考比分", "tham khảo", "ရည်ညွှန်း"))
+    persona = any(m in t for m in ("俅哥", "tiên tri", "赛前", "trước trận", "oracle", "ပွဲကြို"))
     return (est and subj) or (ref and persona)
 
 
@@ -104,6 +109,7 @@ def check_obj(obj, filename=""):
     is_recap = mode == "historical_recap"
     is_pre = mode == "pre_match_2026_modeling"
     is_vi = obj.get("language") == "vi-VN" or ".vi-VN." in filename
+    is_my = obj.get("language") == "my-MM" or ".my-MM." in filename
 
     # 1. required fields
     for f in REQUIRED:
@@ -116,10 +122,10 @@ def check_obj(obj, filename=""):
     if not isinstance(obj.get("source_ref_map"), dict) or not obj.get("source_ref_map"):
         errs.append("source_ref_map must be a non-empty object")
 
-    # 2. product name in the hero block
+    # 2. product name / persona in the hero block
     hero_blob = " ".join(str(obj.get(k, "")) for k in ("hero_title", "hero_subtitle", "model_judgement"))
-    if not any(b in hero_blob for b in ("Giành Cup", "ScoutScore", "俅哥", "中文先知", "Tiên Tri")):
-        errs.append("brand/persona (Giành Cup / ScoutScore / 俅哥 / Tiên Tri) missing from hero block")
+    if not any(b in hero_blob for b in ("Giành Cup", "ScoutScore", "俅哥", "中文先知", "Tiên Tri", "Football Oracle")):
+        errs.append("brand/persona (Giành Cup / ScoutScore / 俅哥 / Tiên Tri / Football Oracle) missing from hero block")
 
     # 3. core judgement fields
     for k in ("model_judgement", "main_lean"):
@@ -165,6 +171,9 @@ def check_obj(obj, filename=""):
         if is_vi:
             if "Tiên Tri" not in whole:
                 errs.append("vi trial narrative must speak as Tiên Tri Bóng Đá")
+        elif is_my:
+            if "Football Oracle" not in whole:
+                errs.append("my trial narrative must speak as Football Oracle (temporary trial persona)")
         elif obj.get("language") == "zh-CN" and "俅哥" not in whole:
             errs.append("zh trial narrative must speak as 俅哥 (俅哥说球)")
 
@@ -215,7 +224,7 @@ def check_obj(obj, filename=""):
     blob_l = blob.lower()
     # de-modeled persona surfaces: NO model/process subject words in customer prose at all
     if str(obj.get("voice", "")).endswith("_v2"):
-        for term in ("模型", "盲区", "mô hình", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
+        for term in ("模型", "盲区", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
             if term in blob_l:
                 errs.append("de-model violation in customer prose: %r" % term)
         # case-sensitive whole-word AI (lowercase 'ai' is the Vietnamese word for 'who')
@@ -243,11 +252,11 @@ def check_obj(obj, filename=""):
     if re.search(r"https?://|t\.me/|www\.", blob):
         errs.append("URL in customer prose (links are injected by the page, never written by the LLM)")
 
-    # 10. vi Han = 0 (whole file)
-    if is_vi:
+    # 10. vi / my Han = 0 (whole file — Burmese surfaces must contain zero Chinese)
+    if is_vi or is_my:
         han = HAN.findall(walk_strings(obj))
         if han:
-            errs.append("vi-VN has %d Han char(s): %s" % (len(han), "".join(han[:30])))
+            errs.append("%s has %d Han char(s): %s" % ("my-MM" if is_my else "vi-VN", len(han), "".join(han[:30])))
 
     return errs
 

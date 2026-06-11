@@ -44,7 +44,8 @@ def _load(name, path):
 
 GEN = _load("ppgen", ROOT / "scripts" / "mvp2_generate_product_proof_narratives.py")
 GUARD = GEN.GUARD
-PERSONA = {"zh-CN": "俅哥（俅哥说球）", "vi-VN": "Tiên Tri Bóng Đá"}
+PERSONA = {"zh-CN": "俅哥（俅哥说球）", "vi-VN": "Tiên Tri Bóng Đá",
+           "my-MM": "Football Oracle"}  # temporary trial name — Burmese persona pending Owner
 TRIGGER_KEYS = ["starting_xi", "goalkeeper", "frontline_availability", "formation",
                 "late_injury_suspension", "weather_altitude_stadium"]
 
@@ -99,17 +100,17 @@ def build_user(sk, language):
         + json.dumps(sk, ensure_ascii=False)
         + "\n\nReturn ONLY one JSON object:\n"
           '{"fixture_id":"' + sk["fixture_id"] + '","pre_match_lean":"<one line, persona voice>",'
-          '"pre_match_risk_level":"<short>","score_range_before":"<persona reference band: zh 俅哥给出的赛前参考区间… / vi khoảng tham khảo trước trận của Tiên Tri…>",'
+          '"pre_match_risk_level":"<short>","score_range_before":"<persona reference band: zh 俅哥给出的赛前参考区间… / vi khoảng tham khảo trước trận của Tiên Tri… / my Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား…>",'
           '"rescore_triggers":[{"key":"<copy from trigger_topics>","name":"<customer name>","current_status":"<customer phrasing of status>",'
           '"why_it_matters":"","possible_impact":"","free_copy":"<1 line, free layer>","subscriber_copy":"<1-2 lines, group layer, concrete>"}],'
           '"rescore_decision_rules":[{"condition":"","change_to_lean":"","change_to_risk":"","change_to_score_range":"","operator_note":"<internal-ish but clean>"}],'
           '"public_teaser":"<1 line for the hot-reads entry>","group_join_hook":"<why join tonight>",'
           '"reminder_message":"<the 30-min reminder message an operator pastes in the group when XI drops>"}\n'
           "Rules: cover ALL 6 trigger keys in order; >=3 decision rules from rule_logic; persona voice (%s must appear in "
-          "public_teaser or pre_match_lean); language %s%s; NO URLs; no betting words (kèo/cửa trên/cửa dưới/盘口/赔率...); NEVER the words 模型/mô hình/ScoutScore/AI in copy — speak ONLY as the persona; "
-          "no 'we lack data' phrasing (use 赛前盲区/临场待确认/cần xác nhận trước giờ bóng lăn); gaps are product features, "
+          "public_teaser or pre_match_lean); language %s%s; NO URLs; no betting words (kèo/cửa trên/cửa dưới/盘口/赔率/လောင်းကစား...); NEVER the words 模型/mô hình/မော်ဒယ်/ScoutScore/AI in copy — speak ONLY as the persona; "
+          "no 'we lack data' phrasing (use 赛前盲区/临场待确认/cần xác nhận trước giờ bóng lăn/ပွဲမစခင် ပြန်စစ်ရမည့်အချက်); gaps are product features, "
           "not apologies. JSON only." % (persona.split("（")[0], language,
-                                          " — ZERO Han characters" if language == "vi-VN" else "")
+                                          " — ZERO Han characters" if language in ("vi-VN", "my-MM") else "")
     )
 
 
@@ -137,7 +138,7 @@ def check(obj, language):
                 errs.append("rule[%d].%s empty" % (i, f))
     blob = GUARD.walk_strings({k: v for k, v in obj.items() if k not in ("fixture_id",)})
     bl = blob.lower()
-    for term in ("模型", "mô hình", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema"):
+    for term in ("模型", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema"):
         if term in bl:
             errs.append("de-model violation: %r" % term)
     for term in GUARD.FORBIDDEN + GUARD.FAKE_PROB + GUARD.TONE_BANS:
@@ -150,6 +151,11 @@ def check(obj, language):
             errs.append("vi Han chars present")
         if "Tiên Tri" not in blob:
             errs.append("vi persona missing")
+    elif language == "my-MM":
+        if HAN.search(blob):
+            errs.append("my Han chars present")
+        if "Oracle" not in blob:
+            errs.append("my persona Football Oracle missing")
     else:
         if "俅哥" not in blob:
             errs.append("zh persona 俅哥 missing")
@@ -166,7 +172,7 @@ def generate(provider, fid, language, keys):
     if key:
         for attempt in (1, 2, 3):
             try:
-                cand = GEN._extract_json(call(key, system, user))
+                cand = GEN._extract_json(call(key, system, user, GEN.max_tokens_for(language)))
             except Exception as e:
                 print("  ! %s attempt %d failed (%s)" % (provider, attempt, type(e).__name__))
                 cand = None
@@ -187,7 +193,7 @@ def generate(provider, fid, language, keys):
         return
     final = check(obj, language)
     obj.update({"fixture_id": fid, "language": language,
-                "voice": "qiuge_v2" if language == "zh-CN" else "tientri_v2", "llm_provider": provider,
+                "voice": GEN.VOICE.get(language, "tientri_v2"), "llm_provider": provider,
                 "model": "deepseek-chat" if provider == "deepseek" else "gemini-2.5-flash",
                 "product_surface": "trial_rescore", "guard_clean": not final,
                 "generated_at": datetime.now(timezone.utc).isoformat()})

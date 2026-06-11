@@ -9,14 +9,18 @@
 import type { Locale } from '../i18n/useLocale';
 import r855737zh from './productNarratives/855737.zh-CN.json';
 import r855737vi from './productNarratives/855737.vi-VN.json';
+import r855737my from './productNarratives/855737.my-MM.json';
 import r979139zh from './productNarratives/979139.zh-CN.json';
 import r979139vi from './productNarratives/979139.vi-VN.json';
+import r979139my from './productNarratives/979139.my-MM.json';
 import p2026zh from './productNarratives/2026_brazil_argentina.zh-CN.json';
 import p2026vi from './productNarratives/2026_brazil_argentina.vi-VN.json';
 import f1489369zh from './productNarratives/1489369.zh-CN.json';
 import f1489369vi from './productNarratives/1489369.vi-VN.json';
+import f1489369my from './productNarratives/1489369.my-MM.json';
 import f1489371zh from './productNarratives/1489371.zh-CN.json';
 import f1489371vi from './productNarratives/1489371.vi-VN.json';
+import f1489371my from './productNarratives/1489371.my-MM.json';
 
 export interface ProductFactor {
   name: string;
@@ -57,14 +61,16 @@ export interface ProductNarrative {
   generated_at?: string;
 }
 
-// id -> locale -> guard-passed LLM product narrative. zh/vi only; en/mm resolve to
-// null so pages use their deterministic fallback (customer langs of this proof are zh/vi).
+// id -> locale -> guard-passed LLM product narrative. Customer langs zh/vi/my
+// (my = Burmese, persona Football Oracle, voice oracle_v2); en resolves to null
+// so pages use their deterministic fallback. 2026 sample stays zh/vi (not in
+// the trial flow; my shows the neutral none-state there).
 const DATA: Record<string, Partial<Record<Locale, ProductNarrative>>> = {
-  '855737': { zh: r855737zh as ProductNarrative, vi: r855737vi as ProductNarrative },
-  '979139': { zh: r979139zh as ProductNarrative, vi: r979139vi as ProductNarrative },
+  '855737': { zh: r855737zh as ProductNarrative, vi: r855737vi as ProductNarrative, my: r855737my as ProductNarrative },
+  '979139': { zh: r979139zh as ProductNarrative, vi: r979139vi as ProductNarrative, my: r979139my as ProductNarrative },
   '2026_brazil_argentina': { zh: p2026zh as ProductNarrative, vi: p2026vi as ProductNarrative },
-  '1489369': { zh: f1489369zh as ProductNarrative, vi: f1489369vi as ProductNarrative },
-  '1489371': { zh: f1489371zh as ProductNarrative, vi: f1489371vi as ProductNarrative },
+  '1489369': { zh: f1489369zh as ProductNarrative, vi: f1489369vi as ProductNarrative, my: f1489369my as ProductNarrative },
+  '1489371': { zh: f1489371zh as ProductNarrative, vi: f1489371vi as ProductNarrative, my: f1489371my as ProductNarrative },
 };
 
 export const PRODUCT_RECAPS = new Set<string>(['855737', '979139']);
