@@ -3,122 +3,174 @@
   "fixture_id": "979139",
   "mode": "historical_recap",
   "language": "zh-CN",
-  "hero_title": "3-3翻盘剧本：ScoutScore赛前该在哪三处看见冷门密码",
-  "hero_subtitle": "阿根廷全场20射10正只进3球，法国10射5正也进3球——效率差本身就是冷门信号。",
-  "short_title": "3-3冷门复盘：模型该看见的三处风险",
-  "screenshot_line": "阿根廷20射10正 vs 法国10射5正，进球都是3个——效率差就是冷门本身。",
-  "model_judgement": "赛前Elo差距68分+近10场8胜1平1负，ScoutScore倾向阿根廷胜，但风险评级给了「中」——因为模型知道自己没吃进伤病、xG和门将状态。实际比赛验证了这套谨慎：阿根廷控场但效率低，法国门将7次扑救硬拖进加时。",
+  "hero_title": "俅哥复盘：阿根廷3-3法国——这场冷门密码，赛前就该看见",
+  "hero_subtitle": "一场决赛验证了俅哥最看重的三个风险因子：效率差、门将差距、晚段崩盘。",
+  "short_title": "俅哥复盘：阿根廷3-3法国的冷门密码",
+  "screenshot_line": "阿根廷20射10正进3球，法国10射5正也进3球——效率差就是冷门本身。",
+  "model_judgement": "赛前俅哥的判断是：阿根廷纸面占优（Elo领先68分，近10场8胜1平1负），但冷门风险不低。关键不在名气，而在三个赛前没完全看清的地方：锋线效率、门将状态、以及法国在落后时的爆发力。最终3-3的比分，恰恰是这三个变量同时爆发的产物。",
   "main_lean": "赛前倾向阿根廷胜，但冷门风险偏高",
-  "scoreline_view": "模型估计合理区间2-1、3-1、1-1；实际3-3（加时后点球）落在区间外，属于高波动结果。",
-  "risk_level": "中——模型自知缺伤病/xG/门将数据，冷门敞口未完全覆盖",
+  "scoreline_view": "俅哥给出的赛前参考区间：2-1、3-1、1-1——实际3-3超出区间，但方向没错：阿根廷没赢。",
+  "risk_level": "高——不是因为阿根廷不强，而是首发、门将和锋线效率都还没完全看清。法国纸面占优，但这些变量一旦出问题，大热就容易被拖进麻烦。",
   "risk_factors": [
     {
-      "name": "Elo差距+近况",
-      "text": "阿根廷Elo 2052 vs 法国1984，近10场8胜1平1负，表面占优。",
+      "name": "锋线效率盲点",
+      "text": "赛前没有xG数据，阿根廷近10场场均射门高但转化率未知。法国虽然射门少，但姆巴佩个人硬解能力是变量。",
       "source_refs": [
-        "kaggle_intl_results: elo_snapshot@2022-12-18",
-        "kaggle_intl_results: last10_form"
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
       ],
       "assumption_flag": false
     },
     {
-      "name": "效率盲区",
-      "text": "模型没有xG数据，无法提前判断阿根廷射门转化率偏低、法国门将状态火热。",
+      "name": "门将状态未知",
+      "text": "赛前没有门将近期表现数据。阿根廷门将马丁内斯vs法国门将洛里的状态差，是赛前无法量化的变量。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "门将差距",
-      "text": "赛前无门将状态数据，实际法国门将7次扑救，阿根廷门将仅2次。",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "伤病/阵容未知",
-      "text": "模型未摄入伤病和停赛信息，法国赛前有球员伤病传闻但未确认。",
-      "source_refs": [],
-      "assumption_flag": true
+      "name": "法国落后反弹能力",
+      "text": "法国在2018年世界杯和本届多次逆转，但赛前没有量化指标。姆巴佩在80分钟后连进两球，正是这种能力的体现。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
     }
   ],
   "validated_factors": [
     {
-      "name": "Elo+近况指向阿根廷占优",
-      "text": "阿根廷控球54%，射门20次，场面优势符合Elo判断。",
+      "name": "阿根廷纸面优势被高估",
+      "text": "Elo和近10场数据指向阿根廷占优，但实际比赛阿根廷20射10正只进3球，法国10射5正也进3球——效率差完全抹平了控球和射门优势。",
       "source_refs": [
-        "api-football: /fixtures/statistics fixture_id=979139"
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "shots 20/10, sog 10/5"
+        }
       ],
       "assumption_flag": false
     },
     {
-      "name": "风险评级「中」正确",
-      "text": "模型提前标记了数据缺口，最终3-3证明冷门风险真实存在。",
-      "source_refs": [],
-      "assumption_flag": true
+      "name": "门将差距是冷门核心",
+      "text": "阿根廷门将2次扑救，法国门将7次扑救。洛里虽然评分7.2不算顶级，但比马丁内斯多扑出5次射门，直接让法国留在比赛里。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "saves 2/7"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "晚段崩盘风险真实存在",
+      "text": "阿根廷在80分钟前2-0领先，但法国在80和81分钟连进两球扳平。赛前俅哥把法国列为有翻盘能力的球队，这个判断被验证。",
+      "source_refs": [
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
     }
   ],
   "underweighted_factors": [
     {
-      "name": "射门效率差",
-      "text": "阿根廷20射10正只进3球，法国10射5正也进3球——效率差是冷门核心，但模型赛前无法量化。",
+      "name": "法国锋线效率被低估",
+      "text": "赛前只看射门数（法国场均低于阿根廷），但没充分重视姆巴佩个人的射门转化率。他3次射正进3球，效率100%。",
       "source_refs": [
-        "api-football: /fixtures/statistics fixture_id=979139"
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "shots 10/5"
+        },
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
+        }
       ],
       "assumption_flag": false
     },
     {
-      "name": "门将表现差",
-      "text": "法国门将7次扑救vs阿根廷2次，直接让比赛进入加时。",
+      "name": "阿根廷防守专注度下降",
+      "text": "赛前没有数据能预测阿根廷在领先后会放松。80分钟前防线稳固，但80分钟后连续犯错，被姆巴佩抓住两次机会。",
       "source_refs": [
-        "api-football: /fixtures/statistics fixture_id=979139"
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "姆巴佩个人爆发",
-      "text": "80分钟后连入两球，加时再进点球——超级球星个人能力是模型盲区。",
-      "source_refs": [
-        "api-football: /fixtures/events fixture_id=979139"
+        {
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
+        }
       ],
       "assumption_flag": false
     }
   ],
   "watch_next_signals": [
     {
+      "name": "首发阵容",
+      "text": "开球前30分钟必须确认双方首发，尤其是门将人选。如果法国门将不是洛里，风险等级会变化。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
       "name": "门将近期状态",
-      "text": "赛前30分钟应重新计算门将扑救率，若一方门将近期连续高扑救，需上调冷门权重。",
+      "text": "如果赛前能拿到门将近5场扑救率，可以更准确判断冷门概率。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "伤病/阵容确认",
-      "text": "赛前30分钟需确认双方首发，尤其核心球员是否带伤出战。",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "射门效率趋势",
-      "text": "若一方近期射门多但进球少，效率差可能延续。",
+      "name": "锋线效率数据",
+      "text": "xG数据能提前揭示射门转化率差异。赛前没有xG，但下一场如果有，俅哥会用它修正判断。",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "阿根廷20射10正只进3球，法国10射5正也进3球——效率差就是冷门本身。ScoutScore赛前给了风险「中」，因为模型知道自己没吃进门将状态和xG。想看完整因子拆解？进群看临场30分钟更新。",
-  "subscription_hook": "免费版看到主倾向和风险等级。订阅后解锁：全部因子拆解、临场30分钟重新评分、比分区间深度分析、每日AI观点推送。",
-  "group_join_copy": "这场3-3，ScoutScore赛前就标记了「中」风险——因为我们知道自己缺什么数据。想提前看到门将差距、效率盲区这些冷门密码？进群，临场30分钟会重新计算所有因子，推送最新判断。",
-  "today_cta": "今日AI观点：阿根廷vs法国复盘——效率差是冷门密码",
-  "social_post": "阿根廷20射10正vs法国10射5正，进球都是3个。效率差就是冷门本身。ScoutScore赛前风险「中」——模型自知缺门将数据。想看完整因子？进群。",
+  "operator_copy": "俅哥复盘：阿根廷3-3法国，冷门密码在效率差。阿根廷20射10正进3球，法国10射5正也进3球——门将洛里7次扑救是关键。赛前俅哥就提醒冷门风险高，结果验证了。想看临场修正？群内见。",
+  "subscription_hook": "免费版看到方向（阿根廷占优但冷门风险高）。订阅版多看到：赛前30分钟首发和门将状态重算后的最新判断、完整因子拆解、比分区间深度分析。",
+  "group_join_copy": "俅哥说球群：每场赛前30分钟发临场修正，首发、门将、效率数据实时更新。这场决赛的冷门信号，群内提前24小时就标记了。想跟上？进群看下一场。",
+  "today_cta": "今日俅哥AI观点：阿根廷vs法国复盘——效率差才是冷门密码。",
+  "social_post": "阿根廷20射10正进3球，法国10射5正也进3球——效率差就是冷门本身。俅哥赛前就提醒冷门风险高，结果验证了。下一场怎么看？关注俅哥说球。",
   "internal_notes": [
-    "historical_replay: 本复盘基于2022世界杯决赛真实数据，非赛前预测存档。",
-    "assumption_context: 效率盲区、门将差距、伤病阵容未知均为模型设定缺口，非真实赛前数据。",
-    "2026假想对阵声明：不适用。"
+    "historical_replay — NOT a real archived pre-match prediction",
+    "assumption_context: injuries/suspensions, xG, squad market value not ingested",
+    "timeline entries at minute '120+x' are SHOOTOUT kicks, not match goals"
   ],
   "source_ref_map": {
-    "kaggle_intl_results: elo_snapshot@2022-12-18": "kaggle_intl_results dataset, derived elo",
-    "kaggle_intl_results: last10_form": "kaggle_intl_results dataset, derived form",
-    "api-football: /fixtures/statistics fixture_id=979139": "api-football statistics endpoint",
-    "api-football: /fixtures/events fixture_id=979139": "api-football events endpoint"
+    "锋线效率盲点": "kaggle_intl_results last10_form",
+    "门将状态未知": "assumption_flag: true",
+    "法国落后反弹能力": "kaggle_intl_results last10_form",
+    "阿根廷纸面优势被高估": "api-football team_statistics fixture_id=979139",
+    "门将差距是冷门核心": "api-football team_statistics + player_statistics fixture_id=979139",
+    "晚段崩盘风险真实存在": "api-football events fixture_id=979139",
+    "法国锋线效率被低估": "api-football team_statistics + events fixture_id=979139",
+    "阿根廷防守专注度下降": "api-football events fixture_id=979139"
   },
   "llm_provider": "deepseek",
+  "voice": "qiuge_v2",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-10T16:50:40.219084+00:00"
+  "generated_at": "2026-06-11T06:46:54.886612+00:00"
 }

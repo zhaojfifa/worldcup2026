@@ -3,18 +3,18 @@
   "fixture_id": "1489369",
   "mode": "pre_match_2026_modeling",
   "language": "vi-VN",
-  "hero_title": "Tiên Tri Bóng Đá: Mexico nghiêng hẳn về lý thuyết, nhưng rủi ro lại nằm ở chỗ không ai thấy",
-  "hero_subtitle": "Trận ra quân World Cup 2026 tại Azteca: Elo +256, phong độ vượt trội, nhưng đội hình chưa công bố và biến số thủ môn có thể khiến nhận định lật ngược.",
-  "short_title": "Mexico vs Nam Phi: Cạm bẫy ứng cử viên?",
-  "screenshot_line": "Elo chênh 256, Mexico thắng 6/10 trận gần nhất, nhưng Tiên Tri Bóng Đá đặt cảnh báo rủi ro CAO – đội hình chưa rõ là biến số lớn nhất.",
-  "model_judgement": "Tiên Tri Bóng Đá nhận định Mexico là bên được đánh giá cao hơn dựa trên khoảng cách Elo 256 điểm và phong độ 6 thắng 3 hòa 1 thua trong 10 trận gần nhất. Tuy nhiên, rủi ro ở mức Cao vì mô hình chưa có dữ liệu đội hình xuất phát, thủ môn bắt chính, và chấn thương – những yếu tố có thể thay đổi cục diện hoàn toàn.",
-  "main_lean": "Mexico được đánh giá cao hơn, nhưng trận đấu tiềm ẩn nhiều biến số khó lường.",
-  "scoreline_view": "Mô hình ước tính khoảng tỷ số khả quan cho Mexico (ví dụ 1-0, 2-0), nhưng cần chờ đội hình xác nhận để hiệu chỉnh.",
-  "risk_level": "Cao – khoảng cách Elo lớn nhưng thiếu thông tin đội hình và thủ môn tạo ra cạm bẫy cho bên được đánh giá cao.",
+  "hero_title": "Tiên Tri Bóng Đá nhận định: Mexico vs South Africa – Rủi ro cao dù chênh lệch Elo 256 điểm",
+  "hero_subtitle": "Trận mở màn bảng đấu tại Azteca: Mexico được đánh giá cao, nhưng biến số sát giờ có thể lật ngược thế trận.",
+  "short_title": "Mexico vs South Africa: Rủi ro cao",
+  "screenshot_line": "Tiên Tri Bóng Đá: Mexico thắng 6/10 trận gần nhất, nhưng rủi ro cao vì đội hình chưa công bố.",
+  "model_judgement": "Tiên Tri Bóng Đá nhận định Mexico là bên được đánh giá cao hơn dựa trên Elo (1880 vs 1624) và phong độ 10 trận (6W-3D-1L so với 5W-2D-3L). Tuy nhiên, rủi ro trận này ở mức cao vì đội hình xuất phát chưa công bố, thủ môn bắt chính chưa rõ, và South Africa có thể tận dụng sự thiếu ổn định hàng thủ của Mexico (chỉ 2/5 trận gần nhất giữ sạch lưới). Lịch sử đối đầu cũng cho thấy South Africa từng cầm hòa Mexico 1-1 tại World Cup 2010.",
+  "main_lean": "Mexico được đánh giá cao hơn, nhưng rủi ro cao khiến kết quả khó đoán.",
+  "scoreline_view": "Khoảng tham khảo trước trận của Tiên Tri: 1-0, 1-1, 0-1.",
+  "risk_level": "Cao – Mexico là ứng cử viên nặng ký nhưng biến số đội hình và thủ môn chưa rõ có thể tạo bất ngờ.",
   "risk_factors": [
     {
       "name": "Đội hình chưa công bố",
-      "text": "Đội hình xuất phát và sơ đồ chiến thuật chưa được xác nhận. Đây là biến số lớn nhất trước giờ bóng lăn.",
+      "text": "Đội hình xuất phát của cả hai bên chưa được công bố. Nếu Mexico thiếu trụ cột ở hàng thủ hoặc tiền đạo, nhận định có thể thay đổi.",
       "source_refs": [
         {
           "field": "lineups",
@@ -26,8 +26,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Rủi ro thủ môn",
-      "text": "Danh sách thủ môn đã có, nhưng ai bắt chính và phong độ hiện tại chưa rõ – cần kiểm tra lại 30 phút trước giờ đá.",
+      "name": "Thủ môn bắt chính",
+      "text": "Danh tính thủ môn bắt chính hai đội chưa xác định. Mexico có ba lựa chọn (Acevedo, Ochoa, Rangel), South Africa có Chaine, Goss, Williams. Người bắt chính sẽ ảnh hưởng lớn đến khả năng phòng ngự.",
       "source_refs": [
         {
           "field": "squad",
@@ -39,8 +39,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Sân vận động và áp lực khai mạc",
-      "text": "Estadio Azteca ở độ cao ~2200m, cùng với không khí khai mạc World Cup có thể ảnh hưởng đến thể lực và tâm lý hai đội.",
+      "name": "Sân vận động Azteca – độ cao 2200m",
+      "text": "Estadio Azteca ở độ cao ~2200m, có thể ảnh hưởng đến thể lực và pressing của Mexico, đặc biệt nếu South Africa chơi phòng ngự phản công.",
       "source_refs": [
         {
           "field": "fixture",
@@ -52,8 +52,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Phụ thuộc vào chân sút chủ lực",
-      "text": "Nam Phi có 4 cầu thủ ghi bàn hàng đầu (Appollis, Makgopa, Foster, Mbatha) nhưng chỉ chiếm 20% tổng số bàn – không quá phụ thuộc, nhưng Mexico không có dữ liệu tương tự.",
+      "name": "Phụ thuộc vào chân sút",
+      "text": "South Africa có các chân sút đã ghi bàn gần đây (Appollis 3 bàn, Makgopa 2, Foster 2), trong khi Mexico không có dữ liệu chân sút hàng đầu trong 10 trận gần nhất – biến số khó lường.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -69,51 +69,64 @@
   "watch_next_signals": [
     {
       "name": "Đội hình chính thức",
-      "text": "Khi đội hình được công bố, cần xem Mexico có đủ trụ cột ở hàng thủ và tiền đạo không; Nam Phi có bất ngờ về nhân sự không.",
+      "text": "30 phút trước giờ bóng lăn, đội hình ra sân sẽ được công bố. Cần kiểm tra xem Mexico có đủ trụ cột hay không, và thủ môn nào bắt chính.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Thủ môn bắt chính",
-      "text": "Thủ môn nào bắt chính cho mỗi đội? Phong độ gần đây của họ ra sao? Đây là yếu tố then chốt ảnh hưởng đến số bàn thua dự kiến.",
+      "name": "Thủ môn xuất phát",
+      "text": "Thủ môn bắt chính ảnh hưởng trực tiếp đến khả năng giữ sạch lưới. Nếu Mexico bắt bằng Ochoa (kinh nghiệm) hay Acevedo (trẻ) sẽ khác biệt.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Sơ đồ chiến thuật dự kiến",
-      "text": "Mexico có chơi pressing tầm cao không? Nam Phi có phòng ngự số đông hay chơi đôi công? Cần chờ xác nhận từ đội hình.",
+      "name": "Sơ đồ chiến thuật",
+      "text": "Sơ đồ dự kiến của hai đội sẽ được xác nhận. Mexico có thể đá 4-3-3 kiểm soát, South Africa 4-4-2 phản công – nhưng chỉ khi lineup công bố mới rõ.",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "Tiên Tri Bóng Đá: Mexico mạnh hơn trên giấy (Elo +256, phong độ 6-3-1), nhưng rủi ro CAO vì chưa rõ đội hình và thủ môn. 30 phút trước giờ đá, bản cập nhật trong nhóm sẽ hiệu chỉnh nhận định. Theo dõi để không bất ngờ!",
-  "subscription_hook": "Bản miễn phí cho thấy hướng đi chính và mức rủi ro. Khi đăng ký, bạn nhận được bản cập nhật 30 phút trước giờ bóng lăn: đội hình chính thức, thủ môn bắt chính, sơ đồ dự kiến, và khoảng tỷ số hiệu chỉnh. Đừng bỏ lỡ biến số quyết định!",
-  "group_join_copy": "Muốn biết liệu Mexico có vấp ngã ngay trận ra quân? Vào nhóm để xem bản cập nhật 30 phút trước giờ đá – Tiên Tri Bóng Đá sẽ hiệu chỉnh nhận định dựa trên đội hình thực tế.",
-  "today_cta": "Xem ngay nhận định của Tiên Tri Bóng Đá cho Mexico vs Nam Phi – và đừng quên cập nhật 30 phút trước giờ đá trong nhóm!",
-  "social_post": "Tiên Tri Bóng Đá: Mexico mạnh hơn rõ rệt, nhưng rủi ro CAO vì đội hình chưa rõ. 30 phút trước giờ đá, bản cập nhật sẽ thay đổi mọi thứ. Theo dõi nhóm để không lỡ!",
+  "operator_copy": "Tiên Tri Bóng Đá: Mexico chênh Elo 256 điểm, nhưng rủi ro cao vì đội hình chưa công bố. 30 phút trước giờ đá phải xem lại lineup và thủ môn. Vào nhóm để nhận bản cập nhật sát giờ.",
+  "subscription_hook": "Bản miễn phí cho thấy hướng đi chính: Mexico nhỉnh hơn nhưng rủi ro cao. Đăng ký để nhận phân tích đầy đủ các yếu tố, cập nhật 30 phút trước giờ bóng lăn khi đội hình công bố, và khoảng tỷ số chi tiết.",
+  "group_join_copy": "Muốn biết chính xác ai đá chính, thủ môn nào bắt, và nhận định hiệu chỉnh sát giờ? Vào nhóm Tiên Tri Bóng Đá – nơi có bản cập nhật 30 phút trước kickoff.",
+  "today_cta": "Xem ngay nhận định Tiên Tri Bóng Đá cho Mexico vs South Africa – trận mở màn bảng đấu tại Azteca.",
+  "social_post": "Tiên Tri Bóng Đá: Mexico mạnh hơn trên giấy, nhưng rủi ro cao vì đội hình chưa rõ. 30 phút trước giờ đá mới biết ai bắt chính. Theo dõi để cập nhật!",
   "internal_notes": [
     "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
     "Lineups NOT announced: expected shapes only as assumption_flag entries.",
-    "Never invent injuries; injury data missing (0 results) – internal only, not customer-visible.",
+    "Never invent injuries; injury news gap is internal only.",
     "Trial persona: Tiên Tri Bóng Đá."
   ],
   "source_ref_map": {
-    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
-    "Recent form (last 10)": "kaggle_intl_results (derived)",
-    "Head-to-head": "kaggle_intl_results (derived)",
-    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
-    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
-    "Squad stability": "api-football /players/squads (fixture_id 1489369) – assumption",
-    "Goalkeeper risk": "api-football /players/squads (fixture_id 1489369) – assumption",
-    "Striker dependence / finishing": "kaggle_intl_results (derived)",
-    "Venue / altitude / context": "api-football /fixtures (fixture_id 1489369) – assumption",
-    "Lineup uncertainty": "api-football /fixtures/lineups (fixture_id 1489369) – assumption",
-    "30-minute pre-kickoff re-score": "internal mechanic – no external ref"
+    "Đội hình chưa công bố": {
+      "field": "lineups",
+      "source": "api-football",
+      "endpoint": "/fixtures/lineups",
+      "fixture_id": 1489369
+    },
+    "Thủ môn bắt chính": {
+      "field": "squad",
+      "source": "api-football",
+      "endpoint": "/players/squads",
+      "fixture_id": 1489369
+    },
+    "Sân vận động Azteca – độ cao 2200m": {
+      "field": "fixture",
+      "source": "api-football",
+      "endpoint": "/fixtures",
+      "fixture_id": 1489369
+    },
+    "Phụ thuộc vào chân sút": {
+      "source": "kaggle_intl_results",
+      "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+      "derived": true
+    }
   },
   "llm_provider": "deepseek",
-  "tactical_read": "Dự kiến Mexico sẽ chơi pressing tầm cao ngay từ đầu, tận dụng lợi thế sân nhà và độ cao Azteca. Nam Phi nhiều khả năng chơi phòng ngự phản công, với các cầu thủ chạy cánh tốc độ. Cặp đấu then chốt: trung vệ Mexico vs tiền đạo cắm Nam Phi (nếu Lyle Foster đá chính). Nhịp độ trận đấu có thể nhanh ngay từ đầu, nhưng nếu Mexico không ghi bàn sớm, Nam Phi sẽ có cơ hội từ những tình huống cố định hoặc sai lầm hàng thủ. (Lưu ý: đây là dự kiến dựa trên dữ liệu lịch sử, chưa có đội hình xác nhận.)",
+  "tactical_read": "Tiên Tri Bóng Đá đọc chiến thuật: Mexico dự kiến kiểm soát bóng với sơ đồ 4-3-3, pressing tầm cao nhờ lợi thế sân nhà. South Africa nhiều khả năng đá 4-4-2 phòng ngự phản công, tận dụng tốc độ của Appollis và Makgopa. Cặp đấu then chốt: hậu vệ biên Mexico vs tiền đạo cánh South Africa. Nhịp độ trận đấu có thể chậm lại nếu Mexico gặp khó khăn về thể lực do độ cao. Lưu ý: đội hình chưa công bố, mọi nhận định chiến thuật chỉ là dự kiến.",
+  "voice": "tientri_v2",
   "product_surface": "trial_prediction",
   "fixture_basis": "real_scheduled",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T03:32:17.113166+00:00"
+  "generated_at": "2026-06-11T06:25:18.018684+00:00"
 }

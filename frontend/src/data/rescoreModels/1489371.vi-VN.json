@@ -1,101 +1,102 @@
 {
   "fixture_id": "1489371",
-  "pre_match_lean": "Tiên Tri Bóng Đá nghiêng về Brazil, nhưng Morocco có đủ biến số để tạo địa chấn.",
-  "pre_match_risk_level": "Trung bình – chờ đội hình chính thức",
-  "score_range_before": "Mô hình ước tính: 2-1, 1-1, 2-2",
+  "pre_match_lean": "Tiên Tri Bóng Đá nhận định Brazil nhỉnh hơn nhờ Elo và phong độ, nhưng Morocco đủ sắc bén để tạo bất ngờ.",
+  "pre_match_risk_level": "Trung bình – Brazil mạnh nhưng đội hình chưa chốt, Morocco có thể gây khó.",
+  "score_range_before": "Khoảng tham khảo trước trận của Tiên Tri: 2-1, 1-1, 2-2.",
   "rescore_triggers": [
     {
       "key": "starting_xi",
       "name": "Đội hình xuất phát",
-      "current_status": "Chưa công bố – cần kiểm tra lại 60-30 phút trước giờ bóng lăn",
-      "why_it_matters": "Sự liền mạch của xương sống đội hình (thủ môn – trung vệ – tiền đạo) là yếu tố quyết định lớn nhất để điều chỉnh nhận định.",
-      "possible_impact": "Nếu Brazil thiếu 2+ trụ cột, nhận định sẽ nghiêng về hòa; nếu ra đội hình mạnh nhất, giữ nguyên xu hướng Brazil.",
-      "free_copy": "Đội hình chưa có – đây là biến số then chốt trước giờ bóng lăn.",
-      "subscriber_copy": "Khi đội hình công bố, nhóm sẽ cập nhật ngay: Brazil mạnh hay yếu? Morocco có cửa không? Cùng xem điều chỉnh chiến thuật."
+      "current_status": "Chưa công bố – cần kiểm tra lại 60-30 phút trước giờ đá.",
+      "why_it_matters": "Sự liền mạch của trục dọc (thủ môn – trung vệ – tiền đạo) là yếu tố quyết định.",
+      "possible_impact": "Nếu Brazil thiếu 2 trụ cột, cửa hòa mở rộng; nếu đủ mạnh, giữ ưu thế.",
+      "free_copy": "Đội hình chưa có – 30 phút nữa mới rõ.",
+      "subscriber_copy": "Khi có đội hình, nhóm sẽ cập nhật ngay: Brazil mất ai? Morocco có đủ trụ? Đón xem."
     },
     {
       "key": "goalkeeper",
       "name": "Thủ môn bắt chính",
-      "current_status": "Chưa xác định – danh sách thủ môn đã biết (Alisson, Ederson, Weverton cho Brazil; Bounou, Mohamedi, Tagnaouti cho Morocco)",
-      "why_it_matters": "Phong độ và danh tính thủ môn là điểm mù đã gây bất ngờ ở các trận đấu trước.",
-      "possible_impact": "Nếu Morocco bắt đầu với Bounou đang đạt phong độ cao, khả năng giữ sạch lưới tăng, kéo trận đấu về tỷ số thấp.",
-      "free_copy": "Ai bắt gôn? Đây là yếu tố từng làm nên chuyện.",
-      "subscriber_copy": "Thủ môn nào ra sân sẽ thay đổi hoàn toàn kịch bản. Nhóm sẽ phân tích ngay khi có danh tính."
+      "current_status": "Chưa xác định – danh sách có Alisson, Ederson, Weverton (Brazil) và Bounou, Mohamedi, Tagnaouti (Morocco).",
+      "why_it_matters": "Thủ môn là điểm mù dễ gây sốc – như trận 855737 từng chứng minh.",
+      "possible_impact": "Nếu Bounou bắt chính, Morocco tự tin hơn; nếu Ederson bắt, Brazil kiểm soát tốt.",
+      "free_copy": "Ai bắt gôn? Chưa biết – đây là biến số sát giờ.",
+      "subscriber_copy": "Thủ môn nào ra sân sẽ thay đổi cách đánh giá. Nhóm sẽ phân tích ngay khi có tin."
     },
     {
       "key": "frontline_availability",
       "name": "Tiền đạo chủ lực",
-      "current_status": "Chưa rõ – chờ đội hình xuất phát",
-      "why_it_matters": "Morocco phụ thuộc nhiều vào Brahim Díaz (3 bàn/10 trận) và El Kaabi; sự vắng mặt của họ làm giảm đáng kể khả năng gây sốc.",
-      "possible_impact": "Nếu cả hai đá chính, nguy cơ bất ngờ tăng; nếu vắng, Brazil dễ kiểm soát hơn.",
-      "free_copy": "Chân sút chủ lực của Morocco có đá không? Điều đó quyết định mức độ bất ngờ.",
-      "subscriber_copy": "Brahim Díaz và El Kaabi có trong đội hình? Nhóm sẽ báo ngay – đó là tín hiệu sống còn cho kịch bản địa chấn."
+      "current_status": "Chưa rõ – Brahim Díaz (3 bàn/10 trận) và Ayoub El Kaabi (2 bàn) là niềm hy vọng của Morocco.",
+      "why_it_matters": "Morocco phụ thuộc nhiều vào chân sút chính – nếu vắng, khả năng gây sốc giảm.",
+      "possible_impact": "Brahim ra sân: Morocco có cửa. Vắng: Brazil dễ thở hơn.",
+      "free_copy": "Morocco cần Brahim – anh ấy có đá chính?",
+      "subscriber_copy": "Sự góp mặt của Brahim Díaz là chìa khóa. Nhóm sẽ báo ngay khi đội hình có tên anh."
     },
     {
       "key": "formation",
       "name": "Sơ đồ chiến thuật",
-      "current_status": "Chưa công bố – chờ xác nhận từ HLV",
-      "why_it_matters": "Sự đối đầu giữa low-block và kiểm soát bóng thay đổi hoàn toàn hình dạng tỷ số.",
-      "possible_impact": "Nếu Morocco đá 5-4-1, trận đấu sẽ ít bàn hơn; nếu Brazil dồn ép, tỷ số có thể rộng hơn.",
-      "free_copy": "Sơ đồ nào sẽ được dùng? Low-block hay tấn công tổng lực?",
-      "subscriber_copy": "Khi sơ đồ được công bố, nhóm sẽ phân tích ngay: Morocco có cầm cự được không? Brazil có bế tắc? Cập nhật tức thì."
+      "current_status": "Chưa công bố – HLV Ancelotti và Halilhodžić chưa tiết lộ.",
+      "why_it_matters": "Sơ đồ quyết định thế trận: low-block của Morocco vs kiểm soát của Brazil.",
+      "possible_impact": "Morocco đá 5 hậu vệ: khó ghi bàn, tỷ số thấp. Brazil đá 4-3-3: áp đảo.",
+      "free_copy": "Sơ đồ chưa rõ – chờ xác nhận từ HLV.",
+      "subscriber_copy": "Biết sơ đồ là biết cách chơi. Nhóm sẽ phân tích ngay khi lineup có."
     },
     {
       "key": "late_injury_suspension",
       "name": "Chấn thương/treo giò phút chót",
-      "current_status": "Chưa có tín hiệu mới – đây là điểm mù cần theo dõi sát",
-      "why_it_matters": "Bất kỳ cái tên nào rời khỏi danh sách đều làm thay đổi ngay lập tức sức mạnh đội hình.",
-      "possible_impact": "Nếu có chấn thương ở hàng công hoặc trung vệ, cần chạy lại mô hình và điều chỉnh nhận định.",
-      "free_copy": "Chấn thương phút chót? Đó là biến số luôn rình rập.",
-      "subscriber_copy": "Có ai vắng mặt vào phút cuối? Nhóm sẽ cập nhật ngay lập tức – đó là lúc nhận định thay đổi."
+      "current_status": "Chưa có thông tin mới – đây là vùng mù cần theo dõi sát.",
+      "why_it_matters": "Một cái tên muộn có thể thay đổi cục diện hàng thủ hoặc hàng công.",
+      "possible_impact": "Nếu có, nhận định phải đánh giá lại toàn bộ.",
+      "free_copy": "Chưa có tin chấn thương – nhưng phải canh đến phút cuối.",
+      "subscriber_copy": "Tin nóng phút chót sẽ được cập nhật trong nhóm trước giờ đá."
     },
     {
       "key": "weather_altitude_stadium",
-      "name": "Thời tiết và sân vận động",
-      "current_status": "Sân MetLife, New York, tối mùa hè – điều kiện thực tế",
-      "why_it_matters": "Nhiệt độ và độ ẩm có thể làm giảm cường độ pressing ở cuối trận, ảnh hưởng đến nhịp độ của đội mạnh hơn.",
-      "possible_impact": "Nếu trời nóng, Brazil khó duy trì tốc độ cao suốt 90 phút, Morocco có cơ hội kéo trận đấu về tỷ số thấp.",
-      "free_copy": "Thời tiết tối nay thế nào? Nó ảnh hưởng đến thể lực và nhịp độ.",
-      "subscriber_copy": "Điều kiện sân bãi và thời tiết sẽ được phân tích chi tiết trong nhóm – liệu có làm chậm nhịp độ của Brazil không?"
+      "name": "Thời tiết & sân vận động",
+      "current_status": "Sân MetLife, tối mùa hè Mỹ – điều kiện bình thường.",
+      "why_it_matters": "Nhiệt độ cao có thể ảnh hưởng thể lực, nhất là với Brazil nếu đá pressing.",
+      "possible_impact": "Trời nóng: nhịp độ chậm lại, tỷ số thấp hơn dự kiến.",
+      "free_copy": "Thời tiết ổn – không quá nóng, không mưa.",
+      "subscriber_copy": "Điều kiện sân bãi không đáng ngại, nhưng nếu nhiệt độ tăng, nhịp độ có thể giảm."
     }
   ],
   "rescore_decision_rules": [
     {
-      "condition": "Brazil thiếu 2+ trụ cột ở xương sống (trung vệ/thủ môn/tiền đạo)",
+      "condition": "Brazil thiếu 2+ trụ cột trục dọc (CB/GK/ST)",
       "change_to_lean": "Nghiêng về hòa",
-      "change_to_risk": "Tăng một bậc rủi ro",
-      "change_to_score_range": "Thu hẹp về 1-1 hoặc tỷ số thấp",
-      "operator_note": "Nếu Brazil mất 2 mắt xích chính, khả năng kiểm soát giảm rõ rệt."
+      "change_to_risk": "Tăng rủi ro",
+      "change_to_score_range": "Thu hẹp về 1-1, 0-0, 1-0",
+      "operator_note": "Nếu Brazil mất xương sống, Morocco có cửa cầm hòa."
     },
     {
-      "condition": "Brazil ra đội hình mạnh nhất, đầy đủ trụ cột",
-      "change_to_lean": "Giữ nguyên hoặc tăng nhẹ nghiêng về Brazil",
+      "condition": "Brazil ra sân đội hình mạnh nhất, đủ trục dọc",
+      "change_to_lean": "Giữ nguyên hoặc tăng tin Brazil",
       "change_to_risk": "Giữ nguyên",
-      "change_to_score_range": "Giữ nguyên (đầu dải tỷ số nghiêng về Brazil)",
-      "operator_note": "Đội hình mạnh nhất củng cố nhận định ban đầu."
+      "change_to_score_range": "Giữ nguyên (2-1, 1-1, 2-2)",
+      "operator_note": "Brazil đủ mạnh thì Morocco khó thắng."
     },
     {
-      "condition": "Morocco bắt đầu với thủ môn Bounou đạt phong độ cao + hàng thủ 5 người không đổi",
-      "change_to_lean": "Giữ nguyên nhưng đánh dấu kịch bản gây sốc",
-      "change_to_risk": "Tăng khả năng Morocco cầm hòa",
-      "change_to_score_range": "Dịch chuyển trọng số về các tỷ số 1-0, 0-0, 1-1",
-      "operator_note": "Bounou + low-block là công thức từng làm nên chuyện ở World Cup 2022."
+      "condition": "Morocco bắt chính Bounou + hàng thủ 5 người không đổi",
+      "change_to_lean": "Giữ nguyên nhưng cảnh báo khả năng gây sốc",
+      "change_to_risk": "Tăng rủi ro cho Morocco cầm hòa",
+      "change_to_score_range": "Dịch trọng số về 1-0, 0-0, 1-1",
+      "operator_note": "Bounou và khối thấp là vũ khí lợi hại của Morocco."
     },
     {
-      "condition": "Chấn thương/treo giò phút chót ảnh hưởng đến hàng công một trong hai đội",
-      "change_to_lean": "Cần chạy lại mô hình",
+      "condition": "Chấn thương/treo giò ảnh hưởng tiền đạo một trong hai đội",
+      "change_to_lean": "Cần đánh giá lại",
       "change_to_risk": "Tăng",
-      "change_to_score_range": "Phát hành lại dải tỷ số",
-      "operator_note": "Bất kỳ sự vắng mặt nào ở tuyến đầu cũng làm thay đổi cục diện."
+      "change_to_score_range": "Đưa ra dải tỷ số mới",
+      "operator_note": "Tin muộn về tiền đạo buộc phải rescore toàn bộ."
     }
   ],
-  "public_teaser": "Tiên Tri Bóng Đá: Brazil mạnh hơn, nhưng Morocco có đủ biến số để gây sốc – chờ đội hình để biết chắc.",
-  "group_join_hook": "Vào nhóm tối nay để nhận cập nhật 30 phút trước giờ bóng lăn: đội hình chính thức, thủ môn bắt chính, sơ đồ chiến thuật – tất cả những yếu tố quyết định nhận định cuối cùng.",
-  "reminder_message": "Đội hình đã có! Tiên Tri Bóng Đá cập nhật nhận định: Brazil ra sân với [tóm tắt đội hình] – Morocco đáp trả bằng [tóm tắt]. Xem phân tích chi tiết trong nhóm ngay!",
+  "public_teaser": "Tiên Tri Bóng Đá: Brazil vs Morocco – đội hình chưa chốt, rủi ro còn đó. 30 phút nữa sẽ rõ.",
+  "group_join_hook": "Vào nhóm để nhận cập nhật đội hình, thủ môn, sơ đồ ngay khi có – phân tích sát giờ từ Tiên Tri Bóng Đá.",
+  "reminder_message": "🔥 Đội hình Brazil vs Morocco sắp có! Vào nhóm xem Tiên Tri Bóng Đá rescore ngay khi lineup công bố. Cập nhật thủ môn, trụ cột, sơ đồ – tất cả trong 5 phút.",
   "language": "vi-VN",
+  "voice": "tientri_v2",
   "llm_provider": "deepseek",
   "model": "deepseek-chat",
   "product_surface": "trial_rescore",
   "guard_clean": true,
-  "generated_at": "2026-06-11T05:09:47.235938+00:00"
+  "generated_at": "2026-06-11T06:11:56.820012+00:00"
 }

@@ -46,7 +46,7 @@ FACTOR_NAME = {
     "event_momentum": "In-match momentum / late swings",
     "tactical_matchup": "Tactical matchup",
     "travel_environment": "Venue / travel / climate",
-    "missing_data_risk": "Model blind spots",
+    "missing_data_risk": "Pre-match unknowns (confirm before kickoff)",
     "upset_risk": "Upset / volatility risk",
 }
 PRODUCT_GOAL = ("Make a fan want to keep reading, subscribe, and join the group: judgement first, "
@@ -169,7 +169,7 @@ def call_deepseek(api_key, system, user):
         headers={"Authorization": "Bearer " + api_key, "Content-Type": "application/json"},
         json={"model": "deepseek-chat",
               "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-              "temperature": 0.5, "max_tokens": 4500,
+              "temperature": 0.3, "max_tokens": 4500,
               "response_format": {"type": "json_object"}},
         timeout=120.0,
     )
@@ -253,12 +253,14 @@ def generate(provider, sample_id, language, keys):
     key = keys.get("DEEPSEEK_API_KEY" if provider == "deepseek" else "GEMINI_API_KEY")
     call = call_deepseek if provider == "deepseek" else call_gemini
     meta = {"product_name": PRODUCT_NAME, "fixture_id": sample_id, "mode": inp["mode"],
-            "language": language, "llm_provider": provider,
+            "language": language,
+            "voice": "qiuge_v2" if language == "zh-CN" else "tientri_v2",
+            "llm_provider": provider,
             "model": "deepseek-chat" if provider == "deepseek" else "gemini-2.5-flash"}
     if inp.get("fixture_basis"):
         meta["fixture_basis"] = inp["fixture_basis"]
     if key:
-        for attempt in (1, 2, 3):
+        for attempt in (1, 2, 3, 4, 5):
             try:
                 cand = _extract_json(call(key, system, user))
             except Exception as e:
@@ -274,7 +276,7 @@ def generate(provider, sample_id, language, keys):
                     obj = cand
                     break
                 print("  ! %s attempt %d guard pre-check: %s" % (provider, attempt, "; ".join(probs[:4])))
-                if attempt < 3:
+                if attempt < 5:
                     user += ("\n\nSTRICT RETRY: your previous output failed the gate: " + "; ".join(probs[:6])
                              + ". Fix ALL of these. Every factor entry needs source_refs (copy from INPUT) or "
                                "assumption_flag=true. vi-VN must contain ZERO Han characters. All keys required. "

@@ -63,11 +63,14 @@ RESEARCH_TONE = ["研究报告", "本报告", "本文", "审计", "白皮书", "
 
 
 def has_model_estimate_marker(text):
-    """scoreline_view must read as a model estimate: an estimate word AND a model/product subject."""
+    """scoreline_view must read as a non-promise band: legacy model-estimate phrasing OR
+    de-modeled persona reference-band phrasing (俅哥…参考区间 / khoảng tham khảo…Tiên Tri)."""
     t = str(text).lower()
     est = any(m in t for m in ("估计", "预估", "ước tính", "estimate"))
     subj = any(m in t for m in ("模型", "mô hình", "scoutscore", "giành cup ai", "model"))
-    return est and subj
+    ref = any(m in t for m in ("参考区间", "参考比分", "tham khảo"))
+    persona = any(m in t for m in ("俅哥", "tiên tri", "赛前", "trước trận"))
+    return (est and subj) or (ref and persona)
 
 
 def _factor_text(sig):
@@ -203,11 +206,21 @@ def check_obj(obj, filename=""):
 
     # 9. customer prose scans
     prose = [str(obj.get(f, "")) for f in TEXT_FIELDS]
+    if str(obj.get("tactical_read", "")).strip():
+        prose.append(str(obj.get("tactical_read")))
     for lst in FACTOR_LISTS:
         for sig in (obj.get(lst) or []):
             prose.append(_factor_text(sig))
     blob = "\n".join(prose)
     blob_l = blob.lower()
+    # de-modeled persona surfaces: NO model/process subject words in customer prose at all
+    if str(obj.get("voice", "")).endswith("_v2"):
+        for term in ("模型", "盲区", "mô hình", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
+            if term in blob_l:
+                errs.append("de-model violation in customer prose: %r" % term)
+        # case-sensitive whole-word AI (lowercase 'ai' is the Vietnamese word for 'who')
+        if re.search(r"\bAI\b", blob):
+            errs.append("de-model violation in customer prose: 'AI'")
     for term in FORBIDDEN:
         if term.lower() in blob_l:
             errs.append("forbidden wording in customer prose: %r" % term)

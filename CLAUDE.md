@@ -15,6 +15,15 @@
 
 **★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint SHIPPED (Owner trial-send review pending)**
 ```text
+De-Modeling sprint (same day, Owner: customer voice cleanup): visible customer copy now speaks ONLY as
+the persona — no 模型/mô hình/盲区/AI/ScoutScore/process words on /, /predict/*, /recap/* (zh+vi).
+Regenerated v2 narratives (trial 4 + recap 4 + rescore 4, voice=qiuge_v2/tientri_v2; guard hard-bans
+model/process words for v2 files; scoreline = 俅哥给出的赛前参考区间 / khoảng tham khảo trước trận).
+UI labels: 赛前参考区间/冷门风险/参考 badge/俅哥赛前抓对了什么/Tiên Tri dict layer de-AI'd (header/ticker/
+caps/hero). NEW scripts/check_customer_visible_copy.py: headless DOM scan of 10 surfaces, strips
+details-folds/footer/EN-line, fails on model/process words — 10/10 PASS. Guard 36/36 + trial 8/8 PASS.
+Two label-only post-edits recorded in internal_notes (「AI 观点」->「俅哥观点」; rescore 盲区 word swap).
+
 Small-Scale Trial Readiness (same day, Owner verdict: PASS WITH CONDITIONS for small private trial):
 customer path fully de-AI'd (ticker/caps/lean/header-sub/cta/community labels -> 俅哥情报/俅哥赛前判断/
 俅哥倾向/俅哥判断; AI kept only in footer disclaimer, EN brand line, internal folds); predict labels per

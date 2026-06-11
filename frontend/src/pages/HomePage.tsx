@@ -129,7 +129,7 @@ export function HomePage() {
         </div>
         <div className="hero-en">{BRAND.heroEn}</div>
         <div className="hero-sub hero-persona">
-          {loc === 'zh' ? '世界杯赛前判断 · 临场 30 分钟修正' : loc === 'vi' ? 'Mô hình trước trận Tiên Tri Bóng Đá' : 'Giành Cup pre-match scout model'}
+          {loc === 'zh' ? '世界杯赛前判断 · 临场 30 分钟修正' : loc === 'vi' ? 'Nhận định trước trận của Tiên Tri Bóng Đá' : 'Giành Cup pre-match scout model'}
         </div>
         <div className="hero-sub">
           {loc === 'zh' ? '不只看胜率，更看为什么这样判断。'
@@ -184,9 +184,9 @@ export function HomePage() {
             <div className="recap-sub">🗂️ {t.recapSectionSub}</div>
             <div className="recap-bridge">
               {loc === 'zh'
-                ? '我们不只给出赛前判断，也复盘模型为什么看对或看漏，用真实数据修正下一版分析。'
+                ? '俅哥不只给赛前判断，也复盘自己为什么看对或看漏，用真实数据修正下一次判断。'
                 : loc === 'vi'
-                  ? 'Chúng tôi không chỉ đưa ra nhận định trước trận, mà còn phục dựng vì sao mô hình đúng hay bỏ sót, dùng dữ liệu thật để hiệu chỉnh bản phân tích sau.'
+                  ? 'Tiên Tri không chỉ đưa nhận định trước trận, mà còn xem lại vì sao mình đúng hay bỏ sót, dùng dữ liệu thật để chỉnh lần nhận định sau.'
                   : 'We don’t just call matches pre-game — we recap why the model was right or wrong, and correct the next version with real data.'}
             </div>
             {recapMatches.map((m: Match) => {

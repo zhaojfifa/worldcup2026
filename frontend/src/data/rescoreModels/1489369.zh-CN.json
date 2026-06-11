@@ -1,101 +1,102 @@
 {
   "fixture_id": "1489369",
-  "pre_match_lean": "俅哥看这场，墨西哥实力占优，但冷门风险高，赛前倾向墨西哥胜，但需要开球前确认首发。",
-  "pre_match_risk_level": "高——墨西哥实力强但冷门风险高，南非有爆冷潜力。",
-  "score_range_before": "模型估计比分区间：1-1、1-0、0-1。",
+  "pre_match_lean": "俅哥赛前倾向墨西哥，但冷门风险高——纸面强不等于稳，首发没出来前一切都有可能。",
+  "pre_match_risk_level": "高",
+  "score_range_before": "俅哥给出的赛前参考区间：1-1、1-0、0-1",
   "rescore_triggers": [
     {
       "key": "starting_xi",
       "name": "首发阵容",
-      "current_status": "尚未公布，需在开球前60-30分钟重新检查。",
-      "why_it_matters": "首发阵容是模型重新计算的最重要输入，尤其核心球员是否出战。",
-      "possible_impact": "如果墨西哥缺少2名以上核心球员（中卫/门将/前锋），倾向会转向平局。",
-      "free_copy": "免费版看方向：墨西哥胜。但首发阵容是赛前盲区，开球前30分钟需确认。",
-      "subscriber_copy": "群内会在首发公布后第一时间推送重算判断：如果墨西哥核心缺阵，会提示风险升级。"
+      "current_status": "尚未公布，开球前60-30分钟需重新确认",
+      "why_it_matters": "中轴线完整性直接影响比赛走向",
+      "possible_impact": "墨西哥若缺2名以上主力（中卫/门将/前锋），倾向转向平局，风险再升一档",
+      "free_copy": "首发还没出，这是今晚最大的赛前还没看清的地方。",
+      "subscriber_copy": "群内等首发名单——墨西哥中轴线缺人，俅哥会立刻调整判断。"
     },
     {
       "key": "goalkeeper",
-      "name": "门将选择",
-      "current_status": "首发门将未知，已知门将名单：墨西哥有C. Acevedo、G. Ochoa、J. Rangel；南非有S. Chaine、R. Goss、R. Williams。",
-      "why_it_matters": "门将状态是冷门案例中的关键盲区，影响失球预期。",
-      "possible_impact": "如果南非首发门将是状态正佳的主力，南非爆冷路径更清晰。",
-      "free_copy": "免费版看方向：墨西哥胜。但门将选择是临场待确认因素。",
-      "subscriber_copy": "群内会分析门将选择：如果南非上状态好的门将，会提示爆冷风险上升。"
+      "name": "门将人选",
+      "current_status": "未知，两队均有3名门将待定",
+      "why_it_matters": "门将状态是上届冷门（855737）的关键变量",
+      "possible_impact": "南非若派出状态正佳的一门，冷门路径更清晰；墨西哥门将不稳则风险陡增",
+      "free_copy": "门将是谁，可能决定冷门会不会来。",
+      "subscriber_copy": "门将确认后，俅哥会评估稳定性——这是订阅用户才能看到的临场修正。"
     },
     {
       "key": "frontline_availability",
-      "name": "前锋可用性",
-      "current_status": "未知，需等首发阵容。",
-      "why_it_matters": "南非对前锋依赖度高（Oswin Appollis 3球、Evidence Makgopa 2球），他们的出场直接影响爆冷概率。",
-      "possible_impact": "如果南非头号射手首发，爆冷路径更可信。",
-      "free_copy": "免费版看方向：墨西哥胜。但南非前锋是否出战是赛前盲区。",
-      "subscriber_copy": "群内会关注南非前锋名单：如果Appollis和Makgopa都首发，会提示爆冷概率升高。"
+      "name": "锋线可用性",
+      "current_status": "未知，待首发确认",
+      "why_it_matters": "南非头号射手Appollis（3球）依赖度高，他上不上场改变冷门概率",
+      "possible_impact": "南非锋线全勤则爆冷机会上升；缺人则墨西哥压力减轻",
+      "free_copy": "南非锋线核心在不在，直接影响爆冷概率。",
+      "subscriber_copy": "Appollis是否首发？俅哥会在群内第一时间解读锋线配置。"
     },
     {
       "key": "formation",
       "name": "阵型安排",
-      "current_status": "未知，需等教练确认。",
-      "why_it_matters": "阵型碰撞（南非摆大巴 vs 墨西哥控球）会改变比分区间形态。",
-      "possible_impact": "如果南非摆大巴，比分可能偏向低比分平局。",
-      "free_copy": "免费版看方向：墨西哥胜。但阵型是临场待确认因素。",
-      "subscriber_copy": "群内会解读阵型：如果南非摆大巴，比分区间会向1-1/0-0偏移。"
+      "current_status": "未知，教练尚未确认",
+      "why_it_matters": "低防守vs控球碰撞改变比分区间形态",
+      "possible_impact": "南非摆大巴则比分偏小（0-0/1-0/1-1）；墨西哥控球压上则可能出现2-0",
+      "free_copy": "阵型没定，比分区间还有变数。",
+      "subscriber_copy": "阵型一出，俅哥会重新划定比分参考区间。"
     },
     {
       "key": "late_injury_suspension",
       "name": "临场伤病/停赛",
-      "current_status": "目前无新信号摄入，视为赛前盲区，不代表无伤病。",
-      "why_it_matters": "任何临场伤病都会瞬间改变阵容完整性，需要重新评估。",
-      "possible_impact": "如果影响前锋，需要重新计算比分区间。",
-      "free_copy": "免费版看方向：墨西哥胜。但临场伤病是赛前盲区。",
-      "subscriber_copy": "群内会实时跟踪伤病消息：如果有核心球员缺阵，会立即推送调整。"
+      "current_status": "暂无新信号（视为赛前还没看清的地方，非零风险）",
+      "why_it_matters": "任何晚到名单上的名字都会瞬间改变阵容完整性",
+      "possible_impact": "若影响锋线或中轴线，需要重新评估倾向和风险",
+      "free_copy": "赛前没有坏消息就是好消息？不一定，临场伤病是最大变数之一。",
+      "subscriber_copy": "一旦有临场伤病，俅哥会在群内秒发修正判断。"
     },
     {
       "key": "weather_altitude_stadium",
       "name": "天气/海拔/球场",
-      "current_status": "比赛在阿兹特克体育场进行，海拔约2200米，开球时间已定。",
-      "why_it_matters": "高海拔会降低球队逼抢强度，影响墨西哥的节奏计划。",
-      "possible_impact": "高海拔可能使墨西哥下半场体能下降，南非有机会。",
-      "free_copy": "免费版看方向：墨西哥胜。但高海拔是场景因素，可能影响比赛节奏。",
-      "subscriber_copy": "群内会结合海拔分析：如果墨西哥上半场没进球，下半场体能下降风险会上升。"
+      "current_status": "阿兹特克球场海拔约2200米，开球时间已知",
+      "why_it_matters": "高海拔加速体能消耗，影响强队压迫节奏",
+      "possible_impact": "墨西哥更适应高原，但下半场强度可能下降，给南非机会",
+      "free_copy": "高原主场是墨西哥的优势，但也可能拖慢节奏。",
+      "subscriber_copy": "海拔因素已纳入俅哥的赛前框架，临场天气变化会再更新。"
     }
   ],
   "rescore_decision_rules": [
     {
-      "condition": "墨西哥首发缺少2名以上核心球员（中卫/门将/前锋）",
+      "condition": "墨西哥首发缺少2名以上中轴线主力（中卫/门将/前锋）",
       "change_to_lean": "倾向转向平局",
-      "change_to_risk": "风险升级一个档次",
-      "change_to_score_range": "比分区间收紧向1-1/低比分",
-      "operator_note": "核心缺阵会大幅削弱墨西哥优势，需重新评估。"
+      "change_to_risk": "风险再升一档",
+      "change_to_score_range": "收紧至1-1、0-0区间",
+      "operator_note": "中轴线缺人，大热不稳，平局概率上升"
     },
     {
-      "condition": "墨西哥确认全主力首发，包括前锋核心",
+      "condition": "墨西哥确认全主力首发，包括锋线核心",
       "change_to_lean": "维持/加强墨西哥倾向",
       "change_to_risk": "风险维持",
-      "change_to_score_range": "维持（墨西哥占优的比分区间）",
-      "operator_note": "全主力墨西哥可信度更高。"
+      "change_to_score_range": "维持原区间（1-1、1-0、0-1）",
+      "operator_note": "主力齐整，墨西哥仍是更可能赢的一方"
     },
     {
-      "condition": "南非首发门将是状态正佳的主力，且后防线五人不变",
-      "change_to_lean": "维持但标记爆冷路径",
-      "change_to_risk": "提升南非爆冷场景权重",
-      "change_to_score_range": "比分区间向1-0/0-0/1-1偏移",
-      "operator_note": "南非防守稳固时，爆冷概率上升。"
+      "condition": "南非首发门将为状态正佳的一门 + 后防五人不换",
+      "change_to_lean": "维持但提示冷门路径",
+      "change_to_risk": "提升南非爆冷情景权重",
+      "change_to_score_range": "加重1-0、0-0、1-1尾部概率",
+      "operator_note": "南非防守稳固，冷门可能性上升"
     },
     {
-      "condition": "临场伤病影响任何一方前锋",
-      "change_to_lean": "需要重新计算",
-      "change_to_risk": "风险提升",
-      "change_to_score_range": "重新发布比分区间",
-      "operator_note": "前锋伤病直接影响进球预期，必须重算。"
+      "condition": "临场伤病/停赛影响任一队锋线",
+      "change_to_lean": "需要重新评估",
+      "change_to_risk": "风险上升",
+      "change_to_score_range": "重新发布区间",
+      "operator_note": "锋线变动直接改变进球预期，必须重算"
     }
   ],
-  "public_teaser": "俅哥看这场：墨西哥实力占优，但冷门风险高，开球前30分钟首发会改写判断。",
-  "group_join_hook": "今晚墨西哥vs南非，首发公布后群内第一时间推送重算结果，免费版看方向，群内看临场修正。",
-  "reminder_message": "【俅哥提醒】墨西哥vs南非首发已出！群内已推送重算判断，快去看最新分析。",
+  "public_teaser": "俅哥提醒：墨西哥这场冷门风险高，首发名单出来前别急着下结论。",
+  "group_join_hook": "加入俅哥说球群，开球前30分钟看首发解读、临场修正，免费版看不到的深度判断都在群里。",
+  "reminder_message": "【俅哥提醒】墨西哥vs南非首发即将公布！进群看俅哥第一时间解读——中轴线是否完整？门将是谁？冷门风险怎么变？今晚一起看球！",
   "language": "zh-CN",
+  "voice": "qiuge_v2",
   "llm_provider": "deepseek",
   "model": "deepseek-chat",
   "product_surface": "trial_rescore",
   "guard_clean": true,
-  "generated_at": "2026-06-11T05:08:17.973119+00:00"
+  "generated_at": "2026-06-11T06:09:58.238879+00:00"
 }

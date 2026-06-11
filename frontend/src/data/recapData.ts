@@ -40,7 +40,7 @@ const SOURCE_LEDGER: RecapSourceRow[] = [
 
 const ZH: RecapContent = {
   fixtureId: '855737',
-  badge: '历史复盘 · 模型校准',
+  badge: '历史复盘 · 校准记录',
   headline: '这场爆冷不是偶然：ScoutScore 发现传统强弱判断的三个盲区',
   oneLiner: 'Argentina 纸面优势明显，但 Saudi Arabia 用下半场反超、门将表现和进攻效率改写了这场比赛。',
   modelReplay: '模型回放：偏 Argentina（基于纸面强弱）',
@@ -74,7 +74,7 @@ const ZH: RecapContent = {
 
 const VI: RecapContent = {
   fixtureId: '855737',
-  badge: 'Phục dựng lịch sử · Hiệu chỉnh mô hình',
+  badge: 'Phục dựng lịch sử · Bản ghi hiệu chỉnh',
   headline: 'Cú sốc này không ngẫu nhiên: ScoutScore chỉ ra ba điểm mù của cách đánh giá mạnh-yếu truyền thống',
   oneLiner: 'Argentina nhỉnh hơn trên giấy, nhưng Saudi Arabia đã viết lại trận đấu bằng màn lội ngược dòng hiệp hai, màn trình diễn của thủ môn và hiệu suất tấn công.',
   modelReplay: 'Mô hình phát lại: nghiêng về Argentina (dựa trên sức mạnh trên giấy)',

@@ -3,18 +3,64 @@
   "fixture_id": "979139",
   "mode": "historical_recap",
   "language": "vi-VN",
-  "hero_title": "Tiên Tri Bóng Đá: Argentina thắng thế, nhưng Mbappé là biến số không ai lường trước",
-  "hero_subtitle": "ScoutScore chỉ ra rủi ro từ hiệu suất dứt điểm và thủ môn trước trận chung kết World Cup 2022",
-  "short_title": "Argentina vs France: Rủi ro tiềm ẩn",
-  "screenshot_line": "Argentina 20 cú sút, 10 trúng đích – ghi 3 bàn; France 10 cú sút, 5 trúng đích – cũng 3 bàn. Hiệu suất là chìa khóa.",
-  "model_judgement": "ScoutScore nhận định Argentina là bên được đánh giá cao hơn dựa trên Elo (2052 vs 1984) và phong độ 10 trận (8W-1D-1L). Tuy nhiên, mô hình cảnh báo rủi ro từ hiệu suất dứt điểm và thủ môn – hai yếu tố không có dữ liệu trước trận. Trận đấu chứng minh France tận dụng cơ hội tốt hơn, gỡ hòa 3-3 nhờ Mbappé.",
-  "main_lean": "Nghiêng về Argentina thắng, nhưng rủi ro cao từ hiệu suất dứt điểm đối thủ.",
-  "scoreline_view": "Ước tính của mô hình: các tỷ số khả dĩ 2-1, 3-1, 1-1. Thực tế: 3-3 (hòa, Argentina thắng luân lưu).",
-  "risk_level": "Trung bình – Elo ủng hộ Argentina, nhưng khoảng trống dữ liệu về hiệu suất và thủ môn tạo biến số.",
+  "hero_title": "Tiên Tri Bóng Đá nhận định: Argentina 3-3 Pháp – rủi ro đã thấy, bất ngờ vẫn đến",
+  "hero_subtitle": "Trận chung kết World Cup 2022 chứng minh: ngay cả khi có Elo và phong độ, biến số sát giờ mới là thứ quyết định.",
+  "short_title": "Argentina 3-3 Pháp: Rủi ro đã thấy",
+  "screenshot_line": "Tiên Tri Bóng Đá: Argentina được đánh giá cao hơn (Elo 2052 vs 1984), nhưng rủi ro sát giờ đã lật ngược nhận định – 3-3 sau 120 phút.",
+  "model_judgement": "Trước trận, Tiên Tri Bóng Đá nhận định Argentina là bên được đánh giá cao hơn nhờ Elo vượt trội (68 điểm) và phong độ 10 trận ấn tượng (8 thắng, 1 hòa, 1 thua, ghi 28 bàn). Tuy nhiên, rủi ro ở mức trung bình vì Pháp sở hữu hàng công sắc bén và lịch sử đối đầu nghiêng về họ (thắng 4/10 gần nhất). Khoảng tỷ số tham khảo trước trận của Tiên Tri: 2-1, 3-1, 1-1.",
+  "main_lean": "Argentina thắng (ước tính của Tiên Tri)",
+  "scoreline_view": "Khoảng tham khảo trước trận của Tiên Tri: 2-1, 3-1, 1-1 – tỷ số thực tế 3-3 nằm ngoài dự kiến.",
+  "risk_level": "Trung bình – Elo và phong độ ủng hộ Argentina, nhưng Pháp có khả năng lật ngược nhận định nhờ đối đầu và biến số sát giờ.",
   "risk_factors": [
     {
+      "name": "Sức mạnh dài hạn (Elo)",
+      "text": "Elo nghiêng về Argentina (2052 vs 1984), chênh lệch 68 điểm – bên được đánh giá cao hơn rõ rệt.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2022-12-18",
+          "value": "Argentina 2052 / France 1984"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Phong độ gần đây (10 trận)",
+      "text": "Argentina 8 thắng, 1 hòa, 1 thua (ghi 28, thủng lưới 5) – Pháp 6 thắng, 1 hòa, 3 thua (ghi 16, thủng lưới 9). Argentina áp đảo về hiệu số.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Đối đầu lịch sử",
+      "text": "10 trận gần nhất: Argentina thắng 5, hòa 2, thua 3. Pháp thắng trận gần nhất năm 2018 (4-3).",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Đội hình ra sân",
+      "text": "Argentina 4-3-3, Pháp 4-2-3-1 – không có bất ngờ lớn về sơ đồ.",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
       "name": "Hiệu suất dứt điểm",
-      "text": "Không có dữ liệu xG trước trận, nên mô hình không thể đánh giá khả năng tận dụng cơ hội của France.",
+      "text": "Trước trận không có dữ liệu xG – đây là biến số cần canh sát giờ.",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -28,7 +74,7 @@
     },
     {
       "name": "Khoảng cách thủ môn",
-      "text": "Không có dữ liệu phong độ thủ môn trước trận; thực tế thủ môn France có 7 pha cứu thua so với 2 của Argentina.",
+      "text": "Không có dữ liệu phong độ thủ môn trước trận – biến số sát giờ.",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -47,8 +93,8 @@
       "assumption_flag": false
     },
     {
-      "name": "Động lượng cuối trận",
-      "text": "France ghi 2 bàn trong 2 phút (80', 81') – một kịch bản lội ngược dòng mà mô hình không lường trước.",
+      "name": "Biến số sát giờ / lội ngược dòng",
+      "text": "Pháp có khả năng lật ngược nhận định nếu bị dẫn trước – rủi ro trung bình.",
       "source_refs": [
         {
           "field": "events",
@@ -58,16 +104,65 @@
         }
       ],
       "assumption_flag": false
+    },
+    {
+      "name": "Đấu pháp",
+      "text": "Scaloni vs Deschamps – Argentina kiểm soát bóng nhiều hơn (54% vs 46%), nhưng Pháp phản công sắc bén.",
+      "source_refs": [
+        {
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "979139"
+        },
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "possession 54%/46%"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Sân bãi / di chuyển / khí hậu",
+      "text": "Sân trung lập Lusail – không tạo khác biệt đáng kể.",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Điểm mù của Tiên Tri",
+      "text": "Chấn thương, xG, giá trị đội hình chưa được nạp vào phân tích – biến số cần canh sát giờ.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Rủi ro bất ngờ",
+      "text": "Mức trung bình – Elo ủng hộ Argentina nhưng Pháp có thể gây bất ngờ.",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=68, missing=3)"
+        }
+      ],
+      "assumption_flag": false
     }
   ],
   "validated_factors": [
     {
       "name": "Sức mạnh dài hạn (Elo)",
-      "text": "Argentina được Elo đánh giá cao hơn (68 điểm) và thực tế đã chơi áp đảo về kiểm soát bóng (54%) và số cú sút (20).",
+      "text": "Đúng: Argentina được đánh giá cao hơn và đã dẫn 2-0, nhưng không đủ để thắng trong 90 phút.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true,
           "metric": "elo_snapshot@2022-12-18",
           "value": "Argentina 2052 / France 1984"
@@ -76,14 +171,24 @@
       "assumption_flag": false
     },
     {
-      "name": "Phong độ gần đây",
-      "text": "Argentina vào trận với thành tích 8W-1D-1L, vượt trội so với 6W-1D-3L của France; họ đã dẫn 2-0 sau hiệp một.",
+      "name": "Phong độ gần đây (10 trận)",
+      "text": "Đúng: Argentina khởi đầu tốt, ghi 2 bàn đầu tiên nhờ phong độ cao.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true,
           "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Rủi ro bất ngờ",
+      "text": "Đúng: mức trung bình – Pháp gỡ hòa 2-2 trong 2 phút cuối trận, đúng với kịch bản lật ngược nhận định.",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=68, missing=3)"
         }
       ],
       "assumption_flag": false
@@ -91,8 +196,8 @@
   ],
   "underweighted_factors": [
     {
-      "name": "Hiệu suất dứt điểm của France",
-      "text": "France chỉ có 10 cú sút nhưng ghi 3 bàn (tỉ lệ 30%), trong khi Argentina 20 cú sút cũng chỉ 3 bàn (15%). Mô hình không có dữ liệu xG để đánh giá.",
+      "name": "Hiệu suất dứt điểm",
+      "text": "Tiên Tri đánh giá thấp khả năng tận dụng cơ hội của Pháp: 10 cú sút, 5 trúng đích, ghi 3 bàn – hiệu suất 60%.",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -105,8 +210,28 @@
       "assumption_flag": false
     },
     {
-      "name": "Khả năng bùng nổ của cá nhân",
-      "text": "Mbappé ghi hat-trick, biến khoảng cách 2 bàn thành hòa. Mô hình không đo lường được sức ảnh hưởng của siêu sao trong các khoảnh khắc.",
+      "name": "Khoảng cách thủ môn",
+      "text": "Pháp có 7 pha cứu thua, Argentina chỉ 2 – Lloris chơi xuất sắc, giữ Pháp trong trận đấu.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "saves 2/7"
+        },
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "979139"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Biến số sát giờ / lội ngược dòng",
+      "text": "Pháp ghi 2 bàn trong 2 phút (80', 81') và gỡ hòa ở phút 118 – khả năng lật ngược nhận định mạnh hơn dự kiến.",
       "source_refs": [
         {
           "field": "events",
@@ -120,44 +245,53 @@
   ],
   "watch_next_signals": [
     {
-      "name": "Hiệu suất dứt điểm (xG)",
-      "text": "Theo dõi chỉ số xG của hai đội trong 5 trận gần nhất – đội nào tận dụng cơ hội tốt hơn?",
+      "name": "Đội hình ra sân",
+      "text": "30 phút trước giờ bóng lăn, cần xác nhận đội hình chính thức – đặc biệt vị trí thủ môn và tiền đạo chủ lực.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Phong độ thủ môn",
-      "text": "Kiểm tra tỉ lệ cứu thua và số bàn thua kỳ vọng của thủ môn – đây có thể là yếu tố quyết định trong trận cầu cân bằng.",
+      "name": "Phong độ thủ môn gần đây",
+      "text": "Thủ môn có thể thay đổi cục diện – cần theo dõi chỉ số cứu thua và đánh giá trước trận.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Động lượng lội ngược dòng",
-      "text": "Đội bị dẫn trước có thường xuyên gỡ hòa trong hiệp hai không? Dữ liệu lịch sử sẽ giúp nhận diện kịch bản này.",
+      "name": "Hiệu suất dứt điểm gần đây",
+      "text": "Đội nào tận dụng cơ hội tốt hơn trong 5 trận gần nhất? Đây là biến số sát giờ quan trọng.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Khả năng lội ngược dòng",
+      "text": "Đội bị dẫn trước có phản ứng thế nào? Lịch sử lội ngược dòng là tín hiệu cần canh.",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "Tiên Tri Bóng Đá: Argentina thắng thế, nhưng Mbappé là biến số. ScoutScore chỉ ra rủi ro từ hiệu suất dứt điểm – France 10 cú sút ghi 3 bàn, Argentina 20 cú sút cũng 3 bàn. Trận sau, nhìn vào xG và thủ môn. Vào nhóm xem phân tích đầy đủ.",
-  "subscription_hook": "Bản miễn phí thấy nhận định chính và rủi ro. Đăng ký để nhận: phân tích đầy đủ 10+ yếu tố, cập nhật 30 phút trước giờ bóng lăn, và dải tỷ số chi tiết từ mô hình.",
-  "group_join_copy": "Muốn xem ScoutScore phân tích trận tiếp theo? Vào nhóm Telegram, nhận bản đầy đủ trước giờ bóng lăn – có hiệu chỉnh đội hình và thủ môn sát giờ.",
-  "today_cta": "Quan điểm AI hôm nay: Argentina áp đảo nhưng France hiệu quả hơn – bài học về hiệu suất.",
-  "social_post": "Tiên Tri Bóng Đá: Argentina 20 cú sút, 3 bàn; France 10 cú sút, 3 bàn. Hiệu suất dứt điểm là rủi ro ScoutScore chỉ ra. Trận sau, nhìn xG và thủ môn. #GiànhCup #ScoutScore",
+  "operator_copy": "Tiên Tri Bóng Đá: Argentina được đánh giá cao hơn (Elo 2052 vs 1984), nhưng rủi ro trung bình đã hiện thực – 3-3 sau 120 phút. Pháp gỡ hòa 2 bàn trong 2 phút cuối trận. Trận sau nhìn vào đội hình và thủ môn trước giờ đá. Vào nhóm xem phân tích đầy đủ.",
+  "subscription_hook": "Bản miễn phí cho thấy nhận định chính và rủi ro. Đăng ký để xem toàn bộ yếu tố, cập nhật 30 phút trước giờ bóng lăn (đội hình, thủ môn, hiệu suất), và khoảng tỷ số chi tiết.",
+  "group_join_copy": "Muốn xem Tiên Tri Bóng Đá phân tích từng yếu tố trước trận? Vào nhóm Telegram, nhận bản đầy đủ: biến số sát giờ, hiệu chỉnh đội hình, và nhận định cập nhật. Không spam, chỉ dữ liệu.",
+  "today_cta": "Xem Tiên Tri Bóng Đá nhận định trận tiếp theo – rủi ro nào cần canh?",
+  "social_post": "Tiên Tri Bóng Đá: Argentina 3-3 Pháp – Elo và phong độ chưa đủ. Pháp gỡ hòa 2 bàn trong 2 phút. Trận sau: canh đội hình và thủ môn trước giờ đá. Vào nhóm xem phân tích đầy đủ.",
   "internal_notes": [
     "historical replay – NOT a real archived pre-match prediction",
-    "assumption_context: venue neutral (low impact), model blind spots (injuries, xG, squad value)",
-    "assumption_flag true for venue and blind spots"
+    "assumption_context: đối đầu lịch sử (h2h_last10) được dùng làm tham khảo, không phải dữ liệu thời gian thực",
+    "assumption_context: điểm mù của Tiên Tri (chấn thương, xG, giá trị đội hình) là giả định dựa trên known_gaps_internal"
   ],
   "source_ref_map": {
-    "kaggle_intl_results": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-    "api-football_lineups": "/fixtures/lineups, fixture_id=979139",
-    "api-football_statistics": "/fixtures/statistics, fixture_id=979139",
-    "api-football_events": "/fixtures/events, fixture_id=979139",
-    "api-football_fixture": "/fixtures, fixture_id=979139",
-    "elo_method": "start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)",
-    "upset_band_method": "upset_band(elo_gap=68, missing=3)"
+    "Sức mạnh dài hạn (Elo)": "kaggle_intl_results -> elo_snapshot@2022-12-18",
+    "Phong độ gần đây (10 trận)": "kaggle_intl_results -> last10_form",
+    "Đội hình ra sân": "api-football -> /fixtures/lineups (fixture_id=979139)",
+    "Hiệu suất dứt điểm": "api-football -> /fixtures/statistics (fixture_id=979139)",
+    "Khoảng cách thủ môn": "api-football -> /fixtures/statistics + /fixtures/players (fixture_id=979139)",
+    "Biến số sát giờ / lội ngược dòng": "api-football -> /fixtures/events (fixture_id=979139)",
+    "Đấu pháp": "api-football -> /fixtures/lineups + /fixtures/statistics (fixture_id=979139)",
+    "Sân bãi / di chuyển / khí hậu": "api-football -> /fixtures (fixture_id=979139) [assumption]",
+    "Rủi ro bất ngờ": "upset_band(elo_gap=68, missing=3)"
   },
   "llm_provider": "deepseek",
+  "voice": "tientri_v2",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T03:34:55.119773+00:00"
+  "generated_at": "2026-06-11T06:22:17.895411+00:00"
 }

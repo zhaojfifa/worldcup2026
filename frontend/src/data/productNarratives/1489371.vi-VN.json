@@ -3,18 +3,18 @@
   "fixture_id": "1489371",
   "mode": "pre_match_2026_modeling",
   "language": "vi-VN",
-  "hero_title": "Tiên Tri Bóng Đá: Brazil ưu thế rõ, nhưng Morocco đang có phong độ hủy diệt",
-  "hero_subtitle": "Trận mở màn bảng đấu của Brazil gặp Morocco – mô hình ScoutScore nhận định Brazil nhỉnh hơn, nhưng biến số đội hình và phong độ phòng ngự của Morocco có thể tạo địa chấn.",
-  "short_title": "Brazil vs Morocco: Tiên Tri chỉ điểm rủi ro",
-  "screenshot_line": "ScoutScore: Brazil Elo 1964 – Morocco 1899, nhưng Morocco sạch lưới 7/10 trận gần nhất. Ai sẽ thắng cuộc đấu giữa công và thủ?",
-  "model_judgement": "Tiên Tri Bóng Đá nhận định Brazil là bên được đánh giá cao hơn nhờ lợi thế Elo (65 điểm) và phong độ ghi bàn ổn định (13 bàn/5 trận gần). Tuy nhiên, Morocco đang sở hữu chuỗi 7 trận bất bại (7 thắng, 3 hòa) và hàng thủ cực kỳ chắc chắn với 7 trận giữ sạch lưới trong 10 trận gần nhất. Yếu tố then chốt: đội hình xuất phát của Brazil – nếu thiếu vắng trụ cột ở hàng thủ hoặc tiền đạo, Morocco hoàn toàn có thể gây bất ngờ.",
-  "main_lean": "Brazil thắng, nhưng không dễ dàng – Morocco đủ sức cầm hòa nếu tận dụng tốt cơ hội.",
-  "scoreline_view": "Mô hình ước tính tỷ số khả quan nhất: 2-1 nghiêng Brazil; các kịch bản khả thi khác: 1-1 hoặc 2-2.",
-  "risk_level": "Trung bình – Brazil là ứng viên nặng ký, nhưng Morocco có đủ vũ khí để tạo bất ngờ nếu Brazil chủ quan.",
+  "hero_title": "Tiên Tri Bóng Đá nhận định: Brazil vs Morocco – Sức mạnh Elo đối đầu với hàng thủ thép",
+  "hero_subtitle": "Trận ra quân bảng World Cup 2026: Brazil được đánh giá cao hơn nhờ đẳng cấp lịch sử, nhưng Morocco đang có phong độ hủy diệt và hàng thủ cực kỳ chắc chắn.",
+  "short_title": "Brazil vs Morocco: Tiên Tri nói gì?",
+  "screenshot_line": "Tiên Tri Bóng Đá: Brazil thắng 6/10 trận gần nhất, Morocco bất bại 10 trận – ai sẽ chiếm ưu thế?",
+  "model_judgement": "Tiên Tri Bóng Đá nhận định Brazil là bên được đánh giá cao hơn nhờ lợi thế Elo (1964 vs 1899) và thành tích đối đầu lịch sử. Tuy nhiên, Morocco đang có chuỗi 10 trận bất bại (7 thắng, 3 hòa) và hàng thủ cực kỳ chắc chắn với 7 trận giữ sạch lưới trong 10 trận gần nhất. Đây là trận đấu rủi ro trung bình vì biến số đội hình chưa công bố có thể thay đổi cục diện.",
+  "main_lean": "Brazil có lợi thế, nhưng Morocco đủ sức gây bất ngờ.",
+  "scoreline_view": "Khoảng tham khảo trước trận của Tiên Tri: 2-1, 1-1, 2-2.",
+  "risk_level": "Trung bình – Brazil là ứng viên nặng ký, nhưng phong độ gần đây của Morocco và biến số đội hình chưa công bố tạo ra rủi ro sát giờ.",
   "risk_factors": [
     {
-      "name": "Đội hình xuất phát chưa công bố",
-      "text": "Đội hình chính thức của cả hai đội chưa được công bố. Nếu Brazil thiếu 2 trụ cột ở hàng thủ hoặc tiền đạo, sức mạnh có thể giảm đáng kể.",
+      "name": "Đội hình chưa công bố",
+      "text": "Đội hình xuất phát và sơ đồ chiến thuật chưa được công bố trước trận. Đây là biến số cần canh sát giờ, có thể ảnh hưởng lớn đến nhận định.",
       "source_refs": [
         {
           "field": "lineups",
@@ -26,8 +26,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Thủ môn xuất phát",
-      "text": "Thủ môn bắt chính chưa xác định. Morocco có Y. Bounou từng tỏa sáng ở World Cup; nếu anh ra sân, khả năng cản phá penalty và phản xạ là rất đáng gờm.",
+      "name": "Thủ môn bắt chính",
+      "text": "Danh tính thủ môn bắt chính chưa xác định. Nếu Morocco có Bounou trong khung gỗ, hàng thủ càng thêm vững chắc.",
       "source_refs": [
         {
           "field": "squad",
@@ -39,8 +39,8 @@
       "assumption_flag": true
     },
     {
-      "name": "Phong độ ghi bàn phụ thuộc cá nhân",
-      "text": "Brazil không có chân sút chủ lực rõ ràng (top ghi bàn chỉ 1 bàn/10 trận), trong khi Morocco có Brahim Díaz (3 bàn) và Ayoub El Kaabi (2 bàn) – tỷ lệ đóng góp 14% tổng số bàn.",
+      "name": "Sự phụ thuộc vào chân sút chủ lực",
+      "text": "Brazil không có chân sút chủ lực rõ ràng (top ghi bàn chỉ 1 bàn/10 trận), trong khi Morocco có Brahim Díaz (3 bàn) và Ayoub El Kaabi (2 bàn) – nhưng tỷ lệ đóng góp bàn thắng của Morocco vẫn thấp (14%).",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
@@ -51,8 +51,50 @@
       "assumption_flag": false
     },
     {
-      "name": "Sức ép sân khách và thời tiết",
-      "text": "Trận đấu diễn ra tại MetLife Stadium, New York New Jersey vào mùa hè. Nhiệt độ và độ ẩm có thể ảnh hưởng đến thể lực, đặc biệt với lối chơi pressing của Brazil.",
+      "name": "Xu hướng phòng ngự",
+      "text": "Brazil thủng lưới 7 bàn trong 5 trận gần nhất (so với 4 bàn ở 5 trận trước đó), cho thấy hàng thủ có dấu hiệu lỏng lẻo. Ngược lại, Morocco chỉ thủng lưới 3 bàn trong 5 trận gần nhất (trước đó là 0).",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình chính thức",
+      "text": "Khi đội hình được công bố (khoảng 30 phút trước giờ đá), cần kiểm tra Brazil có đủ trụ cột ở hàng thủ và tiền đạo không, và Morocco có Bounou bắt chính hay không.",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Sơ đồ chiến thuật",
+      "text": "Sơ đồ dự kiến của hai đội sẽ quyết định thế trận: Brazil pressing cao hay Morocco phòng ngự phản công?",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1489371
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thời tiết và sân bãi",
+      "text": "Trận đấu diễn ra tại MetLife Stadium, New York vào mùa hè. Nhiệt độ và độ ẩm có thể ảnh hưởng đến thể lực, đặc biệt với lối chơi pressing của Brazil.",
       "source_refs": [
         {
           "field": "fixture",
@@ -64,49 +106,14 @@
       "assumption_flag": true
     }
   ],
-  "validated_factors": [],
-  "underweighted_factors": [],
-  "watch_next_signals": [
-    {
-      "name": "Đội hình chính thức Brazil",
-      "text": "Nếu Brazil ra sân với đầy đủ trụ cột (Alisson, Marquinhos, Vinícius Jr.), ưu thế càng lớn. Ngược lại, nếu thiếu vắng 2+ cái tên ở hàng thủ hoặc tiền đạo, rủi ro tăng cao.",
-      "source_refs": [
-        {
-          "field": "lineups",
-          "source": "api-football",
-          "endpoint": "/fixtures/lineups",
-          "fixture_id": 1489371
-        }
-      ],
-      "assumption_flag": true
-    },
-    {
-      "name": "Thủ môn Morocco bắt chính",
-      "text": "Nếu Y. Bounou bắt chính, Morocco có điểm tựa tinh thần lớn. Nếu là thủ môn dự bị, hàng thủ có thể lộ khoảng trống.",
-      "source_refs": [
-        {
-          "field": "squad",
-          "source": "api-football",
-          "endpoint": "/players/squads",
-          "fixture_id": 1489371
-        }
-      ],
-      "assumption_flag": true
-    },
-    {
-      "name": "Nhịp độ đầu trận",
-      "text": "Morocco thường chơi chậm, chờ sai lầm. Nếu Brazil ép sân ngay từ đầu và ghi bàn sớm, trận đấu sẽ mở ra. Nếu Morocco cầm bóng tốt 15 phút đầu, kịch bản hòa hoặc thắng bất ngờ càng sáng.",
-      "source_refs": [],
-      "assumption_flag": true
-    }
-  ],
-  "operator_copy": "Tiên Tri Bóng Đá: Brazil nhỉnh hơn về Elo (1964 vs 1899) và ghi bàn ổn, nhưng Morocco đang bay cao với 7 trận sạch lưới gần nhất. Đội hình ra sân sẽ quyết định tất cả – cập nhật 30 phút trước giờ bóng lăn trong nhóm. Vào nhóm để xem hiệu chỉnh sát giờ!",
-  "subscription_hook": "Bản miễn phí thấy hướng đi chính và rủi ro. Đăng ký để nhận: phân tích đầy đủ 12 yếu tố, bản cập nhật 30 phút trước giờ bóng lăn (đội hình, thủ môn, sơ đồ), và dải tỷ số chi tiết. Không bỏ lỡ biến số quyết định!",
-  "group_join_copy": "Muốn biết đội hình chính thức ảnh hưởng thế nào đến nhận định? Vào nhóm Zalo/Telegram của Giành Cup – 30 phút trước kickoff, Tiên Tri Bóng Đá sẽ cập nhật lại toàn bộ nhận định dựa trên XI thực tế. Phân tích sâu, không phán đoán chung chung.",
-  "today_cta": "Xem ngay quan điểm AI hôm nay: Brazil vs Morocco – ai sẽ chiếm ưu thế?",
-  "social_post": "Tiên Tri Bóng Đá: Brazil mạnh hơn về Elo, nhưng Morocco sạch lưới 7/10 trận gần nhất. Đội hình ra sân sẽ quyết định. Cập nhật 30 phút trước giờ bóng lăn – theo dõi để không bất ngờ!",
+  "operator_copy": "Tiên Tri Bóng Đá: Brazil được đánh giá cao hơn nhờ Elo 1964, nhưng Morocco bất bại 10 trận, thủng lưới chỉ 3 bàn/5 trận gần nhất. Rủi ro trung bình vì đội hình chưa công bố. Cập nhật 30 phút trước giờ đá trong nhóm – đừng bỏ lỡ!",
+  "subscription_hook": "Bản miễn phí cho bạn hướng đi chính: Brazil nhỉnh hơn, nhưng Morocco đáng gờm. Đăng ký để nhận bản cập nhật 30 phút trước giờ bóng lăn: đội hình chính thức, thủ môn bắt chính, sơ đồ chiến thuật và khoảng tỷ số chi tiết.",
+  "group_join_copy": "Vào nhóm Tiên Tri Bóng Đá để xem phân tích đầy đủ: nhận định chiều sâu, cập nhật sát giờ và thảo luận cùng người hâm mộ. Không cam kết, chỉ có góc nhìn dữ liệu và kinh nghiệm.",
+  "today_cta": "Xem ngay nhận định của Tiên Tri Bóng Đá cho Brazil vs Morocco – trận cầu tâm điểm bảng đấu.",
+  "social_post": "Tiên Tri Bóng Đá: Brazil vs Morocco – Brazil mạnh hơn về Elo, nhưng Morocco bất bại 10 trận, thủng lưới cực ít. Rủi ro trung bình. Cập nhật 30 phút trước giờ đá! #WorldCup2026 #Brazil #Morocco",
   "internal_notes": [
-    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real).",
+    "Trial send-to-group pre-match judgement.",
     "Lineups NOT announced: expected shapes only as assumption_flag entries.",
     "Never invent injuries.",
     "Persona: Tiên Tri Bóng Đá."
@@ -122,12 +129,13 @@
     "Striker dependence / finishing": "kaggle_intl_results",
     "Venue / altitude / context": "api-football /fixtures",
     "Lineup uncertainty": "api-football /fixtures/lineups",
-    "30-minute pre-kickoff re-score": "internal mechanic"
+    "30-minute pre-kickoff re-score": "internal"
   },
   "llm_provider": "deepseek",
-  "tactical_read": "Dự kiến Brazil sẽ chơi pressing tầm cao với sơ đồ 4-3-3, tận dụng tốc độ hai biên. Morocco nhiều khả năng đá 4-4-2 hoặc 4-1-4-1, chơi phòng ngự số đông và chờ phản công. Cặp đấu then chốt: hàng tiền vệ Brazil (Bruno Guimarães, Lucas Paquetá) vs tuyến giữa Morocco (Brahim Díaz, Ismael Saibari). Nếu Brazil kiểm soát tuyến giữa, họ sẽ áp đảo. Nhưng Morocco đã cho thấy khả năng chịu áp lực cực tốt ở World Cup 2022. Nhịp độ trận đấu sẽ do Brazil quyết định – nếu họ ghi bàn sớm, trận đấu sẽ rộng mở; nếu Morocco cầm cự được 20 phút đầu, cơ hội càng lớn.",
+  "tactical_read": "Dự kiến Brazil sẽ chơi pressing tầm cao với sơ đồ 4-3-3, tận dụng tốc độ hai biên. Morocco nhiều khả năng đá phòng ngự phản công với sơ đồ 4-4-2 hoặc 4-1-4-1, chờ cơ hội từ những đường chuyền dài cho Brahim Díaz. Cặp đấu then chốt: hậu vệ biên Brazil vs cầu thủ chạy cánh Morocco. Nhịp độ trận đấu có thể bị bẻ gãy nếu Morocco phòng ngự số đông.",
+  "voice": "tientri_v2",
   "product_surface": "trial_prediction",
   "fixture_basis": "real_scheduled",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T03:25:35.122384+00:00"
+  "generated_at": "2026-06-11T06:17:49.180245+00:00"
 }

@@ -106,6 +106,7 @@ def generate(provider, sample_id, language, keys):
               "No markdown, no prose.")
     meta = {"product_name": "Giành Cup AI ScoutScore", "fixture_id": sample_id,
             "mode": "pre_match_2026_modeling", "language": language,
+            "voice": "qiuge_v2" if language == "zh-CN" else "tientri_v2",
             "product_surface": "trial_prediction", "fixture_basis": "real_scheduled",
             "llm_provider": provider,
             "model": "deepseek-chat" if provider == "deepseek" else "gemini-2.5-flash"}
