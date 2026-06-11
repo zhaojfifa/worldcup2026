@@ -1,40 +1,45 @@
 /**
- * Burmese / Myanmar (mm) copy — customer-ready MVP (operation-accepted).
+ * Burmese copy — customer-ready MVP (operation-accepted), served under the
+ * canonical locale key 'my' (legacy code 'mm' is an alias; file name kept).
  *
- * Upgraded from "framework + English fallback" to broad customer-ready Burmese.
- * Style: short Burmese with concise English product terms kept (AI / MTC /
- * Update / Premium / VIP / team names), matching the apolloveo-auto mm style.
- * Any key not present here still falls back to English (never Chinese) via the
- * dictionary chain (mm → en). Density profile `.lang-mm` keeps layout compact.
+ * Persona (trial surfaces): **Football Oracle** — TEMPORARY customer-facing
+ * name for the small private trial; the Burmese persona name is an Owner
+ * decision (docs/MVP2_MYANMAR_PERSONA_NAMING_OPTIONS.md). Customer-visible
+ * copy speaks as the persona — no AI/model/process wording outside internal
+ * folds (same de-AI standard as zh 俅哥说球 / vi Tiên Tri Bóng Đá).
+ * Style: short Burmese with concise English product terms kept (Oracle / MTC /
+ * Update / Premium / VIP / team names). Any key not present here falls back to
+ * English (never Chinese) via the chain (my → en). Density profile `.lang-my`
+ * keeps layout compact.
  */
 import type { Copy } from '../i18n/dict';
 
 export const MM: Partial<Copy> = {
   // Header / brand
-  brandRole: 'AI Football',
-  headerSub: 'AI သုံးသပ်ချက် · ပွဲမတိုင်ခင် အချက်အလက်',
+  brandRole: 'Football Oracle · World Cup ပွဲကြိုသတင်း',
+  headerSub: 'ဘယ်သူနိုင်မလဲထက် Oracle ဘာကြောင့် ဒီလိုမြင်လဲ',
 
   // Bottom nav
   navHome: 'မူလ',
-  navDetail: 'AI',
+  navDetail: 'Oracle',
   navToken: 'MTC',
   navCommunity: 'အသိုင်းအဝိုင်း',
 
   // Global
-  aiTicker: 'AI သတင်း',
-  tickerBody: 'AI သတင်း · ယနေ့ မော်ဒယ် {n} ခု · တိုက်ရိုက်စောင့်ကြည့်',
+  aiTicker: 'Oracle သတင်း',
+  tickerBody: 'Oracle သတင်း · ယနေ့ ပွဲကြိုအမြင် {n} ခု · ပွဲမစခင် မိနစ် 30 ပြန်တွက် · ထပ်တူ {time}',
   apiErrorCache: '⚠️ ဒေသတွင်း cache ဒေတာသုံးနေသည် (သတင်းရင်းမြစ် ယာယီမရနိုင်)',
   syncLabel: 'ထပ်တူ',
-  loadingText: 'AI သတင်း ဖွင့်နေသည်…',
+  loadingText: 'Oracle သတင်း ဖွင့်နေသည်…',
 
   // Hero
-  heroTitlePre: 'AI ဘောလုံး',
-  heroTitleAccent: 'အချက်အလက်',
-  heroSub: 'ဖြစ်နိုင်ခြေ · အန္တရာယ် · 30′ update',
+  heroTitlePre: 'Football ',
+  heroTitleAccent: 'Oracle',
+  heroSub: 'ပွဲကြိုအမြင် · အန္တရာယ်သတိ · 30′ ပြန်တွက်',
 
   // Capability chips
-  capModel: 'AI မော်ဒယ်',
-  capLive: '30′ Update',
+  capModel: 'ပွဲကြိုအမြင်',
+  capLive: '30′ ပြန်တွက်',
   capRisk: 'အန္တရာယ်',
   capUnlock: 'MTC',
 
@@ -46,17 +51,17 @@ export const MM: Partial<Copy> = {
   checkinToastOk: 'အမှတ်ယူအောင်မြင် +10 MTC',
 
   // Home core + CTA
-  signalTitle: 'AI signal',
-  tendency: 'AI အမြင်',
+  signalTitle: 'Oracle signal',
+  tendency: 'Oracle အမြင်',
   topRisk: 'အန္တရာယ်',
-  ctaView: 'AI အမြင်',
+  ctaView: 'Oracle အမြင်',
   ctaUnlock: 'အပြည့်အစုံ ကြည့်ရန်',
   winLabel: 'နိုင်',
 
   // Section titles + states
   listTitle: 'ယနေ့ ပွဲများ',
   upsetTitle: 'အံ့အားသင့် TOP3',
-  recordTitle: 'AI မှတ်တမ်း',
+  recordTitle: 'Oracle မှတ်တမ်း',
   heatTitle: 'အသိုင်းအဝိုင်း',
   loopTitle: 'ပရိသတ် Zone',
   recordPending: 'တကယ့်ရလဒ်ပြီးမှ ဖွင့်မည်',
@@ -220,9 +225,9 @@ export const MM: Partial<Copy> = {
   watchTitle: 'Watch before kickoff',
   factorSourceWord: 'Source',
   factorImpactWord: 'Impact',
-  recapSectionTitle: 'Historical recap · World Cup 2022',
-  recapSectionSub: 'Model calibration · not a current match',
-  recapBadge: 'Historical recap',
+  recapSectionTitle: 'သမိုင်းပြန်ကြည့် · Oracle ပြင်ဆင်မှတ်တမ်း',
+  recapSectionSub: 'Oracle ပြင်ဆင်မှတ်တမ်း · World Cup 2022 · လက်ရှိပွဲ မဟုတ်ပါ',
+  recapBadge: 'သမိုင်းပြန်ကြည့်',
   recapDetailNote: 'Historical recap / model calibration — လက်ရှိပွဲ ခန့်မှန်းချက် မဟုတ်ပါ။',
   riskRadarTitle: 'အန္တရာယ် radar',
   radarForm: 'လတ်တလော ဖောင်း',

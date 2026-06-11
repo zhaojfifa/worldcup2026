@@ -1,9 +1,10 @@
 /**
- * Multilingual copy dictionary (zh | en | vi | mm) for operation-trial surfaces.
+ * Multilingual copy dictionary (zh | en | vi | my) for operation-trial surfaces.
  *
  * `ZH` is the source of truth and defines the `Copy` type. `EN` (copy/en.ts) is a
- * complete English layer. `VI` is an override; `MM` is reserved (empty).
- * Resolution walks `FALLBACK_CHAIN`: vi → en (NOT zh), mm → en, en → zh, zh → zh.
+ * complete English layer. `VI` is an override; `MM` (copy/mm.ts) is the Burmese
+ * layer served under the canonical locale key 'my' (legacy 'mm' is an alias).
+ * Resolution walks `FALLBACK_CHAIN`: vi → en (NOT zh), my → en, en → zh, zh → zh.
  * So non-Chinese locales never fall back to Chinese (no mixed-language UI).
  *
  * Scope: static UI text. Dynamic match data is mapped in `i18n/viMapping.ts`.
@@ -451,8 +452,8 @@ const VI: Partial<Copy> = {
   watchTitle: 'Điểm cần theo dõi trước trận',
   factorSourceWord: 'Nguồn',
   factorImpactWord: 'Tác động',
-  recapSectionTitle: 'Phục dựng lịch sử · World Cup 2022',
-  recapSectionSub: 'Bản ghi hiệu chỉnh của Tiên Tri · không phải trận hiện tại',
+  recapSectionTitle: 'Phục dựng lịch sử · Nhật ký hiệu chỉnh của Tiên Tri',
+  recapSectionSub: 'Nhật ký hiệu chỉnh của Tiên Tri · World Cup 2022 · không phải trận hiện tại',
   recapBadge: 'Phục dựng lịch sử',
   recapDetailNote: 'Đây là phục dựng lịch sử / hiệu chỉnh mô hình, không phải dự đoán trận hiện tại. Dùng để xem Giành Cup Scout đọc lại biến số trận đấu như thế nào.',
   riskRadarTitle: 'Radar rủi ro',
@@ -481,8 +482,9 @@ const VI: Partial<Copy> = {
   viBadge: 'Đã chuẩn bị nội dung thử nghiệm tiếng Việt',
 };
 
-// Burmese (mm) — partial copy in copy/mm.ts; missing keys resolve to en via chain.
-const TABLE: Record<Locale, Partial<Copy>> = { zh: ZH, en: EN, vi: VI, mm: MM };
+// Burmese — copy lives in copy/mm.ts (export MM), served under locale 'my';
+// missing keys resolve to en via the chain (never zh).
+const TABLE: Record<Locale, Partial<Copy>> = { zh: ZH, en: EN, vi: VI, my: MM };
 
 function resolve(locale: Locale): Copy {
   const chain = FALLBACK_CHAIN[locale] ?? ['zh'];

@@ -1,7 +1,8 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ToastProvider } from './Toast';
-import { useLocale, setLocale } from '../i18n/useLocale';
+import { useLocale } from '../i18n/useLocale';
 import { useCopy } from '../i18n/dict';
+import { LanguageSelector } from './LanguageSelector';
 
 export function Layout() {
   const location = useLocation();
@@ -29,22 +30,7 @@ export function Layout() {
           <div className="topbar-t1">{t.brandName} · {t.brandRole}</div>
           <div className="topbar-t2">{t.headerSub}</div>
         </div>
-        <div className="lang-switch" role="group" aria-label="language">
-          <button
-            className={`lang-btn ${locale === 'zh' ? 'on' : ''}`}
-            onClick={() => setLocale('zh')}
-          >CN</button>
-          <span className="lang-sep">|</span>
-          <button
-            className={`lang-btn ${locale === 'vi' ? 'on' : ''}`}
-            onClick={() => setLocale('vi')}
-          >VI</button>
-          <span className="lang-sep">|</span>
-          <button
-            className={`lang-btn ${locale === 'mm' ? 'on' : ''}`}
-            onClick={() => setLocale('mm')}
-          >MY</button>
-        </div>
+        <LanguageSelector />
       </div>
 
       <div className="content">

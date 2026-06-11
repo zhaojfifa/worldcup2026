@@ -22,15 +22,29 @@ const L10N = {
     predictDisclaimer: 'AI 数据观点，非结果承诺；历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。',
   },
   vi: {
-    judgement: 'Tiên Tri Bóng Đá nhận định thế nào', lean: 'Thiên hướng Tiên Tri', scoreline: 'Khoảng tham khảo trước trận', risk: 'Rủi ro bất ngờ',
+    judgement: 'Tiên Tri nhận định thế nào', lean: 'Thiên hướng Tiên Tri', scoreline: 'Khoảng tham khảo trước trận', risk: 'Rủi ro bất ngờ',
     gotRight: 'Tiên Tri bắt đúng điều gì', underweighted: 'Tiên Tri từng đánh giá thấp điều gì', decisive: 'Yếu tố quyết định', evidence: 'Bằng chứng dữ liệu',
-    watchNext: 'Trận tương tự lần sau nên nhìn gì', live30: 'Cập nhật 30 phút trước trận', keyFactors: 'Yếu tố then chốt', tactical: 'Thẻ chiến thuật Tiên Tri',
-    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tình báo trước trận', today: 'Xem nhận định Tiên Tri Bóng Đá', live30cta: 'Xem cập nhật 30 phút trước trận', moreVars: 'Thêm biến số', freeTier: 'Bản miễn phí', fullTier: 'Bản đầy đủ (trong nhóm)', rsBadge: 'Tính lại 30 phút trước giờ bóng lăn', rsRules: 'Quy tắc hiệu chỉnh của Tiên Tri (ví dụ)', rsWait: 'Vào nhóm tình báo, chờ Tiên Tri hiệu chỉnh sát giờ', rsNow: 'Hiện Tiên Tri nhìn thế nào', rsVars: 'Ba biến số nào sẽ đổi nhận định', rsWhat: 'Tính lại gì 30 phút trước giờ bóng lăn', rsGroupQs: ['Đội hình ra rồi có đổi thiên hướng không', 'Thủ môn/hàng công có đổi mức rủi ro không', 'Khoảng tỷ số có thu hẹp không', 'Có chuyển từ "nghiêng cửa thắng" sang "quan sát/rủi ro cao" không', 'Bản hiệu chỉnh được đẩy trong nhóm sớm nhất'], freeItems: ['Thiên hướng chính và mức rủi ro', 'Một phần biến số then chốt', 'Hướng đọc chiến thuật'], fullItems: ['Bóc tách đủ mọi biến số', 'Tính lại 30 phút trước giờ bóng lăn theo đội hình', 'Phân tích sâu khoảng tỷ số'],
+    watchNext: 'Trận tương tự lần sau nên nhìn gì', live30: 'Cập nhật 30 phút trước trận của Tiên Tri', keyFactors: 'Yếu tố then chốt', tactical: 'Thẻ chiến thuật Tiên Tri',
+    freeFull: 'Bản miễn phí vs phân tích đầy đủ', joinGroup: 'Vào nhóm tin báo trước trận', today: 'Xem nhận định Tiên Tri Bóng Đá', live30cta: 'Xem cập nhật 30 phút trước trận', moreVars: 'Thêm biến số', freeTier: 'Bản miễn phí', fullTier: 'Bản đầy đủ (trong nhóm)', rsBadge: 'Tính lại 30 phút trước giờ bóng lăn', rsRules: 'Quy tắc hiệu chỉnh của Tiên Tri (ví dụ)', rsWait: 'Vào nhóm tin báo, chờ Tiên Tri hiệu chỉnh sát giờ', rsNow: 'Hiện Tiên Tri nhìn thế nào', rsVars: 'Ba biến số nào sẽ đổi nhận định', rsWhat: 'Tính lại gì 30 phút trước giờ bóng lăn', rsGroupQs: ['Đội hình ra rồi có đổi thiên hướng không', 'Thủ môn/hàng công có đổi mức rủi ro không', 'Khoảng tỷ số có thu hẹp không', 'Có chuyển từ "nghiêng cửa thắng" sang "quan sát/rủi ro cao" không', 'Bản hiệu chỉnh được đẩy trong nhóm sớm nhất'], freeItems: ['Thiên hướng chính và mức rủi ro', 'Một phần biến số then chốt', 'Hướng đọc chiến thuật'], fullItems: ['Bóc tách đủ mọi biến số', 'Tính lại 30 phút trước giờ bóng lăn theo đội hình', 'Phân tích sâu khoảng tỷ số'],
     internal: 'Cơ sở mô hình / nguồn nội bộ (nhấn để mở)', opsKit: 'Bộ nội dung vận hành (nội bộ)', notes: 'Ghi chú nội bộ', sources: 'Bản đồ nguồn',
     by: 'Nhận định và lời văn trên trang do mô hình tạo', moreRecaps: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng',
     predictLink: 'Trận mẫu trước trận 2026: Brazil vs Argentina', estBadge: 'Tham khảo',
     recapDisclaimer: 'Mẫu phát lại lịch sử, không phải dự đoán lưu trữ trước trận; thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.',
     predictDisclaimer: 'Quan điểm dữ liệu AI, không phải cam kết kết quả; thành tích quá khứ không đại diện cho kết quả tương lai, chỉ dùng để phân tích dữ liệu và giải trí cho người hâm mộ.',
+  },
+  // Burmese ('my') — persona = Football Oracle (temporary trial name; Burmese
+  // persona name pending Owner — docs/MVP2_MYANMAR_PERSONA_NAMING_OPTIONS.md).
+  // Internal-fold labels stay English (technical zone); visible labels Burmese.
+  my: {
+    judgement: 'Football Oracle ဘယ်လိုမြင်လဲ', lean: 'Oracle ယိမ်းသည့်ဘက်', scoreline: 'ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား', risk: 'အံ့အားသင့် အန္တရာယ်',
+    gotRight: 'Oracle ပွဲကြို ဘာမှန်ခဲ့လဲ', underweighted: 'Oracle ဘာကို လျှော့တွက်ခဲ့လဲ', decisive: 'အဆုံးအဖြတ် အချက်များ', evidence: 'ဒေတာ အထောက်အထား',
+    watchNext: 'နောက်တူညီပွဲမှာ ဘာစောင့်ကြည့်မလဲ', live30: 'ပွဲမစခင် မိနစ် ၃၀ Oracle ပြန်တွက်ချက်', keyFactors: 'အဓိက အချက်များ', tactical: 'Oracle နည်းဗျူဟာ ကတ်',
+    freeFull: 'အခမဲ့ vs အဖွဲ့တွင်း အပြည့်အစုံ', joinGroup: 'ပွဲကြိုသတင်း အဖွဲ့ ဝင်ရန်', today: 'Oracle အမြင် ကြည့်ရန်', live30cta: 'မိနစ် ၃၀ ပြန်တွက်ချက် ကြည့်ရန်', moreVars: 'နောက်ထပ် အချက်များ', freeTier: 'အခမဲ့', fullTier: 'အဖွဲ့တွင်း အပြည့်အစုံ', rsBadge: 'ပွဲမစခင် မိနစ် ၃၀ ပြန်တွက်', rsRules: 'Oracle ၏ ပြင်ဆင်စည်းမျဉ်း (ဥပမာ)', rsWait: 'အဖွဲ့ဝင်ပြီး Oracle ၏ နောက်ဆုံးပြန်တွက်ချက် စောင့်ပါ', rsNow: 'အခု Oracle ဘယ်လိုမြင်လဲ', rsVars: 'ဘယ်အချက် ၃ ချက်က အမြင်ပြောင်းနိုင်လဲ', rsWhat: 'ပွဲမစခင် မိနစ် ၃၀ မှာ ဘာပြန်တွက်မလဲ', rsGroupQs: ['လူစာရင်းထွက်ပြီးနောက် အမြင်ပြောင်းမလား', 'ဂိုးသမား/တိုက်စစ်ကြောင့် အန္တရာယ်အဆင့် ပြောင်းမလား', 'ရမှတ်အပိုင်းအခြား ကျဉ်းသွားမလား', '"နိုင်ဘက်ယိမ်း" မှ "စောင့်ကြည့်/အန္တရာယ်မြင့်" သို့ ပြောင်းမလား', 'ပြင်ဆင်ချက်ကို အဖွဲ့ထဲမှာ အရင်ဆုံး ရမည်'], freeItems: ['အဓိက အမြင်နှင့် အန္တရာယ်အဆင့်', 'အဓိက အချက် တစ်စိတ်တစ်ပိုင်း', 'နည်းဗျူဟာ ဖတ်ရှုမှု ဦးတည်ချက်'], fullItems: ['အချက်အားလုံး တစ်ခုချင်း ခွဲပြ', 'လူစာရင်းထွက်ပြီး မိနစ် ၃၀ အတွင်း ပြန်တွက်', 'ရမှတ်အပိုင်းအခြား နက်ရှိုင်းခွဲခြမ်း'],
+    internal: 'Model basis / internal sources (expand)', opsKit: 'Operator kit (internal)', notes: 'Internal notes', sources: 'Source map',
+    by: 'Judgement and copy on this page are model-generated', moreRecaps: 'နောက်ထပ် သမိုင်းပြန်ကြည့်', moreStatus: 'ဒေတာရပြီး · ပြန်ကြည့်မှု ထုတ်နေဆဲ',
+    predictLink: '2026 ပွဲကြို နမူနာ: Brazil vs Argentina', estBadge: 'ရည်ညွှန်း',
+    recapDisclaimer: 'သမိုင်းပြန်ကြည့် နမူနာသာဖြစ်ပြီး တကယ့်ပွဲကြို မှတ်တမ်းတင် ခန့်မှန်းချက် မဟုတ်ပါ။ အတိတ်စွမ်းဆောင်ရည်သည် အနာဂတ်ရလဒ်ကို အာမမခံပါ — ဒေတာခွဲခြမ်းစိတ်ဖြာမှုနှင့် ပရိသတ်ဖျော်ဖြေရေးအတွက်သာ။',
+    predictDisclaimer: 'ဒေတာအမြင်သာဖြစ်ပြီး ရလဒ်ကတိ မဟုတ်ပါ။ အတိတ်စွမ်းဆောင်ရည်သည် အနာဂတ်ရလဒ်ကို အာမမခံပါ — ဒေတာခွဲခြမ်းစိတ်ဖြာမှုနှင့် ပရိသတ်ဖျော်ဖြေရေးအတွက်သာ။',
   },
   en: {
     judgement: 'How the Giành Cup scout reads it', lean: 'AI lean', scoreline: 'Scoreline band', risk: 'Risk level',
@@ -46,7 +60,7 @@ const L10N = {
 };
 
 export function ppLabels(loc: Locale) {
-  return loc === 'zh' ? L10N.zh : loc === 'vi' ? L10N.vi : L10N.en;
+  return loc === 'zh' ? L10N.zh : loc === 'vi' ? L10N.vi : loc === 'my' ? L10N.my : L10N.en;
 }
 
 const RECAP_TEAMS: Record<string, string> = {

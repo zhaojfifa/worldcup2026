@@ -129,12 +129,16 @@ export function HomePage() {
         </div>
         <div className="hero-en">{BRAND.heroEn}</div>
         <div className="hero-sub hero-persona">
-          {loc === 'zh' ? '世界杯赛前判断 · 临场 30 分钟修正' : loc === 'vi' ? 'Nhận định trước trận của Tiên Tri Bóng Đá' : 'Giành Cup pre-match scout model'}
+          {loc === 'zh' ? '世界杯赛前判断 · 临场 30 分钟修正'
+            : loc === 'vi' ? 'Nhận định trước trận của Tiên Tri Bóng Đá'
+              : loc === 'my' ? 'Football Oracle ၏ World Cup ပွဲကြိုအမြင်'
+                : 'Giành Cup pre-match scout model'}
         </div>
         <div className="hero-sub">
           {loc === 'zh' ? '不只看胜率，更看为什么这样判断。'
             : loc === 'vi' ? 'Không chỉ xem ai thắng, hãy hiểu vì sao Tiên Tri nhận định như vậy.'
-              : 'Not just who wins — why the call.'}
+              : loc === 'my' ? 'ဘယ်သူနိုင်မလဲထက် ဘာကြောင့် ဒီလိုမြင်လဲကပါ အရေးကြီးသည်။'
+                : 'Not just who wins — why the call.'}
         </div>
       </div>
 
@@ -187,12 +191,14 @@ export function HomePage() {
                 ? '俅哥不只给赛前判断，也复盘自己为什么看对或看漏，用真实数据修正下一次判断。'
                 : loc === 'vi'
                   ? 'Tiên Tri không chỉ đưa nhận định trước trận, mà còn xem lại vì sao mình đúng hay bỏ sót, dùng dữ liệu thật để chỉnh lần nhận định sau.'
-                  : 'We don’t just call matches pre-game — we recap why the model was right or wrong, and correct the next version with real data.'}
+                  : loc === 'my'
+                    ? 'Oracle သည် ပွဲကြိုအမြင်ပေးရုံသာမက ဘာမှန်ခဲ့/ဘာလွဲခဲ့လဲကိုပါ ပြန်သုံးသပ်ပြီး တကယ့်ဒေတာဖြင့် နောက်တစ်ကြိမ်အမြင်ကို ပြင်သည်။'
+                    : 'We don’t just call matches pre-game — we recap why the model was right or wrong, and correct the next version with real data.'}
             </div>
             {recapMatches.map((m: Match) => {
               const rid = recapFixtureId(m);
               const hasRecap = !!rid && RECAP_AVAILABLE.has(rid);
-              const recapCta = loc === 'zh' ? '查看复盘 ▸' : loc === 'vi' ? 'Xem phục dựng ▸' : 'View recap ▸';
+              const recapCta = loc === 'zh' ? '查看复盘 ▸' : loc === 'vi' ? 'Xem phục dựng ▸' : loc === 'my' ? 'ပြန်ကြည့်ရန် ▸' : 'View recap ▸';
               return (
                 <div className="recap-row" key={m.id}
                      onClick={() => (hasRecap ? navigate(`/recap/${rid}`) : goDetail(m.id))}>
@@ -211,7 +217,8 @@ export function HomePage() {
         <summary>
           {loc === 'zh' ? '内部演示数据（mock 比赛 · 点击展开）'
             : loc === 'vi' ? 'Dữ liệu demo nội bộ (trận mock · nhấn để mở)'
-              : 'Internal demo data (mock matches · expand)'}
+              : loc === 'my' ? 'အတွင်းပိုင်း demo ဒေတာ (mock ပွဲများ · ဖွင့်ကြည့်ရန်)'
+                : 'Internal demo data (mock matches · expand)'}
         </summary>
 
       {/* ── demo 1. 今日 AI 最强信号 (mock) ─────────────────────────── */}

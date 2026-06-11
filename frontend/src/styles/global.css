@@ -70,19 +70,48 @@ body {
 .topbar-spacer { flex: 1; }
 .topbar-sync { font-size: 10px; color: #C5E0F6; text-align: right; }
 
-/* ── Lightweight language switch (CN | VI) ──────────────────────────────── */
-.lang-switch {
-  margin-left: auto; display: flex; align-items: center; gap: 2px;
-  flex-shrink: 0;
+/* ── Language selector (🌐 compact control · sheet on mobile, dropdown on desktop) ── */
+.lang-selector { margin-left: auto; position: relative; flex-shrink: 0; }
+.lang-trigger {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 9px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 800; letter-spacing: .02em;
+  color: #fff; background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.25); cursor: pointer;
 }
-.lang-btn {
-  min-width: 30px; padding: 4px 7px; border-radius: 7px;
-  font-size: 11px; font-weight: 800; letter-spacing: .03em;
-  color: #C5E0F6; background: rgba(255,255,255,.12);
-  border: 1px solid transparent; cursor: pointer;
+.lang-globe { font-size: 13px; line-height: 1; }
+.lang-current { max-width: 86px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lang-caret { font-size: 9px; color: #C5E0F6; }
+.lang-backdrop { position: fixed; inset: 0; z-index: 80; background: rgba(10, 30, 60, .35); }
+.lang-menu {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 81;
+  background: #fff; border-radius: 16px 16px 0 0;
+  padding: 10px 10px max(12px, env(safe-area-inset-bottom));
+  box-shadow: 0 -8px 28px rgba(16, 60, 120, .18);
+  animation: lang-sheet-in .18s ease-out;
 }
-.lang-btn.on { color: var(--blue); background: #fff; }
-.lang-sep { color: #6FA8D6; font-size: 11px; }
+@keyframes lang-sheet-in { from { transform: translateY(24px); opacity: .6; } to { transform: translateY(0); opacity: 1; } }
+.lang-option {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  padding: 13px 12px; border: none; background: none; cursor: pointer;
+  border-radius: 10px; text-align: left;
+}
+.lang-option + .lang-option { border-top: 1px solid var(--line); }
+.lang-option.on { background: #F0F7FD; }
+.lang-native { font-size: 14.5px; font-weight: 700; color: #0e2a52; }
+.lang-tag { font-size: 10px; font-weight: 800; color: #9AA8BC; letter-spacing: .06em; }
+.lang-check { margin-left: auto; font-size: 13px; font-weight: 800; color: var(--blueMid); min-width: 14px; }
+/* Desktop / wide: compact dropdown anchored to the trigger instead of a sheet */
+@media (min-width: 521px) {
+  .lang-backdrop { background: transparent; }
+  .lang-menu {
+    position: absolute; left: auto; right: 0; top: calc(100% + 8px); bottom: auto;
+    width: 190px; border-radius: 12px; padding: 6px;
+    box-shadow: 0 10px 30px rgba(16, 60, 120, .22);
+    animation: none;
+  }
+  .lang-option { padding: 10px; }
+}
 
 /* Scrollable content */
 .content {
@@ -374,7 +403,7 @@ body {
 }
 .recap-teams { font-size: 12.5px; color: #3A4A60; font-weight: 600; }
 .recap-go { margin-left: auto; flex-shrink: 0; font-size: 11px; font-weight: 800; color: #5B3FA8; }
-.lang-mm .recap-banner { font-size: 11px; line-height: 1.6; }
+.lang-my .recap-banner { font-size: 11px; line-height: 1.6; }
 
 /* ── ScoutScore recap detail (customer-readable product page) ─────────────── */
 .recap-hero { background: linear-gradient(135deg, #2A1E5C, #5B3FA8); color: #fff; border: none; }
@@ -417,9 +446,9 @@ body {
 .recap-bridge { font-size: 11.5px; color: #7A6AA8; line-height: 1.6; margin: 0 0 9px; }
 
 /* Myanmar density: scout layer needs a touch more breathing room */
-.lang-mm .scout-hook { font-size: 12.5px; line-height: 1.6; }
-.lang-mm .evidence-strip .ev-sources { font-size: 11px; line-height: 1.7; }
-.lang-mm .fbar .fbar-interp { font-size: 11px; line-height: 1.65; }
+.lang-my .scout-hook { font-size: 12.5px; line-height: 1.6; }
+.lang-my .evidence-strip .ev-sources { font-size: 11px; line-height: 1.7; }
+.lang-my .fbar .fbar-interp { font-size: 11px; line-height: 1.65; }
 
 /* Trend chart */
 .trend {
@@ -1236,58 +1265,58 @@ body {
 
 /* ══════════════════════════════════════════════════════════════════════════
    Myanmar (Burmese) density profile — taller glyphs + longer words need more
-   breathing room and smaller type. Scoped to .lang-mm only; zh / vi / en
+   breathing room and smaller type. Scoped to .lang-my only; zh / vi / en
    are unaffected.
    ══════════════════════════════════════════════════════════════════════════ */
-.lang-mm .topbar-t1 { font-size: 14px; line-height: 1.25; }
-.lang-mm .topbar-t2 { font-size: 11px; line-height: 1.35; }
+.lang-my .topbar-t1 { font-size: 14px; line-height: 1.25; }
+.lang-my .topbar-t2 { font-size: 11px; line-height: 1.35; }
 
-.lang-mm .hero-title { font-size: 26px; line-height: 1.18; letter-spacing: 0; }
-.lang-mm .hero-sub   { font-size: 12px; line-height: 1.5; }
+.lang-my .hero-title { font-size: 26px; line-height: 1.18; letter-spacing: 0; }
+.lang-my .hero-sub   { font-size: 12px; line-height: 1.5; }
 
-.lang-mm .ai-ticker .tick-move { font-size: 12px; }
+.lang-my .ai-ticker .tick-move { font-size: 12px; }
 
 /* Capability chips: allow wrap-free, looser padding */
-.lang-mm .cap-chip { font-size: 12px; padding: 9px 11px; line-height: 1.3; }
-.lang-mm .cap-chip .ci { font-size: 13px; }
+.lang-my .cap-chip { font-size: 12px; padding: 9px 11px; line-height: 1.3; }
+.lang-my .cap-chip .ci { font-size: 13px; }
 
 /* Signal card: more line spacing; clamp the risk note to 2 lines */
-.lang-mm .signal-card { line-height: 1.45; }
-.lang-mm .signal-tend { line-height: 1.35; }
-.lang-mm .signal-risk {
+.lang-my .signal-card { line-height: 1.45; }
+.lang-my .signal-tend { line-height: 1.35; }
+.lang-my .signal-risk {
   line-height: 1.4;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 /* CTAs: equal height, vertically centered so a slight wrap never breaks layout */
-.lang-mm .signal-cta .b1, .lang-mm .signal-cta .b2 {
+.lang-my .signal-cta .b1, .lang-my .signal-cta .b2 {
   line-height: 1.25; min-height: 44px;
   display: flex; align-items: center; justify-content: center;
   font-size: 13px; padding: 6px 8px;
 }
 
 /* Win-probability labels: tighter */
-.lang-mm .winlabels { font-size: 11px; }
+.lang-my .winlabels { font-size: 11px; }
 
 /* Detail/Community CTA buttons */
-.lang-mm .cta { font-size: 14px; line-height: 1.3; padding: 13px 12px; }
+.lang-my .cta { font-size: 14px; line-height: 1.3; padding: 13px 12px; }
 
 /* Detail risk note + free note clamp to keep cards compact */
-.lang-mm .reason-list li { line-height: 1.5; }
+.lang-my .reason-list li { line-height: 1.5; }
 
 /* Bottom nav labels */
-.lang-mm .nav-btn .lb { font-size: 10px; }
+.lang-my .nav-btn .lb { font-size: 10px; }
 
 /* Section header zh slot (used for localized titles) a touch smaller */
-.lang-mm .sec-en .zh { font-size: 14px; line-height: 1.3; }
+.lang-my .sec-en .zh { font-size: 14px; line-height: 1.3; }
 
 /* Today Matches: Burmese tendency/heat chips are long → stack into two rows
    (row 1 = time + teams, row 2 = chips) instead of crushing the teams column. */
-.lang-mm .simrow { flex-wrap: wrap; row-gap: 8px; }
-.lang-mm .simrow .teams { flex: 1 1 auto; white-space: normal; line-height: 1.35; }
-.lang-mm .simrow .chips {
+.lang-my .simrow { flex-wrap: wrap; row-gap: 8px; }
+.lang-my .simrow .teams { flex: 1 1 auto; white-space: normal; line-height: 1.35; }
+.lang-my .simrow .chips {
   flex: 0 0 100%; flex-wrap: wrap; gap: 6px; padding-left: 52px;
 }
-.lang-mm .simrow .tend { white-space: normal; }
+.lang-my .simrow .tend { white-space: normal; }
 
 /* ════════════════════════════════════════════════════════════════════════
    Evidence Board v2 (additive surface). Reuses recap hero / ledger / pillv;
@@ -1356,8 +1385,8 @@ body {
 .recap-cta-btn.alt { background: #fff; color: var(--blueMid); border: 1.5px solid var(--blueMid); }
 
 /* Myanmar density (mm uses English copy but keep factor rows roomy) */
-.lang-mm .fc-v, .lang-mm .eb-bitem { font-size: 11.5px; line-height: 1.7; }
-.lang-mm .fc-k { width: 54px; }
+.lang-my .fc-v, .lang-my .eb-bitem { font-size: 11.5px; line-height: 1.7; }
+.lang-my .fc-k { width: 54px; }
 
 /* ════════════════════════════════════════════════════════════════════════
    Evidence Board v2 — CUSTOMER PRODUCT VOICE (Product Voice Sprint).
@@ -1409,8 +1438,8 @@ body {
 .eb-internal-note { font-size: 10.5px; color: #94A4BB; margin-top: 8px; line-height: 1.6; }
 
 /* Myanmar density for the product-voice surface */
-.lang-mm .eb-fs-text, .lang-mm .eb-lead, .lang-mm .eb-next-note { line-height: 1.7; }
-.lang-mm .eb-fs-label { flex-basis: 90px; }
+.lang-my .eb-fs-text, .lang-my .eb-lead, .lang-my .eb-next-note { line-height: 1.7; }
+.lang-my .eb-fs-label { flex-basis: 90px; }
 
 /* recap "three factors that decided it" (reframed from the amber "blind spot" look) */
 .recap-keyfactor {
@@ -1425,7 +1454,7 @@ body {
 .nv-name { font-size: 13px; font-weight: 800; color: #0e2a52; }
 .nv-text { font-size: 12.5px; color: #3A4A60; line-height: 1.7; margin-top: 3px; }
 .nv-prov { font-size: 10.5px; color: #94A4BB; margin-top: 8px; font-family: ui-monospace, Menlo, monospace; }
-.lang-mm .nv-text { line-height: 1.75; }
+.lang-my .nv-text { line-height: 1.75; }
 
 /* MVP-2 product proof (recap v2 + predict) — additive, reuses card/recap/nv tokens */
 .pp-row { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); align-items: baseline; }

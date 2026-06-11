@@ -7,19 +7,22 @@ import { ProductPredictView } from '../components/ProductProofViews';
 
 // Pre-match modeling product page (/predict/:slug). Two flavours, same LLM-narrative
 // main view: hypothetical 2026 sample (slug 2026-brazil-argentina) and REAL scheduled
-// fixtures (numeric ids — the AI tactical room). Engineering renders the stage only;
-// zh/vi only for this proof; en/mm show a neutral placeholder.
+// fixtures (numeric ids — the persona tactical room). Engineering renders the stage
+// only; customer langs zh/vi/my; en shows a neutral placeholder.
 const BARS = {
   zh: { back: '赛前建模', backReal: '俅哥战术室', banner: '🔮 2026 World Cup · 赛前建模样例',
         bannerReal: '⚡ World Cup 2026 · 俅哥战术室（赛前判断）', none: '该样例暂未提供此语言版本', kickoff: '开球', venue: '球场' },
   vi: { back: 'Mô hình hóa trước trận', backReal: 'Phòng chiến thuật Tiên Tri Bóng Đá', banner: '🔮 World Cup 2026 · Mẫu mô hình hóa trước trận',
         bannerReal: '⚡ World Cup 2026 · Phòng chiến thuật Tiên Tri Bóng Đá', none: 'Mẫu này chưa có bản ngôn ngữ hiện tại', kickoff: 'Giờ bóng lăn', venue: 'Sân' },
+  my: { back: 'ပွဲကြို သုံးသပ်ချက်', backReal: 'Football Oracle နည်းဗျူဟာခန်း', banner: '🔮 2026 World Cup · ပွဲကြို နမူနာ',
+        bannerReal: '⚡ World Cup 2026 · Football Oracle နည်းဗျူဟာခန်း (ပွဲကြို)', none: 'ဤနမူနာအတွက် ဘာသာပြန် မရသေးပါ', kickoff: 'ပွဲစချိန်', venue: 'ကွင်း' },
   en: { back: 'Pre-match modeling', backReal: 'Giành Cup Tactical Room', banner: '🔮 2026 World Cup · pre-match modeling sample',
         bannerReal: '⚡ World Cup 2026 · Giành Cup Tactical Room (pre-match)', none: 'This sample is not available in the current language yet', kickoff: 'Kickoff', venue: 'Venue' },
 };
 
 function kickoffLocal(iso: string, loc: string): string {
   const d = new Date(iso);
+  // 'my' keeps Latin digits/format (density profile keeps concise English terms).
   const locale = loc === 'zh' ? 'zh-CN' : loc === 'vi' ? 'vi-VN' : 'en-GB';
   return d.toLocaleString(locale, { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
 }
@@ -29,7 +32,7 @@ export function PredictPage() {
   const loc = useLocale();
   const { slug = '2026-brazil-argentina' } = useParams();
   const [search] = useSearchParams();
-  const B = loc === 'zh' ? BARS.zh : loc === 'vi' ? BARS.vi : BARS.en;
+  const B = loc === 'zh' ? BARS.zh : loc === 'vi' ? BARS.vi : loc === 'my' ? BARS.my : BARS.en;
   const id = predictSlugToId(slug);
   const n = getProductNarrative(id, loc);
   const fx = getUpcomingFixture(id);

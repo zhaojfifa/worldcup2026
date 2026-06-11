@@ -14,7 +14,7 @@ const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 // Main view prefers the LLM-generated narrative (DeepSeek, guard-passed). The
 // hand-written recap/evidence copy is a DETERMINISTIC FALLBACK only (en/mm or no
 // narrative). Model replay / MISS / correction / AI boundary stay folded.
-const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
+const LABELS: Record<'zh' | 'vi' | 'my' | 'en', Record<string, string>> = {
   zh: {
     back: '历史复盘', lead: 'AI 怎么看这场', factors: '决定结果的三个因子', evidence: '真实数据支撑',
     operator: '运营可发文案', dataGaps: '下一版 AI 需关注的变量', internal: '模型回放与赛后判定（点击展开）',
@@ -23,11 +23,19 @@ const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
     ctaQ: '想看今天这场的俅哥判断？', ctaBtn: '查看俅哥判断', ebLink: '查看完整证据面板 · 逐因子',
   },
   vi: {
-    back: 'Phục dựng lịch sử', lead: 'AI nhìn trận này thế nào', factors: 'Ba yếu tố quyết định kết quả', evidence: 'Dữ liệu thật hỗ trợ',
-    operator: 'Nội dung cho vận hành', dataGaps: 'Biến số AI cần theo dõi ở bản sau', internal: 'Mô hình phát lại & kết luận sau trận (nhấn để mở)',
+    back: 'Phục dựng lịch sử', lead: 'Tiên Tri nhìn trận này thế nào', factors: 'Ba yếu tố quyết định kết quả', evidence: 'Dữ liệu thật hỗ trợ',
+    operator: 'Nội dung cho vận hành', dataGaps: 'Biến số Tiên Tri cần theo dõi ở bản sau', internal: 'Mô hình phát lại & kết luận sau trận (nhấn để mở)',
     replay: 'Mô hình phát lại', actual: 'Kết quả thực tế', correction: 'Hiệu chỉnh mô hình bản sau', nextData: 'Dữ liệu cần tích hợp tiếp', ai: 'Giới hạn AI',
     ledger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)', more: 'Thêm phục dựng lịch sử', moreStatus: 'Đã có dữ liệu, đang tạo phục dựng',
-    ctaQ: 'Muốn xem tin tức AI của trận hiện tại?', ctaBtn: 'Xem quan điểm AI hôm nay', ebLink: 'Xem bảng bằng chứng đầy đủ · từng yếu tố',
+    ctaQ: 'Muốn xem nhận định của Tiên Tri cho trận hôm nay?', ctaBtn: 'Xem nhận định Tiên Tri hôm nay', ebLink: 'Xem bảng bằng chứng đầy đủ · từng yếu tố',
+  },
+  // Burmese ('my') — visible labels Burmese; internal-fold labels stay English.
+  my: {
+    back: 'သမိုင်းပြန်ကြည့်', lead: 'Oracle ဒီပွဲကို ဘယ်လိုမြင်လဲ', factors: 'ရလဒ်ကို ဆုံးဖြတ်ခဲ့သည့် အချက် ၃ ချက်', evidence: 'တကယ့်ဒေတာ အထောက်အထား',
+    operator: 'Operator-ready copy', dataGaps: 'နောက်ဗားရှင်းမှာ စောင့်ကြည့်ရမည့် အချက်များ', internal: 'Model replay & post-match verdict (expand)',
+    replay: 'Model replay', actual: 'တကယ့်ရလဒ်', correction: 'Model correction (next version)', nextData: 'Next data to ingest', ai: 'AI boundary',
+    ledger: 'Source Ledger (click to expand)', more: 'နောက်ထပ် သမိုင်းပြန်ကြည့်', moreStatus: 'ဒေတာရပြီး · ပြန်ကြည့်မှု ထုတ်နေဆဲ',
+    ctaQ: 'ဒီနေ့ပွဲအတွက် Oracle အမြင် ကြည့်မလား?', ctaBtn: 'Oracle အမြင် ကြည့်ရန်', ebLink: 'Evidence Board အပြည့် ကြည့်ရန် · အချက်ချင်း',
   },
   en: {
     back: 'Historical recap', lead: 'How the AI reads this match', factors: 'The three factors that decided it', evidence: 'Real supporting data',
@@ -39,7 +47,7 @@ const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
 };
 
 function labelsFor(loc: Locale) {
-  return loc === 'zh' ? LABELS.zh : loc === 'vi' ? LABELS.vi : LABELS.en;
+  return loc === 'zh' ? LABELS.zh : loc === 'vi' ? LABELS.vi : loc === 'my' ? LABELS.my : LABELS.en;
 }
 
 export function RecapDetailPage() {

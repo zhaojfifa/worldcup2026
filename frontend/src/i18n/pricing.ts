@@ -5,7 +5,7 @@
  * Vietnamese mode shows VND (₫); Chinese shows RMB; English shows USD.
  * MTC is a platform point count and is identical across locales.
  *
- * Fallback: vi/mm → en, en → en, zh → zh (mirrors i18n fallback policy: no
+ * Fallback: vi/my → en, en → en, zh → zh (mirrors i18n fallback policy: no
  * non-Chinese locale falls back to RMB).
  */
 import type { Locale } from './useLocale';
@@ -16,11 +16,11 @@ export interface PriceCopy {
   tokenUnlock: string;   // MTC 解锁（跨语言一致）
 }
 
-const PRICE: Record<'zh' | 'en' | 'vi' | 'mm', PriceCopy> = {
+const PRICE: Record<'zh' | 'en' | 'vi' | 'my', PriceCopy> = {
   zh: { singleUnlock: '39 元',     monthlyVip: '199 元/月',       tokenUnlock: '390 MTC' },
   en: { singleUnlock: 'US$5.5',    monthlyVip: 'US$28/month',     tokenUnlock: '390 MTC' },
   vi: { singleUnlock: '139.000₫',  monthlyVip: '699.000₫/tháng',  tokenUnlock: '390 MTC' },
-  mm: { singleUnlock: '12,000 Ks', monthlyVip: '59,000 Ks/လ',     tokenUnlock: '390 MTC' },
+  my: { singleUnlock: '12,000 Ks', monthlyVip: '59,000 Ks/လ',     tokenUnlock: '390 MTC' },
 };
 
 /** Resolve pricing for a locale (each locale shows its own currency; en is the fallback). */

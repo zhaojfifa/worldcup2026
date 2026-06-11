@@ -52,7 +52,7 @@ export function CommunityPage() {
   const channelDesc = (c: { id: string; desc: string }) =>
     loc === 'zh' ? c.desc
     : loc === 'vi' ? (CHANNEL_DESC_VI[c.id] ?? c.desc)
-    : loc === 'mm' ? (CHANNEL_DESC_MM[c.id] ?? CHANNEL_DESC_EN[c.id] ?? c.desc)
+    : loc === 'my' ? (CHANNEL_DESC_MM[c.id] ?? CHANNEL_DESC_EN[c.id] ?? c.desc)
     : (CHANNEL_DESC_EN[c.id] ?? c.desc);
   const STATUS_LABEL: Record<string, string> = {
     coming_soon: t.statusComingSoon, active: t.statusActive, disabled: t.statusDisabled,
