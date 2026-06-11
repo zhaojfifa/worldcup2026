@@ -3,6 +3,7 @@
 > **Date:** 2026-06-11 · **Branch:** `feature/mvp2-api-football-ingestion`（PR #3 Draft）
 > **状态：READY FOR OWNER TRIAL-SEND REVIEW —— operation 仍 paused，本包未发出任何内容。**
 > 群链接占位符一律为 **[群链接由运营填写]**（LLM 被 guard 禁止编造链接）。
+> **★ QiuGe 更新：zh 人格 = 俅哥说球（§6b 为最终 zh 物料；§6 为中文先知旧版存档）。**
 
 ## 1. 试发目标
 用 6 月 11 日揭幕窗口的真实比赛，验证「中文先知 / Tiên Tri Bóng Đá 赛前判断 → 群内临场 30 分钟修正」
@@ -48,6 +49,42 @@ DeepSeek：persona 语感强（「免费版看方向，群内看临场修正」�
 👉 [群链接由运营填写]
 历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。
 ```
+
+
+## 6b. ★ 俅哥说球 · 最终试发物料（QiuGe sprint — 以本节为准）
+
+**① zh 群消息（开球前发）**
+```text
+俅哥看这场：墨西哥 vs 南非，Elo 差 256 分但风险标「高」。阵容没公布、门将不确定、南非有硬解射手——大热翻车密码已浮现。免费版看方向，群内等 30 分钟首发重判。
+
+想看俅哥在首发公布后怎么修正判断？群内 30 分钟临场重判——门将谁上、阵型怎么摆、风险升还是降。扫码进群，开球前收到更新。
+👉 [群链接由运营填写]
+历史表现不代表未来结果，仅供数据分析和球迷娱乐参考。
+```
+
+**② zh 社媒短帖**
+```text
+墨西哥 vs 南非：Elo 差 256 分但风险标「高」。阵容盲区 + 门将未知 + 南非有冷枪手。开球前 30 分钟，俅哥在群内重判。
+```
+
+**③ 截图推荐**：`home_qiuge_zh.png`（首屏=俅哥说球+今日看点）或 `predict_1489369_rescore_zh.png`
+（俅哥临场 30 分钟修正块——产品差异点最强一张）。
+
+**④ 30 分钟重算提醒（首发公布后群内发）**
+```text
+【俅哥提醒】墨西哥vs南非首发已出！群内已推送重算判断，快去看最新分析。
+```
+
+**⑤ 开球后停发规则**：19:00 UTC 开球后，①②④ 全部作废——不补发、不改写成"俅哥早就说过"；
+改用 06-13 巴摩预热 + 复盘素材。
+
+**vi 对应物料**（persona: Tiên Tri Bóng Đá，临时）
+```text
+Tiên Tri Bóng Đá: Mexico mạnh hơn trên giấy (Elo +256, phong độ 6-3-1), nhưng rủi ro CAO vì chưa rõ đội hình và thủ môn. 30 phút trước giờ đá, bản cập nhật trong nhóm sẽ hiệu chỉnh nhận định. Theo dõi để không bất ngờ!
+👉 [群链接由运营填写]
+Thành tích quá khứ không đại diện cho kết quả tương lai; chỉ mang tính phân tích dữ liệu và giải trí.
+```
+30-min reminder (vi): Đội hình Mexico vs Nam Phi vừa ra! Vào nhóm xem phân tích điều chỉnh ngay – Tiên Tri Bóng Đá cập nhật nhận định trong 5 phút.
 
 ## 7. vi 群消息（Telegram 可用；Zalo pending）
 

@@ -15,6 +15,18 @@
 
 **★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint SHIPPED (Owner trial-send review pending)**
 ```text
+QiuGe sprint (same day, Owner Brand+HotReads+ReScore): zh persona -> 俅哥说球 (俅哥战术室/俅哥今日看点/
+俅哥判断/俅哥临场30分钟修正; hero+nav+status+labels swapped; 中文先知 0 residue; vi keeps Tiên Tri temp;
+ScoutScore stays engine). zh trial narratives regenerated as 俅哥 (guard enforces 俅哥 for zh trial; new
+bans 数据缺失/模型自证; tactical_read must be a plain string). NEW 30-Min ReScore layer:
+scripts/mvp2_generate_rescore_models.py -> mvp2_rescore_models/{id}.{lang}.json (6 required triggers w/
+free/subscriber copy + >=3 decision rules + public_teaser + group_join_hook + reminder_message; 4/4
+guard_clean) -> /predict/:id 俅哥临场30分钟修正 block (free 3 triggers + group tier + rules + CTA
+加入赛前情报群，等俅哥临场修正; #rescore anchor). Hot reads rebuilt: ONLY current hooks (2 rooms +
+rescore teaser -> /predict/1489369#rescore + group hook -> /community); recap stays bottom calibration.
+Operator package §6b = 俅哥 final send kit (group msg/social/screenshot rec/30min reminder/kickoff rule).
+Guard 36/36 + rescore 4/4; build PASS; vi Han=0.
+
 Shell v2 (same day, Owner Trial Homepage+Detail sprint): home hierarchy v2 (persona hero line, 今日
 status, 中文先知今日热点 = 4 LLM short_title entries, legacy mock/heat/record/MTC tiles all folded);
 CTA deep routes (查看中文先知判断 -> /predict/1489369, 临场修正逻辑 anchor; nav AI预测 -> 中文先知);
