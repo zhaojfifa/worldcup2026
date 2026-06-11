@@ -13,7 +13,36 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint SHIPPED (Owner trial-send review pending)**
+**★ 2026-06-11 (latest) — VI Naming Consolidation + MY Locale Replication Sprint SHIPPED (Owner review pending)**
+```text
+Trial product is now zh/vi/my TRILINGUAL (中 / 越 / 缅 private-trial product). Locale: canonical 'my'
+(legacy 'mm' alias normalized at every entry point: URL/localStorage; NEW browser-language detection
+zh*/vi*/my* -> locale, default zh; chain my -> [my, en], never zh). NEW LanguageSelector component
+(single 🌐 control showing current language native name; bottom sheet on mobile / dropdown on desktop;
+persists localStorage + ?lang=, keeps current route) REPLACES the CN|VI|MY top-bar button row
+(topbar z-index 50 so the sheet overlays the bottom nav). VI naming locked per Owner hierarchy:
+Giành Cup · Tiên Tri Bóng Đá · Tin trước trận World Cup / ticker Tin Tiên Tri / nav Trang chủ-Tiên Tri-
+Điểm MTC-Cộng đồng / CTAs Vào phòng chiến thuật Tiên Tri + Vào nhóm tin báo trước trận / predict title
+Phòng chiến thuật Tiên Tri Bóng Đá / pre-match read Tiên Tri nhận định thế nào / rescore Cập nhật 30 phút
+trước trận của Tiên Tri / hot reads Điểm nóng hôm nay của Tiên Tri / recap Phục dựng lịch sử · Nhật ký
+hiệu chỉnh của Tiên Tri; recap-page AI labels de-personified to Tiên Tri. MY = FIRST-CLASS trial locale:
+persona = TEMPORARY "Football Oracle" (Burmese persona name = Owner decision; options + religious/
+gambling-connotation risk ratings in docs/MVP2_MYANMAR_PERSONA_NAMING_OPTIONS.md; zh 俅哥说球 / vi
+Tiên Tri unchanged); mm.ts customer chrome de-AI'd to Oracle persona (file name kept, served as 'my').
+6 my-MM files REAL DeepSeek (voice=oracle_v2, new my prompt file, max_tokens 7800 for Burmese, NO my
+mock ever written): trial 1489369+1489371 · recap 855737+979139 · rescore x2 -> bundled into frontend.
+Guard extended (my Han=0, Burmese gambling/guarantee bans လောင်းကစား…အာမခံ, Football Oracle persona
+checks, my reference-band marker ရည်ညွှန်း, de-model adds မော်ဒယ်): narratives 46/46 PASS, rescore 12/12
+guard_clean. check_customer_visible_copy.py unified to 15 surfaces (5 routes x zh/vi/my + per-lang
+persona-naming assertion + vi retired-persona ban) -> 15/15 PASS. Build PASS. 10 real rendered shots
+docs/qa_screenshots/mvp2_locale_consolidation/ (incl. open mobile selector + my rescore block).
+Operator package §14-§17: VI naming finalization note · MY LLM send kit (group msg / social / 30-min
+reminder / kickoff-expiry rule / MY feedback checklist incl. persona-name + betting-tone questions) ·
+language-switch acceptance checklist · 3-lang send order. PR #3 still Draft · main untouched ·
+operation paused · SMALL PRIVATE TRIAL ONLY · no payment/token · no betting/odds · no public launch.
+```
+
+**★ 2026-06-11 — June 11 Real Match Trial Prediction Sprint SHIPPED (Owner trial-send review pending)**
 ```text
 De-Modeling sprint (same day, Owner: customer voice cleanup): visible customer copy now speaks ONLY as
 the persona — no 模型/mô hình/盲区/AI/ScoutScore/process words on /, /predict/*, /recap/* (zh+vi).
