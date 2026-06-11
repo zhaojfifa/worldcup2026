@@ -1,31 +1,51 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative, predictSlugToId } from '../data/productNarrativeData';
+import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { ProductPredictView } from '../components/ProductProofViews';
 
-// 2026 pre-match modeling product page (/predict/:slug). The main view is the
-// guard-passed LLM narrative — engineering renders the stage only. zh/vi only for
-// this proof; en/mm show a neutral placeholder (no engineering-template narrative).
+// Pre-match modeling product page (/predict/:slug). Two flavours, same LLM-narrative
+// main view: hypothetical 2026 sample (slug 2026-brazil-argentina) and REAL scheduled
+// fixtures (numeric ids — the AI tactical room). Engineering renders the stage only;
+// zh/vi only for this proof; en/mm show a neutral placeholder.
 const BARS = {
-  zh: { back: '赛前建模', banner: '🔮 2026 World Cup · 赛前建模样例', none: '该样例暂未提供此语言版本' },
-  vi: { back: 'Mô hình hóa trước trận', banner: '🔮 World Cup 2026 · Mẫu mô hình hóa trước trận', none: 'Mẫu này chưa có bản ngôn ngữ hiện tại' },
-  en: { back: 'Pre-match modeling', banner: '🔮 2026 World Cup · pre-match modeling sample', none: 'This sample is not available in the current language yet' },
+  zh: { back: '赛前建模', backReal: 'AI 战术室', banner: '🔮 2026 World Cup · 赛前建模样例',
+        bannerReal: '⚡ World Cup 2026 · AI 战术室（赛前版）', none: '该样例暂未提供此语言版本', kickoff: '开球', venue: '球场' },
+  vi: { back: 'Mô hình hóa trước trận', backReal: 'Phòng chiến thuật AI', banner: '🔮 World Cup 2026 · Mẫu mô hình hóa trước trận',
+        bannerReal: '⚡ World Cup 2026 · Phòng chiến thuật AI (trước trận)', none: 'Mẫu này chưa có bản ngôn ngữ hiện tại', kickoff: 'Giờ bóng lăn', venue: 'Sân' },
+  en: { back: 'Pre-match modeling', backReal: 'AI Tactical Room', banner: '🔮 2026 World Cup · pre-match modeling sample',
+        bannerReal: '⚡ World Cup 2026 · AI Tactical Room (pre-match)', none: 'This sample is not available in the current language yet', kickoff: 'Kickoff', venue: 'Venue' },
 };
+
+function kickoffLocal(iso: string, loc: string): string {
+  const d = new Date(iso);
+  const locale = loc === 'zh' ? 'zh-CN' : loc === 'vi' ? 'vi-VN' : 'en-GB';
+  return d.toLocaleString(locale, { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
 
 export function PredictPage() {
   const navigate = useNavigate();
   const loc = useLocale();
   const { slug = '2026-brazil-argentina' } = useParams();
   const B = loc === 'zh' ? BARS.zh : loc === 'vi' ? BARS.vi : BARS.en;
-  const n = getProductNarrative(predictSlugToId(slug), loc);
+  const id = predictSlugToId(slug);
+  const n = getProductNarrative(id, loc);
+  const fx = getUpcomingFixture(id);
+  const isReal = n?.fixture_basis === 'real_scheduled' || !!fx;
 
   return (
     <div className="page-enter">
       <div className="backbar">
         <button className="bk" onClick={() => navigate('/')}>←</button>
-        <span className="ti">{B.back}</span>
+        <span className="ti">{isReal ? B.backReal : B.back}</span>
       </div>
-      <div className="recap-banner">{B.banner}</div>
+      <div className="recap-banner">{isReal ? B.bannerReal : B.banner}</div>
+      {fx && (
+        <div className="card ut-fixmeta">
+          <span className="ut-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</span>
+          <span className="ut-meta">{B.kickoff} {kickoffLocal(fx.kickoffUtc, loc)} · {B.venue} {fx.venue} ({fx.city}) · {fx.round}</span>
+        </div>
+      )}
       {n ? (
         <ProductPredictView n={n} loc={loc} />
       ) : (

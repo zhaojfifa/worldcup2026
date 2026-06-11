@@ -10,6 +10,7 @@ import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
+import { UpcomingTacticalStrip } from '../components/UpcomingTacticalStrip';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -175,6 +176,9 @@ export function HomePage() {
           <span className="b2" onClick={(e) => { e.stopPropagation(); goDetail(signal.id); }}>{t.ctaUnlock}</span>
         </div>
       </div>
+
+      {/* ── 1b. World Cup 2026 真实赛程 · AI 战术室（bundled real fixtures） ── */}
+      <UpcomingTacticalStrip loc={loc} />
 
       {/* ── 2. 今日比赛简表 ────────────────────────────────────────── */}
       <div className="sec-en">

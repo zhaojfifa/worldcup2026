@@ -1,0 +1,137 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489371",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "ScoutScore 赛前判断：巴西 Elo 领先 65 点，但摩洛哥近 10 场不败藏着冷门密码",
+  "hero_subtitle": "模型认为巴西是明确热门，但摩洛哥的防守韧性（近 10 场仅失 3 球）和近期交锋赢过一次巴西，让这场小组赛首轮的风险等级达到中档。",
+  "short_title": "巴西 vs 摩洛哥：模型看到的不只是 Elo 差距",
+  "screenshot_line": "巴西 Elo 1964 vs 摩洛哥 1899，但摩洛哥近 10 场 7 胜 3 平 0 负，失 3 球——ScoutScore 风险评级：中",
+  "model_judgement": "ScoutScore 的 Elo 基线（巴西 1964 vs 摩洛哥 1899，差距 65 点）指向巴西为明确热门。近 10 场状态巴西 6W-1D-3L（进 25 失 11），摩洛哥 7W-3D-0L（进 22 失 3）——摩洛哥的不败金身和防守效率是模型必须重视的因子。历史交锋虽巴西 2 胜 1 负占优，但 2023 年摩洛哥 2-1 赢过巴西，且摩洛哥点球大战近 3 次赢 2 次（含 2022 年赢西班牙），巴西点球近 3 次全输。综合来看，模型倾向巴西胜，但冷门风险偏高。",
+  "main_lean": "赛前倾向 Brazil 胜，但冷门风险偏高",
+  "scoreline_view": "模型估计合理比分区间为 2-1、1-1 或 2-2（泊松估计基于近 10 场场均进球，小组赛首轮进攻可能偏保守）",
+  "risk_level": "中 — 摩洛哥近 10 场不败且防守稳固，2023 年曾击败巴西，点球表现优于巴西，这些因素让 Elo 差距代表的优势不再稳固",
+  "risk_factors": [
+    {
+      "name": "摩洛哥近 10 场不败且防守极佳",
+      "text": "摩洛哥近 10 场 7 胜 3 平，仅失 3 球，防守效率远超巴西（失 11 球）。若摩洛哥摆出低位防守，巴西可能陷入攻坚难题。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "2023 年摩洛哥曾击败巴西",
+      "text": "2023 年友谊赛摩洛哥 2-1 战胜巴西，证明他们有能力在单场比赛中击败强敌。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "巴西点球大战历史劣势",
+      "text": "巴西近 5 场点球大战仅赢 1 次（2014 对智利），近 3 次全输（2022 对克罗地亚、2024 对乌拉圭等）。若比赛进入点球，摩洛哥心理占优。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "首发阵容未公布",
+      "text": "两队 26 人大名单已注册，但首发 XI 未公布。巴西是否全主力出战、摩洛哥是否摆出防守阵型，是临场最大变量。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "巴西首发阵容完整性",
+      "text": "开球前约 30 分钟，模型将根据公布的 XI 重新评估。若巴西缺少关键球员（如维尼修斯、内马尔等），巴西胜算将下调。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "摩洛哥门将选择",
+      "text": "摩洛哥大名单有布努、穆罕默迪等门将。若布努首发，摩洛哥防守稳定性更高；若替补门将出场，可能成为突破口。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "阵型与战术对位",
+      "text": "安切洛蒂 vs 哈利霍季奇，两位教练的战术布置将影响比赛节奏。巴西若高压逼抢，摩洛哥能否通过反击制造威胁？",
+      "source_refs": [
+        {
+          "field": "coach",
+          "source": "api-football",
+          "endpoint": "/coachs",
+          "fixture_id": "1489371"
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🇧🇷🇲🇦 巴西 vs 摩洛哥，ScoutScore 模型赛前判断：巴西 Elo 领先 65 点，但摩洛哥近 10 场不败、防守仅失 3 球，冷门风险中档。开球前 30 分钟，模型将根据首发 XI 重算倾向。入群看完整因子和临场更新。",
+  "subscription_hook": "免费版看到赛前主倾向和风险等级。订阅后解锁：全部因子深度解读、开球前 30 分钟基于首发 XI 的模型重算、比分区间深度分析、每日 AI 观点推送。",
+  "group_join_copy": "想第一时间知道 ScoutScore 怎么判断这场比赛？加入我们的 Telegram 群组，开球前 30 分钟收到模型基于首发阵容的最新倾向和风险更新。还有每日 AI 战术室分析，和球迷一起聊球。点下方按钮入群。",
+  "today_cta": "今日 AI 观点：巴西 vs 摩洛哥——模型看到的不只是 Elo",
+  "social_post": "🇧🇷🇲🇦 巴西 vs 摩洛哥：ScoutScore 模型赛前判断——巴西 Elo 领先，但摩洛哥近 10 场不败，冷门风险中档。开球前 30 分钟看首发重算。数据分析，娱乐参考。#WorldCup2026 #AI预测",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture — kickoff/venue/round above are real. This is the AI tactical-room pre-match view.",
+    "Starting XI / formations are NOT announced: internal_notes must state lineups are pending; expected shapes / key duels only as assumption_flag entries; NEVER 'if they meet' phrasing — the match is on the calendar.",
+    "assumption_context清单: lineup_integrity (首发未公布), goalkeeper_performance_gap (首发门将未知), tactical_matchup (阵型未知), venue/travel/climate (未测量影响), model blind spots (伤病/xG/身价等未摄入)"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results -> elo_snapshot@2026-06-13",
+    "Recent form (last 10)": "kaggle_intl_results -> last10_form",
+    "Lineup integrity": "api-football -> /players/squads (assumption)",
+    "Finishing efficiency": "kaggle_intl_results -> goalscorers_last10",
+    "Goalkeeper performance gap": "api-football -> /players/squads (assumption)",
+    "In-match momentum / late swings": "kaggle_intl_results -> h2h+shootouts",
+    "Tactical matchup": "api-football -> /coachs (assumption)",
+    "Venue / travel / climate": "api-football -> /fixtures (assumption)",
+    "Model blind spots": "not ingested (assumption)",
+    "Upset / volatility risk": "upset_band(elo_gap=65, missing=4)"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "fixture_basis": "real_scheduled",
+  "generated_at": "2026-06-11T00:37:01.644022+00:00"
+}

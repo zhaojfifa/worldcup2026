@@ -1,0 +1,191 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "vi-VN",
+  "hero_title": "Giành Cup AI ScoutScore: Mexico vs South Africa — Bên được đánh giá cao hơn có bẫy?",
+  "hero_subtitle": "Trận ra quân World Cup 2026: Elo chênh 256 điểm, phong độ áp đảo, nhưng ScoutScore cảnh báo rủi ro vì thiếu dữ liệu đội hình và chấn thương.",
+  "short_title": "Mexico vs South Africa: AI chỉ điểm rủi ro",
+  "screenshot_line": "ScoutScore: Mexico mạnh hơn rõ (Elo 1880 vs 1624) nhưng rủi ro cao vì chưa có đội hình chính thức — biến số lớn trước giờ bóng lăn.",
+  "model_judgement": "ScoutScore nhận định Mexico là bên được đánh giá cao hơn nhờ Elo chênh lệch 256 điểm và phong độ 10 trận ấn tượng (6 thắng, chỉ thủng lưới 4 bàn). Tuy nhiên, mô hình cảnh báo rủi ro cao vì thiếu dữ liệu đội hình xuất phát, chấn thương và xG — đây là bẫy điển hình của đội được yêu thích quá mức. South Africa có thể gây bất ngờ nếu tận dụng được sự thiếu ổn định nơi hàng thủ Mexico trong các trận giao hữu gần đây.",
+  "main_lean": "Mexico thắng, nhưng không dễ dàng — South Africa đủ sức tạo địa chấn nếu đội hình Mexico không nguyên vẹn.",
+  "scoreline_view": "Mô hình ước tính tỷ số khả quan nhất là 1-0 hoặc 1-1; khả năng 0-1 cũng nằm trong vùng hợp lý.",
+  "risk_level": "Cao — Elo chênh lớn nhưng thiếu nhiều dữ liệu quan trọng (đội hình, chấn thương, xG) khiến nhận định dễ bị lật ngược.",
+  "risk_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Mexico (1880) hơn South Africa (1624) tới 256 điểm Elo, phản ánh sức mạnh dài hạn vượt trội.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-11",
+          "value": "Mexico 1880 / South Africa 1624"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "Mexico 6 thắng, 3 hòa, 1 thua (ghi 16, thủng lưới 4) áp đảo so với South Africa 5 thắng, 2 hòa, 3 thua (ghi 15, thủng lưới 10).",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Lineup integrity",
+      "text": "Đội hình xuất phát chưa công bố — đây là biến số lớn nhất. Nếu Mexico thiếu trụ cột, sức mạnh giảm đáng kể.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Finishing efficiency",
+      "text": "South Africa có 4 cầu thủ ghi bàn trong 10 trận gần nhất (Appollis 3, Makgopa 2, Foster 2, Mbatha 1), trong khi Mexico không có dữ liệu ghi bàn gần đây — điểm yếu trong khâu dứt điểm của Mexico có thể bị khai thác.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "goalscorers_last10"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goalkeeper performance gap",
+      "text": "Thủ môn xuất phát chưa rõ — cả Mexico (Acevedo, Ochoa, Rangel) và South Africa (Chaine, Goss, Williams) đều có nhiều lựa chọn, nhưng phong độ thủ môn là ẩn số.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "In-match momentum / late swings",
+      "text": "Lịch sử đối đầu có biến động: Mexico thắng đậm các trận giao hữu nhưng South Africa từng thắng 2-1 năm 2005 và hòa 1-1 ở World Cup 2010. Cả hai đội đều có kinh nghiệm luân lưu, nhưng South Africa thua 2 trong 5 loạt gần nhất.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true,
+          "metric": "h2h+shootouts"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Tactical matchup",
+      "text": "HLV Javier Aguirre (Mexico) và Molefi Ntseki (South Africa) đều có kinh nghiệm, nhưng đội hình chiến thuật chưa rõ — đây là biến số cần theo dõi sát.",
+      "source_refs": [
+        {
+          "field": "coach",
+          "source": "api-football",
+          "endpoint": "/coachs",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Venue / travel / climate",
+      "text": "Trận đấu tại Estadio Azteca, Mexico City — lợi thế sân nhà cho Mexico, nhưng South Africa đã quen với điều kiện khắc nghiệt ở các giải đấu lớn.",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Model blind spots",
+      "text": "Mô hình chưa tiếp nhận dữ liệu chấn thương, xG, giá trị đội hình, FIFA ranking, và đội hình xuất phát — những yếu tố này có thể thay đổi hoàn toàn cục diện.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Upset / volatility risk",
+      "text": "Với Elo chênh 256 điểm nhưng thiếu 4 nguồn dữ liệu chính, đây là bẫy điển hình của đội được yêu thích quá mức — khả năng gây sốc là cao.",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=256, missing=4)"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình xuất phát",
+      "text": "Ai đá chính? Mexico có mất trụ cột nào không? South Africa có bất ngờ về nhân sự?",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn bắt chính",
+      "text": "Ochoa hay Acevedo? Williams hay Chaine? Thủ môn có thể quyết định trận đấu.",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Sơ đồ chiến thuật",
+      "text": "Mexico đá 4-3-3 hay 5-3-2? South Africa phòng ngự số đông hay chơi pressing?",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Chấn thương phút chót",
+      "text": "Có cầu thủ nào dính chấn thương trong khởi động không?",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 ScoutScore: Mexico mạnh hơn (Elo 1880 vs 1624), phong độ 10 trận 6 thắng, nhưng rủi ro CAO vì chưa có đội hình chính thức. South Africa có thể tạo địa chấn nếu Mexico thiếu trụ cột. Theo dõi bản cập nhật 30 phút trước giờ bóng lăn để biết chắc chắn! #WorldCup2026 #Mexico #SouthAfrica",
+  "subscription_hook": "Bản miễn phí cho bạn nhận định chính và mức rủi ro. Đăng ký để xem toàn bộ phân tích yếu tố, cập nhật 30 phút trước giờ bóng lăn khi đội hình công bố, và dải tỷ số chi tiết từ mô hình AI.",
+  "group_join_copy": "Vào nhóm Telegram để nhận bản cập nhật trực tiếp từ ScoutScore trước mỗi trận: phân tích đầy đủ yếu tố, cảnh báo rủi ro, và thảo luận cùng cộng đồng. Link trong bio!",
+  "today_cta": "Xem ngay: Mexico vs South Africa — AI chỉ điểm rủi ro trước giờ bóng lăn.",
+  "social_post": "ScoutScore: Mexico mạnh hơn (Elo 1880) nhưng rủi ro cao vì chưa có đội hình. South Africa có thể gây sốc? Cập nhật 30 phút trước trận! #WorldCup2026",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture — kickoff/venue/round are real. This is the AI tactical-room pre-match view.",
+    "Starting XI / formations are NOT announced: lineups are pending; expected shapes / key duels only as assumption_flag entries.",
+    "All assumption_flag entries are based on assumption_context from input, not real data."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results: elo_snapshot@2026-06-11",
+    "Recent form (last 10)": "kaggle_intl_results: last10_form",
+    "Lineup integrity": "api-football: /players/squads (fixture 1489369) — assumption_context",
+    "Finishing efficiency": "kaggle_intl_results: goalscorers_last10",
+    "Goalkeeper performance gap": "api-football: /players/squads (fixture 1489369) — assumption_context",
+    "In-match momentum / late swings": "kaggle_intl_results: h2h+shootouts",
+    "Tactical matchup": "api-football: /coachs (fixture 1489369) — assumption_context",
+    "Venue / travel / climate": "api-football: /fixtures (fixture 1489369) — assumption_context",
+    "Model blind spots": "— assumption_context",
+    "Upset / volatility risk": "method: upset_band(elo_gap=256, missing=4)"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "fixture_basis": "real_scheduled",
+  "generated_at": "2026-06-11T00:36:41.883369+00:00"
+}

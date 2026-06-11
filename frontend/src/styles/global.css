@@ -1449,3 +1449,18 @@ body {
   overflow-x: auto; max-height: 180px; font-family: ui-monospace, Menlo, monospace; line-height: 1.5; }
 .pp-predict-hero { background: linear-gradient(135deg, #0E2A52, #1f6feb); }
 .lang-vi .pp-k { flex-basis: 120px; }
+
+/* Real upcoming fixtures · AI tactical room strip (home + predict meta) */
+.ut-card { padding: 4px 12px; }
+.ut-row { display: flex; align-items: center; gap: 8px; width: 100%; background: none; border: none;
+  border-top: 1px solid var(--line); padding: 11px 2px; font: inherit; cursor: pointer; text-align: left; }
+.ut-row:first-child { border-top: none; }
+.ut-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ut-teams { font-size: 13.5px; font-weight: 800; color: #0e2a52; }
+.ut-vs { font-size: 11px; color: #94A4BB; font-weight: 700; margin: 0 2px; }
+.ut-meta { font-size: 11px; color: #5b6b82; }
+.ut-chip { font-size: 10px; font-weight: 800; border-radius: 999px; padding: 3px 8px; background: #ECE4FB; color: #4B2E8F; white-space: nowrap; }
+.ut-chip.today { background: #FEE8E9; color: #b42318; }
+.ut-cta { font-size: 11.5px; font-weight: 800; color: var(--blueMid); white-space: nowrap; }
+.ut-fixmeta { display: flex; flex-direction: column; gap: 4px; background: linear-gradient(135deg, #F4F8FF, #EDF3FF); border: 1px solid #CFE0F7; }
+.lang-vi .ut-teams { font-size: 13px; }

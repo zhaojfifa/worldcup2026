@@ -13,6 +13,10 @@ import r979139zh from './productNarratives/979139.zh-CN.json';
 import r979139vi from './productNarratives/979139.vi-VN.json';
 import p2026zh from './productNarratives/2026_brazil_argentina.zh-CN.json';
 import p2026vi from './productNarratives/2026_brazil_argentina.vi-VN.json';
+import f1489369zh from './productNarratives/1489369.zh-CN.json';
+import f1489369vi from './productNarratives/1489369.vi-VN.json';
+import f1489371zh from './productNarratives/1489371.zh-CN.json';
+import f1489371vi from './productNarratives/1489371.vi-VN.json';
 
 export interface ProductFactor {
   name: string;
@@ -26,6 +30,7 @@ export interface ProductNarrative {
   fixture_id: string;
   mode: 'historical_recap' | 'pre_match_2026_modeling';
   language: string;
+  fixture_basis?: 'real_scheduled' | 'hypothetical_scenario';
   hero_title: string;
   hero_subtitle: string;
   short_title: string;
@@ -56,6 +61,8 @@ const DATA: Record<string, Partial<Record<Locale, ProductNarrative>>> = {
   '855737': { zh: r855737zh as ProductNarrative, vi: r855737vi as ProductNarrative },
   '979139': { zh: r979139zh as ProductNarrative, vi: r979139vi as ProductNarrative },
   '2026_brazil_argentina': { zh: p2026zh as ProductNarrative, vi: p2026vi as ProductNarrative },
+  '1489369': { zh: f1489369zh as ProductNarrative, vi: f1489369vi as ProductNarrative },
+  '1489371': { zh: f1489371zh as ProductNarrative, vi: f1489371vi as ProductNarrative },
 };
 
 export const PRODUCT_RECAPS = new Set<string>(['855737', '979139']);

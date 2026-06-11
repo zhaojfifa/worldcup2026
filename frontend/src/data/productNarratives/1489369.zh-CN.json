@@ -1,0 +1,106 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1489369",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "Giành Cup AI 模型预警：墨西哥 vs 南非，大热之下的冷门密码",
+  "hero_subtitle": "Elo 差距 256 分 + 近期状态碾压，但模型赛前已标出高波动风险——首发阵容和门将成最大变量。",
+  "short_title": "墨西哥大热？模型看到三个冷门信号",
+  "screenshot_line": "Elo 差 256 分，但 ScoutScore 风险评级：高——因为模型缺了 4 项关键数据。",
+  "model_judgement": "ScoutScore 赛前判断：墨西哥是实力占优的一方，Elo 差距 256 分、近 10 场 6 胜 3 平 1 负仅丢 4 球，基本面碾压南非（5 胜 2 平 3 负丢 10 球）。但模型自动将风险等级标为「高」——不是因为南非有多强，而是因为模型在赛前看不到首发阵容、伤病、xG 和门将状态，而墨西哥作为大热门，一旦关键球员轮换或慢热，南非的反击效率（近 10 场 15 球，射手群分散）足以制造麻烦。历史交锋也非一边倒：南非在 2010 世界杯小组赛 1-1 逼平过墨西哥。",
+  "main_lean": "赛前倾向墨西哥胜，但冷门风险偏高，需等首发确认。",
+  "scoreline_view": "模型估计合理比分区间：1-0、1-1、0-1（粗泊松估计，基于近 10 场场均进球及小组赛首轮保守系数）。",
+  "risk_level": "高——大热方 + 模型盲区（首发/伤病/xG 未摄入），典型的「盲区大热陷阱」。",
+  "risk_factors": [
+    {
+      "name": "Elo 差距与近期状态",
+      "text": "墨西哥 Elo 1880 vs 南非 1624，差距 256 分；近 10 场墨西哥 6W-3D-1L（进 16 丢 4），南非 5W-2D-3L（进 15 丢 10）。基本面指向墨西哥优势，但状态碾压本身也是冷门温床——对手易被低估。",
+      "source_refs": [
+        "kaggle_intl_results: elo_snapshot@2026-06-11",
+        "kaggle_intl_results: last10_form"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "首发阵容未知",
+      "text": "两队 26 人名单已公布，但首发 XI 未宣布。墨西哥若轮换核心（如老将 Ochoa 是否首发），防线稳定性可能下降。模型将在开球前约 30 分钟根据首发重算。",
+      "source_refs": [
+        "api-football: /players/squads, fixture_id=1489369"
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将差距未知",
+      "text": "墨西哥门将名单有 Ochoa、Acevedo、Rangel；南非有 Chaine、Goss、Williams。谁首发、近期状态如何，赛前无数据。门将差距可能决定低比分赛果。",
+      "source_refs": [
+        "api-football: /players/squads, fixture_id=1489369"
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "历史交锋波动",
+      "text": "近 4 次交手墨西哥 2 胜 1 平 1 负，但南非在 2010 世界杯小组赛 1-1 战平墨西哥，且曾在 2005 年金杯赛 2-1 获胜。南非并非没有爆冷基因。",
+      "source_refs": [
+        "kaggle_intl_results: h2h+shootouts"
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "南非射手群分散",
+      "text": "南非近 10 场有 4 名球员进球 2+：Appollis 3 球、Makgopa 2 球、Foster 2 球、Mbatha 1 球。多点开花意味着防守方难以针对性布防。",
+      "source_refs": [
+        "kaggle_intl_results: goalscorers_last10"
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "首发阵容确认",
+      "text": "开球前约 30 分钟，模型将根据公布的 XI 重算：墨西哥是否派出全主力？Ochoa 是否守门？南非锋线是否由 Foster 领衔？这些将直接影响判断。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将对位",
+      "text": "若墨西哥派出老将 Ochoa（经验丰富但反应可能下滑），而南非派出状态正佳的 Williams，门将差距可能缩小。临场需关注。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "墨西哥慢热风险",
+      "text": "小组赛首轮，强队往往进入状态较慢。若墨西哥上半场久攻不下，南非反击机会将增加。",
+      "source_refs": [],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🇲🇽🇿🇦 墨西哥 vs 南非，ScoutScore 模型预警：Elo 差 256 分，但风险等级高！首发阵容和门将成最大变量，订阅用户将在开球前 30 分钟收到重算后的判断。入群看完整因子拆解 👉",
+  "subscription_hook": "免费版看到主倾向和风险等级；订阅版额外获得：开球前 30 分钟首发重算后的最新判断、完整因子拆解（含门将对位、战术 matchup）、比分区间深度分析。",
+  "group_join_copy": "想第一时间拿到 ScoutScore 对这场比赛的最终判断？加入我们的 Telegram 群组，开球前 30 分钟模型重算后，群内首发更新。还有每日 AI 观点、因子解读、风险提醒——足球分析，不止于比分。",
+  "today_cta": "今日 AI 观点：墨西哥 vs 南非——大热之下的冷门密码",
+  "social_post": "🇲🇽 vs 🇿🇦 Elo 差 256 分，但 ScoutScore 风险评级：高！首发阵容未知 = 冷门温床。开球前 30 分钟重算，订阅用户优先看。",
+  "internal_notes": [
+    "real_fixture_notice: 本场为 2026 世界杯真实赛程，开球时间/球场/轮次均为真实数据。",
+    "首发阵容未公布：预期打法/关键对位仅作为 assumption_flag 条目，不构成事实陈述。",
+    "所有 assumption_flag 为 true 的因子均为模型设定，非已发生事实。",
+    "known_gaps: 伤病/xG/市场价值/FIFA 排名未摄入，赛前盲区已通过 risk_factors 向用户说明。"
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results: elo_snapshot@2026-06-11",
+    "Recent form (last 10)": "kaggle_intl_results: last10_form",
+    "Lineup integrity": "api-football: /players/squads, fixture_id=1489369",
+    "Finishing efficiency": "kaggle_intl_results: goalscorers_last10",
+    "Goalkeeper performance gap": "api-football: /players/squads, fixture_id=1489369",
+    "In-match momentum / late swings": "kaggle_intl_results: h2h+shootouts",
+    "Tactical matchup": "api-football: /coachs, fixture_id=1489369",
+    "Venue / travel / climate": "api-football: /fixtures, fixture_id=1489369",
+    "Model blind spots": "internal",
+    "Upset / volatility risk": "internal method: upset_band(elo_gap=256, missing=4)"
+  },
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "fixture_basis": "real_scheduled",
+  "generated_at": "2026-06-11T00:35:56.572705+00:00"
+}

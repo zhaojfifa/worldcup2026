@@ -87,5 +87,6 @@
   },
   "llm_provider": "deepseek",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-10T17:01:34.039072+00:00"
+  "generated_at": "2026-06-10T17:01:34.039072+00:00",
+  "fixture_basis": "hypothetical_scenario"
 }
