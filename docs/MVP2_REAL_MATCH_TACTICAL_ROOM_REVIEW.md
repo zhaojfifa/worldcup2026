@@ -68,6 +68,26 @@ Guard 总态：**20/20 PASS**（12 旧样例 + 8 新战术室）。
 已知小瑕疵（不阻塞）：1489371 internal_notes 回显了一段英文工程指令（仅内部折叠可见）；订阅层
 （支付/Token）本轮未触碰——CTA 指向社群与今日观点，无价格表述。
 
+## 5b. ★ Frontend Deployment Truth Check（2026-06-11 02:50 UTC，Owner 人工验证 FAIL 后复查）
+
+**结论：代码/构建/线上 bundle 三层全部包含本轮功能；Owner 验证 FAIL 的原因 = 部署时间窗口。**
+push `22a4f52` 在 **00:48 UTC**，Render 线上产物 `last-modified` = **02:44:09 UTC**（部署延迟约 2 小时）；
+Owner 在 02:44 之前验证 → 看到旧 bundle（属实）。02:50 UTC 复测已翻转：
+
+| 层 | 证据 | 结果 |
+|---|---|---|
+| Git | 本地 HEAD = 远端 feature 分支 = `22a4f52`；PR #3 Draft/OPEN/未 merge；`origin/main = e372616`，`merge-base --is-ancestor` 证明 22a4f52 不在 main | ✅ |
+| 源码 | `UpcomingTacticalStrip.tsx`（'World Cup 2026 · 真实赛程' + 'AI TACTICAL ROOM' 分属两个 span——grep 连续串「真实赛程 AI」不命中是检索词问题，非缺码）；HomePage 已挂载；1489369/Mexico 在 src | ✅ |
+| 本地 dist | `npm run build` → `index-DgoxAbWb.js` 含 真实赛程/Mexico/1489369/Brazil | ✅ |
+| 线上 bundle | `index-DDGqZfVZ.js`（02:44 UTC 部署）grep 全部命中：1489369 ·Mexico · 真实赛程 · AI TACTICAL ROOM · 1489371 · Morocco（JS hash 与本地不同属构建环境差异，内容为准；CSS hash 与本地完全一致） | ✅ |
+| 线上渲染 | headless Chrome dump-dom + 截图 `live_home_zh_22a4f52.png`：strip + Mexico（今日开球）+ Brazil（即将开球）全部渲染；旧 mock 信号卡/列表按要求保留 | ✅ |
+| 深链 | `/predict/1489369` `/predict/1489371` `/recap/855737` 直接访问 **HTTP 404** —— Render dashboard SPA rewrite（`/* → /index.html`）仍未配置（2026-06-10 已记录的 operator 待办）；从首页点击进入（client-side 路由）不受影响 | ⚠️ |
+| 缓存注意 | `cf-cache-status: HIT` + `s-maxage=300`：边缘缓存最长 5 分钟 + 浏览器缓存可能继续短暂呈现旧页 — Owner 复验请强刷或带 `?v=22a4f52` | ⚠️ |
+
+Render dashboard 侧（分支绑定确认 / latest deploy commit 显示 / Clear build cache 按钮）需 operator 在
+dashboard 核对——但从行为可推断：frontend service 绑定 feature 分支且 auto-deploy 生效（push 后自动出现
+含本轮内容的新产物）。backend `/api/v1/health` 正常（`ai_provider=mock`、合规 flags 关闭）。
+
 ## 6. 工件清单
 
 Scout Packs `docs/data_audit/mvp2_scout_pack_samples/{1489369,1489371}.json` · frames
