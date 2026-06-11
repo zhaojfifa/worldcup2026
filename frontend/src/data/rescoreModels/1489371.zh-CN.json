@@ -1,0 +1,101 @@
+{
+  "fixture_id": "1489371",
+  "pre_match_lean": "俅哥看好巴西，但摩洛哥有冷门密码，风险中等，临场首发是胜负手。",
+  "pre_match_risk_level": "中等",
+  "score_range_before": "模型估计合理区间：2-1、1-1、2-2",
+  "rescore_triggers": [
+    {
+      "key": "starting_xi",
+      "name": "首发阵容",
+      "current_status": "尚未公布，需在开球前60-30分钟确认",
+      "why_it_matters": "巴西中后场核心是否全勤，直接影响控制力",
+      "possible_impact": "若巴西缺少2名以上脊柱球员，倾向转向平局",
+      "free_copy": "首发未出，方向待定",
+      "subscriber_copy": "群内首发一出，俅哥立刻更新判断，免费版只能看方向"
+    },
+    {
+      "key": "goalkeeper",
+      "name": "门将状态",
+      "current_status": "首发门将未知，名单中有3人",
+      "why_it_matters": "门将发挥是冷门关键变量，参考历史翻盘案例",
+      "possible_impact": "摩洛哥上状态好的主力门将，冷门路径打开",
+      "free_copy": "门将是谁？赛前盲区",
+      "subscriber_copy": "群内首发门将确认后，俅哥告诉你风险是否升级"
+    },
+    {
+      "key": "frontline_availability",
+      "name": "前锋线可用性",
+      "current_status": "首发未公布，未知",
+      "why_it_matters": "摩洛哥射手依赖度高，核心前锋缺阵影响反击质量",
+      "possible_impact": "摩洛哥前锋全勤，爆冷概率上升",
+      "free_copy": "摩洛哥射手群待确认",
+      "subscriber_copy": "群内看摩洛哥锋线是否齐整，这决定俅哥是否加防冷门"
+    },
+    {
+      "key": "formation",
+      "name": "阵型安排",
+      "current_status": "未知，赛前待确认",
+      "why_it_matters": "摩洛哥摆大巴还是对攻，直接影响比分形态",
+      "possible_impact": "摩洛哥摆大巴，比分趋向小比分平局",
+      "free_copy": "阵型是赛前盲区",
+      "subscriber_copy": "阵型一出，俅哥重新评估比分区间，群内第一时间推送"
+    },
+    {
+      "key": "late_injury_suspension",
+      "name": "临场伤病/停赛",
+      "current_status": "暂无新信号，视为赛前盲区",
+      "why_it_matters": "任何突发减员都会改变球队平衡",
+      "possible_impact": "若巴西前锋临场伤退，风险升高",
+      "free_copy": "临场伤病待确认",
+      "subscriber_copy": "若有突发伤病，俅哥在群内秒级修正判断"
+    },
+    {
+      "key": "weather_altitude_stadium",
+      "name": "天气与场地",
+      "current_status": "美国夏季晚间，天气正常",
+      "why_it_matters": "高温高湿可能影响强队体能，下半场节奏变化",
+      "possible_impact": "若湿热，巴西压迫强度下降，摩洛哥机会增加",
+      "free_copy": "天气条件已计入场景",
+      "subscriber_copy": "俅哥已考虑天气因素，群内看临场体感修正"
+    }
+  ],
+  "rescore_decision_rules": [
+    {
+      "condition": "巴西首发缺少2名以上脊柱球员（中卫/门将/前锋）",
+      "change_to_lean": "倾向转向平局",
+      "change_to_risk": "风险等级升一级",
+      "change_to_score_range": "收紧至1-1或低比分",
+      "operator_note": "脊柱缺失，巴西控制力下降，平局概率大增"
+    },
+    {
+      "condition": "巴西确认全主力，包括中锋",
+      "change_to_lean": "维持或加强巴西倾向",
+      "change_to_risk": "风险等级不变",
+      "change_to_score_range": "维持原区间，偏向巴西方向",
+      "operator_note": "全主力巴西，正常发挥可取胜"
+    },
+    {
+      "condition": "摩洛哥首发门将是状态好的主力+后防五人不变",
+      "change_to_lean": "维持巴西但标记冷门路径",
+      "change_to_risk": "提升冷门风险等级",
+      "change_to_score_range": "增加1-0、0-0、1-1等小比分权重",
+      "operator_note": "摩洛哥防守稳固，爆冷可能性上升"
+    },
+    {
+      "condition": "临场伤病影响任何一方锋线",
+      "change_to_lean": "需要重新评估",
+      "change_to_risk": "风险等级升一级",
+      "change_to_score_range": "重新发布区间",
+      "operator_note": "锋线变动直接影响进球预期，必须重算"
+    }
+  ],
+  "public_teaser": "俅哥说巴西vs摩洛哥：首发是冷门密码，开球前30分钟见分晓。",
+  "group_join_hook": "今晚巴西vs摩洛哥，首发一出，俅哥在群内第一时间更新判断，免费版只能看方向，群内看临场修正。",
+  "reminder_message": "【俅哥提醒】巴西vs摩洛哥首发即将公布，群内马上更新判断，注意查收！",
+  "language": "zh-CN",
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "product_surface": "trial_rescore",
+  "guard_clean": true,
+  "generated_at": "2026-06-11T05:08:55.995569+00:00"
+}

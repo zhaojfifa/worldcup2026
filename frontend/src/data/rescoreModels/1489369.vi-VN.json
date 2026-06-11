@@ -1,0 +1,94 @@
+{
+  "fixture_id": "1489369",
+  "pre_match_lean": "Tiên Tri Bóng Đá nghiêng về Mexico nhờ cách biệt Elo 256 và phong độ, nhưng rủi ro cao vì đội hình chưa công bố.",
+  "pre_match_risk_level": "Cao – chờ đội hình chính thức mới định đoạt",
+  "score_range_before": "Mô hình ước tính các kịch bản: 1-1, 1-0, 0-1",
+  "rescore_triggers": [
+    {
+      "key": "starting_xi",
+      "name": "Đội hình xuất phát",
+      "current_status": "Chưa công bố (sẽ kiểm tra lại 60-30 phút trước giờ bóng lăn)",
+      "why_it_matters": "Sự liên tục của xương sống đội bóng là yếu tố tái định giá quan trọng nhất.",
+      "possible_impact": "Nếu Mexico thiếu 2 trụ cột ở trung tâm hàng thủ hoặc tiền đạo, nhận định sẽ nghiêng về hòa.",
+      "free_copy": "Đội hình chưa có – đây là biến số then chốt.",
+      "subscriber_copy": "Khi đội hình ra, chúng tôi sẽ đánh giá lại ngay: nếu Mexico giữ nguyên trụ cột, giữ nguyên niềm tin; nếu thiếu vắng, điều chỉnh theo hướng thận trọng."
+    },
+    {
+      "key": "goalkeeper",
+      "name": "Thủ môn bắt chính",
+      "current_status": "Chưa xác định (danh sách thủ môn đã đăng ký: C. Acevedo, G. Ochoa, J. Rangel cho Mexico; S. Chaine, R. Goss, R. Williams cho Nam Phi)",
+      "why_it_matters": "Danh tính và phong độ thủ môn từng là điểm mù quyết định trong trận upset 855737.",
+      "possible_impact": "Nếu Nam Phi bắt đầu với thủ môn số một đang có phong độ cao, khả năng giữ sạch lưới tăng, mở ra kịch bản bất ngờ.",
+      "free_copy": "Thủ môn nào bắt? Đây có thể là lá bài tẩy.",
+      "subscriber_copy": "Chúng tôi sẽ theo dõi sát: nếu thủ môn chính của Nam Phi ra sân cùng bộ tứ vệ ổn định, rủi ro upset sẽ được đánh giá lại."
+    },
+    {
+      "key": "frontline_availability",
+      "name": "Sự sẵn sàng của hàng công",
+      "current_status": "Chưa rõ cho đến khi có đội hình",
+      "why_it_matters": "Nam Phi phụ thuộc nhiều vào chân sút chủ lực – sự hiện diện của họ thay đổi mức độ rủi ro upset.",
+      "possible_impact": "Nếu chân sút hàng đầu của Nam Phi (Oswin Appollis, Evidence Makgopa) vắng mặt, khả năng ghi bàn giảm mạnh.",
+      "free_copy": "Ai đá chính trên hàng công? Câu trả lời quyết định sức mạnh tấn công.",
+      "subscriber_copy": "Khi đội hình có tên chân sút chủ lực, chúng tôi sẽ điều chỉnh mức độ đe dọa – nếu thiếu vắng, xu hướng nghiêng về Mexico rõ hơn."
+    },
+    {
+      "key": "formation",
+      "name": "Sơ đồ chiến thuật",
+      "current_status": "Chưa công bố (huấn luyện viên sẽ xác nhận khi có đội hình)",
+      "why_it_matters": "Sự đối đầu giữa lối chơi phòng ngự số đông và kiểm soát bóng làm thay đổi hình dạng kịch bản tỷ số.",
+      "possible_impact": "Nếu Nam Phi chơi thấp, trận đấu có thể ít bàn thắng hơn dự kiến.",
+      "free_copy": "Sơ đồ nào? Điều này ảnh hưởng lớn đến nhịp độ trận đấu.",
+      "subscriber_copy": "Chúng tôi sẽ phân tích ngay khi sơ đồ được xác nhận: nếu Nam Phi đá 5-4-1, kịch bản tỷ số thấp được ưu tiên; nếu Mexico đá 4-3-3, áp lực sẽ lớn hơn."
+    },
+    {
+      "key": "late_injury_suspension",
+      "name": "Chấn thương/treo giò phút chót",
+      "current_status": "Chưa có tín hiệu mới (coi là điểm mù, không phải là không có chấn thương)",
+      "why_it_matters": "Bất kỳ cái tên nào xuất hiện muộn cũng ảnh hưởng ngay đến tính toàn vẹn của đội hình.",
+      "possible_impact": "Nếu có chấn thương ở hàng công hoặc trung vệ, cần chạy lại mô hình ngay.",
+      "free_copy": "Chấn thương phút chót? Chưa có tin, nhưng đây là biến số cần canh sát giờ.",
+      "subscriber_copy": "Chúng tôi sẽ cập nhật ngay nếu có thông tin muộn – bất kỳ sự vắng mặt nào cũng làm thay đổi nhận định."
+    },
+    {
+      "key": "weather_altitude_stadium",
+      "name": "Thời tiết, độ cao, sân vận động",
+      "current_status": "Địa điểm và giờ đã xác định: Sân Azteca, độ cao ~2200m, điều kiện là bối cảnh kịch bản",
+      "why_it_matters": "Độ cao và nhiệt độ làm giảm cường độ pressing ở cuối trận, ảnh hưởng đến nhịp độ của đội được đánh giá cao hơn.",
+      "possible_impact": "Mexico có lợi thế sân nhà và quen độ cao, nhưng nếu trời nóng, thể lực suy giảm có thể tạo cơ hội cho Nam Phi.",
+      "free_copy": "Sân Azteca cao 2200m – yếu tố thể lực sẽ rõ rệt sau 60 phút.",
+      "subscriber_copy": "Chúng tôi sẽ theo dõi điều kiện thực tế: nếu nhiệt độ cao, khả năng trận đấu chậm lại và ít bàn thắng hơn."
+    }
+  ],
+  "rescore_decision_rules": [
+    {
+      "condition": "Mexico thiếu 2+ trụ cột ở trung tâm (trung vệ/thủ môn/tiền đạo)",
+      "change_to_lean": "Nghiêng về hòa",
+      "change_to_risk": "Tăng một bậc rủi ro",
+      "change_to_score_range": "Thu hẹp về 1-1 hoặc tỷ số thấp",
+      "operator_note": "Nếu xương sống Mexico vỡ, mất lợi thế rõ rệt."
+    },
+    {
+      "condition": "Mexico xác nhận đội hình chính thức gồm đủ trụ cột, đặc biệt tiền đạo",
+      "change_to_lean": "Giữ nguyên hoặc tăng niềm tin vào Mexico",
+      "change_to_risk": "Giữ nguyên",
+      "change_to_score_range": "Giữ nguyên (đầu dải nghiêng về Mexico)",
+      "operator_note": "Đội hình mạnh nhất củng cố nhận định ban đầu."
+    },
+    {
+      "condition": "Nam Phi bắt đầu với thủ môn chính đang có phong độ cao + bộ tứ vệ không đổi",
+      "change_to_lean": "Giữ nguyên nhưng đánh dấu kịch bản upset",
+      "change_to_risk": "Tăng khả năng cầm hòa của đội yếu",
+      "change_to_score_range": "Dịch trọng số về các tỷ số 1-0, 0-0, 1-1",
+      "operator_note": "Hàng thủ ổn định + thủ môn hay là nền tảng cho bất ngờ."
+    }
+  ],
+  "public_teaser": "Tiên Tri Bóng Đá: Mexico nhỉnh hơn, nhưng đội hình chưa ra – biến số lớn nhất trận này.",
+  "group_join_hook": "Vào nhóm để nhận bản cập nhật 30 phút trước giờ bóng lăn: đội hình, thủ môn, sơ đồ – tất cả những yếu tố tái định giá trận đấu.",
+  "reminder_message": "Đội hình Mexico vs Nam Phi vừa ra! Vào nhóm xem phân tích điều chỉnh ngay – Tiên Tri Bóng Đá cập nhật nhận định trong 5 phút.",
+  "language": "vi-VN",
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "product_surface": "trial_rescore",
+  "guard_clean": true,
+  "generated_at": "2026-06-11T05:08:40.963605+00:00"
+}
