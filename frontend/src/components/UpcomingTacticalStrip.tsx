@@ -16,7 +16,7 @@ const L10N = {
 
 const HERO = {
   zh: { badge: '⚡ World Cup 2026 揭幕窗口 · 真实比赛', enter: '进入俅哥战术室', join: '加入赛前情报群',
-        status: '🔮 俅哥已生成今日赛前判断 · 临场 30 分钟将重新计算 · 数据同步 ' },
+        status: '🔮 俅哥已生成今日赛前判断 · 开球前 30 分钟将重算 · 数据同步 ' },
   vi: { badge: '⚡ World Cup 2026 · Trận thật', enter: 'Vào phòng chiến thuật Tiên Tri', join: 'Vào nhóm tình báo trước trận',
         status: '🔮 Tiên Tri Bóng Đá đã có nhận định hôm nay · Tính lại 30 phút trước giờ bóng lăn · Đồng bộ ' },
   en: { badge: '⚡ World Cup 2026 · Real fixture', enter: 'Open the Tactical Room', join: 'Join the pre-match group',

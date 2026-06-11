@@ -20,7 +20,7 @@ const LABELS: Record<'zh' | 'vi' | 'en', Record<string, string>> = {
     operator: '运营可发文案', dataGaps: '下一版 AI 需关注的变量', internal: '模型回放与赛后判定（点击展开）',
     replay: '模型回放', actual: '实际结果', correction: '下版模型修正', nextData: '下一步接入数据', ai: 'AI 边界',
     ledger: '数据来源 / Source Ledger（点击展开）', more: '更多历史复盘', moreStatus: '数据已接入，复盘生成中',
-    ctaQ: '想看当前比赛的 AI 情报？', ctaBtn: '查看今日 AI 观点', ebLink: '查看完整证据面板 · 逐因子',
+    ctaQ: '想看今天这场的俅哥判断？', ctaBtn: '查看俅哥判断', ebLink: '查看完整证据面板 · 逐因子',
   },
   vi: {
     back: 'Phục dựng lịch sử', lead: 'AI nhìn trận này thế nào', factors: 'Ba yếu tố quyết định kết quả', evidence: 'Dữ liệu thật hỗ trợ',
@@ -161,7 +161,7 @@ export function RecapDetailPage() {
               </div>
             ))}
           </div>
-          <div className="sec-en"><span className="zh">{L.lead}</span><span className="en">AI READ</span></div>
+          <div className="sec-en"><span className="zh">{L.lead}</span><span className="en">THE READ</span></div>
           <div className="card"><p className="eb-lead">{eb.customerLead}</p></div>
         </>
       )}

@@ -10,7 +10,7 @@ import { NarrativeView } from '../components/NarrativeView';
 // evidenceData copy is a DETERMINISTIC FALLBACK only (en/mm, or no narrative).
 // Bundled-only; no payment/Token; vi Han=0.
 const PAGE_LABELS = {
-  zh: { back: '证据面板', lead: 'AI 怎么看这场', ctaQ: '想看这场的完整复盘叙事？', ctaRecap: '查看历史复盘', ctaHome: '查看今日 AI 观点', ledger: '数据来源 / Source Ledger（点击展开）' },
+  zh: { back: '证据面板', lead: '俅哥怎么看这场', ctaQ: '想看这场的完整复盘叙事？', ctaRecap: '查看历史复盘', ctaHome: '查看俅哥判断', ledger: '数据来源 / Source Ledger（点击展开）' },
   vi: { back: 'Bảng bằng chứng', lead: 'AI nhìn trận này thế nào', ctaQ: 'Muốn xem phần phục dựng đầy đủ của trận này?', ctaRecap: 'Xem phục dựng lịch sử', ctaHome: 'Xem quan điểm AI hôm nay', ledger: 'Nguồn dữ liệu / Source Ledger (nhấn để mở)' },
   en: { back: 'Evidence Board', lead: 'How the AI reads this match', ctaQ: 'Want the full recap narrative for this match?', ctaRecap: 'See historical recap', ctaHome: "See today's AI view", ledger: 'Source Ledger (click to expand)' },
 };
@@ -88,7 +88,7 @@ export function EvidenceBoardPage() {
           </div>
         ))}
       </div>
-      <div className="sec-en"><span className="zh">{L.lead}</span><span className="en">AI READ</span></div>
+      <div className="sec-en"><span className="zh">{L.lead}</span><span className="en">THE READ</span></div>
       <div className="card"><p className="eb-lead">{c.customerLead}</p></div>
       <EvidenceBoard content={c} loc={loc} />
       <div className="card recap-cta">

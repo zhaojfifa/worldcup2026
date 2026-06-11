@@ -15,6 +15,14 @@
 
 **★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint SHIPPED (Owner trial-send review pending)**
 ```text
+Small-Scale Trial Readiness (same day, Owner verdict: PASS WITH CONDITIONS for small private trial):
+customer path fully de-AI'd (ticker/caps/lean/header-sub/cta/community labels -> 俅哥情报/俅哥赛前判断/
+俅哥倾向/俅哥判断; AI kept only in footer disclaimer, EN brand line, internal folds); predict labels per
+Owner C (风险等级/免费版 vs 群内完整版/PRE-MATCH READ); rescore block = trial core (现在俅哥怎么看/
+哪三个变量会改判断/开球前30分钟会重算什么 + group 5-question checklist); package adds §12 small-scale
+rules + §13 feedback checklist. SMALL-SCALE PRIVATE TRIAL AUTHORIZED (internal ops / few trusted fans /
+1 test group; before kickoff only); public operation still paused.
+
 QiuGe sprint (same day, Owner Brand+HotReads+ReScore): zh persona -> 俅哥说球 (俅哥战术室/俅哥今日看点/
 俅哥判断/俅哥临场30分钟修正; hero+nav+status+labels swapped; 中文先知 0 residue; vi keeps Tiên Tri temp;
 ScoutScore stays engine). zh trial narratives regenerated as 俅哥 (guard enforces 俅哥 for zh trial; new

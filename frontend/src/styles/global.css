@@ -1498,3 +1498,9 @@ body {
 .rs-impact { font-size: 11px; color: #4B2E8F; margin-top: 3px; line-height: 1.6; }
 .rs-rule { font-size: 11px; color: #3A4A60; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; margin: 5px 0; line-height: 1.6; }
 .rs-rule b { color: #0e2a52; }
+
+/* Small-scale trial: rescore sub-labels + group question list */
+.rs-sub { font-size: 11px; font-weight: 800; color: #4B2E8F; margin: 10px 0 4px; }
+.rs-sub:first-child { margin-top: 0; }
+.rs-qs { margin: 4px 0 8px; }
+.rs-q { font-size: 11.5px; color: #2A1E5C; line-height: 1.8; font-weight: 600; }

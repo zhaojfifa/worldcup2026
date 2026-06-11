@@ -17,7 +17,7 @@ const ZH = {
   // ── Header / brand ──
   brandName: 'Giành Cup',
   brandRole: '俅哥说球 · 世界杯足球情报',
-  headerSub: '不只看胜率，更看 AI 为什么这样判断',
+  headerSub: '不只看胜率，更看俅哥为什么这样判断',
   brandHeroEn: '2026 World Cup AI Football Intelligence',
 
   // ── Bottom nav ──
@@ -27,11 +27,11 @@ const ZH = {
   navCommunity: '社群',
 
   // ── Global ──
-  aiTicker: 'AI 情报',
-  tickerBody: 'AI 情报更新 · 今日 {n} 场赛前模型已生成 · {live} 场进入临场监听 · 数据同步 {time} · 模型持续追踪阵容与临场变量',
+  aiTicker: '俅哥情报',
+  tickerBody: '俅哥情报更新 · 今日 {n} 场赛前判断已生成 · {live} 场进入临场监听 · 数据同步 {time} · 持续追踪阵容与临场变量',
   apiErrorCache: '⚠️ 使用本地缓存数据（情报源暂时不可用）',
   syncLabel: '同步',
-  loadingText: 'AI 情报加载中…',
+  loadingText: '俅哥情报加载中…',
 
   // ── Hero (split title) ──
   heroTitlePre: 'AI 足球',
@@ -39,7 +39,7 @@ const ZH = {
   heroSub: 'AI 数据观点 · 胜率变化 · 风险提示 · 临场修正',
 
   // ── Home capability chips ──
-  capModel: 'AI 赛前模型',
+  capModel: '俅哥赛前判断',
   capLive: '临场 30 分钟修正',
   capRisk: '风险评级',
   capUnlock: 'MTC 解锁',
@@ -53,9 +53,9 @@ const ZH = {
 
   // ── Home core + CTA ──
   signalTitle: '今日 AI 最强信号',
-  tendency: 'AI 倾向',
+  tendency: '俅哥倾向',
   topRisk: '核心风险',
-  ctaView: '查看 AI 观点',
+  ctaView: '查看俅哥判断',
   ctaUnlock: '解锁完整分析',
   winLabel: '胜',
 
@@ -92,7 +92,7 @@ const ZH = {
   riskGrade: '风险等级',
   recommendedScore: '推荐比分',
   unlockToView: '解锁查看',
-  winProbTitle: 'AI 当前胜率',
+  winProbTitle: '俅哥当前判断',
   whyTitle: '为什么 AI 这么判断',
   riskTitle: '风险关注维度',
   confIndex: '信心指数',
@@ -181,7 +181,7 @@ const ZH = {
   flow3T: '赛后模型复盘',
   flow3D: '比对模型判断与实际结果，沉淀下一场的情报视角。',
   benefitsTitle: '会员权益',
-  benefit1: '每日 3-5 场 AI 情报推送',
+  benefit1: '每日 3-5 场俅哥情报推送',
   benefit2: '单场完整模型解释',
   benefit3: '首发公布后 30 分钟 AI 重新计算',
   benefit4: '临场修正实时推送',
@@ -192,7 +192,7 @@ const ZH = {
   whyVipExample: '实时变盘示例',
   whyVipHomeRate: '巴西胜率',
   whyVipReason: '阿根廷主力中卫缺阵 → 巴西右路优势扩大，社群第一时间推送。',
-  csTitle: 'AI 情报内容工厂',
+  csTitle: '俅哥内容工厂',
   csStatus: '数据能力建设中',
   csItem1: '今日 AI 三场速览',
   csItem2: '今日最高信心',
@@ -226,7 +226,7 @@ const ZH = {
   watchTitle: '临场观察点',
   factorSourceWord: '来源',
   factorImpactWord: '模型影响',
-  recapSectionTitle: '历史复盘 · World Cup 2022',
+  recapSectionTitle: '历史复盘 · 校准记录 · World Cup 2022',
   recapSectionSub: '模型校准 · 非当前比赛',
   recapBadge: '历史复盘',
   recapDetailNote: '这是历史复盘 / 模型校准，不是当前比赛预测。',
