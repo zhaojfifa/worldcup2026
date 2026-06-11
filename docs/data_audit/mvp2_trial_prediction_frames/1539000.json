@@ -1,0 +1,367 @@
+{
+  "sprint": "MVP-2 June 11 Real Match Trial Prediction",
+  "model_name": "ScoutScore v0.2-trial",
+  "fixture_basis": "real_scheduled",
+  "generated_by": "scripts/mvp2_build_trial_prediction_frame.py",
+  "generated_at": "2026-06-11T15:55:00.695352+00:00",
+  "fixture": {
+    "fixture_id": 1539000,
+    "match": "Canada vs Bosnia & Herzegovina",
+    "kickoff": "2026-06-12T19:00:00+00:00",
+    "venue": {
+      "name": "BMO Field",
+      "city": "Toronto"
+    },
+    "group_round": "Group Stage - 1",
+    "status": "Not Started"
+  },
+  "team_baseline": {
+    "home": {
+      "team": "Canada",
+      "coach": "J. Marsch",
+      "squad_players": 26,
+      "squad_goalkeepers": [
+        "M. Crépeau",
+        "O. Goodman",
+        "D. St. Clair"
+      ],
+      "formation": null,
+      "expected_setup_note": "formation not announced — expected tactical setup is an LLM assumption_flag item",
+      "top_scorers_last10": [],
+      "top_scorer_share": null
+    },
+    "away": {
+      "team": "Bosnia & Herzegovina",
+      "coach": "F. Hadžibegić",
+      "squad_players": 26,
+      "squad_goalkeepers": [
+        "M. Jurkas",
+        "N. Vasilj",
+        "M. Zlomislic"
+      ],
+      "formation": null,
+      "expected_setup_note": "formation not announced — expected tactical setup is an LLM assumption_flag item",
+      "top_scorers_last10": [
+        {
+          "scorer": "Edin Džeko",
+          "goals": 5
+        },
+        {
+          "scorer": "Haris Tabaković",
+          "goals": 3
+        },
+        {
+          "scorer": "Benjamin Tahirović",
+          "goals": 1
+        },
+        {
+          "scorer": "Samed Baždar",
+          "goals": 1
+        }
+      ],
+      "top_scorer_share": 0.25
+    }
+  },
+  "factors": [
+    {
+      "factor": "baseline_strength",
+      "value": {
+        "elo": {
+          "Canada": 1814,
+          "Bosnia & Herzegovina": 1626
+        },
+        "gap": 188,
+        "favoured": "Canada"
+      },
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "derived from kaggle intl results (49k rows, through 2026-06); elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "factor": "recent_form",
+      "value": {
+        "Canada": "4W-5D-1L",
+        "Bosnia & Herzegovina": "3W-6D-1L"
+      },
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "last-10 W/D/L from kaggle results",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "factor": "h2h",
+      "value": [],
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "last meetings from kaggle results",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "factor": "goal_trend",
+      "value": {
+        "Canada": {
+          "last5": 7,
+          "prev5": 4
+        },
+        "Bosnia & Herzegovina": {
+          "last5": 4,
+          "prev5": 16
+        }
+      },
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "goals scored last5 vs prev5",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "factor": "defensive_trend",
+      "value": {
+        "Canada": {
+          "last5": 3,
+          "prev5": 1,
+          "clean_sheets_last10": 7
+        },
+        "Bosnia & Herzegovina": {
+          "last5": 4,
+          "prev5": 6,
+          "clean_sheets_last10": 2
+        }
+      },
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "goals against last5 vs prev5 + clean sheets",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "factor": "squad_stability",
+      "value": {
+        "Canada": 26,
+        "Bosnia & Herzegovina": 26
+      },
+      "data_status": "partial",
+      "customer_visible": true,
+      "internal_note": "26-man squads registered (real); XI continuity unknown until lineups",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ]
+    },
+    {
+      "factor": "goalkeeper_risk",
+      "value": {
+        "Canada": [
+          "M. Crépeau",
+          "O. Goodman",
+          "D. St. Clair"
+        ],
+        "Bosnia & Herzegovina": [
+          "M. Jurkas",
+          "N. Vasilj",
+          "M. Zlomislic"
+        ]
+      },
+      "data_status": "partial",
+      "customer_visible": true,
+      "internal_note": "GK names real from squads; starter + form unknown -> 30min recheck",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ]
+    },
+    {
+      "factor": "striker_finishing_risk",
+      "value": {
+        "Canada": {
+          "top_scorers": [],
+          "share_of_team_goals": null
+        },
+        "Bosnia & Herzegovina": {
+          "top_scorers": [
+            {
+              "scorer": "Edin Džeko",
+              "goals": 5
+            },
+            {
+              "scorer": "Haris Tabaković",
+              "goals": 3
+            },
+            {
+              "scorer": "Benjamin Tahirović",
+              "goals": 1
+            },
+            {
+              "scorer": "Samed Baždar",
+              "goals": 1
+            }
+          ],
+          "share_of_team_goals": 0.25
+        }
+      },
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "top-scorer dependence from kaggle goalscorers; no xG feed",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "factor": "travel_venue_context",
+      "value": {
+        "venue": {
+          "name": "BMO Field",
+          "city": "Toronto"
+        },
+        "kickoff_utc": "2026-06-12T19:00:00+00:00",
+        "round": "Group Stage - 1",
+        "context_note": "US summer heat window"
+      },
+      "data_status": "partial",
+      "customer_visible": true,
+      "internal_note": "venue/kickoff verified from /fixtures; altitude/heat/crowd impact is scenario assumption",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1539000
+        }
+      ]
+    },
+    {
+      "factor": "lineup_uncertainty",
+      "value": {
+        "lineups_available": false
+      },
+      "data_status": "missing",
+      "customer_visible": true,
+      "internal_note": "XI/formation not announced at build time — phrased to customers as the 30min variable",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ]
+    },
+    {
+      "factor": "injury_gap",
+      "value": {
+        "injuries_available": false,
+        "results": 0
+      },
+      "data_status": "missing",
+      "customer_visible": false,
+      "internal_note": "0 injury results pre-match (unresolved) — NEVER stated as 'no injuries'; internal only",
+      "source_refs": [
+        {
+          "field": "injuries",
+          "source": "api-football",
+          "endpoint": "/injuries",
+          "fixture_id": 1539000
+        }
+      ]
+    },
+    {
+      "factor": "live_30min_trigger",
+      "value": {
+        "recompute": [
+          "lineup/XI spine",
+          "starting GK",
+          "formation matchup"
+        ],
+        "reissue": [
+          "primary_lean",
+          "score_range",
+          "risk_level"
+        ]
+      },
+      "data_status": "verified",
+      "customer_visible": true,
+      "internal_note": "subscription-layer mechanic: re-score ~30' before kickoff",
+      "source_refs": []
+    }
+  ],
+  "scoutscore_output": {
+    "primary_lean": {
+      "side": "Canada",
+      "strength": "clear",
+      "basis": "elo gap 188 + form",
+      "label": "model_estimate"
+    },
+    "score_range": {
+      "bands": [
+        "0-1",
+        "1-1",
+        "0-2"
+      ],
+      "label": "model_estimate",
+      "method": "poisson(last10 gf avg, group-stage damped) — coarse, never a claim"
+    },
+    "risk_level": "high",
+    "risk_why": "big favourite + model blind spots (lineup/injury/xG not ingested) = classic blind-favourite trap",
+    "key_risk_variables": [
+      "lineup_uncertainty",
+      "goalkeeper_risk",
+      "striker_finishing_risk",
+      "defensive_trend"
+    ],
+    "what_could_flip": [
+      "Canada announced XI missing 2+ spine starters (CB/GK/striker)",
+      "Bosnia & Herzegovina starting GK on a hot streak (validated only in-match)",
+      "early goal for Bosnia & Herzegovina flips momentum exposure (opener nerves)",
+      "weather/altitude visibly degrading Canada pressing intensity"
+    ],
+    "recheck_30min": [
+      "announced XI vs expected spine",
+      "starting GK",
+      "formation collision",
+      "late injury/suspension news (currently unresolved)"
+    ]
+  },
+  "verification_ref": "docs/data_audit/mvp2_june11_real_fixture_verification.json",
+  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/1539000.json#source_ledger"
+}

@@ -63,7 +63,7 @@ def _elo_context(cutoff):
     snap = v02.elo_snapshot(rows, cutoff)
     ranked = sorted(snap.items(), key=lambda kv: -kv[1])
     rank = {team: i + 1 for i, (team, _) in enumerate(ranked)}
-    return {"snapshot": snap, "rank": rank, "asof": cutoff}
+    return {"snapshot": snap, "rank": rank, "asof": cutoff, "kname": v02.kname}
 
 
 def _pipeline_state(fid):
@@ -143,8 +143,9 @@ def scan(date_str=None, run=None, client=None):
             if opening_date and d == opening_date:
                 reasons.append("opening_day")
             if elo:
-                rh, ra = elo["rank"].get(home), elo["rank"].get(away)
-                eh, ea = elo["snapshot"].get(home), elo["snapshot"].get(away)
+                kn = elo["kname"]
+                rh, ra = elo["rank"].get(kn(home)), elo["rank"].get(kn(away))
+                eh, ea = elo["snapshot"].get(kn(home)), elo["snapshot"].get(kn(away))
                 if rh and ra and rh <= 12 and ra <= 12:
                     reasons.append("marquee_pair_top12_elo")
                 if eh and ea and abs(eh - ea) >= 150:

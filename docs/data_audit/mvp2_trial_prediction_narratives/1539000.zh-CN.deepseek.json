@@ -1,0 +1,139 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1539000",
+  "mode": "pre_match_2026_modeling",
+  "language": "zh-CN",
+  "hero_title": "俅哥看这场：加拿大纸面碾压，但冷门密码藏在三个没公布的地方",
+  "hero_subtitle": "Elo差188、近10场只输1场——但首发没出、门将没定、锋线效率没数据，俅哥把这场列为高风险。",
+  "short_title": "加拿大vs波黑：俅哥提醒冷门风险高",
+  "screenshot_line": "加拿大Elo领先188分，近10场7次零封，但俅哥说：首发没公布前，大热就是陷阱。",
+  "model_judgement": "俅哥判断加拿大是更强势的一方——Elo差188分、近10场只输1场、防守端7次零封，数据面很干净。但俅哥把这场列为高风险，不是因为波黑有多强，而是赛前有三个关键变量还没公布：首发阵容、门将人选、锋线终结效率。加拿大纸面占优，但这些变量一旦出问题，大热就容易被拖进麻烦。",
+  "main_lean": "赛前倾向加拿大胜，但冷门风险偏高",
+  "scoreline_view": "俅哥给出的赛前参考区间：1-0、1-1、0-1",
+  "risk_level": "高——首发和门将没公布前，大热方向有翻车隐患",
+  "risk_factors": [
+    {
+      "name": "首发阵容未公布",
+      "text": "加拿大和波黑的首发11人还没公布，阵型、核心球员是否出战都是未知数。这会直接影响比赛走势。",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将人选不确定",
+      "text": "两队都带了3名门将，但谁首发、近期状态如何，赛前没有数据。门将的发挥往往决定低比分比赛的走向。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "加拿大锋线效率未知",
+      "text": "加拿大近10场没有明确头号射手，进球分布未知。波黑则依赖哲科（5球），但哲科状态能否延续也是问号。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "波黑防守回暖但零封少",
+      "text": "波黑近5场丢4球，比之前5场丢6球有改善，但近10场只有2次零封，面对加拿大进攻线压力不小。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "开球前30分钟首发名单",
+      "text": "加拿大是否派出全主力？波黑是否变阵？这会直接改写俅哥的判断。",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "门将人选",
+      "text": "谁守门、近期状态如何——门将的发挥是低比分比赛的关键变量。",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "加拿大锋线终结效率",
+      "text": "加拿大近5场进7球，但对手强度如何？临场看射门转化率。",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🇨🇦加拿大 vs 🇧🇦波黑 | 俅哥赛前判断：加拿大纸面强，但首发没出、门将没定，冷门风险高。免费版看方向，群内等开球前30分钟首发更新，俅哥会重新给判断。",
+  "subscription_hook": "免费版看到方向（加拿大胜倾向+高风险），订阅后多看到：开球前30分钟首发公布后的实时重算、全部风险因子深度解读、比分区间精修。",
+  "group_join_copy": "想等首发出来再下判断？俅哥在群里会实时更新：开球前30分钟，首发名单一出，立刻重新分析。进群看临场修正，比免费版更准。",
+  "today_cta": "今日俅哥观点：加拿大vs波黑——纸面碾压，但冷门密码藏在三个没公布的地方。",
+  "social_post": "加拿大Elo领先188分，近10场只输1场，但俅哥说冷门风险高！首发没出、门将没定，大热就是陷阱。开球前30分钟群内见分晓。",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
+    "Lineups NOT announced: expected shapes only as assumption_flag entries; never invent injuries.",
+    "Injury news gap: 0 results pre-match — internal only, not stated as 'no injuries'.",
+    "Assumption_context items: lineup_uncertainty, goalkeeper_risk, venue/altitude/context, squad stability (XI continuity unknown)."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
+    "Recent form (last 10)": "kaggle_intl_results (derived)",
+    "Head-to-head": "kaggle_intl_results (derived)",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
+    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
+    "Squad stability": "api-football /players/squads (assumption)",
+    "Goalkeeper risk": "api-football /players/squads (assumption)",
+    "Striker dependence / finishing": "kaggle_intl_results (derived)",
+    "Venue / altitude / context": "api-football /fixtures (assumption)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (assumption)",
+    "30-minute pre-kickoff re-score": "subscription-layer mechanic"
+  },
+  "llm_provider": "deepseek",
+  "tactical_read": "加拿大在J. Marsch执教下预期打高位逼抢+快速转换，利用主场优势压制波黑。波黑F. Hadžibegić大概率摆出5后卫防反，依赖哲科作为支点。关键对位：加拿大边锋vs波黑边翼卫，波黑双后腰能否切断加拿大中场出球。节奏上，加拿大想快，波黑想慢。但阵型未公布，这些只是预期。",
+  "voice": "qiuge_v2",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T15:55:19.756967+00:00"
+}

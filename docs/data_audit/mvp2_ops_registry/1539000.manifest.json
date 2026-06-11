@@ -6,8 +6,59 @@
   "key_reasons": [
     "host_nation"
   ],
-  "stages": {},
+  "stages": {
+    "prematch_narratives": {
+      "zh-CN": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_trial_prediction_narratives/1539000.zh-CN.deepseek.json",
+        "queue_item": "1539000.trial_prediction.zh-CN.deepseek.r20260611T1554Z-prematch",
+        "run_id": "r20260611T1554Z-prematch",
+        "expires_at": "2026-06-12T19:00:00+00:00"
+      },
+      "vi-VN": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_trial_prediction_narratives/1539000.vi-VN.deepseek.json",
+        "queue_item": "1539000.trial_prediction.vi-VN.deepseek.r20260611T1554Z-prematch",
+        "run_id": "r20260611T1554Z-prematch",
+        "expires_at": "2026-06-12T19:00:00+00:00"
+      },
+      "my-MM": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_trial_prediction_narratives/1539000.my-MM.deepseek.json",
+        "queue_item": "1539000.trial_prediction.my-MM.deepseek.r20260611T1554Z-prematch",
+        "run_id": "r20260611T1554Z-prematch",
+        "expires_at": "2026-06-12T19:00:00+00:00"
+      }
+    },
+    "rescore_model": {
+      "zh-CN": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_rescore_models/1539000.zh-CN.deepseek.json",
+        "queue_item": "1539000.trial_rescore.zh-CN.deepseek.r20260611T1554Z-prematch",
+        "run_id": "r20260611T1554Z-prematch",
+        "expires_at": "2026-06-12T19:00:00+00:00"
+      },
+      "vi-VN": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_rescore_models/1539000.vi-VN.deepseek.json",
+        "queue_item": "1539000.trial_rescore.vi-VN.deepseek.r20260611T1554Z-prematch",
+        "run_id": "r20260611T1554Z-prematch",
+        "expires_at": "2026-06-12T19:00:00+00:00"
+      },
+      "my-MM": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_rescore_models/1539000.my-MM.deepseek.json",
+        "queue_item": "1539000.trial_rescore.my-MM.deepseek.r20260611T1554Z-prematch",
+        "run_id": "r20260611T1554Z-prematch",
+        "expires_at": "2026-06-12T19:00:00+00:00"
+      }
+    }
+  },
   "lineups_released": false,
-  "quota_ledger_day": {},
-  "updated_at": "2026-06-11T15:13:56+00:00"
+  "quota_ledger_day": {
+    "date": "2026-06-11",
+    "requests": 0,
+    "daily_budget": 100
+  },
+  "updated_at": "2026-06-11T15:58:49+00:00"
 }

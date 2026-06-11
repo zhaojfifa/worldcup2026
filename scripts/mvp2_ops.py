@@ -197,7 +197,10 @@ def cmd_prematch(args):
         return 2
 
     if not args.register_existing:
-        ok = _run_script(run, "verify", SCRIPTS / "mvp2_verify_june11_fixtures.py", [fid])
+        # verify rewrites the verification file for the GIVEN candidates — always pass the
+        # union of known registry fixtures so earlier entries are never clobbered
+        known = sorted({p.stem.split(".")[0] for p in (DOCS / "mvp2_ops_registry").glob("*.manifest.json")} | {str(fid)})
+        ok = _run_script(run, "verify", SCRIPTS / "mvp2_verify_june11_fixtures.py", known)
         ok = ok and _run_script(run, "scout_pack", ROOT / "backend" / "scripts" / "mvp2_ingest_scout_pack.py", [fid])
         ok = ok and _run_script(run, "frame", SCRIPTS / "mvp2_build_trial_prediction_frame.py", [fid])
         for lang in langs:

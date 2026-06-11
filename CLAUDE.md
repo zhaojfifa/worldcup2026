@@ -13,7 +13,29 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-11 (latest) — Track A P0 IMPLEMENTED (A-GO-1; dry-run on 1489371 done; Owner review pending)**
+**★ 2026-06-11/12 (latest) — Track A P0 ACCEPTED (PASS WITH CONDITIONS) · real-trial validation round SHIPPED**
+```text
+Owner accepted P0 @54026ad. This round: (1) DEPLOY GATE — live fingerprinted PRE-54026ad (old
+今日AI观点 ×1 still in live bundle index-HLZD2ZGB.js; deep links still 404, SPA rewrite unset);
+NO auto-deploy materialized after push → deploy = OPERATOR manual action (engineering has no Render
+credentials, nothing faked). Evidence pre-staged: 54026ad production build fingerprint CLEAN
+(今日AI观点 ×0), 15-surface scan vs prod build 15/15 PASS, 6 shots in
+docs/qa_screenshots/mvp2_tracka_deploy_verify/. (2) FIRST FULL A2 (non-register) on 1539000
+Canada–Bosnia: end-to-end real (verify→pack 44%→frame→6 DeepSeek gens→guard→queue→send-kit).
+First run exposed a REAL data bug: kaggle name mismatch ('Bosnia & Herzegovina' vs 'Bosnia and
+Herzegovina') → silent cold-start elo 1500 → FAKE gap 314 quoted by all 3 narratives. Fixed:
+KAGGLE_TEAM_ALIASES + kname() at every kaggle lookup (v0.2 builder + trial frame builder + daily
+scan), cold-start now flags the factor as assumption ('gap NOT meaningful'), per-fixture h2h note
+generalized (was hardcoded Morocco-Brazil for unknown fids). Frame rebuilt (Bosnia 1626, gap 188
+REAL) → 6/6 regenerated guard-clean (zh converged once the frame was honest). Also fixed: ops
+verify step clobbered the June-11 verification file (now passes the union of registry fixtures;
+file restored with all 3). (3) 1489371 A3/A4 runsheet docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md
+(T-90 watch procedure, operator checklist, Owner timing sheet T-90→FT recap). Known: quota ledger
+under-counts subprocess API calls (P1 note). PR #3 still Draft · main untouched · operation
+paused · small private trial only · NOTHING sent · deploy pending operator.
+```
+
+**★ 2026-06-11 — Track A P0 IMPLEMENTED (A-GO-1; dry-run on 1489371 done; Owner review pending)**
 ```text
 Owner signed A-GO-1 only — Track A P0 implemented exactly per the design doc; Track B remains
 design-only (ZERO referral tables/routes/UX/QR/rewards). New runtime = scripts + files ONLY (no DB

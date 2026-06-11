@@ -1,0 +1,102 @@
+{
+  "fixture_id": "1539000",
+  "pre_match_lean": "俅哥赛前倾向加拿大赢，但冷门风险高——波黑有老将哲科，锋线效率是最大变数。",
+  "pre_match_risk_level": "高",
+  "score_range_before": "俅哥给出的赛前参考区间：0-1、1-1、0-2",
+  "rescore_triggers": [
+    {
+      "key": "starting_xi",
+      "name": "首发阵容",
+      "current_status": "尚未公布，开球前60-30分钟需重新确认",
+      "why_it_matters": "加拿大中轴线（门将、中卫、前锋）是否全主力，直接影响比赛走向",
+      "possible_impact": "若加拿大缺少2名以上中轴主力，倾向转向平局；若全主力，维持加拿大优势",
+      "free_copy": "首发还没出，加拿大中轴线是否完整是今晚最大悬念。",
+      "subscriber_copy": "群内会在首发公布后第一时间给出修正判断：如果加拿大中轴缺人，倾向立刻转向平局。"
+    },
+    {
+      "key": "goalkeeper",
+      "name": "门将人选",
+      "current_status": "首发门将未知，已知名单中有3名候选",
+      "why_it_matters": "门将状态是上一场冷门（855737）的关键盲区，波黑门将若为状态好的首选，会增加爆冷概率",
+      "possible_impact": "波黑首发门将是状态好的首选+后防不变，则爆冷路径更清晰，比分区间向小比分偏移",
+      "free_copy": "波黑门将是谁？这会改变俅哥对冷门概率的判断。",
+      "subscriber_copy": "群内会结合门将人选更新风险评级：若波黑上状态好的首发门将，冷门风险再升一档。"
+    },
+    {
+      "key": "frontline_availability",
+      "name": "锋线球员是否首发",
+      "current_status": "未知，需等首发名单",
+      "why_it_matters": "波黑头号射手哲科（近10场5球）占全队进球25%，他是否首发直接影响波黑进球能力",
+      "possible_impact": "哲科首发则波黑有反击支点，冷门概率上升；否则加拿大防线压力大减",
+      "free_copy": "哲科上不上？波黑进球全靠他，这是冷门密码之一。",
+      "subscriber_copy": "哲科若替补，波黑进攻降档，俅哥会调低冷门评分；若首发，冷门路径更实。"
+    },
+    {
+      "key": "formation",
+      "name": "阵型安排",
+      "current_status": "未知，需等教练确认",
+      "why_it_matters": "波黑若摆低姿态防反（如5后卫），加拿大控球但难破密集，比分区间偏向小球",
+      "possible_impact": "波黑低姿态防反 → 比分区间收窄至0-0、1-0、1-1；加拿大若高压阵型则维持原区间",
+      "free_copy": "波黑会不会摆大巴？这决定比赛是开放对攻还是闷战。",
+      "subscriber_copy": "群内会在阵型确认后调整比分区间：若波黑5后卫，小球概率大增。"
+    },
+    {
+      "key": "late_injury_suspension",
+      "name": "赛前伤病/停赛",
+      "current_status": "暂无新信号，但属于赛前盲区",
+      "why_it_matters": "任何突发伤停都会改变阵容完整性，尤其是锋线或中后场核心",
+      "possible_impact": "若伤停涉及双方前锋，则进球预期下降，比分区间收窄",
+      "free_copy": "赛前有没有突发伤停？这是临场最大的X因素。",
+      "subscriber_copy": "群内会实时跟进伤停消息，一旦有核心缺阵，立即重算判断。"
+    },
+    {
+      "key": "weather_altitude_stadium",
+      "name": "天气与场地条件",
+      "current_status": "多伦多夏季傍晚，条件正常",
+      "why_it_matters": "高温或高海拔会影响球队体能，尤其对加拿大这种高压打法消耗更大",
+      "possible_impact": "若天气炎热，加拿大下半场强度可能下降，波黑有机会偷分",
+      "free_copy": "多伦多夏天晚上踢球，气温不算极端，但体能消耗仍需关注。",
+      "subscriber_copy": "天气因素已纳入背景，但若临场出现异常（如暴雨），群内会额外提示。"
+    }
+  ],
+  "rescore_decision_rules": [
+    {
+      "condition": "加拿大首发缺少2名以上中轴主力（门将/中卫/前锋）",
+      "change_to_lean": "倾向转向平局",
+      "change_to_risk": "风险再升一档",
+      "change_to_score_range": "收窄至1-1、0-0、1-0",
+      "operator_note": "中轴缺人时，加拿大控制力下降，波黑反击机会增加。"
+    },
+    {
+      "condition": "加拿大确认全主力首发，包括前锋",
+      "change_to_lean": "维持加拿大胜倾向",
+      "change_to_risk": "维持高风险",
+      "change_to_score_range": "维持原区间（0-1、1-1、0-2）",
+      "operator_note": "全主力加拿大仍是纸面占优方，但波黑反击效率仍是隐患。"
+    },
+    {
+      "condition": "波黑首发门将是状态好的第一选择 + 后防五人不变",
+      "change_to_lean": "维持但标记爆冷路径",
+      "change_to_risk": "提升波黑爆冷场景权重",
+      "change_to_score_range": "向1-0、0-0、1-1偏移",
+      "operator_note": "门将+后防稳定，波黑有能力守住平局甚至偷胜。"
+    },
+    {
+      "condition": "赛前伤停涉及任何一方锋线核心",
+      "change_to_lean": "需要重新评估",
+      "change_to_risk": "风险升高",
+      "change_to_score_range": "重新发布区间",
+      "operator_note": "锋线核心缺阵直接改变进球预期，必须重算。"
+    }
+  ],
+  "public_teaser": "俅哥提醒：加拿大这场冷门风险高，首发和门将人选是开球前最大变数。",
+  "group_join_hook": "首发公布后，群内第一时间更新判断：加拿大中轴是否完整？波黑门将是谁？哲科上不上？这些都会改写赛前倾向。入群看临场修正，不踩冷门坑。",
+  "reminder_message": "【俅哥提醒】加拿大vs波黑首发即将公布！重点关注：加拿大中轴线是否全主力、波黑门将是谁、哲科是否首发。群内会第一时间给出修正判断，别错过！",
+  "language": "zh-CN",
+  "voice": "qiuge_v2",
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "product_surface": "trial_rescore",
+  "guard_clean": true,
+  "generated_at": "2026-06-11T15:55:39.429166+00:00"
+}

@@ -2,7 +2,7 @@
   "sprint": "MVP-2 June 11 Real Match Trial Prediction",
   "league_id": 1,
   "season": 2026,
-  "fetch_time": "2026-06-11T03:16:55.527030+00:00",
+  "fetch_time": "2026-06-11T16:00:20.631873+00:00",
   "season_fixture_count": 72,
   "http_status": 200,
   "opening_window": {
@@ -198,6 +198,28 @@
       "coaches_available": true,
       "teams_available": true,
       "scout_pack": "docs/data_audit/mvp2_scout_pack_samples/1489371.json"
+    },
+    {
+      "fixture_id": 1539000,
+      "home_team": "Canada",
+      "away_team": "Bosnia & Herzegovina",
+      "kickoff_time": "2026-06-12T19:00:00+00:00",
+      "timezone": "UTC",
+      "venue": {
+        "name": "BMO Field",
+        "city": "Toronto"
+      },
+      "round": "Group Stage - 1",
+      "match_status": "Not Started",
+      "league_id": 1,
+      "season": 2026,
+      "api_endpoint": "/fixtures?league=1&season=2026 (+/fixtures/lineups, /injuries probes)",
+      "lineups_available": false,
+      "injuries_available": false,
+      "squads_available": true,
+      "coaches_available": true,
+      "teams_available": true,
+      "scout_pack": "docs/data_audit/mvp2_scout_pack_samples/1539000.json"
     }
   ],
   "source_ledger": {

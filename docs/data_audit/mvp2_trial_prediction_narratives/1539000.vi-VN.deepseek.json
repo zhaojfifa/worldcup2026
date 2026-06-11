@@ -1,0 +1,140 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1539000",
+  "mode": "pre_match_2026_modeling",
+  "language": "vi-VN",
+  "hero_title": "Tiên Tri Bóng Đá nhận định Canada vs Bosnia: Sức mạnh Elo 188 điểm, nhưng rủi ro sát giờ rất cao",
+  "hero_subtitle": "Trận ra quân bảng đấu của Canada: bên được đánh giá cao hơn nhưng biến số đội hình chưa công bố có thể thay đổi mọi thứ.",
+  "short_title": "Canada vs Bosnia: Tiên Tri cảnh báo rủi ro sát giờ",
+  "screenshot_line": "Tiên Tri Bóng Đá: Canada hơn Bosnia 188 điểm Elo, nhưng đội hình chưa công bố là biến số lớn nhất trận này.",
+  "model_judgement": "Tiên Tri Bóng Đá nhận định Canada là bên được đánh giá cao hơn nhờ Elo vượt trội (1814 vs 1626) và phong độ 10 trận ổn định (4 thắng, 5 hòa, 1 thua). Tuy nhiên, rủi ro sát giờ rất lớn: đội hình chính thức chưa công bố, thủ môn bắt chính chưa rõ, và Bosnia sở hữu chân sút kỳ cựu Edin Džeko (5 bàn gần nhất) có thể tạo khác biệt. Tiên Tri đánh giá đây là trận đấu rủi ro cao, cần canh lại 30 phút trước giờ bóng lăn.",
+  "main_lean": "Canada có lợi thế rõ rệt, nhưng không loại trừ kịch bản hòa hoặc bất ngờ.",
+  "scoreline_view": "Khoảng tham khảo trước trận của Tiên Tri: 1-0, 1-1, 0-1.",
+  "risk_level": "Cao – Bên được đánh giá cao hơn nhưng đội hình chưa công bố và biến số thủ môn có thể tạo bất ngờ.",
+  "risk_factors": [
+    {
+      "name": "Đội hình chưa công bố",
+      "text": "Đội hình xuất phát và sơ đồ chiến thuật chưa được xác nhận. Đây là biến số quan trọng nhất cần canh sát giờ.",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn bắt chính chưa rõ",
+      "text": "Cả hai đội đều có 3 thủ môn trong danh sách, nhưng ai bắt chính chưa được công bố. Thủ môn có thể ảnh hưởng lớn đến kết quả.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Phụ thuộc vào chân sút chủ lực",
+      "text": "Bosnia phụ thuộc nhiều vào Edin Džeko (5 bàn trong 10 trận gần nhất, chiếm 25% tổng số bàn). Nếu Džeko bị phong tỏa, khả năng ghi bàn của Bosnia giảm mạnh.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Xu hướng phòng ngự trái chiều",
+      "text": "Canada giữ sạch lưới 7/10 trận gần nhất, trong khi Bosnia chỉ 2/10. Tuy nhiên, Canada gần đây ghi ít bàn hơn (7 bàn 5 trận gần so với 4 bàn 5 trận trước đó), cho thấy hàng công có dấu hiệu chững lại.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
+          "derived": true
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Đội hình chính thức",
+      "text": "Khi đội hình được công bố (khoảng 30 phút trước giờ đá), cần xem Canada có thiếu trụ cột nào ở hàng thủ hay không, và Bosnia có tung Džeko đá chính hay không.",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thủ môn bắt chính",
+      "text": "Thủ môn bắt chính của mỗi đội sẽ ảnh hưởng lớn đến nhận định. Nếu Canada bắt bằng thủ môn dự bị, rủi ro tăng cao.",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Thời tiết và sân bãi",
+      "text": "Trận đấu diễn ra tại Toronto vào mùa hè, nhiệt độ và độ ẩm có thể ảnh hưởng đến thể lực, đặc biệt với lối chơi pressing của Canada.",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "Tiên Tri Bóng Đá: Canada hơn Bosnia 188 điểm Elo, phong độ 10 trận 4 thắng 5 hòa, nhưng đội hình chưa công bố là biến số lớn. Bosnia có Džeko – 5 bàn gần nhất. Rủi ro cao. 30 phút trước giờ đá, xem lại đội hình và thủ môn. Vào nhóm để nhận bản cập nhật sát giờ.",
+  "subscription_hook": "Bản miễn phí cho thấy hướng đi chính: Canada được đánh giá cao hơn, rủi ro cao. Đăng ký để xem toàn bộ phân tích yếu tố, bản cập nhật 30 phút trước giờ bóng lăn khi đội hình công bố, và khoảng tỷ số chi tiết.",
+  "group_join_copy": "Muốn biết chính xác đội hình ra sân và nhận định cập nhật sát giờ? Vào nhóm, Tiên Tri Bóng Đá sẽ gửi bản phân tích đầy đủ ngay khi có thông tin.",
+  "today_cta": "Xem ngay nhận định của Tiên Tri Bóng Đá cho trận Canada vs Bosnia.",
+  "social_post": "Tiên Tri Bóng Đá: Canada hơn Bosnia 188 Elo, nhưng đội hình chưa công bố – rủi ro cao. Bosnia có Džeko. 30 phút trước giờ đá: canh lại đội hình. Vào nhóm xem cập nhật sát giờ.",
+  "internal_notes": [
+    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
+    "Lineups NOT announced: internal_notes must say so; expected shapes only as assumption_flag entries; never invent injuries.",
+    "Speak AS the persona (Tiên Tri Bóng Đá).",
+    "Assumption_context: lineup_uncertainty, goalkeeper_risk, venue/altitude/heat impact, squad stability (XI continuity unknown)."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
+    "Recent form (last 10)": "kaggle_intl_results (derived)",
+    "Head-to-head": "kaggle_intl_results (derived)",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
+    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
+    "Squad stability": "api-football /players/squads (assumption)",
+    "Goalkeeper risk": "api-football /players/squads (assumption)",
+    "Striker dependence / finishing": "kaggle_intl_results (derived)",
+    "Venue / altitude / context": "api-football /fixtures (assumption)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (assumption)",
+    "30-minute pre-kickoff re-score": "internal process (verified)"
+  },
+  "llm_provider": "deepseek",
+  "tactical_read": "Dự kiến Canada sẽ chơi pressing tầm cao dưới thời HLV Jesse Marsch, tận dụng tốc độ và thể lực. Bosnia nhiều khả năng chơi phòng ngự phản công, trông chờ vào những đường chuyền dài cho Džeko. Cặp đấu then chốt: trung vệ Canada vs Džeko. Nếu Canada đẩy cao đội hình, khoảng trống sau lưng có thể bị Bosnia khai thác. Nhịp độ trận đấu dự kiến nhanh, nhưng nếu Bosnia lùi sâu, Canada sẽ gặp khó trong việc xuyên thủng hàng thủ số đông. (Lưu ý: đội hình chưa công bố, đây là dự kiến dựa trên phong cách của HLV.)",
+  "voice": "tientri_v2",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T15:56:53.090558+00:00"
+}

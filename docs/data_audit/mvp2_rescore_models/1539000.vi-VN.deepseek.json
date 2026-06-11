@@ -1,0 +1,102 @@
+{
+  "fixture_id": "1539000",
+  "pre_match_lean": "Tiên Tri Bóng Đá nghiêng về Canada, nhưng rủi ro cao vì đội hình chưa công bố.",
+  "pre_match_risk_level": "Cao – chờ đội hình chính thức mới rõ.",
+  "score_range_before": "Khoảng tham khảo trước trận của Tiên Tri: 0-1, 1-1, 0-2.",
+  "rescore_triggers": [
+    {
+      "key": "starting_xi",
+      "name": "Đội hình xuất phát",
+      "current_status": "Chưa công bố – cần kiểm tra lại 60-30 phút trước giờ đá.",
+      "why_it_matters": "Sự liên tục của xương sống đội hình là yếu tố quyết định nhất.",
+      "possible_impact": "Nếu Canada thiếu 2 trụ cột, nhận định sẽ nghiêng về hòa.",
+      "free_copy": "Đội hình chưa có – đây là biến số sát giờ quan trọng nhất.",
+      "subscriber_copy": "Khi đội hình ra, chúng tôi sẽ phân tích ngay: Canada có đủ xương sống không? Bosnia có bắt chính thủ môn số một không? Vào nhóm để xem cập nhật."
+    },
+    {
+      "key": "goalkeeper",
+      "name": "Thủ môn bắt chính",
+      "current_status": "Chưa xác định – danh sách thủ môn đã biết.",
+      "why_it_matters": "Danh tính và phong độ thủ môn từng là điểm mù trong trận gây sốc trước đây.",
+      "possible_impact": "Nếu Bosnia bắt thủ môn chính thức, khả năng cầm hòa tăng.",
+      "free_copy": "Ai bắt chính? Thủ môn có thể thay đổi cục diện.",
+      "subscriber_copy": "Thủ môn nào ra sân sẽ ảnh hưởng trực tiếp đến khoảng tỷ số – theo dõi trong nhóm."
+    },
+    {
+      "key": "frontline_availability",
+      "name": "Tiền đạo chủ lực",
+      "current_status": "Chưa rõ – chờ đội hình.",
+      "why_it_matters": "Bosnia phụ thuộc nhiều vào Džeko (5 bàn/10 trận) – sự có mặt của anh ấy thay đổi rủi ro.",
+      "possible_impact": "Nếu Džeko đá chính, khả năng gây bất ngờ của Bosnia tăng.",
+      "free_copy": "Džeko có đá không? Đó là chìa khóa cho Bosnia.",
+      "subscriber_copy": "Sự góp mặt của Džeko sẽ được đánh giá ngay – vào nhóm xem phân tích tức thì."
+    },
+    {
+      "key": "formation",
+      "name": "Sơ đồ chiến thuật",
+      "current_status": "Chưa công bố – huấn luyện viên sẽ xác nhận.",
+      "why_it_matters": "Sơ đồ thấp vs kiểm soát bóng thay đổi dạng tỷ số.",
+      "possible_impact": "Nếu Bosnia đá thấp, tỷ số thấp hơn.",
+      "free_copy": "Sơ đồ nào? Điều này ảnh hưởng đến nhịp độ trận.",
+      "subscriber_copy": "Sơ đồ dự kiến sẽ được phân tích chi tiết trong nhóm – đừng bỏ lỡ."
+    },
+    {
+      "key": "late_injury_suspension",
+      "name": "Chấn thương/treo giò phút chót",
+      "current_status": "Chưa có thông tin mới – đây là điểm mù cần canh.",
+      "why_it_matters": "Bất kỳ cái tên nào rời danh sách cũng ảnh hưởng ngay đến đội hình.",
+      "possible_impact": "Nếu mất tiền đạo hoặc trung vệ, cần chạy lại nhận định.",
+      "free_copy": "Chấn thương phút chót? Chưa có tin – phải theo dõi sát.",
+      "subscriber_copy": "Tin chấn thương sẽ được cập nhật trong nhóm ngay khi có."
+    },
+    {
+      "key": "weather_altitude_stadium",
+      "name": "Thời tiết & sân bãi",
+      "current_status": "Sân BMO Field, Toronto – tối mùa hè, điều kiện bình thường.",
+      "why_it_matters": "Nhiệt độ/độ cao ảnh hưởng đến thể lực pressing cuối trận.",
+      "possible_impact": "Nếu nóng, Canada khó duy trì cường độ cao – tạo cơ hội cho Bosnia.",
+      "free_copy": "Thời tiết Toronto mùa hè – có thể ảnh hưởng nhịp độ.",
+      "subscriber_copy": "Điều kiện sân bãi sẽ được xem xét trong phân tích chi tiết – vào nhóm để biết thêm."
+    }
+  ],
+  "rescore_decision_rules": [
+    {
+      "condition": "Canada thiếu 2 trụ cột (CB/GK/tiền đạo)",
+      "change_to_lean": "Nghiêng về hòa",
+      "change_to_risk": "Tăng một bậc",
+      "change_to_score_range": "Thu hẹp về 1-1 / tỷ số thấp",
+      "operator_note": "Nếu mất xương sống, Canada mất ưu thế."
+    },
+    {
+      "condition": "Canada ra sân đội hình mạnh nhất, có tiền đạo chủ lực",
+      "change_to_lean": "Giữ / tăng nghiêng về Canada",
+      "change_to_risk": "Giữ nguyên",
+      "change_to_score_range": "Giữ nguyên (Canada chiếm ưu thế)",
+      "operator_note": "Đội hình mạnh nhất củng cố nhận định ban đầu."
+    },
+    {
+      "condition": "Bosnia bắt thủ môn chính thức + hàng thủ 5 người không đổi",
+      "change_to_lean": "Giữ nhưng cảnh báo khả năng gây sốc",
+      "change_to_risk": "Tăng khả năng cầm hòa",
+      "change_to_score_range": "Dịch trọng số về 1-0/0-0/1-1",
+      "operator_note": "Bosnia chắc chắn hơn nếu thủ môn số một bắt chính."
+    },
+    {
+      "condition": "Chấn thương/treo giò phút chót ảnh hưởng đến tiền đạo hai bên",
+      "change_to_lean": "Cần chạy lại nhận định",
+      "change_to_risk": "Tăng",
+      "change_to_score_range": "Đưa ra khoảng mới",
+      "operator_note": "Mất tiền đạo thay đổi cục diện ngay lập tức."
+    }
+  ],
+  "public_teaser": "Tiên Tri Bóng Đá: Canada nhỉnh hơn, nhưng rủi ro cao – chờ đội hình để biết chắc.",
+  "group_join_hook": "Vào nhóm để nhận phân tích ngay khi đội hình ra – cập nhật sát giờ, không bỏ lỡ biến số.",
+  "reminder_message": "Đội hình sắp có! Tiên Tri Bóng Đá sẽ cập nhật nhận định ngay trong nhóm. Ai bắt chính? Džeko có đá? Vào xem ngay!",
+  "language": "vi-VN",
+  "voice": "tientri_v2",
+  "llm_provider": "deepseek",
+  "model": "deepseek-chat",
+  "product_surface": "trial_rescore",
+  "guard_clean": true,
+  "generated_at": "2026-06-11T15:57:11.038398+00:00"
+}

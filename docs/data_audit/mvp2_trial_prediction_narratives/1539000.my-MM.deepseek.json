@@ -1,0 +1,210 @@
+{
+  "product_name": "Giành Cup AI ScoutScore",
+  "fixture_id": "1539000",
+  "mode": "pre_match_2026_modeling",
+  "language": "my-MM",
+  "hero_title": "Football Oracle ၏ ပထမဆုံး အုပ်စုပွဲ သုံးသပ်ချက် — Canada vs Bosnia & Herzegovina",
+  "hero_subtitle": "အဆင့်မြင့် Elo ကွာဟမှုနဲ့ အိမ်ကွင်းအားသာချက်ကို Football Oracle က ဘယ်လိုမြင်လဲ",
+  "short_title": "Canada vs Bosnia: Oracle ၏ ပွဲကြိုအမြင်",
+  "screenshot_line": "Canada Elo 1814 vs Bosnia 1626 — ကွာဟမှု ၁၈၈ မှတ်၊ ဒါပေမယ့် လူစာရင်းမသိရသေးတဲ့ အန္တရာယ်",
+  "model_judgement": "Football Oracle က ဒီပွဲကို ဒီလိုမြင်တယ် — Canada က Elo 1814 နဲ့ လက်ရှိပုံစံ (နောက်ဆုံး ၁၀ ပွဲမှာ ၄ နိုင် ၅ သရေ ၁ ရှုံး) ကို ကိုးကားပြီး သာလွန်တယ်။ ဒါပေမယ့် ဘော့စနီးယားက နောက်ဆုံး ၁၀ ပွဲမှာ ၃ နိုင် ၆ သရေ ၁ ရှုံးနဲ့ ခံစစ်အားကောင်းတယ် (နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ပွဲ ဂိုးမပေးဖြစ်)။ ပွဲဦးထွက်အုပ်စုပွဲဖြစ်တဲ့အတွက် စိတ်လှုပ်ရှားမှုနဲ့ လူစာရင်းမသိရသေးတဲ့ အန္တရာယ်က မြင့်မားတယ်။ Football Oracle က Canada ဘက်ကို ညွှန်တယ်၊ ဒါပေမယ့် အန္တရာယ်မြင့်တယ်လို့ သတ်မှတ်တယ်။",
+  "main_lean": "Canada အနိုင်ရရန် ညွှန်သည်",
+  "scoreline_view": "Football Oracle ၏ ပွဲကြို ရည်ညွှန်းအပိုင်းအခြား: 1-0, 1-1, 0-1",
+  "risk_level": "မြင့်မားသော အန္တရာယ် — လူစာရင်းမသိရသေးခြင်းနဲ့ ဂိုးသမားအနေအထားက ပွဲကို ပြောင်းလဲနိုင်",
+  "risk_factors": [
+    {
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Canada Elo 1814 vs Bosnia 1626 — ကွာဟမှု ၁၈၈ မှတ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "Canada 4W-5D-1L, Bosnia 3W-6D-1L — နှစ်သင်းစလုံး ရှုံးပွဲနည်းတယ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Head-to-head",
+      "text": "သမိုင်းတစ်လျှောက် မကြုံဖူးသေးတဲ့ သင်းတွဲ — ပွဲကြိုခန့်မှန်းရခက်စေတယ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Goal trend (last 5 vs prev 5)",
+      "text": "Canada ဂိုးရည် တိုးလာတယ် (prev5: 4 → last5: 7), Bosnia ကျဆင်းတယ် (prev5: 16 → last5: 4)",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Defensive trend + clean sheets",
+      "text": "Canada နောက်ဆုံး ၁၀ ပွဲမှာ ၇ ပွဲ ဂိုးမပေးဖြစ် — ခံစစ်ခိုင်မာတယ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Squad stability",
+      "text": "လူစာရင်း ၂၆ ဦးစီ အတည်ပြုပြီး — ပွဲထွက် ၁၁ ဦးကို ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်ရမယ်",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Goalkeeper risk",
+      "text": "ဂိုးသမားစာရင်းသိရပေမယ့် ဘယ်သူစတယ်ဆိုတာ မသိရသေး — ပွဲမစခင် ပြန်စစ်ရမယ့်အချက်",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Striker dependence / finishing",
+      "text": "Bosnia က Edin Džeko (၅ ဂိုး) ကို မှီခိုတယ် — သူ့ကို ထိန်းနိုင်ရင် Canada အတွက် အခွင့်သာတယ်",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Venue / altitude / context",
+      "text": "Toronto BMO Field — အိမ်ကွင်းအားသာချက်ရှိပေမယ့် နွေရာသီအပူရှိန်က ပွဲအရှိန်ကို သက်ရောက်နိုင်",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Lineup uncertainty",
+      "text": "ပွဲထွက်လူစာရင်း မထွက်သေး — ပွဲမစခင် မိနစ် ၃၀ မှာ ပြန်စစ်မယ်",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "validated_factors": [],
+  "underweighted_factors": [],
+  "watch_next_signals": [
+    {
+      "name": "Lineup announcement",
+      "text": "Canada ရဲ့ ကျောရိုး (CB/GK/striker) ပါမပါ စစ်ဆေးရမယ်",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Starting goalkeeper",
+      "text": "ဂိုးသမားဘယ်သူစတယ်ဆိုတာ ပွဲမစခင် သိရမယ်",
+      "source_refs": [
+        {
+          "field": "squad",
+          "source": "api-football",
+          "endpoint": "/players/squads",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Early goal impact",
+      "text": "ဘော့စနီးယားက စောစောဂိုးရရင် ပွဲအရှိန်ပြောင်းသွားနိုင်",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Weather/altitude effect",
+      "text": "အပူရှိန်က Canada ရဲ့ ဖိအားပေးကစားတဲ့ပုံစံကို ထိခိုက်နိုင်",
+      "source_refs": [
+        {
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": 1539000
+        }
+      ],
+      "assumption_flag": true
+    }
+  ],
+  "operator_copy": "🔥 Football Oracle ၏ Canada vs Bosnia ပွဲကြိုသုံးသပ်ချက် — Canada Elo 1814 နဲ့ သာလွန်ပေမယ့် လူစာရင်းမသိရသေးတဲ့ အန္တရာယ်မြင့်ပွဲ။ ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းနဲ့ ဂိုးသမားကို ပြန်စစ်ပြီး အဖွဲ့ထဲမှာ နောက်ဆုံးရလဒ်ကို စောင့်ကြည့်ပါ။",
+  "subscription_hook": "အခမဲ့ဗားရှင်းက ဦးတည်ချက်နဲ့ အန္တရာယ်အဆင့်ကို ပြတယ်။ အဖွဲ့ဝင်ဖြစ်ရင် ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းအရ ပြန်တွက်ချက်တဲ့ ရလဒ်၊ အချက်အလက်အပြည့်အစုံနဲ့ ဂိုးအပိုင်းအခြားကို ရရှိမယ်။",
+  "group_join_copy": "Football Oracle ရဲ့ ပွဲကြိုသုံးသပ်ချက်ကို လက်လွတ်မခံပါနဲ့ — အဖွဲ့ထဲမှာ ပွဲမစခင် နောက်ဆုံးမိနစ် ၃၀ ပြန်တွက်ချက်မှုကို စောင့်ကြည့်ပါ။",
+  "today_cta": "ဒီနေ့ Canada vs Bosnia ပွဲအတွက် Football Oracle ရဲ့ အမြင်ကို ကြည့်လိုက်ပါ။",
+  "social_post": "Football Oracle က Canada vs Bosnia ကို ဒီလိုမြင်တယ် — Elo 1814 vs 1626, ဒါပေမယ့် လူစာရင်းမသိရသေးတဲ့ အန္တရာယ်မြင့်ပွဲ။ ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲမှာ ပြန်စစ်ပါ။",
+  "internal_notes": [
+    "Real scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement. Lineups NOT announced: expected shapes only as assumption_flag entries. Never invent injuries. Persona: Football Oracle."
+  ],
+  "source_ref_map": {
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (derived)",
+    "Recent form (last 10)": "kaggle_intl_results (derived)",
+    "Head-to-head": "kaggle_intl_results (derived)",
+    "Goal trend (last 5 vs prev 5)": "kaggle_intl_results (derived)",
+    "Defensive trend + clean sheets": "kaggle_intl_results (derived)",
+    "Squad stability": "api-football /players/squads (fixture_id 1539000)",
+    "Goalkeeper risk": "api-football /players/squads (fixture_id 1539000)",
+    "Striker dependence / finishing": "kaggle_intl_results (derived)",
+    "Venue / altitude / context": "api-football /fixtures (fixture_id 1539000)",
+    "Lineup uncertainty": "api-football /fixtures/lineups (fixture_id 1539000)"
+  },
+  "llm_provider": "deepseek",
+  "tactical_read": "Canada က Jesse Marsch လက်အောက်မှာ ဖိအားပေးကစားတဲ့ 4-3-3 ပုံစံကို မျှော်လင့်ရတယ် — ဘေးတောင်ပံတွေကို အသုံးပြုပြီး ဘော့စနီးယားရဲ့ ခံစစ်ကို ဖောက်ထွင်းဖို့ ကြိုးစားမယ်။ Bosnia က Faruk Hadžibegić လက်အောက်မှာ 5-3-2 သို့မဟုတ် 4-4-2 ခံစစ်ပုံစံနဲ့ ကစားနိုင်တယ် — Džeko နဲ့ Tabaković တို့ကို ရှေ့တန်းမှာ ထားပြီး ကွင်းလယ်ကနေ ဖြတ်တိုက်မယ်။ အဓိက ထိပ်တိုက်တွေက Canada ရဲ့ ဘေးတောင်ပံတွေနဲ့ Bosnia ရဲ့ ဗဟိုခံစစ်ကြား ဖြစ်လိမ့်မယ်။ ပွဲအရှိန်က Canada ဘက်က မြင့်မားနိုင်ပေမယ့် Bosnia က ခံစစ်နဲ့ ပြန်တိုက်ဖို့ စောင့်နေလိမ့်မယ်။",
+  "voice": "oracle_v2",
+  "product_surface": "trial_prediction",
+  "fixture_basis": "real_scheduled",
+  "model": "deepseek-chat",
+  "generated_at": "2026-06-11T15:58:14.440143+00:00"
+}

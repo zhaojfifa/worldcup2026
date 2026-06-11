@@ -50,14 +50,18 @@ def build(fid, rows, verif_map):
     coach = (pack.get("coach") or {}).get("value") or {}
     ver = verif_map.get(int(fid), {})
 
+    kh, ka = v02.kname(home), v02.kname(away)
     R = v02.elo_snapshot(rows, date)
-    eh, ea = round(R.get(home, 1500)), round(R.get(away, 1500))
+    # cold-start honesty: a team with no kaggle history must NOT silently become a
+    # real-looking 1500 rating (a fake gap reached narratives in the 1539000 trial)
+    elo_missing = [t for t, k in ((home, kh), (away, ka)) if k not in R]
+    eh, ea = round(R.get(kh, 1500)), round(R.get(ka, 1500))
     gap = abs(eh - ea)
     fav = home if eh >= ea else away
     dog = away if fav == home else home
-    form = {home: v02.recent_form(rows, home, date), away: v02.recent_form(rows, away, date)}
-    meetings = v02.h2h(rows, home, away, date)
-    scorers = {home: v02.recent_scorers(rows, home, date), away: v02.recent_scorers(rows, away, date)}
+    form = {home: v02.recent_form(rows, kh, date), away: v02.recent_form(rows, ka, date)}
+    meetings = v02.h2h(rows, kh, ka, date)
+    scorers = {home: v02.recent_scorers(rows, kh, date), away: v02.recent_scorers(rows, ka, date)}
     band, band_why = v02.upset_band(gap, 4)
     lam_h = max(0.5, min(2.4, form[home]["goals_for"] / max(1, form[home]["n"]) * 0.85))
     lam_a = max(0.5, min(2.4, form[away]["goals_for"] / max(1, form[away]["n"]) * 0.85))
@@ -81,12 +85,20 @@ def build(fid, rows, verif_map):
 
     cs = {t: sum(1 for m in form[t]["matches"] if m["score"].split("-")[1] == "0") for t in (home, away)}
 
+    elo_status = "verified" if not elo_missing else "assumption"
+    elo_note = "derived from kaggle intl results (49k rows, through 2026-06); " + v02.ELO_METHOD
+    if elo_missing:
+        elo_note += ("; COLD-START: no kaggle history for %s (after aliasing) — elo is the 1500 "
+                     "default, gap is NOT meaningful and must not be quoted" % ", ".join(elo_missing))
+    h2h_note = ("last meetings incl. WC2010 opener 1-1 (Mexico-South Africa)" if fid == "1489369"
+                else "last meetings incl. Morocco 2-1 Brazil 2023" if fid == "1489371"
+                else "last meetings from kaggle results")
     factors = [
         factor("baseline_strength", {"elo": {home: eh, away: ea}, "gap": gap, "favoured": fav},
-               "verified", True, "derived from kaggle intl results (49k rows, through 2026-06); " + v02.ELO_METHOD, kag),
+               elo_status, True, elo_note, kag),
         factor("recent_form", {t: form[t]["record"] for t in (home, away)},
                "verified", True, "last-10 W/D/L from kaggle results", kag),
-        factor("h2h", meetings[-5:], "verified", True, "last meetings incl. WC2010 opener 1-1 (Mexico-South Africa)" if fid == "1489369" else "last meetings incl. Morocco 2-1 Brazil 2023", kag),
+        factor("h2h", meetings[-5:], "verified", True, h2h_note, kag),
         factor("goal_trend", {t: split_trend(form[t]["matches"], "gf") for t in (home, away)},
                "verified", True, "goals scored last5 vs prev5", kag),
         factor("defensive_trend", {t: dict(split_trend(form[t]["matches"], "ga"), clean_sheets_last10=cs[t]) for t in (home, away)},

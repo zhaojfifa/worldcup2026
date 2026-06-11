@@ -1,0 +1,100 @@
+{
+  "run_id": "r20260611T1554Z-prematch",
+  "job": "prematch",
+  "fixtures": [
+    "1539000"
+  ],
+  "started_at": "2026-06-11T15:54:38+00:00",
+  "finished_at": "2026-06-11T15:58:49+00:00",
+  "git_rev": "54026ad",
+  "steps": [
+    {
+      "name": "verify",
+      "status": "ok",
+      "at": "2026-06-11T15:54:42+00:00",
+      "detail": "wrote docs/data_audit/mvp2_june11_real_fixture_verification.json |   fixture 1539000: Canada vs Bosnia & Herzegovina | 2026-06-12T19:00:00+00:00 | Not Started | lineups=False injuries=False squads=True",
+      "artifact_paths": []
+    },
+    {
+      "name": "scout_pack",
+      "status": "ok",
+      "at": "2026-06-11T15:55:00+00:00",
+      "detail": "    /teams                 http=200 results=1 params={'id': 1113} |   -> wrote /Users/tylerzhao/Code/worldcup2026/docs/data_audit/mvp2_scout_pack_samples/1539000.json (21947 bytes) coverage=44% missing=['lineups', 'formation', 'events_summary', 'team_statistics', 'player_statistics', 'injuries'] | total requests this run: 14",
+      "artifact_paths": []
+    },
+    {
+      "name": "frame",
+      "status": "ok",
+      "at": "2026-06-11T15:55:00+00:00",
+      "detail": "saved docs/data_audit/mvp2_trial_prediction_frames/1539000.json  lean=Canada risk=high bands=['0-1', '1-1', '0-2']",
+      "artifact_paths": []
+    },
+    {
+      "name": "narrative.zh-CN",
+      "status": "ok",
+      "at": "2026-06-11T15:55:19+00:00",
+      "detail": "providers=['deepseek'] samples=['1539000'] langs=['zh-CN']  keys: deepseek=set gemini=set | [1539000 deepseek] |   saved docs/data_audit/mvp2_trial_prediction_narratives/1539000.zh-CN.deepseek.json  (llm_provider=deepseek)",
+      "artifact_paths": []
+    },
+    {
+      "name": "rescore_model.zh-CN",
+      "status": "ok",
+      "at": "2026-06-11T15:55:39+00:00",
+      "detail": "[1539000 deepseek] |   saved docs/data_audit/mvp2_rescore_models/1539000.zh-CN.deepseek.json (guard_clean=True)",
+      "artifact_paths": []
+    },
+    {
+      "name": "narrative.vi-VN",
+      "status": "ok",
+      "at": "2026-06-11T15:56:53+00:00",
+      "detail": "  ! deepseek attempt 1 guard pre-check: forbidden wording in customer prose: 'cửa trên' |   ! deepseek attempt 2 guard pre-check: de-model violation in customer prose: 'AI' |   saved docs/data_audit/mvp2_trial_prediction_narratives/1539000.vi-VN.deepseek.json  (llm_provider=deepseek)",
+      "artifact_paths": []
+    },
+    {
+      "name": "rescore_model.vi-VN",
+      "status": "ok",
+      "at": "2026-06-11T15:57:11+00:00",
+      "detail": "[1539000 deepseek] |   saved docs/data_audit/mvp2_rescore_models/1539000.vi-VN.deepseek.json (guard_clean=True)",
+      "artifact_paths": []
+    },
+    {
+      "name": "narrative.my-MM",
+      "status": "ok",
+      "at": "2026-06-11T15:58:14+00:00",
+      "detail": "[1539000 deepseek] |   ! deepseek attempt 1 guard pre-check: forbidden wording in customer prose: 'သေချာပေါက်' |   saved docs/data_audit/mvp2_trial_prediction_narratives/1539000.my-MM.deepseek.json  (llm_provider=deepseek)",
+      "artifact_paths": []
+    },
+    {
+      "name": "rescore_model.my-MM",
+      "status": "ok",
+      "at": "2026-06-11T15:58:49+00:00",
+      "detail": "[1539000 deepseek] |   saved docs/data_audit/mvp2_rescore_models/1539000.my-MM.deepseek.json (guard_clean=True)",
+      "artifact_paths": []
+    },
+    {
+      "name": "guard",
+      "status": "ok",
+      "at": "2026-06-11T15:58:49+00:00",
+      "detail": "6/6 artifacts clean",
+      "artifact_paths": [
+        "docs/data_audit/mvp2_ops_runs/r20260611T1554Z-prematch/guard_report.json"
+      ]
+    },
+    {
+      "name": "send_kit",
+      "status": "ok",
+      "at": "2026-06-11T15:58:49+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_send_kits/1539000.prematch.md"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 0,
+    "by_endpoint": {}
+  },
+  "llm_calls": {},
+  "guard_summary": "6/6 clean",
+  "status": "ok"
+}

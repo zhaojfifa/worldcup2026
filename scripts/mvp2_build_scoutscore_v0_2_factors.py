@@ -28,6 +28,24 @@ OUT = ROOT / "docs" / "data_audit" / "mvp2_scoutscore_v0_2"
 KAGGLE_REF = {"source": "kaggle_intl_results", "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)", "derived": True}
 ELO_METHOD = "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
 
+# API-FOOTBALL team names that differ from the kaggle dataset's historical names.
+# EVERY kaggle lookup must go through kname(); display keeps the API name.
+# (Found in Track A trial: 'Bosnia & Herzegovina' missed 'Bosnia and Herzegovina'
+# -> silent cold-start elo 1500 -> a FAKE 314 gap reached three narratives.)
+KAGGLE_TEAM_ALIASES = {
+    "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+    "USA": "United States",
+    "Curacao": "Curaçao",
+    "Türkiye": "Turkey",
+    "Korea Republic": "South Korea",
+    "Côte d'Ivoire": "Ivory Coast",
+}
+
+
+def kname(team):
+    """Normalize an API-FOOTBALL team name to its kaggle dataset name."""
+    return KAGGLE_TEAM_ALIASES.get(team, team)
+
 
 # ── Kaggle baseline ──────────────────────────────────────────────────────────
 def load_results():
@@ -178,12 +196,13 @@ def recap_frame(fid, rows):
     else:
         home, away = p["formation"]["home"]["team"], p["formation"]["away"]["team"]
     date = fx["date"][:10]
+    kh, ka = kname(home), kname(away)
     R = elo_snapshot(RESULTS, date)
-    eh, ea = round(R.get(home, 1500)), round(R.get(away, 1500))
+    eh, ea = round(R.get(kh, 1500)), round(R.get(ka, 1500))
     gap = abs(eh - ea)
     fav = home if eh >= ea else away
     dog = away if fav == home else home
-    form = {home: recent_form(RESULTS, home, date), away: recent_form(RESULTS, away, date)}
+    form = {home: recent_form(RESULTS, kh, date), away: recent_form(RESULTS, ka, date)}
     s_h, s_a = p["stats"][home], p["stats"][away]
     sog_h, sog_a = s_h.get("Shots on Goal"), s_a.get("Shots on Goal")
     shots_h, shots_a = s_h.get("Total Shots"), s_a.get("Total Shots")
@@ -258,9 +277,9 @@ def recap_frame(fid, rows):
         "fixture": {"home": home, "away": away, "date": fx["date"], "venue": fx.get("venue"),
                     "competition": "%s %s" % (fx["league"]["name"], fx["league"].get("season", "")),
                     "final_score": score, "result_winner": fx.get("result_winner"),
-                    "shootout_winner": shootout_lookup(date, home, away)},
+                    "shootout_winner": shootout_lookup(date, kh, ka)},
         "kaggle_baseline": {"elo": {home: eh, away: ea, "gap": gap, "favoured": fav, "asof": date, "method": ELO_METHOD},
-                            "recent_form": form, "h2h_last10": h2h(RESULTS, home, away, date)},
+                            "recent_form": form, "h2h_last10": h2h(RESULTS, kh, ka, date)},
         "factors": factors,
         "shootout_events_note": p["shootout_events_note"],
         "live_30min_update_trigger": {
@@ -383,14 +402,15 @@ def prematch_real_frame(fid, rows):
     for side, team in (("home", home), ("away", away)):
         s = squad.get(side) or {}
         gk_names[team] = [p["name"] for p in (s.get("sample") or []) if p.get("position") == "Goalkeeper"][:3]
+    kh, ka = kname(home), kname(away)
     R = elo_snapshot(rows, date)
-    eh, ea = round(R.get(home, 1500)), round(R.get(away, 1500))
+    eh, ea = round(R.get(kh, 1500)), round(R.get(ka, 1500))
     gap = abs(eh - ea)
     fav = home if eh >= ea else away
-    form = {home: recent_form(rows, home, date), away: recent_form(rows, away, date)}
-    meetings = h2h(rows, home, away, date)
-    scorers = {home: recent_scorers(rows, home, date), away: recent_scorers(rows, away, date)}
-    sh = {home: shootout_history(home, date), away: shootout_history(away, date)}
+    form = {home: recent_form(rows, kh, date), away: recent_form(rows, ka, date)}
+    meetings = h2h(rows, kh, ka, date)
+    scorers = {home: recent_scorers(rows, kh, date), away: recent_scorers(rows, ka, date)}
+    sh = {home: shootout_history(kh, date), away: shootout_history(ka, date)}
     band, band_why = upset_band(gap, 4)
     lam_h = max(0.5, min(2.4, form[home]["goals_for"] / max(1, form[home]["n"]) * 0.85))
     lam_a = max(0.5, min(2.4, form[away]["goals_for"] / max(1, form[away]["n"]) * 0.85))
