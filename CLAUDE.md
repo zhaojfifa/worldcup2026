@@ -13,6 +13,28 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
+**★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint SHIPPED (Owner trial-send review pending)**
+```text
+Heavy trial for the June-11 opening window. Personas now front the football product: zh 中文先知 ·
+vi Tiên Tri Bóng Đá (company LEIZE / product Giành Cup / engine ScoutScore; NO Cloud on football
+surfaces — customer <title> de-sinified to the English brand line; legal names docs-only).
+Fixture truth re-verified from API-FOOTBALL (league=1 season=2026, 72 fixtures) ->
+docs/data_audit/mvp2_june11_real_fixture_verification.json: 1489369 Mexico-South Africa (opener,
+19:00 UTC TODAY, Azteca) + 1489371 Brazil-Morocco (06-13). Trial frames (12 factors with
+data_status/customer_visible/internal_note + what_could_flip + recheck_30min) ->
+mvp2_trial_prediction_frames/. Persona narratives 8/8 real LLM (DeepSeek chosen, Gemini benchmark),
+new required tactical_read, guard extended (Cloud / AI 分析 / 缺数据-thiếu dữ liệu bans + persona
+checks); 6 legacy vi narratives regenerated to the same bar -> all 28 GUARD PASS.
+Home rebuilt per Owner hierarchy: persona status strip -> TrialHeroCard (opener + LLM hook + 进入
+中文先知战术室 / 加入赛前情报群) -> secondary fixture -> recap visible -> OLD MOCK DEMOTED into a
+collapsed internal-demo fold. /predict/:id = persona tactical room + tactical_read card + ?ops=1
+operator fold. 6 screenshots docs/qa_screenshots/mvp2_june11_trial/. Operator package
+docs/MVP2_JUNE11_TRIAL_OPERATOR_PACKAGE.md (copy-paste zh/vi group messages, [群链接由运营填写],
+send checklist, do-not-send incl. kickoff-window expiry) + review docs/MVP2_JUNE11_TRIAL_PRODUCT_REVIEW.md.
+vi visible-text Han=0; build PASS; PR #3 Draft; main untouched; OPERATION STILL PAUSED — any send
+requires explicit Owner GO before 19:00 UTC kickoff.
+```
+
 **★ 2026-06-11 (later) — Real-Match AI Tactical Room round SHIPPED (send-to-group READY, Owner GO pending)**
 ```text
 Pipeline extended to REAL upcoming fixtures on WC2026 opening day: API-FOOTBALL /fixtures (league=1,

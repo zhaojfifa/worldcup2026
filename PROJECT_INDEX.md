@@ -38,10 +38,16 @@
 - `docs/qa_screenshots/mvp2_real_data_operator_review/` (internal preview + productized + accountability, zh/vi)
 - `docs/qa_screenshots/mvp2_historical_recap_product_flow/` (home entry/bridge + recap detail/continuation, zh/vi)
 
+## ★ June 11 Real Match Trial (2026-06-11, latest)
+- **Persona surfaces:** zh 中文先知 · vi Tiên Tri Bóng Đá (Giành Cup; engine ScoutScore; **no Cloud on football surfaces**; `<title>` → English brand line)
+- **Trial pipeline:** `scripts/mvp2_verify_june11_fixtures.py` → `docs/data_audit/mvp2_june11_real_fixture_verification.json` · `scripts/mvp2_build_trial_prediction_frame.py` → `docs/data_audit/mvp2_trial_prediction_frames/{1489369,1489371}.json` · `scripts/mvp2_generate_trial_prediction_narratives.py` → `docs/data_audit/mvp2_trial_prediction_narratives/` (8/8 real LLM, guard PASS, `tactical_read` + persona enforced)
+- **Frontend:** Home = persona status strip + TrialHeroCard (1489369 Mexico–South Africa opener) + secondary strip; **old mock demoted into `home-demo-fold`**; `/predict/:id` = persona tactical room (+`?ops=1` opens the operator fold) — `components/UpcomingTacticalStrip.tsx` · `pages/PredictPage.tsx` · `components/ProductProofViews.tsx` · `data/{productNarrativeData,upcomingFixtures}.ts`
+- **Operator:** `docs/MVP2_JUNE11_TRIAL_OPERATOR_PACKAGE.md` (copy-paste zh/vi group messages, [群链接由运营填写], send checklist, do-not-send) · review `docs/MVP2_JUNE11_TRIAL_PRODUCT_REVIEW.md` · shots `docs/qa_screenshots/mvp2_june11_trial/` · **send requires Owner GO; operation paused**
+
 ## Next decisions (Owner)
-1. NEXT SPRINT: **MVP-2 Betting-Logic Model Narrative Prompt Revision** (rewrite prompt/contract/guard → ScoutScore model judgement, not journalism) ·
-2. Confirm DeepSeek default provider · 3. Operator: Render SPA rewrite (`/* → /index.html`) + verify live ·
-4. Productize 979139 / TheSports / second-source injuries — gated · 5. Keep PR #3 Draft or split smaller PR.
+1. **June-11 trial-send review:** read `MVP2_JUNE11_TRIAL_OPERATOR_PACKAGE.md` + screenshots → GO / NO-GO before 19:00 UTC kickoff ·
+2. Confirm DeepSeek default provider (re-validated again on trial) · 3. Operator: Render SPA rewrite (`/* → /index.html`) + verify live ·
+4. TheSports / second-source injuries — gated · 5. Keep PR #3 Draft or split smaller PR · 6. Live 30-min re-score automation (currently manual rerun).
 
 ## Hard guardrails
 No public operation · no PR ready w/o Owner approval · no merge · no payment · no Token · no betting/odds/盘口/竞猜/投注 ·

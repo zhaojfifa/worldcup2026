@@ -2,6 +2,29 @@
 
 _Read `CLAUDE.md` first, then this. Date: 2026-06-11. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
+## ★ 2026-06-11 (latest) — June 11 Real Match Trial Prediction Sprint: SHIPPED (Owner trial-send review)
+
+```text
+What changed on top of the tactical-room round:
+PERSONA: 中文先知 (zh) / Tiên Tri Bóng Đá (vi) now front all football product surfaces (labels, CTAs,
+  narrative voice — guard-enforced); brand hierarchy LEIZE > LEIZE AI > Giành Cup > persona > ScoutScore
+  (engine); NO Cloud on football surfaces; customer <title> switched to the English brand line.
+TRIAL PIPELINE (new scripts): mvp2_verify_june11_fixtures.py (fixture truth JSON) ·
+  mvp2_build_trial_prediction_frame.py (12-factor frames, customer_visible/data_status per factor,
+  what_could_flip, recheck_30min) · mvp2_generate_trial_prediction_narratives.py (persona prompts via
+  addenda in docs/prompts/, required tactical_read, full guard in retry loop) -> 8/8 real LLM PASS;
+  guard new bans: cloud / ai 分析 / 我们没有数据 / thiếu dữ liệu / 缺数据 + persona presence; 6 legacy
+  vi narratives regenerated to the same bar (28/28 PASS).
+FRONTEND: Home = TrialStatusStrip + TrialHeroCard(1489369) + secondary strip + recap; legacy mock
+  signal/list/upsets DEMOTED into <details class=home-demo-fold>; PredictPage persona bars + tactical
+  card + ?ops=1 opens InternalFold (operator screenshots).
+OPERATOR: MVP2_JUNE11_TRIAL_OPERATOR_PACKAGE.md = copy-paste zh/vi group messages ([群链接由运营填写]),
+  send checklist, do-not-send (kickoff expiry!), Owner-GO gate. Review: MVP2_JUNE11_TRIAL_PRODUCT_REVIEW.md.
+TIME-SENSITIVE: opener kicks off 2026-06-11 19:00 UTC — trial send must happen BEFORE kickoff or fall
+  back to the 06-13 Brazil-Morocco warm-up message. 30-min re-score is a MANUAL pipeline rerun this
+  round (automation = Owner decision). Operation paused; nothing sent.
+```
+
 ## ★ 2026-06-11 (later) — Real-Match AI Tactical Room: SHIPPED, send-READY (Owner GO pending)
 
 WC2026 opened today; the proof pipeline now runs on REAL upcoming fixtures end-to-end:

@@ -6,7 +6,23 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-11, later) — Real-Match AI Tactical Room (2 real fixtures SHIPPED)
+## ★ MVP-2 status (2026-06-11, latest) — June 11 Real Match Trial Prediction Sprint
+
+```text
+Persona product trial for the opening window (Owner naming rules applied): 中文先知 / Tiên Tri Bóng Đá
+front the football product; engine=ScoutScore; NO Cloud on customer surfaces; <title> -> English.
+Pipeline: re-verified fixtures (mvp2_june11_real_fixture_verification.json; 1489369 opener TODAY 19:00
+UTC + 1489371) -> trial frames (12 factors, data_status/customer_visible, what_could_flip,
+recheck_30min) -> persona narratives 8/8 real LLM + tactical_read (guard extended: Cloud/AI 分析/
+thiếu dữ liệu bans + persona enforcement; 6 legacy vi regenerated; 28/28 PASS) -> Home replaced
+(status strip + TrialHeroCard + secondary; mock demoted to internal-demo fold; recap kept) ->
+/predict/:id persona tactical room (+?ops=1 operator fold) -> 6 screenshots mvp2_june11_trial/ ->
+operator package (copy-paste zh/vi messages, link placeholder, checklist, do-not-send) + product review.
+vi visible-text Han=0 · build PASS · git diff --check clean · PR #3 Draft · main untouched ·
+operation paused — group send ONLY on explicit Owner GO before kickoff.
+```
+
+## MVP-2 status (2026-06-11, later) — Real-Match AI Tactical Room (2 real fixtures SHIPPED)
 
 ```text
 Real-fixture round (WC2026 opening day): /fixtures league=1 season=2026 -> 1489369 Mexico-South Africa
