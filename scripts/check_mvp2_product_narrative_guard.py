@@ -362,6 +362,20 @@ def check_obj(obj, filename=""):
             pen_mentioned = any(t.lower() in blob_l for t in EVENT_TERMS["penalty"].get(lang, []))
             if pens and not pen_mentioned:
                 errs.append("decisive event missing: frame records %d penalty goal(s) but recap prose never mentions them" % len(pens))
+            # "ALL goals came against 10 men" class: false whenever any goal was scored
+            # at equal men (first live vi recap wrote '2 bàn đều ghi khi…còn 10 người'
+            # though the 9' opener came at 11v11)
+            goals_ev = [d for d in ei.get("decisive_events", []) if d.get("event_type") in ("goal", "penalty_goal")]
+            any_equal_men = any(len(set((d.get("men_on_pitch_after") or {}).values())) <= 1 for d in goals_ev)
+            if any_equal_men:
+                for pat in (r"(两|2|兩)[个粒]?(进球|球)都?在?[^。；.!?\n]{0,12}(少打|10人|多打)",
+                            r"全部进球[^。；.!?\n]{0,10}(少打|10人)",
+                            r"(cả hai|2|hai)\s*bàn[^.;!?\n]{0,40}đều[^.;!?\n]{0,40}(10 người|hơn người|thẻ đỏ)",
+                            r"(both|all)\s+goals[^.;!?\n]{0,40}(10 men|man advantage)"):
+                    mm = re.search(pat, blob, re.I)
+                    if mm:
+                        errs.append("event overclaim: claims ALL goals came with a man advantage but the frame shows a goal at equal men: %r" % mm.group(0))
+                        break
             if not pens and pen_mentioned and not (ei.get("var_available")):
                 # shootout-decided matches legitimately discuss 点球大战 — only flag when
                 # NO penalty goal and NO shootout exists in the frame

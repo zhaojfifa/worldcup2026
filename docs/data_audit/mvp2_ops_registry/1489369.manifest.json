@@ -64,8 +64,8 @@
       "vi-VN": {
         "status": "guard_passed",
         "artifact": "docs/data_audit/mvp2_product_proof_narratives/1489369.vi-VN.deepseek.json",
-        "queue_item": "1489369.recap.vi-VN.deepseek.r20260612T0127Z-recap",
-        "run_id": "r20260612T0127Z-recap"
+        "queue_item": "1489369.recap.vi-VN.deepseek.r20260612T0432Z-recap",
+        "run_id": "r20260612T0432Z-recap"
       },
       "my-MM": {
         "status": "guard_passed",
@@ -78,8 +78,8 @@
   "lineups_released": false,
   "quota_ledger_day": {
     "date": "2026-06-12",
-    "requests": 10,
+    "requests": 11,
     "daily_budget": 100
   },
-  "updated_at": "2026-06-12T01:29:09+00:00"
+  "updated_at": "2026-06-12T04:34:11+00:00"
 }

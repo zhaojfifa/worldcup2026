@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-12T04:16:44+00:00",
+  "generated_at": "2026-06-12T04:34:11+00:00",
   "items": {
     "1489369.recap.my-MM.deepseek.r20260612T0005Z-recap": {
       "status": "superseded",
@@ -44,6 +44,13 @@
       "expires_at": null
     },
     "1489369.recap.vi-VN.deepseek.r20260612T0127Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.deepseek.r20260612T0432Z-recap": {
       "status": "guard_passed",
       "fixture_id": "1489369",
       "surface": "recap",
