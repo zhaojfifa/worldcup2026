@@ -93,6 +93,92 @@ def build_package(kind, fid, lang, ref):
             "copy_text": "\n".join(lines), "meta": meta}
 
 
+# ── refresh wrapper (P1.1b): all packages, per-package status, file output ──
+PKG_DIR = ROOT / "docs" / "data_audit" / "mvp2_growth_packages"
+QUEUE_JSON = ROOT / "docs" / "data_audit" / "mvp2_review_queue" / "queue.json"
+DEFAULT_FIXTURE = {"today": "1489371", "next": "1489371", "recap": "1489369"}
+
+
+def _recap_approval_status(fid, lang):
+    """Simple read-only queue lookup: best status among recap items for fixture+lang.
+    Returns 'approved' | 'guard_passed' | ... | 'unknown' (never blocks generation)."""
+    try:
+        items = json.loads(QUEUE_JSON.read_text(encoding="utf-8")).get("items", {})
+        prefix = "%s.recap.%s." % (fid, LANG_FILE[lang])
+        states = [v.get("status") for k, v in items.items() if k.startswith(prefix)]
+        for want in ("sent", "approved", "guard_passed", "needs_review"):
+            if want in states:
+                return want
+        return states[-1] if states else "unknown"
+    except Exception:
+        return "unknown"
+
+
+def _share_card_url(kind, fid, lang, ref):
+    path = "/share/recap/%s" % fid if kind == "recap" else "/share/fixture/%s" % fid
+    return "%s%s?ref=%s&lang=%s" % (SITE, path, ref or DEFAULT_REF[lang], lang)
+
+
+def cmd_refresh(lang, ref, stamp):
+    ref = (ref or DEFAULT_REF[lang]).upper()
+    PKG_DIR.mkdir(parents=True, exist_ok=True)
+    summary = {"lang": lang, "ref": ref, "generated_at": stamp, "packages": {}}
+    for kind in ("today", "next", "recap"):
+        fid = DEFAULT_FIXTURE[kind]
+        entry = {"fixture_id": fid}
+        try:
+            doc = build_package(kind, fid, lang, ref)
+        except ValueError as e:
+            reason = str(e)
+            entry["status"] = "needs_fixture" if "no bundled narrative" in reason else "refused"
+            entry["reason"] = reason
+            summary["packages"][kind] = entry
+            print("%-6s %-12s %s (%s)" % (kind, entry["status"], fid, reason))
+            continue
+        except FileNotFoundError as e:
+            entry.update(status="unavailable", reason=str(e))
+            summary["packages"][kind] = entry
+            print("%-6s unavailable  %s" % (kind, fid))
+            continue
+        status_lines = ["package_status: available"]
+        if kind == "recap":
+            ap = _recap_approval_status(fid, lang)
+            entry["approval_status"] = ap
+            status_lines.append("approval_status: %s" % ap)
+            if ap not in ("approved", "sent"):
+                entry["warning"] = "Verify queue approval before sending."
+                status_lines.append('warning: "Verify queue approval before sending."')
+        card_url = _share_card_url(kind, fid, lang, ref)
+        fname = "%s_%s_%s_%s.md" % (kind, fid, lang, ref)
+        body = "\n".join([
+            "# Growth package · %s · %s · %s" % (kind, fid, lang),
+            "",
+            "- fixture_id: %s" % fid,
+            "- lang: %s" % lang,
+            "- ref: %s" % ref,
+            "- share_link: %s" % doc["meta"]["share_link"],
+            "- share_card_url: %s" % card_url,
+            "- " + "\n- ".join(status_lines),
+            "- generated_at: %s" % stamp,
+            "- operator_next_step: 人工审核文案 → Owner GO（fixture+channel）→ 手动粘贴发送 →"
+            " queue mark-sent + 截图 + SEND_LOG（绝不自动发送）",
+            "",
+            "## copy_text（原样粘贴；只允许替换群链接占位）",
+            "```text",
+            doc["copy_text"],
+            "```",
+        ]) + "\n"
+        (PKG_DIR / fname).write_text(body, encoding="utf-8")
+        entry.update(status="available", file=str((PKG_DIR / fname).relative_to(ROOT)),
+                     share_link=doc["meta"]["share_link"], share_card_url=card_url)
+        summary["packages"][kind] = entry
+        print("%-6s available    %s -> %s" % (kind, fid, fname))
+    sp = PKG_DIR / ("refresh_summary_%s.json" % stamp)
+    sp.write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print("summary -> %s" % sp.relative_to(ROOT))
+    return summary
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -118,7 +204,15 @@ def main():
     pk.add_argument("--fixture", default=None)
     pk.add_argument("--lang", default="zh", choices=["zh", "vi", "my"])
     pk.add_argument("--ref", default=None)
+    rf = sub.add_parser("refresh")
+    rf.add_argument("--lang", default="zh", choices=["zh", "vi", "my"])
+    rf.add_argument("--ref", default=None)
     a = ap.parse_args()
+
+    if a.cmd == "refresh":
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M")
+        cmd_refresh(a.lang, a.ref, stamp)
+        return
 
     if a.cmd == "package":
         # pure file assembly — no DB needed; default fixtures: today/next=1489371, recap=1489369
