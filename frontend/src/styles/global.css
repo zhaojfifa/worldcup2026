@@ -1555,3 +1555,10 @@ body {
 .rh-card { border-left: 4px solid var(--amber); }
 .ra-card { border-left: 4px solid var(--blueMid); }
 .rh-line, .ra-line { font-size: 13px; line-height: 1.6; margin: 6px 0 8px; }
+
+/* ── Growth P1: /join landing ───────────────────────────────────────────── */
+.join-row { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+.join-row:last-of-type { border-bottom: 0; }
+.join-ic { font-size: 20px; flex: 0 0 28px; text-align: center; }
+.join-h { font-weight: 800; font-size: 14px; color: var(--blueDeep); }
+.join-p { font-size: 12px; line-height: 1.6; color: var(--ink); margin-top: 2px; }

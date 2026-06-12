@@ -25,3 +25,6 @@ __all__ = [
     "ContentAsset", "SocialChannel", "MatchEngagement",
     "UserStreak", "ChallengeResult",
 ]
+from app.models.growth import (  # noqa: F401 — Growth P1 additive tables
+    GrowthAmbassador, GrowthClick, GrowthJoinIntent, GrowthContribution, GrowthAuditLog,
+)

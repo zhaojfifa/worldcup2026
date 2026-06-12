@@ -37,7 +37,8 @@ import sys
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 # /recap/1489369 = first REAL post-match recap surface (A4, Mexico 2-0 South Africa);
 # /predict/1489369 stays listed — post-match it redirects there, both must scan clean.
-ROUTES = ["/", "/predict/1489369", "/predict/1489371", "/recap/855737", "/recap/979139", "/recap/1489369"]
+# /join = Growth P1 ambassador landing (customer surface; QR/admin machinery must NOT appear)
+ROUTES = ["/", "/predict/1489369", "/predict/1489371", "/recap/855737", "/recap/979139", "/recap/1489369", "/join"]
 LANGS = ["zh", "vi", "my"]
 
 ZH_FORBIDDEN = ["模型", "数据缺失", "缺数据", "盲区", "过程验证", "自证",
