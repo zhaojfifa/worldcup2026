@@ -8,7 +8,7 @@
 - package_status: available
 - approval_status: guard_passed
 - warning: "Verify queue approval before sending."
-- generated_at: 20260612_1441
+- generated_at: 20260612_1454
 - operator_next_step: 人工审核文案 → Owner GO（fixture+channel）→ 手动粘贴发送 → queue mark-sent + 截图 + SEND_LOG（绝不自动发送）
 
 ## copy_text（原样粘贴；只允许替换群链接占位）

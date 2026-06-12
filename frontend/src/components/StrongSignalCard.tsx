@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Locale } from '../i18n/useLocale';
 import type { ProductNarrative } from '../data/productNarrativeData';
 import { getExternalSignals } from '../data/externalSignalData';
+import { harmonizedRisk } from '../growth/shareTemplates';
 import { ShareBlock } from './ShareBlock';
 
 // Strong-judgment signal card (Product Closure P1, Owner §7).
@@ -41,7 +42,7 @@ export function StrongCallCard({ n, loc }: { n: ProductNarrative; loc: Locale })
       <div className="sc-kicker"><span className="zh">{L.kicker}</span><span className="en">{L.en}</span></div>
       <div className="sc-row"><span className="sc-k">{L.lean}</span><span className="sc-v sc-lead">{n.main_lean}</span></div>
       <div className="sc-row"><span className="sc-k">{L.score}</span><span className="sc-v">{n.scoreline_view}</span></div>
-      <div className="sc-row"><span className="sc-k">{L.risk}</span><span className="sc-v">{n.risk_level}</span></div>
+      <div className="sc-row"><span className="sc-k">{L.risk}</span><span className="sc-v">{harmonizedRisk(n.main_lean, n.risk_level)}</span></div>
       {topVariable && <div className="sc-row"><span className="sc-k">{L.variable}</span><span className="sc-v">{topVariable}</span></div>}
       {ext && (
         <div className="sc-ext">

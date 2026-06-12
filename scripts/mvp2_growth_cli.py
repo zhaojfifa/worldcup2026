@@ -50,6 +50,14 @@ def _link(path, lang, ref):
     return "%s%s%sref=%s" % (SITE, path, "&" if "?" in path else "?", ref or DEFAULT_REF[lang])
 
 
+def _harmonized_risk(main_lean, risk_level):
+    """Owner condition 2026-06-12: lean says 风险偏高 but label word is 中 -> display 中高.
+    Deterministic merge of two model statements; never a new judgement."""
+    if re.search(r"风险偏高|风险高", main_lean or "") and re.match(r"^中(?!高)", risk_level or ""):
+        return re.sub(r"^中", "中高", risk_level)
+    return risk_level
+
+
 def _split_band(scoreline_view):
     """First listed score = 主比分, rest = 备选. Parsing only — the band itself is the narrative model's judgement, untouched."""
     scores = re.findall(r"\d+\s*[-–]\s*\d+", scoreline_view or "")
@@ -81,13 +89,13 @@ def build_package(kind, fid, lang, ref):
                      ("主比分：%s" % primary) if primary else n["scoreline_view"]]
             if alts:
                 lines.append("备选：%s" % " / ".join(alts))
-            lines.append("冷门风险：%s" % n["risk_level"])
+            lines.append("冷门风险：%s" % _harmonized_risk(n["main_lean"], n["risk_level"]))
             if why:
                 lines.append("为什么：%s" % why)
             lines += ["开球前 30 分钟，首发 11 人出来后，群内更新最终倾向和比分区间。",
                       "👇进群等临场修正：", link]
             video_script = "今晚%s。俅哥主看：%s。主比分%s%s。冷门风险：%s。记住一句话：赛前看方向，临场看变量。开球前30分钟，首发一出来，群内更新最终倾向。想跟住更新，进群。" % (
-                title, n["main_lean"], primary or "", ("，备选%s" % "、".join(alts)) if alts else "", n["risk_level"])
+                title, n["main_lean"], primary or "", ("，备选%s" % "、".join(alts)) if alts else "", _harmonized_risk(n["main_lean"], n["risk_level"]))
         elif lang == "vi":
             lines = ["%s: %s (%s UTC)" % (head, title, FIXTURES.get(fid, {}).get("kickoff", "")),
                      "Tiên Tri chốt: %s" % n["main_lean"],
@@ -116,7 +124,8 @@ def build_package(kind, fid, lang, ref):
                 title, n["main_lean"], primary or "", ("၊ အရန် %s" % ", ".join(alts)) if alts else "", n["risk_level"])
         meta = {"fixture_id": fid, "title": title, "strong_pick": n["main_lean"],
                 "primary_scoreline": primary, "alternative_scorelines": alts,
-                "scoreline_band": n["scoreline_view"], "risk_label": n["risk_level"],
+                "scoreline_band": n["scoreline_view"],
+                "risk_label": _harmonized_risk(n["main_lean"], n["risk_level"]) if lang == "zh" else n["risk_level"],
                 "top_variable": top_var, "share_link": link}
     else:  # recap — structure: result → what was right → what changed → learn → next hook
         if n.get("mode") != "real_recap":

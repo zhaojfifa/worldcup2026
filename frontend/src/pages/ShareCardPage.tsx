@@ -5,7 +5,7 @@ import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { getExternalSignals } from '../data/externalSignalData';
-import { SITE, DEFAULT_REF, splitScoreband } from '../growth/shareTemplates';
+import { SITE, DEFAULT_REF, splitScoreband, harmonizedRisk } from '../growth/shareTemplates';
 
 // Growth P1.1 — screenshot-friendly share card (Owner §5). This is a SHARE route,
 // not a normal customer match page: QR is allowed here by Owner rule. All judgement
@@ -69,7 +69,7 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
                 </div>
               );
             })()}
-            <div className="shc-row"><b>{L.risk}</b><span>{n.risk_level}</span></div>
+            <div className="shc-row"><b>{L.risk}</b><span>{harmonizedRisk(n.main_lean, n.risk_level)}</span></div>
             {topVar && <div className="shc-row"><b>{L.variable}</b><span>{topVar}</span></div>}
             {ext && <div className="shc-ext">{ext.lines[0]}</div>}
           </>

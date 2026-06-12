@@ -28,6 +28,16 @@ function fixtureTitle(id: string): string {
   return fx ? `${fx.home} vs ${fx.away}` : id;
 }
 
+/** Risk-label consistency (Owner condition, 2026-06-12): when the LLM's lean says
+ * 风险偏高 but its explicit label word is 中, display 中高 — a deterministic MERGE of
+ * the two LLM statements (both are the model's own words), never a new judgement. */
+export function harmonizedRisk(mainLean: string, riskLevel: string): string {
+  if (/风险偏高|风险高/.test(mainLean) && /^中(?!高)/.test(riskLevel)) {
+    return riskLevel.replace(/^中/, '中高');
+  }
+  return riskLevel;
+}
+
 /** Deterministic split of the LLM scoreline band: first listed score = primary,
  * rest = alternatives. Parsing only — the band itself stays the LLM's judgement. */
 export function splitScoreband(scorelineView: string): { primary: string; alts: string[] } | null {
@@ -52,7 +62,7 @@ export function prematchShareCopy(fixtureId: string, loc: Locale, ref?: string):
             `俅哥主看：${n.main_lean}`,
             band ? `主比分：${band.primary}` : n.scoreline_view,
             band && band.alts.length ? `备选：${band.alts.join(' / ')}` : '',
-            `冷门风险：${n.risk_level}`,
+            `冷门风险：${harmonizedRisk(n.main_lean, n.risk_level)}`,
             why ? `为什么：${why}` : '',
             '开球前 30 分钟，首发 11 人出来后，群内更新最终倾向和比分区间。',
             '👇进群等临场修正：', link].filter(Boolean).join('\n');
