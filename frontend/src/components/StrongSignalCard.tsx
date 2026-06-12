@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Locale } from '../i18n/useLocale';
 import type { ProductNarrative } from '../data/productNarrativeData';
 import { getExternalSignals } from '../data/externalSignalData';
+import { ShareBlock } from './ShareBlock';
 
 // Strong-judgment signal card (Product Closure P1, Owner §7).
 // Labels are engineering stage chrome; EVERY judgement string rendered here is an
@@ -53,6 +54,7 @@ export function StrongCallCard({ n, loc }: { n: ProductNarrative; loc: Locale })
         <button className="recap-cta-btn" onClick={() => document.getElementById('live30')?.scrollIntoView({ behavior: 'smooth' })}>{L.rescoreCta} ▸</button>
         <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{L.groupCta} ▸</button>
       </div>
+      <ShareBlock kind="prematch" fixtureId={n.fixture_id} loc={loc} />
     </div>
   );
 }

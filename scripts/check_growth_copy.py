@@ -28,6 +28,11 @@ GLOBS = [
     "frontend/src/data/externalSignals/*.json",
     "backend/app/routers/growth.py",
     "backend/app/services/growth/*.py",
+    # Growth P1.1 share layer
+    "frontend/src/growth/shareTemplates.ts",
+    "frontend/src/components/ShareBlock.tsx",
+    "frontend/src/pages/ShareCardPage.tsx",
+    "scripts/mvp2_growth_cli.py",
 ]
 
 BETTING = ["博彩", "赔率", "盘口", "下注", "投注", "庄家", "让球", "大小球", "跟单", "竞猜", "串关",

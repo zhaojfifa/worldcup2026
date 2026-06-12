@@ -1,0 +1,29 @@
+{
+  "run_id": "r20260612T0605Z-watch",
+  "job": "watch",
+  "fixtures": [
+    "1489371"
+  ],
+  "started_at": "2026-06-12T06:05:58+00:00",
+  "finished_at": "2026-06-12T06:06:01+00:00",
+  "git_rev": "a701eaa",
+  "steps": [
+    {
+      "name": "probe",
+      "status": "no_lineups",
+      "at": "2026-06-12T06:06:01+00:00",
+      "detail": "T-2394min",
+      "artifact_paths": []
+    }
+  ],
+  "api_request_ledger": {
+    "count": 2,
+    "by_endpoint": {
+      "/fixtures": 1,
+      "/fixtures/lineups": 1
+    }
+  },
+  "llm_calls": {},
+  "guard_summary": null,
+  "status": "ok"
+}

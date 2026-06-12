@@ -3,6 +3,7 @@ import type { Locale } from '../i18n/useLocale';
 import { UPCOMING_FIXTURES, getUpcomingFixture } from '../data/upcomingFixtures';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getRescore } from '../data/rescoreData';
+import { ShareBlock } from './ShareBlock';
 
 // Product Closure P1 (Owner §6): the home conversion area is the ACTIVE 2026 loop —
 // main match → strong call → 30-min rescore hook → latest 2026 recap trust anchor →
@@ -78,6 +79,7 @@ export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: stri
         <button className="recap-cta-btn" onClick={() => navigate(`/predict/${fixtureId}`)}>{H.enter} ▸</button>
         <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
       </div>
+      <ShareBlock kind="prematch" fixtureId={fixtureId} loc={loc} />
     </div>
   );
 }
@@ -131,6 +133,7 @@ export function RecapAnchorCard({ loc, fixtureId }: { loc: Locale; fixtureId: st
         <div className="ra-line" style={{ fontSize: 12, color: 'var(--sub)' }}>{n.screenshot_line}</div>
         <button className="recap-cta-btn alt" style={{ width: '100%' }}
                 onClick={() => navigate(`/recap/${fixtureId}`)}>{L.cta} ▸</button>
+        <ShareBlock kind="recap" fixtureId={fixtureId} loc={loc} />
       </div>
     </>
   );

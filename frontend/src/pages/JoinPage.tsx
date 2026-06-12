@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useLocale } from '../i18n/useLocale';
 import { recordJoinIntent } from '../growth/refCapture';
+import { ShareBlock } from '../components/ShareBlock';
 
 // Growth P1 — /join?ref=<code> ambassador landing (Owner GO 2026-06-12).
 // Customer surface: persona value proposition + group CTA ONLY. No QR, no admin
@@ -91,6 +92,7 @@ export function JoinPage() {
         <button className="recap-cta-btn" style={{ width: '100%', marginTop: 10 }} onClick={onJoin}>{L.cta}</button>
         <button className="recap-cta-btn alt" style={{ width: '100%', marginTop: 8 }} onClick={() => navigate('/predict/1489371')}>{L.alt}</button>
       </div>
+      <div className="card"><ShareBlock kind="join" loc={loc} /></div>
       <div className="muted-note">{L.note}</div>
     </div>
   );

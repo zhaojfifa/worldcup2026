@@ -12,6 +12,9 @@ Set DATABASE_URL to target a DB (defaults to backend/.env via app.config).
   create-contribution --code QG-AB12 --points 2 --reason content_share [--note ...] [--by 运营名]
   review-contribution --id 5 --decision approved|rejected [--note ...] [--by 运营名]
   export        [--out docs/data_audit/mvp2_growth_reports/<date>.json]
+  package       today|recap|next [--fixture ID] [--lang zh|vi|my] [--ref CODE]
+                # assembles a share package from BUNDLED guard-passed LLM narratives
+                # (judgement lines verbatim; Owner framing; link carries the ref)
 
 NOTHING here sends anything; MTC stays 平台积分（不可提现/不可转让/不可交易）.
 """
@@ -26,6 +29,68 @@ sys.path.insert(0, str(ROOT / "backend"))
 
 from app.database import SessionLocal, init_db  # noqa: E402
 from app.services.growth import growth_service as G  # noqa: E402
+
+# ── share packages (Growth P1.1) — mirrors frontend/src/growth/shareTemplates.ts ──
+SITE = "https://worldcup2026-izid.onrender.com"
+NARR_DIR = ROOT / "frontend" / "src" / "data" / "productNarratives"
+LANG_FILE = {"zh": "zh-CN", "vi": "vi-VN", "my": "my-MM"}
+DEFAULT_REF = {"zh": "QG-TEST1", "vi": "TT-VN88", "my": "FO-MM21"}
+FIXTURES = {"1489369": {"title": "Mexico vs South Africa", "kickoff": "2026-06-11 19:00"},
+            "1489371": {"title": "Brazil vs Morocco", "kickoff": "2026-06-13 22:00"}}
+PERSONA = {"zh": "俅哥", "vi": "Tiên Tri Bóng Đá", "my": "Football Oracle"}
+
+
+def _narr(fid, lang):
+    p = NARR_DIR / ("%s.%s.json" % (fid, LANG_FILE[lang]))
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
+def _link(path, lang, ref):
+    return "%s%s%sref=%s" % (SITE, path, "&" if "?" in path else "?", ref or DEFAULT_REF[lang])
+
+
+def build_package(kind, fid, lang, ref):
+    n = _narr(fid, lang)
+    if not n:
+        raise ValueError("no bundled narrative for %s %s" % (fid, lang))
+    title = FIXTURES.get(fid, {}).get("title", fid)
+    top_var = ((n.get("watch_next_signals") or n.get("risk_factors") or [{}])[0]).get("name", "")
+    if kind in ("today", "next"):
+        if n.get("mode") == "real_recap":
+            raise ValueError("%s already finished — use 'package recap'" % fid)
+        link = _link("/predict/%s" % fid, lang, ref)
+        head = {"today": {"zh": "今晚主看", "vi": "Trận đáng xem", "my": "ဒီညအဓိကပွဲ"},
+                "next": {"zh": "即将开赛", "vi": "Sắp đá", "my": "မကြာမီ"}}[kind][lang]
+        hook = {"zh": "开球前 30 分钟，群内会更新最终倾向和比分区间。\n👇进群等临场修正：",
+                "vi": "Nhóm cập nhật thiên hướng cuối 30 phút trước giờ đá.\n👇Vào nhóm chờ hiệu chỉnh sát giờ:",
+                "my": "ပွဲမစခင် မိနစ် ၃၀ အဖွဲ့ထဲ နောက်ဆုံးအမြင် တင်မည်။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
+        lean_label = {"zh": "%s主看" % PERSONA[lang], "vi": "%s nghiêng về" % PERSONA[lang],
+                      "my": "%s ဦးတည်ချက်" % PERSONA[lang]}[lang]
+        var_label = {"zh": "最大变量", "vi": "Biến số lớn nhất", "my": "အကြီးဆုံး variable"}[lang]
+        lines = ["%s：%s（%s UTC）" % (head, title, FIXTURES.get(fid, {}).get("kickoff", "")),
+                 "%s：%s" % (lean_label, n["main_lean"]), n["scoreline_view"]]
+        if top_var:
+            lines.append("%s：%s" % (var_label, top_var))
+        lines += [hook, link]
+        meta = {"fixture_id": fid, "title": title, "strong_pick": n["main_lean"],
+                "scoreline_band": n["scoreline_view"], "risk_label": n["risk_level"],
+                "top_variable": top_var, "share_link": link}
+    else:  # recap
+        if n.get("mode") != "real_recap":
+            raise ValueError("%s has no real recap narrative" % fid)
+        link = _link("/recap/%s" % fid, lang, ref)
+        right = ((n.get("validated_factors") or [{}])[0]).get("name", "")
+        changed = ((n.get("underweighted_factors") or [{}])[0]).get("name", "")
+        frame = {"zh": "这就是为什么赛前看方向，临场看变量，赛后看校准。\n下一场 Brazil vs Morocco，开球前 30 分钟群内重算。\n👇进群看临场修正：",
+                 "vi": "Vì vậy: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.\nTrận tới Brazil vs Morocco, nhóm tính lại 30 phút trước giờ đá.\n👇Vào nhóm:",
+                 "my": "ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။\nနောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ ပြန်တွက်မည်။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
+        head = {"zh": "俅哥复盘", "vi": "Tiên Tri phục dựng", "my": "Oracle ပြန်သုံးသပ်ချက်"}[lang]
+        lines = ["%s：%s" % (head, n["short_title"]), n["screenshot_line"], frame, link]
+        meta = {"fixture_id": fid, "recap_line": n["screenshot_line"], "what_was_right": right,
+                "what_changed_score": changed, "next_fixture_hook": "1489371 Brazil vs Morocco T-30",
+                "share_link": link}
+    return {"kind": kind, "lang": lang, "ref": ref or DEFAULT_REF[lang],
+            "copy_text": "\n".join(lines), "meta": meta}
 
 
 def main():
@@ -48,7 +113,24 @@ def main():
     rc.add_argument("--note", default=""); rc.add_argument("--by", default="operator")
     ex = sub.add_parser("export")
     ex.add_argument("--out", default=None)
+    pk = sub.add_parser("package")
+    pk.add_argument("kind", choices=["today", "recap", "next"])
+    pk.add_argument("--fixture", default=None)
+    pk.add_argument("--lang", default="zh", choices=["zh", "vi", "my"])
+    pk.add_argument("--ref", default=None)
     a = ap.parse_args()
+
+    if a.cmd == "package":
+        # pure file assembly — no DB needed; default fixtures: today/next=1489371, recap=1489369
+        fid = a.fixture or ("1489369" if a.kind == "recap" else "1489371")
+        try:
+            doc = build_package(a.kind, str(fid), a.lang, a.ref)
+        except ValueError as e:
+            print("REFUSED: %s" % e)
+            sys.exit(1)
+        print(json.dumps(doc["meta"], ensure_ascii=False, indent=1))
+        print("\n---- copy_text (paste-ready) ----\n%s" % doc["copy_text"])
+        return
 
     init_db()
     db = SessionLocal()

@@ -11,6 +11,7 @@ import { EvidenceBoardPage } from './pages/EvidenceBoardPage';
 import { PredictPage } from './pages/PredictPage';
 import { JoinPage } from './pages/JoinPage';
 import { GrowthAdminPage } from './pages/GrowthAdminPage';
+import { ShareCardPage } from './pages/ShareCardPage';
 import { captureRef } from './growth/refCapture';
 import './styles/global.css';
 
@@ -24,6 +25,8 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="join" element={<JoinPage />} />
           <Route path="internal/growth" element={<GrowthAdminPage />} />
+          <Route path="share/fixture/:fixtureId" element={<ShareCardPage kind="fixture" />} />
+          <Route path="share/recap/:fixtureId" element={<ShareCardPage kind="recap" />} />
           <Route path="detail" element={<TrialDetailGate />} />
           <Route path="report" element={<ReportPage />} />
           <Route path="token" element={<TokenPage />} />
