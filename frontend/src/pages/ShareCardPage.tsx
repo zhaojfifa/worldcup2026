@@ -4,8 +4,8 @@ import QRCode from 'qrcode';
 import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
-import { getExternalSignals } from '../data/externalSignalData';
-import { SITE, DEFAULT_REF, splitScoreband, harmonizedRisk } from '../growth/shareTemplates';
+import { SITE, DEFAULT_REF } from '../growth/shareTemplates';
+import { buildStrongCall, buildRecapCall } from '../growth/strongCallProjection';
 
 // Growth P1.1 — screenshot-friendly share card (Owner §5). This is a SHARE route,
 // not a normal customer match page: QR is allowed here by Owner rule. All judgement
@@ -39,8 +39,9 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
 
   if (!n) return <div className="page-enter" style={{ padding: 24 }}>—</div>;
   const isRecap = kind === 'recap' || n.mode === 'real_recap';
-  const topVar = n.watch_next_signals?.[0]?.name || n.risk_factors?.[0]?.name || '';
-  const ext = !isRecap ? getExternalSignals(fixtureId, lang as 'zh' | 'vi' | 'my') : null;
+  // P1.1c-fix: both cards render THE canonical projection (same values as /predict + CLI)
+  const call = !isRecap ? buildStrongCall(fixtureId, lang as 'zh') : null;
+  const recap = isRecap ? buildRecapCall(fixtureId, lang as 'zh') : null;
 
   return (
     <div className="share-card-page">
@@ -49,32 +50,33 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
         <div className="shc-kicker">{isRecap ? L.recap : L.pre}</div>
         {fx && <div className="shc-teams">{fx.flagHome} {fx.home} <span>vs</span> {fx.away} {fx.flagAway}</div>}
         {!fx && <div className="shc-teams">{n.short_title}</div>}
-        {isRecap ? (
+        {recap ? (
           <>
-            <div className="shc-line shc-strong">{n.short_title}</div>
-            <div className="shc-line">{n.screenshot_line}</div>
+            <div className="shc-line shc-strong">{recap.result_title}</div>
+            {recap.what_was_right && <div className="shc-line">{lang === 'zh' ? '赛前看对了什么：' : lang === 'vi' ? 'Bắt đúng: ' : 'မှန်ခဲ့သည်: '}{recap.what_was_right}</div>}
+            <div className="shc-line">{recap.why_deviated}</div>
+            <div className="shc-line" style={{ opacity: .9 }}>{recap.calibration_line}</div>
+            <div className="shc-line" style={{ opacity: .9 }}>{recap.next_hook}</div>
           </>
-        ) : (
+        ) : call ? (
           <>
-            <div className="shc-row shc-lean"><b>{L.lean}</b><span>{n.main_lean}</span></div>
-            {(() => {
-              const band = splitScoreband(n.scoreline_view);
-              if (!band) return <div className="shc-row"><b>{L.score}</b><span>{n.scoreline_view}</span></div>;
-              return (
-                <div className="shc-scoreband">
-                  <span className="shc-primary">{band.primary}</span>
-                  {band.alts.length > 0 && (
-                    <span className="shc-alts">{lang === 'zh' ? '备选' : lang === 'vi' ? 'Phụ' : 'အရန်'}: {band.alts.join(' / ')}</span>
-                  )}
-                </div>
-              );
-            })()}
-            <div className="shc-row"><b>{L.risk}</b><span>{harmonizedRisk(n.main_lean, n.risk_level)}</span></div>
-            {topVar && <div className="shc-row"><b>{L.variable}</b><span>{topVar}</span></div>}
-            {ext && <div className="shc-ext">{ext.lines[0]}</div>}
+            <div className="shc-row shc-lean"><b>{L.lean}</b><span>{call.main_lean}</span></div>
+            {call.primary_score ? (
+              <div className="shc-scoreband">
+                <span className="shc-primary">{call.primary_score}</span>
+                {call.backup_scores.length > 0 && (
+                  <span className="shc-alts">{lang === 'zh' ? '备选' : lang === 'vi' ? 'Phương án phụ' : 'အရန်'}: {call.backup_scores.join(' / ')}</span>
+                )}
+              </div>
+            ) : (
+              <div className="shc-row"><b>{L.score}</b><span>{call.scoreline_raw}</span></div>
+            )}
+            <div className="shc-row"><b>{L.risk}</b><span>{call.risk_label}</span></div>
+            {call.top_variable && <div className="shc-row"><b>{L.variable}</b><span>{call.top_variable}</span></div>}
+            {call.external_expectation.length > 0 && <div className="shc-ext">{call.external_expectation[0]}</div>}
           </>
-        )}
-        <div className="shc-hook">⏱️ {L.hook}</div>
+        ) : null}
+        <div className="shc-hook">⏱️ {call ? call.t30_hook : L.hook}</div>
         <div className="shc-foot">
           {qr && <img src={qr} alt="QR" className="shc-qr" />}
           <div className="shc-foot-txt">

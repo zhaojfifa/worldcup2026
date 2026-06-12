@@ -7,6 +7,10 @@ import type { Locale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { getStoredRef } from './refCapture';
+import { buildStrongCall, buildRecapCall } from './strongCallProjection';
+// canonical helpers re-exported for backwards compatibility — the implementation
+// lives ONLY in strongCallProjection.ts (P1.1c-fix: split/harmonize happen once)
+export { splitScoreband, harmonizedRisk } from './strongCallProjection';
 
 export const SITE = 'https://worldcup2026-izid.onrender.com';
 
@@ -23,107 +27,44 @@ export function shareLink(path: string, loc: Locale, ref?: string): string {
   return `${SITE}${path}${sep}ref=${r}`;
 }
 
-function fixtureTitle(id: string): string {
-  const fx = getUpcomingFixture(id);
-  return fx ? `${fx.home} vs ${fx.away}` : id;
-}
-
-/** Risk-label consistency (Owner condition, 2026-06-12): when the LLM's lean says
- * 风险偏高 but its explicit label word is 中, display 中高 — a deterministic MERGE of
- * the two LLM statements (both are the model's own words), never a new judgement. */
-export function harmonizedRisk(mainLean: string, riskLevel: string): string {
-  if (/风险偏高|风险高/.test(mainLean) && /^中(?!高)/.test(riskLevel)) {
-    return riskLevel.replace(/^中/, '中高');
-  }
-  return riskLevel;
-}
-
-/** Deterministic split of the LLM scoreline band: first listed score = primary,
- * rest = alternatives. Parsing only — the band itself stays the LLM's judgement. */
-export function splitScoreband(scorelineView: string): { primary: string; alts: string[] } | null {
-  const scores = scorelineView.match(/\d+\s*[-–]\s*\d+/g)?.map(s => s.replace(/\s/g, ''));
-  if (!scores || !scores.length) return null;
-  return { primary: scores[0], alts: scores.slice(1) };
-}
-
 /** A. pre-match share copy — STRONG RESULT FIRST (Owner copy structure 2026-06-12):
  * 1 strong result → 2 主比分/备选 → 3 risk → 4 why → 5 T-30 hook → 6 CTA.
  * Every judgement string ({main_lean}/{scoreline}/{risk_level}/{hero_subtitle}/projection)
  * stays a guard-passed LLM field or fixed projection — only the ORDER is engineered. */
 export function prematchShareCopy(fixtureId: string, loc: Locale, ref?: string): string | null {
-  const n = getProductNarrative(fixtureId, loc);
-  if (!n || n.mode === 'real_recap') return null;
+  const c = buildStrongCall(fixtureId, loc);
+  if (!c) return null;
   const link = shareLink(`/predict/${fixtureId}`, loc, ref);
-  const title = fixtureTitle(fixtureId);
-  const band = splitScoreband(n.scoreline_view);
-  const why = n.hero_subtitle || '';
-  if (loc === 'zh') {
-    return [`今晚主看：${title}`,
-            `俅哥主看：${n.main_lean}`,
-            band ? `主比分：${band.primary}` : n.scoreline_view,
-            band && band.alts.length ? `备选：${band.alts.join(' / ')}` : '',
-            `冷门风险：${harmonizedRisk(n.main_lean, n.risk_level)}`,
-            why ? `为什么：${why}` : '',
-            '开球前 30 分钟，首发 11 人出来后，群内更新最终倾向和比分区间。',
-            '👇进群等临场修正：', link].filter(Boolean).join('\n');
-  }
-  if (loc === 'vi') {
-    return [`Trận đáng xem: ${title}`,
-            `Tiên Tri chốt: ${n.main_lean}`,
-            band ? `Tỷ số chính: ${band.primary}` : n.scoreline_view,
-            band && band.alts.length ? `Phương án phụ: ${band.alts.join(' / ')}` : '',
-            `Rủi ro bất ngờ: ${n.risk_level}`,
-            why ? `Vì sao: ${why}` : '',
-            'Đội hình công bố là nhóm cập nhật thiên hướng cuối + vùng tỷ số, 30 phút trước giờ đá.',
-            '👇Vào nhóm chờ hiệu chỉnh sát giờ:', link].filter(Boolean).join('\n');
-  }
-  if (loc === 'my') {
-    return [`ဒီညအဓိကပွဲ: ${title}`,
-            `Oracle ပြတ်ပြတ်: ${n.main_lean}`,
-            band ? `အဓိကစကော: ${band.primary}` : n.scoreline_view,
-            band && band.alts.length ? `အရန်: ${band.alts.join(' / ')}` : '',
-            `Risk: ${n.risk_level}`,
-            why ? `ဘာကြောင့်: ${why}` : '',
-            'Lineup ထွက်တာနဲ့ ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲ နောက်ဆုံးအမြင် + စကောအပိုင်းအခြား တင်မည်။',
-            '👇အဖွဲ့ဝင်ပြီး ပြန်တွက်ချက် စောင့်ပါ:', link].filter(Boolean).join('\n');
-  }
-  return null;
+  const head = loc === 'zh' ? '今晚主看' : loc === 'vi' ? 'Trận đáng xem' : 'ဒီညအဓိကပွဲ';
+  const leanL = loc === 'zh' ? '俅哥主看' : loc === 'vi' ? 'Tiên Tri chốt' : 'Oracle ပြတ်ပြတ်';
+  const scoreL = loc === 'zh' ? '主比分' : loc === 'vi' ? 'Tỷ số chính' : 'အဓိကစကော';
+  const backupL = loc === 'zh' ? '备选' : loc === 'vi' ? 'Phương án phụ' : 'အရန်';
+  const riskL = loc === 'zh' ? '冷门风险' : loc === 'vi' ? 'Rủi ro bất ngờ' : 'Risk';
+  const whyL = loc === 'zh' ? '为什么' : loc === 'vi' ? 'Vì sao' : 'ဘာကြောင့်';
+  return [`${head}：${c.teams}`,
+          `${leanL}：${c.main_lean}`,
+          c.primary_score ? `${scoreL}：${c.primary_score}` : c.scoreline_raw,
+          c.backup_scores.length ? `${backupL}：${c.backup_scores.join(' / ')}` : '',
+          `${riskL}：${c.risk_label}`,
+          c.why ? `${whyL}：${c.why}` : '',
+          c.t30_hook,
+          `👇${c.cta_line}：`, link].filter(Boolean).join('\n');
 }
 
 /** B. recap share copy — recap line = LLM screenshot_line verbatim. */
-export function recapShareCopy(fixtureId: string, loc: Locale, ref?: string, nextFixtureId = '1489371'): string | null {
-  const n = getProductNarrative(fixtureId, loc);
-  if (!n || n.mode !== 'real_recap') return null;
+export function recapShareCopy(fixtureId: string, loc: Locale, ref?: string): string | null {
+  const r = buildRecapCall(fixtureId, loc);
+  if (!r) return null;
   const link = shareLink(`/recap/${fixtureId}`, loc, ref);
-  const nextTitle = fixtureTitle(nextFixtureId);
-  // Recap structure (Owner): 1 result → 2 what was right → 3 what changed →
-  // 4 what to learn → 5 next fixture hook. Lines 1-3 = LLM fields verbatim.
-  const right = n.validated_factors?.[0]?.name || '';
-  if (loc === 'zh') {
-    return [`俅哥复盘：${n.short_title}`,
-            right ? `抓对了什么：${right}` : '',
-            `${n.screenshot_line}`,
-            '学到什么：赛前看方向，临场看变量，赛后看校准。',
-            `下一场 ${nextTitle}，开球前 30 分钟继续看首发修正。`, '👇进群看临场修正：', link]
-      .filter(Boolean).join('\n');
-  }
-  if (loc === 'vi') {
-    return [`Tiên Tri phục dựng: ${n.short_title}`,
-            right ? `Bắt đúng: ${right}` : '',
-            `${n.screenshot_line}`,
-            'Bài học: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.',
-            `Trận tới ${nextTitle}, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.`,
-            '👇Vào nhóm xem hiệu chỉnh sát giờ:', link].filter(Boolean).join('\n');
-  }
-  if (loc === 'my') {
-    return [`Oracle ပြန်သုံးသပ်ချက်: ${n.short_title}`,
-            right ? `မှန်ခဲ့သည်: ${right}` : '',
-            `${n.screenshot_line}`,
-            'သင်ခန်းစာ: ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။',
-            `နောက်ပွဲ ${nextTitle} — ပွဲမစခင် မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။`,
-            '👇အဖွဲ့ဝင်ရန်:', link].filter(Boolean).join('\n');
-  }
-  return null;
+  const head = loc === 'zh' ? '俅哥复盘' : loc === 'vi' ? 'Tiên Tri phục dựng' : 'Oracle ပြန်သုံးသပ်ချက်';
+  const rightL = loc === 'zh' ? '赛前看对了什么' : loc === 'vi' ? 'Bắt đúng' : 'မှန်ခဲ့သည်';
+  const devL = loc === 'zh' ? '比分为什么偏离' : loc === 'vi' ? 'Vì sao tỷ số lệch' : 'စကော ဘာကြောင့်လွဲ';
+  const ctaL = loc === 'zh' ? '👇进群看临场修正：' : loc === 'vi' ? '👇Vào nhóm xem hiệu chỉnh sát giờ:' : '👇အဖွဲ့ဝင်ရန်:';
+  return [`${head}：${r.result_title}`,
+          r.what_was_right ? `${rightL}：${r.what_was_right}` : '',
+          `${devL}：${r.why_deviated}`,
+          r.calibration_line,
+          r.next_hook, ctaL, link].filter(Boolean).join('\n');
 }
 
 /** C. join-page share copy（进群看什么）. */

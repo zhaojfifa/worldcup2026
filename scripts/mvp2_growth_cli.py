@@ -102,7 +102,7 @@ def build_package(kind, fid, lang, ref):
                      ("Tỷ số chính: %s" % primary) if primary else n["scoreline_view"]]
             if alts:
                 lines.append("Phương án phụ: %s" % " / ".join(alts))
-            lines.append("Rủi ro bất ngờ: %s" % n["risk_level"])
+            lines.append("Rủi ro bất ngờ: %s" % _harmonized_risk(n["main_lean"], n["risk_level"]))
             if why:
                 lines.append("Vì sao: %s" % why)
             lines += ["Đội hình công bố là nhóm cập nhật thiên hướng cuối + vùng tỷ số, 30 phút trước giờ đá.",
@@ -115,10 +115,10 @@ def build_package(kind, fid, lang, ref):
                      ("အဓိကစကော: %s" % primary) if primary else n["scoreline_view"]]
             if alts:
                 lines.append("အရန်: %s" % " / ".join(alts))
-            lines.append("Risk: %s" % n["risk_level"])
+            lines.append("Risk: %s" % _harmonized_risk(n["main_lean"], n["risk_level"]))
             if why:
                 lines.append("ဘာကြောင့်: %s" % why)
-            lines += ["Lineup ထွက်တာနဲ့ ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲ နောက်ဆုံးအမြင် တင်မည်။",
+            lines += ["Lineup ထွက်တာနဲ့ ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲ နောက်ဆုံးအမြင် + စကောအပိုင်းအခြား တင်မည်။",
                       "👇အဖွဲ့ဝင်ရန်:", link]
             video_script = "ဒီည %s။ Oracle ပြတ်ပြတ်: %s။ အဓိကစကော %s%s။ Risk: %s။ မှတ်ထားပါ — ပွဲကြို ဦးတည်ချက်၊ ပွဲနီး variable။ ပွဲမစခင် မိနစ် ၃၀ lineup ထွက်တာနဲ့ အဖွဲ့ထဲ update တင်မည်။ လိုက်ကြည့်ချင်ရင် အဖွဲ့ဝင်ပါ။" % (
                 title, n["main_lean"], primary or "", ("၊ အရန် %s" % ", ".join(alts)) if alts else "", n["risk_level"])
@@ -134,17 +134,18 @@ def build_package(kind, fid, lang, ref):
         right = ((n.get("validated_factors") or [{}])[0]).get("name", "")
         changed = ((n.get("underweighted_factors") or [{}])[0]).get("name", "")
         head = {"zh": "俅哥复盘", "vi": "Tiên Tri phục dựng", "my": "Oracle ပြန်သုံးသပ်ချက်"}[lang]
-        right_lbl = {"zh": "抓对了什么", "vi": "Bắt đúng", "my": "မှန်ခဲ့သည်"}[lang]
-        learn = {"zh": "学到什么：赛前看方向，临场看变量，赛后看校准。",
-                 "vi": "Bài học: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.",
-                 "my": "သင်ခန်းစာ: ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။"}[lang]
+        right_lbl = {"zh": "赛前看对了什么", "vi": "Bắt đúng", "my": "မှန်ခဲ့သည်"}[lang]
+        learn = {"zh": "复盘校准：赛前看方向，临场看变量，赛后看校准。",
+                 "vi": "Hiệu chỉnh: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.",
+                 "my": "ပြန်ညှိချက်: ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။"}[lang]
         nxt = {"zh": "下一场 Brazil vs Morocco，开球前 30 分钟继续看首发修正。\n👇进群看临场修正：",
                "vi": "Trận tới Brazil vs Morocco, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.\n👇Vào nhóm:",
                "my": "နောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
         lines = ["%s：%s" % (head, n["short_title"])]
         if right:
             lines.append("%s：%s" % (right_lbl, right))
-        lines += [n["screenshot_line"], learn, nxt, link]
+        dev_lbl = {"zh": "比分为什么偏离", "vi": "Vì sao tỷ số lệch", "my": "စကော ဘာကြောင့်လွဲ"}[lang]
+        lines += ["%s：%s" % (dev_lbl, n["screenshot_line"]), learn, nxt, link]
         video_script = {"zh": "%s。%s。%s 下一场 Brazil vs Morocco，开球前30分钟，首发出来群内重算。想看，进群。" % (
                             n["short_title"], n["screenshot_line"], learn),
                         "vi": "%s. %s. %s Trận tới Brazil vs Morocco — nhóm tính lại 30 phút trước giờ đá. Vào nhóm." % (

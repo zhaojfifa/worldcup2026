@@ -7,6 +7,7 @@ import { EVIDENCE_AVAILABLE, getBundledEvidence } from '../data/evidenceData';
 import { getNarrative } from '../data/narrativeData';
 import { NarrativeView } from '../components/NarrativeView';
 import { getProductNarrative } from '../data/productNarrativeData';
+import { buildRecapCall } from '../growth/strongCallProjection';
 import { ProductRecapView } from '../components/ProductProofViews';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -84,6 +85,19 @@ export function RecapDetailPage() {
         {/* label is local stage chrome — the backend recap proxy still carries pre-de-model
             copy (模型校准 badge) and must not surface on the LLM-narrative branch */}
         <div className="recap-banner">🗂️ {L.back}</div>
+        {(() => { // P1.1c-fix: recap page leads with THE canonical recap projection
+          const r = productNarr.mode === 'real_recap' ? buildRecapCall(fixtureId, loc) : null;
+          if (!r) return null;
+          const rightL = loc === 'zh' ? '赛前看对了什么' : loc === 'vi' ? 'Bắt đúng' : 'မှန်ခဲ့သည်';
+          const devL = loc === 'zh' ? '比分为什么偏离' : loc === 'vi' ? 'Vì sao tỷ số lệch' : 'စကော ဘာကြောင့်လွဲ';
+          return <div className="card sc-card">
+            <div className="sc-row"><span className="sc-v sc-lead">{r.result_title}</span></div>
+            {r.what_was_right && <div className="sc-row"><span className="sc-k">{rightL}</span><span className="sc-v">{r.what_was_right}</span></div>}
+            <div className="sc-row"><span className="sc-k">{devL}</span><span className="sc-v">{r.why_deviated}</span></div>
+            <div className="sc-frame" style={{ textAlign: 'left' }}>{r.calibration_line}</div>
+            <div className="sc-row"><span className="sc-v" style={{ color: 'var(--blueMid)', fontWeight: 700 }}>{r.next_hook}</span></div>
+          </div>;
+        })()}
         <ProductRecapView n={productNarr} loc={loc} />
         {EVIDENCE_AVAILABLE.has(fixtureId) && (
           <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>

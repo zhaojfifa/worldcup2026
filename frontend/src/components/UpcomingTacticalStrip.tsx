@@ -4,6 +4,7 @@ import { UPCOMING_FIXTURES, getUpcomingFixture } from '../data/upcomingFixtures'
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getRescore } from '../data/rescoreData';
 import { ShareBlock } from './ShareBlock';
+import { buildStrongCall } from '../growth/strongCallProjection';
 
 // Product Closure P1 (Owner §6): the home conversion area is the ACTIVE 2026 loop —
 // main match → strong call → 30-min rescore hook → latest 2026 recap trust anchor →
@@ -51,10 +52,10 @@ export function TrialStatusStrip({ loc, syncTime }: { loc: Locale; syncTime: str
 }
 
 const MAIN_LABEL = {
-  zh: { today: '今日主推比赛', next: '下一场重点比赛 · 即将开赛战术室', lean: '俅哥主看' },
-  vi: { today: 'Trận đáng xem nhất hôm nay', next: 'Trận trọng điểm tiếp theo', lean: 'Tiên Tri nghiêng về' },
-  my: { today: 'ဒီနေ့ အဓိကပွဲ', next: 'နောက်လာမည့် အဓိကပွဲ', lean: 'Oracle ဦးတည်ချက်' },
-  en: { today: "Today's main match", next: 'Next key match', lean: 'Lean' },
+  zh: { today: '今日主推比赛', next: '下一场重点比赛 · 即将开赛战术室', lean: '俅哥主看', score: '主比分', backup: '备选' },
+  vi: { today: 'Trận đáng xem nhất hôm nay', next: 'Trận trọng điểm tiếp theo', lean: 'Tiên Tri chốt', score: 'Tỷ số chính', backup: 'Phương án phụ' },
+  my: { today: 'ဒီနေ့ အဓိကပွဲ', next: 'နောက်လာမည့် အဓိကပွဲ', lean: 'Oracle ပြတ်ပြတ်', score: 'အဓိကစကော', backup: 'အရန်' },
+  en: { today: "Today's main match", next: 'Next key match', lean: 'Lean', score: 'Score', backup: 'Backup' },
 };
 
 /** Main trial entry card (Owner §6 item 1/2): the ACTIVE real fixture with the strong call. */
@@ -75,6 +76,15 @@ export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: stri
       {n && n.main_lean && <div className="sc-row" style={{ border: 0, paddingTop: 2 }}>
         <span className="sc-k">{M.lean}</span><span className="sc-v sc-lead">{n.main_lean}</span>
       </div>}
+      {(() => { // canonical projection: home shows the SAME 主比分/备选 as predict/share/CLI
+        const call = buildStrongCall(fixtureId, loc);
+        if (!call?.primary_score) return null;
+        return <div className="sc-row" style={{ border: 0, paddingTop: 0 }}>
+          <span className="sc-k">{M.score}</span>
+          <span className="sc-v"><span className="sc-primary-score">{call.primary_score}</span>
+            {call.backup_scores.length > 0 && <span className="sc-backup">　{M.backup}: {call.backup_scores.join(' / ')}</span>}</span>
+        </div>;
+      })()}
       <div className="pp-cta-row">
         <button className="recap-cta-btn" onClick={() => navigate(`/predict/${fixtureId}`)}>{H.enter} ▸</button>
         <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
