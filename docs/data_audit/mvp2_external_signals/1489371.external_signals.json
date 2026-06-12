@@ -3,23 +3,43 @@
  "fixture_id": "1489371",
  "internal_only": true,
  "policy_ref": "docs/MVP2_EXTERNAL_EXPECTATION_SIGNALS_DESIGN.md#2-policy",
- "recorded_by": null,
- "recorded_at": null,
+ "recorded_by": "engineering via named-source web search (operator to confirm before any further use)",
+ "recorded_at": "2026-06-12T02:20:55.147812+00:00",
  "signals": {
   "media_heat": {
-   "value": null,
+   "value": {
+    "Brazil": 5,
+    "Morocco": 3,
+    "dominant_storylines": [
+     "Neymar fitness race",
+     "Ancelotti Brazil debut",
+     "Morocco coaching transition",
+     "Vincic appointed referee"
+    ]
+   },
    "scale": "1-5 per side",
-   "sources": [],
-   "confidence": "none",
-   "missing_evidence": true,
-   "internal_note": "manual operator recording — not yet recorded"
+   "sources": [
+    "beinsports.com (Neymar doubt + Ancelotti debut)",
+    "espn.com match page + injury tracker",
+    "foxsports.com (Ancelotti on Neymar timeline)",
+    "aljazeera.com schedule coverage",
+    "moroccoworldnews.com (referee appointment)"
+   ],
+   "confidence": "low",
+   "missing_evidence": false,
+   "internal_note": "1-5 scored from headline density in a single search sample — directional only"
   },
   "expert_consensus": {
-   "value": null,
-   "sources": [],
-   "confidence": "none",
-   "missing_evidence": true,
-   "internal_note": ">=2 named sources required"
+   "value": "Brazil pick consensus; analysts flag Morocco coaching transition (Regragui departed 2026-03, Ouahbi senior debut) as the main uncertainty; one named expert leans low-scoring",
+   "sources": [
+    "sportsline.com — expert Jon Eimer (under-2.5 lean, expects Morocco push)",
+    "vsin.com preview & pick",
+    "totalfootballanalysis.com Brazil v Morocco predictions",
+    "racingpost.com team-news preview"
+   ],
+   "confidence": "medium",
+   "missing_evidence": false,
+   "internal_note": ">=2 named sources satisfied; consensus direction matches our Elo lean (Brazil)"
   },
   "social_buzz": {
    "value": null,
@@ -37,7 +57,7 @@
    "internal_note": "record poll N + URL"
   },
   "market_expectation": {
-   "value": null,
+   "value": "moderate_favourite_home",
    "allowed_values": [
     "heavy_favourite_home",
     "moderate_favourite_home",
@@ -47,34 +67,46 @@
     "moderate_favourite_away",
     "heavy_favourite_away"
    ],
-   "drift": null,
-   "sources": [],
-   "confidence": "none",
-   "missing_evidence": true,
-   "internal_note": "direction+band only; NO prices/bookmaker names in value"
+   "drift": "none observed in sample window",
+   "sources": [
+    "racingpost.com (World Cup 2026 Brazil vs Morocco preview)",
+    "sportsline.com (Brazil vs Morocco 2026 World Cup picks)",
+    "vsin.com (Brazil vs Morocco prediction preview)"
+   ],
+   "confidence": "medium",
+   "missing_evidence": false,
+   "internal_note": "direction+band only per policy — NO prices/percentages recorded anywhere; sources carry numeric odds, deliberately not copied"
   },
   "odds_implied_expectation": {
-   "value": null,
+   "value": "moderate_favourite_home",
    "derived_from": "market_expectation",
-   "confidence": "none",
-   "missing_evidence": true,
-   "internal_note": "qualitative band only"
+   "confidence": "medium",
+   "missing_evidence": false,
+   "internal_note": "derived from market_expectation band; qualitative only"
   },
   "lineup_rumor_signal": {
-   "value": null,
+   "value": "Neymar (calf, out since 2026-05-17, missed Panama/Egypt friendlies) doubtful for the opener; Ancelotti keeps him in squad ('can recover for the first match, if not the second'); predicted XI without him: Vinicius-Endrick-Raphinha front three",
    "status": "rumor",
-   "sources": [],
-   "confidence": "none",
-   "missing_evidence": true,
-   "internal_note": "rumor until /fixtures/lineups confirms"
+   "sources": [
+    "beinsports.com 2026-06-11",
+    "foxsports.com (Ancelotti quotes)",
+    "sportsmole.co.uk Brazil preview (predicted XI)",
+    "sportskeeda.com (reports, flagged as rumor)"
+   ],
+   "confidence": "medium",
+   "missing_evidence": false,
+   "internal_note": "status=rumor until /fixtures/lineups confirms at T-90; assumption_flag in any narrative use"
   },
   "injury_rumor_signal": {
-   "value": null,
+   "value": "Neymar right-calf injury since 2026-05-17; CBF says 'good progress', no availability confirmation",
    "status": "rumor",
-   "sources": [],
-   "confidence": "none",
-   "missing_evidence": true,
-   "internal_note": "always assumption_flag in narratives"
+   "sources": [
+    "espn.com 2026 World Cup injuries tracker",
+    "foxsports.com (CBF/Ancelotti updates)"
+   ],
+   "confidence": "medium",
+   "missing_evidence": false,
+   "internal_note": "single-player signal; API /injuries endpoint still returns 0 rows; assumption_flag always"
   }
  },
  "customer_safe_vocabulary": [

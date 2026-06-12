@@ -81,7 +81,9 @@ export function RecapDetailPage() {
           <button className="bk" onClick={() => navigate('/')}>←</button>
           <span className="ti">{L.back}</span>
         </div>
-        <div className="recap-banner">🗂️ {content?.badge ?? L.back}</div>
+        {/* label is local stage chrome — the backend recap proxy still carries pre-de-model
+            copy (模型校准 badge) and must not surface on the LLM-narrative branch */}
+        <div className="recap-banner">🗂️ {L.back}</div>
         <ProductRecapView n={productNarr} loc={loc} />
         {EVIDENCE_AVAILABLE.has(fixtureId) && (
           <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
