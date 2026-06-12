@@ -1,0 +1,30 @@
+{
+  "run_id": "r20260612T0136Z-bundle",
+  "job": "bundle",
+  "fixtures": [
+    "979139"
+  ],
+  "started_at": "2026-06-12T01:36:18+00:00",
+  "finished_at": "2026-06-12T01:36:18+00:00",
+  "git_rev": "c297033",
+  "steps": [
+    {
+      "name": "copy",
+      "status": "ok",
+      "at": "2026-06-12T01:36:18+00:00",
+      "detail": "3 copied, 0 refused",
+      "artifact_paths": [
+        "frontend/src/data/productNarratives/979139.zh-CN.json",
+        "frontend/src/data/productNarratives/979139.vi-VN.json",
+        "frontend/src/data/productNarratives/979139.my-MM.json"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 0,
+    "by_endpoint": {}
+  },
+  "llm_calls": {},
+  "guard_summary": null,
+  "status": "ok"
+}

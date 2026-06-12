@@ -123,6 +123,30 @@ def build_input(sample_id, language):
     if mode in ("historical_recap", "real_recap"):
         inp["score"] = {"final": fx.get("final_score"), "winner": fx.get("result_winner"),
                         "shootout_winner": fx.get("shootout_winner")}
+        # Evidence Expansion sprint: facts-only event impact + extended dimensions
+        if frame.get("event_impact"):
+            inp["event_impact"] = frame["event_impact"]
+            inp["event_impact_notice"] = (
+                "EVENT IMPACT IS MANDATORY in the recap: engage every decisive event (red cards, "
+                "penalties) with its minute AND the score/man-count at that moment (facts above). "
+                "Distinguish honestly: was the result a STRENGTH validation, partly EVENT-DRIVEN "
+                "(e.g. a goal scored with a man advantage after an opponent red card), or both? "
+                "'Direction right' and 'scoreline right' are DIFFERENT claims — never blur them; "
+                "if events (not baseline strength) explain why the score left the reference band, "
+                "say so. NEVER claim the pre-match judgement foresaw a specific event "
+                "(red card / penalty) — that is a guard failure. The 30-min rescore angle: say what "
+                "a pre-kickoff re-check could have seen (lineups, GK) vs what NO pre-match view "
+                "could know (in-match red cards).")
+        if frame.get("extended_dimensions"):
+            inp["extended_dimensions"] = frame["extended_dimensions"]
+            inp["dimension_notice"] = (
+                "Extended dimensions: use ONLY dimensions with missing_evidence=false, quoting their "
+                "facts (minutes played, goal involvement, shootout record, substitution windows). "
+                "Dimensions flagged missing_evidence=true may be referenced ONLY as honest pre-match "
+                "blind spots WITHOUT numbers — inventing ages, workloads, caps or market consensus "
+                "is a guard failure. No betting/odds/handicap/bookmaker vocabulary in any language; "
+                "external expectation may only ever be phrased as 外部预期/市场共识-style neutral "
+                "expectation language, and ONLY when a recorded signal exists (none exists now).")
         if mode == "real_recap":
             inp["prematch_provenance"] = frame.get("prematch_provenance") or {}
             inp["real_recap_notice"] = (

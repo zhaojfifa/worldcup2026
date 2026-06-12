@@ -3,29 +3,39 @@
   "fixture_id": "1489369",
   "mode": "real_recap",
   "language": "zh-CN",
-  "hero_title": "俅哥赛前把这场列为高风险：墨西哥2-0南非，方向对了但比分没在区间内",
-  "hero_subtitle": "赛前倾向墨西哥胜，但冷门风险偏高——最终2-0印证了方向，但比分不在参考区间，临场变量才是关键。",
-  "short_title": "墨西哥2-0南非：俅哥赛前高风险判断复盘",
-  "screenshot_line": "俅哥赛前：墨西哥胜但冷门风险高 → 实际2-0，方向对，比分没在区间内",
-  "model_judgement": "赛前俅哥判断墨西哥胜，但冷门风险偏高——不是墨西哥不强，而是首发、门将、锋线效率这些变量开球前都没看清。最终2-0，方向对了，但比分不在俅哥给的参考区间（1-1、1-0、0-1）里。这场最值得看的不是结果，而是赛前那些‘没看清’的东西怎么影响了比赛。",
-  "main_lean": "赛前倾向墨西哥胜，但冷门风险偏高，不能当稳胆。",
+  "hero_title": "俅哥复盘：墨西哥2-0南非——方向对了，但比分被红牌放大",
+  "hero_subtitle": "赛前俅哥把这场列为高风险，不是因为南非更强，而是首发、门将和锋线效率都还没完全看清。最终2-0不在参考区间内，但方向正确——红牌改变了比赛走势。",
+  "short_title": "墨西哥2-0南非：红牌改变走势",
+  "screenshot_line": "赛前参考区间1-1/1-0/0-1，实际2-0——方向对，但比分被红牌放大",
+  "model_judgement": "俅哥赛前判断：倾向墨西哥胜，但冷门风险偏高，不能当稳胆。关键变量——首发阵容、门将状态、锋线效率——开球前都没完全看清。墨西哥纸面占优，但这些变量一旦出问题，大热就容易被拖进麻烦。",
+  "main_lean": "赛前倾向墨西哥胜，但冷门风险偏高",
   "scoreline_view": "俅哥给出的赛前参考区间：1-1、1-0、0-1。实际2-0不在区间内，但方向正确。",
-  "risk_level": "高——大热方+多个赛前变量未确认，翻车条件齐全。",
+  "risk_level": "高——大热方+多个赛前变量未确认，翻车条件齐全",
   "risk_factors": [
     {
-      "name": "大热方+信息缺口",
-      "text": "Elo差距256分，墨西哥近10场6胜3平1负，纸面优势明显。但伤病、xG、阵容价值这些赛前没接入，大热方一旦某个变量出问题，就容易翻车。",
+      "name": "Long-run strength (Elo baseline)",
+      "text": "Elo差距256分，墨西哥是明显热门，但大热本身也是风险——一旦变量出问题，翻车概率不低。",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true,
           "metric": "elo_snapshot@2026-06-11",
           "value": "Mexico 1880 / South Africa 1624"
         },
         {
+          "method": "elo: start 1500, K=32, home +60 when neutral=FALSE, ordered by date (see MVP2_SCOUTSCORE_V0_2_MODELING_FRAME.md §3)"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Recent form (last 10)",
+      "text": "墨西哥近10场6胜3平1负，进16球仅失4球；南非5胜2平3负，进15球失10球。墨西哥状态更稳，但南非也有进球能力。",
+      "source_refs": [
+        {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
+          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
           "derived": true,
           "metric": "last10_form"
         }
@@ -33,8 +43,21 @@
       "assumption_flag": false
     },
     {
-      "name": "锋线效率未知",
-      "text": "赛前没有xG数据，墨西哥能不能把控球转化成进球是问号。实际16射4正进2球，效率一般；南非3射2正0球，效率更低。",
+      "name": "Lineup integrity",
+      "text": "赛前首发未公布——这是俅哥列为高风险的核心原因之一。最终墨西哥4-1-4-1，南非5-3-2。",
+      "source_refs": [
+        {
+          "field": "lineups",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Finishing efficiency",
+      "text": "赛前没有xG数据，效率是盲点。实际墨西哥16射4正进2球，南非3射2正进0球——效率差就是冷门本身。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -47,8 +70,8 @@
       "assumption_flag": false
     },
     {
-      "name": "门将状态待确认",
-      "text": "赛前没有门将状态数据，墨西哥门将Rangel评分7.2，南非门将Williams评分6.6，差距不大但南非门将没顶住。",
+      "name": "Goalkeeper performance gap",
+      "text": "赛前没有门将状态数据。实际墨西哥门将Rangel评分7.2，南非门将Williams评分6.6，差距不大。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -67,56 +90,28 @@
       "assumption_flag": false
     },
     {
-      "name": "首发阵容未公布",
-      "text": "赛前不知道双方首发，4-1-4-1对5-3-2是赛后才知道的。阵型对位会影响比赛节奏，开球前必须确认。",
+      "name": "In-match momentum / late swings",
+      "text": "赛前无法预判红牌。实际第49分钟南非Sithole红牌，第84分钟Zwane红牌——少打两人彻底断送翻盘可能。",
       "source_refs": [
         {
-          "field": "lineups",
+          "field": "events",
           "source": "api-football",
-          "endpoint": "/fixtures/lineups",
+          "endpoint": "/fixtures/events",
           "fixture_id": "1489369"
-        }
-      ],
-      "assumption_flag": false
-    }
-  ],
-  "validated_factors": [
-    {
-      "name": "大热方方向正确",
-      "text": "Elo差距256分+墨西哥近10场状态更好，赛前倾向墨西哥胜，最终2-0赢球，方向判断正确。",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "elo_snapshot@2026-06-11",
-          "value": "Mexico 1880 / South Africa 1624"
-        },
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "last10_form"
         }
       ],
       "assumption_flag": false
     },
     {
-      "name": "冷门风险高判断正确",
-      "text": "赛前把风险定为‘高’，因为多个变量未确认。虽然没爆冷，但2-0的比分不在参考区间内，说明比赛过程有不确定性。",
+      "name": "Tactical matchup",
+      "text": "墨西哥4-1-4-1控球61%，南非5-3-2控球39%。阵型对位墨西哥占优，但红牌后战术失效。",
       "source_refs": [
         {
-          "method": "upset_band(elo_gap=256, missing=3)"
-        }
-      ],
-      "assumption_flag": false
-    }
-  ],
-  "underweighted_factors": [
-    {
-      "name": "墨西哥的控球压制力",
-      "text": "赛前低估了墨西哥的控球能力——61%控球率，南非5-3-2阵型几乎没还手之力。墨西哥16次射门，南非只有3次，场面差距比Elo显示的更大。",
-      "source_refs": [
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "1489369"
+        },
         {
           "field": "team_statistics",
           "source": "api-football",
@@ -128,23 +123,63 @@
       "assumption_flag": false
     },
     {
-      "name": "南非进攻乏力",
-      "text": "赛前只看南非近10场5胜2平3负，但对手偏弱（尼加拉瓜、牙买加、巴拿马）。实际面对墨西哥，南非3射0球，进攻端完全被压制。",
+      "name": "Venue / travel / climate",
+      "text": "中立场（Estadio Azteca），影响不大。",
       "source_refs": [
         {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "last10_form"
+          "field": "fixture",
+          "source": "api-football",
+          "endpoint": "/fixtures",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": true
+    },
+    {
+      "name": "Pre-match unknowns (confirm before kickoff)",
+      "text": "赛前未接入伤病、xG、阵容身价——这些是俅哥列为高风险的关键理由。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "Upset / volatility risk",
+      "text": "大热方+多个赛前变量未确认，俅哥把冷门风险评为高。最终2-0，方向对，但红牌让比分超出区间。",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=256, missing=3)"
         }
       ],
       "assumption_flag": false
     }
   ],
-  "watch_next_signals": [
+  "validated_factors": [
     {
-      "name": "墨西哥锋线效率",
-      "text": "16射4正进2球，效率不算高。下一场如果对手更强，机会转化率可能成为隐患。",
+      "name": "方向判断正确",
+      "text": "赛前倾向墨西哥胜，实际2-0获胜，方向对。",
+      "source_refs": [
+        {
+          "source": "prematch_provenance",
+          "path": "docs/data_audit/mvp2_trial_prediction_narratives/1489369.zh-CN.deepseek.json",
+          "sha256": "sha256:2dd8e1538661c7f2987c751f260411d2f6c209594b0f55b23d3bb2b09a8b8977"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "高风险判断正确",
+      "text": "赛前把风险评为高，实际红牌、效率差等变量确实存在，比赛走势印证了风险结构。",
+      "source_refs": [
+        {
+          "source": "prematch_provenance",
+          "path": "docs/data_audit/mvp2_trial_prediction_narratives/1489369.zh-CN.deepseek.json",
+          "sha256": "sha256:2dd8e1538661c7f2987c751f260411d2f6c209594b0f55b23d3bb2b09a8b8977"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "效率差是冷门本身",
+      "text": "墨西哥16射4正进2球，南非3射2正进0球——效率差就是冷门本身，赛前没有xG数据，这个盲点被比赛走势印证了。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -154,54 +189,82 @@
           "value": "shots 16/3, sog 4/2"
         }
       ],
-      "assumption_flag": true
-    },
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
     {
-      "name": "南非门将表现",
-      "text": "Williams评分6.6，面对4次射正丢2球。如果南非想爆冷，门将需要更高光表现。",
+      "name": "红牌事件影响",
+      "text": "赛前无法预判红牌。第49分钟南非Sithole红牌（比分1-0，11打10），第67分钟墨西哥再进一球（11打10），第84分钟南非Zwane红牌（11打9）。第二个进球是在人数优势下打进的，比分被红牌放大。",
       "source_refs": [
         {
-          "field": "player_statistics",
+          "field": "events",
           "source": "api-football",
-          "endpoint": "/fixtures/players",
+          "endpoint": "/fixtures/events",
           "fixture_id": "1489369"
         }
       ],
+      "assumption_flag": false
+    },
+    {
+      "name": "比分区间偏差",
+      "text": "赛前参考区间1-1、1-0、0-1，实际2-0不在区间内。红牌让南非少打两人，第二个进球在人数优势下打进，导致比分超出区间。",
+      "source_refs": [
+        {
+          "source": "prematch_provenance",
+          "path": "docs/data_audit/mvp2_trial_prediction_narratives/1489369.zh-CN.deepseek.json",
+          "sha256": "sha256:2dd8e1538661c7f2987c751f260411d2f6c209594b0f55b23d3bb2b09a8b8977"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "watch_next_signals": [
+    {
+      "name": "首发阵容确认",
+      "text": "开球前30分钟，首发阵容会重新改写判断。如果墨西哥轮换主力，或南非派出防守更强的阵型，风险会升高。",
+      "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "临场30分钟重算",
-      "text": "开球前30分钟，首发、门将、阵型确认后，俅哥会重新给出判断。免费版看方向，群内看临场修正。",
+      "name": "门将状态",
+      "text": "门将人选和近期状态会影响判断。如果墨西哥门将状态不稳，或南非门将状态火热，冷门风险会升高。",
+      "source_refs": [],
+      "assumption_flag": true
+    },
+    {
+      "name": "锋线效率",
+      "text": "机会质量要等临场再校准。如果墨西哥射门多但射正少，或南非反击效率高，比分区间需要调整。",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "俅哥赛前判断：墨西哥胜但冷门风险高。最终2-0方向对了，但比分不在参考区间（1-1、1-0、0-1）。赛前没看清的变量——首发、门将、锋线效率——才是关键。下一场开球前30分钟，群内看临场修正。",
-  "subscription_hook": "免费版看到方向+风险等级。订阅后解锁：全部因子拆解、临场30分钟重算（首发/门将/阵型确认后更新判断）、比分区间深度分析。",
-  "group_join_copy": "这场复盘告诉你：赛前那些‘没看清’的变量，比结果本身更重要。加入俅哥说球群，每场开球前30分钟收到临场修正——首发、门将、阵型确认后，判断可能完全不一样。",
-  "today_cta": "今日俅哥观点：墨西哥方向对了，但比分没在区间内——下一场看锋线效率。",
-  "social_post": "墨西哥2-0南非，俅哥赛前高风险判断复盘：方向对，比分没在区间内。赛前没看清的变量才是关键。",
+  "operator_copy": "俅哥复盘：墨西哥2-0南非——方向对了，但比分被红牌放大。赛前参考区间1-1/1-0/0-1，实际2-0不在区间内。红牌让南非少打两人，第二个进球在人数优势下打进。想看临场30分钟重算？进群看。",
+  "subscription_hook": "免费版看到方向判断和风险等级。订阅后多看到：全部因子深度解读、临场30分钟首发/门将/效率重算、比分区间深度分析。",
+  "group_join_copy": "想看俅哥赛前怎么判断、临场30分钟怎么修正？进群看完整分析。免费版看方向，群内看临场变量——首发、门将、效率，开球前30分钟重新算。",
+  "today_cta": "今日俅哥观点：墨西哥2-0南非复盘——方向对，比分被红牌放大。下一场看什么？进群看。",
+  "social_post": "墨西哥2-0南非：方向对了，但比分被红牌放大。赛前参考区间1-1/1-0/0-1，实际2-0不在区间内。红牌改变走势。想看临场重算？进群。",
   "internal_notes": [
-    "REAL recap: the pre-match judgement was a REAL archived prediction (stored in git BEFORE kickoff — see prematch_provenance).",
-    "Archived artifact: path=docs/data_audit/mvp2_trial_prediction_narratives/1489369.zh-CN.deepseek.json, sha256=sha256:2dd8e1538661c7f2987c751f260411d2f6c209594b0f55b23d3bb2b09a8b8977, generated_at=2026-06-11T15:27:32.945257+00:00",
-    "SCORELINE HONESTY: final score 2-0 is NOT in the archived reference band (1-1, 1-0, 0-1) — stated as out-of-band.",
-    "Customer prose bans: 过程验证, 盲区, 数据缺失, 缺数据, 自证 — all avoided.",
-    "No betting language used."
+    "historical_recap: pre-match judgement archived at docs/data_audit/mvp2_trial_prediction_narratives/1489369.zh-CN.deepseek.json (sha256:2dd8e1538661c7f2987c751f260411d2f6c209594b0f55b23d3bb2b09a8b8977)",
+    "assumption_context: venue/neutral assumed low impact; pre-match unknowns (injuries, xG, squad value) flagged as assumptions",
+    "real_recap: final score 2-0 not in archived reference band (1-1, 1-0, 0-1); direction correct, scoreline outside band due to red cards",
+    "event_impact: second goal (67') scored with man advantage (11v10) after 49' red card; result partly event-driven",
+    "no betting language used"
   ],
   "source_ref_map": {
     "Long-run strength (Elo baseline)": "kaggle_intl_results (elo_snapshot@2026-06-11)",
     "Recent form (last 10)": "kaggle_intl_results (last10_form)",
-    "Lineup integrity": "api-football /fixtures/lineups (fixture_id=1489369)",
-    "Finishing efficiency": "api-football /fixtures/statistics (fixture_id=1489369)",
-    "Goalkeeper performance gap": "api-football /fixtures/statistics + /fixtures/players (fixture_id=1489369)",
-    "In-match momentum / late swings": "api-football /fixtures/events (fixture_id=1489369)",
-    "Tactical matchup": "api-football /fixtures/lineups + /fixtures/statistics (fixture_id=1489369)",
-    "Venue / travel / climate": "api-football /fixtures (fixture_id=1489369) — assumption",
-    "Pre-match unknowns (confirm before kickoff)": "assumption — no source ingested",
-    "Upset / volatility risk": "method: upset_band(elo_gap=256, missing=3)"
+    "Lineup integrity": "api-football /fixtures/lineups (fixture_id:1489369)",
+    "Finishing efficiency": "api-football /fixtures/statistics (fixture_id:1489369)",
+    "Goalkeeper performance gap": "api-football /fixtures/players + /fixtures/statistics (fixture_id:1489369)",
+    "In-match momentum / late swings": "api-football /fixtures/events (fixture_id:1489369)",
+    "Tactical matchup": "api-football /fixtures/lineups + /fixtures/statistics (fixture_id:1489369)",
+    "Venue / travel / climate": "api-football /fixtures (fixture_id:1489369) [assumption]",
+    "Pre-match unknowns (confirm before kickoff)": "assumption (no source)",
+    "Upset / volatility risk": "upset_band(elo_gap=256, missing=3) [assumption]"
   },
   "llm_provider": "deepseek",
   "voice": "qiuge_v2",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-12T00:28:52.962231+00:00"
+  "generated_at": "2026-06-12T01:18:40.029492+00:00"
 }

@@ -1,0 +1,55 @@
+{
+  "run_id": "r20260612T0124Z-recap",
+  "job": "recap",
+  "fixtures": [
+    "1489369"
+  ],
+  "started_at": "2026-06-12T01:24:09+00:00",
+  "finished_at": "2026-06-12T01:26:42+00:00",
+  "git_rev": "c297033",
+  "steps": [
+    {
+      "name": "real_recap_frame",
+      "status": "ok",
+      "at": "2026-06-12T01:24:11+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_scoutscore_v0_2/1489369.real_recap.factor_frame.json"
+      ]
+    },
+    {
+      "name": "recap_narrative.vi-VN",
+      "status": "ok",
+      "at": "2026-06-12T01:26:42+00:00",
+      "detail": "  ! deepseek attempt 4 guard pre-check: real_recap internal_notes must cite the archived pre-match artifact path (docs/data_audit/…); forbidden wording in customer prose: 'cửa dưới' |   ! deepseek attempt 5 guard pre-check: fake-probability wording in customer prose: 'tỷ lệ trúng' |   saved docs/data_audit/mvp2_product_proof_narratives/1489369.vi-VN.deepseek.json  (llm_provider=deepseek)",
+      "artifact_paths": []
+    },
+    {
+      "name": "guard",
+      "status": "failed",
+      "at": "2026-06-12T01:26:42+00:00",
+      "detail": "0/1 artifacts clean",
+      "artifact_paths": [
+        "docs/data_audit/mvp2_ops_runs/r20260612T0124Z-recap/guard_report.json"
+      ]
+    },
+    {
+      "name": "send_kit",
+      "status": "ok",
+      "at": "2026-06-12T01:26:42+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_send_kits/1489369.recap.md"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 1,
+    "by_endpoint": {
+      "/fixtures": 1
+    }
+  },
+  "llm_calls": {},
+  "guard_summary": "0/1 clean",
+  "status": "partial"
+}

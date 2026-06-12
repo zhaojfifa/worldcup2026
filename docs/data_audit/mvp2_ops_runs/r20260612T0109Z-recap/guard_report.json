@@ -1,0 +1,12 @@
+{
+  "docs/data_audit/mvp2_product_proof_narratives/1489369.zh-CN.deepseek.json": [
+    "de-model violation in customer prose: 'AI'",
+    "event-foresight overclaim in recap prose: '预判南非会吃两张红牌'"
+  ],
+  "docs/data_audit/mvp2_product_proof_narratives/1489369.vi-VN.deepseek.json": [
+    "real_recap internal_notes must cite the archived pre-match artifact hash (sha256:…)",
+    "real_recap internal_notes must cite the archived pre-match artifact path (docs/data_audit/…)",
+    "decisive event missing: frame records 3 red card(s) but recap prose never mentions them"
+  ],
+  "docs/data_audit/mvp2_product_proof_narratives/1489369.my-MM.deepseek.json": []
+}

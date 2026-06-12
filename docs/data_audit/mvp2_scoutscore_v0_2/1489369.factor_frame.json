@@ -3,7 +3,7 @@
   "mode": "pre_match_2026_modeling",
   "fixture_id": "1489369",
   "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
-  "generated_at": "2026-06-11T00:33:37.935383+00:00",
+  "generated_at": "2026-06-12T01:04:22.436725+00:00",
   "fixture_basis": "real_scheduled",
   "fixture": {
     "home": "Mexico",
@@ -14,7 +14,7 @@
       "city": "Mexico City"
     },
     "competition": "World Cup 2026 · Group Stage - 1",
-    "status": "Not Started"
+    "status": "Match Finished"
   },
   "kaggle_baseline": {
     "elo": {
@@ -511,8 +511,8 @@
       "factor": "tactical_matchup",
       "value": {
         "coach": {
-          "home": "J. Aguirre",
-          "away": "M. Ntseki"
+          "home": "Javier Aguirre",
+          "away": "Hugo Broos"
         }
       },
       "pre_match_interpretation": "coaches confirmed; formations not announced -> assumption_context for the LLM",

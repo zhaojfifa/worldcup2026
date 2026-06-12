@@ -3,18 +3,32 @@
   "fixture_id": "979139",
   "mode": "historical_recap",
   "language": "zh-CN",
-  "hero_title": "俅哥复盘：阿根廷3-3法国——冷门密码在赛前就该被看见",
-  "hero_subtitle": "这场决赛不是爆冷，是赛前三个变量没被盯住：门将差距、效率盲点、法国反击的爆发力。",
-  "short_title": "阿根廷3-3法国：冷门密码赛前已埋",
+  "hero_title": "俅哥复盘：阿根廷夺冠，但赛前该盯的三处冷门密码",
+  "hero_subtitle": "3-3的比分不在参考区间内，但方向对了——效率差和门将差距才是真正的翻车信号。",
+  "short_title": "阿根廷3-3法国：冷门密码在哪",
   "screenshot_line": "阿根廷20射10正进3球，法国10射5正也进3球——效率差就是冷门本身。",
-  "model_judgement": "俅哥赛前判断阿根廷占优，但冷门风险偏高。Elo差距68分+近10场8胜1平1负，纸面阿根廷更强。但赛前没看清的地方有三处：门将状态、射门转化率、法国在逆境下的爆发力。结果验证了这些风险——阿根廷20脚射门10次射正进3球，法国10脚射门5次射正也进3球，效率完全不对等。门将方面，法国洛里7次扑救，阿根廷门将只有2次。这些信号赛前就该被盯住。",
+  "model_judgement": "俅哥赛前判断阿根廷是热门，方向没错。但冷门风险标了中——不是因为法国不强，而是赛前有几处没看清的地方：锋线效率、门将状态、临场换人。这些变量一旦出问题，大热就容易翻车。",
   "main_lean": "赛前倾向阿根廷胜，但冷门风险偏高",
-  "scoreline_view": "俅哥给出的赛前参考区间：2-1、3-1、1-1；实际3-3，超出合理区间，冷门风险兑现。",
-  "risk_level": "高——纸面占优但赛前没看清的变量太多：门将、效率、法国反击爆发力。",
+  "scoreline_view": "俅哥给出的赛前参考区间：2-1、3-1、1-1。实际3-3不在区间内——被法国80分钟后的两球和加时赛的连续点球推出了区间。",
+  "risk_level": "中——阿根廷纸面占优，但效率差和门将差距是赛前没看清的变量",
   "risk_factors": [
     {
-      "name": "门将状态未知",
-      "text": "赛前没有门将近期表现数据，阿根廷门将扑救能力成疑。",
+      "name": "锋线效率差",
+      "text": "阿根廷20射10正进3球，法国10射5正也进3球——效率差是赛前看不到的盲点。",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "979139",
+          "value": "shots 20/10, sog 10/5"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "门将差距",
+      "text": "法国门将洛里评分7.2，7次扑救；阿根廷门将只有2次扑救。赛前没有门将状态数据，这是临场才能看清的变量。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -33,20 +47,14 @@
       "assumption_flag": false
     },
     {
-      "name": "射门转化率盲点",
-      "text": "赛前没有xG数据，无法判断阿根廷的进球是否可持续。",
-      "source_refs": [],
-      "assumption_flag": true
-    },
-    {
-      "name": "法国反击爆发力",
-      "text": "法国近10场6胜1平3负，但面对强队时反击效率极高（对英格兰2-1，对摩洛哥2-0）。",
+      "name": "临场换人变量",
+      "text": "法国41分钟连换两人（吉鲁、登贝莱下场），下半场又换两人（特奥、格列兹曼下场）。赛前不知道首发状态，换人窗口是临场风险。",
       "source_refs": [
         {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "last10_form"
+          "field": "events",
+          "source": "api-football",
+          "endpoint": "/fixtures/events",
+          "fixture_id": "979139"
         }
       ],
       "assumption_flag": false
@@ -54,22 +62,34 @@
   ],
   "validated_factors": [
     {
-      "name": "门将差距",
-      "text": "阿根廷门将2次扑救，法国洛里7次扑救——赛前没看清的变量直接决定了比赛走向。",
+      "name": "阿根廷纸面优势",
+      "text": "Elo差距68分、近10场8胜1平1负——阿根廷确实是热门，上半场2-0也印证了实力。",
       "source_refs": [
         {
-          "field": "team_statistics",
-          "source": "api-football",
-          "endpoint": "/fixtures/statistics",
-          "fixture_id": "979139",
-          "value": "saves 2/7"
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "elo_snapshot@2022-12-18",
+          "value": "Argentina 2052 / France 1984"
         }
       ],
       "assumption_flag": false
     },
     {
-      "name": "射门效率不对等",
-      "text": "阿根廷20射10正进3球，法国10射5正进3球——效率差就是冷门本身。",
+      "name": "冷门风险中评级正确",
+      "text": "赛前标了中风险——最终3-3进入点球，方向对但比分不在区间内，风险评级合理。",
+      "source_refs": [
+        {
+          "method": "upset_band(elo_gap=68, missing=3)"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "法国锋线效率",
+      "text": "赛前低估了法国在少射门情况下的进球转化能力——10射5正进3球，效率远超阿根廷。",
       "source_refs": [
         {
           "field": "team_statistics",
@@ -82,41 +102,13 @@
       "assumption_flag": false
     },
     {
-      "name": "法国逆境爆发力",
-      "text": "法国在0-2落后下80分钟扳平，加时赛再落后又扳平——赛前低估了法国在绝境中的韧性。",
+      "name": "门将表现差距",
+      "text": "赛前没有门将状态数据，低估了洛里7次扑救对比赛的影响。",
       "source_refs": [
         {
-          "field": "events",
+          "field": "player_statistics",
           "source": "api-football",
-          "endpoint": "/fixtures/events",
-          "fixture_id": "979139"
-        }
-      ],
-      "assumption_flag": false
-    }
-  ],
-  "underweighted_factors": [
-    {
-      "name": "法国反击效率",
-      "text": "赛前只看到法国近10场6胜，没足够重视他们对强队时的反击效率。",
-      "source_refs": [
-        {
-          "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026",
-          "derived": true,
-          "metric": "last10_form"
-        }
-      ],
-      "assumption_flag": false
-    },
-    {
-      "name": "阿根廷防守专注度",
-      "text": "阿根廷在2-0领先后防守注意力下降，被法国在80-81分钟连进两球。",
-      "source_refs": [
-        {
-          "field": "events",
-          "source": "api-football",
-          "endpoint": "/fixtures/events",
+          "endpoint": "/fixtures/players",
           "fixture_id": "979139"
         }
       ],
@@ -125,48 +117,50 @@
   ],
   "watch_next_signals": [
     {
-      "name": "门将近期表现",
-      "text": "开球前30分钟必须确认双方门将近期状态，这是改写判断的关键变量。",
+      "name": "首发阵容",
+      "text": "开球前30分钟必须确认首发——法国41分钟连换两人说明首发状态有问题。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "射门转化率趋势",
-      "text": "如果赛前有xG数据，可以判断球队的进球是否可持续。",
+      "name": "门将状态",
+      "text": "赛前没有门将数据，临场30分钟需要重新评估门将表现。",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "法国反击威胁",
-      "text": "面对强队时，法国反击效率是冷门密码，赛前必须重点评估。",
+      "name": "锋线效率",
+      "text": "机会质量需要临场校准——射门数不等于进球数。",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "俅哥复盘阿根廷3-3法国：赛前只看纸面阿根廷占优，但门将差距、射门效率、法国反击爆发力三个变量没看清。阿根廷20射10正进3球，法国10射5正也进3球——效率差就是冷门本身。想看更多赛前判断？进群看临场修正。",
-  "subscription_hook": "免费版看到方向（主队占优但冷门风险高），订阅版多看到：赛前30分钟门将状态重算、全部因子拆解、比分区间深度分析。",
-  "group_join_copy": "这场决赛的冷门密码，赛前就该被看见。俅哥在群里会提前30分钟重算门将状态、射门效率、反击威胁——这些变量一旦变化，判断就要改写。想跟俅哥一起看球？进群，赛前看方向，临场看修正。",
-  "today_cta": "今日俅哥观点：冷门不是偶然，是赛前没看清的变量。点击看完整复盘。",
-  "social_post": "阿根廷20射10正进3球，法国10射5正也进3球——效率差就是冷门本身。俅哥复盘：赛前三个变量没看清，冷门密码早已埋下。#世界杯 #阿根廷 #法国",
+  "operator_copy": "阿根廷3-3法国，比分不在参考区间内，但方向对了。俅哥赛前标了中风险——效率差和门将差距是赛前没看清的变量。想看临场30分钟重算？群内见。",
+  "subscription_hook": "免费版看到方向+风险评级。订阅版多看到：全部因子拆解、临场30分钟首发/门将重算后的最新判断、比分区间深度分析。",
+  "group_join_copy": "这场复盘告诉你：赛前看不清的变量才是翻车源头。加入俅哥说球群，每场开球前30分钟收到首发确认、门将状态、效率校准——免费版看方向，群内看临场修正。",
+  "today_cta": "今日俅哥观点：阿根廷夺冠，但冷门密码藏在效率差和门将差距里。下一场，首发和门将状态会改写判断。",
+  "social_post": "阿根廷3-3法国，比分不在参考区间内。20射10正进3球 vs 10射5正也进3球——效率差就是冷门本身。俅哥赛前标了中风险，方向对但比分没抓准。想看临场重算？群内见。",
   "internal_notes": [
-    "historical_replay: 本内容为历史复盘，非赛前预测存档。",
-    "assumption_context: 门将状态、xG、伤病等数据在赛前未接入，复盘时使用赛后数据。",
-    "2026假想对阵声明: 不适用。"
+    "historical replay — NOT a real archived pre-match prediction",
+    "assumption_context: venue/travel/climate (neutral venue) assumed low impact; pre-match unknowns (injuries, xG, squad value) flagged as gaps",
+    "2022 World Cup final — real fixture, not hypothetical",
+    "首发阵容未公布（复盘已知）",
+    "no red cards in this match — all decisive events are penalties (23', 80', 118') and goals (36', 81', 108')"
   ],
   "source_ref_map": {
-    "Long-run strength (Elo baseline)": "kaggle_intl_results -> elo_snapshot@2022-12-18",
-    "Recent form (last 10)": "kaggle_intl_results -> last10_form",
-    "Lineup integrity": "api-football -> /fixtures/lineups",
-    "Finishing efficiency": "api-football -> /fixtures/statistics",
-    "Goalkeeper performance gap": "api-football -> /fixtures/statistics, /fixtures/players",
-    "In-match momentum / late swings": "api-football -> /fixtures/events",
-    "Tactical matchup": "api-football -> /fixtures/lineups, /fixtures/statistics",
-    "Venue / travel / climate": "api-football -> /fixtures",
-    "Pre-match unknowns (confirm before kickoff)": "assumption",
+    "Long-run strength (Elo baseline)": "kaggle_intl_results (elo_snapshot@2022-12-18)",
+    "Recent form (last 10)": "kaggle_intl_results (last10_form)",
+    "Lineup integrity": "api-football /fixtures/lineups (fixture_id 979139)",
+    "Finishing efficiency": "api-football /fixtures/statistics (shots/sog)",
+    "Goalkeeper performance gap": "api-football /fixtures/statistics (saves) + /fixtures/players (GK rating)",
+    "In-match momentum / late swings": "api-football /fixtures/events (goal timeline)",
+    "Tactical matchup": "api-football /fixtures/lineups + /fixtures/statistics (possession)",
+    "Venue / travel / climate": "api-football /fixtures (neutral venue — assumption)",
+    "Pre-match unknowns": "assumption (injuries/xG/squad value not ingested)",
     "Upset / volatility risk": "upset_band(elo_gap=68, missing=3)"
   },
   "llm_provider": "deepseek",
   "voice": "qiuge_v2",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T15:26:53.160563+00:00"
+  "generated_at": "2026-06-12T01:46:50.129048+00:00"
 }

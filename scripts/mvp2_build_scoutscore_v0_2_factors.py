@@ -15,6 +15,7 @@ model-internal notes (inputs to the LLM) — the customer-facing language is wri
 Usage: python3 scripts/mvp2_build_scoutscore_v0_2_factors.py
 """
 import csv
+import importlib.util
 import json
 import math
 import pathlib
@@ -295,9 +296,20 @@ def recap_frame(fid, rows):
             "underdog": dog,
         },
         "known_gaps": ["injuries/suspensions not ingested", "xG not ingested", "squad market value not ingested",
-                       "official FIFA ranking not ingested (kaggle-derived elo used instead)"],
+                       "official FIFA ranking not ingested (kaggle-derived elo used instead)",
+                       "squad ages/caps not ingested (age/experience dims = missing_evidence)"],
         "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/%s.json#source_ledger" % fid,
     }
+    # Track A+ Evidence Expansion: facts-only event impact + extended dimensions
+    ev_spec = importlib.util.spec_from_file_location(
+        "mvp2_event_impact", pathlib.Path(__file__).resolve().parent / "mvp2_build_event_impact.py")
+    EV = importlib.util.module_from_spec(ev_spec)
+    ev_spec.loader.exec_module(EV)
+    frame["event_impact"] = EV.build_event_impact(fid, favoured=fav, underdog=dog)
+    frame["extended_dimensions"] = EV.build_extended_dimensions(
+        fid, favoured=fav,
+        shootout_history={home: shootout_history(kh, date), away: shootout_history(ka, date)},
+        round_label=(fx.get("league") or {}).get("round"))
     return frame
 
 

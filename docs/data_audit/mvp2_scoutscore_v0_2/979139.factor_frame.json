@@ -3,7 +3,7 @@
   "mode": "historical_recap",
   "fixture_id": "979139",
   "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
-  "generated_at": "2026-06-11T00:33:37.447959+00:00",
+  "generated_at": "2026-06-12T01:04:21.946062+00:00",
   "not_real_archived_prediction": true,
   "fixture": {
     "home": "Argentina",
@@ -549,7 +549,937 @@
     "injuries/suspensions not ingested",
     "xG not ingested",
     "squad market value not ingested",
-    "official FIFA ranking not ingested (kaggle-derived elo used instead)"
+    "official FIFA ranking not ingested (kaggle-derived elo used instead)",
+    "squad ages/caps not ingested (age/experience dims = missing_evidence)"
   ],
-  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/979139.json#source_ledger"
+  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/979139.json#source_ledger",
+  "event_impact": {
+    "source": {
+      "endpoint": "/fixtures/events",
+      "fixture_id": "979139",
+      "note": "facts only; every flag below is rule-derived (reason given), not narrative"
+    },
+    "sub_mapping_note": "events 'subst': player = OFF, assist = ON (verified vs 979139 Giroud 41')",
+    "halftime_score": {
+      "Argentina": 2,
+      "France": 0
+    },
+    "final_score_regulation_and_et": {
+      "Argentina": 3,
+      "France": 3
+    },
+    "phases": {
+      "0-15": [],
+      "16-30": [
+        {
+          "minute": 23,
+          "phase": "16-30",
+          "team": "Argentina",
+          "player": "L. Messi",
+          "type": "Goal",
+          "detail": "Penalty"
+        }
+      ],
+      "31-45+": [
+        {
+          "minute": 36,
+          "phase": "31-45+",
+          "team": "Argentina",
+          "player": "Á. Di María",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        },
+        {
+          "minute": 41,
+          "phase": "31-45+",
+          "team": "France",
+          "player": "O. Giroud",
+          "type": "subst",
+          "detail": "Substitution 1"
+        },
+        {
+          "minute": 41,
+          "phase": "31-45+",
+          "team": "France",
+          "player": "O. Dembélé",
+          "type": "subst",
+          "detail": "Substitution 2"
+        },
+        {
+          "minute": "45+7",
+          "phase": "31-45+",
+          "team": "Argentina",
+          "player": "Enzo Fernández",
+          "type": "Card",
+          "detail": "Yellow Card"
+        }
+      ],
+      "46-60": [
+        {
+          "minute": 55,
+          "phase": "46-60",
+          "team": "France",
+          "player": "Adrien Rabiot",
+          "type": "Card",
+          "detail": "Yellow Card"
+        }
+      ],
+      "61-75": [
+        {
+          "minute": 64,
+          "phase": "61-75",
+          "team": "Argentina",
+          "player": "Á. Di María",
+          "type": "subst",
+          "detail": "Substitution 1"
+        },
+        {
+          "minute": 71,
+          "phase": "61-75",
+          "team": "France",
+          "player": "T. Hernández",
+          "type": "subst",
+          "detail": "Substitution 3"
+        },
+        {
+          "minute": 71,
+          "phase": "61-75",
+          "team": "France",
+          "player": "A. Griezmann",
+          "type": "subst",
+          "detail": "Substitution 4"
+        }
+      ],
+      "76-90+": [
+        {
+          "minute": 80,
+          "phase": "76-90+",
+          "team": "France",
+          "player": "K. Mbappé",
+          "type": "Goal",
+          "detail": "Penalty"
+        },
+        {
+          "minute": 81,
+          "phase": "76-90+",
+          "team": "France",
+          "player": "K. Mbappé",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        },
+        {
+          "minute": 87,
+          "phase": "76-90+",
+          "team": "France",
+          "player": "Marcus Thuram",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 90,
+          "phase": "76-90+",
+          "team": "Argentina",
+          "player": "N. Molina",
+          "type": "subst",
+          "detail": "Substitution 2"
+        },
+        {
+          "minute": "90+8",
+          "phase": "76-90+",
+          "team": "Argentina",
+          "player": "Marcos Acuña",
+          "type": "Card",
+          "detail": "Yellow Card"
+        }
+      ],
+      "91-105": [
+        {
+          "minute": 96,
+          "phase": "91-105",
+          "team": "France",
+          "player": "A. Rabiot",
+          "type": "subst",
+          "detail": "Substitution 5"
+        },
+        {
+          "minute": 102,
+          "phase": "91-105",
+          "team": "Argentina",
+          "player": "R. De Paul",
+          "type": "subst",
+          "detail": "Substitution 3"
+        },
+        {
+          "minute": 103,
+          "phase": "91-105",
+          "team": "Argentina",
+          "player": "J. Álvarez",
+          "type": "subst",
+          "detail": "Substitution 4"
+        }
+      ],
+      "106-120+": [
+        {
+          "minute": 108,
+          "phase": "106-120+",
+          "team": "Argentina",
+          "player": "L. Messi",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        },
+        {
+          "minute": 113,
+          "phase": "106-120+",
+          "team": "France",
+          "player": "R. Varane",
+          "type": "subst",
+          "detail": "Substitution 6"
+        },
+        {
+          "minute": 114,
+          "phase": "106-120+",
+          "team": "Argentina",
+          "player": "Leandro Paredes",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 116,
+          "phase": "106-120+",
+          "team": "Argentina",
+          "player": "Gonzalo Montiel",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 116,
+          "phase": "106-120+",
+          "team": "Argentina",
+          "player": "A. Mac Allister",
+          "type": "subst",
+          "detail": "Substitution 5"
+        },
+        {
+          "minute": 118,
+          "phase": "106-120+",
+          "team": "France",
+          "player": "K. Mbappé",
+          "type": "Goal",
+          "detail": "Penalty"
+        },
+        {
+          "minute": "120+1",
+          "phase": "106-120+",
+          "team": "France",
+          "player": "J. Koundé",
+          "type": "subst",
+          "detail": "Substitution 7"
+        },
+        {
+          "minute": "120+1",
+          "phase": "106-120+",
+          "team": "Argentina",
+          "player": "N. Tagliafico",
+          "type": "subst",
+          "detail": "Substitution 6"
+        }
+      ]
+    },
+    "decisive_events": [
+      {
+        "minute": 23,
+        "phase": "16-30",
+        "team": "Argentina",
+        "player": "L. Messi",
+        "event_type": "penalty_goal",
+        "detail": "Penalty",
+        "score_before": {
+          "Argentina": 0,
+          "France": 0
+        },
+        "score_after": {
+          "Argentina": 1,
+          "France": 0
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "France": 11
+        },
+        "tactical_effect": "penalty converted by L. Messi (Argentina)",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Argentina goal at 23' -> 1-0 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "Argentina goal at 23' -> 1-0 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 36,
+        "phase": "31-45+",
+        "team": "Argentina",
+        "player": "Á. Di María",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Argentina": 1,
+          "France": 0
+        },
+        "score_after": {
+          "Argentina": 2,
+          "France": 0
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "France": 11
+        },
+        "tactical_effect": "score 1-0 -> 2-0",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Argentina goal at 36' -> 2-0 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "Argentina goal at 36' -> 2-0 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 80,
+        "phase": "76-90+",
+        "team": "France",
+        "player": "K. Mbappé",
+        "event_type": "penalty_goal",
+        "detail": "Penalty",
+        "score_before": {
+          "Argentina": 2,
+          "France": 0
+        },
+        "score_after": {
+          "Argentina": 2,
+          "France": 1
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "France": 11
+        },
+        "tactical_effect": "penalty converted by K. Mbappé (France)",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "France goal at 80' -> 2-1 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "weakens",
+          "reason": "France goal at 80' -> 2-1 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 81,
+        "phase": "76-90+",
+        "team": "France",
+        "player": "K. Mbappé",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Argentina": 2,
+          "France": 1
+        },
+        "score_after": {
+          "Argentina": 2,
+          "France": 2
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "France": 11
+        },
+        "tactical_effect": "score 2-1 -> 2-2",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "France goal at 81' -> 2-2 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "weakens",
+          "reason": "France goal at 81' -> 2-2 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 108,
+        "phase": "106-120+",
+        "team": "Argentina",
+        "player": "L. Messi",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Argentina": 2,
+          "France": 2
+        },
+        "score_after": {
+          "Argentina": 3,
+          "France": 2
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "France": 11
+        },
+        "tactical_effect": "score 2-2 -> 3-2",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Argentina goal at 108' -> 3-2 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "Argentina goal at 108' -> 3-2 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 118,
+        "phase": "106-120+",
+        "team": "France",
+        "player": "K. Mbappé",
+        "event_type": "penalty_goal",
+        "detail": "Penalty",
+        "score_before": {
+          "Argentina": 3,
+          "France": 2
+        },
+        "score_after": {
+          "Argentina": 3,
+          "France": 3
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "France": 11
+        },
+        "tactical_effect": "penalty converted by K. Mbappé (France)",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "France goal at 118' -> 3-3 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "weakens",
+          "reason": "France goal at 118' -> 3-3 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      }
+    ],
+    "substitutions": [
+      {
+        "minute": 41,
+        "team": "France",
+        "off": "O. Giroud",
+        "on": "M. Thuram",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 41,
+        "team": "France",
+        "off": "O. Dembélé",
+        "on": "R. Kolo Muani",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 64,
+        "team": "Argentina",
+        "off": "Á. Di María",
+        "on": "M. Acuña",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 71,
+        "team": "France",
+        "off": "T. Hernández",
+        "on": "E. Camavinga",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 71,
+        "team": "France",
+        "off": "A. Griezmann",
+        "on": "K. Coman",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 90,
+        "team": "Argentina",
+        "off": "N. Molina",
+        "on": "G. Montiel",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 96,
+        "team": "France",
+        "off": "A. Rabiot",
+        "on": "Y. Fofana",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 102,
+        "team": "Argentina",
+        "off": "R. De Paul",
+        "on": "L. Paredes",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 103,
+        "team": "Argentina",
+        "off": "J. Álvarez",
+        "on": "Lautaro Martínez",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 113,
+        "team": "France",
+        "off": "R. Varane",
+        "on": "I. Konaté",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 116,
+        "team": "Argentina",
+        "off": "A. Mac Allister",
+        "on": "G. Pezzella",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": "120+1",
+        "team": "France",
+        "off": "J. Koundé",
+        "on": "A. Disasi",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": "120+1",
+        "team": "Argentina",
+        "off": "N. Tagliafico",
+        "on": "P. Dybala",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      }
+    ],
+    "cards": {
+      "all": [
+        {
+          "minute": -5,
+          "team": "France",
+          "player": "Olivier Giroud",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": "45+7",
+          "team": "Argentina",
+          "player": "Enzo Fernández",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 55,
+          "team": "France",
+          "player": "Adrien Rabiot",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 87,
+          "team": "France",
+          "player": "Marcus Thuram",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": "90+8",
+          "team": "Argentina",
+          "player": "Marcos Acuña",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 114,
+          "team": "Argentina",
+          "player": "Leandro Paredes",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 116,
+          "team": "Argentina",
+          "player": "Gonzalo Montiel",
+          "detail": "Yellow Card"
+        }
+      ],
+      "red_count": {
+        "Argentina": 0,
+        "France": 0
+      }
+    },
+    "goalkeeper_signal": [
+      {
+        "team": "France",
+        "gk": "Hugo Lloris",
+        "rating": "7.2",
+        "minutes": 120,
+        "saves_team_stat": 7
+      }
+    ],
+    "var_available": false,
+    "injury_feed_available": false
+  },
+  "extended_dimensions": {
+    "note": "facts-only; missing_evidence dims are NAMED gaps, never inferred",
+    "dimensions": [
+      {
+        "dimension": "key_player_load",
+        "value": {
+          "Argentina": [
+            {
+              "name": "Lionel Messi",
+              "minutes": 120,
+              "rating": "9.3",
+              "goals": 2,
+              "assists": null
+            },
+            {
+              "name": "Ángel Di María",
+              "minutes": 64,
+              "rating": "8.2",
+              "goals": 1,
+              "assists": null
+            },
+            {
+              "name": "Alexis Mac Allister",
+              "minutes": 116,
+              "rating": "7.5",
+              "goals": null,
+              "assists": 1
+            }
+          ],
+          "France": [
+            {
+              "name": "Kylian Mbappé",
+              "minutes": 120,
+              "rating": "8.3",
+              "goals": 3,
+              "assists": null
+            },
+            {
+              "name": "Randal Kolo Muani",
+              "minutes": 79,
+              "rating": "7.3",
+              "goals": null,
+              "assists": null
+            },
+            {
+              "name": "Hugo Lloris",
+              "minutes": 120,
+              "rating": "7.2",
+              "goals": null,
+              "assists": null
+            }
+          ]
+        },
+        "source": "/fixtures/players",
+        "confidence": "high",
+        "customer_visible_summary": "top performers' minutes and direct goal involvement (observed this match)",
+        "internal_note": "post-match observation; season-long workload feed NOT ingested — do not claim cumulative fatigue numbers",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "extra_time_fatigue",
+        "value": {
+          "extra_time_played": true,
+          "players_over_110min": [
+            "Lionel Messi",
+            "Alexis Mac Allister",
+            "Enzo Fernández",
+            "Nicolás Tagliafico",
+            "Kylian Mbappé",
+            "Hugo Lloris"
+          ]
+        },
+        "source": "/fixtures/players",
+        "confidence": "high",
+        "customer_visible_summary": "who carried 110+ minutes",
+        "internal_note": "minutes are per-match facts; physiological fatigue is interpretation — LLM territory",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "substitution_depth",
+        "value": {
+          "France": {
+            "used": 7,
+            "minutes": [
+              41,
+              41,
+              71,
+              71,
+              96,
+              113,
+              "120+1"
+            ]
+          },
+          "Argentina": {
+            "used": 6,
+            "minutes": [
+              64,
+              90,
+              102,
+              103,
+              116,
+              "120+1"
+            ]
+          }
+        },
+        "source": "/fixtures/events",
+        "confidence": "high",
+        "customer_visible_summary": "substitution windows actually used",
+        "internal_note": "bench SIZE/quality needs squad-value or rating source (not ingested)",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "bench_quality",
+        "value": {
+          "goals_by_substitutes": []
+        },
+        "source": "/fixtures/events",
+        "confidence": "medium",
+        "customer_visible_summary": null,
+        "internal_note": "observed impact only — market-value bench depth NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "goalkeeper_reliability",
+        "value": [
+          {
+            "team": "France",
+            "gk": "Hugo Lloris",
+            "rating": "7.2",
+            "minutes": 120,
+            "saves_team_stat": 7
+          }
+        ],
+        "source": "/fixtures/players + /fixtures/statistics",
+        "confidence": "medium",
+        "customer_visible_summary": "GK rating + saves this match",
+        "internal_note": "single-match observation; GK season form feed NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "penalty_history",
+        "value": {
+          "Argentina": [
+            {
+              "date": "2015-06-26",
+              "vs": "Colombia",
+              "won": true
+            },
+            {
+              "date": "2015-07-04",
+              "vs": "Chile",
+              "won": false
+            },
+            {
+              "date": "2016-06-26",
+              "vs": "Chile",
+              "won": false
+            },
+            {
+              "date": "2021-07-06",
+              "vs": "Colombia",
+              "won": true
+            },
+            {
+              "date": "2022-12-09",
+              "vs": "Netherlands",
+              "won": true
+            }
+          ],
+          "France": [
+            {
+              "date": "1998-05-29",
+              "vs": "Morocco",
+              "won": false
+            },
+            {
+              "date": "1998-07-03",
+              "vs": "Italy",
+              "won": true
+            },
+            {
+              "date": "2000-06-04",
+              "vs": "Japan",
+              "won": true
+            },
+            {
+              "date": "2006-07-09",
+              "vs": "Italy",
+              "won": false
+            },
+            {
+              "date": "2021-06-28",
+              "vs": "Switzerland",
+              "won": false
+            }
+          ]
+        },
+        "source": "kaggle shootout dataset",
+        "confidence": "medium",
+        "customer_visible_summary": "documented shootout record (kaggle-sourced)",
+        "internal_note": "kaggle historical shootouts; psychology is LLM interpretation, record is fact",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "red_card_sensitivity",
+        "value": {
+          "red_cards_this_match": {
+            "Argentina": 0,
+            "France": 0
+          },
+          "first_red": null
+        },
+        "source": "/fixtures/events",
+        "confidence": "high",
+        "customer_visible_summary": "red-card events and the score/man-count at the moment they happened",
+        "internal_note": "pre-match red-card propensity (discipline record) NOT ingested — this is observed only",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "game_state_resilience",
+        "value": [
+          {
+            "behind_from": 23,
+            "team": "France",
+            "responded": true,
+            "response_minute": 80
+          },
+          {
+            "behind_from": 36,
+            "team": "France",
+            "responded": true,
+            "response_minute": 80
+          },
+          {
+            "behind_from": 80,
+            "team": "France",
+            "responded": true,
+            "response_minute": 81
+          },
+          {
+            "behind_from": 108,
+            "team": "France",
+            "responded": true,
+            "response_minute": 118
+          }
+        ],
+        "source": "/fixtures/events",
+        "confidence": "medium",
+        "customer_visible_summary": "how each side responded after falling behind (timeline facts)",
+        "internal_note": "derived from goal timeline only",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "set_piece_threat",
+        "value": {
+          "penalty_goals": [
+            {
+              "minute": 23,
+              "team": "Argentina"
+            },
+            {
+              "minute": 80,
+              "team": "France"
+            },
+            {
+              "minute": 118,
+              "team": "France"
+            }
+          ],
+          "corners": {
+            "Argentina": 6,
+            "France": 5
+          }
+        },
+        "source": "/fixtures/events + /fixtures/statistics",
+        "confidence": "medium",
+        "customer_visible_summary": "set-piece output this match (penalties, corners)",
+        "internal_note": "free-kick/corner conversion season data NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "knockout_pressure",
+        "value": {
+          "round": "Final",
+          "knockout": true
+        },
+        "source": "/fixtures",
+        "confidence": "low",
+        "customer_visible_summary": "stage context (group vs knockout)",
+        "internal_note": "context only; pressure response is LLM interpretation",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "tournament_pressure",
+        "value": {
+          "round": "Final"
+        },
+        "source": "/fixtures",
+        "confidence": "low",
+        "customer_visible_summary": "tournament stage context",
+        "internal_note": "host-nation / opener flags live in the ops manifest key_reasons",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "age_profile",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs squad birthdates (API /players or FIFA squad list) — pack squads carry name/number/position ONLY; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "defensive_line_age",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs squad birthdates (same gap as age_profile); never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "squad_experience",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs caps / tournaments-played source; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "captain_core_stability",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs captaincy + appearance-streak source; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "coach_adjustment_pattern",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs multi-match tactical-change dataset; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "attacking_transition_speed",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs possession-sequence / progressive-carry data (no xG-adjacent feed); never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      }
+    ],
+    "missing_count": 6
+  }
 }

@@ -1,0 +1,88 @@
+{
+ "schema_version": "0.1",
+ "fixture_id": "979139",
+ "internal_only": true,
+ "policy_ref": "docs/MVP2_EXTERNAL_EXPECTATION_SIGNALS_DESIGN.md#2-policy",
+ "recorded_by": null,
+ "recorded_at": null,
+ "signals": {
+  "media_heat": {
+   "value": null,
+   "scale": "1-5 per side",
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": "manual operator recording — not yet recorded"
+  },
+  "expert_consensus": {
+   "value": null,
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": ">=2 named sources required"
+  },
+  "social_buzz": {
+   "value": null,
+   "scale": "1-5 per side + platform",
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": ""
+  },
+  "public_prediction_bias": {
+   "value": null,
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": "record poll N + URL"
+  },
+  "market_expectation": {
+   "value": null,
+   "allowed_values": [
+    "heavy_favourite_home",
+    "moderate_favourite_home",
+    "slight_favourite_home",
+    "even",
+    "slight_favourite_away",
+    "moderate_favourite_away",
+    "heavy_favourite_away"
+   ],
+   "drift": null,
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": "direction+band only; NO prices/bookmaker names in value"
+  },
+  "odds_implied_expectation": {
+   "value": null,
+   "derived_from": "market_expectation",
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": "qualitative band only"
+  },
+  "lineup_rumor_signal": {
+   "value": null,
+   "status": "rumor",
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": "rumor until /fixtures/lineups confirms"
+  },
+  "injury_rumor_signal": {
+   "value": null,
+   "status": "rumor",
+   "sources": [],
+   "confidence": "none",
+   "missing_evidence": true,
+   "internal_note": "always assumption_flag in narratives"
+  }
+ },
+ "customer_safe_vocabulary": [
+  "外部预期",
+  "市场共识",
+  "公开预测倾向",
+  "热度集中在热门方",
+  "冷门变量被低估"
+ ],
+ "forbidden_customer_vocabulary_ref": "scripts/check_mvp2_product_narrative_guard.py BETTING_BANS"
+}

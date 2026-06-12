@@ -1,7 +1,14 @@
 {
-  "generated_at": "2026-06-12T00:29:05+00:00",
+  "generated_at": "2026-06-12T01:48:14+00:00",
   "items": {
     "1489369.recap.my-MM.deepseek.r20260612T0005Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "my-MM",
+      "expires_at": null
+    },
+    "1489369.recap.my-MM.deepseek.r20260612T0109Z-recap": {
       "status": "guard_passed",
       "fixture_id": "1489369",
       "surface": "recap",
@@ -9,7 +16,42 @@
       "expires_at": null
     },
     "1489369.recap.vi-VN.deepseek.r20260612T0005Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.deepseek.r20260612T0116Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.deepseek.r20260612T0121Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.deepseek.r20260612T0124Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.deepseek.r20260612T0127Z-recap": {
       "status": "guard_passed",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.mock.r20260612T0109Z-recap": {
+      "status": "superseded",
       "fixture_id": "1489369",
       "surface": "recap",
       "language": "vi-VN",
@@ -44,6 +86,20 @@
       "expires_at": null
     },
     "1489369.recap.zh-CN.deepseek.r20260612T0028Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0109Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0116Z-recap": {
       "status": "guard_passed",
       "fixture_id": "1489369",
       "surface": "recap",

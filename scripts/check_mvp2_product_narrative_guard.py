@@ -49,8 +49,10 @@ FORBIDDEN = [
     # my (Burmese gambling/odds/guarantee vocabulary — banned even in negation in narrative prose;
     # the UI compliance footer keeps its negated form OUTSIDE narrative JSON)
     "လောင်းကစား", "လောင်းကြေး", "အလောင်းအစား", "လောင်းထား", "ကြေးပေါက်", "ပေါက်ကြေး", "သေချာပေါက်",
+    # handicap vocabulary (Evidence Expansion sprint: external signals stay internal-only)
+    "亚盘", "让球盘", "大小球", "tài xỉu", "chấp bóng",
     # en
-    "betting", "odds", "wager", "bookmaker", "parlay", "guaranteed win", "sure win",
+    "betting", "odds", "wager", "bookmaker", "parlay", "guaranteed win", "sure win", "handicap",
     # brand / voice bans (June-11 trial): football product must not surface Cloud or generic AI-analysis voice
     "cloud", "ai 分析", "ai分析", "我们没有数据", "không có dữ liệu nên", "thiếu dữ liệu", "缺数据", "缺少数据",
     "数据缺失", "模型自证",
@@ -73,8 +75,43 @@ RESEARCH_TONE = ["研究报告", "本报告", "本文", "审计", "白皮书", "
 # NOTE: bare 马后炮 is NOT banned — existing narratives legitimately use the negation
 # 「不是马后炮」; only positive brag phrasings are listed.
 HINDSIGHT_BANS = ["早就说过", "我早说", "看吧，我说", "i told you so",
-                  "đã bảo mà", "thấy chưa, tôi đã nói"]
+                  "đã bảo mà", "thấy chưa, tôi đã nói",
+                  # Evidence Expansion sprint: "we already knew everything" class
+                  "全都料到", "全部料到", "一切尽在掌握", "早已看穿", "我们早就知道", "全部命中",
+                  "knew everything", "đã biết trước tất cả"]
+# "predicted the red card / penalty" overclaim — the pre-match judgement can NEVER claim
+# event-level foresight (Evidence Expansion sprint requirement 7)
+PREDICTED_EVENT_OVERCLAIM = [
+    re.compile(r"(预判|预测|预言|料到|算到|早就?知道)[^。；.!?\n]{0,10}(红牌|点球|罚下)"),
+    re.compile(r"(红牌|点球|罚下)[^。；.!?\n]{0,14}(预料之中|意料之中|早有预判|早在预判)"),
+    re.compile(r"(đoán trước|dự đoán trước|biết trước|lường trước)[^.;!?\n]{0,40}(thẻ đỏ|phạt đền)", re.I),
+    re.compile(r"predicted[^.;!?\n]{0,30}(red card|penalty)", re.I),
+]
+# decisive-event mention requirement: when the factor frame records red cards / penalty
+# goals, the recap customer prose must engage with them (per-language terms; en accepted
+# for my which mixes concise English product terms)
+EVENT_TERMS = {
+    "red_card": {"zh-CN": ["红牌", "罚下"], "vi-VN": ["thẻ đỏ"],
+                 "my-MM": ["အနီကဒ်", "အနီကတ်", "ကဒ်နီ", "red card"]},
+    "penalty": {"zh-CN": ["点球"], "vi-VN": ["phạt đền", "penalty"],
+                "my-MM": ["ပယ်နယ်တီ", "penalty"]},
+}
 RECAP_MODES = ("historical_recap", "real_recap")
+FRAMES_DIR = pathlib.Path(__file__).resolve().parents[1] / "docs" / "data_audit" / "mvp2_scoutscore_v0_2"
+
+
+def _recap_frame_for(obj):
+    """Load the factor frame backing a recap narrative (None if absent — older artifacts)."""
+    fid = str(obj.get("fixture_id", ""))
+    name = ("%s.real_recap.factor_frame.json" % fid) if obj.get("mode") == "real_recap" \
+        else ("%s.factor_frame.json" % fid)
+    p = FRAMES_DIR / name
+    if not p.exists():
+        return None
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
 
 
 def has_model_estimate_marker(text):
@@ -248,7 +285,7 @@ def check_obj(obj, filename=""):
     if str(obj.get("voice", "")).endswith("_v2"):
         # zh list mirrors scripts/check_customer_visible_copy.py ZH_FORBIDDEN — the scanner
         # bans the literal n-gram (e.g. 过程验证 even as 过程+验证了), so the guard must too
-        for term in ("模型", "盲区", "过程验证", "数据缺失", "缺数据", "自证", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
+        for term in ("模型", "盲区", "过程验证", "数据缺失", "缺数据", "自证", "mô hình", "မော်ဒယ်", "ဒေတာမရှိ", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
             if term in blob_l:
                 errs.append("de-model violation in customer prose: %r" % term)
         # case-sensitive standalone AI (lowercase 'ai' is the Vietnamese word for 'who');
@@ -291,6 +328,61 @@ def check_obj(obj, filename=""):
             band = [re.sub(r"\s", "", s).replace("–", "-") for s in re.findall(r"\d+\s*[-–]\s*\d+", sv[:m.start()])]
             if actual not in band:
                 errs.append("real_recap scoreline overclaim: actual %s not in archived band %s but prose claims in-band" % (actual, band))
+
+    # ── Evidence Expansion sprint (both recap modes) ──────────────────────────
+    if is_recap:
+        # 7a. event-level foresight overclaim ("predicted the red card") — honest
+        # negations ("无法预判…红牌" / "không thể đoán trước…thẻ đỏ" / "could not have
+        # predicted…") are the CORRECT phrasing and stay legal
+        NEG_BEFORE = ("无法", "没法", "不能", "未能", "没能", "无从", "不可能", "没办法", "谁也没",
+                      "không thể", "không ai", "could not", "couldn't", "cannot", "can't", "no way to")
+        for pat in PREDICTED_EVENT_OVERCLAIM:
+            for mm in pat.finditer(blob):
+                lead = blob[max(0, mm.start() - 14):mm.start()].lower()
+                if any(neg in lead for neg in NEG_BEFORE):
+                    continue
+                errs.append("event-foresight overclaim in recap prose: %r" % mm.group(0))
+        frame = _recap_frame_for(obj)
+        ei = (frame or {}).get("event_impact")
+        # event-mention requirement applies to artifacts generated AFTER the Evidence
+        # Expansion sprint landed (2026-06-12); older artifacts predate the contract and
+        # are superseded on their own regeneration schedule, not failed retroactively.
+        # NO generated_at = in-flight candidate inside the generator retry loop -> NEW.
+        gen_at = str(obj.get("generated_at", ""))
+        if ei and (not gen_at or gen_at >= "2026-06-12"):
+            lang = obj.get("language") or ("vi-VN" if is_vi else "my-MM" if is_my else "zh-CN")
+            # 7b. decisive events must be engaged with, not skipped
+            reds_total = sum((ei.get("cards") or {}).get("red_count", {}).values())
+            red_mentioned = any(t.lower() in blob_l for t in EVENT_TERMS["red_card"].get(lang, []))
+            if reds_total and not red_mentioned:
+                errs.append("decisive event missing: frame records %d red card(s) but recap prose never mentions them" % reds_total)
+            if not reds_total and red_mentioned:
+                errs.append("PHANTOM event: recap prose mentions a red card but the frame records ZERO red cards (fabricated fact)")
+            pens = [d for d in ei.get("decisive_events", []) if d.get("event_type") == "penalty_goal"]
+            pen_mentioned = any(t.lower() in blob_l for t in EVENT_TERMS["penalty"].get(lang, []))
+            if pens and not pen_mentioned:
+                errs.append("decisive event missing: frame records %d penalty goal(s) but recap prose never mentions them" % len(pens))
+            if not pens and pen_mentioned and not (ei.get("var_available")):
+                # shootout-decided matches legitimately discuss 点球大战 — only flag when
+                # NO penalty goal and NO shootout exists in the frame
+                sw = ((frame or {}).get("fixture") or {}).get("shootout_winner")
+                if not sw:
+                    errs.append("PHANTOM event: recap prose mentions a penalty but the frame records none (fabricated fact)")
+        # 7c. unsupported exact claims — ages/workload (no source ingested -> no numbers)
+        dims = {d.get("dimension"): d for d in ((frame or {}).get("extended_dimensions") or {}).get("dimensions", [])}
+        age_missing = (not dims) or dims.get("age_profile", {}).get("missing_evidence", True)
+        if age_missing:
+            for pat in (r"\d+\s*岁", r"\d+\s*tuổi", r"aged\s+\d+", r"平均年龄[^。;\n]{0,6}\d+"):
+                mm = re.search(pat, blob, re.I)
+                if mm:
+                    errs.append("unsupported exact age claim (age source NOT ingested): %r" % mm.group(0))
+        mm = re.search(r"\d+(?:\.\d+)?\s*(?:公里|km)", blob, re.I)
+        if mm:
+            errs.append("unsupported exact workload claim (no distance/workload source): %r" % mm.group(0))
+        # 7d. external expectation claims need a recorded signal (stubs are all missing now)
+        for term in ("市场共识", "外部预期", "公开预测倾向", "đồng thuận thị trường", "kỳ vọng bên ngoài"):
+            if term.lower() in blob_l:
+                errs.append("external expectation claim %r without a recorded signal (mvp2_external_signals stub is missing_evidence)" % term)
     # links are engineering stage (real CTA buttons) — the LLM must never invent one
     if re.search(r"https?://|t\.me/|www\.", blob):
         errs.append("URL in customer prose (links are injected by the page, never written by the LLM)")
@@ -353,7 +445,7 @@ def check_rescore_update_obj(obj, filename=""):
             prose.append(" ".join(str(ch.get(k, "")) for k in ("name", "before", "now", "effect")))
     blob = "\n".join(prose)
     bl = blob.lower()
-    for term in ("模型", "盲区", "过程验证", "数据缺失", "缺数据", "自证", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm",
+    for term in ("模型", "盲区", "过程验证", "数据缺失", "缺数据", "自证", "mô hình", "မော်ဒယ်", "ဒေတာမရှိ", "scoutscore", "deepseek", "gemini", "llm",
                  "pipeline", "schema", "provider"):
         if term in bl:
             errs.append("de-model violation in customer prose: %r" % term)

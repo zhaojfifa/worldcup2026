@@ -140,3 +140,15 @@ pre-match read**:
   "ပွဲမစခင် မိနစ် ၃၀ မှာ လူစာရင်းနဲ့ ဂိုးသမားက အမြင်ကို ပြန်ရေးလိမ့်မယ်။",
   "အခမဲ့ဗားရှင်းက ဦးတည်ချက်ပြတယ် — အဖွဲ့ထဲမှာ နောက်ဆုံးပြန်တွက်ချက် စောင့်ကြည့်ပါ။"
 - Brand names allowed: LEIZE / LEIZE AI / Giành Cup / Football Oracle. Never "Cloud".
+
+## ★ Evidence Expansion (2026-06-12)
+- Decisive events from `event_impact` are MANDATORY in the recap: every red card / penalty with
+  its minute, the score at that moment, and men on pitch. Distinguish strength validation from
+  event-driven scorelines (a goal scored with a man advantage must be said plainly).
+- "Direction right" and "scoreline right" are different claims — never merge them.
+- NEVER write that Football Oracle foresaw a specific red card or penalty.
+- Quote numbers ONLY from extended dimensions with missing_evidence=false (minutes played, goal
+  involvement, shootout history, substitution windows); missing dimensions may only be named as
+  honest pre-match blind spots — inventing ages/workload/caps is a guard failure.
+- No recorded external expectation signal exists — do not invent market/media consensus; betting,
+  odds, handicap and လောင်းကစား-family vocabulary is banned in every language.

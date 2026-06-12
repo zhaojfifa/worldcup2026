@@ -3,7 +3,7 @@
   "mode": "historical_recap",
   "fixture_id": "855737",
   "generated_by": "scripts/mvp2_build_scoutscore_v0_2_factors.py",
-  "generated_at": "2026-06-11T00:33:37.402638+00:00",
+  "generated_at": "2026-06-12T01:04:21.893562+00:00",
   "not_real_archived_prediction": true,
   "fixture": {
     "home": "Argentina",
@@ -501,7 +501,801 @@
     "injuries/suspensions not ingested",
     "xG not ingested",
     "squad market value not ingested",
-    "official FIFA ranking not ingested (kaggle-derived elo used instead)"
+    "official FIFA ranking not ingested (kaggle-derived elo used instead)",
+    "squad ages/caps not ingested (age/experience dims = missing_evidence)"
   ],
-  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/855737.json#source_ledger"
+  "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/855737.json#source_ledger",
+  "event_impact": {
+    "source": {
+      "endpoint": "/fixtures/events",
+      "fixture_id": "855737",
+      "note": "facts only; every flag below is rule-derived (reason given), not narrative"
+    },
+    "sub_mapping_note": "events 'subst': player = OFF, assist = ON (verified vs 979139 Giroud 41')",
+    "halftime_score": {
+      "Argentina": 1,
+      "Saudi Arabia": 0
+    },
+    "final_score_regulation_and_et": {
+      "Argentina": 1,
+      "Saudi Arabia": 2
+    },
+    "phases": {
+      "0-15": [
+        {
+          "minute": 8,
+          "phase": "0-15",
+          "team": "Argentina",
+          "player": "Leandro Paredes",
+          "type": "Var",
+          "detail": "Penalty confirmed"
+        },
+        {
+          "minute": 10,
+          "phase": "0-15",
+          "team": "Argentina",
+          "player": "L. Messi",
+          "type": "Goal",
+          "detail": "Penalty"
+        }
+      ],
+      "16-30": [
+        {
+          "minute": 29,
+          "phase": "16-30",
+          "team": "Argentina",
+          "player": "Lautaro Martínez",
+          "type": "Var",
+          "detail": "Goal cancelled"
+        }
+      ],
+      "31-45+": [
+        {
+          "minute": "45+4",
+          "phase": "31-45+",
+          "team": "Saudi Arabia",
+          "player": "Salman Al Faraj",
+          "type": "subst",
+          "detail": "Substitution 1"
+        }
+      ],
+      "46-60": [
+        {
+          "minute": 48,
+          "phase": "46-60",
+          "team": "Saudi Arabia",
+          "player": "Saleh Al Shehri",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        },
+        {
+          "minute": 53,
+          "phase": "46-60",
+          "team": "Saudi Arabia",
+          "player": "Salem Al Dawsari",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        },
+        {
+          "minute": 59,
+          "phase": "46-60",
+          "team": "Argentina",
+          "player": "P. Gómez",
+          "type": "subst",
+          "detail": "Substitution 1"
+        },
+        {
+          "minute": 59,
+          "phase": "46-60",
+          "team": "Argentina",
+          "player": "L. Paredes",
+          "type": "subst",
+          "detail": "Substitution 2"
+        },
+        {
+          "minute": 59,
+          "phase": "46-60",
+          "team": "Argentina",
+          "player": "C. Romero",
+          "type": "subst",
+          "detail": "Substitution 3"
+        }
+      ],
+      "61-75": [
+        {
+          "minute": 67,
+          "phase": "61-75",
+          "team": "Saudi Arabia",
+          "player": "Abdulelah Al Malki",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 71,
+          "phase": "61-75",
+          "team": "Argentina",
+          "player": "N. Tagliafico",
+          "type": "subst",
+          "detail": "Substitution 4"
+        },
+        {
+          "minute": 75,
+          "phase": "61-75",
+          "team": "Saudi Arabia",
+          "player": "Ali Al-Boleahi",
+          "type": "Card",
+          "detail": "Yellow Card"
+        }
+      ],
+      "76-90+": [
+        {
+          "minute": 78,
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Saleh Al Shehri",
+          "type": "subst",
+          "detail": "Substitution 2"
+        },
+        {
+          "minute": 79,
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Salem Al-Dawsari",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 82,
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Saud Abdulhamid",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 88,
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Nawaf Al-Abed",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 88,
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Nawaf Al Abid",
+          "type": "subst",
+          "detail": "Substitution 3"
+        },
+        {
+          "minute": 89,
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Feras Al Brikan",
+          "type": "subst",
+          "detail": "Substitution 4"
+        },
+        {
+          "minute": "90+2",
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Mohammed Al-Owais",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": "90+9",
+          "phase": "76-90+",
+          "team": "Saudi Arabia",
+          "player": "Yasir Al Shahrani",
+          "type": "subst",
+          "detail": "Substitution 5"
+        }
+      ],
+      "91-105": [],
+      "106-120+": []
+    },
+    "decisive_events": [
+      {
+        "minute": 8,
+        "phase": "0-15",
+        "team": "Argentina",
+        "player": "Leandro Paredes",
+        "event_type": "var",
+        "detail": "Penalty confirmed",
+        "score_before": {
+          "Argentina": 0,
+          "Saudi Arabia": 0
+        },
+        "score_after": {
+          "Argentina": 0,
+          "Saudi Arabia": 0
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "Saudi Arabia": 11
+        },
+        "tactical_effect": "",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "no rule fired"
+        },
+        "prematch_judgement_relation": {
+          "relation": "neutral",
+          "reason": "no favoured side supplied",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 10,
+        "phase": "0-15",
+        "team": "Argentina",
+        "player": "L. Messi",
+        "event_type": "penalty_goal",
+        "detail": "Penalty",
+        "score_before": {
+          "Argentina": 0,
+          "Saudi Arabia": 0
+        },
+        "score_after": {
+          "Argentina": 1,
+          "Saudi Arabia": 0
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "Saudi Arabia": 11
+        },
+        "tactical_effect": "penalty converted by L. Messi (Argentina)",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Argentina goal at 10' -> 1-0 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "Argentina goal at 10' -> 1-0 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 29,
+        "phase": "16-30",
+        "team": "Argentina",
+        "player": "Lautaro Martínez",
+        "event_type": "var",
+        "detail": "Goal cancelled",
+        "score_before": {
+          "Argentina": 1,
+          "Saudi Arabia": 0
+        },
+        "score_after": {
+          "Argentina": 1,
+          "Saudi Arabia": 0
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "Saudi Arabia": 11
+        },
+        "tactical_effect": "",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "no rule fired"
+        },
+        "prematch_judgement_relation": {
+          "relation": "neutral",
+          "reason": "no favoured side supplied",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 48,
+        "phase": "46-60",
+        "team": "Saudi Arabia",
+        "player": "Saleh Al Shehri",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Argentina": 1,
+          "Saudi Arabia": 0
+        },
+        "score_after": {
+          "Argentina": 1,
+          "Saudi Arabia": 1
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "Saudi Arabia": 11
+        },
+        "tactical_effect": "score 1-0 -> 1-1",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Saudi Arabia goal at 48' -> 1-1 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "weakens",
+          "reason": "Saudi Arabia goal at 48' -> 1-1 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      },
+      {
+        "minute": 53,
+        "phase": "46-60",
+        "team": "Saudi Arabia",
+        "player": "Salem Al Dawsari",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Argentina": 1,
+          "Saudi Arabia": 1
+        },
+        "score_after": {
+          "Argentina": 1,
+          "Saudi Arabia": 2
+        },
+        "men_on_pitch_after": {
+          "Argentina": 11,
+          "Saudi Arabia": 11
+        },
+        "tactical_effect": "score 1-1 -> 1-2",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Saudi Arabia goal at 53' -> 1-2 (favourite was Argentina)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "weakens",
+          "reason": "Saudi Arabia goal at 53' -> 1-2 (favourite was Argentina)",
+          "basis": "rule-derived vs favoured=Argentina"
+        }
+      }
+    ],
+    "substitutions": [
+      {
+        "minute": "45+4",
+        "team": "Saudi Arabia",
+        "off": "Salman Al Faraj",
+        "on": "Nawaf Al Abid",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 59,
+        "team": "Argentina",
+        "off": "P. Gómez",
+        "on": "J. Álvarez",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 59,
+        "team": "Argentina",
+        "off": "L. Paredes",
+        "on": "E. Fernández",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 59,
+        "team": "Argentina",
+        "off": "C. Romero",
+        "on": "Lisandro Martínez",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 71,
+        "team": "Argentina",
+        "off": "N. Tagliafico",
+        "on": "M. Acuña",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 78,
+        "team": "Saudi Arabia",
+        "off": "Saleh Al Shehri",
+        "on": "Sultan Al Ghannam",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 88,
+        "team": "Saudi Arabia",
+        "off": "Nawaf Al Abid",
+        "on": "Abdulelah Al Amri",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 89,
+        "team": "Saudi Arabia",
+        "off": "Feras Al Brikan",
+        "on": "Haitham Asiri",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": "90+9",
+        "team": "Saudi Arabia",
+        "off": "Yasir Al Shahrani",
+        "on": "Mohammed Al Burayk",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      }
+    ],
+    "cards": {
+      "all": [
+        {
+          "minute": 67,
+          "team": "Saudi Arabia",
+          "player": "Abdulelah Al Malki",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 75,
+          "team": "Saudi Arabia",
+          "player": "Ali Al-Boleahi",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 79,
+          "team": "Saudi Arabia",
+          "player": "Salem Al-Dawsari",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 82,
+          "team": "Saudi Arabia",
+          "player": "Saud Abdulhamid",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 88,
+          "team": "Saudi Arabia",
+          "player": "Nawaf Al-Abed",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": "90+2",
+          "team": "Saudi Arabia",
+          "player": "Mohammed Al-Owais",
+          "detail": "Yellow Card"
+        }
+      ],
+      "red_count": {
+        "Argentina": 0,
+        "Saudi Arabia": 0
+      }
+    },
+    "goalkeeper_signal": [
+      {
+        "team": "Saudi Arabia",
+        "gk": "Mohammed Al-Owais",
+        "rating": "7.7",
+        "minutes": 90,
+        "saves_team_stat": 5
+      }
+    ],
+    "var_available": true,
+    "injury_feed_available": false
+  },
+  "extended_dimensions": {
+    "note": "facts-only; missing_evidence dims are NAMED gaps, never inferred",
+    "dimensions": [
+      {
+        "dimension": "key_player_load",
+        "value": {
+          "Argentina": [
+            {
+              "name": "Lionel Messi",
+              "minutes": 90,
+              "rating": "7.6",
+              "goals": 1,
+              "assists": null
+            },
+            {
+              "name": "Nicolás Otamendi",
+              "minutes": 90,
+              "rating": "7.3",
+              "goals": null,
+              "assists": null
+            },
+            {
+              "name": "Leandro Paredes",
+              "minutes": 59,
+              "rating": "7.2",
+              "goals": null,
+              "assists": null
+            }
+          ],
+          "Saudi Arabia": [
+            {
+              "name": "Mohammed Al-Owais",
+              "minutes": 90,
+              "rating": "7.7",
+              "goals": null,
+              "assists": null
+            },
+            {
+              "name": "Saleh Al-Shehri",
+              "minutes": 78,
+              "rating": "7.3",
+              "goals": 1,
+              "assists": null
+            },
+            {
+              "name": "Yasir Al-Shahrani",
+              "minutes": 89,
+              "rating": "7.2",
+              "goals": null,
+              "assists": null
+            }
+          ]
+        },
+        "source": "/fixtures/players",
+        "confidence": "high",
+        "customer_visible_summary": "top performers' minutes and direct goal involvement (observed this match)",
+        "internal_note": "post-match observation; season-long workload feed NOT ingested — do not claim cumulative fatigue numbers",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "extra_time_fatigue",
+        "value": {
+          "extra_time_played": false,
+          "players_over_110min": []
+        },
+        "source": "/fixtures/players",
+        "confidence": "n/a",
+        "customer_visible_summary": null,
+        "internal_note": "minutes are per-match facts; physiological fatigue is interpretation — LLM territory",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "substitution_depth",
+        "value": {
+          "Saudi Arabia": {
+            "used": 5,
+            "minutes": [
+              "45+4",
+              78,
+              88,
+              89,
+              "90+9"
+            ]
+          },
+          "Argentina": {
+            "used": 4,
+            "minutes": [
+              59,
+              59,
+              59,
+              71
+            ]
+          }
+        },
+        "source": "/fixtures/events",
+        "confidence": "high",
+        "customer_visible_summary": "substitution windows actually used",
+        "internal_note": "bench SIZE/quality needs squad-value or rating source (not ingested)",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "bench_quality",
+        "value": {
+          "goals_by_substitutes": []
+        },
+        "source": "/fixtures/events",
+        "confidence": "medium",
+        "customer_visible_summary": null,
+        "internal_note": "observed impact only — market-value bench depth NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "goalkeeper_reliability",
+        "value": [
+          {
+            "team": "Saudi Arabia",
+            "gk": "Mohammed Al-Owais",
+            "rating": "7.7",
+            "minutes": 90,
+            "saves_team_stat": 5
+          }
+        ],
+        "source": "/fixtures/players + /fixtures/statistics",
+        "confidence": "medium",
+        "customer_visible_summary": "GK rating + saves this match",
+        "internal_note": "single-match observation; GK season form feed NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "penalty_history",
+        "value": {
+          "Argentina": [
+            {
+              "date": "2014-07-09",
+              "vs": "Netherlands",
+              "won": true
+            },
+            {
+              "date": "2015-06-26",
+              "vs": "Colombia",
+              "won": true
+            },
+            {
+              "date": "2015-07-04",
+              "vs": "Chile",
+              "won": false
+            },
+            {
+              "date": "2016-06-26",
+              "vs": "Chile",
+              "won": false
+            },
+            {
+              "date": "2021-07-06",
+              "vs": "Colombia",
+              "won": true
+            }
+          ],
+          "Saudi Arabia": [
+            {
+              "date": "1986-10-03",
+              "vs": "Kuwait",
+              "won": true
+            },
+            {
+              "date": "1988-12-18",
+              "vs": "South Korea",
+              "won": true
+            },
+            {
+              "date": "1990-10-01",
+              "vs": "North Korea",
+              "won": false
+            },
+            {
+              "date": "1996-12-19",
+              "vs": "Iran",
+              "won": true
+            },
+            {
+              "date": "1996-12-21",
+              "vs": "United Arab Emirates",
+              "won": true
+            }
+          ]
+        },
+        "source": "kaggle shootout dataset",
+        "confidence": "medium",
+        "customer_visible_summary": "documented shootout record (kaggle-sourced)",
+        "internal_note": "kaggle historical shootouts; psychology is LLM interpretation, record is fact",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "red_card_sensitivity",
+        "value": {
+          "red_cards_this_match": {
+            "Argentina": 0,
+            "Saudi Arabia": 0
+          },
+          "first_red": null
+        },
+        "source": "/fixtures/events",
+        "confidence": "high",
+        "customer_visible_summary": "red-card events and the score/man-count at the moment they happened",
+        "internal_note": "pre-match red-card propensity (discipline record) NOT ingested — this is observed only",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "game_state_resilience",
+        "value": [
+          {
+            "behind_from": 10,
+            "team": "Saudi Arabia",
+            "responded": true,
+            "response_minute": 48
+          },
+          {
+            "behind_from": 53,
+            "team": "Argentina",
+            "responded": false,
+            "response_minute": null
+          }
+        ],
+        "source": "/fixtures/events",
+        "confidence": "medium",
+        "customer_visible_summary": "how each side responded after falling behind (timeline facts)",
+        "internal_note": "derived from goal timeline only",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "set_piece_threat",
+        "value": {
+          "penalty_goals": [
+            {
+              "minute": 10,
+              "team": "Argentina"
+            }
+          ],
+          "corners": {
+            "Argentina": 9,
+            "Saudi Arabia": 2
+          }
+        },
+        "source": "/fixtures/events + /fixtures/statistics",
+        "confidence": "medium",
+        "customer_visible_summary": "set-piece output this match (penalties, corners)",
+        "internal_note": "free-kick/corner conversion season data NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "knockout_pressure",
+        "value": {
+          "round": "Group Stage - 1",
+          "knockout": false
+        },
+        "source": "/fixtures",
+        "confidence": "low",
+        "customer_visible_summary": "stage context (group vs knockout)",
+        "internal_note": "context only; pressure response is LLM interpretation",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "tournament_pressure",
+        "value": {
+          "round": "Group Stage - 1"
+        },
+        "source": "/fixtures",
+        "confidence": "low",
+        "customer_visible_summary": "tournament stage context",
+        "internal_note": "host-nation / opener flags live in the ops manifest key_reasons",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "age_profile",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs squad birthdates (API /players or FIFA squad list) — pack squads carry name/number/position ONLY; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "defensive_line_age",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs squad birthdates (same gap as age_profile); never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "squad_experience",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs caps / tournaments-played source; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "captain_core_stability",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs captaincy + appearance-streak source; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "coach_adjustment_pattern",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs multi-match tactical-change dataset; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "attacking_transition_speed",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs possession-sequence / progressive-carry data (no xG-adjacent feed); never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      }
+    ],
+    "missing_count": 6
+  }
 }

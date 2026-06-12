@@ -3,7 +3,7 @@
   "mode": "real_recap",
   "fixture_id": "1489369",
   "generated_by": "scripts/mvp2_build_recap_frame_real.py",
-  "generated_at": "2026-06-12T00:28:11.722775+00:00",
+  "generated_at": "2026-06-12T01:27:13.157227+00:00",
   "not_real_archived_prediction": false,
   "fixture": {
     "home": "Mexico",
@@ -496,9 +496,816 @@
     "injuries/suspensions not ingested",
     "xG not ingested",
     "squad market value not ingested",
-    "official FIFA ranking not ingested (kaggle-derived elo used instead)"
+    "official FIFA ranking not ingested (kaggle-derived elo used instead)",
+    "squad ages/caps not ingested (age/experience dims = missing_evidence)"
   ],
   "source_ledger_ref": "docs/data_audit/mvp2_scout_pack_samples/1489369.json#source_ledger",
+  "event_impact": {
+    "source": {
+      "endpoint": "/fixtures/events",
+      "fixture_id": "1489369",
+      "note": "facts only; every flag below is rule-derived (reason given), not narrative"
+    },
+    "sub_mapping_note": "events 'subst': player = OFF, assist = ON (verified vs 979139 Giroud 41')",
+    "halftime_score": {
+      "Mexico": 1,
+      "South Africa": 0
+    },
+    "final_score_regulation_and_et": {
+      "Mexico": 2,
+      "South Africa": 0
+    },
+    "phases": {
+      "0-15": [
+        {
+          "minute": 9,
+          "phase": "0-15",
+          "team": "Mexico",
+          "player": "J. Quinones",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        }
+      ],
+      "16-30": [
+        {
+          "minute": 17,
+          "phase": "16-30",
+          "team": "South Africa",
+          "player": "T. Mokoena",
+          "type": "Card",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 23,
+          "phase": "16-30",
+          "team": "Mexico",
+          "player": "B. Gutierrez",
+          "type": "Card",
+          "detail": "Yellow Card"
+        }
+      ],
+      "31-45+": [],
+      "46-60": [
+        {
+          "minute": 49,
+          "phase": "46-60",
+          "team": "South Africa",
+          "player": "Y. Sithole",
+          "type": "Card",
+          "detail": "Red Card"
+        },
+        {
+          "minute": 56,
+          "phase": "46-60",
+          "team": "South Africa",
+          "player": "L. Foster",
+          "type": "subst",
+          "detail": "Substitution 1"
+        }
+      ],
+      "61-75": [
+        {
+          "minute": 61,
+          "phase": "61-75",
+          "team": "South Africa",
+          "player": "J. Adams",
+          "type": "subst",
+          "detail": "Substitution 2"
+        },
+        {
+          "minute": 66,
+          "phase": "61-75",
+          "team": "Mexico",
+          "player": "B. Gutierrez",
+          "type": "subst",
+          "detail": "Substitution 1"
+        },
+        {
+          "minute": 66,
+          "phase": "61-75",
+          "team": "Mexico",
+          "player": "A. Fidalgo",
+          "type": "subst",
+          "detail": "Substitution 2"
+        },
+        {
+          "minute": 67,
+          "phase": "61-75",
+          "team": "Mexico",
+          "player": "R. Jimenez",
+          "type": "Goal",
+          "detail": "Normal Goal"
+        },
+        {
+          "minute": 74,
+          "phase": "61-75",
+          "team": "South Africa",
+          "player": "N. Sibisi",
+          "type": "Card",
+          "detail": "Yellow Card"
+        }
+      ],
+      "76-90+": [
+        {
+          "minute": 76,
+          "phase": "76-90+",
+          "team": "Mexico",
+          "player": "E. Lira",
+          "type": "subst",
+          "detail": "Substitution 3"
+        },
+        {
+          "minute": 76,
+          "phase": "76-90+",
+          "team": "Mexico",
+          "player": "R. Jimenez",
+          "type": "subst",
+          "detail": "Substitution 4"
+        },
+        {
+          "minute": 77,
+          "phase": "76-90+",
+          "team": "South Africa",
+          "player": "I. Rayners",
+          "type": "subst",
+          "detail": "Substitution 3"
+        },
+        {
+          "minute": 77,
+          "phase": "76-90+",
+          "team": "South Africa",
+          "player": "A. Modiba",
+          "type": "subst",
+          "detail": "Substitution 4"
+        },
+        {
+          "minute": 79,
+          "phase": "76-90+",
+          "team": "Mexico",
+          "player": "J. Quinones",
+          "type": "subst",
+          "detail": "Substitution 5"
+        },
+        {
+          "minute": 84,
+          "phase": "76-90+",
+          "team": "South Africa",
+          "player": "T. Zwane",
+          "type": "Card",
+          "detail": "Red Card"
+        },
+        {
+          "minute": "90+2",
+          "phase": "76-90+",
+          "team": "Mexico",
+          "player": "C. Montes",
+          "type": "Card",
+          "detail": "Red Card"
+        }
+      ],
+      "91-105": [],
+      "106-120+": []
+    },
+    "decisive_events": [
+      {
+        "minute": 9,
+        "phase": "0-15",
+        "team": "Mexico",
+        "player": "J. Quinones",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Mexico": 0,
+          "South Africa": 0
+        },
+        "score_after": {
+          "Mexico": 1,
+          "South Africa": 0
+        },
+        "men_on_pitch_after": {
+          "Mexico": 11,
+          "South Africa": 11
+        },
+        "tactical_effect": "score 0-0 -> 1-0",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Mexico goal at 9' -> 1-0 (favourite was Mexico)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "Mexico goal at 9' -> 1-0 (favourite was Mexico)",
+          "basis": "rule-derived vs favoured=Mexico"
+        }
+      },
+      {
+        "minute": 49,
+        "phase": "46-60",
+        "team": "South Africa",
+        "player": "Y. Sithole",
+        "event_type": "red_card",
+        "detail": "Red Card",
+        "score_before": {
+          "Mexico": 1,
+          "South Africa": 0
+        },
+        "score_after": {
+          "Mexico": 1,
+          "South Africa": 0
+        },
+        "men_on_pitch_after": {
+          "Mexico": 11,
+          "South Africa": 10
+        },
+        "tactical_effect": "South Africa down to 10 men from 49' (score 1-0 at the time)",
+        "changed_risk_interpretation": {
+          "flag": true,
+          "reason": "underdog South Africa to 10 men at 49' while trailing 1-0 — favourite path eased by the event, not only by baseline strength"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "underdog South Africa to 10 men at 49' while trailing 1-0 — favourite path eased by the event, not only by baseline strength",
+          "basis": "rule-derived vs favoured=Mexico"
+        }
+      },
+      {
+        "minute": 67,
+        "phase": "61-75",
+        "team": "Mexico",
+        "player": "R. Jimenez",
+        "event_type": "goal",
+        "detail": "Normal Goal",
+        "score_before": {
+          "Mexico": 1,
+          "South Africa": 0
+        },
+        "score_after": {
+          "Mexico": 2,
+          "South Africa": 0
+        },
+        "men_on_pitch_after": {
+          "Mexico": 11,
+          "South Africa": 10
+        },
+        "tactical_effect": "score 1-0 -> 2-0; goal scored WITH a man advantage (11 v 10 since earlier red card)",
+        "changed_risk_interpretation": {
+          "flag": false,
+          "reason": "Mexico goal at 67' -> 2-0 (favourite was Mexico)"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "Mexico goal at 67' -> 2-0 (favourite was Mexico)",
+          "basis": "rule-derived vs favoured=Mexico"
+        }
+      },
+      {
+        "minute": 84,
+        "phase": "76-90+",
+        "team": "South Africa",
+        "player": "T. Zwane",
+        "event_type": "red_card",
+        "detail": "Red Card",
+        "score_before": {
+          "Mexico": 2,
+          "South Africa": 0
+        },
+        "score_after": {
+          "Mexico": 2,
+          "South Africa": 0
+        },
+        "men_on_pitch_after": {
+          "Mexico": 11,
+          "South Africa": 9
+        },
+        "tactical_effect": "South Africa down to 9 men from 84' (score 2-0 at the time)",
+        "changed_risk_interpretation": {
+          "flag": true,
+          "reason": "underdog South Africa to 9 men at 84' while trailing 2-0 — favourite path eased by the event, not only by baseline strength"
+        },
+        "prematch_judgement_relation": {
+          "relation": "validates",
+          "reason": "underdog South Africa to 9 men at 84' while trailing 2-0 — favourite path eased by the event, not only by baseline strength",
+          "basis": "rule-derived vs favoured=Mexico"
+        }
+      },
+      {
+        "minute": "90+2",
+        "phase": "76-90+",
+        "team": "Mexico",
+        "player": "C. Montes",
+        "event_type": "red_card",
+        "detail": "Red Card",
+        "score_before": {
+          "Mexico": 2,
+          "South Africa": 0
+        },
+        "score_after": {
+          "Mexico": 2,
+          "South Africa": 0
+        },
+        "men_on_pitch_after": {
+          "Mexico": 10,
+          "South Africa": 9
+        },
+        "tactical_effect": "Mexico down to 10 men from 90+2' (score 2-0 at the time)",
+        "changed_risk_interpretation": {
+          "flag": true,
+          "reason": "favourite Mexico reduced to 10 men at 90+2'"
+        },
+        "prematch_judgement_relation": {
+          "relation": "weakens",
+          "reason": "favourite Mexico reduced to 10 men at 90+2'",
+          "basis": "rule-derived vs favoured=Mexico"
+        }
+      }
+    ],
+    "substitutions": [
+      {
+        "minute": 56,
+        "team": "South Africa",
+        "off": "L. Foster",
+        "on": "T. Mbatha",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 61,
+        "team": "South Africa",
+        "off": "J. Adams",
+        "on": "T. Zwane",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 66,
+        "team": "Mexico",
+        "off": "B. Gutierrez",
+        "on": "L. Chavez",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 66,
+        "team": "Mexico",
+        "off": "A. Fidalgo",
+        "on": "G. Mora",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 76,
+        "team": "Mexico",
+        "off": "E. Lira",
+        "on": "E. Alvarez",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 76,
+        "team": "Mexico",
+        "off": "R. Jimenez",
+        "on": "A. Gonzalez",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 77,
+        "team": "South Africa",
+        "off": "I. Rayners",
+        "on": "E. Makgopa",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 77,
+        "team": "South Africa",
+        "off": "A. Modiba",
+        "on": "O. Appollis",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      },
+      {
+        "minute": 79,
+        "team": "Mexico",
+        "off": "J. Quinones",
+        "on": "A. Vega",
+        "forced_by_injury": "unknown (no injury feed — never inferred)"
+      }
+    ],
+    "cards": {
+      "all": [
+        {
+          "minute": 17,
+          "team": "South Africa",
+          "player": "T. Mokoena",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 23,
+          "team": "Mexico",
+          "player": "B. Gutierrez",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 49,
+          "team": "South Africa",
+          "player": "Y. Sithole",
+          "detail": "Red Card"
+        },
+        {
+          "minute": 74,
+          "team": "South Africa",
+          "player": "N. Sibisi",
+          "detail": "Yellow Card"
+        },
+        {
+          "minute": 84,
+          "team": "South Africa",
+          "player": "T. Zwane",
+          "detail": "Red Card"
+        },
+        {
+          "minute": "90+2",
+          "team": "Mexico",
+          "player": "C. Montes",
+          "detail": "Red Card"
+        }
+      ],
+      "red_count": {
+        "Mexico": 1,
+        "South Africa": 2
+      }
+    },
+    "goalkeeper_signal": [
+      {
+        "team": "Mexico",
+        "gk": "Raúl Rangel",
+        "rating": "7.2",
+        "minutes": 90,
+        "saves_team_stat": 2
+      },
+      {
+        "team": "South Africa",
+        "gk": "Ronwen Williams",
+        "rating": "6.6",
+        "minutes": 90,
+        "saves_team_stat": 2
+      }
+    ],
+    "var_available": false,
+    "injury_feed_available": false
+  },
+  "extended_dimensions": {
+    "note": "facts-only; missing_evidence dims are NAMED gaps, never inferred",
+    "dimensions": [
+      {
+        "dimension": "key_player_load",
+        "value": {
+          "Mexico": [
+            {
+              "name": "Julián Quiñones",
+              "minutes": 79,
+              "rating": "8.3",
+              "goals": 1,
+              "assists": 0
+            },
+            {
+              "name": "Roberto Alvarado",
+              "minutes": 90,
+              "rating": "8.2",
+              "goals": null,
+              "assists": 1
+            },
+            {
+              "name": "Raúl Jiménez",
+              "minutes": 76,
+              "rating": "7.9",
+              "goals": 1,
+              "assists": 0
+            }
+          ],
+          "South Africa": [
+            {
+              "name": "Evidence Makgopa",
+              "minutes": 13,
+              "rating": "6.9",
+              "goals": null,
+              "assists": 0
+            },
+            {
+              "name": "Jayden Adams",
+              "minutes": 61,
+              "rating": "6.7",
+              "goals": null,
+              "assists": 0
+            },
+            {
+              "name": "Oswin Appollis",
+              "minutes": 13,
+              "rating": "6.7",
+              "goals": null,
+              "assists": 0
+            }
+          ]
+        },
+        "source": "/fixtures/players",
+        "confidence": "high",
+        "customer_visible_summary": "top performers' minutes and direct goal involvement (observed this match)",
+        "internal_note": "post-match observation; season-long workload feed NOT ingested — do not claim cumulative fatigue numbers",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "extra_time_fatigue",
+        "value": {
+          "extra_time_played": false,
+          "players_over_110min": []
+        },
+        "source": "/fixtures/players",
+        "confidence": "n/a",
+        "customer_visible_summary": null,
+        "internal_note": "minutes are per-match facts; physiological fatigue is interpretation — LLM territory",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "substitution_depth",
+        "value": {
+          "South Africa": {
+            "used": 4,
+            "minutes": [
+              56,
+              61,
+              77,
+              77
+            ]
+          },
+          "Mexico": {
+            "used": 5,
+            "minutes": [
+              66,
+              66,
+              76,
+              76,
+              79
+            ]
+          }
+        },
+        "source": "/fixtures/events",
+        "confidence": "high",
+        "customer_visible_summary": "substitution windows actually used",
+        "internal_note": "bench SIZE/quality needs squad-value or rating source (not ingested)",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "bench_quality",
+        "value": {
+          "goals_by_substitutes": []
+        },
+        "source": "/fixtures/events",
+        "confidence": "medium",
+        "customer_visible_summary": null,
+        "internal_note": "observed impact only — market-value bench depth NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "goalkeeper_reliability",
+        "value": [
+          {
+            "team": "Mexico",
+            "gk": "Raúl Rangel",
+            "rating": "7.2",
+            "minutes": 90,
+            "saves_team_stat": 2
+          },
+          {
+            "team": "South Africa",
+            "gk": "Ronwen Williams",
+            "rating": "6.6",
+            "minutes": 90,
+            "saves_team_stat": 2
+          }
+        ],
+        "source": "/fixtures/players + /fixtures/statistics",
+        "confidence": "medium",
+        "customer_visible_summary": "GK rating + saves this match",
+        "internal_note": "single-match observation; GK season form feed NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "penalty_history",
+        "value": {
+          "Mexico": [
+            {
+              "date": "2005-06-26",
+              "vs": "Argentina",
+              "won": false
+            },
+            {
+              "date": "2009-07-23",
+              "vs": "Costa Rica",
+              "won": true
+            },
+            {
+              "date": "2019-06-29",
+              "vs": "Costa Rica",
+              "won": true
+            },
+            {
+              "date": "2021-06-03",
+              "vs": "Costa Rica",
+              "won": true
+            },
+            {
+              "date": "2023-11-21",
+              "vs": "Honduras",
+              "won": true
+            }
+          ],
+          "South Africa": [
+            {
+              "date": "2021-07-18",
+              "vs": "Senegal",
+              "won": true
+            },
+            {
+              "date": "2022-07-13",
+              "vs": "Mozambique",
+              "won": false
+            },
+            {
+              "date": "2023-07-16",
+              "vs": "Malawi",
+              "won": true
+            },
+            {
+              "date": "2024-02-03",
+              "vs": "Cape Verde",
+              "won": true
+            },
+            {
+              "date": "2024-02-07",
+              "vs": "Nigeria",
+              "won": false
+            }
+          ]
+        },
+        "source": "historical shootout archive (internal dataset)",
+        "confidence": "medium",
+        "customer_visible_summary": "documented shootout record",
+        "internal_note": "kaggle-derived historical shootouts; psychology is LLM interpretation, record is fact",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "red_card_sensitivity",
+        "value": {
+          "red_cards_this_match": {
+            "Mexico": 1,
+            "South Africa": 2
+          },
+          "first_red": {
+            "minute": 49,
+            "phase": "46-60",
+            "team": "South Africa",
+            "player": "Y. Sithole",
+            "event_type": "red_card",
+            "detail": "Red Card",
+            "score_before": {
+              "Mexico": 1,
+              "South Africa": 0
+            },
+            "score_after": {
+              "Mexico": 1,
+              "South Africa": 0
+            },
+            "men_on_pitch_after": {
+              "Mexico": 11,
+              "South Africa": 10
+            },
+            "tactical_effect": "South Africa down to 10 men from 49' (score 1-0 at the time)",
+            "changed_risk_interpretation": {
+              "flag": true,
+              "reason": "underdog South Africa to 10 men at 49' while trailing 1-0 — favourite path eased by the event, not only by baseline strength"
+            },
+            "prematch_judgement_relation": {
+              "relation": "validates",
+              "reason": "underdog South Africa to 10 men at 49' while trailing 1-0 — favourite path eased by the event, not only by baseline strength",
+              "basis": "rule-derived vs favoured=Mexico"
+            }
+          }
+        },
+        "source": "/fixtures/events",
+        "confidence": "high",
+        "customer_visible_summary": "red-card events and the score/man-count at the moment they happened",
+        "internal_note": "pre-match red-card propensity (discipline record) NOT ingested — this is observed only",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "game_state_resilience",
+        "value": [
+          {
+            "behind_from": 9,
+            "team": "South Africa",
+            "responded": false,
+            "response_minute": null
+          },
+          {
+            "behind_from": 67,
+            "team": "South Africa",
+            "responded": false,
+            "response_minute": null
+          }
+        ],
+        "source": "/fixtures/events",
+        "confidence": "medium",
+        "customer_visible_summary": "how each side responded after falling behind (timeline facts)",
+        "internal_note": "derived from goal timeline only",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "set_piece_threat",
+        "value": {
+          "penalty_goals": [],
+          "corners": {
+            "Mexico": 3,
+            "South Africa": 1
+          }
+        },
+        "source": "/fixtures/events + /fixtures/statistics",
+        "confidence": "medium",
+        "customer_visible_summary": "set-piece output this match (penalties, corners)",
+        "internal_note": "free-kick/corner conversion season data NOT ingested",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "knockout_pressure",
+        "value": {
+          "round": "Group Stage - 1",
+          "knockout": false
+        },
+        "source": "/fixtures",
+        "confidence": "low",
+        "customer_visible_summary": "stage context (group vs knockout)",
+        "internal_note": "context only; pressure response is LLM interpretation",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "tournament_pressure",
+        "value": {
+          "round": "Group Stage - 1"
+        },
+        "source": "/fixtures",
+        "confidence": "low",
+        "customer_visible_summary": "tournament stage context",
+        "internal_note": "host-nation / opener flags live in the ops manifest key_reasons",
+        "missing_evidence": false
+      },
+      {
+        "dimension": "age_profile",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs squad birthdates (API /players or FIFA squad list) — pack squads carry name/number/position ONLY; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "defensive_line_age",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs squad birthdates (same gap as age_profile); never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "squad_experience",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs caps / tournaments-played source; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "captain_core_stability",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs captaincy + appearance-streak source; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "coach_adjustment_pattern",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs multi-match tactical-change dataset; never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      },
+      {
+        "dimension": "attacking_transition_speed",
+        "value": null,
+        "source": null,
+        "confidence": "none",
+        "customer_visible_summary": null,
+        "internal_note": "NO SOURCE — needs possession-sequence / progressive-carry data (no xG-adjacent feed); never invent (guard bans unsourced exact claims)",
+        "missing_evidence": true
+      }
+    ],
+    "missing_count": 6
+  },
   "prematch_provenance": {
     "note": "the pre-match judgement is a REAL archived prediction, committed to git before kickoff",
     "narratives": {
