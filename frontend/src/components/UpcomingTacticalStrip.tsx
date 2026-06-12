@@ -4,6 +4,10 @@ import { UPCOMING_FIXTURES, getUpcomingFixture } from '../data/upcomingFixtures'
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getRescore } from '../data/rescoreData';
 
+// Product Closure P1 (Owner §6): the home conversion area is the ACTIVE 2026 loop —
+// main match → strong call → 30-min rescore hook → latest 2026 recap trust anchor →
+// join group. All judgement strings below are LLM fields; labels are stage chrome.
+
 // Home entry for REAL World Cup 2026 fixtures (bundled engineering facts) whose
 // persona tactical-room narrative (LLM-generated, guard-passed) is ready.
 // Personas: zh 俅哥说球 · vi Tiên Tri Bóng Đá · my Football Oracle (temporary
@@ -45,19 +49,31 @@ export function TrialStatusStrip({ loc, syncTime }: { loc: Locale; syncTime: str
   return <div className="trial-status">{H.status}{syncTime}</div>;
 }
 
-/** Main trial entry card (Owner hierarchy item 2): the selected real fixture. */
+const MAIN_LABEL = {
+  zh: { today: '今日主推比赛', next: '下一场重点比赛 · 即将开赛战术室', lean: '俅哥主看' },
+  vi: { today: 'Trận đáng xem nhất hôm nay', next: 'Trận trọng điểm tiếp theo', lean: 'Tiên Tri nghiêng về' },
+  my: { today: 'ဒီနေ့ အဓိကပွဲ', next: 'နောက်လာမည့် အဓိကပွဲ', lean: 'Oracle ဦးတည်ချက်' },
+  en: { today: "Today's main match", next: 'Next key match', lean: 'Lean' },
+};
+
+/** Main trial entry card (Owner §6 item 1/2): the ACTIVE real fixture with the strong call. */
 export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: string }) {
   const navigate = useNavigate();
   const H = heroFor(loc);
+  const M = loc === 'zh' ? MAIN_LABEL.zh : loc === 'vi' ? MAIN_LABEL.vi : loc === 'my' ? MAIN_LABEL.my : MAIN_LABEL.en;
   const fx = getUpcomingFixture(fixtureId);
   if (!fx) return null;
   const n = getProductNarrative(fixtureId, loc);
+  const isToday = fx.kickoffUtc.slice(0, 10) === new Date().toISOString().slice(0, 10);
   return (
     <div className="card th-hero">
-      <div className="th-badge">{H.badge}</div>
+      <div className="th-badge">{H.badge} · {isToday ? M.today : M.next}</div>
       <div className="th-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</div>
       <div className="th-meta">{kickoffLabel(fx.kickoffUtc, loc)} · {fx.venue} ({fx.city}) · {fx.round}</div>
       {n && <div className="th-hook">“{n.short_title}”</div>}
+      {n && n.main_lean && <div className="sc-row" style={{ border: 0, paddingTop: 2 }}>
+        <span className="sc-k">{M.lean}</span><span className="sc-v sc-lead">{n.main_lean}</span>
+      </div>}
       <div className="pp-cta-row">
         <button className="recap-cta-btn" onClick={() => navigate(`/predict/${fixtureId}`)}>{H.enter} ▸</button>
         <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
@@ -66,12 +82,70 @@ export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: stri
   );
 }
 
+// ── Home: 30-min rescore hook (Owner §6 item 4 / §9) ────────────────────────
+const RH = {
+  zh: { title: '⏱️ 30 分钟临场修正', en: 'LIVE 30-MIN RE-SCORE', frame: '赛前看方向，临场看变量。',
+        cta: '看临场修正逻辑', win: '首发公布后（约开球前 60–30 分钟），群内更新最终倾向、参考比分、冷门风险。' },
+  vi: { title: '⏱️ Hiệu chỉnh 30 phút trước trận', en: 'LIVE 30-MIN RE-SCORE', frame: 'Trước trận xem hướng, sát giờ xem biến số.',
+        cta: 'Xem logic hiệu chỉnh sát giờ', win: 'Khi đội hình công bố (~60–30 phút trước giờ đá), nhóm sẽ cập nhật thiên hướng cuối, tỷ số tham khảo, rủi ro bất ngờ.' },
+  my: { title: '⏱️ မိနစ် ၃၀ ပွဲနီးပြန်တွက်ချက်', en: 'LIVE 30-MIN RE-SCORE', frame: 'ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable ။',
+        cta: 'ပြန်တွက်ချက် logic ကြည့်ရန်', win: 'Lineup ထွက်ပြီးနောက် (ပွဲမစခင် ၆၀–၃၀ မိနစ်) အဖွဲ့ထဲ နောက်ဆုံးအမြင် · ရည်ညွှန်းစကော · risk အသစ် တင်ပေးမည်။' },
+};
+
+export function RescoreHookCard({ loc, fixtureId }: { loc: Locale; fixtureId: string }) {
+  const navigate = useNavigate();
+  const L = loc === 'zh' ? RH.zh : loc === 'vi' ? RH.vi : loc === 'my' ? RH.my : null;
+  const rs = getRescore(fixtureId, loc);
+  if (!L) return null;
+  return (
+    <>
+      <div className="sec-en"><span className="zh">{L.title}</span><span className="en">{L.en}</span></div>
+      <div className="card rh-card">
+        <div className="sc-frame" style={{ textAlign: 'left', margin: '0 0 4px' }}>{L.frame}</div>
+        {rs?.public_teaser && <div className="rh-line">“{rs.public_teaser}”</div>}
+        <div className="rh-line" style={{ color: 'var(--sub)', fontSize: 12 }}>{L.win}</div>
+        <button className="recap-cta-btn" style={{ width: '100%' }}
+                onClick={() => navigate(`/predict/${fixtureId}#rescore`)}>{L.cta} ▸</button>
+      </div>
+    </>
+  );
+}
+
+// ── Home: latest 2026 recap trust anchor (Owner §6 item 5 / §10) ────────────
+const RA = {
+  zh: { title: '🗂️ 最新 2026 复盘 · 赛后看校准', en: 'LATEST 2026 RECAP', cta: '看俅哥怎么校准' },
+  vi: { title: '🗂️ Phục dựng 2026 mới nhất · Sau trận xem hiệu chỉnh', en: 'LATEST 2026 RECAP', cta: 'Xem Tiên Tri hiệu chỉnh thế nào' },
+  my: { title: '🗂️ နောက်ဆုံး 2026 ပြန်သုံးသပ်ချက်', en: 'LATEST 2026 RECAP', cta: 'Oracle ဘယ်လိုပြန်ညှိလဲ ကြည့်ရန်' },
+};
+
+export function RecapAnchorCard({ loc, fixtureId }: { loc: Locale; fixtureId: string }) {
+  const navigate = useNavigate();
+  const L = loc === 'zh' ? RA.zh : loc === 'vi' ? RA.vi : loc === 'my' ? RA.my : null;
+  const n = getProductNarrative(fixtureId, loc);
+  if (!L || !n || n.mode !== 'real_recap') return null;
+  return (
+    <>
+      <div className="sec-en"><span className="zh">{L.title}</span><span className="en">{L.en}</span></div>
+      <div className="card ra-card">
+        <div className="ra-line"><b>{n.short_title}</b></div>
+        <div className="ra-line" style={{ fontSize: 12, color: 'var(--sub)' }}>{n.screenshot_line}</div>
+        <button className="recap-cta-btn alt" style={{ width: '100%' }}
+                onClick={() => navigate(`/recap/${fixtureId}`)}>{L.cta} ▸</button>
+      </div>
+    </>
+  );
+}
+
 /** Secondary upcoming fixtures (Owner hierarchy item 3). */
 export function UpcomingTacticalStrip({ loc, excludeId }: { loc: Locale; excludeId?: string }) {
   const navigate = useNavigate();
   const L = loc === 'zh' ? L10N.zh : loc === 'vi' ? L10N.vi : loc === 'my' ? L10N.my : L10N.en;
   const todayIso = new Date().toISOString().slice(0, 10);
-  const rows = UPCOMING_FIXTURES.filter(f => f.id !== excludeId && getProductNarrative(f.id, loc));
+  // finished fixtures (narrative flipped to real_recap) belong to the recap anchor, not here
+  const rows = UPCOMING_FIXTURES.filter(f => {
+    const n = getProductNarrative(f.id, loc);
+    return f.id !== excludeId && n && n.mode !== 'real_recap';
+  });
   if (!rows.length) return null;
   return (
     <>
@@ -103,10 +177,10 @@ export function UpcomingTacticalStrip({ loc, excludeId }: { loc: Locale; exclude
 // rescore group_join_hook) — never hand-written. Historical recap stays in the
 // lower calibration section only. No interaction counts (none are real).
 const HOT = {
-  zh: { title: '俅哥今日看点', en: 'HOT READS', room: '战术室', rescore: '临场修正', group: '入群' },
-  vi: { title: 'Điểm nóng hôm nay của Tiên Tri', en: 'HOT READS', room: 'Phòng chiến thuật', rescore: 'Hiệu chỉnh sát giờ', group: 'Vào nhóm' },
-  my: { title: 'ဒီနေ့ Oracle ဟော့အမြင်', en: 'HOT READS', room: 'နည်းဗျူဟာခန်း', rescore: 'မိနစ် ၃၀ ပြန်တွက်', group: 'အဖွဲ့ဝင်' },
-  en: { title: "Today's hot reads", en: 'HOT READS', room: 'Tactical room', rescore: '30-min re-score', group: 'Join' },
+  zh: { title: '俅哥强判断', en: 'STRONG CALLS', room: '战术室', recap: '复盘', group: '入群' },
+  vi: { title: 'Nhận định mạnh của Tiên Tri', en: 'STRONG CALLS', room: 'Phòng chiến thuật', recap: 'Phục dựng', group: 'Vào nhóm' },
+  my: { title: 'Oracle ပြတ်သားအမြင်', en: 'STRONG CALLS', room: 'နည်းဗျူဟာခန်း', recap: 'ပြန်သုံးသပ်', group: 'အဖွဲ့ဝင်' },
+  en: { title: 'Strong calls', en: 'STRONG CALLS', room: 'Tactical room', recap: 'Recap', group: 'Join' },
 };
 
 export function HotTopicsSection({ loc }: { loc: Locale }) {
@@ -114,11 +188,13 @@ export function HotTopicsSection({ loc }: { loc: Locale }) {
   const H = loc === 'zh' ? HOT.zh : loc === 'vi' ? HOT.vi : loc === 'my' ? HOT.my : HOT.en;
   const n69 = getProductNarrative('1489369', loc);
   const n71 = getProductNarrative('1489371', loc);
-  const rs = getRescore('1489369', loc);
+  // the ACTIVE fixture leads; a finished fixture's hook routes to its recap
+  const rs = getRescore('1489371', loc) || getRescore('1489369', loc);
   const rows = [
-    n69 && { key: 'room69', hook: n69.short_title, to: '/predict/1489369', tag: H.room, hot: true },
     n71 && { key: 'room71', hook: n71.short_title, to: '/predict/1489371', tag: H.room, hot: true },
-    rs && { key: 'rescore', hook: rs.public_teaser, to: '/predict/1489369#rescore', tag: H.rescore, hot: false },
+    n69 && { key: 'room69', hook: n69.short_title,
+             to: n69.mode === 'real_recap' ? '/recap/1489369' : '/predict/1489369',
+             tag: n69.mode === 'real_recap' ? H.recap : H.room, hot: n69.mode !== 'real_recap' },
     rs && { key: 'join', hook: rs.group_join_hook, to: '/community', tag: H.group, hot: false },
   ].filter(Boolean) as { key: string; hook: string; to: string; tag: string; hot: boolean }[];
   if (!rows.length) return null;

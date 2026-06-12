@@ -4,6 +4,7 @@ import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative, predictSlugToId } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { ProductPredictView } from '../components/ProductProofViews';
+import { StrongCallCard } from '../components/StrongSignalCard';
 
 // Pre-match modeling product page (/predict/:slug). Two flavours, same LLM-narrative
 // main view: hypothetical 2026 sample (slug 2026-brazil-argentina) and REAL scheduled
@@ -64,7 +65,10 @@ export function PredictPage() {
         </div>
       )}
       {n ? (
-        <ProductPredictView n={n} loc={loc} opsOpen={opsOpen} />
+        <>
+          {isReal && <StrongCallCard n={n} loc={loc} />}
+          <ProductPredictView n={n} loc={loc} opsOpen={opsOpen} />
+        </>
       ) : (
         <div className="status-card"><div className="ic">🔮</div><div className="st">{B.none}</div></div>
       )}

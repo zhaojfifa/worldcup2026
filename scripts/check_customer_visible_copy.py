@@ -40,11 +40,17 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 ROUTES = ["/", "/predict/1489369", "/predict/1489371", "/recap/855737", "/recap/979139", "/recap/1489369"]
 LANGS = ["zh", "vi", "my"]
 
-ZH_FORBIDDEN = ["模型", "数据缺失", "缺数据", "盲区", "过程验证", "自证"]
+ZH_FORBIDDEN = ["模型", "数据缺失", "缺数据", "盲区", "过程验证", "自证",
+                # Product Closure P1 §12: betting vocabulary banned visible, even negated
+                "赔率", "盘口", "投注", "博彩", "下注", "庄家", "让球", "大小球", "跟单"]
 SHARED_FORBIDDEN = ["LLM", "DeepSeek", "Gemini", "pipeline", "schema", "provider",
                     "source ledger", "internal_notes", "evidence coverage",
-                    "assumption", "replay_only", "source required", "guardrail"]
-VI_FORBIDDEN = ["mô hình", "thiếu dữ liệu", "Nhà Tiên Tri"]  # incl. retired persona name
+                    "assumption", "replay_only", "source required", "guardrail",
+                    # §12 EN betting vocabulary + §11 process leakage
+                    "betting", "odds", "handicap", "bookmaker", "bet slip", "wager",
+                    "sha256", "artifact", "missing evidence", "data gap", "mock"]
+VI_FORBIDDEN = ["mô hình", "thiếu dữ liệu", "Nhà Tiên Tri",  # incl. retired persona name
+                "kèo", "cửa trên", "cửa dưới", "nhà cái", "cá cược"]
 MY_FORBIDDEN = ["မော်ဒယ်", "ဒေတာမရှိ",
                 "လောင်းကစား", "လောင်းကြေး", "အလောင်းအစား", "လောင်းထား",
                 "ကြေးပေါက်", "ပေါက်ကြေး", "သေချာပေါက်", "အာမခံ"]

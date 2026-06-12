@@ -10,7 +10,7 @@ import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
-import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection } from '../components/UpcomingTacticalStrip';
+import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection, RescoreHookCard, RecapAnchorCard } from '../components/UpcomingTacticalStrip';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -168,21 +168,32 @@ export function HomePage() {
         </div>
       )}
 
-      {/* ── 1. June-11 trial main entry: real-match tactical room ───── */}
-      <TrialHeroCard loc={loc} fixtureId="1489369" />
-
-      {/* ── 1b. secondary real fixtures ─────────────────────────────── */}
-      <UpcomingTacticalStrip loc={loc} excludeId="1489369" />
-
-      {/* ── 1c. 中文先知今日热点 — real content entries (LLM short_title hooks) ── */}
+      {/* ── ACTIVE 2026 LOOP (Product Closure P1, Owner §6) ─────────────
+           1 main match → 2 next fixtures → 3 strong calls → 4 rescore hook →
+           5 latest 2026 recap anchor → 6 join group. 2022 = archive below. */}
+      <TrialHeroCard loc={loc} fixtureId="1489371" />
+      <UpcomingTacticalStrip loc={loc} excludeId="1489371" />
       <HotTopicsSection loc={loc} />
+      <RescoreHookCard loc={loc} fixtureId="1489371" />
+      <RecapAnchorCard loc={loc} fixtureId="1489369" />
+      <div className="card" style={{ textAlign: 'center' }}>
+        <div className="ra-line">
+          {loc === 'zh' ? '进群等临场修正——首发公布后，俅哥重新看一遍再给最终倾向。'
+            : loc === 'vi' ? 'Vào nhóm chờ hiệu chỉnh sát giờ — đội hình công bố xong, Tiên Tri xem lại rồi mới chốt thiên hướng cuối.'
+              : loc === 'my' ? 'အဖွဲ့ဝင်ပြီး ပွဲနီးပြန်တွက်ချက် စောင့်ပါ — lineup ထွက်ပြီးမှ Oracle နောက်ဆုံးအမြင် ပေးမည်။'
+                : 'Join the group for the late re-check — final lean lands after lineups.'}
+        </div>
+        <button className="recap-cta-btn" style={{ width: '100%' }} onClick={() => navigate('/community')}>
+          {loc === 'zh' ? '加入情报群 ▸' : loc === 'vi' ? 'Vào nhóm tin báo ▸' : loc === 'my' ? 'အဖွဲ့ဝင်ရန် ▸' : 'Join the group ▸'}
+        </button>
+      </div>
 
-      {/* ── Historical Recap · WC2022 (labelled; NOT current prediction) ──────── */}
+      {/* ── ARCHIVE: WC2022 recap library (trust archive, below the active loop) ── */}
       {recapMatches.length > 0 && (
         <>
           <div className="sec-en">
-            <span className="zh">{t.recapSectionTitle}</span>
-            <span className="en">HISTORICAL RECAP</span>
+            <span className="zh">{loc === 'zh' ? '俅哥复盘档案 · WC2022' : loc === 'vi' ? 'Kho phục dựng của Tiên Tri · WC2022' : loc === 'my' ? 'Oracle ပြန်သုံးသပ်မှတ်တမ်း · WC2022' : 'Recap archive · WC2022'}</span>
+            <span className="en">RECAP ARCHIVE</span>
           </div>
           <div className="card recap-card">
             <div className="recap-sub">🗂️ {t.recapSectionSub}</div>

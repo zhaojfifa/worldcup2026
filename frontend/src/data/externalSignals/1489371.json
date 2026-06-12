@@ -1,0 +1,30 @@
+{
+ "fixture_id": "1489371",
+ "projected_from": "mvp2_external_signals (internal; sources stay internal)",
+ "policy": "docs/MVP2_EXTERNAL_EXPECTATION_SIGNALS_DESIGN.md#2-policy",
+ "label": {
+  "zh": "外部预期 · 公开倾向",
+  "vi": "Kỳ vọng bên ngoài · Xu hướng công khai",
+  "my": "ပြင်ပမျှော်လင့်ချက် · လူထုထင်မြင်ချက်"
+ },
+ "lines": {
+  "zh": [
+   "外部预期偏向巴西",
+   "公开预测更看好巴西，但摩洛哥的防守韧性不能低估",
+   "热度集中在巴西锋线核心和新帅首秀；摩洛哥教练变化是风险变量",
+   "如果巴西锋线核心不进首发，进球参考区间需要下调——以官方首发为准"
+  ],
+  "vi": [
+   "Kỳ vọng bên ngoài nghiêng về Brazil",
+   "Dự đoán công khai nghiêng về Brazil, nhưng độ lì của hàng thủ Morocco không thể xem nhẹ",
+   "Sức nóng tập trung vào mũi nhọn Brazil và màn ra mắt của tân HLV; thay đổi HLV của Morocco là biến số rủi ro",
+   "Nếu mũi nhọn hàng công Brazil không đá chính, vùng tham khảo bàn thắng cần hạ xuống — chốt theo đội hình chính thức"
+  ],
+  "my": [
+   "ပြင်ပမျှော်လင့်ချက်က Brazil ဘက် ယိမ်းနေသည်",
+   "လူထုခန့်မှန်းချက် Brazil ဘက်ဖြစ်သော်လည်း Morocco ၏ ခံစစ်ကြံ့ခိုင်မှုကို မလျှော့တွက်ရ",
+   "အာရုံစိုက်မှု Brazil တိုက်စစ်အဓိကနှင့် နည်းပြသစ် ပထမပွဲပေါ်; Morocco နည်းပြပြောင်းလဲမှုက risk variable",
+   "Brazil တိုက်စစ်အဓိက ပွဲမထွက်ပါက ဂိုးရည်ညွှန်းအပိုင်းအခြား လျှော့ချရမည် — တရားဝင် lineup အတိုင်းသာ"
+  ]
+ }
+}
