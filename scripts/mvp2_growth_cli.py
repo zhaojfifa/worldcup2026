@@ -20,6 +20,7 @@ NOTHING here sends anything; MTC stays 平台积分（不可提现/不可转让/
 """
 import argparse
 import json
+import re
 import pathlib
 import sys
 from datetime import datetime, timezone
@@ -49,48 +50,103 @@ def _link(path, lang, ref):
     return "%s%s%sref=%s" % (SITE, path, "&" if "?" in path else "?", ref or DEFAULT_REF[lang])
 
 
+def _split_band(scoreline_view):
+    """First listed score = 主比分, rest = 备选. Parsing only — the band itself is the narrative model's judgement, untouched."""
+    scores = re.findall(r"\d+\s*[-–]\s*\d+", scoreline_view or "")
+    scores = [re.sub(r"\s", "", s) for s in scores]
+    return (scores[0], scores[1:]) if scores else (None, [])
+
+
+
 def build_package(kind, fid, lang, ref):
     n = _narr(fid, lang)
     if not n:
         raise ValueError("no bundled narrative for %s %s" % (fid, lang))
     title = FIXTURES.get(fid, {}).get("title", fid)
     top_var = ((n.get("watch_next_signals") or n.get("risk_factors") or [{}])[0]).get("name", "")
+    video_script = None
     if kind in ("today", "next"):
         if n.get("mode") == "real_recap":
             raise ValueError("%s already finished — use 'package recap'" % fid)
         link = _link("/predict/%s" % fid, lang, ref)
         head = {"today": {"zh": "今晚主看", "vi": "Trận đáng xem", "my": "ဒီညအဓိကပွဲ"},
                 "next": {"zh": "即将开赛", "vi": "Sắp đá", "my": "မကြာမီ"}}[kind][lang]
-        hook = {"zh": "开球前 30 分钟，群内会更新最终倾向和比分区间。\n👇进群等临场修正：",
-                "vi": "Nhóm cập nhật thiên hướng cuối 30 phút trước giờ đá.\n👇Vào nhóm chờ hiệu chỉnh sát giờ:",
-                "my": "ပွဲမစခင် မိနစ် ၃၀ အဖွဲ့ထဲ နောက်ဆုံးအမြင် တင်မည်။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
-        lean_label = {"zh": "%s主看" % PERSONA[lang], "vi": "%s nghiêng về" % PERSONA[lang],
-                      "my": "%s ဦးတည်ချက်" % PERSONA[lang]}[lang]
-        var_label = {"zh": "最大变量", "vi": "Biến số lớn nhất", "my": "အကြီးဆုံး variable"}[lang]
-        lines = ["%s：%s（%s UTC）" % (head, title, FIXTURES.get(fid, {}).get("kickoff", "")),
-                 "%s：%s" % (lean_label, n["main_lean"]), n["scoreline_view"]]
-        if top_var:
-            lines.append("%s：%s" % (var_label, top_var))
-        lines += [hook, link]
+        primary, alts = _split_band(n["scoreline_view"])
+        why = n.get("hero_subtitle", "")
+        # STRONG RESULT FIRST (Owner structure): result → 主比分/备选 → risk → why → T-30 → CTA.
+        # Judgement strings stay LLM fields verbatim; only the ORDER is engineered.
+        if lang == "zh":
+            lines = ["%s：%s（%s UTC）" % (head, title, FIXTURES.get(fid, {}).get("kickoff", "")),
+                     "俅哥主看：%s" % n["main_lean"],
+                     ("主比分：%s" % primary) if primary else n["scoreline_view"]]
+            if alts:
+                lines.append("备选：%s" % " / ".join(alts))
+            lines.append("冷门风险：%s" % n["risk_level"])
+            if why:
+                lines.append("为什么：%s" % why)
+            lines += ["开球前 30 分钟，首发 11 人出来后，群内更新最终倾向和比分区间。",
+                      "👇进群等临场修正：", link]
+            video_script = "今晚%s。俅哥主看：%s。主比分%s%s。冷门风险：%s。记住一句话：赛前看方向，临场看变量。开球前30分钟，首发一出来，群内更新最终倾向。想跟住更新，进群。" % (
+                title, n["main_lean"], primary or "", ("，备选%s" % "、".join(alts)) if alts else "", n["risk_level"])
+        elif lang == "vi":
+            lines = ["%s: %s (%s UTC)" % (head, title, FIXTURES.get(fid, {}).get("kickoff", "")),
+                     "Tiên Tri chốt: %s" % n["main_lean"],
+                     ("Tỷ số chính: %s" % primary) if primary else n["scoreline_view"]]
+            if alts:
+                lines.append("Phương án phụ: %s" % " / ".join(alts))
+            lines.append("Rủi ro bất ngờ: %s" % n["risk_level"])
+            if why:
+                lines.append("Vì sao: %s" % why)
+            lines += ["Đội hình công bố là nhóm cập nhật thiên hướng cuối + vùng tỷ số, 30 phút trước giờ đá.",
+                      "👇Vào nhóm chờ hiệu chỉnh sát giờ:", link]
+            video_script = "Tối nay %s. Tiên Tri chốt: %s. Tỷ số chính %s%s. Rủi ro: %s. Nhớ một câu: trước trận xem hướng, sát giờ xem biến số. 30 phút trước giờ đá, đội hình ra là nhóm cập nhật ngay. Muốn theo kịp, vào nhóm." % (
+                title, n["main_lean"], primary or "", (", phụ %s" % ", ".join(alts)) if alts else "", n["risk_level"])
+        else:
+            lines = ["%s: %s (%s UTC)" % (head, title, FIXTURES.get(fid, {}).get("kickoff", "")),
+                     "Oracle ပြတ်ပြတ်: %s" % n["main_lean"],
+                     ("အဓိကစကော: %s" % primary) if primary else n["scoreline_view"]]
+            if alts:
+                lines.append("အရန်: %s" % " / ".join(alts))
+            lines.append("Risk: %s" % n["risk_level"])
+            if why:
+                lines.append("ဘာကြောင့်: %s" % why)
+            lines += ["Lineup ထွက်တာနဲ့ ပွဲမစခင် မိနစ် ၃၀ မှာ အဖွဲ့ထဲ နောက်ဆုံးအမြင် တင်မည်။",
+                      "👇အဖွဲ့ဝင်ရန်:", link]
+            video_script = "ဒီည %s။ Oracle ပြတ်ပြတ်: %s။ အဓိကစကော %s%s။ Risk: %s။ မှတ်ထားပါ — ပွဲကြို ဦးတည်ချက်၊ ပွဲနီး variable။ ပွဲမစခင် မိနစ် ၃၀ lineup ထွက်တာနဲ့ အဖွဲ့ထဲ update တင်မည်။ လိုက်ကြည့်ချင်ရင် အဖွဲ့ဝင်ပါ။" % (
+                title, n["main_lean"], primary or "", ("၊ အရန် %s" % ", ".join(alts)) if alts else "", n["risk_level"])
         meta = {"fixture_id": fid, "title": title, "strong_pick": n["main_lean"],
+                "primary_scoreline": primary, "alternative_scorelines": alts,
                 "scoreline_band": n["scoreline_view"], "risk_label": n["risk_level"],
                 "top_variable": top_var, "share_link": link}
-    else:  # recap
+    else:  # recap — structure: result → what was right → what changed → learn → next hook
         if n.get("mode") != "real_recap":
             raise ValueError("%s has no real recap narrative" % fid)
         link = _link("/recap/%s" % fid, lang, ref)
         right = ((n.get("validated_factors") or [{}])[0]).get("name", "")
         changed = ((n.get("underweighted_factors") or [{}])[0]).get("name", "")
-        frame = {"zh": "这就是为什么赛前看方向，临场看变量，赛后看校准。\n下一场 Brazil vs Morocco，开球前 30 分钟群内重算。\n👇进群看临场修正：",
-                 "vi": "Vì vậy: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.\nTrận tới Brazil vs Morocco, nhóm tính lại 30 phút trước giờ đá.\n👇Vào nhóm:",
-                 "my": "ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။\nနောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ ပြန်တွက်မည်။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
         head = {"zh": "俅哥复盘", "vi": "Tiên Tri phục dựng", "my": "Oracle ပြန်သုံးသပ်ချက်"}[lang]
-        lines = ["%s：%s" % (head, n["short_title"]), n["screenshot_line"], frame, link]
+        right_lbl = {"zh": "抓对了什么", "vi": "Bắt đúng", "my": "မှန်ခဲ့သည်"}[lang]
+        learn = {"zh": "学到什么：赛前看方向，临场看变量，赛后看校准。",
+                 "vi": "Bài học: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.",
+                 "my": "သင်ခန်းစာ: ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။"}[lang]
+        nxt = {"zh": "下一场 Brazil vs Morocco，开球前 30 分钟继续看首发修正。\n👇进群看临场修正：",
+               "vi": "Trận tới Brazil vs Morocco, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.\n👇Vào nhóm:",
+               "my": "နောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
+        lines = ["%s：%s" % (head, n["short_title"])]
+        if right:
+            lines.append("%s：%s" % (right_lbl, right))
+        lines += [n["screenshot_line"], learn, nxt, link]
+        video_script = {"zh": "%s。%s。%s 下一场 Brazil vs Morocco，开球前30分钟，首发出来群内重算。想看，进群。" % (
+                            n["short_title"], n["screenshot_line"], learn),
+                        "vi": "%s. %s. %s Trận tới Brazil vs Morocco — nhóm tính lại 30 phút trước giờ đá. Vào nhóm." % (
+                            n["short_title"], n["screenshot_line"], learn),
+                        "my": "%s။ %s။ နောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ ပြန်တွက်မည်။ အဖွဲ့ဝင်ပါ။" % (
+                            n["short_title"], n["screenshot_line"])}[lang]
         meta = {"fixture_id": fid, "recap_line": n["screenshot_line"], "what_was_right": right,
                 "what_changed_score": changed, "next_fixture_hook": "1489371 Brazil vs Morocco T-30",
                 "share_link": link}
     return {"kind": kind, "lang": lang, "ref": ref or DEFAULT_REF[lang],
-            "copy_text": "\n".join(lines), "meta": meta}
+            "copy_text": "\n".join(lines), "video_script_30s": video_script, "meta": meta}
 
 
 # ── refresh wrapper (P1.1b): all packages, per-package status, file output ──
@@ -167,7 +223,13 @@ def cmd_refresh(lang, ref, stamp):
             "```text",
             doc["copy_text"],
             "```",
-        ]) + "\n"
+        ] + ([
+            "",
+            "## video_script_30s（口播稿 · 可选）",
+            "```text",
+            doc.get("video_script_30s") or "",
+            "```",
+        ] if doc.get("video_script_30s") else [])) + "\n"
         (PKG_DIR / fname).write_text(body, encoding="utf-8")
         entry.update(status="available", file=str((PKG_DIR / fname).relative_to(ROOT)),
                      share_link=doc["meta"]["share_link"], share_card_url=card_url)
@@ -224,6 +286,8 @@ def main():
             sys.exit(1)
         print(json.dumps(doc["meta"], ensure_ascii=False, indent=1))
         print("\n---- copy_text (paste-ready) ----\n%s" % doc["copy_text"])
+        if doc.get("video_script_30s"):
+            print("\n---- video_script_30s (spoken) ----\n%s" % doc["video_script_30s"])
         return
 
     init_db()

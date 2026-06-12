@@ -5,7 +5,7 @@ import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { getExternalSignals } from '../data/externalSignalData';
-import { SITE, DEFAULT_REF } from '../growth/shareTemplates';
+import { SITE, DEFAULT_REF, splitScoreband } from '../growth/shareTemplates';
 
 // Growth P1.1 — screenshot-friendly share card (Owner §5). This is a SHARE route,
 // not a normal customer match page: QR is allowed here by Owner rule. All judgement
@@ -56,8 +56,19 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
           </>
         ) : (
           <>
-            <div className="shc-row"><b>{L.lean}</b><span>{n.main_lean}</span></div>
-            <div className="shc-row"><b>{L.score}</b><span>{n.scoreline_view}</span></div>
+            <div className="shc-row shc-lean"><b>{L.lean}</b><span>{n.main_lean}</span></div>
+            {(() => {
+              const band = splitScoreband(n.scoreline_view);
+              if (!band) return <div className="shc-row"><b>{L.score}</b><span>{n.scoreline_view}</span></div>;
+              return (
+                <div className="shc-scoreband">
+                  <span className="shc-primary">{band.primary}</span>
+                  {band.alts.length > 0 && (
+                    <span className="shc-alts">{lang === 'zh' ? '备选' : lang === 'vi' ? 'Phụ' : 'အရန်'}: {band.alts.join(' / ')}</span>
+                  )}
+                </div>
+              );
+            })()}
             <div className="shc-row"><b>{L.risk}</b><span>{n.risk_level}</span></div>
             {topVar && <div className="shc-row"><b>{L.variable}</b><span>{topVar}</span></div>}
             {ext && <div className="shc-ext">{ext.lines[0]}</div>}
