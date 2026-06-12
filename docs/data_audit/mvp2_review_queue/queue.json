@@ -1,43 +1,92 @@
 {
-  "generated_at": "2026-06-11T15:58:49+00:00",
+  "generated_at": "2026-06-12T00:29:05+00:00",
   "items": {
-    "1489369.trial_prediction.my-MM.deepseek.r20260611T1528Z-prematch": {
+    "1489369.recap.my-MM.deepseek.r20260612T0005Z-recap": {
       "status": "guard_passed",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "my-MM",
+      "expires_at": null
+    },
+    "1489369.recap.vi-VN.deepseek.r20260612T0005Z-recap": {
+      "status": "guard_passed",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "vi-VN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0005Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0016Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0022Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0025Z-recap": {
+      "status": "superseded",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.recap.zh-CN.deepseek.r20260612T0028Z-recap": {
+      "status": "guard_passed",
+      "fixture_id": "1489369",
+      "surface": "recap",
+      "language": "zh-CN",
+      "expires_at": null
+    },
+    "1489369.trial_prediction.my-MM.deepseek.r20260611T1528Z-prematch": {
+      "status": "expired",
       "fixture_id": "1489369",
       "surface": "trial_prediction",
       "language": "my-MM",
       "expires_at": "2026-06-11T19:00:00+00:00"
     },
     "1489369.trial_prediction.vi-VN.deepseek.r20260611T1528Z-prematch": {
-      "status": "guard_passed",
+      "status": "expired",
       "fixture_id": "1489369",
       "surface": "trial_prediction",
       "language": "vi-VN",
       "expires_at": "2026-06-11T19:00:00+00:00"
     },
     "1489369.trial_prediction.zh-CN.deepseek.r20260611T1528Z-prematch": {
-      "status": "guard_passed",
+      "status": "expired",
       "fixture_id": "1489369",
       "surface": "trial_prediction",
       "language": "zh-CN",
       "expires_at": "2026-06-11T19:00:00+00:00"
     },
     "1489369.trial_rescore.my-MM.deepseek.r20260611T1528Z-prematch": {
-      "status": "guard_passed",
+      "status": "expired",
       "fixture_id": "1489369",
       "surface": "trial_rescore",
       "language": "my-MM",
       "expires_at": "2026-06-11T19:00:00+00:00"
     },
     "1489369.trial_rescore.vi-VN.deepseek.r20260611T1528Z-prematch": {
-      "status": "guard_passed",
+      "status": "expired",
       "fixture_id": "1489369",
       "surface": "trial_rescore",
       "language": "vi-VN",
       "expires_at": "2026-06-11T19:00:00+00:00"
     },
     "1489369.trial_rescore.zh-CN.deepseek.r20260611T1528Z-prematch": {
-      "status": "guard_passed",
+      "status": "expired",
       "fixture_id": "1489369",
       "surface": "trial_rescore",
       "language": "zh-CN",

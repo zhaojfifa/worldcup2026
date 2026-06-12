@@ -1,0 +1,55 @@
+{
+  "run_id": "r20260612T0022Z-recap",
+  "job": "recap",
+  "fixtures": [
+    "1489369"
+  ],
+  "started_at": "2026-06-12T00:22:29+00:00",
+  "finished_at": "2026-06-12T00:24:11+00:00",
+  "git_rev": "ee7ed14",
+  "steps": [
+    {
+      "name": "real_recap_frame",
+      "status": "ok",
+      "at": "2026-06-12T00:22:30+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_scoutscore_v0_2/1489369.real_recap.factor_frame.json"
+      ]
+    },
+    {
+      "name": "recap_narrative.zh-CN",
+      "status": "ok",
+      "at": "2026-06-12T00:24:11+00:00",
+      "detail": "  ! deepseek attempt 4 guard pre-check: de-model violation in customer prose: '过程验证'; real_recap scoreline overclaim: actual 2-0 not in archived band ['1-1', '1-0', '0-1'] but prose claims in-band |   ! deepseek attempt 5 guard pre-check: de-model violation in customer prose: '盲区'; de-model violation in customer prose: '过程验证'; real_recap scoreline overclaim: actual 2-0 not in archived band ['1-1',",
+      "artifact_paths": []
+    },
+    {
+      "name": "guard",
+      "status": "failed",
+      "at": "2026-06-12T00:24:11+00:00",
+      "detail": "0/1 artifacts clean",
+      "artifact_paths": [
+        "docs/data_audit/mvp2_ops_runs/r20260612T0022Z-recap/guard_report.json"
+      ]
+    },
+    {
+      "name": "send_kit",
+      "status": "ok",
+      "at": "2026-06-12T00:24:11+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_send_kits/1489369.recap.md"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 1,
+    "by_endpoint": {
+      "/fixtures": 1
+    }
+  },
+  "llm_calls": {},
+  "guard_summary": "0/1 clean",
+  "status": "partial"
+}

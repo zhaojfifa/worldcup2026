@@ -1,0 +1,7 @@
+{
+  "docs/data_audit/mvp2_product_proof_narratives/1489369.zh-CN.deepseek.json": [
+    "de-model violation in customer prose: '盲区'",
+    "de-model violation in customer prose: '过程验证'",
+    "real_recap scoreline overclaim: actual 2-0 not in archived band ['1-1', '1-0', '0-1'] but prose claims in-band"
+  ]
+}

@@ -130,7 +130,12 @@ def build_input(sample_id, language):
                 "BEFORE kickoff — see prematch_provenance). internal_notes MUST cite the archived "
                 "artifact exactly as given (path + sha256 + generated_at). Customer prose = honest "
                 "validation of that judgement (what it got right / what it under-weighted); NEVER "
-                "hindsight-brag ('早就说过' / 'i told you so' phrasing is banned).")
+                "hindsight-brag ('早就说过' / 'i told you so' phrasing is banned). SCORELINE HONESTY: "
+                "compare the final score against the ARCHIVED reference band — if it is NOT one of the "
+                "archived scorelines you MUST say it fell outside the band (e.g. '实际2-0不在区间内，"
+                "但方向正确'); claiming an out-of-band score was 在区间内/合理区间内 is a guard failure. "
+                "zh customer prose additionally bans the literal strings 过程验证 / 盲区 / 数据缺失 / "
+                "缺数据 / 自证 (even inside longer phrases like 但过程验证了 — rephrase, e.g. 比赛走势印证了).")
         else:
             inp["replay_notice"] = "historical replay — NOT a real archived pre-match prediction; say so in internal_notes only"
         if frame.get("shootout_events_note"):

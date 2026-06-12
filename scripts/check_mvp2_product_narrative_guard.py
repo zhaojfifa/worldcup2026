@@ -246,7 +246,9 @@ def check_obj(obj, filename=""):
     blob_l = blob.lower()
     # de-modeled persona surfaces: NO model/process subject words in customer prose at all
     if str(obj.get("voice", "")).endswith("_v2"):
-        for term in ("模型", "盲区", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
+        # zh list mirrors scripts/check_customer_visible_copy.py ZH_FORBIDDEN — the scanner
+        # bans the literal n-gram (e.g. 过程验证 even as 过程+验证了), so the guard must too
+        for term in ("模型", "盲区", "过程验证", "数据缺失", "缺数据", "自证", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm", "pipeline", "schema", "provider"):
             if term in blob_l:
                 errs.append("de-model violation in customer prose: %r" % term)
         # case-sensitive standalone AI (lowercase 'ai' is the Vietnamese word for 'who');
@@ -276,6 +278,19 @@ def check_obj(obj, filename=""):
         for term in HINDSIGHT_BANS:
             if term.lower() in blob_l:
                 errs.append("hindsight-brag tone in recap prose: %r" % term)
+        # scoreline overclaim: if the actual score is NOT one of the archived reference
+        # scores, the recap must not claim it fell inside the band (first real A4 caught
+        # zh writing "实际比分2-0，在合理区间内" against an archived 1-1/1-0/0-1 band)
+        sv = str(obj.get("scoreline_view", ""))
+        m = re.search(r"(?:实际比分|实际|tỷ số thực tế|kết quả thực|အမှန်တကယ်|ပြီးခဲ့သောရလဒ်)\D{0,8}(\d+\s*[-–]\s*\d+)", sv, re.I)
+        # negated phrasing ("不在区间内" / "nằm ngoài khoảng") is the honest case — strip it first
+        sv_claims = re.sub(r"(?:不在|没在|不属于|nằm ngoài|ngoài)\s*[^。.!?；;]*?(?:区间内|区间之内|khoảng)", "", sv, flags=re.I)
+        in_band_claim = re.search(r"区间内|区间之内|nằm trong khoảng|trong vùng tham khảo|အပိုင်းအခြားအတွင်း", sv_claims, re.I)
+        if m and in_band_claim:
+            actual = re.sub(r"\s", "", m.group(1)).replace("–", "-")
+            band = [re.sub(r"\s", "", s).replace("–", "-") for s in re.findall(r"\d+\s*[-–]\s*\d+", sv[:m.start()])]
+            if actual not in band:
+                errs.append("real_recap scoreline overclaim: actual %s not in archived band %s but prose claims in-band" % (actual, band))
     # links are engineering stage (real CTA buttons) — the LLM must never invent one
     if re.search(r"https?://|t\.me/|www\.", blob):
         errs.append("URL in customer prose (links are injected by the page, never written by the LLM)")
@@ -338,7 +353,7 @@ def check_rescore_update_obj(obj, filename=""):
             prose.append(" ".join(str(ch.get(k, "")) for k in ("name", "before", "now", "effect")))
     blob = "\n".join(prose)
     bl = blob.lower()
-    for term in ("模型", "盲区", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm",
+    for term in ("模型", "盲区", "过程验证", "数据缺失", "缺数据", "自证", "mô hình", "မော်ဒယ်", "scoutscore", "deepseek", "gemini", "llm",
                  "pipeline", "schema", "provider"):
         if term in bl:
             errs.append("de-model violation in customer prose: %r" % term)

@@ -1,0 +1,31 @@
+{
+  "item_id": "1489369.recap.my-MM.deepseek.r20260612T0005Z-recap",
+  "fixture_id": "1489369",
+  "job": "A4_recap",
+  "surface": "recap",
+  "language": "my-MM",
+  "provider": "deepseek",
+  "run_id": "r20260612T0005Z-recap",
+  "artifact_path": "docs/data_audit/mvp2_product_proof_narratives/1489369.my-MM.deepseek.json",
+  "artifact_sha256": "sha256:47f48d3a066e22b27378f5a5cf2a2ac9401de1d8b6d181a7327c764395e7f3f9",
+  "guard_report_path": "docs/data_audit/mvp2_ops_runs/r20260612T0005Z-recap/guard_report.json",
+  "inputs_hash": "sha256:dd15dd34c9faa0d4a2fc5ce0612075bc24214b07109a9dc649ae6e23535bc5c9",
+  "status": "guard_passed",
+  "status_history": [
+    {
+      "status": "generated",
+      "at": "2026-06-12T00:09:09+00:00",
+      "by": "pipeline"
+    },
+    {
+      "status": "guard_passed",
+      "at": "2026-06-12T00:09:09+00:00",
+      "by": "guard"
+    }
+  ],
+  "expires_at": null,
+  "approved_by": null,
+  "review_note": null,
+  "superseded_by": null,
+  "sent_record": null
+}

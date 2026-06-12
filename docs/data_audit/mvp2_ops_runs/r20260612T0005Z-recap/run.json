@@ -1,0 +1,60 @@
+{
+  "run_id": "r20260612T0005Z-recap",
+  "job": "recap",
+  "fixtures": [
+    "1489369"
+  ],
+  "started_at": "2026-06-12T00:05:10+00:00",
+  "finished_at": "2026-06-12T00:09:09+00:00",
+  "git_rev": "ee7ed14",
+  "steps": [
+    {
+      "name": "real_recap_frame",
+      "status": "ok",
+      "at": "2026-06-12T00:05:11+00:00",
+      "detail": null,
+      "artifact_paths": [
+        "docs/data_audit/mvp2_scoutscore_v0_2/1489369.real_recap.factor_frame.json"
+      ]
+    },
+    {
+      "name": "recap_narrative.zh-CN",
+      "status": "ok",
+      "at": "2026-06-12T00:06:18+00:00",
+      "detail": "  ! deepseek attempt 1 guard pre-check: de-model violation in customer prose: '模型'; de-model violation in customer prose: '盲区' |   ! deepseek attempt 2 guard pre-check: de-model violation in customer prose: '盲区' |   saved docs/data_audit/mvp2_product_proof_narratives/1489369.zh-CN.deepseek.json  (llm_provider=deepseek)",
+      "artifact_paths": []
+    },
+    {
+      "name": "recap_narrative.vi-VN",
+      "status": "ok",
+      "at": "2026-06-12T00:08:09+00:00",
+      "detail": "  ! deepseek attempt 3 guard pre-check: de-model violation in customer prose: 'mô hình'; de-model violation in customer prose: 'AI'; forbidden wording in customer prose: 'cửa dưới' |   ! deepseek attempt 4 guard pre-check: de-model violation in customer prose: 'scoutscore' |   saved docs/data_audit/mvp2_product_proof_narratives/1489369.vi-VN.deepseek.json  (llm_provider=deepseek)",
+      "artifact_paths": []
+    },
+    {
+      "name": "recap_narrative.my-MM",
+      "status": "ok",
+      "at": "2026-06-12T00:09:09+00:00",
+      "detail": "[1489369 deepseek] |   ! deepseek attempt 1 guard pre-check: validated_factors[0] needs source_refs OR assumption_flag=true; validated_factors[1] needs source_refs OR assumption_flag=true; validated_factors[2] needs source_refs OR assumption_flag=true; validated_factors[3] needs source_refs OR assumption_flag=true |   saved docs/data_audit/mvp2_product_proof_narratives/1489369.my-MM.deepseek.json ",
+      "artifact_paths": []
+    },
+    {
+      "name": "guard",
+      "status": "ok",
+      "at": "2026-06-12T00:09:09+00:00",
+      "detail": "3/3 artifacts clean",
+      "artifact_paths": [
+        "docs/data_audit/mvp2_ops_runs/r20260612T0005Z-recap/guard_report.json"
+      ]
+    }
+  ],
+  "api_request_ledger": {
+    "count": 1,
+    "by_endpoint": {
+      "/fixtures": 1
+    }
+  },
+  "llm_calls": {},
+  "guard_summary": "3/3 clean",
+  "status": "ok"
+}

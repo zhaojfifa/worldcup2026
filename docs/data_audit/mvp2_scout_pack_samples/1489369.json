@@ -2,7 +2,7 @@
   "schema_version": "mvp2-scout-pack/1.0",
   "source": "api-football",
   "fixture_id": 1489369,
-  "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
+  "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
   "plan": "Pro",
   "license_note": {
     "zh": "内部预览：API-FOOTBALL Pro 套餐，对外商用条款由 Owner 复核，运营暂停",
@@ -15,7 +15,7 @@
     "value": {
       "fixture_id": 1489369,
       "date": "2026-06-11T19:00:00+00:00",
-      "status": "Not Started",
+      "status": "Match Finished",
       "venue": {
         "name": "Estadio Azteca",
         "city": "Mexico City"
@@ -34,16 +34,16 @@
         "name": "South Africa"
       },
       "final_score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "result_winner": "draw_or_unknown"
+      "result_winner": "home"
     },
     "available": true,
     "source": "api-football",
     "endpoint": "/fixtures",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
     "confidence": "high",
     "license_status": "ok",
     "fallback_text": {
@@ -82,7 +82,7 @@
     "source": "api-football",
     "endpoint": "/teams",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
     "confidence": "high",
     "license_status": "ok",
     "fallback_text": {
@@ -93,58 +93,410 @@
     "missing_reason": ""
   },
   "lineups": {
-    "value": null,
-    "available": false,
+    "value": [
+      {
+        "team": {
+          "id": 16,
+          "name": "Mexico"
+        },
+        "formation": "4-1-4-1",
+        "coach": {
+          "id": 27707,
+          "name": "Javier Aguirre"
+        },
+        "startXI": [
+          {
+            "name": "Raúl Rangel",
+            "number": 1,
+            "pos": "G",
+            "grid": "1:1"
+          },
+          {
+            "name": "Israel Reyes",
+            "number": 15,
+            "pos": "D",
+            "grid": "2:4"
+          },
+          {
+            "name": "César Montes",
+            "number": 3,
+            "pos": "D",
+            "grid": "2:3"
+          },
+          {
+            "name": "Johan Vásquez",
+            "number": 5,
+            "pos": "D",
+            "grid": "2:2"
+          },
+          {
+            "name": "Jesús Gallardo",
+            "number": 23,
+            "pos": "D",
+            "grid": "2:1"
+          },
+          {
+            "name": "Erik Lira",
+            "number": 6,
+            "pos": "M",
+            "grid": "3:1"
+          },
+          {
+            "name": "Roberto Alvarado",
+            "number": 25,
+            "pos": "M",
+            "grid": "4:4"
+          },
+          {
+            "name": "Brian Gutiérrez",
+            "number": 26,
+            "pos": "M",
+            "grid": "4:3"
+          },
+          {
+            "name": "Álvaro Fidalgo",
+            "number": 8,
+            "pos": "M",
+            "grid": "4:2"
+          },
+          {
+            "name": "Julián Quiñones",
+            "number": 16,
+            "pos": "M",
+            "grid": "4:1"
+          },
+          {
+            "name": "Raúl Jiménez",
+            "number": 9,
+            "pos": "F",
+            "grid": "5:1"
+          }
+        ],
+        "substitutes": [
+          {
+            "name": "Gilberto Mora",
+            "number": 19,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Luis Chávez",
+            "number": 24,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Edson Álvarez",
+            "number": 4,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Armando González",
+            "number": 14,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Alexis Vega",
+            "number": 10,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Carlos Acevedo",
+            "number": 12,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "Guillermo Ochoa",
+            "number": 13,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "Jorge Sánchez",
+            "number": 2,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Luis Romo",
+            "number": 7,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Mateo Chávez",
+            "number": 20,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "César Huerta",
+            "number": 21,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Obed Vargas",
+            "number": 18,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Orbelín Pineda",
+            "number": 17,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Guillermo Martínez",
+            "number": 22,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Santiago Giménez",
+            "number": 11,
+            "pos": "F",
+            "grid": null
+          }
+        ]
+      },
+      {
+        "team": {
+          "id": 1531,
+          "name": "South Africa"
+        },
+        "formation": "5-3-2",
+        "coach": {
+          "id": 2883,
+          "name": "Hugo Broos"
+        },
+        "startXI": [
+          {
+            "name": "Ronwen Williams",
+            "number": 1,
+            "pos": "G",
+            "grid": "1:1"
+          },
+          {
+            "name": "Khuliso Mudau",
+            "number": 20,
+            "pos": "D",
+            "grid": "2:5"
+          },
+          {
+            "name": "Nkosinathi Sibisi",
+            "number": 19,
+            "pos": "D",
+            "grid": "2:4"
+          },
+          {
+            "name": "Ime Okon",
+            "number": 21,
+            "pos": "D",
+            "grid": "2:3"
+          },
+          {
+            "name": "Mbekezeli Mbokazi",
+            "number": 14,
+            "pos": "D",
+            "grid": "2:2"
+          },
+          {
+            "name": "Aubrey Modiba",
+            "number": 6,
+            "pos": "D",
+            "grid": "2:1"
+          },
+          {
+            "name": "Teboho Mokoena",
+            "number": 4,
+            "pos": "M",
+            "grid": "3:3"
+          },
+          {
+            "name": "Siphephelo Sithole",
+            "number": 13,
+            "pos": "M",
+            "grid": "3:2"
+          },
+          {
+            "name": "Jayden Adams",
+            "number": 23,
+            "pos": "M",
+            "grid": "3:1"
+          },
+          {
+            "name": "Iqraam Rayners",
+            "number": 15,
+            "pos": "F",
+            "grid": "4:2"
+          },
+          {
+            "name": "Lyle Foster",
+            "number": 9,
+            "pos": "F",
+            "grid": "4:1"
+          }
+        ],
+        "substitutes": [
+          {
+            "name": "Thalente Mbatha",
+            "number": 5,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Themba Zwane",
+            "number": 11,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Oswin Appollis",
+            "number": 7,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Evidence Makgopa",
+            "number": 17,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Ricardo Goss",
+            "number": 22,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "Sipho Chaine",
+            "number": 16,
+            "pos": "G",
+            "grid": null
+          },
+          {
+            "name": "Bradley Cross",
+            "number": 26,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Khulumani Ndamane",
+            "number": 3,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Olwethu Makhanya",
+            "number": 24,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Samukelo Kabini",
+            "number": 18,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Tholo Thabang Matuludi",
+            "number": 2,
+            "pos": "D",
+            "grid": null
+          },
+          {
+            "name": "Tshepang Moremi",
+            "number": 8,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Relebohile Mofokeng",
+            "number": 10,
+            "pos": "F",
+            "grid": null
+          },
+          {
+            "name": "Kamogelo Sebelebele",
+            "number": 25,
+            "pos": "M",
+            "grid": null
+          },
+          {
+            "name": "Thapelo Maseko",
+            "number": 12,
+            "pos": "F",
+            "grid": null
+          }
+        ]
+      }
+    ],
+    "available": true,
     "source": "api-football",
     "endpoint": "/fixtures/lineups",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
-    "confidence": "low",
-    "license_status": "pending",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
+    "confidence": "high",
+    "license_status": "ok",
     "fallback_text": {
       "zh": "首发未接入，需数据源",
       "vi": "Chưa có đội hình xuất phát, cần nguồn dữ liệu",
       "en": "Lineup source required"
     },
-    "missing_reason": "lineups endpoint returned no data"
+    "missing_reason": ""
   },
   "formation": {
-    "value": null,
-    "available": false,
+    "value": {
+      "home": {
+        "team": "Mexico",
+        "formation": "4-1-4-1"
+      },
+      "away": {
+        "team": "South Africa",
+        "formation": "5-3-2"
+      }
+    },
+    "available": true,
     "source": "api-football",
     "endpoint": "/fixtures/lineups",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
-    "confidence": "low",
-    "license_status": "pending",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
+    "confidence": "high",
+    "license_status": "ok",
     "fallback_text": {
       "zh": "阵型未接入，需首发数据",
       "vi": "Chưa có sơ đồ chiến thuật, cần dữ liệu đội hình",
       "en": "Formation source required"
     },
-    "missing_reason": "formation requires lineups (not available)"
+    "missing_reason": ""
   },
   "coach": {
     "value": {
       "home": {
-        "id": 339,
-        "name": "J. Aguirre",
-        "age": 67,
-        "nationality": "Mexico"
+        "id": 27707,
+        "name": "Javier Aguirre",
+        "age": null,
+        "nationality": null
       },
       "away": {
-        "id": 953,
-        "name": "M. Ntseki",
-        "age": 56,
-        "nationality": "South Africa"
+        "id": 2883,
+        "name": "Hugo Broos",
+        "age": 73,
+        "nationality": "Belgium"
       }
     },
     "available": true,
     "source": "api-football",
     "endpoint": "/fixtures/lineups + /coachs",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
-    "confidence": "medium",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
+    "confidence": "high",
     "license_status": "ok",
     "fallback_text": {
       "zh": "教练未接入，需数据源",
@@ -282,7 +634,7 @@
     "source": "api-football",
     "endpoint": "/players/squads",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
     "confidence": "medium",
     "license_status": "ok",
     "fallback_text": {
@@ -293,104 +645,362 @@
     "missing_reason": ""
   },
   "events_summary": {
-    "value": null,
-    "available": false,
+    "value": {
+      "total": 17,
+      "by_type": {
+        "Goal": 2,
+        "Card": 6,
+        "subst": 9
+      },
+      "timeline": [
+        {
+          "minute": 9,
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "team": "Mexico",
+          "player": "J. Quinones",
+          "assist": "E. Lira"
+        },
+        {
+          "minute": 17,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "South Africa",
+          "player": "T. Mokoena",
+          "assist": null
+        },
+        {
+          "minute": 23,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "Mexico",
+          "player": "B. Gutierrez",
+          "assist": null
+        },
+        {
+          "minute": 49,
+          "type": "Card",
+          "detail": "Red Card",
+          "team": "South Africa",
+          "player": "Y. Sithole",
+          "assist": null
+        },
+        {
+          "minute": 56,
+          "type": "subst",
+          "detail": "Substitution 1",
+          "team": "South Africa",
+          "player": "L. Foster",
+          "assist": "T. Mbatha"
+        },
+        {
+          "minute": 61,
+          "type": "subst",
+          "detail": "Substitution 2",
+          "team": "South Africa",
+          "player": "J. Adams",
+          "assist": "T. Zwane"
+        },
+        {
+          "minute": 66,
+          "type": "subst",
+          "detail": "Substitution 1",
+          "team": "Mexico",
+          "player": "B. Gutierrez",
+          "assist": "L. Chavez"
+        },
+        {
+          "minute": 66,
+          "type": "subst",
+          "detail": "Substitution 2",
+          "team": "Mexico",
+          "player": "A. Fidalgo",
+          "assist": "G. Mora"
+        },
+        {
+          "minute": 67,
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "team": "Mexico",
+          "player": "R. Jimenez",
+          "assist": "R. Alvarado"
+        },
+        {
+          "minute": 74,
+          "type": "Card",
+          "detail": "Yellow Card",
+          "team": "South Africa",
+          "player": "N. Sibisi",
+          "assist": null
+        },
+        {
+          "minute": 76,
+          "type": "subst",
+          "detail": "Substitution 3",
+          "team": "Mexico",
+          "player": "E. Lira",
+          "assist": "E. Alvarez"
+        },
+        {
+          "minute": 76,
+          "type": "subst",
+          "detail": "Substitution 4",
+          "team": "Mexico",
+          "player": "R. Jimenez",
+          "assist": "A. Gonzalez"
+        },
+        {
+          "minute": 77,
+          "type": "subst",
+          "detail": "Substitution 3",
+          "team": "South Africa",
+          "player": "I. Rayners",
+          "assist": "E. Makgopa"
+        },
+        {
+          "minute": 77,
+          "type": "subst",
+          "detail": "Substitution 4",
+          "team": "South Africa",
+          "player": "A. Modiba",
+          "assist": "O. Appollis"
+        },
+        {
+          "minute": 79,
+          "type": "subst",
+          "detail": "Substitution 5",
+          "team": "Mexico",
+          "player": "J. Quinones",
+          "assist": "A. Vega"
+        },
+        {
+          "minute": 84,
+          "type": "Card",
+          "detail": "Red Card",
+          "team": "South Africa",
+          "player": "T. Zwane",
+          "assist": null
+        },
+        {
+          "minute": "90+2",
+          "type": "Card",
+          "detail": "Red Card",
+          "team": "Mexico",
+          "player": "C. Montes",
+          "assist": null
+        }
+      ],
+      "timeline_truncated": false
+    },
+    "available": true,
     "source": "api-football",
     "endpoint": "/fixtures/events",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
-    "confidence": "low",
-    "license_status": "pending",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
+    "confidence": "high",
+    "license_status": "ok",
     "fallback_text": {
       "zh": "比赛事件未接入",
       "vi": "Chưa có sự kiện trận đấu",
       "en": "Events source required"
     },
-    "missing_reason": "events endpoint returned no data"
+    "missing_reason": ""
   },
   "team_statistics": {
-    "value": null,
-    "available": false,
+    "value": [
+      {
+        "team": "Mexico",
+        "stats": {
+          "Shots on Goal": 4,
+          "Shots off Goal": 7,
+          "Total Shots": 16,
+          "Blocked Shots": 5,
+          "Shots insidebox": 9,
+          "Shots outsidebox": 7,
+          "Fouls": 12,
+          "Corner Kicks": 3,
+          "Offsides": 1,
+          "Ball Possession": "61%",
+          "Yellow Cards": 1,
+          "Red Cards": 1,
+          "Goalkeeper Saves": 2,
+          "Total passes": 520,
+          "Passes accurate": 467,
+          "Passes %": "90%",
+          "goals_prevented": "-0.47"
+        }
+      },
+      {
+        "team": "South Africa",
+        "stats": {
+          "Shots on Goal": 2,
+          "Shots off Goal": 1,
+          "Total Shots": 3,
+          "Blocked Shots": 0,
+          "Shots insidebox": 1,
+          "Shots outsidebox": 2,
+          "Fouls": 11,
+          "Corner Kicks": 1,
+          "Offsides": 1,
+          "Ball Possession": "39%",
+          "Yellow Cards": 2,
+          "Red Cards": 2,
+          "Goalkeeper Saves": 2,
+          "Total passes": 335,
+          "Passes accurate": 272,
+          "Passes %": "81%",
+          "goals_prevented": "-0.47"
+        }
+      }
+    ],
+    "available": true,
     "source": "api-football",
     "endpoint": "/fixtures/statistics",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
-    "confidence": "low",
-    "license_status": "pending",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
+    "confidence": "high",
+    "license_status": "ok",
     "fallback_text": {
       "zh": "球队统计未接入",
       "vi": "Chưa có thống kê đội",
       "en": "Team statistics source required"
     },
-    "missing_reason": "statistics endpoint returned no data"
+    "missing_reason": ""
   },
   "player_statistics": {
-    "value": null,
-    "available": false,
+    "value": [
+      {
+        "team": "Mexico",
+        "players_count": 26,
+        "goalkeeper": {
+          "name": "Raúl Rangel",
+          "rating": "7.2"
+        },
+        "top_by_rating": [
+          {
+            "name": "Julián Quiñones",
+            "pos": "M",
+            "minutes": 79,
+            "rating": "8.3",
+            "goals": 1,
+            "assists": 0
+          },
+          {
+            "name": "Roberto Alvarado",
+            "pos": "M",
+            "minutes": 90,
+            "rating": "8.2",
+            "goals": null,
+            "assists": 1
+          },
+          {
+            "name": "Raúl Jiménez",
+            "pos": "F",
+            "minutes": 76,
+            "rating": "7.9",
+            "goals": 1,
+            "assists": 0
+          },
+          {
+            "name": "Israel Reyes",
+            "pos": "D",
+            "minutes": 90,
+            "rating": "7.3",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Raúl Rangel",
+            "pos": "G",
+            "minutes": 90,
+            "rating": "7.2",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Erik Lira",
+            "pos": "M",
+            "minutes": 76,
+            "rating": "7.2",
+            "goals": null,
+            "assists": 1
+          }
+        ]
+      },
+      {
+        "team": "South Africa",
+        "players_count": 26,
+        "goalkeeper": {
+          "name": "Ronwen Williams",
+          "rating": "6.6"
+        },
+        "top_by_rating": [
+          {
+            "name": "Evidence Makgopa",
+            "pos": "F",
+            "minutes": 13,
+            "rating": "6.9",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Jayden Adams",
+            "pos": "M",
+            "minutes": 61,
+            "rating": "6.7",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Oswin Appollis",
+            "pos": "F",
+            "minutes": 13,
+            "rating": "6.7",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Ronwen Williams",
+            "pos": "G",
+            "minutes": 90,
+            "rating": "6.6",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Khuliso Mudau",
+            "pos": "D",
+            "minutes": 90,
+            "rating": "6.3",
+            "goals": null,
+            "assists": 0
+          },
+          {
+            "name": "Mbekezeli Mbokazi",
+            "pos": "D",
+            "minutes": 90,
+            "rating": "6.3",
+            "goals": null,
+            "assists": 0
+          }
+        ]
+      }
+    ],
+    "available": true,
     "source": "api-football",
     "endpoint": "/fixtures/players",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
-    "confidence": "low",
-    "license_status": "pending",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
+    "confidence": "high",
+    "license_status": "ok",
     "fallback_text": {
       "zh": "球员统计未接入",
       "vi": "Chưa có thống kê cầu thủ",
       "en": "Player statistics source required"
     },
-    "missing_reason": "fixture players endpoint returned no data"
+    "missing_reason": ""
   },
   "missing_evidence": {
-    "lineups": {
-      "reason": "lineups endpoint returned no data",
-      "fallback_text": {
-        "zh": "首发未接入，需数据源",
-        "vi": "Chưa có đội hình xuất phát, cần nguồn dữ liệu",
-        "en": "Lineup source required"
-      },
-      "endpoint": "/fixtures/lineups",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
-    },
-    "formation": {
-      "reason": "formation requires lineups (not available)",
-      "fallback_text": {
-        "zh": "阵型未接入，需首发数据",
-        "vi": "Chưa có sơ đồ chiến thuật, cần dữ liệu đội hình",
-        "en": "Formation source required"
-      },
-      "endpoint": "/fixtures/lineups",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
-    },
-    "events_summary": {
-      "reason": "events endpoint returned no data",
-      "fallback_text": {
-        "zh": "比赛事件未接入",
-        "vi": "Chưa có sự kiện trận đấu",
-        "en": "Events source required"
-      },
-      "endpoint": "/fixtures/events",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
-    },
-    "team_statistics": {
-      "reason": "statistics endpoint returned no data",
-      "fallback_text": {
-        "zh": "球队统计未接入",
-        "vi": "Chưa có thống kê đội",
-        "en": "Team statistics source required"
-      },
-      "endpoint": "/fixtures/statistics",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
-    },
-    "player_statistics": {
-      "reason": "fixture players endpoint returned no data",
-      "fallback_text": {
-        "zh": "球员统计未接入",
-        "vi": "Chưa có thống kê cầu thủ",
-        "en": "Player statistics source required"
-      },
-      "endpoint": "/fixtures/players",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
-    },
     "injuries": {
       "reason": "endpoint returned 0 results (HTTP 200) — UNRESOLVED: historical season may be unpopulated or needs fixture/current-season form; second-source verification required before any 'key absence' feature",
       "fallback_text": {
@@ -399,7 +1009,7 @@
         "en": "Injuries data not returned — second source or current-season re-check required"
       },
       "endpoint": "/injuries",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     }
   },
   "source_ledger": {
@@ -415,7 +1025,7 @@
       "available": true,
       "confidence": "high",
       "license_status": "ok",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "teams": {
       "field": "teams",
@@ -429,7 +1039,7 @@
       "available": true,
       "confidence": "high",
       "license_status": "ok",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "lineups": {
       "field": "lineups",
@@ -439,11 +1049,11 @@
         "fixture": 1489369
       },
       "http_status": 200,
-      "results": 0,
-      "available": false,
-      "confidence": "low",
-      "license_status": "pending",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "formation": {
       "field": "formation",
@@ -453,11 +1063,11 @@
         "fixture": 1489369
       },
       "http_status": 200,
-      "results": 0,
-      "available": false,
-      "confidence": "low",
-      "license_status": "pending",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "coach": {
       "field": "coach",
@@ -469,9 +1079,9 @@
       "http_status": 200,
       "results": 1,
       "available": true,
-      "confidence": "medium",
+      "confidence": "high",
       "license_status": "ok",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "squad": {
       "field": "squad",
@@ -485,7 +1095,7 @@
       "available": true,
       "confidence": "medium",
       "license_status": "ok",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "events_summary": {
       "field": "events_summary",
@@ -495,11 +1105,11 @@
         "fixture": 1489369
       },
       "http_status": 200,
-      "results": 0,
-      "available": false,
-      "confidence": "low",
-      "license_status": "pending",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "results": 17,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "team_statistics": {
       "field": "team_statistics",
@@ -509,11 +1119,11 @@
         "fixture": 1489369
       },
       "http_status": 200,
-      "results": 0,
-      "available": false,
-      "confidence": "low",
-      "license_status": "pending",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "player_statistics": {
       "field": "player_statistics",
@@ -523,11 +1133,11 @@
         "fixture": 1489369
       },
       "http_status": 200,
-      "results": 0,
-      "available": false,
-      "confidence": "low",
-      "license_status": "pending",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "results": 2,
+      "available": true,
+      "confidence": "high",
+      "license_status": "ok",
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     },
     "injuries": {
       "field": "injuries",
@@ -541,13 +1151,18 @@
       "available": false,
       "confidence": "low",
       "license_status": "pending",
-      "last_checked_at": "2026-06-11T00:31:43.829554+00:00"
+      "last_checked_at": "2026-06-12T00:04:51.836471+00:00"
     }
   },
   "ai_allowed_explanations": [
     "fixture",
     "teams",
+    "lineups",
+    "formation",
     "coach",
+    "events_summary",
+    "team_statistics",
+    "player_statistics",
     "squad"
   ],
   "ai_forbidden_explanations": [
@@ -555,24 +1170,19 @@
     "player_absence_impact",
     "suspensions",
     "any field not present in source_ledger",
-    "match outcome prediction or any financial / profit signal",
-    "lineups",
-    "formation",
-    "events_summary",
-    "team_statistics",
-    "player_statistics"
+    "match outcome prediction or any financial / profit signal"
   ],
   "feature_snapshot": {
-    "lineup_available": false,
-    "formation_available": false,
+    "lineup_available": true,
+    "formation_available": true,
     "coach_available": true,
-    "events_available": false,
-    "statistics_available": false,
-    "player_statistics_available": false,
+    "events_available": true,
+    "statistics_available": true,
+    "player_statistics_available": true,
     "squad_available": true,
     "injuries_unresolved": true,
-    "data_freshness": "2026-06-11T00:31:43.829554+00:00",
-    "coverage_score": 44,
+    "data_freshness": "2026-06-12T00:04:51.836471+00:00",
+    "coverage_score": 100,
     "coverage_score_note": {
       "zh": "仅数据覆盖评分，不是预测命中率，不作为博彩或资金信号",
       "vi": "Chỉ là điểm độ phủ dữ liệu, không phải tỷ lệ dự đoán đúng, không phải tín hiệu tài chính",
@@ -581,7 +1191,12 @@
     "ai_explanation_allowed_fields": [
       "fixture",
       "teams",
+      "lineups",
+      "formation",
       "coach",
+      "events_summary",
+      "team_statistics",
+      "player_statistics",
       "squad"
     ],
     "ai_explanation_forbidden_fields": [
@@ -589,12 +1204,7 @@
       "player_absence_impact",
       "suspensions",
       "any field not present in source_ledger",
-      "match outcome prediction or any financial / profit signal",
-      "lineups",
-      "formation",
-      "events_summary",
-      "team_statistics",
-      "player_statistics"
+      "match outcome prediction or any financial / profit signal"
     ]
   },
   "injuries": {
@@ -603,7 +1213,7 @@
     "source": "api-football",
     "endpoint": "/injuries",
     "fixture_id": "1489369",
-    "last_checked_at": "2026-06-11T00:31:43.829554+00:00",
+    "last_checked_at": "2026-06-12T00:04:51.836471+00:00",
     "confidence": "low",
     "license_status": "pending",
     "fallback_text": {
@@ -625,7 +1235,7 @@
         "results": 1,
         "fixture_id": 1489369,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:29.434136+00:00",
+        "checked_at": "2026-06-12T00:04:37.983159+00:00",
         "errors": null
       },
       {
@@ -634,10 +1244,10 @@
           "fixture": 1489369
         },
         "http_status": 200,
-        "results": 0,
+        "results": 2,
         "fixture_id": 1489369,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:30.554245+00:00",
+        "checked_at": "2026-06-12T00:04:39.055187+00:00",
         "errors": null
       },
       {
@@ -646,10 +1256,10 @@
           "fixture": 1489369
         },
         "http_status": 200,
-        "results": 0,
+        "results": 17,
         "fixture_id": 1489369,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:31.873398+00:00",
+        "checked_at": "2026-06-12T00:04:40.303288+00:00",
         "errors": null
       },
       {
@@ -658,10 +1268,10 @@
           "fixture": 1489369
         },
         "http_status": 200,
-        "results": 0,
+        "results": 2,
         "fixture_id": 1489369,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:32.977501+00:00",
+        "checked_at": "2026-06-12T00:04:41.390594+00:00",
         "errors": null
       },
       {
@@ -670,10 +1280,10 @@
           "fixture": 1489369
         },
         "http_status": 200,
-        "results": 0,
+        "results": 2,
         "fixture_id": 1489369,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:34.165826+00:00",
+        "checked_at": "2026-06-12T00:04:42.425225+00:00",
         "errors": null
       },
       {
@@ -685,7 +1295,7 @@
         "results": 0,
         "fixture_id": 1489369,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:35.319271+00:00",
+        "checked_at": "2026-06-12T00:04:43.472913+00:00",
         "errors": null
       },
       {
@@ -698,7 +1308,7 @@
         "results": 0,
         "fixture_id": null,
         "team_id": null,
-        "checked_at": "2026-06-11T00:31:36.495237+00:00",
+        "checked_at": "2026-06-12T00:04:44.498185+00:00",
         "errors": null
       },
       {
@@ -710,7 +1320,7 @@
         "results": 1,
         "fixture_id": null,
         "team_id": 16,
-        "checked_at": "2026-06-11T00:31:37.672835+00:00",
+        "checked_at": "2026-06-12T00:04:46.428784+00:00",
         "errors": null
       },
       {
@@ -722,7 +1332,7 @@
         "results": 1,
         "fixture_id": null,
         "team_id": 1531,
-        "checked_at": "2026-06-11T00:31:38.790183+00:00",
+        "checked_at": "2026-06-12T00:04:47.481189+00:00",
         "errors": null
       },
       {
@@ -734,7 +1344,7 @@
         "results": 1,
         "fixture_id": null,
         "team_id": 16,
-        "checked_at": "2026-06-11T00:31:40.102705+00:00",
+        "checked_at": "2026-06-12T00:04:48.689458+00:00",
         "errors": null
       },
       {
@@ -746,7 +1356,7 @@
         "results": 5,
         "fixture_id": null,
         "team_id": 1531,
-        "checked_at": "2026-06-11T00:31:41.188556+00:00",
+        "checked_at": "2026-06-12T00:04:49.761865+00:00",
         "errors": null
       },
       {
@@ -758,7 +1368,7 @@
         "results": 1,
         "fixture_id": null,
         "team_id": 16,
-        "checked_at": "2026-06-11T00:31:42.462950+00:00",
+        "checked_at": "2026-06-12T00:04:50.799755+00:00",
         "errors": null
       },
       {
@@ -770,7 +1380,7 @@
         "results": 1,
         "fixture_id": null,
         "team_id": 1531,
-        "checked_at": "2026-06-11T00:31:43.829530+00:00",
+        "checked_at": "2026-06-12T00:04:51.836451+00:00",
         "errors": null
       }
     ]

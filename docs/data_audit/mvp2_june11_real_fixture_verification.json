@@ -2,7 +2,7 @@
   "sprint": "MVP-2 June 11 Real Match Trial Prediction",
   "league_id": 1,
   "season": 2026,
-  "fetch_time": "2026-06-11T16:00:20.631873+00:00",
+  "fetch_time": "2026-06-12T00:04:10.997308+00:00",
   "season_fixture_count": 72,
   "http_status": 200,
   "opening_window": {
@@ -20,7 +20,7 @@
           "city": "Mexico City"
         },
         "round": "Group Stage - 1",
-        "match_status": "Not Started"
+        "match_status": "Match Finished"
       },
       {
         "fixture_id": 1538999,
@@ -166,38 +166,16 @@
         "city": "Mexico City"
       },
       "round": "Group Stage - 1",
-      "match_status": "Not Started",
+      "match_status": "Match Finished",
       "league_id": 1,
       "season": 2026,
       "api_endpoint": "/fixtures?league=1&season=2026 (+/fixtures/lineups, /injuries probes)",
-      "lineups_available": false,
+      "lineups_available": true,
       "injuries_available": false,
       "squads_available": true,
       "coaches_available": true,
       "teams_available": true,
       "scout_pack": "docs/data_audit/mvp2_scout_pack_samples/1489369.json"
-    },
-    {
-      "fixture_id": 1489371,
-      "home_team": "Brazil",
-      "away_team": "Morocco",
-      "kickoff_time": "2026-06-13T22:00:00+00:00",
-      "timezone": "UTC",
-      "venue": {
-        "name": "MetLife Stadium",
-        "city": "New York New Jersey"
-      },
-      "round": "Group Stage - 1",
-      "match_status": "Not Started",
-      "league_id": 1,
-      "season": 2026,
-      "api_endpoint": "/fixtures?league=1&season=2026 (+/fixtures/lineups, /injuries probes)",
-      "lineups_available": false,
-      "injuries_available": false,
-      "squads_available": true,
-      "coaches_available": true,
-      "teams_available": true,
-      "scout_pack": "docs/data_audit/mvp2_scout_pack_samples/1489371.json"
     },
     {
       "fixture_id": 1539000,
@@ -220,6 +198,28 @@
       "coaches_available": true,
       "teams_available": true,
       "scout_pack": "docs/data_audit/mvp2_scout_pack_samples/1539000.json"
+    },
+    {
+      "fixture_id": 1489371,
+      "home_team": "Brazil",
+      "away_team": "Morocco",
+      "kickoff_time": "2026-06-13T22:00:00+00:00",
+      "timezone": "UTC",
+      "venue": {
+        "name": "MetLife Stadium",
+        "city": "New York New Jersey"
+      },
+      "round": "Group Stage - 1",
+      "match_status": "Not Started",
+      "league_id": 1,
+      "season": 2026,
+      "api_endpoint": "/fixtures?league=1&season=2026 (+/fixtures/lineups, /injuries probes)",
+      "lineups_available": false,
+      "injuries_available": false,
+      "squads_available": true,
+      "coaches_available": true,
+      "teams_available": true,
+      "scout_pack": "docs/data_audit/mvp2_scout_pack_samples/1489371.json"
     }
   ],
   "source_ledger": {

@@ -10,7 +10,7 @@
   "artifact_sha256": "sha256:350b4c89ff23c4bec3f071e618b428e5de340c9b53e1e0cc572b1c471ae2e373",
   "guard_report_path": "docs/data_audit/mvp2_ops_runs/r20260611T1528Z-prematch/guard_report.json",
   "inputs_hash": "sha256:4240decf5808d8a68ad52f3840b8c67ea31afa7be274dc67a4b38d7294cf9825",
-  "status": "guard_passed",
+  "status": "expired",
   "status_history": [
     {
       "status": "generated",
@@ -21,6 +21,12 @@
       "status": "guard_passed",
       "at": "2026-06-11T15:28:24+00:00",
       "by": "guard"
+    },
+    {
+      "status": "expired",
+      "at": "2026-06-12T00:09:15+00:00",
+      "by": "sweep",
+      "note": "kickoff passed"
     }
   ],
   "expires_at": "2026-06-11T19:00:00+00:00",

@@ -39,9 +39,16 @@ export function PredictPage() {
   const isReal = n?.fixture_basis === 'real_scheduled' || !!fx;
   const opsOpen = search.get('ops') === '1'; // QA/operator helper: open the internal fold for screenshots
   const { hash } = useLocation();
+  // Post-match: the bundled narrative for this fixture is now the real recap —
+  // the pre-match tactical room is over, so the recap page is the only honest surface.
+  const isRecap = n?.mode === 'real_recap';
+  useEffect(() => {
+    if (isRecap) navigate(`/recap/${id}`, { replace: true });
+  }, [isRecap, id, navigate]);
   useEffect(() => {
     if (hash) setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' }), 60);
   }, [hash]);
+  if (isRecap) return null;
 
   return (
     <div className="page-enter">

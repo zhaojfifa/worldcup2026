@@ -366,6 +366,37 @@ def _notify(title, body):
 
 
 # ── A4 ───────────────────────────────────────────────────────────────────────
+def _send_kit_recap(fid, guard_report, run_id):
+    """Assemble the post-match recap send-kit FROM GUARD-PASSED LLM FIELDS ONLY.
+    Engineering writes zero narrative — it quotes artifacts verbatim. No kickoff
+    expiry (post-match surface), but sending still requires queue approve + Owner GO."""
+    lines = ["# Send-kit · fixture %s · POST-MATCH RECAP (run %s · auto-assembled, quotes LLM artifacts verbatim)" % (fid, run_id),
+             "",
+             "> 仅在运营评审 approve + Owner GO 后人工发送；群链接一律 [群链接由运营填写]；文案不得人工改写。",
+             ""]
+    for lang in LANGS:
+        p = PROOF / ("%s.%s.deepseek.json" % (fid, lang))
+        rel = str(p.relative_to(ROOT)) if p.exists() else None
+        if not rel or guard_report.get(rel):
+            lines += ["## %s — SKIPPED (no guard-passed recap narrative)" % lang, ""]
+            continue
+        n = Q.read_json(p)
+        if n.get("mode") != "real_recap":
+            lines += ["## %s — SKIPPED (mode=%s, not real_recap)" % (lang, n.get("mode")), ""]
+            continue
+        lines += ["## %s（persona 原文引用 · %s）" % (lang, rel),
+                  "", "**群消息（operator_copy）**", "```text", n.get("operator_copy", ""),
+                  "👉 [群链接由运营填写]", "```",
+                  "**短帖（social_post）**", "```text", n.get("social_post", ""), "```",
+                  "**入群钩子（group_join_copy）**", "```text", n.get("group_join_copy", ""), "```",
+                  "**截图推荐行（screenshot_line）**", "```text", n.get("screenshot_line", ""), "```",
+                  ""]
+    out = SEND_KITS / ("%s.recap.md" % fid)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return out
+
+
 def cmd_recap(args):
     fid = args.fixture
     langs = args.langs.split(",") if args.langs else list(LANGS)
@@ -405,10 +436,14 @@ def cmd_recap(args):
             Q.record_stage(fid, "recap", {"status": it["status"], "artifact": rel,
                                           "queue_item": it["item_id"], "run_id": run.run_id},
                            lang=obj.get("language"))
+        kit = _send_kit_recap(fid, report, run.run_id)
+        run.step("send_kit", "ok", artifact_paths=[str(kit.relative_to(ROOT))])
         n_fail = sum(1 for v in report.values() if v)
         run.finish("ok" if n_fail == 0 else "partial", guard_summary="%d/%d clean" % (len(report) - n_fail, len(report)))
-    else:
-        run.finish("ok", guard_summary="frame only (--skip-generate or no narratives)")
+        print("recap %s: frame=%s narratives=%d · kit %s · run %s"
+              % (fid, res["artifact"], len(arts), kit.relative_to(ROOT), run.run_id))
+        return 0 if n_fail == 0 else 1
+    run.finish("ok", guard_summary="frame only (--skip-generate or no narratives)")
     print("recap %s: frame=%s narratives=%d · run %s" % (fid, res["artifact"], len(arts), run.run_id))
     return 0
 

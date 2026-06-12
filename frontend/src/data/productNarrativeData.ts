@@ -32,7 +32,7 @@ export interface ProductFactor {
 export interface ProductNarrative {
   product_name: string;
   fixture_id: string;
-  mode: 'historical_recap' | 'pre_match_2026_modeling';
+  mode: 'historical_recap' | 'pre_match_2026_modeling' | 'real_recap';
   language: string;
   fixture_basis?: 'real_scheduled' | 'hypothetical_scenario';
   product_surface?: string;

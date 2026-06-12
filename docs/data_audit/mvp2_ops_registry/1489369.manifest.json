@@ -53,13 +53,33 @@
         "run_id": "r20260611T1528Z-prematch",
         "expires_at": "2026-06-11T19:00:00+00:00"
       }
+    },
+    "recap": {
+      "zh-CN": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_product_proof_narratives/1489369.zh-CN.deepseek.json",
+        "queue_item": "1489369.recap.zh-CN.deepseek.r20260612T0028Z-recap",
+        "run_id": "r20260612T0028Z-recap"
+      },
+      "vi-VN": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_product_proof_narratives/1489369.vi-VN.deepseek.json",
+        "queue_item": "1489369.recap.vi-VN.deepseek.r20260612T0005Z-recap",
+        "run_id": "r20260612T0005Z-recap"
+      },
+      "my-MM": {
+        "status": "guard_passed",
+        "artifact": "docs/data_audit/mvp2_product_proof_narratives/1489369.my-MM.deepseek.json",
+        "queue_item": "1489369.recap.my-MM.deepseek.r20260612T0005Z-recap",
+        "run_id": "r20260612T0005Z-recap"
+      }
     }
   },
   "lineups_released": false,
   "quota_ledger_day": {
-    "date": "2026-06-11",
-    "requests": 0,
+    "date": "2026-06-12",
+    "requests": 5,
     "daily_budget": 100
   },
-  "updated_at": "2026-06-11T15:28:24+00:00"
+  "updated_at": "2026-06-12T00:28:53+00:00"
 }

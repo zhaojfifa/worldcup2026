@@ -1,132 +1,162 @@
 {
   "product_name": "Giành Cup AI ScoutScore",
   "fixture_id": "1489369",
-  "mode": "pre_match_2026_modeling",
+  "mode": "real_recap",
   "language": "vi-VN",
-  "hero_title": "Tiên Tri Bóng Đá nhận định: Mexico vs South Africa – Rủi ro cao dù chênh lệch Elo 256 điểm",
-  "hero_subtitle": "Trận mở màn bảng đấu tại Azteca: Mexico được đánh giá cao, nhưng biến số sát giờ có thể lật ngược thế trận.",
-  "short_title": "Mexico vs South Africa: Rủi ro cao",
-  "screenshot_line": "Tiên Tri Bóng Đá: Mexico thắng 6/10 trận gần nhất, nhưng rủi ro cao vì đội hình chưa công bố.",
-  "model_judgement": "Tiên Tri Bóng Đá nhận định Mexico là bên được đánh giá cao hơn dựa trên Elo (1880 vs 1624) và phong độ 10 trận (6W-3D-1L so với 5W-2D-3L). Tuy nhiên, rủi ro trận này ở mức cao vì đội hình xuất phát chưa công bố, thủ môn bắt chính chưa rõ, và South Africa có thể tận dụng sự thiếu ổn định hàng thủ của Mexico (chỉ 2/5 trận gần nhất giữ sạch lưới). Lịch sử đối đầu cũng cho thấy South Africa từng cầm hòa Mexico 1-1 tại World Cup 2010.",
-  "main_lean": "Mexico được đánh giá cao hơn, nhưng rủi ro cao khiến kết quả khó đoán.",
-  "scoreline_view": "Khoảng tham khảo trước trận của Tiên Tri: 1-0, 1-1, 0-1.",
-  "risk_level": "Cao – Mexico là ứng cử viên nặng ký nhưng biến số đội hình và thủ môn chưa rõ có thể tạo bất ngờ.",
+  "hero_title": "Tiên Tri Bóng Đá nhận định: Mexico thắng 2-0 – rủi ro cao nhưng không có bất ngờ",
+  "hero_subtitle": "Trận ra quân World Cup 2026: bên được đánh giá cao hơn thắng áp đảo, nhưng biến số đội hình và thủ môn suýt tạo địa chấn.",
+  "short_title": "Mexico 2-0 South Africa: Tiên Tri đúng hướng",
+  "screenshot_line": "Tiên Tri Bóng Đá: Mexico thắng 2-0 – rủi ro cao nhưng không có bất ngờ",
+  "model_judgement": "Tiên Tri Bóng Đá nhận định Mexico là bên được đánh giá cao hơn nhờ Elo chênh 256 điểm và phong độ 6 thắng/10 trận gần nhất. Tuy nhiên, rủi ro cao vì đội hình và thủ môn chưa công bố trước giờ – những biến số sát giờ có thể thay đổi cục diện. Kết quả 2-0 xác nhận nhận định, nhưng South Africa có 2 cú sút trúng đích, cho thấy nếu tận dụng tốt hơn, kịch bản đã khác.",
+  "main_lean": "Mexico thắng – nhưng rủi ro cao, không phải trận dễ đoán.",
+  "scoreline_view": "Khoảng tham khảo trước trận của Tiên Tri: 1-0, 1-1, 0-1. Tỷ số thực tế 2-0 nằm ngoài khoảng, nhưng vẫn phù hợp với xu hướng Mexico thắng.",
+  "risk_level": "Cao – Mexico là bên được đánh giá cao hơn nhưng biến số đội hình và thủ môn chưa rõ có thể tạo bất ngờ.",
   "risk_factors": [
     {
-      "name": "Đội hình chưa công bố",
-      "text": "Đội hình xuất phát của cả hai bên chưa được công bố. Nếu Mexico thiếu trụ cột ở hàng thủ hoặc tiền đạo, nhận định có thể thay đổi.",
-      "source_refs": [
-        {
-          "field": "lineups",
-          "source": "api-football",
-          "endpoint": "/fixtures/lineups",
-          "fixture_id": 1489369
-        }
-      ],
+      "name": "Biến số đội hình chưa công bố",
+      "text": "Đội hình chính thức chỉ được xác nhận 30 phút trước giờ bóng lăn. Nếu Mexico ra sân với đội hình phụ hoặc thiếu trụ cột, nhận định có thể thay đổi.",
+      "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Thủ môn bắt chính",
-      "text": "Danh tính thủ môn bắt chính hai đội chưa xác định. Mexico có ba lựa chọn (Acevedo, Ochoa, Rangel), South Africa có Chaine, Goss, Williams. Người bắt chính sẽ ảnh hưởng lớn đến khả năng phòng ngự.",
-      "source_refs": [
-        {
-          "field": "squad",
-          "source": "api-football",
-          "endpoint": "/players/squads",
-          "fixture_id": 1489369
-        }
-      ],
+      "name": "Biến số thủ môn chưa rõ",
+      "text": "Phong độ thủ môn là yếu tố then chốt nhưng chưa được nạp vào phân tích trước trận. Nếu thủ môn South Africa chơi xuất thần, tỷ số có thể khác.",
+      "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Sân vận động Azteca – độ cao 2200m",
-      "text": "Estadio Azteca ở độ cao ~2200m, có thể ảnh hưởng đến thể lực và pressing của Mexico, đặc biệt nếu South Africa chơi phòng ngự phản công.",
-      "source_refs": [
-        {
-          "field": "fixture",
-          "source": "api-football",
-          "endpoint": "/fixtures",
-          "fixture_id": 1489369
-        }
-      ],
-      "assumption_flag": true
-    },
-    {
-      "name": "Phụ thuộc vào chân sút",
-      "text": "South Africa có các chân sút đã ghi bàn gần đây (Appollis 3 bàn, Makgopa 2, Foster 2), trong khi Mexico không có dữ liệu chân sút hàng đầu trong 10 trận gần nhất – biến số khó lường.",
+      "name": "Rủi ro từ lịch sử đối đầu",
+      "text": "South Africa từng thắng Mexico 2-1 năm 2005 và hòa 1-1 năm 2010. Dữ liệu cũ nhưng cho thấy đội bóng châu Phi không ngại đối thủ.",
       "source_refs": [
         {
           "source": "kaggle_intl_results",
-          "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-          "derived": true
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "h2h_last10"
         }
       ],
       "assumption_flag": false
     }
   ],
-  "validated_factors": [],
-  "underweighted_factors": [],
+  "validated_factors": [
+    {
+      "name": "Sức mạnh dài hạn (Elo)",
+      "text": "Elo chênh 256 điểm nghiêng về Mexico – đúng hướng. Mexico thắng 2-0, kiểm soát thế trận.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "elo_snapshot@2026-06-11",
+          "value": "Mexico 1880 / South Africa 1624"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Phong độ gần đây",
+      "text": "Mexico 6W-3D-1L, South Africa 5W-2D-3L – Mexico nhỉnh hơn. Kết quả 2-0 phản ánh đúng phong độ.",
+      "source_refs": [
+        {
+          "source": "kaggle_intl_results",
+          "dataset": "international football results 1872-2026",
+          "derived": true,
+          "metric": "last10_form"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Đối đầu chiến thuật",
+      "text": "Mexico đá 4-1-4-1, South Africa 5-3-2. Mexico kiểm soát bóng 61%, áp đảo hoàn toàn.",
+      "source_refs": [
+        {
+          "field": "lineups+coach",
+          "source": "api-football",
+          "endpoint": "/fixtures/lineups",
+          "fixture_id": "1489369"
+        },
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "1489369",
+          "value": "possession 61%/39%"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
+  "underweighted_factors": [
+    {
+      "name": "Hiệu suất dứt điểm của South Africa",
+      "text": "South Africa chỉ có 3 cú sút, 2 trúng đích – không ghi bàn. Nếu dứt điểm tốt hơn, họ có thể gây bất ngờ. Tiên Tri đánh giá thấp khả năng tận dụng cơ hội của đội yếu hơn.",
+      "source_refs": [
+        {
+          "field": "team_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/statistics",
+          "fixture_id": "1489369",
+          "value": "shots 16/3, sog 4/2"
+        }
+      ],
+      "assumption_flag": false
+    },
+    {
+      "name": "Sự khác biệt thủ môn",
+      "text": "Thủ môn Mexico (Raúl Rangel) được chấm 7.2, thủ môn South Africa (Ronwen Williams) 6.6. Sự chênh lệch này không được dự báo trước trận.",
+      "source_refs": [
+        {
+          "field": "player_statistics",
+          "source": "api-football",
+          "endpoint": "/fixtures/players",
+          "fixture_id": "1489369"
+        }
+      ],
+      "assumption_flag": false
+    }
+  ],
   "watch_next_signals": [
     {
-      "name": "Đội hình chính thức",
-      "text": "30 phút trước giờ bóng lăn, đội hình ra sân sẽ được công bố. Cần kiểm tra xem Mexico có đủ trụ cột hay không, và thủ môn nào bắt chính.",
+      "name": "Đội hình chính thức 30 phút trước giờ đá",
+      "text": "Nếu đội hình có bất ngờ (thiếu trụ cột, thủ môn dự bị bắt chính), nhận định có thể thay đổi hoàn toàn.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Thủ môn xuất phát",
-      "text": "Thủ môn bắt chính ảnh hưởng trực tiếp đến khả năng giữ sạch lưới. Nếu Mexico bắt bằng Ochoa (kinh nghiệm) hay Acevedo (trẻ) sẽ khác biệt.",
+      "name": "Phong độ thủ môn gần nhất",
+      "text": "Thủ môn là biến số sát giờ. Nếu thủ môn bên yếu hơn có phong độ cao, khả năng giữ sạch lưới tăng.",
       "source_refs": [],
       "assumption_flag": true
     },
     {
-      "name": "Sơ đồ chiến thuật",
-      "text": "Sơ đồ dự kiến của hai đội sẽ được xác nhận. Mexico có thể đá 4-3-3 kiểm soát, South Africa 4-4-2 phản công – nhưng chỉ khi lineup công bố mới rõ.",
+      "name": "Số cú sút trúng đích của đội yếu",
+      "text": "Nếu đội yếu có nhiều hơn 2 cú sút trúng đích, khả năng ghi bàn là rõ rệt.",
       "source_refs": [],
       "assumption_flag": true
     }
   ],
-  "operator_copy": "Tiên Tri Bóng Đá: Mexico chênh Elo 256 điểm, nhưng rủi ro cao vì đội hình chưa công bố. 30 phút trước giờ đá phải xem lại lineup và thủ môn. Vào nhóm để nhận bản cập nhật sát giờ.",
-  "subscription_hook": "Bản miễn phí cho thấy hướng đi chính: Mexico nhỉnh hơn nhưng rủi ro cao. Đăng ký để nhận phân tích đầy đủ các yếu tố, cập nhật 30 phút trước giờ bóng lăn khi đội hình công bố, và khoảng tỷ số chi tiết.",
-  "group_join_copy": "Muốn biết chính xác ai đá chính, thủ môn nào bắt, và nhận định hiệu chỉnh sát giờ? Vào nhóm Tiên Tri Bóng Đá – nơi có bản cập nhật 30 phút trước kickoff.",
-  "today_cta": "Xem ngay nhận định Tiên Tri Bóng Đá cho Mexico vs South Africa – trận mở màn bảng đấu tại Azteca.",
-  "social_post": "Tiên Tri Bóng Đá: Mexico mạnh hơn trên giấy, nhưng rủi ro cao vì đội hình chưa rõ. 30 phút trước giờ đá mới biết ai bắt chính. Theo dõi để cập nhật!",
+  "operator_copy": "Tiên Tri Bóng Đá: Mexico thắng 2-0 – đúng hướng nhưng rủi ro cao. South Africa có 2 cú sút trúng đích, nếu tận dụng tốt đã có bàn. Trận sau nhìn đội hình 30 phút trước giờ đá – biến số quyết định. Vào nhóm xem phân tích sát giờ.",
+  "subscription_hook": "Bản miễn phí cho thấy nhận định chính và rủi ro. Đăng ký để nhận: cập nhật 30 phút trước giờ bóng lăn (đội hình, thủ môn, nhận định mới), phân tích đầy đủ yếu tố, và khoảng tỷ số chi tiết.",
+  "group_join_copy": "Vào nhóm Zalo/Telegram của Giành Cup để xem Tiên Tri Bóng Đá cập nhật sát giờ: đội hình ra sao, thủ môn nào bắt, nhận định có thay đổi không. Phân tích trước trận – không phải bình luận sau trận.",
+  "today_cta": "Xem Tiên Tri Bóng Đá nhận định trận tiếp theo: đội hình và thủ môn là chìa khóa.",
+  "social_post": "Tiên Tri Bóng Đá: Mexico thắng 2-0 – đúng hướng, rủi ro cao. South Africa suýt gây sốc nếu dứt điểm tốt hơn. Trận sau: canh đội hình 30 phút trước giờ đá. #GiànhCup #WorldCup2026",
   "internal_notes": [
-    "REAL scheduled World Cup 2026 fixture (kickoff/venue/round real). Trial send-to-group pre-match judgement.",
-    "Lineups NOT announced: expected shapes only as assumption_flag entries.",
-    "Never invent injuries; injury news gap is internal only.",
-    "Trial persona: Tiên Tri Bóng Đá."
+    "REAL recap: archived pre-match prediction stored at docs/data_audit/mvp2_trial_prediction_narratives/1489369.vi-VN.deepseek.json (sha256:c9070240ed6479d191029f4bda1eaa7d603f106849acb4dad2888f4fe52cc951, generated_at 2026-06-11T06:25:18.018684+00:00).",
+    "Customer prose is honest validation; no hindsight-brag.",
+    "Assumption_context: venue neutral (Qatar 2022) – low impact; pre-match unknowns (injuries, xG, squad value) not ingested – written as 'biến số cần canh sát giờ'.",
+    "No Han characters, no betting slang, no 'mô hình' or 'AI' in customer prose."
   ],
   "source_ref_map": {
-    "Đội hình chưa công bố": {
-      "field": "lineups",
-      "source": "api-football",
-      "endpoint": "/fixtures/lineups",
-      "fixture_id": 1489369
-    },
-    "Thủ môn bắt chính": {
-      "field": "squad",
-      "source": "api-football",
-      "endpoint": "/players/squads",
-      "fixture_id": 1489369
-    },
-    "Sân vận động Azteca – độ cao 2200m": {
-      "field": "fixture",
-      "source": "api-football",
-      "endpoint": "/fixtures",
-      "fixture_id": 1489369
-    },
-    "Phụ thuộc vào chân sút": {
-      "source": "kaggle_intl_results",
-      "dataset": "international football results 1872-2026 (results/shootouts/goalscorers.csv, local data/external/kaggle)",
-      "derived": true
-    }
+    "Sức mạnh dài hạn (Elo)": "kaggle_intl_results: elo_snapshot@2026-06-11",
+    "Phong độ gần đây": "kaggle_intl_results: last10_form",
+    "Đối đầu chiến thuật": "api-football: /fixtures/lineups, /fixtures/statistics",
+    "Hiệu suất dứt điểm của South Africa": "api-football: /fixtures/statistics",
+    "Sự khác biệt thủ môn": "api-football: /fixtures/players",
+    "Rủi ro từ lịch sử đối đầu": "kaggle_intl_results: h2h_last10"
   },
   "llm_provider": "deepseek",
-  "tactical_read": "Tiên Tri Bóng Đá đọc chiến thuật: Mexico dự kiến kiểm soát bóng với sơ đồ 4-3-3, pressing tầm cao nhờ lợi thế sân nhà. South Africa nhiều khả năng đá 4-4-2 phòng ngự phản công, tận dụng tốc độ của Appollis và Makgopa. Cặp đấu then chốt: hậu vệ biên Mexico vs tiền đạo cánh South Africa. Nhịp độ trận đấu có thể chậm lại nếu Mexico gặp khó khăn về thể lực do độ cao. Lưu ý: đội hình chưa công bố, mọi nhận định chiến thuật chỉ là dự kiến.",
   "voice": "tientri_v2",
-  "product_surface": "trial_prediction",
-  "fixture_basis": "real_scheduled",
   "model": "deepseek-chat",
-  "generated_at": "2026-06-11T06:25:18.018684+00:00"
+  "generated_at": "2026-06-12T00:08:09.226414+00:00"
 }

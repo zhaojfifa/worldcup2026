@@ -74,7 +74,7 @@ export function RecapDetailPage() {
   // Independent of the bundled recap content so newly productized fixtures
   // (979139) render even without hand-written fallback copy.
   const productNarr = getProductNarrative(fixtureId, loc);
-  if (productNarr && productNarr.mode === 'historical_recap') {
+  if (productNarr && (productNarr.mode === 'historical_recap' || productNarr.mode === 'real_recap')) {
     return (
       <div className="page-enter">
         <div className="backbar">

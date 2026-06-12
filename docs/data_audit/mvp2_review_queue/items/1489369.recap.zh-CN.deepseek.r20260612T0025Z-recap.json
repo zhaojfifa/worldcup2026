@@ -1,0 +1,38 @@
+{
+  "item_id": "1489369.recap.zh-CN.deepseek.r20260612T0025Z-recap",
+  "fixture_id": "1489369",
+  "job": "A4_recap",
+  "surface": "recap",
+  "language": "zh-CN",
+  "provider": "deepseek",
+  "run_id": "r20260612T0025Z-recap",
+  "artifact_path": "docs/data_audit/mvp2_product_proof_narratives/1489369.zh-CN.deepseek.json",
+  "artifact_sha256": "sha256:c9d32d46ec4cb50da85f565f3941405af9f445e3a524722498688e002ccd93b4",
+  "guard_report_path": "docs/data_audit/mvp2_ops_runs/r20260612T0025Z-recap/guard_report.json",
+  "inputs_hash": "sha256:d6543d9d932cefd56037835ac17c9b2d6f8727e284116be04ff22cc5808dedec",
+  "status": "superseded",
+  "status_history": [
+    {
+      "status": "generated",
+      "at": "2026-06-12T00:27:36+00:00",
+      "by": "pipeline"
+    },
+    {
+      "status": "needs_review",
+      "at": "2026-06-12T00:27:36+00:00",
+      "by": "guard",
+      "note": "de-model violation in customer prose: '盲区'"
+    },
+    {
+      "status": "superseded",
+      "at": "2026-06-12T00:28:52+00:00",
+      "by": "pipeline",
+      "note": "superseded by 1489369.recap.zh-CN.deepseek.r20260612T0028Z-recap"
+    }
+  ],
+  "expires_at": null,
+  "approved_by": null,
+  "review_note": null,
+  "superseded_by": "1489369.recap.zh-CN.deepseek.r20260612T0028Z-recap",
+  "sent_record": null
+}
