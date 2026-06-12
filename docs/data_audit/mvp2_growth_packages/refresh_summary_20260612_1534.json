@@ -1,0 +1,30 @@
+{
+ "lang": "my",
+ "ref": "FO-MM21",
+ "generated_at": "20260612_1534",
+ "packages": {
+  "today": {
+   "fixture_id": "1489371",
+   "status": "available",
+   "file": "docs/data_audit/mvp2_growth_packages/today_1489371_my_FO-MM21.md",
+   "share_link": "https://worldcup2026-izid.onrender.com/predict/1489371?ref=FO-MM21",
+   "share_card_url": "https://worldcup2026-izid.onrender.com/share/fixture/1489371?ref=FO-MM21&lang=my"
+  },
+  "next": {
+   "fixture_id": "1489371",
+   "status": "available",
+   "file": "docs/data_audit/mvp2_growth_packages/next_1489371_my_FO-MM21.md",
+   "share_link": "https://worldcup2026-izid.onrender.com/predict/1489371?ref=FO-MM21",
+   "share_card_url": "https://worldcup2026-izid.onrender.com/share/fixture/1489371?ref=FO-MM21&lang=my"
+  },
+  "recap": {
+   "fixture_id": "1489369",
+   "approval_status": "guard_passed",
+   "warning": "Verify queue approval before sending.",
+   "status": "available",
+   "file": "docs/data_audit/mvp2_growth_packages/recap_1489369_my_FO-MM21.md",
+   "share_link": "https://worldcup2026-izid.onrender.com/recap/1489369?ref=FO-MM21",
+   "share_card_url": "https://worldcup2026-izid.onrender.com/share/recap/1489369?ref=FO-MM21&lang=my"
+  }
+ }
+}
