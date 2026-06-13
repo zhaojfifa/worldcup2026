@@ -69,3 +69,43 @@ python3 scripts/mvp2_ops.py recap --fixture 1489371          # real_recap 帧 + 
 - [ ] 任何 needs_review override 必须 --note 并记入当日记录
 - [ ] 配额账本 <70%（`status --fixture 1489371` 查看）
 - [ ] 全部时刻回填 §4 表 → 试用反馈报告
+
+## 6. P1.2 Status Refresh Gate — 赛日新鲜度校验（Owner verdict 2026-06-13 条件 1）
+
+> 目的：完赛后产品不得再以「赛前预测」状态展示 1489371。本节为今晚 LIVE/FT 真实校验的逐步指令。
+> 基线（开球前，2026-06-13T02:21Z 已验证）：1489371 = SCHEDULED · today_package_allowed=True ·
+> package today 放行 · freshness PASS。
+
+### 6a. 开球时 / LIVE 期间（22:00 UTC 起，每 30 分钟）
+```bash
+python3 scripts/mvp2_growth_cli.py status-refresh
+python3 scripts/check_fixture_freshness.py
+```
+预期：
+- lifecycle 1489371 = **LIVE**（API 报 1H/HT/2H 或 开球已过而无完赛信号 → 冻结）
+- today_package_allowed = **false** · `package today --fixture 1489371` → REFUSED
+- refresh 输出 **NO_VALID_TODAY_FIXTURE** · 旧 today/next 包被 REFUSED 桩覆盖
+- ⚠️ HomePage hero 仍钉死 `fixtureId="1489371"` → 完赛后 freshness 扫描器 **预期 FAIL**（设计闹钟，
+  非误报）。必须如实记录；修复 = 工程更新 hero 钉值 + 运营重新部署前端。
+
+### 6b. FT / FT+45（约 00:00–00:45 UTC 06-14）
+```bash
+python3 scripts/mvp2_growth_cli.py status-refresh
+python3 scripts/mvp2_growth_cli.py refresh --lang zh --ref QG-TEST1
+python3 scripts/check_fixture_freshness.py
+```
+预期：
+- lifecycle = **FINISHED**（FT+45 前）→ **RECAP_PENDING**（FT+45 后仍无复盘叙事）
+- today/next 包 = refused · `NO_VALID_TODAY_FIXTURE`
+- recap 包此时仍不可用（需先有 real_recap 叙事）；A4 复盘生成并 bundle 后 → **RECAP_READY** → recap 包放行
+
+### 6c. A4 复盘 bundle 之后
+```bash
+python3 scripts/mvp2_growth_cli.py status-refresh    # 1489371 -> RECAP_READY
+python3 scripts/mvp2_growth_cli.py refresh --lang zh --ref QG-TEST1   # recap 包可用，today 仍 refused
+python3 scripts/check_fixture_freshness.py            # hero 修复+重部署后应回到 PASS
+```
+
+### 6d. 证据留存
+- 当晚所有 `fixture_lifecycle_*.json` + `refresh_summary_*.json` 提交至 main 作为审计串。
+- 扫描器任何 FAIL：记录 fixture/原因/是否预期（hero 钉值 = 预期）于本节回填。
