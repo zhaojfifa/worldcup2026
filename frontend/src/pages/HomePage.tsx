@@ -238,10 +238,10 @@ export function HomePage() {
       })()}
       <div className="card" style={{ textAlign: 'center' }}>
         <div className="ra-line">
-          {loc === 'zh' ? '进群等临场修正——首发公布后，俅哥重新看一遍再给最终倾向。'
-            : loc === 'vi' ? 'Vào nhóm chờ hiệu chỉnh sát giờ — đội hình công bố xong, Tiên Tri xem lại rồi mới chốt thiên hướng cuối.'
-              : loc === 'my' ? 'အဖွဲ့ဝင်ပြီး ပွဲနီးပြန်တွက်ချက် စောင့်ပါ — lineup ထွက်ပြီးမှ Oracle နောက်ဆုံးအမြင် ပေးမည်။'
-                : 'Join the group for the late re-check — final lean lands after lineups.'}
+          {loc === 'zh' ? '更多场次临场判断，进群后按比赛补充。'
+            : loc === 'vi' ? 'Các trận khác sẽ được bổ sung trong nhóm theo diễn biến trước giờ bóng lăn.'
+              : loc === 'my' ? 'အခြားပွဲများအတွက် နောက်ဆုံးမိနစ်သုံးသပ်ချက်ကို group ထဲတွင် ပွဲအလိုက် ဖြည့်စွက်ပေးမည်။'
+                : 'More matches are covered inside the group, match by match before kickoff.'}
         </div>
         <button className="recap-cta-btn" style={{ width: '100%' }} onClick={() => navigate('/community')}>
           {loc === 'zh' ? '加入情报群 ▸' : loc === 'vi' ? 'Vào nhóm tin báo ▸' : loc === 'my' ? 'အဖွဲ့ဝင်ရန် ▸' : 'Join the group ▸'}
