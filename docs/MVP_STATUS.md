@@ -6,7 +6,31 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-13, latest) — Growth P1.2→P1.5a on main · 能更新 LIVE · first-send gate
+## ★ MVP-2 status (2026-06-13, latest) — Growth P1.5b LIVE · Gates 1+2 PASS · first send HOLD on Gate 3+4
+
+```text
+main = d67c5e1. Growth P1.2→P1.5b chain promoted (per-step backup tags ...-20260613).
+P1.5b = Daily Featured Copy Policy (copy-only, frontend-only @ d67c5e1; backup tag
+main-backup-pre-p15b-daily-featured-copy-20260613): homepage relabeled to one featured pre-match +
+one featured recap/day, everything else lightweight status — 🔮今日复盘 = Mexico 2-0 ONLY (查看复盘
+button) · 🗂️今日赛况 = Canada/USA/SK 已完赛 (no button) · 📋即将开赛 = Qatar/Haiti · bottom CTA
+更多场次临场判断，进群后按比赛补充. Legacy 复盘生成中/待生成复盘/待生成赛前判断 REMOVED (no
+content-gen workflow exists). DEPLOYED + LIVE-VERIFIED: live bundle index-TTpDdcCl.js (P1.5a) →
+index-Dz95Uq3Y.js (P1.5b); zh/vi/my consistent; realtime sync line present; legacy wording gone.
+
+FIRST-SEND GATES: Gate 1 PASS (operator created QG-TEST1/TT-VN88/FO-MM21 in prod, all active; live
+re-probe attached:true ×3). Gate 2 PASS (click+join-intent attached:true ×3; /internal/growth shows
+3 active codes, counts visible, 3 pending test join-intents; contribution value=0; no send). Test
+join-intents left UNCONFIRMED (no MTC credit). Gate 3 = 1489371 Brazil-Morocco LIVE/FT lifecycle
+validation TONIGHT (KO 22:00 UTC; pre-kickoff half already PASS — SCHEDULED, /predict not frozen).
+Gate 4 = Owner explicit per-channel GO. SENDS HOLD until Gate 3 + Gate 4 pass. Engineering holds no
+prod token (codes created by operator; engineering only re-confirmed via public click probe).
+Gate doc docs/mvp2_growth/GROWTH_P15_FIRST_SEND_GATE.md · runbook docs/mvp2/FIRST_SEND_RUNBOOK_1489371.md
+(both now on main). Scanners: live visible 21/21, runtime --base-url PASS, match-sync PASS, growth
+copy guard PASS; no betting/auto-send/invented scores/fake recap.
+```
+
+## ★ MVP-2 status (2026-06-13) — Growth P1.2→P1.5a on main · 能更新 LIVE · first-send gate (superseded)
 
 ```text
 main = a26b03d. Growth P1.2→P1.5a chain all promoted (per-step backup tags ...-20260613):

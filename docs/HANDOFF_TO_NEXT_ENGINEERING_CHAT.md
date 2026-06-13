@@ -2,7 +2,54 @@
 
 _Read `CLAUDE.md` first, then this. Date: 2026-06-13. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
-## ★★★★ Current handoff state — Growth P1.2→P1.5a on main · 能更新 LIVE · FIRST-SEND GATE（2026-06-13, supersedes ★★★ below）
+## ★★★★★ Current handoff state — Growth P1.5b LIVE · first-send Gates 1+2 PASS · HOLD on Gate 3+4（2026-06-13, supersedes ★★★★ below）
+
+**Growth P1.2→P1.5b is on main AND deployed live. First-send Gate 1 (codes) + Gate 2 (smoke) are CLOSED.
+The only remaining gates are Gate 3 (1489371 LIVE/FT validation tonight) and Gate 4 (Owner per-channel GO).
+The next thread is NOT new features — it is tonight's 1489371 match-day operation, then the first send on Owner GO.**
+
+```text
+Frozen state (A):
+  main = d67c5e1 (origin + local). Latest = P1.5b Daily Featured Copy Policy (copy-only, frontend-only;
+  backup tag main-backup-pre-p15b-daily-featured-copy-20260613). Full promoted chain this day:
+  P1.2 · P1.2b · P1.3 · P1.3b · P1.3c · P1.4 · P1.5a · P1.5b. Operation paused · small private trial
+  only · sends manual + Owner GO per fixture · engineering holds NO prod ADMIN_API_TOKEN · no betting/
+  odds/auto-send anywhere.
+
+What is LIVE (B) — verified 2026-06-13:
+  - Backend deployed + populated: GET /api/v1/daily-fixtures → stored=true, 7 fixtures, P1.4 buckets,
+    active_hero Brazil vs Morocco SCHEDULED, recap_queue 4, freshness.stale=false. 能更新 PROVEN.
+  - FRONTEND P1.5b DEPLOYED: live bundle index-TTpDdcCl.js (P1.5a) → index-Dz95Uq3Y.js (P1.5b).
+    Homepage = Daily Featured Copy Policy: 🔮今日复盘 = Mexico 2-0 ONLY (查看复盘 button) · 🗂️今日赛况 =
+    Canada/USA/SK 已完赛 (no button) · 📋即将开赛 = Qatar/Haiti · bottom CTA 更多场次临场判断，进群后
+    按比赛补充 · realtime sync line present · legacy 复盘生成中/待生成复盘/待生成赛前判断 REMOVED.
+    zh/vi/my consistent. Live visible scan 21/21; runtime/match-sync/growth scanners PASS.
+
+FIRST-SEND GATES (C):
+  1. Codes — ✅ PASS. Operator created QG-TEST1 / TT-VN88 / FO-MM21 in prod (active). Live re-probe
+     POST /api/v1/growth/click → attached:true ×3.
+  2. Growth smoke — ✅ PASS. click+join-intent attached:true ×3; /internal/growth shows 3 active codes,
+     counts visible, 3 PENDING test join-intents; contribution value=0; NO send. Test join-intents
+     left UNCONFIRMED (no MTC credit).
+  3. 1489371 Brazil vs Morocco LIVE/FT lifecycle validation — ⏳ TONIGHT (KO 22:00 UTC). Pre-kickoff
+     half already PASS (SCHEDULED, /predict not frozen, hero Brazil). Operator runs at the match window.
+  4. Owner explicit per-channel GO — ⏳ pending, e.g. `GO zh_internal_group QG-TEST1 fixture 1489371`.
+  NO send until Gate 3 LIVE/FT passes AND Gate 4 GO is given.
+  Gate doc docs/mvp2_growth/GROWTH_P15_FIRST_SEND_GATE.md · runbook docs/mvp2/FIRST_SEND_RUNBOOK_1489371.md
+  (both now on main). First-send material staged: docs/data_audit/mvp2_growth_packages/today_1489371_zh_QG-TEST1.md.
+```
+
+**Next Engineer Start Command（copy-paste）**
+
+> Working branch is main (d67c5e1). Growth P1.2→P1.5b promoted + deployed; do NOT start new features.
+> Gates 1+2 are CLOSED. Confirm live: `curl -s …/api/v1/daily-fixtures | python3 -m json.tool` (stored=true,
+> 7 fixtures, hero Brazil SCHEDULED) and bundle = index-Dz95Uq3Y.js (P1.5b). Run the four scanners (visible
+> 21/21, runtime --base-url, match-sync, growth copy). Then TONIGHT's Gate 3: 1489371 Brazil vs Morocco KO
+> 22:00 UTC — at kickoff verify the pre-match freezes (status-refresh → LIVE, refresh → NO_VALID_TODAY_FIXTURE,
+> /predict & /share freeze), at FT → FINISHED/RECAP_PENDING, no fake recap. Then first send only on Owner Gate-4
+> per-channel GO. Engineering holds no prod token (codes/smoke/send are operator steps).
+
+## ★★★★ Handoff state — Growth P1.2→P1.5a on main · 能更新 LIVE · FIRST-SEND GATE（2026-06-13, superseded by ★★★★★ above）
 
 **The whole Growth P1.2→P1.5a chain is on main and the daily slate now updates live without a frontend rebuild.**
 The next thread is NOT new features — it is: operator deploys the P1.5a frontend, then closes the four
