@@ -88,6 +88,43 @@ READ as references only; raw wording never reaches customers — convert to the 
 vocabulary (外部预期 / 公开预测倾向 / 市场共识 / 热度集中 / 情绪变化 / 冷门变量 / 临场变量),
 no external trading links in customer copy.
 
+## 3c. P1.3 Match Sync & Daily Fixture Registry（discovers the daily slate）
+
+> Owner priority 2026-06-13: the lifecycle gate can only protect fixtures it KNOWS about.
+> Match-sync discovers today's full slate (scheduled/live/finished + final scores) so finished
+> matches surface as recap-needed and the right fixture is eligible for hero / today package.
+
+```bash
+# 1. sync the daily registry (manual source mode = source of truth; fetched = best-effort enrich):
+python3 scripts/mvp2_match_sync.py sync --date 2026-06-13            # daily_fixtures + recap_queue + frontend manifest
+python3 scripts/mvp2_match_sync.py sync --date 2026-06-13 --source fetched   # optional API-FOOTBALL enrich
+# 2. lifecycle snapshot over the now-known fixtures:
+python3 scripts/mvp2_growth_cli.py status-refresh
+# 3. registry-sourced package refresh (today/next/recap chosen from the registry):
+python3 scripts/mvp2_growth_cli.py refresh --lang zh --ref QG-TEST1
+# 4. registry integrity scan:
+python3 scripts/check_match_sync_freshness.py
+```
+
+Manual input file (no score invented; unconfirmed = `unknown`):
+`docs/data_audit/mvp2_match_sync/manual_scores_YYYYMMDD.md`. Outputs:
+`daily_fixtures_YYYYMMDD.json` (registry), `recap_queue_YYYYMMDD.json`,
+`frontend/src/data/dailyFixtures.generated.json` (homepage hero source — only renderable fixtures).
+
+### Match-day cron（local cron only）
+
+```cron
+# every 30 minutes on match days — discover the slate, then re-evaluate lifecycle:
+*/30 * * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_match_sync.py sync --date $(date -u +\%Y-\%m-\%d) >> logs/match_sync.log 2>&1
+*/30 * * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py status-refresh >> logs/fixture_status_refresh.log 2>&1
+
+# daily registry-sourced package refresh (08:00 UTC; a finished slate yields NO_VALID_TODAY_FIXTURE):
+0 8 * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py refresh --lang zh --ref QG-TEST1 >> logs/growth_refresh_zh.log 2>&1
+5 8 * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py refresh --lang vi --ref TT-VN88 >> logs/growth_refresh_vi.log 2>&1
+10 8 * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py refresh --lang my --ref FO-MM21 >> logs/growth_refresh_my.log 2>&1
+```
+(`mkdir -p logs` first. Cron only writes/checks files — there is no send code. No auto-send.)
+
 ## 4. Future options (documented only — DO NOT implement without explicit Owner GO)
 - Render Cron Job running the same CLI against the repo (needs key custody decision).
 - GitHub Actions scheduled workflow (off-main scheduling caveats per Track A design §1).

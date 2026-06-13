@@ -11,9 +11,9 @@ import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, note
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
 import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection, RescoreHookCard, RecapAnchorCard } from '../components/UpcomingTacticalStrip';
-import { UPCOMING_FIXTURES } from '../data/upcomingFixtures';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { pickActiveFixture } from '../lib/freshness';
+import { activeFixtureEntries } from '../data/dailyFixtures';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -171,19 +171,21 @@ export function HomePage() {
         </div>
       )}
 
-      {/* ── ACTIVE 2026 LOOP (Product Closure P1, Owner §6 · P1.2b runtime freshness) ──
-           Hero is SELECTED at runtime (no permanent hardcoded fixture): earliest
-           pre-match fixture → else latest recap-ready → else recap-pending → else empty.
+      {/* ── ACTIVE 2026 LOOP (Owner §6 · P1.2b runtime freshness · P1.3 registry-sourced) ──
+           Hero is SELECTED at runtime from the daily fixture registry manifest (no permanent
+           hardcoded fixture): live → earliest pre-match → latest recap-ready → recap-pending →
+           empty. recapReady is recomputed LIVE from the bundled narrative, never trusted stale.
            A finished/live fixture can never be pinned as today's pre-match prediction. */}
       {(() => {
-        const active = pickActiveFixture(UPCOMING_FIXTURES.map(f => ({
-          id: f.id, kickoffUtc: f.kickoffUtc,
-          recapReady: getProductNarrative(f.id, loc)?.mode === 'real_recap',
+        const entries = activeFixtureEntries();
+        const active = pickActiveFixture(entries.map(e => ({
+          id: e.id, kickoffUtc: e.kickoffUtc,
+          recapReady: getProductNarrative(e.id, loc)?.mode === 'real_recap',
         })));
         // latest recap-ready fixture for the trust anchor (guarded by mode internally)
-        const recapAnchorId = [...UPCOMING_FIXTURES]
-          .filter(f => getProductNarrative(f.id, loc)?.mode === 'real_recap')
-          .sort((a, b) => new Date(b.kickoffUtc).getTime() - new Date(a.kickoffUtc).getTime())[0]?.id;
+        const recapAnchorId = [...entries]
+          .filter(e => getProductNarrative(e.id, loc)?.mode === 'real_recap')
+          .sort((a, b) => new Date(b.kickoffUtc ?? 0).getTime() - new Date(a.kickoffUtc ?? 0).getTime())[0]?.id;
         if (active.mode === 'empty' && !recapAnchorId) {
           return (
             <div className="card th-hero">

@@ -207,7 +207,32 @@ def build_package(kind, fid, lang, ref):
 # ── refresh wrapper (P1.1b): all packages, per-package status, file output ──
 PKG_DIR = ROOT / "docs" / "data_audit" / "mvp2_growth_packages"
 QUEUE_JSON = ROOT / "docs" / "data_audit" / "mvp2_review_queue" / "queue.json"
+SYNC_DIR = ROOT / "docs" / "data_audit" / "mvp2_match_sync"
 DEFAULT_FIXTURE = {"today": "1489371", "next": "1489371", "recap": "1489369"}
+
+
+def _registry_fixtures():
+    """P1.3: derive today/next/recap fixture ids from the latest daily registry. The registry
+    is the source of which fixture each package targets; falls back to DEFAULT_FIXTURE before
+    the first sync. Returns ({today,next,recap}, registry_doc|None)."""
+    files = sorted(SYNC_DIR.glob("daily_fixtures_*.json"))
+    if not files:
+        return dict(DEFAULT_FIXTURE), None
+    try:
+        doc = json.loads(files[-1].read_text(encoding="utf-8"))
+    except Exception:
+        return dict(DEFAULT_FIXTURE), None
+    fxs = doc.get("fixtures", [])
+    today = next(self_id(f) for f in fxs if f.get("hero_candidate") and f.get("pre_match_allowed")) \
+        if any(f.get("hero_candidate") and f.get("pre_match_allowed") for f in fxs) else None
+    nxt = next((self_id(f) for f in fxs if f.get("next_candidate")), None) or today
+    recaps = [f for f in fxs if f.get("recap_ready") and self_id(f)]
+    recap = sorted(recaps, key=lambda x: x.get("kickoff_time_utc") or "", reverse=True)[0] if recaps else None
+    return {"today": today, "next": nxt, "recap": self_id(recap) if recap else None}, doc
+
+
+def self_id(f):
+    return f.get("internal_fixture_id") if f else None
 
 
 def _recap_approval_status(fid, lang):
@@ -249,10 +274,21 @@ def _write_refused_stub(kind, fid, lang, reason, stamp):
 def cmd_refresh(lang, ref, stamp):
     ref = (ref or DEFAULT_REF[lang]).upper()
     PKG_DIR.mkdir(parents=True, exist_ok=True)
-    summary = {"lang": lang, "ref": ref, "generated_at": stamp, "packages": {}}
+    targets, reg = _registry_fixtures()  # P1.3: registry chooses today/next/recap fixtures
+    summary = {"lang": lang, "ref": ref, "generated_at": stamp,
+               "registry_sourced": reg is not None, "packages": {}}
     for kind in ("today", "next", "recap"):
-        fid = DEFAULT_FIXTURE[kind]
+        fid = targets.get(kind)
         entry = {"fixture_id": fid}
+        if not fid:
+            # registry has no eligible fixture for this slot (e.g. all of today's are finished)
+            entry["status"] = "no_eligible_fixture"
+            entry["reason"] = "registry: no %s-eligible fixture in the daily slate" % kind
+            entry["operator_next_step"] = ("等待下一场赛前赛事 / sync 后重试" if kind != "recap"
+                                           else "完赛场次需先生成复盘（A4）再出复盘包")
+            summary["packages"][kind] = entry
+            print("%-6s %-16s (registry: no eligible fixture)" % (kind, entry["status"]))
+            continue
         try:
             lc = _lifecycle(fid)
             entry["lifecycle_state"] = lc["new_state"]
@@ -262,12 +298,17 @@ def cmd_refresh(lang, ref, stamp):
             doc = build_package(kind, fid, lang, ref)
         except ValueError as e:
             reason = str(e)
-            entry["status"] = "needs_fixture" if "no bundled narrative" in reason else "refused"
+            entry["status"] = "needs_narrative" if "no bundled narrative" in reason else "refused"
             entry["reason"] = reason
+            if entry["status"] == "needs_narrative":
+                # P1.3: synced fixture with no narrative — NEVER fabricate; tell the operator.
+                entry["operator_next_step"] = ("先生成该场叙事（A2 prematch）再出 today/next 包"
+                                               if kind in ("today", "next")
+                                               else "先生成该场复盘（A4 recap）再出复盘包")
             if entry["status"] == "refused" and reason.startswith("LIFECYCLE_GATE") and kind in ("today", "next"):
                 _write_refused_stub(kind, fid, lang, reason, stamp)
             summary["packages"][kind] = entry
-            print("%-6s %-12s %s (%s)" % (kind, entry["status"], fid, reason))
+            print("%-6s %-14s %s (%s)" % (kind, entry["status"], fid, reason))
             continue
         except FileNotFoundError as e:
             entry.update(status="unavailable", reason=str(e))

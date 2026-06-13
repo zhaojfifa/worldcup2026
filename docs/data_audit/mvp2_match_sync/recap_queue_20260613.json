@@ -1,0 +1,46 @@
+{
+ "date": "2026-06-13",
+ "generated_at": "2026-06-13T04:09:50.331617+00:00",
+ "items": [
+  {
+   "fixture": "Canada vs Bosnia and Herzegovina",
+   "internal_fixture_id": "1539000",
+   "final_score": "1-1",
+   "recap_needed": true,
+   "recap_ready": false,
+   "priority": 2,
+   "operator_next_step": "generate recap (A4) before any recap package/send",
+   "reason": "match finished but no recap narrative bundled — 赛后复盘生成中"
+  },
+  {
+   "fixture": "United States vs Paraguay",
+   "internal_fixture_id": null,
+   "final_score": "4-1",
+   "recap_needed": true,
+   "recap_ready": false,
+   "priority": 2,
+   "operator_next_step": "generate recap (A4) before any recap package/send",
+   "reason": "match finished but no recap narrative bundled — 赛后复盘生成中"
+  },
+  {
+   "fixture": "South Korea vs Czechia",
+   "internal_fixture_id": null,
+   "final_score": "2-1",
+   "recap_needed": true,
+   "recap_ready": false,
+   "priority": 2,
+   "operator_next_step": "generate recap (A4) before any recap package/send",
+   "reason": "match finished but no recap narrative bundled — 赛后复盘生成中"
+  },
+  {
+   "fixture": "Mexico vs South Africa",
+   "internal_fixture_id": "1489369",
+   "final_score": "2-0",
+   "recap_needed": false,
+   "recap_ready": true,
+   "priority": 3,
+   "operator_next_step": "recap published",
+   "reason": "bundled real_recap narrative exists"
+  }
+ ]
+}

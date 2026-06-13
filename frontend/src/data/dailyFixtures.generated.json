@@ -1,0 +1,30 @@
+{
+  "generated_for_date": "2026-06-13",
+  "generated_at": "2026-06-13T04:09:50.331617+00:00",
+  "fixtures": [
+    {
+      "id": "1489369",
+      "home": "Mexico",
+      "away": "South Africa",
+      "kickoffUtc": "2026-06-11T19:00:00+00:00",
+      "status": "finished",
+      "lifecycle_state": "RECAP_READY",
+      "recapReady": true,
+      "heroCandidate": false,
+      "recapCandidate": false,
+      "nextCandidate": false
+    },
+    {
+      "id": "1489371",
+      "home": "Brazil",
+      "away": "Morocco",
+      "kickoffUtc": "2026-06-13T22:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "SCHEDULED",
+      "recapReady": false,
+      "heroCandidate": true,
+      "recapCandidate": false,
+      "nextCandidate": false
+    }
+  ]
+}
