@@ -125,6 +125,27 @@ Manual input file (no score invented; unconfirmed = `unknown`):
 ```
 (`mkdir -p logs` first. Cron only writes/checks files — there is no send code. No auto-send.)
 
+### 3d. P1.3c production cron — sync + UPLOAD to backend（live update, no frontend redeploy）
+
+> Owner 2026-06-13: a local cron that only writes files is no longer enough — it must also UPLOAD
+> the manifest to the backend so the LIVE homepage refreshes without a frontend rebuild.
+> `$ADMIN_API_TOKEN` must be set in the operator's cron environment (the real Render backend token).
+
+```cron
+# every 30 minutes on match days — sync the slate THEN upload it to the live backend:
+*/30 * * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_match_sync.py sync --date $(date -u +\%Y-\%m-\%d) && python3 scripts/mvp2_match_sync.py upload --target production >> logs/match_sync_upload.log 2>&1
+*/30 * * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py status-refresh >> logs/fixture_status_refresh.log 2>&1
+
+# daily registry-sourced package refresh (08:00 UTC):
+0 8 * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py refresh --lang zh --ref QG-TEST1 >> logs/growth_refresh_zh.log 2>&1
+5 8 * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py refresh --lang vi --ref TT-VN88 >> logs/growth_refresh_vi.log 2>&1
+10 8 * * * cd /path/to/worldcup2026 && python3 scripts/mvp2_growth_cli.py refresh --lang my --ref FO-MM21 >> logs/growth_refresh_my.log 2>&1
+```
+Hard limits — cron MAY update + upload the daily-fixtures manifest; cron **MUST NOT** send messages,
+post to groups, or approve contributions. The `upload` is an admin manifest POST to OUR backend
+(token from `$ADMIN_API_TOKEN`), never a customer send. After this cron runs, the live homepage
+reflects the new slate on next page load with NO frontend redeploy (backend tier → `实时`).
+
 ## 4. Future options (documented only — DO NOT implement without explicit Owner GO)
 - Render Cron Job running the same CLI against the repo (needs key custody decision).
 - GitHub Actions scheduled workflow (off-main scheduling caveats per Track A design §1).
