@@ -33,6 +33,9 @@ GLOBS = [
     "frontend/src/components/ShareBlock.tsx",
     "frontend/src/pages/ShareCardPage.tsx",
     "scripts/mvp2_growth_cli.py",
+    # Growth P1.2 status refresh gate
+    "scripts/mvp2_fixture_lifecycle.py",
+    "scripts/check_fixture_freshness.py",
 ]
 
 BETTING = ["博彩", "赔率", "盘口", "下注", "投注", "庄家", "让球", "大小球", "跟单", "竞猜", "串关",

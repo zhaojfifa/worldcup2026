@@ -15,10 +15,16 @@ Set DATABASE_URL to target a DB (defaults to backend/.env via app.config).
   package       today|recap|next [--fixture ID] [--lang zh|vi|my] [--ref CODE]
                 # assembles a share package from BUNDLED guard-passed LLM narratives
                 # (judgement lines verbatim; Owner framing; link carries the ref)
+  status-refresh [--no-api] [--fixture ID ...]
+                # P1.2: canonical fixture lifecycle (SCHEDULED..ARCHIVED) ->
+                # docs/data_audit/mvp2_daily_refresh/fixture_lifecycle_*.json
+                # package/refresh consult the SAME gate: a live/finished match can
+                # never be emitted as an active pre-match package (freshness first).
 
 NOTHING here sends anything; MTC stays 平台积分（不可提现/不可转让/不可交易）.
 """
 import argparse
+import importlib.util
 import json
 import re
 import pathlib
@@ -46,6 +52,42 @@ def _narr(fid, lang):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
+# ── P1.2 lifecycle gate (single source of truth: scripts/mvp2_fixture_lifecycle.py) ──
+_LC_MOD = None
+_LC_CACHE = {}
+
+
+def _lc_mod():
+    global _LC_MOD
+    if _LC_MOD is None:
+        spec = importlib.util.spec_from_file_location(
+            "mvp2_fixture_lifecycle", ROOT / "scripts" / "mvp2_fixture_lifecycle.py")
+        _LC_MOD = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_LC_MOD)
+    return _LC_MOD
+
+
+def _lifecycle(fid, use_api=True):
+    """Evaluate (and per-process cache) the canonical lifecycle entry for a fixture."""
+    key = str(fid)
+    if key not in _LC_CACHE:
+        _LC_CACHE[key] = _lc_mod().evaluate_fixture(key, use_api=use_api)
+    return _LC_CACHE[key]
+
+
+def _lifecycle_gate(kind, fid):
+    """Raises ValueError when the lifecycle refuses this package kind; returns the entry."""
+    ent = _lifecycle(fid)
+    state = ent["new_state"]
+    if kind in ("today", "next") and not ent["today_package_allowed"]:
+        raise ValueError("LIFECYCLE_GATE %s refused: %s state=%s — %s"
+                         % (kind, fid, state, ent["reason"]))
+    if kind == "recap" and not ent["recap_package_allowed"]:
+        raise ValueError("LIFECYCLE_GATE recap refused: %s state=%s — %s"
+                         % (fid, state, ent["reason"]))
+    return ent
+
+
 def _link(path, lang, ref):
     return "%s%s%sref=%s" % (SITE, path, "&" if "?" in path else "?", ref or DEFAULT_REF[lang])
 
@@ -67,6 +109,7 @@ def _split_band(scoreline_view):
 
 
 def build_package(kind, fid, lang, ref):
+    lc = _lifecycle_gate(kind, fid)  # P1.2: freshness gate FIRST (raises on refusal)
     n = _narr(fid, lang)
     if not n:
         raise ValueError("no bundled narrative for %s %s" % (fid, lang))
@@ -126,7 +169,8 @@ def build_package(kind, fid, lang, ref):
                 "primary_scoreline": primary, "alternative_scorelines": alts,
                 "scoreline_band": n["scoreline_view"],
                 "risk_label": _harmonized_risk(n["main_lean"], n["risk_level"]) if lang == "zh" else n["risk_level"],
-                "top_variable": top_var, "share_link": link}
+                "top_variable": top_var, "share_link": link,
+                "lifecycle_state": lc["new_state"], "lifecycle_gate": "allowed"}
     else:  # recap — structure: result → what was right → what changed → learn → next hook
         if n.get("mode") != "real_recap":
             raise ValueError("%s has no real recap narrative" % fid)
@@ -154,7 +198,8 @@ def build_package(kind, fid, lang, ref):
                             n["short_title"], n["screenshot_line"])}[lang]
         meta = {"fixture_id": fid, "recap_line": n["screenshot_line"], "what_was_right": right,
                 "what_changed_score": changed, "next_fixture_hook": "1489371 Brazil vs Morocco T-30",
-                "share_link": link}
+                "share_link": link,
+                "lifecycle_state": lc["new_state"], "lifecycle_gate": "allowed"}
     return {"kind": kind, "lang": lang, "ref": ref or DEFAULT_REF[lang],
             "copy_text": "\n".join(lines), "video_script_30s": video_script, "meta": meta}
 
@@ -185,6 +230,22 @@ def _share_card_url(kind, fid, lang, ref):
     return "%s%s?ref=%s&lang=%s" % (SITE, path, ref or DEFAULT_REF[lang], lang)
 
 
+def _write_refused_stub(kind, fid, lang, reason, stamp):
+    """P1.2: a lifecycle refusal must also neutralize previously generated package
+    files for the same (kind, fixture, lang) so stale pre-match copy cannot be pasted."""
+    stub = "\n".join([
+        "# Growth package · %s · %s · %s — REFUSED (lifecycle gate)" % (kind, fid, lang),
+        "",
+        "- status: REFUSED — DO NOT SEND",
+        "- reason: %s" % reason,
+        "- generated_at: %s" % stamp,
+        "- operator_next_step: 该场已不在赛前状态，禁止使用本包；等待赛后复盘包（package recap）。",
+        "",
+    ]) + "\n"
+    for f in PKG_DIR.glob("%s_%s_%s_*.md" % (kind, fid, lang)):
+        f.write_text(stub, encoding="utf-8")
+
+
 def cmd_refresh(lang, ref, stamp):
     ref = (ref or DEFAULT_REF[lang]).upper()
     PKG_DIR.mkdir(parents=True, exist_ok=True)
@@ -193,11 +254,18 @@ def cmd_refresh(lang, ref, stamp):
         fid = DEFAULT_FIXTURE[kind]
         entry = {"fixture_id": fid}
         try:
+            lc = _lifecycle(fid)
+            entry["lifecycle_state"] = lc["new_state"]
+        except Exception:
+            lc = None
+        try:
             doc = build_package(kind, fid, lang, ref)
         except ValueError as e:
             reason = str(e)
             entry["status"] = "needs_fixture" if "no bundled narrative" in reason else "refused"
             entry["reason"] = reason
+            if entry["status"] == "refused" and reason.startswith("LIFECYCLE_GATE") and kind in ("today", "next"):
+                _write_refused_stub(kind, fid, lang, reason, stamp)
             summary["packages"][kind] = entry
             print("%-6s %-12s %s (%s)" % (kind, entry["status"], fid, reason))
             continue
@@ -206,7 +274,9 @@ def cmd_refresh(lang, ref, stamp):
             summary["packages"][kind] = entry
             print("%-6s unavailable  %s" % (kind, fid))
             continue
-        status_lines = ["package_status: available"]
+        status_lines = ["package_status: available",
+                        "lifecycle_state: %s" % doc["meta"].get("lifecycle_state"),
+                        "lifecycle_gate: allowed"]
         if kind == "recap":
             ap = _recap_approval_status(fid, lang)
             entry["approval_status"] = ap
@@ -242,9 +312,13 @@ def cmd_refresh(lang, ref, stamp):
         ] if doc.get("video_script_30s") else [])) + "\n"
         (PKG_DIR / fname).write_text(body, encoding="utf-8")
         entry.update(status="available", file=str((PKG_DIR / fname).relative_to(ROOT)),
-                     share_link=doc["meta"]["share_link"], share_card_url=card_url)
+                     share_link=doc["meta"]["share_link"], share_card_url=card_url,
+                     lifecycle_state=doc["meta"].get("lifecycle_state"), lifecycle_gate="allowed")
         summary["packages"][kind] = entry
         print("%-6s available    %s -> %s" % (kind, fid, fname))
+    if summary["packages"].get("today", {}).get("status") != "available":
+        summary["today_gate"] = "NO_VALID_TODAY_FIXTURE"
+        print("NO_VALID_TODAY_FIXTURE")
     sp = PKG_DIR / ("refresh_summary_%s.json" % stamp)
     sp.write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print("summary -> %s" % sp.relative_to(ROOT))
@@ -279,7 +353,14 @@ def main():
     rf = sub.add_parser("refresh")
     rf.add_argument("--lang", default="zh", choices=["zh", "vi", "my"])
     rf.add_argument("--ref", default=None)
+    srf = sub.add_parser("status-refresh")
+    srf.add_argument("--fixture", action="append", default=None)
+    srf.add_argument("--no-api", action="store_true")
     a = ap.parse_args()
+
+    if a.cmd == "status-refresh":
+        _lc_mod().run_status_refresh(fids=a.fixture, use_api=not a.no_api)
+        return
 
     if a.cmd == "refresh":
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M")

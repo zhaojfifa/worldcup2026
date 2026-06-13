@@ -1,0 +1,60 @@
+{
+ "generated_at": "2026-06-13T01:31:24.158994+00:00",
+ "job": "status_refresh",
+ "status_sources_used": [
+  "api_football"
+ ],
+ "fixtures": [
+  {
+   "fixture_id": "1489369",
+   "teams": "Mexico vs South Africa",
+   "kickoff_time_utc": "2026-06-11T19:00:00+00:00",
+   "current_time_utc": "2026-06-13T01:31:24.158994+00:00",
+   "previous_state": null,
+   "new_state": "RECAP_READY",
+   "status_source": "api_football",
+   "api_status_short": "FT",
+   "score_if_finished": "2-0",
+   "pre_match_allowed": false,
+   "today_package_allowed": false,
+   "recap_needed": false,
+   "recap_ready": true,
+   "recap_package_allowed": true,
+   "reason": "bundled real_recap narrative exists"
+  },
+  {
+   "fixture_id": "1489371",
+   "teams": "Brazil vs Morocco",
+   "kickoff_time_utc": "2026-06-13T22:00:00+00:00",
+   "current_time_utc": "2026-06-13T01:31:24.158994+00:00",
+   "previous_state": null,
+   "new_state": "SCHEDULED",
+   "status_source": "api_football",
+   "api_status_short": "NS",
+   "score_if_finished": null,
+   "pre_match_allowed": true,
+   "today_package_allowed": true,
+   "recap_needed": false,
+   "recap_ready": false,
+   "recap_package_allowed": false,
+   "reason": "T-1229min to kickoff"
+  },
+  {
+   "fixture_id": "1539000",
+   "teams": "Canada vs Bosnia & Herzegovina",
+   "kickoff_time_utc": "2026-06-12T19:00:00+00:00",
+   "current_time_utc": "2026-06-13T01:31:24.158994+00:00",
+   "previous_state": null,
+   "new_state": "RECAP_PENDING",
+   "status_source": "api_football",
+   "api_status_short": "FT",
+   "score_if_finished": "1-1",
+   "pre_match_allowed": false,
+   "today_package_allowed": false,
+   "recap_needed": true,
+   "recap_ready": false,
+   "recap_package_allowed": true,
+   "reason": "match finished but no recap narrative bundled — 赛后复盘生成中"
+  }
+ ]
+}
