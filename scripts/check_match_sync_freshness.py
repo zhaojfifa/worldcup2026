@@ -19,12 +19,14 @@ import json
 import pathlib
 import re
 import sys
+from datetime import datetime, timezone
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SYNC_DIR = ROOT / "docs" / "data_audit" / "mvp2_match_sync"
 PKG_DIR = ROOT / "docs" / "data_audit" / "mvp2_growth_packages"
 HOME = ROOT / "frontend" / "src" / "pages" / "HomePage.tsx"
 MANIFEST = ROOT / "frontend" / "src" / "data" / "dailyFixtures.generated.json"
+RUNTIME_MANIFEST = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"   # P1.3b runtime source
 FINISHED_CLASS = {"FINISHED", "RECAP_PENDING", "RECAP_READY", "ARCHIVED"}
 
 
@@ -43,6 +45,7 @@ def _latest(glob):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--date", default=None)
+    ap.add_argument("--max-age-hours", type=float, default=36.0, help="P1.3b: FAIL if runtime manifest older")
     a = ap.parse_args()
     fails, warns = [], []
 
@@ -105,12 +108,45 @@ def main():
                 fails.append("score conflict %s vs %s: registry %s-%s vs manual %s-%s" % (
                     r["home"], r["away"], rf["score_home"], rf["score_away"], r["score_home"], r["score_away"]))
 
-    # 6. frontend active fixture must be registry-sourced, not hardcoded
+    # 6. frontend active fixture must be RUNTIME-sourced, not hardcoded / build-time-only
     home_src = HOME.read_text(encoding="utf-8") if HOME.exists() else ""
-    if "activeFixtureEntries" not in home_src:
-        fails.append("HomePage does not source the hero from the registry manifest (activeFixtureEntries missing)")
+    if "fetchDailyManifest" not in home_src:
+        fails.append("HomePage does not FETCH the runtime daily manifest (P1.3b: build-time-only is insufficient)")
     if re.search(r'TrialHeroCard[^>]*fixtureId="\d+"', home_src):
         fails.append("HomePage hardcodes a hero fixtureId literal — must use registry selection")
+
+    # 7. P1.3b runtime manifest checks (Owner §scanner)
+    if not RUNTIME_MANIFEST.exists():
+        fails.append("runtime manifest %s missing — run match-sync (P1.3b live source absent)" % RUNTIME_MANIFEST.name)
+    else:
+        rt = json.loads(RUNTIME_MANIFEST.read_text(encoding="utf-8"))
+        rt_fx = rt.get("fixtures", [])
+        rt_teams = {(f.get("home"), f.get("away")) for f in rt_fx}
+        # completed known matches (manual finished) must be present in the runtime manifest
+        sync2 = _load_sync()
+        try:
+            for r in sync2.parse_manual(reg["date"].replace("-", "")):
+                if r["status"] == "finished" and (r["home"], r["away"]) not in rt_teams:
+                    fails.append("completed %s vs %s absent from RUNTIME manifest" % (r["home"], r["away"]))
+        except SystemExit:
+            pass
+        # completed fixture must not be a today/hero candidate in the runtime manifest
+        for f in rt_fx:
+            if f.get("lifecycle_state") in FINISHED_CLASS and (f.get("heroCandidate") or f.get("nextCandidate")):
+                fails.append("runtime manifest marks finished %s vs %s as hero/next candidate" % (f.get("home"), f.get("away")))
+        # staleness
+        ga = rt.get("generated_at")
+        if ga:
+            try:
+                gat = datetime.fromisoformat(ga)
+                if gat.tzinfo is None:
+                    gat = gat.replace(tzinfo=timezone.utc)
+                age_h = (datetime.now(timezone.utc) - gat).total_seconds() / 3600
+                print("runtime manifest age %.1fh (threshold %.0fh) · source_mode=%s" % (age_h, a.max_age_hours, rt.get("source_mode")))
+                if age_h > a.max_age_hours:
+                    fails.append("runtime manifest stale: %.1fh > %.0fh threshold — re-run match-sync" % (age_h, a.max_age_hours))
+            except Exception:
+                warns.append("runtime manifest generated_at unparseable: %r" % ga)
 
     for w in warns:
         print("WARN  %s" % w)

@@ -34,7 +34,8 @@ from datetime import datetime, timezone
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SYNC_DIR = ROOT / "docs" / "data_audit" / "mvp2_match_sync"
 FE_NARR = ROOT / "frontend" / "src" / "data" / "productNarratives"
-FE_MANIFEST = ROOT / "frontend" / "src" / "data" / "dailyFixtures.generated.json"
+FE_MANIFEST = ROOT / "frontend" / "src" / "data" / "dailyFixtures.generated.json"   # P1.3 build-time fallback
+FE_RUNTIME = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"          # P1.3b runtime source (fetched)
 
 _LC = None
 
@@ -226,23 +227,36 @@ def build_recap_queue(fixtures, date_iso):
     return {"date": date_iso, "generated_at": None, "items": items}
 
 
-def write_frontend_manifest(fixtures, date_iso, stamp):
-    """Frontend-safe active manifest (Owner §5): the homepage hero source. Only renderable
-    fixtures (those with a bundled narrative) — a registry fixture with no narrative cannot
-    back a customer surface and must not become the hero."""
+def write_frontend_manifest(fixtures, date_iso, stamp, source_mode):
+    """Frontend daily-fixtures manifest (Owner §5 / P1.3b §runtime). The FULL slate is exposed
+    so the runtime frontend KNOWS about completed matches (recap_needed/pending/ready), but only
+    `renderable` fixtures (those with a bundled narrative) are hero-eligible. Written to BOTH:
+      - frontend/src/data/dailyFixtures.generated.json  (build-time fallback import)
+      - frontend/public/data/daily-fixtures.json        (P1.3b runtime fetch source)
+    """
     rows = [{
         "id": f["internal_fixture_id"],
+        "external_game_id": f["external_game_id"],
         "home": f["home_team"], "away": f["away_team"],
         "kickoffUtc": f["kickoff_time_utc"],
         "status": f["status"],
         "lifecycle_state": f["lifecycle_state"],
+        "preMatchAllowed": f["pre_match_allowed"],
         "recapReady": f["recap_ready"],
+        "recapNeeded": f["recap_needed"],
+        "renderable": f["narrative_renderable"],
         "heroCandidate": f["hero_candidate"],
         "recapCandidate": f["recap_candidate"],
         "nextCandidate": f["next_candidate"],
-    } for f in fixtures if f["narrative_renderable"]]
-    doc = {"generated_for_date": date_iso, "generated_at": stamp, "fixtures": rows}
-    FE_MANIFEST.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        "scoreHome": f["score_home"],
+        "scoreAway": f["score_away"],
+    } for f in fixtures]
+    doc = {"generated_for_date": date_iso, "generated_at": stamp,
+           "source_mode": source_mode, "fixture_count": len(rows), "fixtures": rows}
+    body = json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
+    FE_MANIFEST.write_text(body, encoding="utf-8")
+    FE_RUNTIME.parent.mkdir(parents=True, exist_ok=True)
+    FE_RUNTIME.write_text(body, encoding="utf-8")
     return doc
 
 
@@ -270,7 +284,7 @@ def cmd_sync(date_iso, source, now=None, stamp=None):
     rqp = SYNC_DIR / ("recap_queue_%s.json" % compact)
     rqp.write_text(json.dumps(rq, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
-    man = write_frontend_manifest(fixtures, date_iso, stamp)
+    man = write_frontend_manifest(fixtures, date_iso, stamp, source)
 
     for f in fixtures:
         tag = "HERO" if f["hero_candidate"] else "next" if f["next_candidate"] else \
@@ -279,9 +293,11 @@ def cmd_sync(date_iso, source, now=None, stamp=None):
         print("%-26s %-13s pre=%-5s recap_need=%-5s%s  %s" % (
             "%s vs %s" % (f["home_team"], f["away_team"]), f["lifecycle_state"],
             f["pre_match_allowed"], f["recap_needed"], sc, tag))
+    renderable = sum(1 for r in man["fixtures"] if r["renderable"])
     print("registry -> %s" % out.relative_to(ROOT))
     print("recap_queue -> %s (%d item(s))" % (rqp.relative_to(ROOT), len(rq["items"])))
-    print("frontend manifest -> %s (%d renderable)" % (FE_MANIFEST.relative_to(ROOT), len(man["fixtures"])))
+    print("fallback manifest -> %s (%d fixtures, %d renderable)" % (FE_MANIFEST.relative_to(ROOT), len(man["fixtures"]), renderable))
+    print("runtime manifest -> %s" % FE_RUNTIME.relative_to(ROOT))
     return doc
 
 

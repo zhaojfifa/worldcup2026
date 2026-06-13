@@ -1606,3 +1606,7 @@ body {
 .status-card.sc-frozen { background: #FFF6E2; border: 1px solid #F0D58A; }
 .status-card.sc-frozen .st { color: #8A6D1B; }
 .share-card.shc-frozen { background: linear-gradient(170deg, #3A3526, #2A2410); }
+
+/* ── P1.3b runtime daily-fixtures freshness indicator ───────────────────── */
+.daily-sync-line { font-size: 11px; color: var(--sub); opacity: .8; margin: 2px 2px 8px;
+  display: flex; align-items: center; gap: 4px; }

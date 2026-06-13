@@ -13,7 +13,7 @@ import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
 import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection, RescoreHookCard, RecapAnchorCard } from '../components/UpcomingTacticalStrip';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { pickActiveFixture } from '../lib/freshness';
-import { activeFixtureEntries } from '../data/dailyFixtures';
+import { fetchDailyManifest, heroEntries, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -54,6 +54,14 @@ export function HomePage() {
   } = useAppStore();
 
   const [heat, setHeat] = useState<ApiCommunityHeat | null>(null);
+  // P1.3b: daily fixtures read at RUNTIME (fetch), bundled data only as fallback.
+  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'fallback' });
+
+  useEffect(() => {
+    let alive = true;
+    fetchDailyManifest().then(r => { if (alive) setDaily(r); });
+    return () => { alive = false; };
+  }, []);
 
   useEffect(() => { loadMatches(); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -171,13 +179,15 @@ export function HomePage() {
         </div>
       )}
 
-      {/* ── ACTIVE 2026 LOOP (Owner §6 · P1.2b runtime freshness · P1.3 registry-sourced) ──
-           Hero is SELECTED at runtime from the daily fixture registry manifest (no permanent
+      {/* ── ACTIVE 2026 LOOP (Owner §6 · P1.2b freshness · P1.3 registry · P1.3b RUNTIME) ──
+           Hero is SELECTED from the daily fixture registry fetched at RUNTIME (no permanent
            hardcoded fixture): live → earliest pre-match → latest recap-ready → recap-pending →
            empty. recapReady is recomputed LIVE from the bundled narrative, never trusted stale.
            A finished/live fixture can never be pinned as today's pre-match prediction. */}
       {(() => {
-        const entries = activeFixtureEntries();
+        const entries = heroEntries(daily.manifest);
+        const age = manifestAgeMinutes(daily.manifest);
+        const stale = age != null && age > 24 * 60; // >24h since last sync = stale slate
         const active = pickActiveFixture(entries.map(e => ({
           id: e.id, kickoffUtc: e.kickoffUtc,
           recapReady: getProductNarrative(e.id, loc)?.mode === 'real_recap',
@@ -196,8 +206,19 @@ export function HomePage() {
             </div>
           );
         }
+        const syncLbl = daily.manifest.generated_at
+          ? new Date(daily.manifest.generated_at).toLocaleString(
+              loc === 'zh' ? 'zh-CN' : loc === 'vi' ? 'vi-VN' : 'en-GB',
+              { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+          : '—';
+        const srcWord = daily.source === 'runtime'
+          ? (loc === 'zh' ? '实时' : loc === 'vi' ? 'thời gian thực' : loc === 'my' ? 'runtime' : 'live')
+          : (loc === 'zh' ? '内置' : loc === 'vi' ? 'tích hợp' : loc === 'my' ? 'bundled' : 'bundled');
+        const updatedW = loc === 'zh' ? '赛程更新' : loc === 'vi' ? 'Cập nhật lịch' : loc === 'my' ? 'ပွဲစဉ် update' : 'Fixtures updated';
+        const staleW = loc === 'zh' ? '· 数据较旧，请运营刷新' : loc === 'vi' ? '· dữ liệu cũ, vui lòng đồng bộ' : loc === 'my' ? '· data ဟောင်း၊ sync ပါ' : '· stale, please re-sync';
         return (
           <>
+            <div className="daily-sync-line">⟳ {updatedW} {syncLbl} · {srcWord}{stale ? ` ${staleW}` : ''}</div>
             {active.heroId && <TrialHeroCard loc={loc} fixtureId={active.heroId} />}
             <UpcomingTacticalStrip loc={loc} excludeId={active.heroId ?? undefined} />
             <HotTopicsSection loc={loc} />
