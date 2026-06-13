@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import health, matches, tokens, data_source, admin, performance, assets, social, rankings, llm, internal_scout_pack, recap, growth
+from app.routers import health, matches, tokens, data_source, admin, performance, assets, social, rankings, llm, internal_scout_pack, recap, growth, daily_fixtures
 
 settings = get_settings()
 
@@ -47,6 +47,7 @@ app.include_router(llm.router)  # admin-only, draft-only LLM copy generation
 app.include_router(internal_scout_pack.router)  # internal operator preview (not public nav)
 app.include_router(recap.router)  # customer recap content for the historical-recap product flow
 app.include_router(growth.router)  # Growth P1: ambassador click/join-intent (public, rate-limited) + admin review
+app.include_router(daily_fixtures.router)  # P1.3c: runtime daily fixtures source (public read + admin upload)
 
 
 @app.on_event("startup")

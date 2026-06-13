@@ -358,16 +358,50 @@ def selftest():
     return 0 if ok == len(checks) else 1
 
 
+BACKENDS = {"production": "https://worldcup2026-api-71n6.onrender.com",
+            "local": "http://localhost:8000"}
+
+
+def cmd_upload(date_iso, target, url_override):
+    """P1.3c: POST the daily registry to the backend admin endpoint so the LIVE site updates
+    without a frontend rebuild. OPERATOR-triggered only; token from $ADMIN_API_TOKEN (never
+    hardcoded/printed). This is an admin manifest upload to OUR backend — NOT a customer send."""
+    import os
+    import urllib.request
+    token = os.environ.get("ADMIN_API_TOKEN")
+    if not token:
+        raise SystemExit("ADMIN_API_TOKEN not set in env — required to upload (engineering holds no prod token)")
+    base = url_override or BACKENDS.get(target)
+    if not base:
+        raise SystemExit("unknown --target %r (use production|local or --url)" % target)
+    compact = date_iso.replace("-", "")
+    src = SYNC_DIR / ("daily_fixtures_%s.json" % compact)
+    if not src.exists():
+        raise SystemExit("registry not found: %s — run `sync --date %s` first" % (src.relative_to(ROOT), date_iso))
+    body = src.read_bytes()
+    req = urllib.request.Request(base + "/api/v1/admin/daily-fixtures/upload", data=body, method="POST",
+                                 headers={"Content-Type": "application/json", "x-admin-token": token})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        out = resp.read().decode("utf-8")
+    print("uploaded %s -> %s/api/v1/admin/daily-fixtures/upload" % (src.name, base))
+    print("response: %s" % out)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", nargs="?", default="sync", choices=["sync"])
+    ap.add_argument("cmd", nargs="?", default="sync", choices=["sync", "upload"])
     ap.add_argument("--date", default=None, help="YYYY-MM-DD (default: today UTC)")
     ap.add_argument("--source", default="manual", choices=["manual", "fetched"])
+    ap.add_argument("--target", default="production", help="upload target: production|local")
+    ap.add_argument("--url", default=None, help="override backend base url for upload")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     if a.selftest:
         sys.exit(selftest())
     date_iso = a.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if a.cmd == "upload":
+        cmd_upload(date_iso, a.target, a.url)
+        return
     cmd_sync(date_iso, a.source)
 
 

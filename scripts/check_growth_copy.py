@@ -39,6 +39,12 @@ GLOBS = [
     # Growth P1.3 match sync & daily fixture registry
     "scripts/mvp2_match_sync.py",
     "scripts/check_match_sync_freshness.py",
+    # Growth P1.3c runtime daily fixtures source
+    # (check_runtime_daily_fixtures.py is itself a scanner carrying detection word-lists —
+    #  excluded here like check_growth_copy.py excludes itself; it self-checks vocab instead)
+    "frontend/src/data/dailyFixtures.ts",
+    "backend/app/routers/daily_fixtures.py",
+    "backend/app/services/daily_fixtures_service.py",
 ]
 
 BETTING = ["博彩", "赔率", "盘口", "下注", "投注", "庄家", "让球", "大小球", "跟单", "竞猜", "串关",

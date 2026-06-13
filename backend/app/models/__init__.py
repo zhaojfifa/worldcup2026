@@ -28,3 +28,4 @@ __all__ = [
 from app.models.growth import (  # noqa: F401 — Growth P1 additive tables
     GrowthAmbassador, GrowthClick, GrowthJoinIntent, GrowthContribution, GrowthAuditLog,
 )
+from app.models.runtime_manifest import RuntimeManifest  # noqa: F401 — P1.3c additive table

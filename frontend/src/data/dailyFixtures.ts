@@ -33,23 +33,44 @@ export interface DailyManifest {
 }
 
 export const FALLBACK_MANIFEST = fallbackManifest as DailyManifest;
-const RUNTIME_URL = '/data/daily-fixtures.json';
+const STATIC_URL = '/data/daily-fixtures.json';
+// P1.3c: backend-hosted source updates WITHOUT a frontend rebuild. Uses the configured API base
+// (same as api/client.ts), defaulting to the known prod backend.
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '')
+  || 'https://worldcup2026-api-71n6.onrender.com';
+const BACKEND_URL = `${API_BASE}/api/v1/daily-fixtures`;
 
-export interface ManifestLoad { manifest: DailyManifest; source: 'runtime' | 'fallback' }
+export type ManifestSource = 'backend' | 'static' | 'bundled';
+export interface ManifestLoad { manifest: DailyManifest; source: ManifestSource }
 
-/** Fetch the runtime manifest; fall back to the bundled build-time data on ANY failure.
- *  Never throws — a missing/broken runtime file must not crash the homepage. */
-export async function fetchDailyManifest(): Promise<ManifestLoad> {
+function validManifest(m: unknown): m is DailyManifest {
+  return !!m && Array.isArray((m as DailyManifest).fixtures) && (m as DailyManifest).fixtures.length > 0;
+}
+
+async function tryFetch(url: string, timeoutMs: number): Promise<DailyManifest | null> {
   try {
-    const res = await fetch(RUNTIME_URL, { cache: 'no-store' });
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    const res = await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(timer);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const m = (await res.json()) as DailyManifest;
-    if (!m || !Array.isArray(m.fixtures) || m.fixtures.length === 0) throw new Error('empty manifest');
-    return { manifest: m, source: 'runtime' };
-  } catch (e) {
-    console.warn('[dailyFixtures] runtime fetch failed → bundled fallback:', e);
-    return { manifest: FALLBACK_MANIFEST, source: 'fallback' };
+    const m = await res.json();
+    return validManifest(m) ? (m as DailyManifest) : null;
+  } catch {
+    return null;
   }
+}
+
+/** P1.3c fetch priority: 1) backend (live, updatable without rebuild) → 2) static deployed file
+ *  → 3) bundled build-time data. NEVER throws; a broken source falls through, never crashes. */
+export async function fetchDailyManifest(): Promise<ManifestLoad> {
+  const backend = await tryFetch(BACKEND_URL, 3500);
+  if (backend) return { manifest: backend, source: 'backend' };
+  console.warn('[dailyFixtures] backend unavailable → trying static deployed file');
+  const stat = await tryFetch(STATIC_URL, 2500);
+  if (stat) return { manifest: stat, source: 'static' };
+  console.warn('[dailyFixtures] static file unavailable → bundled fallback');
+  return { manifest: FALLBACK_MANIFEST, source: 'bundled' };
 }
 
 /** Hero-eligible entries = fixtures with a bundled narrative (renderable) and an id.

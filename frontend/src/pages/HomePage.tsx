@@ -55,7 +55,7 @@ export function HomePage() {
 
   const [heat, setHeat] = useState<ApiCommunityHeat | null>(null);
   // P1.3b: daily fixtures read at RUNTIME (fetch), bundled data only as fallback.
-  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'fallback' });
+  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'bundled' });
 
   useEffect(() => {
     let alive = true;
@@ -211,9 +211,11 @@ export function HomePage() {
               loc === 'zh' ? 'zh-CN' : loc === 'vi' ? 'vi-VN' : 'en-GB',
               { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
           : '—';
-        const srcWord = daily.source === 'runtime'
+        const srcWord = daily.source === 'backend'
           ? (loc === 'zh' ? '实时' : loc === 'vi' ? 'thời gian thực' : loc === 'my' ? 'runtime' : 'live')
-          : (loc === 'zh' ? '内置' : loc === 'vi' ? 'tích hợp' : loc === 'my' ? 'bundled' : 'bundled');
+          : daily.source === 'static'
+            ? (loc === 'zh' ? '静态备份' : loc === 'vi' ? 'bản tĩnh' : loc === 'my' ? 'static' : 'static')
+            : (loc === 'zh' ? '内置' : loc === 'vi' ? 'tích hợp' : loc === 'my' ? 'bundled' : 'bundled');
         const updatedW = loc === 'zh' ? '赛程更新' : loc === 'vi' ? 'Cập nhật lịch' : loc === 'my' ? 'ပွဲစဉ် update' : 'Fixtures updated';
         const staleW = loc === 'zh' ? '· 数据较旧，请运营刷新' : loc === 'vi' ? '· dữ liệu cũ, vui lòng đồng bộ' : loc === 'my' ? '· data ဟောင်း၊ sync ပါ' : '· stale, please re-sync';
         return (
