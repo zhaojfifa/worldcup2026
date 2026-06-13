@@ -13,7 +13,28 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-12 (latest) — THREAD CLOSED · Track A P0 accepted · DEPLOY-VERIFICATION HANDOFF**
+**★ 2026-06-13 (latest) — MAIN PROMOTED through Growth P1.1c-fix · MATCH-DAY HANDOFF (1489371 TODAY)**
+```text
+The 06-12 thread ran 18 rounds past the block below: deploy gate CLEARED (SPA rewrite live, deep
+links 200), Track A A4 first real recap shipped (1489369 Mexico 2-0 South Africa), Evidence
+Expansion accepted, MAIN PROMOTED repeatedly (backup tags main-backup-pre-*-20260612; PR #3 =
+MERGED-closed, accepted), Growth P0 design → P1 Ambassador (情报官) runtime (guard-first, 5
+additive tables, /join, /internal/growth dashboard, MTC manual-review credit) → P1.1 share layer
+(/share routes, ShareBlock, QR) → P1.1b package-refresh CLI → P1.1c strong-result-first copy +
+canonical strong-call projection (frontend/src/growth/strongCallProjection.ts) ALL accepted onto main.
+State: working branch = MAIN @ 89235b0 (code head 0a73ee6) · backend Growth P1 LIVE · frontend
+live = d97894a build (index-Dc5TM6Ba.js) — 0a73ee6 canonical projection NOT live yet (Owner held
+first send over predict/share semantic drift; 0a73ee6 is the fix) · operation paused · small
+private trial only · sends manual + Owner GO per fixture · engineering holds no prod token.
+NEXT THREAD (no new features): operator deploys main frontend → verify sc-primary-score marker +
+live scan 21/21 → live 4-surface strong-call consistency check → operator creates codes
+QG-TEST1/TT-VN88/FO-MM21 + growth smoke → FIRST zh send (today_1489371_zh_QG-TEST1.md, manual)
+→ 1489371 Brazil–Morocco MATCH DAY 06-13: T-90 watch 20:30 UTC · KO 22:00 UTC · A3 rescore
+(guard+queue approve) · A4 recap ~00:45 UTC 06-14 per docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md.
+Full handoff: docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md ★★★ section.
+```
+
+**★ 2026-06-12 — THREAD CLOSED · Track A P0 accepted · DEPLOY-VERIFICATION HANDOFF (superseded by ★ above)**
 ```text
 Closure round (docs-only, zero runtime change). Owner verdict: Track A P0 = PASS WITH CONDITIONS.
 State: branch @ b458fd5 · PR #3 OPEN+Draft · main untouched · operation paused · small private

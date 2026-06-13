@@ -1,8 +1,82 @@
 # MVP-2 Next Engineering Thread Handoff
 
-_Read `CLAUDE.md` first, then this. Date: 2026-06-12. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
+_Read `CLAUDE.md` first, then this. Date: 2026-06-13. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
-## ★★ Current handoff state — Track A P0 accepted · deploy-verification handoff（THREAD CLOSED 2026-06-12）
+## ★★★ Current handoff state — main promoted through Growth P1.1c-fix · MATCH DAY 1489371（2026-06-13）
+
+**This supersedes the ★★ section below.** The 2026-06-12 thread ran 18 rounds past that handoff:
+deploy gate cleared, main promoted (PR #3 MERGED), Growth P0→P1→P1.1→P1.1b→P1.1c all accepted and
+promoted. The next thread starts from **one pending frontend deploy + first zh send + the 1489371
+match-day runsheet (TODAY)** — not from new features.
+
+```text
+Frozen state (A) — as of 2026-06-12 ~15:35 UTC (round 18):
+  Working branch = MAIN @ 89235b0 (docs evidence head; code head 0a73ee6 = Growth P1.1c-fix
+  canonical strong-call projection). PR #3 = MERGED-closed (accepted side effect of main
+  fast-forward; backup tags main-backup-pre-*-20260612 series exist; never force-push).
+  feature/mvp2-api-football-ingestion fully landed. Public operation still paused · small private
+  trial only · sends manual + Owner GO per fixture · no payment/token · no betting/odds/handicap/
+  casino wording · engineering holds NO prod ADMIN_API_TOKEN (by design).
+
+What is LIVE (B) — last verified 2026-06-12:
+  - SPA rewrite configured: all deep links 200.
+  - Backend: Growth P1 live (5 growth tables, /growth/* endpoints, admin 401 wall verified).
+  - Frontend: live bundle index-Dc5TM6Ba.js = d97894a build (P1.1c risk-label fix live; share
+    layer + /join + /share routes live; live scan 21/21 at that build).
+  - NOT live yet: 0a73ee6 canonical projection (markers to verify after deploy:
+    `sc-primary-score` / `比分为什么偏离`). Owner round-17 HELD the first send over
+    predict/share semantic drift; 0a73ee6 is the fix and main carries it.
+
+Trial/send state (C):
+  - Growth packages regenerated on main: 9/9, summary 1534Z, under
+    docs/data_audit/mvp2_growth_packages/ (first zh send material =
+    today_1489371_zh_QG-TEST1.md, regenerate after any copy change).
+  - First send sequence (Owner GO framework already given in P1.1b round-14 verdict §5, but
+    BLOCKED until): operator deploys main frontend → live 4-surface strong-call consistency
+    check PASS (home hero / predict StrongCallCard / share card / package copy must show the
+    SAME 主比分/备选/中高 risk label) → operator creates codes QG-TEST1/TT-VN88/FO-MM21 via
+    /internal/growth with real ADMIN_API_TOKEN → growth smoke drill → first zh send
+    (zh today-package → zh_internal_group, MANUAL).
+
+Match day (D) — 1489371 Brazil–Morocco, TODAY 2026-06-13:
+  T-2h check 20:00 UTC · T-90 lineup watch 20:30 UTC · kickoff 22:00 UTC · A4 recap from
+  ~00:45 UTC 06-14. Procedure: docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md. Latest watch probe
+  r20260612T1535Z-watch: fixture NS, lineups 0/0 (T-1825min). A3 group_update_message usable
+  ONLY after guard_passed + queue approve; A4 must cite archived prematch artifact
+  path+sha256+timestamp (guard enforces). No send after kickoff.
+```
+
+**Next Engineer Start Command（copy-paste）**
+
+> Working branch is main (~89235b0, code head 0a73ee6). PR #3 is merged; do not look for the old
+> feature branch. Do not start new features. First: confirm whether the operator has deployed
+> main (0a73ee6+) to worldcup2026-izid — check the live bundle for the `sc-primary-score` marker
+> and run `python3 scripts/check_customer_visible_copy.py https://worldcup2026-izid.onrender.com`
+> (21/21 required). Then run the live 4-surface strong-call consistency check (home hero /
+> /predict/1489371 strong card / /share/fixture/1489371 / growth package copy). Only after that
+> passes: operator code creation + growth smoke + first zh send. Today is 1489371 match day —
+> follow docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md (T-90 20:30 UTC, kickoff 22:00 UTC, A4 ~00:45
+> UTC 06-14) and report in the 12-section evidence format.
+
+**Next execution checklist**
+1. Verify `git status` clean on main; HEAD ≥ 89235b0; `main-backup-pre-p11cfix-20260612` tag exists.
+2. Operator: frontend manual deploy of main (frontend-only; backend already live).
+3. Verify live bundle ≠ index-Dc5TM6Ba.js and contains `sc-primary-score` / `比分为什么偏离`; deep links 200.
+4. Live visible scan 21/21 (`scripts/check_customer_visible_copy.py`) + growth copy guard surfaces.
+5. Live 4-surface strong-call consistency check (same 主比分/备选/harmonized 中高 everywhere); retake live screenshots.
+6. Operator: create QG-TEST1/TT-VN88/FO-MM21 (real ADMIN_API_TOKEN; placeholder tokens 401 by design) + growth smoke drill.
+7. First zh send: `today_1489371_zh_QG-TEST1.md` content, manual, before kickoff only, record time/group/screenshot.
+8. 1489371 runsheet: T-90 watch (`scripts/mvp2_ops.py watch`) → A3 rescore (guard → queue approve → manual send) → kickoff stop → A4 recap FT+45 (provenance enforced) → recap package refresh (`mvp2_growth_cli.py refresh`).
+9. Evidence report per the 12-section format (section G below still applies).
+
+**Standing lessons (carry forward)**
+- Check the current branch BEFORE committing after promotion rounds (round-17 slip).
+- Live scan vs local scan diverge wherever the frontend renders backend-fetched strings (mock mode hides backend copy).
+- DeepSeek does not converge on guard retries alone — banned n-grams must be in the PROMPT.
+- `.py` docstrings are NOT stripped by the comment-stripper guards.
+- Quota ledger under-counts subprocess API calls (open P1).
+
+## ★★ Prior handoff state — Track A P0 accepted · deploy-verification handoff（closed 2026-06-12, superseded by ★★★ above）
 
 **Owner verdict: Track A P0 = PASS WITH CONDITIONS.** Engineering baseline accepted; the small
 private trial CANNOT proceed until the trial frontend is manually deployed at `b458fd5`+ and the

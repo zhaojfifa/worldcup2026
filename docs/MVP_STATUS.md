@@ -1,12 +1,45 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-12 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
+_Last updated: 2026-06-13 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-12, latest) — Track A P0 ACCEPTED · deploy-verification handoff
+## ★ MVP-2 status (2026-06-13, latest) — main promoted through Growth P1.1c-fix · 1489371 match day
+
+```text
+Working branch = MAIN @ 89235b0 (code head 0a73ee6) · PR #3 MERGED-closed (accepted; backup tags
+main-backup-pre-*-20260612) · public operation paused · small private trial only · sends manual
++ Owner GO per fixture · engineering holds no prod ADMIN_API_TOKEN.
+Landed on main since the 06-12 block below (18 rounds): deploy gate CLEARED (SPA rewrite live,
+deep links 200) · Track A A4 first real recap (1489369 Mexico 2-0 South Africa; real_recap guard:
+provenance + scoreline-overclaim + phantom-event/foresight bans) · Evidence Expansion accepted
+(event-impact facts script, external expectation signals design + first real 1489371 signals) ·
+Product Closure P1 (home active-2026 loop, StrongCallCard, WC2022 demoted) · Growth P0 design →
+P1 Ambassador runtime (guard-first; 5 additive tables; /join zh/vi/my; ?ref= first-touch;
+/internal/growth token-walled dashboard; join=10/share=2 pts, caps 100d/1000m, approve→wallet
+credit; scanner 21 surfaces) → P1.1 share layer (ShareBlock ×4, /share/fixture|recap/:id cards
+w/ QR, shareTemplates zh/vi/my, CLI package) → P1.1b refresh CLI (9 packages →
+docs/data_audit/mvp2_growth_packages/, cron doc) → P1.1c strong-result-first copy (主比分/备选
+split, video_script_30s, harmonizedRisk 中高) + 0a73ee6 canonical strong-call projection
+(strongCallProjection.ts — one source for predict/share/home/copy/CLI).
+LIVE: backend Growth P1 live (tables+endpoints, admin 401 verified) · frontend = d97894a build
+(index-Dc5TM6Ba.js, scan 21/21 at that build) · 0a73ee6 NOT live yet — Owner held first send
+over predict/share semantic drift; one more frontend deploy of main required (markers:
+sc-primary-score / 比分为什么偏离).
+BLOCKING SEQUENCE to first send: operator deploy main → live scan 21/21 + 4-surface strong-call
+consistency check → operator creates QG-TEST1/TT-VN88/FO-MM21 (real token) + growth smoke →
+first zh send (today_1489371_zh_QG-TEST1.md, manual, before kickoff).
+MATCH DAY 1489371 Brazil–Morocco (2026-06-13): T-2h 20:00 UTC · T-90 watch 20:30 UTC · KO 22:00
+UTC · A4 recap ~00:45 UTC 06-14 — docs/mvp2/TRACKA_1489371_A3A4_RUNSHEET.md. Latest watch probe
+r20260612T1535Z-watch: NS, lineups 0/0.
+Open P1 notes: quota ledger under-counts subprocess API calls · .py docstrings not stripped by
+comment-stripper guards · live-vs-local scan diverges where frontend renders backend strings.
+Full handoff: HANDOFF ★★★ section.
+```
+
+## ★ MVP-2 status (2026-06-12) — Track A P0 ACCEPTED · deploy-verification handoff (superseded)
 
 ```text
 Owner verdict: Track A P0 = PASS WITH CONDITIONS. Branch feature/mvp2-api-football-ingestion @
