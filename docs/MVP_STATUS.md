@@ -6,7 +6,31 @@ Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-13, latest) — main promoted through Growth P1.1c-fix · 1489371 match day
+## ★ MVP-2 status (2026-06-13, latest) — Growth P1.2→P1.5a on main · 能更新 LIVE · first-send gate
+
+```text
+main = a26b03d. Growth P1.2→P1.5a chain all promoted (per-step backup tags ...-20260613):
+P1.2 status-refresh gate (canonical fixture lifecycle) · P1.2b runtime freshness guard (no stale
+fixture shown as active pre-match) · P1.3 match sync & daily fixture registry · P1.3b runtime manifest
+· P1.3c BACKEND daily-fixtures source (runtime_manifests table + GET /api/v1/daily-fixtures + admin
+upload) · P1.4 match-to-product orchestration (homepage recap desk/upcoming/operator status) · P1.5a
+homepage lean landing.
+能更新才是硬道理 DELIVERED: backend deployed + populated (GET /api/v1/daily-fixtures stored=true, 7
+fixtures, hero Brazil, recap_queue 4, P1.4 buckets, stale=false; operator uploaded 10:13Z). No-redeploy
+update PROVEN (backend data changed → homepage 静态备份→实时 → frontend bundle hash unchanged).
+Frontend live = index-DBnoe6Hq.js (P1.4) — P1.5a (a26b03d) frontend deploy PENDING OPERATOR (backend
+not needed). zh/vi/my homepage consistency verified on the P1.5a build (Canada 复盘生成中 / USA+SK
+待生成复盘 / Mexico 查看复盘 only recap-ready / Qatar+Haiti 待生成赛前判断 / Brazil hero; WC2022 archive
+collapsed; no fake recap). Scanners: live visible 21/21, runtime --base-url PASS, match-sync PASS,
+growth copy guard PASS; no betting/auto-send/invented scores.
+SENDS HOLD (operation paused, small private trial only, manual + Owner GO, no prod token). First-send
+gates open: codes QG-TEST1/TT-VN88/FO-MM21 (operator; live probe attached:false ⇒ not created),
+growth smoke (attached:true), 1489371 LIVE/FT validation tonight (KO 22:00 UTC), Owner per-channel GO.
+Runbook docs/mvp2/FIRST_SEND_RUNBOOK_1489371.md · gate doc docs/mvp2_growth/GROWTH_P15_FIRST_SEND_GATE.md.
+Full handoff: docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md ★★★★ section.
+```
+
+## ★ MVP-2 status (2026-06-13) — main promoted through Growth P1.1c-fix · 1489371 match day (superseded)
 
 ```text
 Working branch = MAIN @ 89235b0 (code head 0a73ee6) · PR #3 MERGED-closed (accepted; backup tags

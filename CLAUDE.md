@@ -13,7 +13,42 @@
 
 ## Current Project Status — MVP-2 LLM-Guided Product Narrative Refactor
 
-**★ 2026-06-13 (latest) — MAIN PROMOTED through Growth P1.1c-fix · MATCH-DAY HANDOFF (1489371 TODAY)**
+**★ 2026-06-13 (latest) — MAIN @ a26b03d through Growth P1.5a · 能更新 LIVE · FIRST-SEND GATE (1489371 TODAY)**
+```text
+The 06-13 thread ran the full Growth P1.2→P1.5a chain, all promoted to main (per-step backup tags
+main-backup-pre-*-20260613). 能更新才是硬道理 delivered: the daily fixture slate now updates on the
+live site through a backend runtime source, no frontend rebuild needed.
+Chain (each PASS + promoted): P1.2 status-refresh gate (canonical fixture lifecycle
+scripts/mvp2_fixture_lifecycle.py) → P1.2b runtime freshness guard (no stale fixture shown as active
+pre-match; backend/app/services/lifecycle.py + frontend/src/lib/freshness.ts) → P1.3 match sync &
+daily fixture registry (scripts/mvp2_match_sync.py: manual_scores → daily_fixtures + recap_queue) →
+P1.3b runtime manifest (frontend/public/data/daily-fixtures.json fetched at runtime) → P1.3c BACKEND
+source (runtime_manifests table + GET /api/v1/daily-fixtures + admin upload) → P1.4 orchestration
+(homepage recap desk / upcoming / operator status from the registry; MatchDesk.tsx) → P1.5a lean
+landing (cut Strong Calls + recap-anchor dup + hero share; WC2022 archive collapsed).
+LIVE STATE (2026-06-13 ~11:30 UTC): main = a26b03d. BACKEND DEPLOYED + POPULATED — GET
+/api/v1/daily-fixtures = stored=true, 7 fixtures, P1.4 buckets, hero Brazil, recap_queue, stale=false
+(operator uploaded 10:13Z via mvp2_match_sync.py upload --target production). No-redeploy update
+PROVEN (backend data changed, homepage flipped 静态备份→实时, bundle hash unchanged). FRONTEND live =
+index-DBnoe6Hq.js = P1.4 bundle — **P1.5a (a26b03d) NOT yet deployed; operator frontend deploy pending**
+(backend NOT needed). zh/vi/my homepage consistency verified on the P1.5a build (6 desk rows: Canada
+1-1 复盘生成中 / USA 4-1 待生成复盘 / Mexico 2-0 查看复盘 ONLY recap-ready / SK 2-1 待生成复盘 / Qatar+Haiti
+待生成赛前判断 / Brazil hero; archive collapsed; no fake recap). Live visible scan 21/21, runtime+match-sync
++growth-copy scanners PASS.
+SENDS STILL HOLD (operation paused, small private trial only, manual + Owner GO per fixture,
+engineering holds NO prod ADMIN_API_TOKEN). FIRST-SEND GATES remaining (P1.5):
+1) operator creates codes QG-TEST1/TT-VN88/FO-MM21 via /internal/growth (prod token) — live click
+   probe shows attached:false ⇒ not created yet; 2) growth smoke → attached:true + counters;
+3) 1489371 Brazil–Morocco LIVE/FT lifecycle validation TONIGHT (KO 22:00 UTC; expect pre-match freeze
+   at kickoff, NO_VALID_TODAY_FIXTURE, FINISHED→RECAP_PENDING, no fake recap); 4) Owner explicit
+   per-channel GO (e.g. `GO zh_internal_group QG-TEST1 fixture 1489371`). Runbook:
+docs/mvp2/FIRST_SEND_RUNBOOK_1489371.md · gate doc docs/mvp2_growth/GROWTH_P15_FIRST_SEND_GATE.md.
+NEXT THREAD (no new features): operator deploys P1.5a frontend → live re-verify 4 sections + 实时 ×
+zh/vi/my → create codes + smoke → 1489371 match-day ops → first zh send on Owner GO. Full handoff:
+docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md ★★★★ section.
+```
+
+**★ 2026-06-13 — MAIN PROMOTED through Growth P1.1c-fix · MATCH-DAY HANDOFF (superseded by ★ above)**
 ```text
 The 06-12 thread ran 18 rounds past the block below: deploy gate CLEARED (SPA rewrite live, deep
 links 200), Track A A4 first real recap shipped (1489369 Mexico 2-0 South Africa), Evidence

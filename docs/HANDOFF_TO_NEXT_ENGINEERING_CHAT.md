@@ -2,7 +2,71 @@
 
 _Read `CLAUDE.md` first, then this. Date: 2026-06-13. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
-## ★★★ Current handoff state — main promoted through Growth P1.1c-fix · MATCH DAY 1489371（2026-06-13）
+## ★★★★ Current handoff state — Growth P1.2→P1.5a on main · 能更新 LIVE · FIRST-SEND GATE（2026-06-13, supersedes ★★★ below）
+
+**The whole Growth P1.2→P1.5a chain is on main and the daily slate now updates live without a frontend rebuild.**
+The next thread is NOT new features — it is: operator deploys the P1.5a frontend, then closes the four
+first-send gates, then the 1489371 match-day operation tonight.
+
+```text
+Frozen state (A):
+  main = a26b03d (origin + local). Promoted this thread, each with a backup tag:
+  P1.2 status-refresh gate · P1.2b runtime freshness guard · P1.3 match sync & daily registry ·
+  P1.3b runtime manifest · P1.3c backend daily-fixtures source · P1.4 orchestration · P1.5a lean landing.
+  Operation paused · small private trial only · sends manual + Owner GO per fixture ·
+  engineering holds NO prod ADMIN_API_TOKEN · no betting/odds/auto-send anywhere.
+
+What is LIVE (B) — verified 2026-06-13 ~11:30 UTC:
+  - Backend DEPLOYED + POPULATED: GET https://worldcup2026-api-71n6.onrender.com/api/v1/daily-fixtures
+    → stored=true, 7 fixtures, P1.4 buckets (completed_matches/upcoming_needs_narrative/product_status),
+    active_hero Brazil vs Morocco, recap_queue 4, freshness.stale=false. runtime_manifests table live.
+    (Operator uploaded 10:13Z via `mvp2_match_sync.py upload --target production`.)
+  - 能更新 PROVEN: backend empty→7 fixtures via upload; homepage flipped 静态备份→实时; frontend bundle
+    hash UNCHANGED → live slate updates with NO frontend redeploy.
+  - SPA deep links 200. Live visible scan 21/21. runtime/match-sync/growth scanners PASS.
+  - ⚠️ FRONTEND live bundle = index-DBnoe6Hq.js = P1.4 build. **P1.5a (a26b03d) NOT deployed yet** —
+    operator must Manual Deploy worldcup2026 from main (backend NOT needed). Until then the live homepage
+    still shows the pre-lean layout (Strong Calls etc.); the lean version is verified on the build only.
+
+Match states on the live registry (C): Brazil vs Morocco = hero/SCHEDULED · Canada 1-1 Bosnia =
+  RECAP_PENDING (复盘生成中) · USA 4-1 Paraguay = RECAP_PENDING (待生成复盘, unmapped) · Mexico 2-0
+  South Africa = RECAP_READY (查看复盘, the ONLY recap-ready) · South Korea 2-1 Czechia = RECAP_PENDING ·
+  Qatar/Haiti = SCHEDULED upcoming-needs-narrative (待生成赛前判断). No fake recap; no invented scores.
+
+FIRST-SEND GATES still open (D) — none sendable until ALL clear:
+  1. Codes: operator creates QG-TEST1 / TT-VN88 / FO-MM21 via /internal/growth (prod token).
+     Live probe: POST /api/v1/growth/click ref=QG-TEST1 → attached:false ⇒ NOT created yet.
+  2. Growth smoke: /join?ref=QG-TEST1 → click+join-intent counters increment, attached:true, dashboard shows it.
+  3. 1489371 LIVE/FT lifecycle validation TONIGHT (KO 22:00 UTC) — see runsheet + first-send gate doc.
+  4. Owner explicit per-channel GO, e.g. `GO zh_internal_group QG-TEST1 fixture 1489371`.
+  Runbook: docs/mvp2/FIRST_SEND_RUNBOOK_1489371.md · gate status: docs/mvp2_growth/GROWTH_P15_FIRST_SEND_GATE.md.
+```
+
+**Next Engineer Start Command（copy-paste）**
+
+> Working branch is main (a26b03d). The Growth P1.2→P1.5a chain is promoted; do NOT start new features.
+> First confirm the live state: `curl -s https://worldcup2026-api-71n6.onrender.com/api/v1/daily-fixtures | python3 -m json.tool`
+> (expect stored=true, 7 fixtures) and check the live frontend bundle hash — if it is still
+> index-DBnoe6Hq.js, the P1.5a frontend deploy is pending (operator action). Then run the scanners
+> (`check_runtime_daily_fixtures.py --base-url …`, `check_customer_visible_copy.py …` 21/21,
+> `check_match_sync_freshness.py`, `check_growth_copy.py`). Then progress the four first-send gates:
+> codes (operator+prod token) → smoke (attached:true) → tonight's 1489371 LIVE/FT validation → Owner GO.
+> Engineering holds no prod token, so code-creation/smoke/send are operator steps. Tonight: 1489371
+> Brazil vs Morocco KO 22:00 UTC — at kickoff verify the pre-match freezes (status-refresh → LIVE,
+> refresh → NO_VALID_TODAY_FIXTURE, /predict & /share freeze), at FT → FINISHED/RECAP_PENDING, no fake recap.
+
+**Key P1.2–P1.5a tooling (all on main)**
+- `scripts/mvp2_fixture_lifecycle.py` — canonical lifecycle (SCHEDULED..ARCHIVED); selftest.
+- `backend/app/services/lifecycle.py` — backend runtime normalization (additive MatchListItem fields).
+- `frontend/src/lib/freshness.ts` — frontend defensive guard (computeFreshness/pickActiveFixture).
+- `scripts/mvp2_match_sync.py` — sync / upload --target production / recap-queue (manual_scores → registry).
+- `backend/app/{models/runtime_manifest.py,services/daily_fixtures_service.py,routers/daily_fixtures.py}` — P1.3c store + GET/upload.
+- `frontend/src/data/dailyFixtures.ts` — three-tier fetch (backend 实时 → static 静态备份 → bundled 内置).
+- `frontend/src/components/MatchDesk.tsx` — P1.4 recap desk / upcoming / operator status.
+- Scanners: `check_fixture_freshness.py` · `check_match_sync_freshness.py` · `check_runtime_daily_fixtures.py` (`--base-url` for live).
+- Cron + operator flow: `docs/mvp2_growth/GROWTH_P11B_SCHEDULED_REFRESH.md` §3b/3c/3d (sync+upload, no auto-send).
+
+## ★★★ Prior handoff state — main promoted through Growth P1.1c-fix · MATCH DAY 1489371（2026-06-13, superseded by ★★★★ above）
 
 **This supersedes the ★★ section below.** The 2026-06-12 thread ran 18 rounds past that handoff:
 deploy gate cleared, main promoted (PR #3 MERGED), Growth P0→P1→P1.1→P1.1b→P1.1c all accepted and
