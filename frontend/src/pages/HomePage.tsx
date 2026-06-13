@@ -11,6 +11,9 @@ import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, note
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
 import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection, RescoreHookCard, RecapAnchorCard } from '../components/UpcomingTacticalStrip';
+import { UPCOMING_FIXTURES } from '../data/upcomingFixtures';
+import { getProductNarrative } from '../data/productNarrativeData';
+import { pickActiveFixture } from '../lib/freshness';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -168,14 +171,39 @@ export function HomePage() {
         </div>
       )}
 
-      {/* ── ACTIVE 2026 LOOP (Product Closure P1, Owner §6) ─────────────
-           1 main match → 2 next fixtures → 3 strong calls → 4 rescore hook →
-           5 latest 2026 recap anchor → 6 join group. 2022 = archive below. */}
-      <TrialHeroCard loc={loc} fixtureId="1489371" />
-      <UpcomingTacticalStrip loc={loc} excludeId="1489371" />
-      <HotTopicsSection loc={loc} />
-      <RescoreHookCard loc={loc} fixtureId="1489371" />
-      <RecapAnchorCard loc={loc} fixtureId="1489369" />
+      {/* ── ACTIVE 2026 LOOP (Product Closure P1, Owner §6 · P1.2b runtime freshness) ──
+           Hero is SELECTED at runtime (no permanent hardcoded fixture): earliest
+           pre-match fixture → else latest recap-ready → else recap-pending → else empty.
+           A finished/live fixture can never be pinned as today's pre-match prediction. */}
+      {(() => {
+        const active = pickActiveFixture(UPCOMING_FIXTURES.map(f => ({
+          id: f.id, kickoffUtc: f.kickoffUtc,
+          recapReady: getProductNarrative(f.id, loc)?.mode === 'real_recap',
+        })));
+        // latest recap-ready fixture for the trust anchor (guarded by mode internally)
+        const recapAnchorId = [...UPCOMING_FIXTURES]
+          .filter(f => getProductNarrative(f.id, loc)?.mode === 'real_recap')
+          .sort((a, b) => new Date(b.kickoffUtc).getTime() - new Date(a.kickoffUtc).getTime())[0]?.id;
+        if (active.mode === 'empty' && !recapAnchorId) {
+          return (
+            <div className="card th-hero">
+              <div className="th-badge">{loc === 'zh' ? '今日暂无可用赛前情报'
+                : loc === 'vi' ? 'Hôm nay chưa có tin trước trận khả dụng'
+                  : loc === 'my' ? 'ဒီနေ့ အသုံးပြုနိုင်သော ပွဲကြိုသတင်း မရှိသေးပါ'
+                    : 'No active pre-match intel today'}</div>
+            </div>
+          );
+        }
+        return (
+          <>
+            {active.heroId && <TrialHeroCard loc={loc} fixtureId={active.heroId} />}
+            <UpcomingTacticalStrip loc={loc} excludeId={active.heroId ?? undefined} />
+            <HotTopicsSection loc={loc} />
+            {active.mode === 'pre_match' && active.heroId && <RescoreHookCard loc={loc} fixtureId={active.heroId} />}
+            {recapAnchorId && <RecapAnchorCard loc={loc} fixtureId={recapAnchorId} />}
+          </>
+        );
+      })()}
       <div className="card" style={{ textAlign: 'center' }}>
         <div className="ra-line">
           {loc === 'zh' ? '进群等临场修正——首发公布后，俅哥重新看一遍再给最终倾向。'

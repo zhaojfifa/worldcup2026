@@ -14,10 +14,16 @@ from app.schemas.match import (
     TeamOut, WinProbOut, FeatureFactorOut, TrendPointOut, LiveCorrectionOut,
 )
 from app.services.modeling import baseline
+from app.services import lifecycle
 
 
 def _team_out(team) -> TeamOut:
     return TeamOut(name=team.name_zh, flag=team.flag_emoji)
+
+
+def _freshness(m) -> dict:
+    """Runtime freshness for a Match (P1.2b) — never trusts stored status alone."""
+    return lifecycle.normalize(m.kickoff_time, stored_status=m.status)
 
 
 def _win_prob_from_prediction(pred: Prediction) -> WinProbOut:
@@ -82,6 +88,7 @@ def get_matches(db: Session) -> List[MatchListItem]:
             risk_note=pred.risk_note,
             confidence=pred.confidence,
             updated_at=m.updated_at,
+            **_freshness(m),
         ))
     return result
 
@@ -121,6 +128,7 @@ def get_match_detail(db: Session, match_id: int) -> Optional[MatchDetail]:
         free_note=pred.free_note,
         live_correction=correction,
         updated_at=m.updated_at,
+        **_freshness(m),
     )
 
 

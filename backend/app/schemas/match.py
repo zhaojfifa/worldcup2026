@@ -66,6 +66,14 @@ class MatchListItem(BaseModel):
     risk_note: Optional[str]
     confidence: float
     updated_at: datetime
+    # P1.2b runtime freshness (additive; computed at response time, not stored).
+    # Consumers must not present a fixture as active pre-match when pre_match_allowed is False.
+    lifecycle_state: Optional[str] = None
+    pre_match_allowed: Optional[bool] = None
+    today_package_allowed: Optional[bool] = None
+    recap_needed: Optional[bool] = None
+    recap_ready: Optional[bool] = None
+    freshness_reason: Optional[str] = None
 
 
 class MatchDetail(MatchListItem):

@@ -5,6 +5,17 @@ import { getProductNarrative } from '../data/productNarrativeData';
 import { getRescore } from '../data/rescoreData';
 import { ShareBlock } from './ShareBlock';
 import { buildStrongCall } from '../growth/strongCallProjection';
+import { fixtureFreshness } from '../lib/freshness';
+
+// P1.2b — frozen/recap state copy when a fixture is no longer pre-match (kickoff passed).
+// Defensive: shown even if the bundled narrative still says pre-match (stale status).
+const FROZEN = {
+  zh: { live: '比赛进行中，赛前卡已冻结，等待赛后复盘', pending: '比赛已结束，复盘生成中', ready: '比赛已结束 · 查看复盘', viewRecap: '查看复盘' },
+  vi: { live: 'Trận đang diễn ra — thẻ trước trận đã khóa, chờ phục dựng sau trận', pending: 'Trận đã kết thúc, đang dựng phục dựng', ready: 'Trận đã kết thúc · Xem phục dựng', viewRecap: 'Xem phục dựng' },
+  my: { live: 'ပွဲ ဆက်ကစားနေဆဲ — ပွဲကြိုကတ် အေးခဲထား၊ ပွဲပြီး ပြန်သုံးသပ်ချက် စောင့်ပါ', pending: 'ပွဲ ပြီးဆုံးပြီ — ပြန်သုံးသပ်ချက် ပြင်ဆင်နေသည်', ready: 'ပွဲ ပြီးဆုံးပြီ · ပြန်သုံးသပ်ချက် ကြည့်ရန်', viewRecap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန်' },
+  en: { live: 'Match in progress — pre-match card frozen, recap pending', pending: 'Match finished — recap generating', ready: 'Match finished · View recap', viewRecap: 'View recap' },
+};
+function frozenFor(loc: Locale) { return loc === 'zh' ? FROZEN.zh : loc === 'vi' ? FROZEN.vi : loc === 'my' ? FROZEN.my : FROZEN.en; }
 
 // Product Closure P1 (Owner §6): the home conversion area is the ACTIVE 2026 loop —
 // main match → strong call → 30-min rescore hook → latest 2026 recap trust anchor →
@@ -66,6 +77,26 @@ export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: stri
   const fx = getUpcomingFixture(fixtureId);
   if (!fx) return null;
   const n = getProductNarrative(fixtureId, loc);
+  // P1.2b runtime guard: kickoff passed -> NEVER render the pre-match hero, even if the
+  // bundled narrative still says pre-match. Show frozen / recap-pending / recap-ready.
+  const fr = fixtureFreshness(fx.kickoffUtc, n?.mode);
+  if (!fr.preMatchAllowed) {
+    const FZ = frozenFor(loc);
+    const line = fr.recapAllowed ? FZ.ready : fr.state === 'LIVE' ? FZ.live : FZ.pending;
+    return (
+      <div className="card th-hero th-frozen">
+        <div className="th-badge sc-frozen-badge">{line}</div>
+        <div className="th-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</div>
+        <div className="th-meta">{kickoffLabel(fx.kickoffUtc, loc)} · {fx.venue} ({fx.city}) · {fx.round}</div>
+        {fr.recapAllowed && (
+          <div className="pp-cta-row">
+            <button className="recap-cta-btn" onClick={() => navigate(`/recap/${fixtureId}`)}>{FZ.viewRecap} ▸</button>
+            <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
+          </div>
+        )}
+      </div>
+    );
+  }
   const isToday = fx.kickoffUtc.slice(0, 10) === new Date().toISOString().slice(0, 10);
   return (
     <div className="card th-hero">
@@ -108,6 +139,10 @@ export function RescoreHookCard({ loc, fixtureId }: { loc: Locale; fixtureId: st
   const navigate = useNavigate();
   const L = loc === 'zh' ? RH.zh : loc === 'vi' ? RH.vi : loc === 'my' ? RH.my : null;
   const rs = getRescore(fixtureId, loc);
+  const fx = getUpcomingFixture(fixtureId);
+  const n = getProductNarrative(fixtureId, loc);
+  // P1.2b: the 30-min rescore hook is a PRE-MATCH promise — hide it once kickoff passed.
+  if (fx && !fixtureFreshness(fx.kickoffUtc, n?.mode).preMatchAllowed) return null;
   if (!L) return null;
   return (
     <>
@@ -154,10 +189,12 @@ export function UpcomingTacticalStrip({ loc, excludeId }: { loc: Locale; exclude
   const navigate = useNavigate();
   const L = loc === 'zh' ? L10N.zh : loc === 'vi' ? L10N.vi : loc === 'my' ? L10N.my : L10N.en;
   const todayIso = new Date().toISOString().slice(0, 10);
-  // finished fixtures (narrative flipped to real_recap) belong to the recap anchor, not here
+  // finished/live fixtures belong to the recap anchor, not the upcoming strip. P1.2b:
+  // exclude by RUNTIME freshness (kickoff passed), not just the narrative recap flag.
   const rows = UPCOMING_FIXTURES.filter(f => {
     const n = getProductNarrative(f.id, loc);
-    return f.id !== excludeId && n && n.mode !== 'real_recap';
+    return f.id !== excludeId && n && n.mode !== 'real_recap'
+      && fixtureFreshness(f.kickoffUtc, n.mode).preMatchAllowed;
   });
   if (!rows.length) return null;
   return (
@@ -199,15 +236,21 @@ const HOT = {
 export function HotTopicsSection({ loc }: { loc: Locale }) {
   const navigate = useNavigate();
   const H = loc === 'zh' ? HOT.zh : loc === 'vi' ? HOT.vi : loc === 'my' ? HOT.my : HOT.en;
-  const n69 = getProductNarrative('1489369', loc);
-  const n71 = getProductNarrative('1489371', loc);
-  // the ACTIVE fixture leads; a finished fixture's hook routes to its recap
+  // P1.2b: a strong-call hook routes by RUNTIME freshness — pre-match -> tactical room,
+  // recap-ready -> recap page, live/recap-pending -> dropped (no fresh strong call to show).
+  const strongRow = (id: string) => {
+    const n = getProductNarrative(id, loc);
+    if (!n) return null;
+    const fx = getUpcomingFixture(id);
+    const fr = fixtureFreshness(fx?.kickoffUtc ?? null, n.mode);
+    if (fr.preMatchAllowed) return { key: `room${id}`, hook: n.short_title, to: `/predict/${id}`, tag: H.room, hot: true };
+    if (fr.recapAllowed) return { key: `recap${id}`, hook: n.short_title, to: `/recap/${id}`, tag: H.recap, hot: false };
+    return null;
+  };
   const rs = getRescore('1489371', loc) || getRescore('1489369', loc);
   const rows = [
-    n71 && { key: 'room71', hook: n71.short_title, to: '/predict/1489371', tag: H.room, hot: true },
-    n69 && { key: 'room69', hook: n69.short_title,
-             to: n69.mode === 'real_recap' ? '/recap/1489369' : '/predict/1489369',
-             tag: n69.mode === 'real_recap' ? H.recap : H.room, hot: n69.mode !== 'real_recap' },
+    strongRow('1489371'),
+    strongRow('1489369'),
     rs && { key: 'join', hook: rs.group_join_hook, to: '/community', tag: H.group, hot: false },
   ].filter(Boolean) as { key: string; hook: string; to: string; tag: string; hot: boolean }[];
   if (!rows.length) return null;

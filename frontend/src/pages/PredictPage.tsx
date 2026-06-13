@@ -5,6 +5,7 @@ import { getProductNarrative, predictSlugToId } from '../data/productNarrativeDa
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { ProductPredictView } from '../components/ProductProofViews';
 import { StrongCallCard } from '../components/StrongSignalCard';
+import { fixtureFreshness } from '../lib/freshness';
 
 // Pre-match modeling product page (/predict/:slug). Two flavours, same LLM-narrative
 // main view: hypothetical 2026 sample (slug 2026-brazil-argentina) and REAL scheduled
@@ -43,6 +44,10 @@ export function PredictPage() {
   // Post-match: the bundled narrative for this fixture is now the real recap —
   // the pre-match tactical room is over, so the recap page is the only honest surface.
   const isRecap = n?.mode === 'real_recap';
+  // P1.2b runtime guard: even before the recap is bundled, once kickoff has passed the
+  // page must NOT look like a fresh pre-match prediction (stale status defeated).
+  const fr = fixtureFreshness(fx?.kickoffUtc ?? null, n?.mode);
+  const frozen = isReal && !isRecap && !fr.preMatchAllowed;
   useEffect(() => {
     if (isRecap) navigate(`/recap/${id}`, { replace: true });
   }, [isRecap, id, navigate]);
@@ -50,6 +55,38 @@ export function PredictPage() {
     if (hash) setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' }), 60);
   }, [hash]);
   if (isRecap) return null;
+
+  if (frozen) {
+    const FZ = {
+      zh: { live: '⏸️ 比赛进行中 · 赛前判断已冻结', pending: '🗂️ 比赛已结束 · 赛后复盘生成中',
+            sub: '赛前看方向，临场看变量，赛后看校准。复盘就绪后这里会更新。', recap: '查看复盘 ▸' },
+      vi: { live: '⏸️ Trận đang diễn ra · Nhận định trước trận đã khóa', pending: '🗂️ Trận đã kết thúc · Đang dựng phục dựng',
+            sub: 'Trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.', recap: 'Xem phục dựng ▸' },
+      my: { live: '⏸️ ပွဲ ဆက်ကစားနေဆဲ · ပွဲကြိုအမြင် အေးခဲထား', pending: '🗂️ ပွဲ ပြီးဆုံးပြီ · ပြန်သုံးသပ်ချက် ပြင်ဆင်နေသည်',
+            sub: 'ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။', recap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန် ▸' },
+      en: { live: '⏸️ Match in progress · pre-match call frozen', pending: '🗂️ Match finished · recap generating',
+            sub: 'Pre-match for direction, late for variables, post-match for calibration.', recap: 'View recap ▸' },
+    }[loc === 'zh' ? 'zh' : loc === 'vi' ? 'vi' : loc === 'my' ? 'my' : 'en'];
+    return (
+      <div className="page-enter">
+        <div className="backbar">
+          <button className="bk" onClick={() => navigate('/')}>←</button>
+          <span className="ti">{B.backReal}</span>
+        </div>
+        {fx && (
+          <div className="card ut-fixmeta">
+            <span className="ut-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</span>
+            <span className="ut-meta">{B.kickoff} {kickoffLocal(fx.kickoffUtc, loc)} · {B.venue} {fx.venue} ({fx.city}) · {fx.round}</span>
+          </div>
+        )}
+        <div className="status-card sc-frozen">
+          <div className="ic">{fr.state === 'LIVE' ? '⏸️' : '🗂️'}</div>
+          <div className="st">{fr.state === 'LIVE' ? FZ.live : FZ.pending}</div>
+          <div className="sub2">{FZ.sub}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-enter">

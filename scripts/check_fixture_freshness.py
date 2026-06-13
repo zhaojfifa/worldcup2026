@@ -40,6 +40,11 @@ STALE_HEADS = ("今晚主看", "即将开赛", "Trận đáng xem", "Sắp đá"
 FINISHED_CLASS = {"LIVE", "FINISHED", "RECAP_PENDING", "RECAP_READY", "ARCHIVED"}
 
 
+def _src_has(rel, needle):
+    p = ROOT / rel
+    return p.exists() and needle in p.read_text(encoding="utf-8")
+
+
 def _load_lifecycle():
     spec = importlib.util.spec_from_file_location(
         "mvp2_fixture_lifecycle", ROOT / "scripts" / "mvp2_fixture_lifecycle.py")
@@ -61,35 +66,52 @@ def main():
         print("lifecycle %-9s %-13s (%s)" % (fid, e["new_state"], e["status_source"]))
 
     home_src = HOME.read_text(encoding="utf-8") if HOME.exists() else ""
-    hero_ids = re.findall(r'(?:TrialHeroCard|RescoreHookCard)[^>]*fixtureId="(\w+)"', home_src)
+    # P1.2b: the runtime freshness guard must be WIRED on every customer surface; if it is,
+    # a finished fixture with a stale pre-match narrative is frozen at runtime (WARN, not a
+    # customer leak). If the guard is MISSING, that same stale narrative IS a leak (FAIL).
+    guards = {
+        "HomePage runtime hero selection": ("pickActiveFixture" in home_src),
+        "PredictPage freshness guard": _src_has("frontend/src/pages/PredictPage.tsx", "fixtureFreshness"),
+        "ShareCardPage freshness guard": _src_has("frontend/src/pages/ShareCardPage.tsx", "fixtureFreshness"),
+        "Home cards freshness guard": _src_has("frontend/src/components/UpcomingTacticalStrip.tsx", "fixtureFreshness"),
+    }
+    guard_wired = all(guards.values())
+    for name, ok in guards.items():
+        print("guard  %-34s %s" % (name, "WIRED" if ok else "MISSING"))
+        if not ok:
+            fails.append("runtime guard MISSING: %s — stale fixtures can leak as pre-match" % name)
+    # no hardcoded permanent hero pin (Owner §3): a finished-class fixture id literally pinned
+    hero_ids = re.findall(r'(?:TrialHeroCard|RescoreHookCard)[^>]*fixtureId="(\d+)"', home_src)
 
     for fid, state in states.items():
         if state not in FINISHED_CLASS:
             continue
-        # 1. bundled narrative mode per language (drives /predict and /share/fixture)
-        bundled = False
+        bundled = any((FE_NARR / ("%s.%s.json" % (fid, lang))).exists() for lang in LANG_FILES)
+        # 1. bundled narrative mode (drives /predict + /share/fixture). Severity depends on
+        #    whether the runtime guard protects it.
         for lang in LANG_FILES:
             p = FE_NARR / ("%s.%s.json" % (fid, lang))
             if not p.exists():
                 continue
-            bundled = True
-            mode = ""
             m = re.search(r'"mode"\s*:\s*"([^"]+)"', p.read_text(encoding="utf-8"))
             mode = m.group(1) if m else ""
             if mode != "real_recap":
-                fails.append("%s %s: bundled narrative still pre-match (mode=%s) — "
-                             "/predict + /share/fixture present a %s match as active" % (fid, lang, mode, state))
+                msg = ("%s %s: bundled narrative still pre-match (mode=%s) for a %s fixture" % (fid, lang, mode, state))
+                if guard_wired:
+                    warns.append(msg + " — runtime guard FREEZES /predict + /share; recap still owed")
+                else:
+                    fails.append(msg + " — /predict + /share present it as ACTIVE (guard not wired)")
         if not bundled:
             warns.append("%s: not bundled in the frontend — no customer surface, lifecycle gate only" % fid)
-        # 2. homepage hero / rescore hook pins
+        # 2. hardcoded permanent hero pin of a finished fixture (always a FAIL)
         if fid in hero_ids:
-            fails.append("%s: HomePage hero/rescore hook still pins a %s fixture as 今日主推 — "
-                         "engineer update + redeploy required" % (fid, state))
+            fails.append("%s: HomePage hardcodes a %s fixture as a hero/rescore pin — "
+                         "use runtime selection (pickActiveFixture)" % (fid, state))
         # 3. recap surface availability
         if state in ("FINISHED", "RECAP_PENDING"):
-            warns.append("%s: recap not bundled yet (%s) — /recap absent; run the A4 recap job, "
+            warns.append("%s: recap not bundled yet (%s) — run the A4 recap job; "
                          "customer message until then = 赛后复盘生成中" % (fid, state))
-        # 4. growth package files must not carry paste-ready pre-match copy
+        # 4. growth package files must not carry paste-ready pre-match copy (CLI gate, not runtime)
         for kind in ("today", "next"):
             for f in PKG_DIR.glob("%s_%s_*.md" % (kind, fid)):
                 body = f.read_text(encoding="utf-8")

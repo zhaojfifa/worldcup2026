@@ -68,8 +68,12 @@ def decide(now, kickoff, api_short=None, recap_ready=False):
     Time inference of FINISHED happens only when the API gave no status.
     """
     mins = None if kickoff is None else (kickoff - now).total_seconds() / 60.0
+    # Trust only EXPLICIT live/halted signals; a stale "NS"/"scheduled" must NOT block
+    # time inference of FINISHED (that stale status is the bug P1.2b defeats).
+    trusted_live = api_short in LIVE_SHORT
+    halted = api_short in HALTED_SHORT
     finished = (recap_ready or api_short in FINISHED_SHORT
-                or (api_short is None and mins is not None and mins <= -FT_ESTIMATE_MIN))
+                or (not trusted_live and not halted and mins is not None and mins <= -FT_ESTIMATE_MIN))
     if finished:
         if recap_ready:
             if mins is not None and mins <= -ARCHIVE_AFTER_HOURS * 60:
@@ -78,9 +82,9 @@ def decide(now, kickoff, api_short=None, recap_ready=False):
         if mins is not None and mins > -(FT_ESTIMATE_MIN + RECAP_JOB_GRACE_MIN):
             return "FINISHED", "final whistle window; A4 recap job not due yet (FT+%dmin)" % RECAP_JOB_GRACE_MIN
         return "RECAP_PENDING", "match finished but no recap narrative bundled — 赛后复盘生成中"
-    if api_short in HALTED_SHORT:
+    if halted:
         return "SCHEDULED", "api status %s (halted/postponed) — ALL packaging refused" % api_short
-    if api_short in LIVE_SHORT:
+    if trusted_live:
         return "LIVE", "api status %s — pre-match copy frozen" % api_short
     if mins is not None and mins <= 0:
         # kickoff passed but no finished signal (API stale/NS or time-only): freeze.
@@ -243,6 +247,8 @@ def selftest():
         (t(hours=4), "FT", True, "RECAP_READY"),
         (t(hours=80), "FT", True, "ARCHIVED"),
         (t(hours=-21), "PST", False, "SCHEDULED"),         # halted -> gates all False
+        (t(days=8), "NS", False, "RECAP_PENDING"),         # P1.2b: stale 'NS' days-past -> finished by time
+        (t(minutes=-90), "NS", False, "T_MINUS_2H"),       # stale 'NS' pre-kickoff still trusts time
     ]
     failures = []
     for now, short, ready, want in cases:

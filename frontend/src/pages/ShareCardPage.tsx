@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import QRCode from 'qrcode';
 import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { SITE, DEFAULT_REF } from '../growth/shareTemplates';
 import { buildStrongCall, buildRecapCall } from '../growth/strongCallProjection';
+import { fixtureFreshness } from '../lib/freshness';
+
+// P1.2b — a pre-match share card must not survive kickoff.
+const SHARE_FROZEN = {
+  zh: { live: '比赛进行中，赛前卡已冻结，等待赛后复盘', pending: '比赛已结束，复盘生成中' },
+  vi: { live: 'Trận đang diễn ra, thẻ trước trận đã khóa, chờ phục dựng', pending: 'Trận đã kết thúc, đang dựng phục dựng' },
+  my: { live: 'ပွဲ ဆက်ကစားနေဆဲ — ပွဲကြိုကတ် အေးခဲထား၊ ပြန်သုံးသပ်ချက် စောင့်ပါ', pending: 'ပွဲ ပြီးဆုံးပြီ — ပြန်သုံးသပ်ချက် ပြင်ဆင်နေသည်' },
+};
 
 // Growth P1.1 — screenshot-friendly share card (Owner §5). This is a SHARE route,
 // not a normal customer match page: QR is allowed here by Owner rule. All judgement
@@ -26,6 +34,7 @@ const SC = {
 export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
   const { fixtureId = '' } = useParams();
   const [search] = useSearchParams();
+  const navigate = useNavigate();
   const loc = useLocale();
   const L = loc === 'vi' ? SC.vi : loc === 'my' ? SC.my : SC.zh;
   const lang = loc === 'vi' || loc === 'my' ? loc : 'zh';
@@ -35,9 +44,29 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
   const [qr, setQr] = useState('');
   const joinUrl = `${SITE}/join?ref=${ref}`;
 
+  // P1.2b: a fixture (pre-match) share card frozen after kickoff; recap-ready -> recap card.
+  const fr = fixtureFreshness(fx?.kickoffUtc ?? null, n?.mode);
+  const freezeFixtureCard = kind === 'fixture' && n != null && !fr.preMatchAllowed && !fr.recapAllowed;
+  useEffect(() => {
+    if (kind === 'fixture' && fr.recapAllowed) navigate(`/share/recap/${fixtureId}`, { replace: true });
+  }, [kind, fr.recapAllowed, fixtureId, navigate]);
+
   useEffect(() => { void QRCode.toDataURL(joinUrl, { width: 132, margin: 1 }).then(setQr); }, [joinUrl]);
 
   if (!n) return <div className="page-enter" style={{ padding: 24 }}>—</div>;
+  if (freezeFixtureCard) {
+    const FZ = SHARE_FROZEN[lang];
+    return (
+      <div className="share-card-page">
+        <div className="share-card shc-frozen">
+          <div className="shc-brand">Giành Cup · {lang === 'zh' ? '俅哥说球' : lang === 'vi' ? 'Tiên Tri Bóng Đá' : 'Football Oracle'}</div>
+          {fx && <div className="shc-teams">{fx.flagHome} {fx.home} <span>vs</span> {fx.away} {fx.flagAway}</div>}
+          <div className="shc-line shc-strong">{fr.state === 'LIVE' ? FZ.live : FZ.pending}</div>
+          <div className="shc-frame">{L.frame}</div>
+        </div>
+      </div>
+    );
+  }
   const isRecap = kind === 'recap' || n.mode === 'real_recap';
   // P1.1c-fix: both cards render THE canonical projection (same values as /predict + CLI)
   const call = !isRecap ? buildStrongCall(fixtureId, lang as 'zh') : null;

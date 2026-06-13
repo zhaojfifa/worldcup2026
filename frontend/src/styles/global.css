@@ -1597,3 +1597,12 @@ body {
 /* P1.1c-fix: canonical 主比分 emphasis on product surfaces */
 .sc-primary-score { font-size: 22px; font-weight: 900; color: var(--blueDeep); letter-spacing: .5px; }
 .sc-backup { font-size: 12px; color: var(--sub); }
+
+/* ── P1.2b runtime freshness — frozen / recap-pending states ─────────────── */
+.th-frozen { background: linear-gradient(135deg, #3A3526, #2A2410); }
+.th-frozen .sc-frozen-badge { background: rgba(255,214,107,.16); color: #FFE08A;
+  border: 1px solid rgba(255,214,107,.4); display: inline-block; padding: 4px 10px;
+  border-radius: 8px; font-weight: 700; font-size: 12px; }
+.status-card.sc-frozen { background: #FFF6E2; border: 1px solid #F0D58A; }
+.status-card.sc-frozen .st { color: #8A6D1B; }
+.share-card.shc-frozen { background: linear-gradient(170deg, #3A3526, #2A2410); }
