@@ -10,7 +10,7 @@ import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
-import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSection, RescoreHookCard, RecapAnchorCard } from '../components/UpcomingTacticalStrip';
+import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, RescoreHookCard } from '../components/UpcomingTacticalStrip';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { pickActiveFixture } from '../lib/freshness';
 import { fetchDailyManifest, heroEntries, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
@@ -221,16 +221,17 @@ export function HomePage() {
         const staleW = loc === 'zh' ? '· 数据较旧，请运营刷新' : loc === 'vi' ? '· dữ liệu cũ, vui lòng đồng bộ' : loc === 'my' ? '· data ဟောင်း၊ sync ပါ' : '· stale, please re-sync';
         return (
           <>
+            {/* P1.5a lean landing: A hero · B recap desk · C upcoming · D status · E one group CTA.
+                Removed Strong Calls (duplicated hero + Mexico recap) and the recap-anchor card
+                (duplicated the recap-desk Mexico row). Share buttons live on share/detail pages. */}
             <div className="daily-sync-line">⟳ {updatedW} {syncLbl} · {srcWord}{stale ? ` ${staleW}` : ''}</div>
-            {/* A. current hero */}
+            {/* A. current match hero */}
             {active.heroId && <TrialHeroCard loc={loc} fixtureId={active.heroId} />}
             <UpcomingTacticalStrip loc={loc} excludeId={active.heroId ?? undefined} />
-            <HotTopicsSection loc={loc} />
             {active.mode === 'pre_match' && active.heroId && <RescoreHookCard loc={loc} fixtureId={active.heroId} />}
-            {/* P1.4 orchestration: B recap desk · C upcoming-needs-narrative · D operator status */}
+            {/* B recap desk · C upcoming-needs-narrative · D operator status */}
             <RecapDesk manifest={daily.manifest} loc={loc} />
             <UpcomingNeedsNarrative manifest={daily.manifest} loc={loc} />
-            {recapAnchorId && <RecapAnchorCard loc={loc} fixtureId={recapAnchorId} />}
             <OperatorStatusLine loc={loc} />
           </>
         );
@@ -247,39 +248,27 @@ export function HomePage() {
         </button>
       </div>
 
-      {/* ── ARCHIVE: WC2022 recap library (trust archive, below the active loop) ── */}
+      {/* ── ARCHIVE: WC2022 recap library — P1.5a collapsed to a compact fold (off the main flow,
+             keeps the live 2026 feeling; the recap pages themselves are untouched). ── */}
       {recapMatches.length > 0 && (
-        <>
-          <div className="sec-en">
-            <span className="zh">{loc === 'zh' ? '俅哥复盘档案 · WC2022' : loc === 'vi' ? 'Kho phục dựng của Tiên Tri · WC2022' : loc === 'my' ? 'Oracle ပြန်သုံးသပ်မှတ်တမ်း · WC2022' : 'Recap archive · WC2022'}</span>
-            <span className="en">RECAP ARCHIVE</span>
-          </div>
-          <div className="card recap-card">
-            <div className="recap-sub">🗂️ {t.recapSectionSub}</div>
-            <div className="recap-bridge">
-              {loc === 'zh'
-                ? '俅哥不只给赛前判断，也复盘自己为什么看对或看漏，用真实数据修正下一次判断。'
-                : loc === 'vi'
-                  ? 'Tiên Tri không chỉ đưa nhận định trước trận, mà còn xem lại vì sao mình đúng hay bỏ sót, dùng dữ liệu thật để chỉnh lần nhận định sau.'
-                  : loc === 'my'
-                    ? 'Oracle သည် ပွဲကြိုအမြင်ပေးရုံသာမက ဘာမှန်ခဲ့/ဘာလွဲခဲ့လဲကိုပါ ပြန်သုံးသပ်ပြီး တကယ့်ဒေတာဖြင့် နောက်တစ်ကြိမ်အမြင်ကို ပြင်သည်။'
-                    : 'We don’t just call matches pre-game — we recap why the model was right or wrong, and correct the next version with real data.'}
-            </div>
-            {recapMatches.map((m: Match) => {
-              const rid = recapFixtureId(m);
-              const hasRecap = !!rid && RECAP_AVAILABLE.has(rid);
-              const recapCta = loc === 'zh' ? '查看复盘 ▸' : loc === 'vi' ? 'Xem phục dựng ▸' : loc === 'my' ? 'ပြန်ကြည့်ရန် ▸' : 'View recap ▸';
-              return (
-                <div className="recap-row" key={m.id}
-                     onClick={() => (hasRecap ? navigate(`/recap/${rid}`) : goDetail(m.id))}>
-                  <span className="recap-badge">{t.recapBadge}</span>
-                  <span className="recap-teams">{m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}</span>
-                  {hasRecap && <span className="recap-go">{recapCta}</span>}
-                </div>
-              );
-            })}
-          </div>
-        </>
+        <details className="card home-archive-fold">
+          <summary>
+            {loc === 'zh' ? '历史复盘档案 · WC2022 ›' : loc === 'vi' ? 'Kho phục dựng · WC2022 ›' : loc === 'my' ? 'ပြန်သုံးသပ်မှတ်တမ်း · WC2022 ›' : 'Recap archive · WC2022 ›'}
+          </summary>
+          {recapMatches.map((m: Match) => {
+            const rid = recapFixtureId(m);
+            const hasRecap = !!rid && RECAP_AVAILABLE.has(rid);
+            const recapCta = loc === 'zh' ? '查看复盘 ▸' : loc === 'vi' ? 'Xem phục dựng ▸' : loc === 'my' ? 'ပြန်ကြည့်ရန် ▸' : 'View recap ▸';
+            return (
+              <div className="recap-row" key={m.id}
+                   onClick={() => (hasRecap ? navigate(`/recap/${rid}`) : goDetail(m.id))}>
+                <span className="recap-badge">{t.recapBadge}</span>
+                <span className="recap-teams">{m.homeTeam.flag} {tn(m.homeTeam.name)} vs {tn(m.awayTeam.name)} {m.awayTeam.flag}</span>
+                {hasRecap && <span className="recap-go">{recapCta}</span>}
+              </div>
+            );
+          })}
+        </details>
       )}
 
       {/* ── demo fold: legacy mock blocks (demoted — internal demo data) ── */}

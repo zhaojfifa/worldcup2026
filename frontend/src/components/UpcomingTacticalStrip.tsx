@@ -120,7 +120,7 @@ export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: stri
         <button className="recap-cta-btn" onClick={() => navigate(`/predict/${fixtureId}`)}>{H.enter} ▸</button>
         <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
       </div>
-      <ShareBlock kind="prematch" fixtureId={fixtureId} loc={loc} />
+      {/* P1.5a: share buttons removed from the homepage hero (live on /share + detail pages) */}
     </div>
   );
 }

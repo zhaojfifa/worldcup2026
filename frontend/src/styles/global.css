@@ -1624,3 +1624,10 @@ body {
 .md-chip.pending { background: #FFF6E2; color: #8A6D1B; border: 1px solid #F0D58A; }
 .md-chip.needs { background: #EEF1F6; color: var(--sub); border: 1px solid var(--line); }
 .md-status { font-size: 11px; color: var(--sub); opacity: .85; text-align: center; margin: 8px 2px 4px; }
+
+/* ── P1.5a lean landing: compact WC2022 archive fold ───────────────────────── */
+.home-archive-fold { padding: 10px 12px; }
+.home-archive-fold > summary { cursor: pointer; font-size: 12px; color: var(--sub);
+  font-weight: 700; list-style: none; }
+.home-archive-fold > summary::-webkit-details-marker { display: none; }
+.home-archive-fold .recap-row { margin-top: 8px; }
