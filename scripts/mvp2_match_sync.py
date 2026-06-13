@@ -387,9 +387,49 @@ def cmd_upload(date_iso, target, url_override):
     print("response: %s" % out)
 
 
+def _classify_recap(f):
+    """P1.4 recap-queue classification (no fabrication — just status)."""
+    if f.get("recap_ready"):
+        return "RECAP_READY", "复盘已就绪 — 可出复盘包 / 上首页查看复盘"
+    if not (f.get("status") == "finished" or f.get("lifecycle_state") in
+            ("FINISHED", "RECAP_PENDING", "RECAP_READY", "ARCHIVED")):
+        return None, None  # not finished -> not a recap-queue item
+    if f.get("internal_fixture_id"):
+        return "NEEDS_A4_RECAP", "已映射内部赛事，缺复盘叙事 — 运行 A4 (mvp2_ops.py recap --fixture %s)" % f.get("internal_fixture_id")
+    return "NEEDS_MAPPING_OR_A4_RECAP", "未映射内部赛事 — 先采集映射 internal_fixture_id，再运行 A4 复盘"
+
+
+def cmd_recap_queue(date_iso):
+    """Classify finished fixtures for operator A4 action. Reads the latest registry for the date."""
+    compact = date_iso.replace("-", "")
+    reg_p = SYNC_DIR / ("daily_fixtures_%s.json" % compact)
+    if not reg_p.exists():
+        raise SystemExit("registry not found: %s — run `sync --date %s` first" % (reg_p.relative_to(ROOT), date_iso))
+    reg = json.loads(reg_p.read_text(encoding="utf-8"))
+    items = []
+    for f in reg.get("fixtures", []):
+        cls, step = _classify_recap(f)
+        if not cls:
+            continue
+        score = "%s-%s" % (f["score_home"], f["score_away"]) if f.get("score_home") is not None else None
+        items.append({"fixture": "%s vs %s" % (f["home_team"], f["away_team"]),
+                      "internal_fixture_id": f.get("internal_fixture_id"), "final_score": score,
+                      "classification": cls, "operator_next_step": step})
+    order = {"RECAP_READY": 0, "NEEDS_A4_RECAP": 1, "NEEDS_MAPPING_OR_A4_RECAP": 2}
+    items.sort(key=lambda x: order.get(x["classification"], 9))
+    out = {"date": date_iso, "items": items}
+    p = SYNC_DIR / ("recap_queue_classified_%s.json" % compact)
+    p.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    for it in items:
+        sc = (" %s" % it["final_score"]) if it["final_score"] else ""
+        print("%-30s%-9s %-26s %s" % (it["fixture"], sc, it["classification"], it["operator_next_step"]))
+    print("recap-queue -> %s (%d item(s))" % (p.relative_to(ROOT), len(items)))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", nargs="?", default="sync", choices=["sync", "upload"])
+    ap.add_argument("cmd", nargs="?", default="sync", choices=["sync", "upload", "recap-queue"])
     ap.add_argument("--date", default=None, help="YYYY-MM-DD (default: today UTC)")
     ap.add_argument("--source", default="manual", choices=["manual", "fetched"])
     ap.add_argument("--target", default="production", help="upload target: production|local")
@@ -401,6 +441,9 @@ def main():
     date_iso = a.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if a.cmd == "upload":
         cmd_upload(date_iso, a.target, a.url)
+        return
+    if a.cmd == "recap-queue":
+        cmd_recap_queue(date_iso)
         return
     cmd_sync(date_iso, a.source)
 

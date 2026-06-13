@@ -360,6 +360,21 @@ def cmd_refresh(lang, ref, stamp):
     if summary["packages"].get("today", {}).get("status") != "available":
         summary["today_gate"] = "NO_VALID_TODAY_FIXTURE"
         print("NO_VALID_TODAY_FIXTURE")
+    # P1.4 orchestration view from the registry (no fabrication; reporting only)
+    if reg:
+        fxs = reg.get("fixtures", [])
+        FIN = ("FINISHED", "RECAP_PENDING", "RECAP_READY", "ARCHIVED")
+        summary["orchestration"] = {
+            "recap_queue_pending": ["%s vs %s" % (f["home_team"], f["away_team"]) for f in fxs
+                                    if f.get("lifecycle_state") in FIN and not f.get("recap_ready")],
+            "recap_ready": ["%s vs %s" % (f["home_team"], f["away_team"]) for f in fxs if f.get("recap_ready")],
+            "upcoming_without_narrative": ["%s vs %s" % (f["home_team"], f["away_team"]) for f in fxs
+                                           if f.get("pre_match_allowed") and not f.get("narrative_renderable")],
+        }
+        print("orchestration: recap_pending=%d · recap_ready=%d · upcoming_no_narrative=%d" % (
+            len(summary["orchestration"]["recap_queue_pending"]),
+            len(summary["orchestration"]["recap_ready"]),
+            len(summary["orchestration"]["upcoming_without_narrative"])))
     sp = PKG_DIR / ("refresh_summary_%s.json" % stamp)
     sp.write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print("summary -> %s" % sp.relative_to(ROOT))

@@ -1,0 +1,33 @@
+{
+ "date": "2026-06-13",
+ "items": [
+  {
+   "fixture": "Mexico vs South Africa",
+   "internal_fixture_id": "1489369",
+   "final_score": "2-0",
+   "classification": "RECAP_READY",
+   "operator_next_step": "复盘已就绪 — 可出复盘包 / 上首页查看复盘"
+  },
+  {
+   "fixture": "Canada vs Bosnia and Herzegovina",
+   "internal_fixture_id": "1539000",
+   "final_score": "1-1",
+   "classification": "NEEDS_A4_RECAP",
+   "operator_next_step": "已映射内部赛事，缺复盘叙事 — 运行 A4 (mvp2_ops.py recap --fixture 1539000)"
+  },
+  {
+   "fixture": "United States vs Paraguay",
+   "internal_fixture_id": null,
+   "final_score": "4-1",
+   "classification": "NEEDS_MAPPING_OR_A4_RECAP",
+   "operator_next_step": "未映射内部赛事 — 先采集映射 internal_fixture_id，再运行 A4 复盘"
+  },
+  {
+   "fixture": "South Korea vs Czechia",
+   "internal_fixture_id": null,
+   "final_score": "2-1",
+   "classification": "NEEDS_MAPPING_OR_A4_RECAP",
+   "operator_next_step": "未映射内部赛事 — 先采集映射 internal_fixture_id，再运行 A4 复盘"
+  }
+ ]
+}

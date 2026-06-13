@@ -14,6 +14,7 @@ import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, HotTopicsSectio
 import { getProductNarrative } from '../data/productNarrativeData';
 import { pickActiveFixture } from '../lib/freshness';
 import { fetchDailyManifest, heroEntries, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
+import { RecapDesk, UpcomingNeedsNarrative, OperatorStatusLine } from '../components/MatchDesk';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -221,11 +222,16 @@ export function HomePage() {
         return (
           <>
             <div className="daily-sync-line">⟳ {updatedW} {syncLbl} · {srcWord}{stale ? ` ${staleW}` : ''}</div>
+            {/* A. current hero */}
             {active.heroId && <TrialHeroCard loc={loc} fixtureId={active.heroId} />}
             <UpcomingTacticalStrip loc={loc} excludeId={active.heroId ?? undefined} />
             <HotTopicsSection loc={loc} />
             {active.mode === 'pre_match' && active.heroId && <RescoreHookCard loc={loc} fixtureId={active.heroId} />}
+            {/* P1.4 orchestration: B recap desk · C upcoming-needs-narrative · D operator status */}
+            <RecapDesk manifest={daily.manifest} loc={loc} />
+            <UpcomingNeedsNarrative manifest={daily.manifest} loc={loc} />
             {recapAnchorId && <RecapAnchorCard loc={loc} fixtureId={recapAnchorId} />}
+            <OperatorStatusLine loc={loc} />
           </>
         );
       })()}

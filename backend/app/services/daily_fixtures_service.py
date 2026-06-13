@@ -132,9 +132,29 @@ def assemble_response(db: Session) -> dict:
             stale = age_seconds > 36 * 3600
         except Exception:
             pass
+    # P1.4 product buckets — orchestration view for any API consumer.
+    def _recap_status(f):
+        if f.get("recapReady"):
+            return "RECAP_READY"
+        if f.get("id"):
+            return "NEEDS_A4_RECAP"               # mapped fixture, recap not yet generated
+        return "NEEDS_MAPPING_OR_A4_RECAP"        # unmapped: needs internal fixture + A4
+    completed_matches = [{
+        "id": f.get("id"), "home": f.get("home"), "away": f.get("away"),
+        "score": ("%s-%s" % (f.get("scoreHome"), f.get("scoreAway")) if f.get("scoreHome") is not None else None),
+        "lifecycle_state": f.get("lifecycle_state"), "recap_status": _recap_status(f),
+        "renderable": bool(f.get("renderable")),
+    } for f in fixtures if f.get("lifecycle_state") in FINISHED_CLASS]
+    upcoming_needs_narrative = [{
+        "id": f.get("id"), "home": f.get("home"), "away": f.get("away"), "kickoffUtc": f.get("kickoffUtc"),
+    } for f in fixtures if f.get("preMatchAllowed") and not f.get("renderable")]
+    product_status = ("赛程已同步 · 复盘队列已更新 · 下一场赛前判断已就绪" if active_hero
+                      else "赛程已同步 · 复盘队列已更新 · 暂无可用赛前判断")
     return {
         "generated_at": ga, "source_mode": stored.get("source_mode"), "date": stored.get("date"),
         "fixtures": fixtures, "recap_queue": recap_queue, "active_hero": active_hero,
+        "completed_matches": completed_matches, "upcoming_needs_narrative": upcoming_needs_narrative,
+        "product_status": product_status,
         "freshness": {"stored": True, "stored_at": stored.get("stored_at"),
                       "age_seconds": age_seconds, "stale": stale},
     }

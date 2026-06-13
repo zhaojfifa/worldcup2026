@@ -115,6 +115,20 @@ def main():
     if re.search(r'TrialHeroCard[^>]*fixtureId="\d+"', home_src):
         fails.append("HomePage hardcodes a hero fixtureId literal — must use registry selection")
 
+    # 6b. P1.4 orchestration — homepage must render the completed/recap desk + upcoming-needs-narrative
+    desk = (ROOT / "frontend" / "src" / "components" / "MatchDesk.tsx").read_text(encoding="utf-8") \
+        if (ROOT / "frontend" / "src" / "components" / "MatchDesk.tsx").exists() else ""
+    for comp in ("RecapDesk", "UpcomingNeedsNarrative", "OperatorStatusLine"):
+        if comp not in home_src:
+            fails.append("HomePage does not render %s — completed/upcoming matches would be invisible (P1.4)" % comp)
+    if "FINISHED" not in desk or "manifest.fixtures" not in desk:
+        fails.append("RecapDesk does not iterate finished fixtures from the manifest (P1.4)")
+    # a pending recap must NOT be shown as ready: the view button is gated on recapReady
+    if "recapReady" not in desk or "/recap/" not in desk:
+        fails.append("RecapDesk does not gate the 查看复盘 button on recapReady (could show pending as ready)")
+    if "待生成赛前判断" not in desk:
+        fails.append("UpcomingNeedsNarrative missing the 待生成赛前判断 label (P1.4 §C)")
+
     # 7. P1.3b runtime manifest checks (Owner §scanner)
     if not RUNTIME_MANIFEST.exists():
         fails.append("runtime manifest %s missing — run match-sync (P1.3b live source absent)" % RUNTIME_MANIFEST.name)
