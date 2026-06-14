@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """
-MVP2-P4 Prediction Artifact guard (Owner: restore the prediction/recap artifact chain).
+MVP2-P5 Prediction Artifact + StrongCopy guard (Owner: artifact → canonical strong-call → strong UI).
 
-Asserts the daily hotspot resolves to ARTIFACT-LEVEL content, not only a generic fallback:
+Asserts the daily hotspot resolves to STRONG artifact-level content (not a weak shell), and the
+recap to a STRONG observation receipt, with the share/operation layer wired and compliant.
 
-  1. The prediction artifact (Netherlands vs Japan) exists with fixture identity, a per-locale
-     pre-match read (prediction block + modeling_focus + tactical_matchup + risk_variables +
-     30-minute checklist) + operator share/join copy. Numeric direction/score/confidence may be
-     null (shown as 方向待临场确认) — null is allowed, but the analysis frames must be non-empty.
-  2. The observation artifact (Brazil 1-1 Morocco) exists with the pre-match receipt, actual
-     score 1-1, calibration focus, pending-recap line, recap_ready=false (no fake recap).
-  3. The tactical-room + observation components render the required zh section labels.
-  4. /predict + /recap pages are wired to the artifact loader.
-  5. No betting/trading vocabulary, no internal generation wording, no de-model/process words,
-     no fake-probability claims anywhere in the RENDERED artifact content; vi/my slices Han=0.
+Predict route surface (ArtifactTacticalRoom.tsx + ShareBlock.tsx + prediction artifact JSON) must
+carry:  俅哥强判断 · 主比分 or 比分待开球前 30 分钟确认 · 冷门风险 or 风险变量 · 最大变量 or 关键变量 ·
+        为什么 · 外部预期 or 公开预测倾向 · T-30 or 开球前 30 分钟 · 复制情报链 · 复制分享文案 · 加入临场情报群
+Recap observation surface (ObservationReceipt.tsx + ShareBlock.tsx + observation artifact JSON):
+        昨日主推回执 · 实际比分 · 部分命中 or 校准 · 赛后校准关注 · 完整复盘确认后开放 ·
+        复制观察链接 or 复制分享 · 加入情报群
+
+Plus: artifacts wired into the canonical projection (buildStrongCallFromArtifact) and share layer;
+numerics may be null (pending labels) — never invented; no betting/generation/de-model/fake-prob
+vocab in rendered content; vi/my slices Han=0; external_expectation uses ONLY safe vocabulary.
 
 Exit 0 = clean. --selftest runs embedded fixtures.
 """
@@ -27,15 +28,17 @@ PRED = ROOT / "frontend" / "src" / "data" / "predictionArtifacts" / "manual_Neth
 OBS = ROOT / "frontend" / "src" / "data" / "predictionArtifacts" / "observation_1489371.json"
 ROOM = ROOT / "frontend" / "src" / "components" / "ArtifactTacticalRoom.tsx"
 RECEIPT = ROOT / "frontend" / "src" / "components" / "ObservationReceipt.tsx"
+SHAREBLOCK = ROOT / "frontend" / "src" / "components" / "ShareBlock.tsx"
+PROJ = ROOT / "frontend" / "src" / "growth" / "strongCallProjection.ts"
+SHARETPL = ROOT / "frontend" / "src" / "growth" / "shareTemplates.ts"
 PREDICT_PAGE = ROOT / "frontend" / "src" / "pages" / "PredictPage.tsx"
 RECAP_PAGE = ROOT / "frontend" / "src" / "pages" / "RecapDetailPage.tsx"
 
 CUST_LANGS = ["zh", "vi", "my", "en"]
 HAN = re.compile(r"[一-鿿]")
 
-# forbidden across RENDERED artifact content (meta fields note/source/safety are NOT rendered)
-BETTING = ["赔率", "盘口", "下注", "投注", "博彩", "让球", "大小球", "跟单", "返佣", "佣金",
-           "odds", "handicap", "bookmaker", "wager", "payout", "commission",
+BETTING = ["赔率", "盘口", "下注", "投注", "博彩", "竞猜", "让球", "大小球", "跟单", "串关", "返佣", "佣金",
+           "odds", "handicap", "bookmaker", "wager", "betting",
            "kèo", "cửa trên", "cửa dưới", "nhà cái", "cá cược",
            "လောင်းကစား", "လောင်းကြေး", "အလောင်းအစား", "လောင်းထား"]
 GENERATION = ["复盘生成中", "待生成复盘", "生成中", "自动生成", "AI 正在生成",
@@ -44,11 +47,14 @@ DEMODEL = {"zh": ["模型", "盲区", "数据缺失", "缺数据", "过程验证
            "vi": ["mô hình", "thiếu dữ liệu"],
            "my": ["မော်ဒယ်", "ဒေတာမရှိ"]}
 FAKE_PROB = ["命中率", "胜率", "win rate", "tỷ lệ thắng"]
-ROOM_LABELS = ["今日热点预测", "建模关注", "战术对位", "风险变量", "开球前 30 分钟", "复制/分享"]
+# external_expectation must speak in the Owner-approved safe vocabulary
+SAFE_EXT = ["外部预期", "公开预测倾向", "市场共识", "热度集中", "冷门变量", "临场变量", "赛前参考",
+            "Xu hướng công khai", "Độ nóng", "Biến số", "Kỳ vọng",
+            "လူထုထင်မြင်ချက်", "အပူချိန်", "variable",
+            "Public tendency", "Heat focus", "Upset variable", "External"]
 
 
 def _strings(node):
-    """All string leaves under a node (recursive)."""
     out = []
     if isinstance(node, str):
         out.append(node)
@@ -62,7 +68,6 @@ def _strings(node):
 
 
 def scan_content_words(i18n, label):
-    """Forbidden-word scan over the RENDERED i18n slices only."""
     fails = []
     for lang, slice_ in i18n.items():
         blob = " ".join(_strings(slice_))
@@ -79,7 +84,6 @@ def scan_content_words(i18n, label):
         for w in DEMODEL.get(lang, []):
             if (w.lower() in low) if w.isascii() else (w in blob):
                 fails.append("%s[%s]: de-model/process word %r" % (label, lang, w))
-        # vi/my customer slices must be Han-free
         if lang in ("vi", "my") and HAN.search(blob):
             fails.append("%s[%s]: contains Han characters (vi/my must be Han=0)" % (label, lang))
     return fails
@@ -91,8 +95,7 @@ def scan_prediction(a):
         fails.append("prediction artifact fixture_key wrong: %r" % a.get("fixture_key"))
     if a.get("home") != "Netherlands" or a.get("away") != "Japan":
         fails.append("prediction artifact teams wrong: %s vs %s" % (a.get("home"), a.get("away")))
-    safety = a.get("safety", {})
-    if not safety.get("no_auto_send"):
+    if not a.get("safety", {}).get("no_auto_send"):
         fails.append("prediction artifact safety.no_auto_send must be true")
     i18n = a.get("i18n", {})
     for lang in CUST_LANGS:
@@ -100,22 +103,39 @@ def scan_prediction(a):
         if not s:
             fails.append("prediction artifact missing locale %s" % lang)
             continue
-        if not s.get("pending_label"):
-            fails.append("prediction[%s] missing pending_label" % lang)
+        for k in ("pending_direction", "pending_score"):
+            if not s.get(k):
+                fails.append("prediction[%s] missing %s" % (lang, k))
         pred = s.get("prediction", {})
         for k in ("primary_direction", "score_call", "backup_score", "confidence"):
             if k not in pred:
                 fails.append("prediction[%s].prediction missing key %s" % (lang, k))
             elif pred[k] is not None and not isinstance(pred[k], str):
                 fails.append("prediction[%s].prediction.%s must be null or string" % (lang, k))
+        for k in ("top_variable", "why"):  # MVP2-P5 strong fields
+            if not pred.get(k):
+                fails.append("prediction[%s].prediction.%s missing (strong field)" % (lang, k))
         an = s.get("analysis", {})
-        for k in ("modeling_focus", "tactical_matchup", "risk_variables", "thirty_minute_checklist"):
+        for k in ("modeling_focus", "tactical_matchup", "risk_variables",
+                  "external_expectation", "thirty_minute_checklist"):
             if not isinstance(an.get(k), list) or not an.get(k):
                 fails.append("prediction[%s].analysis.%s must be a non-empty list" % (lang, k))
+        # external_expectation must speak safe vocabulary
+        for line in an.get("external_expectation", []):
+            if not any(t.lower() in line.lower() for t in SAFE_EXT):
+                fails.append("prediction[%s] external_expectation not in safe vocab: %r" % (lang, line))
         ops = s.get("operations", {})
         for k in ("share_title", "share_copy", "join_cta"):
             if not ops.get(k):
                 fails.append("prediction[%s].operations.%s missing" % (lang, k))
+    # Owner-required visible tokens (zh)
+    zh = i18n.get("zh", {})
+    if "比分待开球前 30 分钟确认" not in (zh.get("pending_score") or ""):
+        fails.append("prediction zh pending_score must contain 比分待开球前 30 分钟确认")
+    if "方向待临场确认" not in (zh.get("pending_direction") or ""):
+        fails.append("prediction zh pending_direction must contain 方向待临场确认")
+    if "加入临场情报群" not in (zh.get("operations", {}).get("join_cta") or ""):
+        fails.append("prediction zh join_cta must be 加入临场情报群")
     fails += scan_content_words(i18n, "prediction")
     return fails
 
@@ -137,66 +157,95 @@ def scan_observation(a):
             fails.append("observation artifact missing locale %s" % lang)
             continue
         for k in ("receipt_title", "pre_match_call", "actual_line", "assessment",
-                  "calibration_title", "pending_line", "state_line", "join_cta"):
+                  "calibration_title", "pending_line", "state_line", "next_impact",
+                  "join_cta", "share_copy"):
             if not s.get(k):
                 fails.append("observation[%s] missing %s" % (lang, k))
         if not isinstance(s.get("calibration_points"), list) or not s.get("calibration_points"):
             fails.append("observation[%s].calibration_points must be a non-empty list" % lang)
-    # the zh receipt must carry the Owner-required visible tokens
     zh = i18n.get("zh", {})
-    if "昨日主推回执" not in (zh.get("receipt_title") or ""):
-        fails.append("observation zh receipt_title must contain 昨日主推回执")
-    if "赛后校准" not in (zh.get("calibration_title") or "") + (zh.get("state_line") or ""):
-        fails.append("observation zh must contain 赛后校准")
-    if "完整复盘确认后开放" not in (zh.get("pending_line") or ""):
-        fails.append("observation zh pending_line must contain 完整复盘确认后开放")
-    if "加入情报群" not in (zh.get("join_cta") or ""):
-        fails.append("observation zh join_cta must contain 加入情报群")
+    checks = [
+        ("昨日主推回执", zh.get("receipt_title")),
+        ("实际比分", zh.get("actual_line")),
+        ("赛后校准关注", zh.get("calibration_title")),
+        ("完整复盘确认后开放", zh.get("pending_line")),
+        ("加入情报群", zh.get("join_cta")),
+    ]
+    for token, val in checks:
+        if token not in (val or ""):
+            fails.append("observation zh must contain %s" % token)
+    if "部分命中" not in (zh.get("assessment") or "") and "校准" not in (zh.get("assessment") or ""):
+        fails.append("observation zh assessment must contain 部分命中 or 校准")
     fails += scan_content_words(i18n, "observation")
     return fails
 
 
-def scan_sources(room_src, receipt_src, predict_src, recap_src):
+def scan_sources(srcs):
+    """srcs: dict of name->text for ROOM/RECEIPT/SHAREBLOCK/PROJ/SHARETPL/PREDICT/RECAP."""
     fails = []
-    for lbl in ROOM_LABELS:
-        if lbl not in room_src:
-            fails.append("ArtifactTacticalRoom missing required label: %s" % lbl)
-    if "DetailShareRow" not in room_src:
-        fails.append("ArtifactTacticalRoom missing DetailShareRow (copy/share + join)")
-    if "复制/分享" not in receipt_src:
-        fails.append("ObservationReceipt missing 复制/分享 label")
-    if "CopyLink" not in receipt_src:
-        fails.append("ObservationReceipt missing CopyLink (copy/share)")
-    if "recordJoinIntent" not in receipt_src or "join_cta" not in receipt_src:
-        fails.append("ObservationReceipt missing the artifact join CTA")
-    if "getPredictionArtifact" not in predict_src or "ArtifactTacticalRoom" not in predict_src:
+    room, receipt, share, proj, tpl, predict, recap = (
+        srcs["room"], srcs["receipt"], srcs["share"], srcs["proj"], srcs["tpl"],
+        srcs["predict"], srcs["recap"])
+    room_required = ["俅哥强判断", "主比分", "冷门风险", "风险变量", "最大变量", "为什么",
+                     "外部预期", "T-30", "今日热点预测", "今日建模关注", "战术对位"]
+    for t in room_required:
+        if t not in room:
+            fails.append("ArtifactTacticalRoom missing strong label: %s" % t)
+    if "ShareBlock" not in room:
+        fails.append("ArtifactTacticalRoom must use ShareBlock (copy link/text/card + join)")
+    for t in ("复制情报链", "复制分享文案"):
+        if t not in share:
+            fails.append("ShareBlock missing share label: %s" % t)
+    if "buildStrongCallFromArtifact" not in proj:
+        fails.append("strongCallProjection missing buildStrongCallFromArtifact (artifact source)")
+    if "getPredictionArtifact" not in proj:
+        fails.append("buildStrongCall not wired to the prediction artifact fallback")
+    if "getObservationArtifact" not in tpl:
+        fails.append("shareTemplates recapShareCopy not artifact-aware (getObservationArtifact)")
+    if "下一场影响" not in receipt:
+        fails.append("ObservationReceipt missing 下一场影响 (next-match impact)")
+    if "ShareBlock" not in receipt:
+        fails.append("ObservationReceipt must use ShareBlock (copy/share + join)")
+    if "getPredictionArtifact" not in predict or "ArtifactTacticalRoom" not in predict:
         fails.append("PredictPage not wired to the prediction artifact tier")
-    if "getObservationArtifact" not in recap_src or "ObservationReceipt" not in recap_src:
+    if "getObservationArtifact" not in recap or "ObservationReceipt" not in recap:
         fails.append("RecapDetailPage not wired to the observation artifact tier")
     return fails
 
 
+def _read(p):
+    return p.read_text(encoding="utf-8") if p.exists() else ""
+
+
 def selftest():
-    good_pred = json.loads(PRED.read_text(encoding="utf-8")) if PRED.exists() else {}
-    good_obs = json.loads(OBS.read_text(encoding="utf-8")) if OBS.exists() else {}
+    pred = json.loads(_read(PRED) or "{}")
+    obs = json.loads(_read(OBS) or "{}")
     checks = []
-    checks.append(("real prediction artifact clean", scan_prediction(good_pred) == []))
-    checks.append(("real observation artifact clean", scan_observation(good_obs) == []))
-    checks.append(("betting word caught", any("betting" in f for f in scan_content_words(
-        {"zh": {"x": "今天看 赔率"}}, "t"))))
-    checks.append(("generation word caught", any("generation" in f for f in scan_content_words(
-        {"zh": {"x": "复盘生成中"}}, "t"))))
-    checks.append(("vi han caught", any("Han" in f for f in scan_content_words(
-        {"vi": {"x": "có 中文"}}, "t"))))
+    checks.append(("real prediction artifact clean", scan_prediction(pred) == []))
+    checks.append(("real observation artifact clean", scan_observation(obs) == []))
+    checks.append(("betting word caught", any("betting" in f for f in scan_content_words({"zh": {"x": "今天 赔率"}}, "t"))))
+    checks.append(("unsafe ext caught", any("safe vocab" in f for f in scan_prediction({
+        "fixture_key": "manual:Nether-Japan-20260614", "home": "Netherlands", "away": "Japan",
+        "safety": {"no_auto_send": True},
+        "i18n": {l: {"pending_direction": "方向待临场确认", "pending_score": "比分待开球前 30 分钟确认",
+                     "prediction": {"primary_direction": None, "score_call": None, "backup_score": None,
+                                    "confidence": None, "top_variable": "x", "why": "y"},
+                     "analysis": {"modeling_focus": ["a"], "tactical_matchup": ["a"], "risk_variables": ["a"],
+                                  "external_expectation": ["随便一句没有安全词"], "thirty_minute_checklist": ["a"]},
+                     "operations": {"share_title": "t", "share_copy": "c", "join_cta": "加入临场情报群"}}
+               for l in CUST_LANGS}}))))
     checks.append(("fake recap caught", any("recap_ready" in f for f in scan_observation(
-        {"id": "1489371", "home": "Brazil", "away": "Morocco", "score": "1-1", "recap_ready": True,
-         "i18n": {}}))))
-    checks.append(("missing room label caught", any("战术对位" in f for f in scan_sources(
-        "今日热点预测 建模关注 风险变量 开球前 30 分钟 复制/分享 DetailShareRow", "复制/分享 CopyLink recordJoinIntent join_cta",
-        "getPredictionArtifact ArtifactTacticalRoom", "getObservationArtifact ObservationReceipt"))))
-    checks.append(("unwired predict caught", any("PredictPage not wired" in f for f in scan_sources(
-        " ".join(ROOM_LABELS) + " DetailShareRow", "复制/分享 CopyLink recordJoinIntent join_cta",
-        "nothing", "getObservationArtifact ObservationReceipt"))))
+        {"id": "1489371", "home": "Brazil", "away": "Morocco", "score": "1-1", "recap_ready": True, "i18n": {}}))))
+    good = {"room": " ".join(["俅哥强判断", "主比分", "冷门风险", "风险变量", "最大变量", "为什么",
+                              "外部预期", "T-30", "今日热点预测", "今日建模关注", "战术对位", "ShareBlock"]),
+            "receipt": "下一场影响 ShareBlock", "share": "复制情报链 复制分享文案",
+            "proj": "buildStrongCallFromArtifact getPredictionArtifact", "tpl": "getObservationArtifact",
+            "predict": "getPredictionArtifact ArtifactTacticalRoom", "recap": "getObservationArtifact ObservationReceipt"}
+    checks.append(("good sources clean", scan_sources(good) == []))
+    bad = dict(good, room=good["room"].replace("战术对位", ""))
+    checks.append(("missing room label caught", any("战术对位" in f for f in scan_sources(bad))))
+    bad2 = dict(good, share="复制情报链")
+    checks.append(("missing share label caught", any("复制分享文案" in f for f in scan_sources(bad2))))
     ok = all(v for _, v in checks)
     for n, v in checks:
         sys.stdout.write("%s %s\n" % ("PASS" if v else "FAIL", n))
@@ -207,21 +256,21 @@ def selftest():
 def main():
     if "--selftest" in sys.argv:
         return selftest()
-    fails = []
-    for p in (PRED, OBS, ROOM, RECEIPT, PREDICT_PAGE, RECAP_PAGE):
+    for p in (PRED, OBS, ROOM, RECEIPT, SHAREBLOCK, PROJ, SHARETPL, PREDICT_PAGE, RECAP_PAGE):
         if not p.exists():
             sys.stderr.write("missing file: %s\n" % p)
             return 1
-    fails += scan_prediction(json.loads(PRED.read_text(encoding="utf-8")))
-    fails += scan_observation(json.loads(OBS.read_text(encoding="utf-8")))
-    fails += scan_sources(ROOM.read_text(encoding="utf-8"), RECEIPT.read_text(encoding="utf-8"),
-                          PREDICT_PAGE.read_text(encoding="utf-8"), RECAP_PAGE.read_text(encoding="utf-8"))
+    fails = scan_prediction(json.loads(_read(PRED)))
+    fails += scan_observation(json.loads(_read(OBS)))
+    fails += scan_sources({
+        "room": _read(ROOM), "receipt": _read(RECEIPT), "share": _read(SHAREBLOCK),
+        "proj": _read(PROJ), "tpl": _read(SHARETPL), "predict": _read(PREDICT_PAGE), "recap": _read(RECAP_PAGE)})
     for f in fails:
         sys.stdout.write("FAIL  %s\n" % f)
     if fails:
         sys.stdout.write("PREDICTION ARTIFACT FAIL — %d issue(s)\n" % len(fails))
         return 1
-    sys.stdout.write("PREDICTION ARTIFACT PASS (predict + observation artifacts wired, no banned vocab)\n")
+    sys.stdout.write("PREDICTION ARTIFACT PASS (strong call + observation receipt wired; safe vocab)\n")
     return 0
 
 

@@ -45,6 +45,11 @@ GLOBS = [
     "frontend/src/data/dailyFixtures.ts",
     "backend/app/routers/daily_fixtures.py",
     "backend/app/services/daily_fixtures_service.py",
+    # MVP2-P5 prediction/observation artifacts (customer-facing share/operator copy)
+    "frontend/src/data/predictionArtifacts.ts",
+    "frontend/src/data/predictionArtifacts/*.json",
+    "frontend/src/components/ArtifactTacticalRoom.tsx",
+    "frontend/src/components/ObservationReceipt.tsx",
 ]
 
 BETTING = ["博彩", "赔率", "盘口", "下注", "投注", "庄家", "让球", "大小球", "跟单", "竞猜", "串关",
