@@ -9,14 +9,14 @@
   "score_home": 1,
   "score_away": 1,
   "recap_ready": false,
-  "source": "recovered_from_bundled_pre_match_narrative_1489371 + manifest_score",
-  "note": "Receipt recovered from the real bundled pre-match narrative (main_lean 偏向巴西, scoreline_view reference band includes 1-1) + the actual manifest score 1-1. This is a SAFE post-match observation, NOT a full recap. recap_ready stays false; no hit-rate/probability claim; no hindsight brag.",
+  "source": "recovered_from_bundled_pre_match_receipt + manifest_score",
+  "note": "Recovered post-match observation receipt (Owner P5b): pre-match call -> actual score -> partial hit -> deviation -> calibration -> next-match impact. NOT a full recap; recap_ready stays false. Customer-safe vocabulary; no hindsight brag.",
   "i18n": {
     "zh": {
       "receipt_title": "昨日主推回执",
-      "pre_match_call": "赛前主推：偏向巴西，参考区间含 1-1。",
+      "pre_match_call": "赛前主推：偏向巴西，主比分参考 2-1，备选含 1-1",
       "actual_line": "实际比分：1-1",
-      "assessment": "命中/偏差：方向未完全命中，但比分区间命中；按部分命中处理。",
+      "assessment": "结果判断：比分区间命中，但胜负方向未完全命中，按部分命中处理",
       "calibration_title": "赛后校准关注",
       "calibration_points": [
         "巴西控球转化为何不足",
@@ -26,15 +26,16 @@
       "pending_line": "完整复盘确认后开放。",
       "state_line": "比赛已结束 · 赛后校准中",
       "share_title": "俅哥昨日主推回执 · 巴西 1-1 摩洛哥",
-      "share_copy": "昨日主推：巴西 vs 摩洛哥，赛前偏向巴西、参考区间含 1-1。实际 1-1。完整复盘确认后开放，先进群看赛后校准关注。",
+      "share_copy": "昨日主推：巴西 vs 摩洛哥，赛前偏向巴西、主比分参考 2-1、备选含 1-1。实际 1-1，按部分命中处理。偏差在于巴西控制力低于预期、摩洛哥反击质量更高。完整复盘确认后开放，先进群看赛后校准。",
       "join_cta": "加入情报群看赛后观察",
-      "next_impact": "下一场影响：巴西若延续状态，出线压力上升；摩洛哥的韧性值得继续跟踪。"
+      "next_impact": "下一场影响：巴西后续需要下调胜负确定性，摩洛哥韧性值得继续跟踪",
+      "deviation": "偏差原因：巴西控制力低于赛前预期，摩洛哥防线压缩和反击质量高于预期"
     },
     "vi": {
       "receipt_title": "Biên nhận trận chính hôm qua",
-      "pre_match_call": "Nhận định trước trận: nghiêng về Brazil, khoảng tham khảo có 1-1.",
+      "pre_match_call": "Nhận định trước trận: nghiêng Brazil, tỷ số chính tham khảo 2-1, phương án phụ có 1-1",
       "actual_line": "Tỷ số thực tế: 1-1",
-      "assessment": "Trúng/lệch: hướng chưa trúng hoàn toàn, nhưng khoảng tỷ số trúng; tính là trúng một phần.",
+      "assessment": "Đánh giá kết quả: khoảng tỷ số trúng, nhưng hướng thắng-thua chưa trúng hoàn toàn, tính là trúng một phần.",
       "calibration_title": "Tiêu điểm hiệu chỉnh sau trận",
       "calibration_points": [
         "Vì sao Brazil kiểm soát nhưng chuyển hóa kém",
@@ -44,15 +45,16 @@
       "pending_line": "Mở khi phục dựng đầy đủ được xác nhận.",
       "state_line": "Trận đã kết thúc · Đang hiệu chỉnh sau trận",
       "share_title": "Biên nhận Tiên Tri · Brazil 1-1 Morocco",
-      "share_copy": "Trận chính hôm qua: Brazil vs Morocco, trước trận nghiêng Brazil, khoảng tham khảo có 1-1. Thực tế 1-1. Mở khi phục dựng đầy đủ được xác nhận; vào nhóm xem tiêu điểm hiệu chỉnh.",
+      "share_copy": "Trận chính hôm qua: Brazil vs Morocco, trước trận nghiêng Brazil, tỷ số chính 2-1, phụ có 1-1. Thực tế 1-1, tính là trúng một phần. Lệch do Brazil kiểm soát kém hơn kỳ vọng, phản công Morocco tốt hơn. Mở khi phục dựng đầy đủ được xác nhận; vào nhóm xem hiệu chỉnh.",
       "join_cta": "Vào nhóm xem quan sát sau trận",
-      "next_impact": "Ảnh hưởng trận tới: nếu Brazil giữ phong độ, áp lực đi tiếp tăng; sự lì lợm của Morocco đáng theo dõi tiếp."
+      "next_impact": "Ảnh hưởng trận tới: Brazil cần hạ bớt mức chắc chắn về thắng-thua, sự lì lợm của Morocco đáng theo dõi tiếp.",
+      "deviation": "Nguyên nhân lệch: khả năng kiểm soát của Brazil thấp hơn kỳ vọng, Morocco nén phòng ngự và chất lượng phản công cao hơn dự kiến."
     },
     "my": {
       "receipt_title": "မနေ့ အဓိကပွဲ ပြေစာ",
-      "pre_match_call": "ပွဲကြို အမြင်: Brazil ဘက် ယိမ်း၊ ကိုးကားအကွာအဝေးတွင် 1-1 ပါဝင်။",
+      "pre_match_call": "ပွဲကြို အမြင်: Brazil ဘက် ယိမ်း၊ အဓိကစကော ကိုးကား 2-1၊ အရန်တွင် 1-1 ပါ",
       "actual_line": "တကယ့်စကော: 1-1",
-      "assessment": "မှန်/လွဲ: ဦးတည်ချက် အပြည့်မမှန်သော်လည်း စကောအပိုင်းအခြား မှန်; တစ်စိတ်တစ်ပိုင်း မှန်ဟု သတ်မှတ်။",
+      "assessment": "ရလဒ်သုံးသပ်ချက်: စကောအပိုင်းအခြား မှန်သော်လည်း နိုင်/ရှုံး ဦးတည်ချက် အပြည့်မမှန်၊ တစ်စိတ်တစ်ပိုင်း မှန်ဟု သတ်မှတ်။",
       "calibration_title": "ပွဲပြီး ပြန်ညှိ အာရုံစိုက်ချက်",
       "calibration_points": [
         "Brazil ball control များသော်လည်း အသွင်ပြောင်းမှု အဘယ်ကြောင့် နည်း",
@@ -62,15 +64,16 @@
       "pending_line": "ပြည့်စုံသော ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်ပါမည်။",
       "state_line": "ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ",
       "share_title": "Oracle မနေ့ ပြေစာ · Brazil 1-1 Morocco",
-      "share_copy": "မနေ့ အဓိကပွဲ: Brazil vs Morocco၊ ပွဲကြို Brazil ဘက်ယိမ်း၊ ကိုးကားအကွာအဝေးတွင် 1-1 ပါ။ တကယ် 1-1။ ပြည့်စုံ ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်မည်၊ အဖွဲ့ဝင်ပြီး ပွဲပြီးပြန်ညှိ ကြည့်ပါ။",
+      "share_copy": "မနေ့ အဓိကပွဲ: Brazil vs Morocco၊ ပွဲကြို Brazil ဘက်ယိမ်း၊ အဓိကစကော 2-1၊ အရန် 1-1 ပါ။ တကယ် 1-1၊ တစ်စိတ်တစ်ပိုင်း မှန်။ Brazil ထိန်းချုပ်မှု လျော့ပြီး Morocco counter ပိုကောင်းသဖြင့် လွဲ။ ပြည့်စုံ ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်၊ အဖွဲ့ဝင်ပြီး ကြည့်ပါ။",
       "join_cta": "ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ",
-      "next_impact": "နောက်ပွဲ သက်ရောက်မှု: Brazil အရှိန်ဆက်ထိန်းနိုင်ရင် အဆင့်တက်ဖိအား မြင့်; Morocco ၏ ခံနိုင်ရည်ကို ဆက်စောင့်ကြည့်ပါ။"
+      "next_impact": "နောက်ပွဲ သက်ရောက်မှု: Brazil နိုင်ရေး သေချာမှု လျှော့ချသင့်၊ Morocco ၏ ခံနိုင်ရည်ကို ဆက်စောင့်ကြည့်ပါ။",
+      "deviation": "လွဲချော်ရသည့်အကြောင်း: Brazil ၏ ထိန်းချုပ်မှု မျှော်မှန်းချက်အောက်၊ Morocco ၏ ခံစစ်ဖိအားနှင့် counter အရည်အသွေး မျှော်လင့်ထက် မြင့်။"
     },
     "en": {
       "receipt_title": "Yesterday's featured receipt",
-      "pre_match_call": "Pre-match read: leaned Brazil, reference band included 1-1.",
+      "pre_match_call": "Pre-match read: leaned Brazil, main score reference 2-1, backup included 1-1",
       "actual_line": "Actual score: 1-1",
-      "assessment": "Hit/miss: direction not fully hit, but the score band hit; treat as a partial hit.",
+      "assessment": "Result read: the score band hit, but the win/draw direction was not fully hit; treat as a partial hit.",
       "calibration_title": "Post-match calibration focus",
       "calibration_points": [
         "Why Brazil's control did not convert",
@@ -80,9 +83,10 @@
       "pending_line": "Opens once the full recap is confirmed.",
       "state_line": "Match finished · post-match calibration",
       "share_title": "Yesterday's receipt · Brazil 1-1 Morocco",
-      "share_copy": "Yesterday's main match: Brazil vs Morocco, pre-match leaned Brazil, reference band included 1-1. Actual 1-1. Opens once the full recap is confirmed; join the group for the calibration focus.",
+      "share_copy": "Yesterday's main match: Brazil vs Morocco, pre-match leaned Brazil, main score 2-1, backup included 1-1. Actual 1-1, a partial hit. It deviated because Brazil's control was below expectation and Morocco's counter was better. Opens once the full recap is confirmed; join the group for the calibration.",
       "join_cta": "Join for post-match notes",
-      "next_impact": "Next-match impact: if Brazil keep their form, qualification pressure rises; Morocco's resilience is worth tracking."
+      "next_impact": "Next-match impact: Brazil should lower their win certainty; Morocco's resilience is worth tracking.",
+      "deviation": "Why it deviated: Brazil's control was below the pre-match expectation; Morocco's defensive compression and counter quality were higher than expected."
     }
   },
   "safety": {
