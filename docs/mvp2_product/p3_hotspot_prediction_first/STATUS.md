@@ -1,11 +1,11 @@
 # MVP2-P3 Status
 
 Sprint: Hotspot Prediction First Product Path
-State: READY_TO_DEPLOY
-Branch: feature/mvp2-p3-hotspot-prediction-first
-Current HEAD: f5697b9
-Target deploy commit: f5697b9 (frontend-only; build index-CBq4zNKh.js)
-Live bundle: last known index-Dz95Uq3Y.js (P1.5b) — NOT updated by this sprint (deploy pending operator)
+State: MERGED_TO_MAIN · FRONTEND_DEPLOY_PENDING_OPERATOR
+Branch: feature/mvp2-p3-hotspot-prediction-first → fast-forwarded into main (Owner-accepted)
+Current HEAD: main = origin/main = 9c8a58e (pushed)
+Target deploy commit: 9c8a58e (frontend-only)
+Live bundle: index-BcA_auNF.js (PRE-P3) — operator must Manual Deploy 9c8a58e to worldcup2026-izid
 Runtime fixture date: 2026-06-14 (frontend/public/data/daily-fixtures.json + backend runtime manifest)
 Send status: HOLD
 
