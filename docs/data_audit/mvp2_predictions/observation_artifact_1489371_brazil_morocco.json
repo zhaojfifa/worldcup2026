@@ -1,0 +1,89 @@
+{
+  "date": "2026-06-13",
+  "id": "1489371",
+  "fixture_key": "af:1489371",
+  "home": "Brazil",
+  "away": "Morocco",
+  "status": "finished",
+  "score": "1-1",
+  "score_home": 1,
+  "score_away": 1,
+  "recap_ready": false,
+  "source": "recovered_from_bundled_pre_match_narrative_1489371 + manifest_score",
+  "note": "Receipt recovered from the real bundled pre-match narrative (main_lean 偏向巴西, scoreline_view reference band includes 1-1) + the actual manifest score 1-1. This is a SAFE post-match observation, NOT a full recap. recap_ready stays false; no hit-rate/probability claim; no hindsight brag.",
+  "i18n": {
+    "zh": {
+      "receipt_title": "昨日主推回执",
+      "pre_match_call": "赛前主推：偏向巴西，参考区间含 1-1。",
+      "actual_line": "实际比分：1-1",
+      "assessment": "方向部分兑现 — 参考区间含 1-1，但巴西未取胜，按部分看对处理。",
+      "calibration_title": "赛后校准关注",
+      "calibration_points": [
+        "巴西控球转化为何不足",
+        "摩洛哥防守压缩与反击质量是否改变赛前判断",
+        "1-1 对小组出线走势的影响"
+      ],
+      "pending_line": "完整复盘确认后开放。",
+      "state_line": "比赛已结束 · 赛后校准中",
+      "share_title": "俅哥昨日主推回执 · 巴西 1-1 摩洛哥",
+      "share_copy": "昨日主推：巴西 vs 摩洛哥，赛前偏向巴西、参考区间含 1-1。实际 1-1。完整复盘确认后开放，先进群看赛后校准关注。",
+      "join_cta": "加入情报群看赛后观察"
+    },
+    "vi": {
+      "receipt_title": "Biên nhận trận chính hôm qua",
+      "pre_match_call": "Nhận định trước trận: nghiêng về Brazil, khoảng tham khảo có 1-1.",
+      "actual_line": "Tỷ số thực tế: 1-1",
+      "assessment": "Hướng đúng một phần — khoảng tham khảo có 1-1, nhưng Brazil không thắng, tính là bắt đúng một phần.",
+      "calibration_title": "Tiêu điểm hiệu chỉnh sau trận",
+      "calibration_points": [
+        "Vì sao Brazil kiểm soát nhưng chuyển hóa kém",
+        "Việc Morocco nén phòng ngự và chất lượng phản công có đổi nhận định trước trận không",
+        "Ảnh hưởng của tỷ số 1-1 tới cục diện bảng đấu"
+      ],
+      "pending_line": "Mở khi phục dựng đầy đủ được xác nhận.",
+      "state_line": "Trận đã kết thúc · Đang hiệu chỉnh sau trận",
+      "share_title": "Biên nhận Tiên Tri · Brazil 1-1 Morocco",
+      "share_copy": "Trận chính hôm qua: Brazil vs Morocco, trước trận nghiêng Brazil, khoảng tham khảo có 1-1. Thực tế 1-1. Mở khi phục dựng đầy đủ được xác nhận; vào nhóm xem tiêu điểm hiệu chỉnh.",
+      "join_cta": "Vào nhóm xem quan sát sau trận"
+    },
+    "my": {
+      "receipt_title": "မနေ့ အဓိကပွဲ ပြေစာ",
+      "pre_match_call": "ပွဲကြို အမြင်: Brazil ဘက် ယိမ်း၊ ကိုးကားအကွာအဝေးတွင် 1-1 ပါဝင်။",
+      "actual_line": "တကယ့်စကော: 1-1",
+      "assessment": "ဦးတည်ချက် တစ်စိတ်တစ်ပိုင်း မှန် — ကိုးကားအကွာအဝေးတွင် 1-1 ပါသော်လည်း Brazil မနိုင်သဖြင့် တစ်စိတ်တစ်ပိုင်းမှန်ဟု သတ်မှတ်။",
+      "calibration_title": "ပွဲပြီး ပြန်ညှိ အာရုံစိုက်ချက်",
+      "calibration_points": [
+        "Brazil ball control များသော်လည်း အသွင်ပြောင်းမှု အဘယ်ကြောင့် နည်း",
+        "Morocco ၏ ခံစစ်ဖိအားနှင့် ပြန်တိုက်အရည်အသွေးက ပွဲကြိုအမြင် ပြောင်းစေမလား",
+        "1-1 ရလဒ်က အုပ်စု အခြေအနေအပေါ် သက်ရောက်မှု"
+      ],
+      "pending_line": "ပြည့်စုံသော ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်ပါမည်။",
+      "state_line": "ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ",
+      "share_title": "Oracle မနေ့ ပြေစာ · Brazil 1-1 Morocco",
+      "share_copy": "မနေ့ အဓိကပွဲ: Brazil vs Morocco၊ ပွဲကြို Brazil ဘက်ယိမ်း၊ ကိုးကားအကွာအဝေးတွင် 1-1 ပါ။ တကယ် 1-1။ ပြည့်စုံ ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်မည်၊ အဖွဲ့ဝင်ပြီး ပွဲပြီးပြန်ညှိ ကြည့်ပါ။",
+      "join_cta": "ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ"
+    },
+    "en": {
+      "receipt_title": "Yesterday's featured receipt",
+      "pre_match_call": "Pre-match read: leaned Brazil, reference band included 1-1.",
+      "actual_line": "Actual score: 1-1",
+      "assessment": "Direction partly held — the reference band included 1-1, but Brazil did not win, so treat it as a partial read.",
+      "calibration_title": "Post-match calibration focus",
+      "calibration_points": [
+        "Why Brazil's control did not convert",
+        "Whether Morocco's defensive compression and counter quality change the pre-match read",
+        "Effect of the 1-1 on the group outlook"
+      ],
+      "pending_line": "Opens once the full recap is confirmed.",
+      "state_line": "Match finished · post-match calibration",
+      "share_title": "Yesterday's receipt · Brazil 1-1 Morocco",
+      "share_copy": "Yesterday's main match: Brazil vs Morocco, pre-match leaned Brazil, reference band included 1-1. Actual 1-1. Opens once the full recap is confirmed; join the group for the calibration focus.",
+      "join_cta": "Join for post-match notes"
+    }
+  },
+  "safety": {
+    "no_betting_vocab": true,
+    "no_fake_recap": true,
+    "no_auto_send": true
+  }
+}
