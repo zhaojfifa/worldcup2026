@@ -33,6 +33,9 @@ HOME = ROOT / "frontend" / "src" / "pages" / "HomePage.tsx"
 RUNTIME_MANIFEST = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"
 BETTING = ["赔率", "盘口", "下注", "博彩", "套利", "跟单", "返佣", "odds", "handicap", "bookmaker", "wager", "payout", "commission"]
 AUTOSEND = ["sendMessage", "telegram", "smtp", "webhook"]
+# finished/completed lifecycle states — completed matches are derived from the slate itself,
+# never hardcoded to specific teams (the daily slate changes; Owner 2026-06-14 refresh).
+FINISHED_STATES = {"FINISHED", "RECAP_PENDING", "RECAP_READY", "ARCHIVED"}
 
 
 def _read(p):
@@ -71,15 +74,16 @@ def main():
         if label not in home:
             warns.append("HomePage missing source label %s" % label)
 
-    # static runtime manifest must exist and carry the completed matches
+    # static runtime manifest must exist and carry the slate's fixtures (completed matches are
+    # cross-checked against the live endpoint below — no hardcoded team names).
+    static_teams = set()
     if not RUNTIME_MANIFEST.exists():
         fails.append("static runtime manifest %s missing" % RUNTIME_MANIFEST.name)
     else:
         rt = json.loads(RUNTIME_MANIFEST.read_text(encoding="utf-8"))
-        teams = {f.get("home") for f in rt.get("fixtures", [])}
-        for must in ("Canada", "United States"):
-            if must not in teams:
-                fails.append("completed %s absent from static runtime manifest" % must)
+        static_teams = {f.get("home") for f in rt.get("fixtures", [])}
+        if not rt.get("fixtures"):
+            fails.append("static runtime manifest has no fixtures")
 
     # vocab + auto-send hygiene on P1.3c surfaces
     for p in (router, _read(SERVICE), fe, _read(ROOT / "scripts" / "mvp2_match_sync.py")):
@@ -102,10 +106,15 @@ def main():
             print("live GET %s -> %d fixtures" % (url, n))
             if n == 0:
                 fails.append("live endpoint returned 0 fixtures (nothing uploaded?)")
-            teams = {f.get("home") for f in live.get("fixtures", [])}
-            for must in ("Canada", "United States"):
-                if must not in teams:
-                    fails.append("live endpoint missing completed match %s" % must)
+            # every completed (finished) fixture the live endpoint shows must also exist in the
+            # static fallback manifest, so a backend outage can never hide a finished match.
+            live_completed = {f.get("home") for f in live.get("fixtures", [])
+                              if f.get("lifecycle_state") in FINISHED_STATES}
+            for home in sorted(live_completed):
+                if home not in static_teams:
+                    fails.append("live completed match %s absent from static fallback manifest" % home)
+            if not live_completed:
+                warns.append("live endpoint shows no completed match today")
             if not live.get("active_hero"):
                 warns.append("live endpoint active_hero is null (no hero candidate)")
             ga = live.get("generated_at")

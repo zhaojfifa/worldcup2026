@@ -42,6 +42,9 @@ ROUTES = ["/", "/predict/1489369", "/predict/1489371", "/recap/855737", "/recap/
 LANGS = ["zh", "vi", "my"]
 
 ZH_FORBIDDEN = ["模型", "数据缺失", "缺数据", "盲区", "过程验证", "自证",
+                # Owner hotfix 2026-06-14: RECAP_PENDING is an INTERNAL state — never expose
+                # recap-generation / production status to customers.
+                "复盘生成中", "待生成复盘", "生成中", "AI 正在生成", "自动生成",
                 # Product Closure P1 §12: betting vocabulary banned visible, even negated
                 "赔率", "盘口", "投注", "博彩", "下注", "庄家", "让球", "大小球", "跟单"]
 SHARED_FORBIDDEN = ["LLM", "DeepSeek", "Gemini", "pipeline", "schema", "provider",
@@ -51,8 +54,12 @@ SHARED_FORBIDDEN = ["LLM", "DeepSeek", "Gemini", "pipeline", "schema", "provider
                     "betting", "odds", "handicap", "bookmaker", "bet slip", "wager",
                     "sha256", "artifact", "missing evidence", "data gap", "mock"]
 VI_FORBIDDEN = ["mô hình", "thiếu dữ liệu", "Nhà Tiên Tri",  # incl. retired persona name
+                # Owner hotfix 2026-06-14: no internal recap-generation wording
+                "đang tạo phục dựng", "đang dựng phục dựng",
                 "kèo", "cửa trên", "cửa dưới", "nhà cái", "cá cược"]
 MY_FORBIDDEN = ["မော်ဒယ်", "ဒေတာမရှိ",
+                # Owner hotfix 2026-06-14: no internal recap-generation wording
+                "ပြင်ဆင်နေသည်", "ထုတ်နေဆဲ",
                 "လောင်းကစား", "လောင်းကြေး", "အလောင်းအစား", "လောင်းထား",
                 "ကြေးပေါက်", "ပေါက်ကြေး", "သေချာပေါက်", "အာမခံ"]
 # Naming standardization: the persona must be visible on every customer surface.

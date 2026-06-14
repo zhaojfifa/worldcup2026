@@ -10,9 +10,9 @@ import { fixtureFreshness } from '../lib/freshness';
 
 // P1.2b — a pre-match share card must not survive kickoff.
 const SHARE_FROZEN = {
-  zh: { live: '比赛进行中，赛前卡已冻结，等待赛后复盘', pending: '比赛已结束，复盘生成中' },
-  vi: { live: 'Trận đang diễn ra, thẻ trước trận đã khóa, chờ phục dựng', pending: 'Trận đã kết thúc, đang dựng phục dựng' },
-  my: { live: 'ပွဲ ဆက်ကစားနေဆဲ — ပွဲကြိုကတ် အေးခဲထား၊ ပြန်သုံးသပ်ချက် စောင့်ပါ', pending: 'ပွဲ ပြီးဆုံးပြီ — ပြန်သုံးသပ်ချက် ပြင်ဆင်နေသည်' },
+  zh: { live: '比赛进行中 · 赛前卡已冻结 · 赛后开启校准', pending: '比赛已结束 · 赛后校准中' },
+  vi: { live: 'Trận đang diễn ra · thẻ trước trận đã khóa · hiệu chỉnh sau trận', pending: 'Trận đã kết thúc · Đang hiệu chỉnh sau trận' },
+  my: { live: 'ပွဲ ဆက်ကစားနေဆဲ · ပွဲကြိုကတ် အေးခဲထား · ပွဲပြီး ပြန်ညှိမည်', pending: 'ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ' },
 };
 
 // Growth P1.1 — screenshot-friendly share card (Owner §5). This is a SHARE route,

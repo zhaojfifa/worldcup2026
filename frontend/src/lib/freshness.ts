@@ -16,7 +16,7 @@ export interface Freshness {
   state: Lifecycle;
   preMatchAllowed: boolean;   // may a surface show 今晚主看 / 赛前判断 / 主比分 as CURRENT?
   recapAllowed: boolean;      // may a surface show / link the recap?
-  recapPending: boolean;      // finished but no recap bundled yet -> 复盘生成中
+  recapPending: boolean;      // finished, no real recap bundled yet -> customer copy: 赛后校准中 (NEVER 复盘生成中)
   reason: string;
 }
 

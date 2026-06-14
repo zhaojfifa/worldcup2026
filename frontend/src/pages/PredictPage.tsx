@@ -58,13 +58,13 @@ export function PredictPage() {
 
   if (frozen) {
     const FZ = {
-      zh: { live: '⏸️ 比赛进行中 · 赛前判断已冻结', pending: '🗂️ 比赛已结束 · 赛后复盘生成中',
-            sub: '赛前看方向，临场看变量，赛后看校准。复盘就绪后这里会更新。', recap: '查看复盘 ▸' },
-      vi: { live: '⏸️ Trận đang diễn ra · Nhận định trước trận đã khóa', pending: '🗂️ Trận đã kết thúc · Đang dựng phục dựng',
+      zh: { live: '⏸️ 比赛进行中 · 赛前判断已冻结', pending: '🗂️ 比赛已结束 · 赛后校准中',
+            sub: '赛前看方向，临场看变量，赛后看校准。校准就绪后这里会更新。', recap: '查看复盘 ▸' },
+      vi: { live: '⏸️ Trận đang diễn ra · Nhận định trước trận đã khóa', pending: '🗂️ Trận đã kết thúc · Đang hiệu chỉnh sau trận',
             sub: 'Trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.', recap: 'Xem phục dựng ▸' },
-      my: { live: '⏸️ ပွဲ ဆက်ကစားနေဆဲ · ပွဲကြိုအမြင် အေးခဲထား', pending: '🗂️ ပွဲ ပြီးဆုံးပြီ · ပြန်သုံးသပ်ချက် ပြင်ဆင်နေသည်',
+      my: { live: '⏸️ ပွဲ ဆက်ကစားနေဆဲ · ပွဲကြိုအမြင် အေးခဲထား', pending: '🗂️ ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ',
             sub: 'ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။', recap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန် ▸' },
-      en: { live: '⏸️ Match in progress · pre-match call frozen', pending: '🗂️ Match finished · recap generating',
+      en: { live: '⏸️ Match in progress · pre-match call frozen', pending: '🗂️ Match finished · post-match calibration',
             sub: 'Pre-match for direction, late for variables, post-match for calibration.', recap: 'View recap ▸' },
     }[loc === 'zh' ? 'zh' : loc === 'vi' ? 'vi' : loc === 'my' ? 'my' : 'en'];
     return (

@@ -9,11 +9,14 @@ import { fixtureFreshness } from '../lib/freshness';
 
 // P1.2b — frozen/recap state copy when a fixture is no longer pre-match (kickoff passed).
 // Defensive: shown even if the bundled narrative still says pre-match (stale status).
+// pending copy must NOT expose internal recap-generation state (RECAP_PENDING is internal;
+// recap_ready=false does NOT mean a customer recap is being produced). Owner hotfix 2026-06-14:
+// use post-match calibration language, never 复盘生成中 / 生成中 / 待生成复盘.
 const FROZEN = {
-  zh: { live: '比赛进行中，赛前卡已冻结，等待赛后复盘', pending: '比赛已结束，复盘生成中', ready: '比赛已结束 · 查看复盘', viewRecap: '查看复盘' },
-  vi: { live: 'Trận đang diễn ra — thẻ trước trận đã khóa, chờ phục dựng sau trận', pending: 'Trận đã kết thúc, đang dựng phục dựng', ready: 'Trận đã kết thúc · Xem phục dựng', viewRecap: 'Xem phục dựng' },
-  my: { live: 'ပွဲ ဆက်ကစားနေဆဲ — ပွဲကြိုကတ် အေးခဲထား၊ ပွဲပြီး ပြန်သုံးသပ်ချက် စောင့်ပါ', pending: 'ပွဲ ပြီးဆုံးပြီ — ပြန်သုံးသပ်ချက် ပြင်ဆင်နေသည်', ready: 'ပွဲ ပြီးဆုံးပြီ · ပြန်သုံးသပ်ချက် ကြည့်ရန်', viewRecap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန်' },
-  en: { live: 'Match in progress — pre-match card frozen, recap pending', pending: 'Match finished — recap generating', ready: 'Match finished · View recap', viewRecap: 'View recap' },
+  zh: { live: '比赛进行中 · 赛前卡已冻结 · 赛后开启校准', pending: '比赛已结束 · 赛后校准中', ready: '比赛已结束 · 查看复盘', viewRecap: '查看复盘' },
+  vi: { live: 'Trận đang diễn ra · thẻ trước trận đã khóa · hiệu chỉnh sau trận', pending: 'Trận đã kết thúc · Đang hiệu chỉnh sau trận', ready: 'Trận đã kết thúc · Xem phục dựng', viewRecap: 'Xem phục dựng' },
+  my: { live: 'ပွဲ ဆက်ကစားနေဆဲ · ပွဲကြိုကတ် အေးခဲထား · ပွဲပြီး ပြန်ညှိမည်', pending: 'ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ', ready: 'ပွဲ ပြီးဆုံးပြီ · ပြန်သုံးသပ်ချက် ကြည့်ရန်', viewRecap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန်' },
+  en: { live: 'Match in progress · pre-match card frozen · calibration after the match', pending: 'Match finished · post-match calibration', ready: 'Match finished · View recap', viewRecap: 'View recap' },
 };
 function frozenFor(loc: Locale) { return loc === 'zh' ? FROZEN.zh : loc === 'vi' ? FROZEN.vi : loc === 'my' ? FROZEN.my : FROZEN.en; }
 
@@ -88,9 +91,16 @@ export function TrialHeroCard({ loc, fixtureId }: { loc: Locale; fixtureId: stri
         <div className="th-badge sc-frozen-badge">{line}</div>
         <div className="th-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</div>
         <div className="th-meta">{kickoffLabel(fx.kickoffUtc, loc)} · {fx.venue} ({fx.city}) · {fx.round}</div>
-        {fr.recapAllowed && (
+        {fr.recapAllowed ? (
+          // recap_ready=true: a real recap exists -> 查看复盘 allowed.
           <div className="pp-cta-row">
             <button className="recap-cta-btn" onClick={() => navigate(`/recap/${fixtureId}`)}>{FZ.viewRecap} ▸</button>
+            <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
+          </div>
+        ) : (
+          // recap_ready=false (live / post-match calibration): NO recap link (no fake recap);
+          // only the group CTA so the hero is not a dead end.
+          <div className="pp-cta-row">
             <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{H.join} ▸</button>
           </div>
         )}
