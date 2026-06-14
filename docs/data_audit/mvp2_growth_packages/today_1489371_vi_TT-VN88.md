@@ -1,30 +1,7 @@
-# Growth package · today · 1489371 · vi
+# Growth package · today · 1489371 · vi — REFUSED (lifecycle gate)
 
-- fixture_id: 1489371
-- lang: vi
-- ref: TT-VN88
-- share_link: https://worldcup2026-izid.onrender.com/predict/1489371?ref=TT-VN88
-- share_card_url: https://worldcup2026-izid.onrender.com/share/fixture/1489371?ref=TT-VN88&lang=vi
-- package_status: available
-- lifecycle_state: SCHEDULED
-- lifecycle_gate: allowed
-- generated_at: 20260613_0417
-- operator_next_step: 人工审核文案 → Owner GO（fixture+channel）→ 手动粘贴发送 → queue mark-sent + 截图 + SEND_LOG（绝不自动发送）
+- status: REFUSED — DO NOT SEND
+- reason: LIFECYCLE_GATE today refused: 1489371 finished (RECAP_PENDING) — pre-match send window closed (Owner manual daily refresh 2026-06-14); use post-match recap path only
+- generated_at: 20260614_0230
+- operator_next_step: 该场已不在赛前状态，禁止使用本包；等待赛后复盘包（package recap）。
 
-## copy_text（原样粘贴；只允许替换群链接占位）
-```text
-Trận đáng xem: Brazil vs Morocco (2026-06-13 22:00 UTC)
-Tiên Tri chốt: Brazil có lợi thế, nhưng Morocco đủ sức gây bất ngờ.
-Tỷ số chính: 2-1
-Phương án phụ: 1-1 / 2-2
-Rủi ro bất ngờ: Trung bình – Brazil là ứng viên nặng ký, nhưng phong độ gần đây của Morocco và biến số đội hình chưa công bố tạo ra rủi ro sát giờ.
-Vì sao: Trận ra quân bảng World Cup 2026: Brazil được đánh giá cao hơn nhờ đẳng cấp lịch sử, nhưng Morocco đang có phong độ hủy diệt và hàng thủ cực kỳ chắc chắn.
-Đội hình công bố là nhóm cập nhật thiên hướng cuối + vùng tỷ số, 30 phút trước giờ đá.
-👇Vào nhóm chờ hiệu chỉnh sát giờ:
-https://worldcup2026-izid.onrender.com/predict/1489371?ref=TT-VN88
-```
-
-## video_script_30s（口播稿 · 可选）
-```text
-Tối nay Brazil vs Morocco. Tiên Tri chốt: Brazil có lợi thế, nhưng Morocco đủ sức gây bất ngờ.. Tỷ số chính 2-1, phụ 1-1, 2-2. Rủi ro: Trung bình – Brazil là ứng viên nặng ký, nhưng phong độ gần đây của Morocco và biến số đội hình chưa công bố tạo ra rủi ro sát giờ.. Nhớ một câu: trước trận xem hướng, sát giờ xem biến số. 30 phút trước giờ đá, đội hình ra là nhóm cập nhật ngay. Muốn theo kịp, vào nhóm.
-```

@@ -1,0 +1,26 @@
+{
+ "date": "2026-06-14",
+ "generated_at": "2026-06-14T02:28:59.472328+00:00",
+ "items": [
+  {
+   "fixture": "Brazil vs Morocco",
+   "internal_fixture_id": "1489371",
+   "final_score": "1-1",
+   "recap_needed": true,
+   "recap_ready": false,
+   "priority": 1,
+   "operator_next_step": "generate recap (A4) before any recap package/send",
+   "reason": "match finished but no recap narrative bundled — 赛后复盘生成中"
+  },
+  {
+   "fixture": "Mexico vs South Africa",
+   "internal_fixture_id": "1489369",
+   "final_score": "2-0",
+   "recap_needed": false,
+   "recap_ready": true,
+   "priority": 3,
+   "operator_next_step": "recap published",
+   "reason": "bundled real_recap narrative exists"
+  }
+ ]
+}
