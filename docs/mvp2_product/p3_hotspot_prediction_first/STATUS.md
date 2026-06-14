@@ -1,11 +1,11 @@
 # MVP2-P3 Status
 
 Sprint: Hotspot Prediction First Product Path
-State: IMPLEMENTING
+State: READY_TO_DEPLOY
 Branch: feature/mvp2-p3-hotspot-prediction-first
-Current HEAD: f234531 (branch base)
-Target deploy commit: (set in FINAL_REPORT after implementation)
-Live bundle: last known index-Dz95Uq3Y.js (P1.5b) — NOT updated by this sprint
+Current HEAD: f5697b9
+Target deploy commit: f5697b9 (frontend-only; build index-CBq4zNKh.js)
+Live bundle: last known index-Dz95Uq3Y.js (P1.5b) — NOT updated by this sprint (deploy pending operator)
 Runtime fixture date: 2026-06-14 (frontend/public/data/daily-fixtures.json + backend runtime manifest)
 Send status: HOLD
 
@@ -44,7 +44,7 @@ share-card visual polish · language polish · scoring/ranking automation.
 
 ## Next action
 
-Implement Phases 3–4 (minimal frontend reorder + fallbacks + share buttons + guard), run checks,
-fill FINAL_REPORT. No deploy, no send.
+Implementation complete (P0-1..P0-6). Operator deploys frontend f5697b9 to worldcup2026-izid,
+then live re-verify (customer-visible scan + visual homepage order). No send (Owner GO required).
 
 Last updated: 2026-06-14 (engineering, MVP2-P3 thread)
