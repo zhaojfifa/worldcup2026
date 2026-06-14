@@ -136,6 +136,14 @@ def scan_prediction(a):
         fails.append("prediction zh pending_direction must contain 方向待临场确认")
     if "加入临场情报群" not in (zh.get("operations", {}).get("join_cta") or ""):
         fails.append("prediction zh join_cta must be 加入临场情报群")
+    # MVP2-P5b: the main expression must be a CONFIRMED strong call, not the weak pending default.
+    zp = zh.get("prediction", {})
+    if not zp.get("primary_direction"):
+        fails.append("prediction zh primary_direction must be a confirmed direction (Owner P5b: no weak default)")
+    if not zp.get("score_call"):
+        fails.append("prediction zh score_call must be a confirmed main score (Owner P5b: no weak default)")
+    if not zp.get("backup_score"):
+        fails.append("prediction zh backup_score must be a confirmed backup (Owner P5b)")
     fails += scan_content_words(i18n, "prediction")
     return fails
 
@@ -157,8 +165,8 @@ def scan_observation(a):
             fails.append("observation artifact missing locale %s" % lang)
             continue
         for k in ("receipt_title", "pre_match_call", "actual_line", "assessment",
-                  "calibration_title", "pending_line", "state_line", "next_impact",
-                  "join_cta", "share_copy"):
+                  "calibration_title", "pending_line", "state_line", "deviation",
+                  "next_impact", "join_cta", "share_copy"):
             if not s.get(k):
                 fails.append("observation[%s] missing %s" % (lang, k))
         if not isinstance(s.get("calibration_points"), list) or not s.get("calibration_points"):
@@ -176,6 +184,8 @@ def scan_observation(a):
             fails.append("observation zh must contain %s" % token)
     if "部分命中" not in (zh.get("assessment") or "") and "校准" not in (zh.get("assessment") or ""):
         fails.append("observation zh assessment must contain 部分命中 or 校准")
+    if "偏差" not in (zh.get("deviation") or "") and "低于" not in (zh.get("deviation") or ""):
+        fails.append("observation zh deviation must explain the deviation (偏差原因)")
     fails += scan_content_words(i18n, "observation")
     return fails
 
@@ -204,6 +214,8 @@ def scan_sources(srcs):
         fails.append("shareTemplates recapShareCopy not artifact-aware (getObservationArtifact)")
     if "下一场影响" not in receipt:
         fails.append("ObservationReceipt missing 下一场影响 (next-match impact)")
+    if "deviation" not in receipt:
+        fails.append("ObservationReceipt missing the deviation (偏差原因) render")
     if "ShareBlock" not in receipt:
         fails.append("ObservationReceipt must use ShareBlock (copy/share + join)")
     if "getPredictionArtifact" not in predict or "ArtifactTacticalRoom" not in predict:
@@ -238,7 +250,7 @@ def selftest():
         {"id": "1489371", "home": "Brazil", "away": "Morocco", "score": "1-1", "recap_ready": True, "i18n": {}}))))
     good = {"room": " ".join(["俅哥强判断", "主比分", "冷门风险", "风险变量", "最大变量", "为什么",
                               "外部预期", "T-30", "今日热点预测", "今日建模关注", "战术对位", "ShareBlock"]),
-            "receipt": "下一场影响 ShareBlock", "share": "复制情报链 复制分享文案",
+            "receipt": "下一场影响 deviation ShareBlock", "share": "复制情报链 复制分享文案",
             "proj": "buildStrongCallFromArtifact getPredictionArtifact", "tpl": "getObservationArtifact",
             "predict": "getPredictionArtifact ArtifactTacticalRoom", "recap": "getObservationArtifact ObservationReceipt"}
     checks.append(("good sources clean", scan_sources(good) == []))
