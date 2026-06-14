@@ -82,4 +82,26 @@ secondarySchedule  = [ Germany vs Curaçao, Ivory Coast vs Ecuador, Sweden vs Tu
 | CTA | generic 加入情报群 / 更多场次… | value-tied 想看临场 30 分钟修正和赛后观察，进群。 |
 | Feel | status / recap / fixture list | predict → track → recap → next loop |
 
+## MVP2-P2b — modeling / analysis layer (added inside the two featured cards)
+
+The two main cards now carry a compact analysis frame (the homepage teases the modeling angle; the
+full analysis lives in the group). Bullet FRAMES are generic structure interpolated with manifest
+team names — question-framed, no fabricated stats, no invented score, no fake certainty.
+
+**② 昨日热点复盘 — Brazil 1-1 Morocco** (+ `赛后校准关注`):
+- Brazil 控制力是否低于赛前预期
+- Morocco 防守压缩与反击质量是否改变判断
+- 1-1 结果对后续走势的影响
+
+**③ 今日热点预测 — Netherlands vs Japan** (+ `今日建模关注`):
+- 节奏差异：Netherlands 推进与 Japan 反击转换
+- 风险变量：首发边路配置与中场压迫强度
+- 临场修正：开球前 30 分钟看首发、阵型与热度变化
+- **开球前 30 分钟重点看：首发阵容、阵型变化、核心球员状态、临场热度、风险方向。**
+
+**⑥ Group CTA:** 想看完整临场 30 分钟修正、建模变量和赛后校准，进群。 → 加入情报群
+
+vi uses `phân tích` (not `mô hình`) and my uses `ပိုင်းခြားသုံးသပ်` (not `မော်ဒယ်`) — the de-modeled
+customer voice for vi/my; zh keeps `建模` per Owner. No betting/trading vocab, no generation wording.
+
 **This preview is for Owner review (Phase D). Deploy is gated on Owner acceptance.**

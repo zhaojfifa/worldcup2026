@@ -32,8 +32,13 @@ const L = {
     enterToday: '进入今日判断', joinLive: '加入临场情报群',
     schedTitle: '🗓️ 今日赛程', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ 其他复盘', otherEn: 'OTHER RECAPS', done: '已完赛',
-    growthWhy: '想看临场 30 分钟修正和赛后观察，进群。', joinGroup: '加入情报群',
+    growthWhy: '想看完整临场 30 分钟修正、建模变量和赛后校准，进群。', joinGroup: '加入情报群',
     upcoming: '即将开赛', viewRecap: '查看复盘', joinPost: '加入情报群看赛后观察',
+    recapFocus: '赛后校准关注',
+    recapBullets: ['{home} 控制力是否低于赛前预期', '{away} 防守压缩与反击质量是否改变判断', '{score} 结果对后续走势的影响'],
+    predFocus: '今日建模关注',
+    predBullets: ['节奏差异：{home} 推进与 {away} 反击转换', '风险变量：首发边路配置与中场压迫强度', '临场修正：开球前 30 分钟看首发、阵型与热度变化'],
+    thirtyMin: '开球前 30 分钟重点看：首发阵容、阵型变化、核心球员状态、临场热度、风险方向。',
     empty: '今日暂无可用赛程，运营同步后更新。',
   },
   vi: {
@@ -45,8 +50,13 @@ const L = {
     enterToday: 'Vào nhận định hôm nay', joinLive: 'Vào nhóm sát giờ',
     schedTitle: '🗓️ Lịch hôm nay', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ Phục dựng khác', otherEn: 'OTHER RECAPS', done: 'Đã kết thúc',
-    growthWhy: 'Muốn xem hiệu chỉnh 30 phút trước trận và quan sát sau trận, vào nhóm.', joinGroup: 'Vào nhóm',
+    growthWhy: 'Muốn xem đầy đủ hiệu chỉnh 30 phút, biến số phân tích và hiệu chỉnh sau trận, vào nhóm.', joinGroup: 'Vào nhóm',
     upcoming: 'Sắp đá', viewRecap: 'Xem phục dựng', joinPost: 'Vào nhóm xem quan sát sau trận',
+    recapFocus: 'Tiêu điểm hiệu chỉnh sau trận',
+    recapBullets: ['{home}: khả năng kiểm soát có thấp hơn kỳ vọng trước trận', '{away}: nén phòng ngự và chất lượng phản công có đổi nhận định', '{score}: ảnh hưởng tới cục diện bảng đấu'],
+    predFocus: 'Tiêu điểm phân tích hôm nay',
+    predBullets: ['Khác biệt nhịp độ: {home} lên bóng ổn định, {away} chuyển đổi phản công nhanh', 'Biến số rủi ro: cấu hình hai biên đá chính và cường độ pressing giữa sân', 'Hiệu chỉnh sát giờ: 30 phút trước bóng lăn xem đội hình, sơ đồ, độ nóng'],
+    thirtyMin: 'Sát giờ 30 phút tập trung: đội hình ra sân, thay đổi sơ đồ, phong độ trụ cột, độ nóng, hướng rủi ro.',
     empty: 'Hôm nay chưa có lịch khả dụng; sẽ cập nhật sau khi vận hành đồng bộ.',
   },
   my: {
@@ -58,8 +68,13 @@ const L = {
     enterToday: 'ဒီနေ့ အမြင် ဝင်ကြည့်ရန်', joinLive: 'ပွဲနီး အဖွဲ့ ဝင်ရန်',
     schedTitle: '🗓️ ဒီနေ့ ပွဲစဉ်', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ အခြား ပြန်သုံးသပ်ချက်', otherEn: 'OTHER RECAPS', done: 'ပြီးဆုံး',
-    growthWhy: 'ပွဲနီး မိနစ် ၃၀ ပြန်ညှိချက်နှင့် ပွဲပြီးသုံးသပ်ချက် ကြည့်ချင်ရင် အဖွဲ့ဝင်ပါ။', joinGroup: 'အဖွဲ့ဝင်ရန်',
+    growthWhy: 'ပွဲနီး မိနစ် ၃၀ ပြန်ညှိ၊ ပိုင်းခြားသုံးသပ် variable နှင့် ပွဲပြီးပြန်ညှိချက် အပြည့်အစုံ ကြည့်ချင်ရင် အဖွဲ့ဝင်ပါ။', joinGroup: 'အဖွဲ့ဝင်ရန်',
     upcoming: 'မကြာမီ', viewRecap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန်', joinPost: 'ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ',
+    recapFocus: 'ပွဲပြီး ပြန်ညှိ အာရုံစိုက်ချက်',
+    recapBullets: ['{home} ၏ ထိန်းချုပ်မှု ပွဲကြိုမျှော်မှန်းချက်အောက် ရှိမရှိ', '{away} ၏ ခံစစ်ဖိအားနှင့် ပြန်တိုက်အရည်အသွေး အမြင်ပြောင်းစေမလား', '{score} ရလဒ်က နောက်ပိုင်း အုပ်စုအခြေအနေအပေါ် သက်ရောက်မှု'],
+    predFocus: 'ဒီနေ့ ပိုင်းခြားသုံးသပ် အာရုံစိုက်ချက်',
+    predBullets: ['အရှိန်ကွာခြားချက်: {home} တည်ငြိမ်စွာ တိုးတက်၊ {away} ပြန်တိုက် မြန်ဆန်', 'အန္တရာယ် variable: ပွဲထွက်အစီအစဉ်နှင့် အလယ်တန်း ဖိအား', 'ပွဲနီးပြင်ဆင်ချက်: ပွဲမစခင် မိနစ် ၃၀ — ပွဲထွက်၊ ပုံစံ၊ အပူချိန်'],
+    thirtyMin: 'ပွဲမစခင် မိနစ် ၃၀ အဓိကကြည့်ရန်: ပွဲထွက်အစီအစဉ်၊ ပုံစံပြောင်းလဲမှု၊ အဓိကကစားသမား အခြေအနေ၊ အပူချိန်၊ အန္တရာယ်ဦးတည်ချက်။',
     empty: 'ဒီနေ့ အသုံးပြုနိုင်သော ပွဲစဉ် မရှိသေးပါ; sync ပြီးနောက် update ပါမည်။',
   },
   en: {
@@ -71,8 +86,13 @@ const L = {
     enterToday: 'See today’s read', joinLive: 'Join the live group',
     schedTitle: '🗓️ Today’s schedule', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ Other recaps', otherEn: 'OTHER RECAPS', done: 'Finished',
-    growthWhy: 'Want the 30-minute live correction and post-match notes? Join the group.', joinGroup: 'Join the group',
+    growthWhy: 'Want the full 30-minute live correction, modeling variables and post-match calibration? Join the group.', joinGroup: 'Join the group',
     upcoming: 'Upcoming', viewRecap: 'View recap', joinPost: 'Join for post-match notes',
+    recapFocus: 'Post-match calibration focus',
+    recapBullets: ['{home}: was control below the pre-match expectation', '{away}: did defensive compression and counter quality change the call', '{score}: effect on the group outlook'],
+    predFocus: 'Modeling focus',
+    predBullets: ['Tempo gap: {home} steady build-up vs {away} fast counter-transition', 'Risk variables: starting wide setup and midfield pressing intensity', 'Live correction: 30 minutes before kickoff — XI, formation, heat'],
+    thirtyMin: 'In the 30 minutes before kickoff, watch: starting XI, formation changes, key-player status, live heat, risk direction.',
     empty: 'No usable fixtures today; updates after the operator syncs.',
   },
 };
@@ -80,6 +100,26 @@ function loc3(loc: Locale) { return loc === 'zh' ? L.zh : loc === 'vi' ? L.vi : 
 
 function SecHead({ zh, en }: { zh: string; en: string }) {
   return <div className="sec-en"><span className="zh">{zh}</span><span className="en">{en}</span></div>;
+}
+
+/** Interpolate {home}/{away}/{score} into an analysis FRAME. Frames are generic structure
+ *  (engineering's "stage"); team names come from the manifest. Question-framed — never a
+ *  fabricated stat, fake certainty, or invented score. */
+function interp(tpl: string, home: string, away: string, score: string | null): string {
+  return tpl.replace('{home}', home).replace('{away}', away).replace('{score}', score ?? '');
+}
+
+function FocusBlock({ title, bullets, home, away, score, extra }:
+  { title: string; bullets: string[]; home: string; away: string; score: string | null; extra?: string }) {
+  return (
+    <div className="plp-focus">
+      <div className="plp-focus-title">{title}</div>
+      <ul className="plp-bullets">
+        {bullets.map((b, i) => <li key={i}>{interp(b, home, away, score)}</li>)}
+      </ul>
+      {extra && <div className="plp-30min">{extra}</div>}
+    </div>
+  );
 }
 
 /** Zone 2 — 昨日热点复盘 (the tracked hotspot that just finished). NEVER a fake recap:
@@ -97,6 +137,7 @@ function HotspotRecap({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <div className="th-badge sc-frozen-badge">{ready ? FZ.ready : FZ.pending}</div>
         <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}{sc ? `　${sc}` : ''}</div>
         <div className="th-meta">{C.recapWhy}</div>
+        <FocusBlock title={C.recapFocus} bullets={C.recapBullets} home={f.home} away={f.away} score={sc} />
         <div className="pp-cta-row">
           {ready && f.id && (
             <button className="recap-cta-btn" onClick={() => navigate(`/recap/${f.id}`)}>{FZ.viewRecap} ▸</button>
@@ -123,6 +164,7 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</div>
         {ko && <div className="th-meta">{ko}</div>}
         <div className="th-meta">{C.predWhy}</div>
+        <FocusBlock title={C.predFocus} bullets={C.predBullets} home={f.home} away={f.away} score={null} extra={C.thirtyMin} />
         <div className="pp-cta-row">
           {canEnter && (
             <button className="recap-cta-btn" onClick={() => navigate(`/predict/${f.id}`)}>{C.enterToday} ▸</button>

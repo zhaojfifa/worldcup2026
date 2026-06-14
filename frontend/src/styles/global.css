@@ -1621,6 +1621,12 @@ body {
 .md-score { color: var(--blueMid); font-weight: 800; margin: 0 2px; }
 /* MVP2-P2 product loop: featured hotspot recap / prediction cards reuse the th-hero shell. */
 .plp-recap, .plp-predict { margin-top: 2px; }
+/* MVP2-P2b modeling / analysis layer: compact focus bullets inside the two featured cards. */
+.plp-focus { margin: 8px 0 4px; padding: 8px 10px; background: #F6F9FF; border: 1px solid #E2ECFB; border-radius: 10px; }
+.plp-focus-title { font-size: 12px; font-weight: 800; color: var(--blueMid); margin-bottom: 4px; }
+.plp-bullets { margin: 0; padding-left: 16px; }
+.plp-bullets li { font-size: 12px; line-height: 1.55; color: var(--ink, #1A2233); }
+.plp-30min { margin-top: 6px; font-size: 12px; font-weight: 600; color: #8A4B00; background: #FFF6E2; border: 1px solid #F0D58A; border-radius: 8px; padding: 5px 8px; }
 .md-cta { background: var(--blueMid); color: #fff; border: none; border-radius: 8px;
   padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .md-chip { font-size: 11px; padding: 3px 9px; border-radius: 7px; white-space: nowrap; }
