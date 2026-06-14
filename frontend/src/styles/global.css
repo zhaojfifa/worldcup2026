@@ -1617,7 +1617,10 @@ body {
   padding: 8px 2px; border-bottom: 1px solid var(--line); }
 .md-row:last-child { border-bottom: none; }
 .md-teams { font-size: 13px; font-weight: 600; }
+.md-meta { font-size: 11px; color: var(--sub); white-space: nowrap; margin-left: auto; margin-right: 8px; }
 .md-score { color: var(--blueMid); font-weight: 800; margin: 0 2px; }
+/* MVP2-P2 product loop: featured hotspot recap / prediction cards reuse the th-hero shell. */
+.plp-recap, .plp-predict { margin-top: 2px; }
 .md-cta { background: var(--blueMid); color: #fff; border: none; border-radius: 8px;
   padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .md-chip { font-size: 11px; padding: 3px 9px; border-radius: 7px; white-space: nowrap; }

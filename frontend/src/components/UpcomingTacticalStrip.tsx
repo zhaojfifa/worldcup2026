@@ -20,7 +20,7 @@ const FROZEN = {
   my: { live: 'ပွဲ ဆက်ကစားနေဆဲ · ပွဲကြိုကတ် အေးခဲထား · ပွဲပြီး ပြန်ညှိမည်', pending: 'ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ', ready: 'ပွဲ ပြီးဆုံးပြီ · ပြန်သုံးသပ်ချက် ကြည့်ရန်', viewRecap: 'ပြန်သုံးသပ်ချက် ကြည့်ရန်', joinPost: 'ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ' },
   en: { live: 'Match in progress · pre-match card frozen · calibration after the match', pending: 'Match finished · post-match calibration', ready: 'Match finished · View recap', viewRecap: 'View recap', joinPost: 'Join for post-match notes' },
 };
-function frozenFor(loc: Locale) { return loc === 'zh' ? FROZEN.zh : loc === 'vi' ? FROZEN.vi : loc === 'my' ? FROZEN.my : FROZEN.en; }
+export function frozenFor(loc: Locale) { return loc === 'zh' ? FROZEN.zh : loc === 'vi' ? FROZEN.vi : loc === 'my' ? FROZEN.my : FROZEN.en; }
 
 // Product Closure P1 (Owner §6): the home conversion area is the ACTIVE 2026 loop —
 // main match → strong call → 30-min rescore hook → latest 2026 recap trust anchor →

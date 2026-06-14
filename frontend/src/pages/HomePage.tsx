@@ -10,11 +10,9 @@ import { useLocale } from '../i18n/useLocale';
 import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, noteLoc } from '../i18n/viMapping';
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
-import { UpcomingTacticalStrip, TrialHeroCard, TrialStatusStrip, RescoreHookCard } from '../components/UpcomingTacticalStrip';
-import { getProductNarrative } from '../data/productNarrativeData';
-import { pickActiveFixture } from '../lib/freshness';
-import { fetchDailyManifest, heroEntries, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
-import { RecapDesk, UpcomingNeedsNarrative, OperatorStatusLine } from '../components/MatchDesk';
+import { TrialStatusStrip } from '../components/UpcomingTacticalStrip';
+import { fetchDailyManifest, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
+import { HomeProductLoop } from '../components/HomeProductLoop';
 import type { Match } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -186,27 +184,8 @@ export function HomePage() {
            empty. recapReady is recomputed LIVE from the bundled narrative, never trusted stale.
            A finished/live fixture can never be pinned as today's pre-match prediction. */}
       {(() => {
-        const entries = heroEntries(daily.manifest);
         const age = manifestAgeMinutes(daily.manifest);
         const stale = age != null && age > 24 * 60; // >24h since last sync = stale slate
-        const active = pickActiveFixture(entries.map(e => ({
-          id: e.id, kickoffUtc: e.kickoffUtc,
-          recapReady: getProductNarrative(e.id, loc)?.mode === 'real_recap',
-        })));
-        // latest recap-ready fixture for the trust anchor (guarded by mode internally)
-        const recapAnchorId = [...entries]
-          .filter(e => getProductNarrative(e.id, loc)?.mode === 'real_recap')
-          .sort((a, b) => new Date(b.kickoffUtc ?? 0).getTime() - new Date(a.kickoffUtc ?? 0).getTime())[0]?.id;
-        if (active.mode === 'empty' && !recapAnchorId) {
-          return (
-            <div className="card th-hero">
-              <div className="th-badge">{loc === 'zh' ? '今日暂无可用赛前情报'
-                : loc === 'vi' ? 'Hôm nay chưa có tin trước trận khả dụng'
-                  : loc === 'my' ? 'ဒီနေ့ အသုံးပြုနိုင်သော ပွဲကြိုသတင်း မရှိသေးပါ'
-                    : 'No active pre-match intel today'}</div>
-            </div>
-          );
-        }
         const syncLbl = daily.manifest.generated_at
           ? new Date(daily.manifest.generated_at).toLocaleString(
               loc === 'zh' ? 'zh-CN' : loc === 'vi' ? 'vi-VN' : 'en-GB',
@@ -221,32 +200,14 @@ export function HomePage() {
         const staleW = loc === 'zh' ? '· 数据较旧，请运营刷新' : loc === 'vi' ? '· dữ liệu cũ, vui lòng đồng bộ' : loc === 'my' ? '· data ဟောင်း၊ sync ပါ' : '· stale, please re-sync';
         return (
           <>
-            {/* P1.5a lean landing: A hero · B recap desk · C upcoming · D status · E one group CTA.
-                Removed Strong Calls (duplicated hero + Mexico recap) and the recap-anchor card
-                (duplicated the recap-desk Mexico row). Share buttons live on share/detail pages. */}
+            {/* MVP2-P2 homepage product loop (Owner Harness-X brief): 昨日热点复盘 → 今日热点预测 →
+                今日赛程 → 其他复盘 → group CTA. The editorial slate ORDER drives the two featured
+                slots (selectProductLoop) — NO hardcoded popularity ranking. */}
             <div className="daily-sync-line">⟳ {updatedW} {syncLbl} · {srcWord}{stale ? ` ${staleW}` : ''}</div>
-            {/* A. current match hero */}
-            {active.heroId && <TrialHeroCard loc={loc} fixtureId={active.heroId} />}
-            <UpcomingTacticalStrip loc={loc} excludeId={active.heroId ?? undefined} />
-            {active.mode === 'pre_match' && active.heroId && <RescoreHookCard loc={loc} fixtureId={active.heroId} />}
-            {/* B recap desk · C upcoming-needs-narrative · D operator status */}
-            <RecapDesk manifest={daily.manifest} loc={loc} />
-            <UpcomingNeedsNarrative manifest={daily.manifest} loc={loc} />
-            <OperatorStatusLine loc={loc} />
+            <HomeProductLoop manifest={daily.manifest} loc={loc} />
           </>
         );
       })()}
-      <div className="card" style={{ textAlign: 'center' }}>
-        <div className="ra-line">
-          {loc === 'zh' ? '更多场次临场判断，进群后按比赛补充。'
-            : loc === 'vi' ? 'Các trận khác sẽ được bổ sung trong nhóm theo diễn biến trước giờ bóng lăn.'
-              : loc === 'my' ? 'အခြားပွဲများအတွက် နောက်ဆုံးမိနစ်သုံးသပ်ချက်ကို group ထဲတွင် ပွဲအလိုက် ဖြည့်စွက်ပေးမည်။'
-                : 'More matches are covered inside the group, match by match before kickoff.'}
-        </div>
-        <button className="recap-cta-btn" style={{ width: '100%' }} onClick={() => navigate('/community')}>
-          {loc === 'zh' ? '加入情报群 ▸' : loc === 'vi' ? 'Vào nhóm tin báo ▸' : loc === 'my' ? 'အဖွဲ့ဝင်ရန် ▸' : 'Join the group ▸'}
-        </button>
-      </div>
 
       {/* ── ARCHIVE: WC2022 recap library — P1.5a collapsed to a compact fold (off the main flow,
              keeps the live 2026 feeling; the recap pages themselves are untouched). ── */}

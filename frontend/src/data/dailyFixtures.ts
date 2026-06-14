@@ -81,6 +81,36 @@ export function heroEntries(m: DailyManifest): { id: string; kickoffUtc: string 
     .map(f => ({ id: f.id as string, kickoffUtc: f.kickoffUtc }));
 }
 
+// ── MVP2-P2 homepage product loop ──────────────────────────────────────────
+// The product is a CLOSED LOOP around ONE daily hotspot match: predict → track →
+// recap → next hotspot. The two featured slots are EDITORIAL (operator/LLM decide
+// which match is the hotspot — NEVER a hardcoded popularity ranking). The operator
+// expresses that decision via SLATE ORDER: the first finished fixture = yesterday's
+// tracked hotspot (its recap lead), the first scheduled fixture = today's hotspot
+// prediction. The frontend renders the confirmed order; it does not rank teams.
+const FINISHED_STATES = new Set(['FINISHED', 'RECAP_PENDING', 'RECAP_READY', 'ARCHIVED']);
+
+export interface ProductLoop {
+  featuredRecap: DailyFixtureRow | null;       // tracked hotspot that just finished (recap lead)
+  featuredPrediction: DailyFixtureRow | null;  // today's hotspot prediction
+  otherRecaps: DailyFixtureRow[];              // remaining finished fixtures (secondary)
+  secondarySchedule: DailyFixtureRow[];        // remaining scheduled fixtures (secondary)
+}
+
+export function selectProductLoop(m: DailyManifest): ProductLoop {
+  const fixtures = m.fixtures ?? [];
+  const finished = fixtures.filter(f => FINISHED_STATES.has(f.lifecycle_state));
+  const scheduled = fixtures.filter(f =>
+    !FINISHED_STATES.has(f.lifecycle_state)
+    && (f.preMatchAllowed ?? f.lifecycle_state === 'SCHEDULED'));
+  return {
+    featuredRecap: finished[0] ?? null,
+    featuredPrediction: scheduled[0] ?? null,
+    otherRecaps: finished.slice(1),
+    secondarySchedule: scheduled.slice(1),
+  };
+}
+
 /** Minutes since the manifest was generated (for a subtle freshness/staleness indicator). */
 export function manifestAgeMinutes(m: DailyManifest, now: Date = new Date()): number | null {
   if (!m.generated_at) return null;
