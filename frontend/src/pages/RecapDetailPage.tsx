@@ -10,6 +10,8 @@ import { getProductNarrative } from '../data/productNarrativeData';
 import { buildRecapCall } from '../growth/strongCallProjection';
 import { ProductRecapView } from '../components/ProductProofViews';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
+import { DetailShareRow } from '../components/DetailShareRow';
+import { CopyLink } from '../components/CopyLink';
 
 // MVP2 flow P0: a fixture we PREDICTED whose recap is not ready yet (pre-match narrative,
 // recap_ready=false) must show a SAFE post-match observation page — never empty, never a fake
@@ -17,16 +19,20 @@ import { getUpcomingFixture } from '../data/upcomingFixtures';
 const OBSERVATION = {
   zh: { back: '赛后观察', banner: '赛后观察', state: '比赛已结束 · 赛后校准中',
         lead: '这是我们赛前追踪的热点比赛，赛后观察已开启。',
-        calib: '完整复盘尚未就绪；先看赛后需要校准的方向，就绪后这里会更新。', cta: '加入情报群看赛后观察' },
+        calib: '完整复盘尚未就绪；先看赛后需要校准的方向，就绪后这里会更新。', cta: '加入情报群看赛后观察',
+        copy: '复制观察链接 / 分享复盘', copyDone: '已复制 ✓' },
   vi: { back: 'Quan sát sau trận', banner: 'Quan sát sau trận', state: 'Trận đã kết thúc · Đang hiệu chỉnh sau trận',
         lead: 'Đây là trận điểm nóng chúng tôi theo dõi trước trận; quan sát sau trận đã mở.',
-        calib: 'Phục dựng đầy đủ chưa sẵn sàng; xem trước hướng cần hiệu chỉnh, sẽ cập nhật khi sẵn sàng.', cta: 'Vào nhóm xem quan sát sau trận' },
+        calib: 'Phục dựng đầy đủ chưa sẵn sàng; xem trước hướng cần hiệu chỉnh, sẽ cập nhật khi sẵn sàng.', cta: 'Vào nhóm xem quan sát sau trận',
+        copy: 'Sao chép link quan sát / chia sẻ', copyDone: 'Đã sao chép ✓' },
   my: { back: 'ပွဲပြီး စောင့်ကြည့်ချက်', banner: 'ပွဲပြီး စောင့်ကြည့်ချက်', state: 'ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ',
         lead: 'ဒါက ပွဲကြို ကျွန်ုပ်တို့ ခြေရာခံခဲ့သော အဓိကပွဲ; ပွဲပြီးသုံးသပ်ချက် စတင်ဖွင့်ပြီ။',
-        calib: 'ပြည့်စုံသော ပြန်သုံးသပ်ချက် အသင့်မဖြစ်သေး; ပြန်ညှိရမည့် ဦးတည်ချက်ကို အရင်ကြည့်ပါ၊ အသင့်ဖြစ်ရင် ဤနေရာ update ပါမည်။', cta: 'ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ' },
+        calib: 'ပြည့်စုံသော ပြန်သုံးသပ်ချက် အသင့်မဖြစ်သေး; ပြန်ညှိရမည့် ဦးတည်ချက်ကို အရင်ကြည့်ပါ၊ အသင့်ဖြစ်ရင် ဤနေရာ update ပါမည်။', cta: 'ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ',
+        copy: 'စောင့်ကြည့် link ကူး / share', copyDone: 'ကူးပြီး ✓' },
   en: { back: 'Post-match observation', banner: 'Post-match observation', state: 'Match finished · post-match calibration',
         lead: 'This is the hotspot match we tracked pre-match; post-match observation is open.',
-        calib: 'The full recap is not ready yet; here is what needs calibration — this page updates when it is ready.', cta: 'Join for post-match notes' },
+        calib: 'The full recap is not ready yet; here is what needs calibration — this page updates when it is ready.', cta: 'Join for post-match notes',
+        copy: 'Copy / share observation link', copyDone: 'Copied ✓' },
 };
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
@@ -121,6 +127,7 @@ export function RecapDetailPage() {
         {EVIDENCE_AVAILABLE.has(fixtureId) && (
           <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
         )}
+        <DetailShareRow path={`/recap/${fixtureId}`} loc={loc} kind="recap" />
       </div>
     );
   }
@@ -141,6 +148,9 @@ export function RecapDetailPage() {
           <div className="th-meta">{O.lead}</div>
           <div className="th-meta">{O.calib}</div>
           <button className="recap-cta-btn" style={{ width: '100%', marginTop: 8 }} onClick={() => navigate('/community')}>{O.cta} ▸</button>
+          <div className="share-block">
+            <CopyLink path={`/recap/${fixtureId}`} loc={loc} label={O.copy} doneLabel={O.copyDone} />
+          </div>
         </div>
       </div>
     );
@@ -183,6 +193,7 @@ export function RecapDetailPage() {
           <div className="recap-cta-q">{L.ctaQ}</div>
           <button className="recap-cta-btn" onClick={() => navigate('/')}>{narr.cta_copy || L.ctaBtn} ▸</button>
         </div>
+        <DetailShareRow path={`/recap/${fixtureId}`} loc={loc} kind="recap" />
         <div className="muted-note">{c.disclaimer}</div>
       </div>
     );
@@ -275,6 +286,7 @@ export function RecapDetailPage() {
         <div className="recap-cta-q">{L.ctaQ}</div>
         <button className="recap-cta-btn" onClick={() => navigate('/')}>{L.ctaBtn} ▸</button>
       </div>
+      <DetailShareRow path={`/recap/${fixtureId}`} loc={loc} kind="recap" />
       <div className="muted-note">{c.disclaimer}</div>
     </div>
   );
