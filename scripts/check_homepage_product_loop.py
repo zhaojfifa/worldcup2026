@@ -17,6 +17,8 @@ Checks (frontend/src/components/HomeProductLoop.tsx + data/dailyFixtures.ts):
   5. recap CTA (查看复盘) is gated on recapReady (no fake recap)
   6. NO betting/trading vocabulary
   7. HomePage.tsx actually renders <HomeProductLoop/>
+  8. MVP2-P3: 今日热点预测 renders BEFORE 昨日热点复盘 (HotspotPrediction before HotspotRecap)
+  9. MVP2-P3: lead prediction card has 进入战术室 (tactical-room CTA) + a copy/share entry (CopyLink)
 
 Exit 0 = clean. --selftest runs embedded fixtures.
 """
@@ -75,6 +77,20 @@ def scan(loop_src, data_src, home_src):
             fails.append("betting/trading vocab in homepage loop: %s" % w)
     if "HomeProductLoop" not in home_src:
         fails.append("HomePage.tsx does not render <HomeProductLoop/>")
+    # 8. MVP2-P3 funnel order: hotspot PREDICTION renders before yesterday's RECAP.
+    pi = loop_src.find("<HotspotPrediction")
+    ri = loop_src.find("<HotspotRecap")
+    if pi < 0:
+        fails.append("HotspotPrediction is not rendered (今日热点预测 missing from the loop)")
+    if ri < 0:
+        fails.append("HotspotRecap is not rendered (昨日热点复盘 missing from the loop)")
+    if pi >= 0 and ri >= 0 and pi > ri:
+        fails.append("今日热点预测 must render BEFORE 昨日热点复盘 (HotspotPrediction before HotspotRecap)")
+    # 9. MVP2-P3 lead prediction card: tactical-room CTA + copy/share entry.
+    if "进入战术室" not in loop_src:
+        fails.append("lead prediction card missing 进入战术室 (tactical-room CTA)")
+    if "CopyLink" not in loop_src:
+        fails.append("homepage loop missing a copy/share entry (CopyLink)")
     return fails
 
 
@@ -111,7 +127,9 @@ def scan_manifest(m):
 
 def selftest():
     good_loop = ("昨日热点复盘 今日热点预测 今日赛程 其他复盘 赛后校准关注 今日建模关注 开球前 30 分钟 "
-                 "selectProductLoop recapReady viewRecap 加入情报群看赛后观察")
+                 "selectProductLoop recapReady viewRecap 加入情报群看赛后观察 "
+                 "<HotspotPrediction f={featuredPrediction}/> <HotspotRecap f={featuredRecap}/> "
+                 "进入战术室 CopyLink")
     good_manifest = {"fixtures": [
         {"home": "Brazil", "away": "Morocco", "lifecycle_state": "RECAP_PENDING", "recapReady": False},
         {"home": "Mexico", "away": "South Africa", "lifecycle_state": "RECAP_READY", "recapReady": True},
@@ -127,6 +145,12 @@ def selftest():
     checks.append(("betting caught", any("赔率" in f for f in scan(good_loop + " 赔率", good_data, good_home))))
     checks.append(("ungated recap caught", any("recapReady" in f for f in scan("昨日热点复盘 今日热点预测 今日赛程 其他复盘 selectProductLoop 查看复盘", good_data, good_home))))
     checks.append(("home wiring caught", any("HomeProductLoop" in f for f in scan(good_loop, good_data, "no loop here"))))
+    bad_order = ("昨日热点复盘 今日热点预测 今日赛程 其他复盘 赛后校准关注 今日建模关注 开球前 30 分钟 "
+                 "selectProductLoop recapReady viewRecap "
+                 "<HotspotRecap f={featuredRecap}/> <HotspotPrediction f={featuredPrediction}/> 进入战术室 CopyLink")
+    checks.append(("recap-before-prediction order caught", any("render BEFORE" in f for f in scan(bad_order, good_data, good_home))))
+    checks.append(("missing 进入战术室 caught", any("进入战术室" in f for f in scan(good_loop.replace("进入战术室", ""), good_data, good_home))))
+    checks.append(("missing CopyLink caught", any("CopyLink" in f for f in scan(good_loop.replace("CopyLink", ""), good_data, good_home))))
     checks.append(("non-order helper caught", any("order-driven" in f for f in scan(good_loop, "export function selectProductLoop(){}", good_home))))
     checks.append(("manifest scenario passes", scan_manifest(good_manifest) == []))
     checks.append(("wrong recap lead caught", any("featured recap" in f for f in scan_manifest(
