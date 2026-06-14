@@ -27,6 +27,11 @@
 - **no contribution value issued** (contribution value = 0).
 - **no send performed**.
 
+**P1.5c (2026-06-14):** agent-led daily editorial selection added — `scripts/mvp2_editorial_agent.py prompt`
+prints a copy-paste LLM prompt from the local fixture slate (no scoring engine, no external API call,
+no production write, no send). Operator runs the LLM and confirms the daily selection manually.
+See `docs/mvp2_growth/GROWTH_P15C_EDITORIAL_AGENT.md`. First send still HOLD on Gate 3 + Gate 4 below.
+
 Notes / engineering integrity:
 - The pending test join-intents were **left unconfirmed** (not approved/rejected) — no MTC credit path triggered.
 - Engineering holds no prod ADMIN_API_TOKEN: codes were created by the operator; engineering only
