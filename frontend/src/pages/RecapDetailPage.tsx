@@ -9,6 +9,25 @@ import { NarrativeView } from '../components/NarrativeView';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { buildRecapCall } from '../growth/strongCallProjection';
 import { ProductRecapView } from '../components/ProductProofViews';
+import { getUpcomingFixture } from '../data/upcomingFixtures';
+
+// MVP2 flow P0: a fixture we PREDICTED whose recap is not ready yet (pre-match narrative,
+// recap_ready=false) must show a SAFE post-match observation page — never empty, never a fake
+// recap, never any internal auto-generation status wording.
+const OBSERVATION = {
+  zh: { back: '赛后观察', banner: '赛后观察', state: '比赛已结束 · 赛后校准中',
+        lead: '这是我们赛前追踪的热点比赛，赛后观察已开启。',
+        calib: '完整复盘尚未就绪；先看赛后需要校准的方向，就绪后这里会更新。', cta: '加入情报群看赛后观察' },
+  vi: { back: 'Quan sát sau trận', banner: 'Quan sát sau trận', state: 'Trận đã kết thúc · Đang hiệu chỉnh sau trận',
+        lead: 'Đây là trận điểm nóng chúng tôi theo dõi trước trận; quan sát sau trận đã mở.',
+        calib: 'Phục dựng đầy đủ chưa sẵn sàng; xem trước hướng cần hiệu chỉnh, sẽ cập nhật khi sẵn sàng.', cta: 'Vào nhóm xem quan sát sau trận' },
+  my: { back: 'ပွဲပြီး စောင့်ကြည့်ချက်', banner: 'ပွဲပြီး စောင့်ကြည့်ချက်', state: 'ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ',
+        lead: 'ဒါက ပွဲကြို ကျွန်ုပ်တို့ ခြေရာခံခဲ့သော အဓိကပွဲ; ပွဲပြီးသုံးသပ်ချက် စတင်ဖွင့်ပြီ။',
+        calib: 'ပြည့်စုံသော ပြန်သုံးသပ်ချက် အသင့်မဖြစ်သေး; ပြန်ညှိရမည့် ဦးတည်ချက်ကို အရင်ကြည့်ပါ၊ အသင့်ဖြစ်ရင် ဤနေရာ update ပါမည်။', cta: 'ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ' },
+  en: { back: 'Post-match observation', banner: 'Post-match observation', state: 'Match finished · post-match calibration',
+        lead: 'This is the hotspot match we tracked pre-match; post-match observation is open.',
+        calib: 'The full recap is not ready yet; here is what needs calibration — this page updates when it is ready.', cta: 'Join for post-match notes' },
+};
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
@@ -106,11 +125,23 @@ export function RecapDetailPage() {
     );
   }
 
-  if (!content) {
+  // P0 safe observation: predicted hotspot, recap NOT ready (pre-match narrative). Show a real
+  // post-match observation page (we predicted this · calibration focus · group CTA) — not empty,
+  // not a fake recap. Reached by direct/share link; the homepage never shows 查看复盘 here.
+  if (productNarr || !content) {
+    const O = OBSERVATION[loc === 'zh' ? 'zh' : loc === 'vi' ? 'vi' : loc === 'my' ? 'my' : 'en'];
+    const fx = getUpcomingFixture(fixtureId);
     return (
       <div className="page-enter">
-        <div className="backbar"><button className="bk" onClick={() => navigate('/')}>←</button><span className="ti">{L.back}</span></div>
-        <div className="status-card"><div className="ic">🗂️</div><div className="st">—</div></div>
+        <div className="backbar"><button className="bk" onClick={() => navigate('/')}>←</button><span className="ti">{O.back}</span></div>
+        <div className="recap-banner">🗂️ {O.banner}</div>
+        <div className="card th-frozen">
+          <div className="th-badge sc-frozen-badge">{O.state}</div>
+          {fx && <div className="th-teams">{fx.flagHome} {fx.home} <span className="ut-vs">vs</span> {fx.away} {fx.flagAway}</div>}
+          <div className="th-meta">{O.lead}</div>
+          <div className="th-meta">{O.calib}</div>
+          <button className="recap-cta-btn" style={{ width: '100%', marginTop: 8 }} onClick={() => navigate('/community')}>{O.cta} ▸</button>
+        </div>
       </div>
     );
   }
