@@ -53,6 +53,7 @@ export interface ObservationArtifactLocale {
   assessment: string;
   calibration_title: string;
   calibration_points: string[];
+  deviation: string;
   next_impact: string;
   pending_line: string;
   state_line: string;

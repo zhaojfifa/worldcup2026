@@ -119,7 +119,7 @@ export function buildStrongCallFromArtifact(art: PredictionArtifact, loc: Locale
     kickoffUtc: art.kickoffUtc,
     main_lean: p.primary_direction ?? A.pending_direction,
     primary_score: p.score_call,
-    backup_scores: p.backup_score ? [p.backup_score] : [],
+    backup_scores: p.backup_score ? p.backup_score.split('/').map(s => s.trim()).filter(Boolean) : [],
     scoreline_raw: p.score_call ?? A.pending_score,
     risk_label: p.risk_level ?? '',
     top_variable: p.top_variable || A.analysis.risk_variables[0] || '',

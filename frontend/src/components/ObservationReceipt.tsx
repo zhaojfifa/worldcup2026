@@ -34,6 +34,7 @@ export function ObservationReceipt({ art, loc }: { art: ObservationArtifact; loc
           <div className="sc-row"><span className="sc-v">{O.pre_match_call}</span></div>
           <div className="sc-row"><span className="sc-v" style={{ fontWeight: 700 }}>{O.actual_line}</span></div>
           <div className="sc-frame" style={{ textAlign: 'left' }}>{O.assessment}</div>
+          {O.deviation && <div className="sc-row"><span className="sc-v">{O.deviation}</span></div>}
         </div>
 
         <div className="plp-focus">
