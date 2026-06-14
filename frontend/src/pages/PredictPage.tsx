@@ -6,7 +6,9 @@ import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { ProductPredictView } from '../components/ProductProofViews';
 import { StrongCallCard } from '../components/StrongSignalCard';
 import { DetailShareRow } from '../components/DetailShareRow';
+import { ArtifactTacticalRoom } from '../components/ArtifactTacticalRoom';
 import { fetchDailyManifest, type DailyFixtureRow } from '../data/dailyFixtures';
+import { getPredictionArtifact } from '../data/predictionArtifacts';
 import { fixtureFreshness } from '../lib/freshness';
 
 // MVP2-P3 — lightweight tactical-room fallback for today's hotspot when no full LLM narrative
@@ -14,14 +16,14 @@ import { fixtureFreshness } from '../lib/freshness';
 // /risk variables + the 30-minute checklist); no invented score, no fake certainty, no data source.
 const FALLBACK = {
   zh: { banner: '⚡ 今日热点预测 · 战术室', state: '今日主推 · 开球前判断',
-        why: '今日主推比赛：基于数据更新 + 大模型判断，开球前看方向，开球前 30 分钟修正。',
+        why: '今日主推比赛：基于数据更新 + 建模判断，开球前看方向，开球前 30 分钟修正。',
         focus: '今日建模关注', risk: '风险变量', thirtyTitle: '开球前 30 分钟修正',
         bullets: ['节奏差异：{home} 推进与 {away} 反击转换', '中场与边路：首发配置与压迫强度如何影响走势'],
         risks: ['首发与阵型：开球前公布的首发是否改变方向', '核心球员状态与临场热度'],
         thirty: '开球前 30 分钟重点看：首发阵容、阵型变化、核心球员状态、临场热度、风险方向。',
         loading: '正在载入今日热点…', kickoffTba: '开球时间待运营确认' },
   vi: { banner: '⚡ Dự đoán điểm nóng hôm nay · Phòng chiến thuật', state: 'Trận chính hôm nay · nhận định trước trận',
-        why: 'Trận chính hôm nay: dựa trên dữ liệu cập nhật + nhận định mô hình, xem hướng trước trận, hiệu chỉnh 30 phút trước giờ bóng lăn.',
+        why: 'Trận chính hôm nay: dựa trên dữ liệu cập nhật + phân tích, xem hướng trước trận, hiệu chỉnh 30 phút trước giờ bóng lăn.',
         focus: 'Tiêu điểm phân tích hôm nay', risk: 'Biến số rủi ro', thirtyTitle: 'Hiệu chỉnh 30 phút trước trận',
         bullets: ['Khác biệt nhịp độ: {home} lên bóng và {away} chuyển đổi phản công', 'Giữa sân & hai biên: cấu hình đá chính và cường độ pressing'],
         risks: ['Đội hình & sơ đồ: đội hình công bố có đổi hướng không', 'Phong độ trụ cột và độ nóng sát giờ'],
@@ -143,6 +145,20 @@ export function PredictPage() {
 
   // P0-4: lightweight tactical-room fallback for today's hotspot (manual fixture, no narrative).
   if (needsFallback) {
+    // MVP2-P4 artifact tier: a Prediction Artifact (if one exists for this hotspot) drives a
+    // RICH tactical room instead of the generic shell. Resolved by route key (external_game_id).
+    const art = getPredictionArtifact(slug);
+    if (art) {
+      return (
+        <div className="page-enter">
+          <div className="backbar">
+            <button className="bk" onClick={() => navigate('/')}>←</button>
+            <span className="ti">{B.backReal}</span>
+          </div>
+          <ArtifactTacticalRoom art={art} loc={loc} path={`/predict/${slug}`} />
+        </div>
+      );
+    }
     const F = fbFor(loc);
     return (
       <div className="page-enter">

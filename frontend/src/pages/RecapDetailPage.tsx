@@ -12,6 +12,8 @@ import { ProductRecapView } from '../components/ProductProofViews';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { DetailShareRow } from '../components/DetailShareRow';
 import { CopyLink } from '../components/CopyLink';
+import { ObservationReceipt } from '../components/ObservationReceipt';
+import { getObservationArtifact } from '../data/predictionArtifacts';
 
 // MVP2 flow P0: a fixture we PREDICTED whose recap is not ready yet (pre-match narrative,
 // recap_ready=false) must show a SAFE post-match observation page — never empty, never a fake
@@ -130,6 +132,13 @@ export function RecapDetailPage() {
         <DetailShareRow path={`/recap/${fixtureId}`} loc={loc} kind="recap" />
       </div>
     );
+  }
+
+  // MVP2-P4 observation artifact tier: a recovered observation RECEIPT (original pre-match call →
+  // actual score → calibration focus) drives the safe page when available. Never a fake recap.
+  const obs = getObservationArtifact(fixtureId);
+  if (obs && !obs.recap_ready) {
+    return <ObservationReceipt art={obs} loc={loc} />;
   }
 
   // P0 safe observation: predicted hotspot, recap NOT ready (pre-match narrative). Show a real
