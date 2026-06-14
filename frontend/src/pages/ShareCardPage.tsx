@@ -4,6 +4,7 @@ import QRCode from 'qrcode';
 import { useLocale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
+import { getPredictionArtifact, getObservationArtifact, observationArtifactLocale } from '../data/predictionArtifacts';
 import { SITE, DEFAULT_REF } from '../growth/shareTemplates';
 import { buildStrongCall, buildRecapCall } from '../growth/strongCallProjection';
 import { fixtureFreshness } from '../lib/freshness';
@@ -41,6 +42,10 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
   const ref = (search.get('ref') ?? DEFAULT_REF[lang]).toUpperCase();
   const n = getProductNarrative(fixtureId, lang);
   const fx = getUpcomingFixture(fixtureId);
+  // MVP2-P5: artifact fallbacks so the manual hotspot + observation receipt also get a share card.
+  const art = getPredictionArtifact(fixtureId);
+  const obsArt = getObservationArtifact(fixtureId);
+  const obsCard = (kind === 'recap' && obsArt) ? observationArtifactLocale(obsArt, loc) : null;
   const [qr, setQr] = useState('');
   const joinUrl = `${SITE}/join?ref=${ref}`;
 
@@ -53,7 +58,7 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
 
   useEffect(() => { void QRCode.toDataURL(joinUrl, { width: 132, margin: 1 }).then(setQr); }, [joinUrl]);
 
-  if (!n) return <div className="page-enter" style={{ padding: 24 }}>—</div>;
+  if (!n && !art && !obsCard) return <div className="page-enter" style={{ padding: 24 }}>—</div>;
   if (freezeFixtureCard) {
     const FZ = SHARE_FROZEN[lang];
     return (
@@ -67,18 +72,22 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
       </div>
     );
   }
-  const isRecap = kind === 'recap' || n.mode === 'real_recap';
-  // P1.1c-fix: both cards render THE canonical projection (same values as /predict + CLI)
+  const isRecap = kind === 'recap' || n?.mode === 'real_recap';
+  // P1.1c-fix: both cards render THE canonical projection (same values as /predict + CLI).
+  // MVP2-P5: buildStrongCall is artifact-aware; recap falls back to the observation receipt.
   const call = !isRecap ? buildStrongCall(fixtureId, lang as 'zh') : null;
   const recap = isRecap ? buildRecapCall(fixtureId, lang as 'zh') : null;
+  const teamLine = n ? n.short_title
+    : art ? `${art.home} vs ${art.away}`
+      : obsCard ? `${obsArt!.home} vs ${obsArt!.away}　${obsArt!.score}` : '';
 
   return (
     <div className="share-card-page">
       <div className="share-card">
         <div className="shc-brand">Giành Cup · {lang === 'zh' ? '俅哥说球' : lang === 'vi' ? 'Tiên Tri Bóng Đá' : 'Football Oracle'}</div>
         <div className="shc-kicker">{isRecap ? L.recap : L.pre}</div>
-        {fx && <div className="shc-teams">{fx.flagHome} {fx.home} <span>vs</span> {fx.away} {fx.flagAway}</div>}
-        {!fx && <div className="shc-teams">{n.short_title}</div>}
+        {fx ? <div className="shc-teams">{fx.flagHome} {fx.home} <span>vs</span> {fx.away} {fx.flagAway}</div>
+          : <div className="shc-teams">{teamLine}</div>}
         {recap ? (
           <>
             <div className="shc-line shc-strong">{recap.result_title}</div>
@@ -104,8 +113,15 @@ export function ShareCardPage({ kind }: { kind: 'fixture' | 'recap' }) {
             {call.top_variable && <div className="shc-row"><b>{L.variable}</b><span>{call.top_variable}</span></div>}
             {call.external_expectation.length > 0 && <div className="shc-ext">{call.external_expectation[0]}</div>}
           </>
+        ) : obsCard ? (
+          <>
+            <div className="shc-line shc-strong">{obsCard.receipt_title}</div>
+            <div className="shc-line">{obsCard.pre_match_call}</div>
+            <div className="shc-line" style={{ fontWeight: 700 }}>{obsCard.actual_line}</div>
+            <div className="shc-line" style={{ opacity: .9 }}>{obsCard.assessment}</div>
+          </>
         ) : null}
-        <div className="shc-hook">⏱️ {call ? call.t30_hook : L.hook}</div>
+        <div className="shc-hook">⏱️ {call ? call.t30_hook : obsCard ? obsCard.pending_line : L.hook}</div>
         <div className="shc-foot">
           {qr && <img src={qr} alt="QR" className="shc-qr" />}
           <div className="shc-foot-txt">

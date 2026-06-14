@@ -155,7 +155,7 @@ export function PredictPage() {
             <button className="bk" onClick={() => navigate('/')}>←</button>
             <span className="ti">{B.backReal}</span>
           </div>
-          <ArtifactTacticalRoom art={art} loc={loc} path={`/predict/${slug}`} />
+          <ArtifactTacticalRoom art={art} loc={loc} />
         </div>
       );
     }

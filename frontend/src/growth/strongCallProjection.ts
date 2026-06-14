@@ -8,6 +8,7 @@ import type { Locale } from '../i18n/useLocale';
 import { getProductNarrative, type ProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { getExternalSignals } from '../data/externalSignalData';
+import { getPredictionArtifact, predictionArtifactLocale, type PredictionArtifact } from '../data/predictionArtifacts';
 
 export interface StrongCall {
   fixture_id: string;
@@ -73,26 +74,57 @@ export function splitScoreband(scorelineView: string): { primary: string; alts: 
 const LANG3 = (loc: Locale): 'zh' | 'vi' | 'my' | null =>
   loc === 'zh' || loc === 'vi' || loc === 'my' ? loc : null;
 
-/** THE canonical pre-match projection. Returns null for finished fixtures / missing narrative. */
+/** THE canonical pre-match projection. Tries the bundled ProductNarrative first; if absent,
+ *  falls back to a Prediction Artifact (MVP2-P5: manual hotspot with no narrative). Returns
+ *  null only when neither source exists / the narrative is a finished recap. */
 export function buildStrongCall(fixtureId: string, loc: Locale): StrongCall | null {
   const lang = LANG3(loc);
-  const n: ProductNarrative | null = lang ? getProductNarrative(fixtureId, lang) : null;
-  if (!lang || !n || n.mode === 'real_recap') return null;
-  const fx = getUpcomingFixture(fixtureId);
-  const band = splitScoreband(n.scoreline_view);
-  const ext = getExternalSignals(fixtureId, lang);
+  if (!lang) return null;
+  const n: ProductNarrative | null = getProductNarrative(fixtureId, lang);
+  if (n && n.mode !== 'real_recap') {
+    const fx = getUpcomingFixture(fixtureId);
+    const band = splitScoreband(n.scoreline_view);
+    const ext = getExternalSignals(fixtureId, lang);
+    return {
+      fixture_id: fixtureId,
+      teams: fx ? `${fx.home} vs ${fx.away}` : n.short_title,
+      kickoffUtc: fx?.kickoffUtc ?? null,
+      main_lean: n.main_lean,
+      primary_score: band?.primary ?? null,
+      backup_scores: band?.alts ?? [],
+      scoreline_raw: n.scoreline_view,
+      risk_label: harmonizedRisk(n.main_lean, n.risk_level),
+      top_variable: n.watch_next_signals?.[0]?.name || n.risk_factors?.[0]?.name || '',
+      why: n.hero_subtitle || '',
+      external_expectation: ext?.lines ?? [],
+      t30_hook: T30_HOOK[lang],
+      cta_line: CTA_LINE[lang],
+    };
+  }
+  const art = getPredictionArtifact(fixtureId);
+  if (art) return buildStrongCallFromArtifact(art, lang);
+  return null;
+}
+
+/** MVP2-P5 — artifact → canonical StrongCall. Unconfirmed numerics stay null and surface as the
+ *  pending labels (方向待临场确认 / 比分待开球前 30 分钟确认); never invents a score or probability. */
+export function buildStrongCallFromArtifact(art: PredictionArtifact, loc: Locale): StrongCall | null {
+  const lang = LANG3(loc);
+  if (!lang) return null;
+  const A = predictionArtifactLocale(art, lang);
+  const p = A.prediction;
   return {
-    fixture_id: fixtureId,
-    teams: fx ? `${fx.home} vs ${fx.away}` : n.short_title,
-    kickoffUtc: fx?.kickoffUtc ?? null,
-    main_lean: n.main_lean,
-    primary_score: band?.primary ?? null,
-    backup_scores: band?.alts ?? [],
-    scoreline_raw: n.scoreline_view,
-    risk_label: harmonizedRisk(n.main_lean, n.risk_level),
-    top_variable: n.watch_next_signals?.[0]?.name || n.risk_factors?.[0]?.name || '',
-    why: n.hero_subtitle || '',
-    external_expectation: ext?.lines ?? [],
+    fixture_id: art.fixture_key,
+    teams: `${art.home} vs ${art.away}`,
+    kickoffUtc: art.kickoffUtc,
+    main_lean: p.primary_direction ?? A.pending_direction,
+    primary_score: p.score_call,
+    backup_scores: p.backup_score ? [p.backup_score] : [],
+    scoreline_raw: p.score_call ?? A.pending_score,
+    risk_label: p.risk_level ?? '',
+    top_variable: p.top_variable || A.analysis.risk_variables[0] || '',
+    why: p.why || p.risk_note || '',
+    external_expectation: A.analysis.external_expectation ?? [],
     t30_hook: T30_HOOK[lang],
     cta_line: CTA_LINE[lang],
   };

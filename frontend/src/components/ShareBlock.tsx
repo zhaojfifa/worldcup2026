@@ -29,7 +29,8 @@ function pathFor(kind: ShareKind, fixtureId?: string): string {
   return '/join';
 }
 
-export function ShareBlock({ kind, fixtureId, loc }: { kind: ShareKind; fixtureId?: string; loc: Locale }) {
+export function ShareBlock({ kind, fixtureId, loc, joinLabel, joinTo }:
+  { kind: ShareKind; fixtureId?: string; loc: Locale; joinLabel?: string; joinTo?: string }) {
   const navigate = useNavigate();
   const [flash, setFlash] = useState('');
   const L = loc === 'zh' ? SB.zh : loc === 'vi' ? SB.vi : loc === 'my' ? SB.my : null;
@@ -54,7 +55,7 @@ export function ShareBlock({ kind, fixtureId, loc }: { kind: ShareKind; fixtureI
       <button className="btn-mini" onClick={() => void clip(link, L.link)}>🔗 {flash === L.link ? L.done : L.link}</button>
       {text && <button className="btn-mini" onClick={() => void clip(text, L.copy)}>📋 {flash === L.copy ? L.done : L.copy}</button>}
       {cardTo && <button className="btn-mini" onClick={() => navigate(cardTo)}>🖼️ {L.card}</button>}
-      <button className="btn-mini" onClick={() => { recordJoinIntent(pathFor(kind, fixtureId), loc); navigate('/join'); }}>👥 {L.join}</button>
+      <button className="btn-mini" onClick={() => { recordJoinIntent(pathFor(kind, fixtureId), loc); navigate(joinTo ?? '/join'); }}>👥 {joinLabel ?? L.join}</button>
     </div>
   );
 }

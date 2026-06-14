@@ -6,6 +6,7 @@
 import type { Locale } from '../i18n/useLocale';
 import { getProductNarrative } from '../data/productNarrativeData';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
+import { getObservationArtifact, observationArtifactLocale } from '../data/predictionArtifacts';
 import { getStoredRef } from './refCapture';
 import { buildStrongCall, buildRecapCall } from './strongCallProjection';
 // canonical helpers re-exported for backwards compatibility — the implementation
@@ -51,10 +52,16 @@ export function prematchShareCopy(fixtureId: string, loc: Locale, ref?: string):
           `👇${c.cta_line}：`, link].filter(Boolean).join('\n');
 }
 
-/** B. recap share copy — recap line = LLM screenshot_line verbatim. */
+/** B. recap share copy — recap line = LLM screenshot_line verbatim, OR (MVP2-P5) the recovered
+ *  observation-artifact share copy when the full recap is not ready (recap_ready=false). */
 export function recapShareCopy(fixtureId: string, loc: Locale, ref?: string): string | null {
   const r = buildRecapCall(fixtureId, loc);
-  if (!r) return null;
+  if (!r) {
+    const obs = getObservationArtifact(fixtureId);
+    if (!obs) return null;
+    const O = observationArtifactLocale(obs, loc);
+    return `${O.share_copy}\n${shareLink(`/recap/${fixtureId}`, loc, ref)}`;
+  }
   const link = shareLink(`/recap/${fixtureId}`, loc, ref);
   const head = loc === 'zh' ? '俅哥复盘' : loc === 'vi' ? 'Tiên Tri phục dựng' : 'Oracle ပြန်သုံးသပ်ချက်';
   const rightL = loc === 'zh' ? '赛前看对了什么' : loc === 'vi' ? 'Bắt đúng' : 'မှန်ခဲ့သည်';
