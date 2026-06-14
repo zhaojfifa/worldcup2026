@@ -2,11 +2,20 @@ import { useNavigate } from 'react-router-dom';
 import type { Locale } from '../i18n/useLocale';
 import { selectProductLoop, type DailyManifest, type DailyFixtureRow } from '../data/dailyFixtures';
 import { frozenFor } from './UpcomingTacticalStrip';
+import { CopyLink } from './CopyLink';
 
-// MVP2-P2 Homepage Product Loop (Owner Harness-X brief 2026-06-14).
-// The homepage IS the football-intelligence loop around ONE daily hotspot:
-//   昨日热点复盘 (track result) → 今日热点预测 (today's main match) → secondary schedule
-//   → other recaps → group conversion.
+// MVP2-P3 — the tactical-room route key for a fixture. Real fixtures route by numeric id;
+// manual fixtures (id=null, e.g. today's hotspot before a narrative exists) route by their
+// external_game_id so /predict can resolve them from the runtime manifest.
+function predictKey(f: DailyFixtureRow): string {
+  return f.id ?? encodeURIComponent(f.external_game_id ?? `${f.home}-${f.away}`);
+}
+
+// MVP2-P2/P3 Homepage Product Loop (Owner Harness-X brief 2026-06-14).
+// The homepage IS the football-intelligence funnel around ONE daily hotspot. P3 order
+// (hotspot PREDICTION first — the funnel entrance):
+//   今日热点预测 (today's main match) → 昨日热点复盘 (yesterday's tracked hotspot) →
+//   secondary schedule → other recaps → group conversion.
 // The two featured slots come from the EDITORIAL slate order (selectProductLoop), NOT a
 // hardcoded popularity ranking. Copy never exposes internal generation state and never
 // shows a fake recap (查看复盘 only when recapReady=true).
@@ -28,8 +37,9 @@ const L = {
     recapWhy: '这是昨日主推的热点比赛，赛后观察已开启。',
     predTitle: '🎯 今日热点预测', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: '今日主推 · 开球前判断',
-    predWhy: '今日主推比赛：开球前看方向，开球前 30 分钟修正。',
-    enterToday: '进入今日判断', joinLive: '加入临场情报群',
+    predWhy: '今日主推比赛：基于数据更新 + 大模型判断，开球前看方向，开球前 30 分钟修正。',
+    enterToday: '进入战术室', joinLive: '加入临场情报群',
+    copyShare: '复制/分享入口', copyDone: '已复制 ✓', viewObs: '查看赛后观察',
     schedTitle: '🗓️ 今日赛程', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ 其他复盘', otherEn: 'OTHER RECAPS', done: '已完赛',
     growthWhy: '想看完整临场 30 分钟修正、建模变量和赛后校准，进群。', joinGroup: '加入情报群',
@@ -46,8 +56,9 @@ const L = {
     recapWhy: 'Đây là trận điểm nóng được chọn hôm qua; quan sát sau trận đã mở.',
     predTitle: '🎯 Dự đoán điểm nóng hôm nay', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: 'Trận chính hôm nay · nhận định trước trận',
-    predWhy: 'Trận chính hôm nay: xem hướng trước trận, hiệu chỉnh 30 phút trước giờ bóng lăn.',
-    enterToday: 'Vào nhận định hôm nay', joinLive: 'Vào nhóm sát giờ',
+    predWhy: 'Trận chính hôm nay: dựa trên dữ liệu cập nhật + nhận định mô hình, xem hướng trước trận, hiệu chỉnh 30 phút trước giờ bóng lăn.',
+    enterToday: 'Vào phòng chiến thuật', joinLive: 'Vào nhóm sát giờ',
+    copyShare: 'Sao chép / chia sẻ', copyDone: 'Đã sao chép ✓', viewObs: 'Xem quan sát sau trận',
     schedTitle: '🗓️ Lịch hôm nay', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ Phục dựng khác', otherEn: 'OTHER RECAPS', done: 'Đã kết thúc',
     growthWhy: 'Muốn xem đầy đủ hiệu chỉnh 30 phút, biến số phân tích và hiệu chỉnh sau trận, vào nhóm.', joinGroup: 'Vào nhóm',
@@ -64,8 +75,9 @@ const L = {
     recapWhy: 'ဒါက မနေ့ ရွေးချယ်ထားသော အဓိကပွဲ; ပွဲပြီးသုံးသပ်ချက် စတင်ဖွင့်ပြီ။',
     predTitle: '🎯 ဒီနေ့ အဓိကပွဲ ခန့်မှန်း', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: 'ဒီနေ့ အဓိကပွဲ · ပွဲမစခင် အမြင်',
-    predWhy: 'ဒီနေ့ အဓိကပွဲ — ပွဲမစခင် ဦးတည်ချက်၊ ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ။',
-    enterToday: 'ဒီနေ့ အမြင် ဝင်ကြည့်ရန်', joinLive: 'ပွဲနီး အဖွဲ့ ဝင်ရန်',
+    predWhy: 'ဒီနေ့ အဓိကပွဲ — data update + model အမြင်ဖြင့်၊ ပွဲမစခင် ဦးတည်ချက်၊ ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ။',
+    enterToday: 'နည်းဗျူဟာခန်း ဝင်ရန်', joinLive: 'ပွဲနီး အဖွဲ့ ဝင်ရန်',
+    copyShare: 'Link ကူး / share', copyDone: 'ကူးပြီး ✓', viewObs: 'ပွဲပြီး စောင့်ကြည့်ချက် ကြည့်ရန်',
     schedTitle: '🗓️ ဒီနေ့ ပွဲစဉ်', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ အခြား ပြန်သုံးသပ်ချက်', otherEn: 'OTHER RECAPS', done: 'ပြီးဆုံး',
     growthWhy: 'ပွဲနီး မိနစ် ၃၀ ပြန်ညှိ၊ ပိုင်းခြားသုံးသပ် variable နှင့် ပွဲပြီးပြန်ညှိချက် အပြည့်အစုံ ကြည့်ချင်ရင် အဖွဲ့ဝင်ပါ။', joinGroup: 'အဖွဲ့ဝင်ရန်',
@@ -82,8 +94,9 @@ const L = {
     recapWhy: 'This was yesterday’s featured hotspot match; post-match observation is open.',
     predTitle: '🎯 Today’s hotspot prediction', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: 'Today’s main match · pre-match read',
-    predWhy: 'Today’s main match: direction before kickoff, re-scored 30 minutes before.',
-    enterToday: 'See today’s read', joinLive: 'Join the live group',
+    predWhy: 'Today’s main match: data update + model read — direction before kickoff, re-scored 30 minutes before.',
+    enterToday: 'Enter tactical room', joinLive: 'Join the live group',
+    copyShare: 'Copy / share link', copyDone: 'Copied ✓', viewObs: 'View post-match observation',
     schedTitle: '🗓️ Today’s schedule', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ Other recaps', otherEn: 'OTHER RECAPS', done: 'Finished',
     growthWhy: 'Want the full 30-minute live correction, modeling variables and post-match calibration? Join the group.', joinGroup: 'Join the group',
@@ -139,11 +152,20 @@ function HotspotRecap({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <div className="th-meta">{C.recapWhy}</div>
         <FocusBlock title={C.recapFocus} bullets={C.recapBullets} home={f.home} away={f.away} score={sc} />
         <div className="pp-cta-row">
-          {ready && f.id && (
-            <button className="recap-cta-btn" onClick={() => navigate(`/recap/${f.id}`)}>{FZ.viewRecap} ▸</button>
+          {/* recapReady=true → 查看复盘 (real recap); recapReady=false but tracked → 查看赛后观察
+              (safe observation page, never a fake recap). Both land on /recap/:id. */}
+          {f.id && (
+            <button className="recap-cta-btn" onClick={() => navigate(`/recap/${f.id}`)}>
+              {ready ? FZ.viewRecap : C.viewObs} ▸
+            </button>
           )}
           <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{FZ.joinPost} ▸</button>
         </div>
+        {f.id && (
+          <div className="share-block">
+            <CopyLink path={`/recap/${f.id}`} loc={loc} label={C.copyShare} doneLabel={C.copyDone} />
+          </div>
+        )}
       </div>
     </>
   );
@@ -155,7 +177,9 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
   const navigate = useNavigate();
   const C = loc3(loc);
   const ko = kickoff(f.kickoffUtc, loc);
-  const canEnter = !!f.id && (f.renderable ?? false);
+  // The today-hotspot tactical room is ALWAYS reachable (Owner P0-2: never bury it). Real
+  // fixtures open their narrative; a manual fixture opens the /predict fallback tactical room.
+  const key = predictKey(f);
   return (
     <>
       <SecHead zh={C.predTitle} en={C.predEn} />
@@ -166,10 +190,11 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <div className="th-meta">{C.predWhy}</div>
         <FocusBlock title={C.predFocus} bullets={C.predBullets} home={f.home} away={f.away} score={null} extra={C.thirtyMin} />
         <div className="pp-cta-row">
-          {canEnter && (
-            <button className="recap-cta-btn" onClick={() => navigate(`/predict/${f.id}`)}>{C.enterToday} ▸</button>
-          )}
+          <button className="recap-cta-btn" onClick={() => navigate(`/predict/${key}`)}>{C.enterToday} ▸</button>
           <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{C.joinLive} ▸</button>
+        </div>
+        <div className="share-block">
+          <CopyLink path={`/predict/${key}`} loc={loc} label={C.copyShare} doneLabel={C.copyDone} />
         </div>
       </div>
     </>
@@ -250,10 +275,12 @@ export function HomeProductLoop({ manifest, loc }: { manifest: DailyManifest; lo
   if (!featuredRecap && !featuredPrediction && !otherRecaps.length && !secondarySchedule.length) {
     return <div className="card th-hero"><div className="th-badge">{C.empty}</div></div>;
   }
+  // MVP2-P3 (Owner verdict): hotspot PREDICTION is always first — the homepage is the funnel
+  // entrance. Yesterday's recap is second (trust receipt), then secondary schedule / other recaps.
   return (
     <>
-      {featuredRecap && <HotspotRecap f={featuredRecap} loc={loc} />}
       {featuredPrediction && <HotspotPrediction f={featuredPrediction} loc={loc} />}
+      {featuredRecap && <HotspotRecap f={featuredRecap} loc={loc} />}
       <SecondarySchedule rows={secondarySchedule} loc={loc} />
       <OtherRecaps rows={otherRecaps} loc={loc} />
       <GrowthConversion loc={loc} />

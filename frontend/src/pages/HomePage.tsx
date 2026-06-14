@@ -200,9 +200,10 @@ export function HomePage() {
         const staleW = loc === 'zh' ? '· 数据较旧，请运营刷新' : loc === 'vi' ? '· dữ liệu cũ, vui lòng đồng bộ' : loc === 'my' ? '· data ဟောင်း၊ sync ပါ' : '· stale, please re-sync';
         return (
           <>
-            {/* MVP2-P2 homepage product loop (Owner Harness-X brief): 昨日热点复盘 → 今日热点预测 →
-                今日赛程 → 其他复盘 → group CTA. The editorial slate ORDER drives the two featured
-                slots (selectProductLoop) — NO hardcoded popularity ranking. */}
+            {/* MVP2-P3 homepage product loop (Owner verdict): 今日热点预测 → 昨日热点复盘 →
+                今日赛程 → 其他复盘 → group CTA. Hotspot prediction is the funnel entrance and
+                always first. The editorial slate ORDER drives the two featured slots
+                (selectProductLoop) — NO hardcoded popularity ranking. */}
             <div className="daily-sync-line">⟳ {updatedW} {syncLbl} · {srcWord}{stale ? ` ${staleW}` : ''}</div>
             <HomeProductLoop manifest={daily.manifest} loc={loc} />
           </>
