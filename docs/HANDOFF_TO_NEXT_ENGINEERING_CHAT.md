@@ -2,6 +2,40 @@
 
 _Read `CLAUDE.md` first, then this. Date: 2026-06-13. Supersedes the prior v0.8 handoff (baseline kept at the bottom)._
 
+## ★★★★★★ P1.5c merged + product-mechanism correction (2026-06-14, supersedes ★★★★★ below)
+
+```text
+main = 6bc4c0d. P1.5c (agent-led daily editorial selection) is merged: scripts/mvp2_editorial_agent.py
+prints a copy-paste LLM prompt from the local daily fixture slate — NO scoring engine, NO team/
+popularity/importance weights, NO external API call, NO production write, NO send. Operator runs
+DeepSeek/Gemini/Kimi, reads back a structured JSON recommendation, and confirms the daily selection
+through the existing P1.3/P1.4 manual path. Detail: docs/mvp2_growth/GROWTH_P15C_EDITORIAL_AGENT.md.
+
+OWNER PRODUCT-MECHANISM CORRECTION (2026-06-14):
+  "Daily selection must be Agent-led and LLM-assisted. The system should not mechanically promote
+   whichever fixture is recap_ready. The daily story should be selected from current fixtures,
+   match importance, public heat, result surprise, and growth objective by DeepSeek/Gemini/Kimi or
+   equivalent LLM, then confirmed by the operator."
+The gap: fixtures update / homepage renders states / growth attribution works, but featured match
+and recap priority were not yet driven by the daily hotspot story. The hotspot is an editorial
+judgment (LLM-recommended, operator-confirmed), NOT a recap_ready flag.
+
+Concrete rule (2026-06-13, hotspot = Brazil vs Morocco):
+  - before kickoff → Brazil vs Morocco = featured pre-match (daily story)
+  - after finish   → Brazil vs Morocco = first recap-priority candidate
+  - Mexico vs South Africa = fallback/secondary recap, NOT the main story
+  - Canada/USA/SK = completed status only unless operator selects
+  - Qatar/Haiti = upcoming status only unless operator selects
+
+DO NOT (Owner): build a scoring engine · hand-code team popularity / match weight · add complex
+frontend selection rules · add backend schema · auto-call external LLM APIs · auto-send · fake recap.
+Any minimal note stays as prompt wording only.
+
+First send STILL HOLD on Gate 3 (1489371 LIVE/FT lifecycle) + Gate 4 (Owner per-channel GO).
+The product is one daily featured pre-match + one daily featured recap + lightweight status for the
+rest + more service inside the group; Agent/LLM recommends, operator confirms, frontend renders.
+```
+
 ## ★★★★★ Current handoff state — Growth P1.5b LIVE · first-send Gates 1+2 PASS · HOLD on Gate 3+4（2026-06-13, supersedes ★★★★ below）
 
 **Growth P1.2→P1.5b is on main AND deployed live. First-send Gate 1 (codes) + Gate 2 (smoke) are CLOSED.

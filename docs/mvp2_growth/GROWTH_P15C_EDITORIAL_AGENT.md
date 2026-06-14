@@ -6,6 +6,30 @@
 > judgment; the operator confirms what becomes public; the frontend renders the confirmed
 > selection. **First send remains HOLD.**
 
+## ★ Owner product-mechanism correction (2026-06-14)
+
+> **Daily selection must be Agent-led and LLM-assisted. The system should not mechanically
+> promote whichever fixture is `recap_ready`. The daily story should be selected from current
+> fixtures, match importance, public heat, result surprise, and growth objective by
+> DeepSeek/Gemini/Kimi or equivalent LLM, then confirmed by the operator.**
+
+The gap this closes: daily fixtures can update, the homepage can render states, and growth
+attribution works — but **featured match / recap priority was not yet driven by the daily
+hotspot story.** Mechanically surfacing the only `recap_ready` fixture is wrong: it lets a
+lesser match override the real daily story. The hotspot is an editorial judgment (LLM-recommended,
+operator-confirmed), not a `recap_ready` flag.
+
+**Concrete rule for 2026-06-13 (the hotspot is Brazil vs Morocco):**
+- **Before kickoff** — Brazil vs Morocco is the **featured pre-match** (the daily story).
+- **After it finishes** — Brazil vs Morocco becomes the **first recap-priority candidate**.
+- Mexico vs South Africa remains **fallback / secondary recap, not the main story** — it must
+  not override the Brazil/Morocco story just because it is `recap_ready` first.
+- Canada / USA / South Korea remain **completed status only** unless the operator selects one.
+- Qatar / Haiti remain **upcoming status only** unless the operator selects one.
+
+This is a product-mechanism rule, not new code: it lives in the prompt wording + operator
+confirmation, **not** in a scoring engine or hand-coded weights.
+
 ## What this is
 
 A tiny CLI helper — `scripts/mvp2_editorial_agent.py` — that reads today's fixture slate from

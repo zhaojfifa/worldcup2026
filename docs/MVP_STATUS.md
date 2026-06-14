@@ -1,12 +1,37 @@
 # MVP Status — Giành Cup (worldcup2026)
 
-_Last updated: 2026-06-13 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
+_Last updated: 2026-06-14 · Version: **MVP v0.8 — real data/model/LLM-draft + multilingual operation**_
 
 Status snapshot only — no functional change in this document.
 Full handoff: `docs/HANDOFF_TO_NEXT_ENGINEERING_CHAT.md`.
 Language baseline: `docs/MULTILINGUAL_OPERATION_POLICY.md`.
 
-## ★ MVP-2 status (2026-06-13, latest) — Growth P1.5b LIVE · Gates 1+2 PASS · first send HOLD on Gate 3+4
+## ★ MVP-2 status (2026-06-14, latest) — P1.5c agent-led editorial selection merged · product-mechanism correction recorded
+
+```text
+main = 6bc4c0d. P1.5c merged: scripts/mvp2_editorial_agent.py prints a copy-paste LLM prompt from
+the local daily fixture slate (no scoring engine, no team/popularity weights, no external API call,
+no production write, no send). Operator runs DeepSeek/Gemini/Kimi and confirms the selection manually.
+
+OWNER PRODUCT-MECHANISM CORRECTION (2026-06-14): daily selection must be Agent-led + LLM-assisted.
+The system must NOT mechanically promote whichever fixture is recap_ready. The daily story is chosen
+from current fixtures + match importance + public heat + result surprise + growth objective by an LLM,
+then operator-confirmed. The gap: fixtures update / homepage renders states / growth attribution works,
+but featured match/recap priority was not yet driven by the daily hotspot story.
+
+Concrete rule (2026-06-13, hotspot = Brazil vs Morocco):
+  - before kickoff: Brazil vs Morocco = featured pre-match (daily story)
+  - after finish:   Brazil vs Morocco = first recap-priority candidate
+  - Mexico vs South Africa = fallback/secondary recap, NOT the main story (must not override Brazil/Morocco)
+  - Canada/USA/SK = completed status only unless operator selects
+  - Qatar/Haiti = upcoming status only unless operator selects
+This is prompt wording + operator confirmation, NOT a scoring engine or hand-coded weights.
+Detail: docs/mvp2_growth/GROWTH_P15C_EDITORIAL_AGENT.md.
+
+First send STILL HOLD on Gate 3 (1489371 LIVE/FT lifecycle) + Gate 4 (Owner per-channel GO).
+```
+
+## ★ MVP-2 status (2026-06-13) — Growth P1.5b LIVE · Gates 1+2 PASS · first send HOLD on Gate 3+4
 
 ```text
 main = d67c5e1. Growth P1.2→P1.5b chain promoted (per-step backup tags ...-20260613).
