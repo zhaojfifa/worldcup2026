@@ -15,16 +15,20 @@ export interface ArtifactPrediction {
   confidence: string | null;
   risk_level: string | null;
   risk_note: string | null;
+  top_variable: string;   // 最大变量 / biggest variable
+  why: string;            // 为什么这样看 / why
 }
 export interface ArtifactAnalysis {
   modeling_focus: string[];
   tactical_matchup: string[];
   risk_variables: string[];
+  external_expectation: string[];   // 外部预期 / 公开预测倾向 (safe vocab only)
   thirty_minute_checklist: string[];
 }
 export interface ArtifactOps { share_title: string; share_copy: string; join_cta: string; }
 export interface PredictionArtifactLocale {
-  pending_label: string;
+  pending_direction: string;   // 方向待临场确认
+  pending_score: string;       // 比分待开球前 30 分钟确认
   prediction: ArtifactPrediction;
   analysis: ArtifactAnalysis;
   operations: ArtifactOps;
@@ -49,6 +53,7 @@ export interface ObservationArtifactLocale {
   assessment: string;
   calibration_title: string;
   calibration_points: string[];
+  next_impact: string;
   pending_line: string;
   state_line: string;
   share_title: string;

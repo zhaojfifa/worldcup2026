@@ -16,7 +16,7 @@
       "receipt_title": "昨日主推回执",
       "pre_match_call": "赛前主推：偏向巴西，参考区间含 1-1。",
       "actual_line": "实际比分：1-1",
-      "assessment": "方向部分兑现 — 参考区间含 1-1，但巴西未取胜，按部分看对处理。",
+      "assessment": "命中/偏差：方向未完全命中，但比分区间命中；按部分命中处理。",
       "calibration_title": "赛后校准关注",
       "calibration_points": [
         "巴西控球转化为何不足",
@@ -27,13 +27,14 @@
       "state_line": "比赛已结束 · 赛后校准中",
       "share_title": "俅哥昨日主推回执 · 巴西 1-1 摩洛哥",
       "share_copy": "昨日主推：巴西 vs 摩洛哥，赛前偏向巴西、参考区间含 1-1。实际 1-1。完整复盘确认后开放，先进群看赛后校准关注。",
-      "join_cta": "加入情报群看赛后观察"
+      "join_cta": "加入情报群看赛后观察",
+      "next_impact": "下一场影响：巴西若延续状态，出线压力上升；摩洛哥的韧性值得继续跟踪。"
     },
     "vi": {
       "receipt_title": "Biên nhận trận chính hôm qua",
       "pre_match_call": "Nhận định trước trận: nghiêng về Brazil, khoảng tham khảo có 1-1.",
       "actual_line": "Tỷ số thực tế: 1-1",
-      "assessment": "Hướng đúng một phần — khoảng tham khảo có 1-1, nhưng Brazil không thắng, tính là bắt đúng một phần.",
+      "assessment": "Trúng/lệch: hướng chưa trúng hoàn toàn, nhưng khoảng tỷ số trúng; tính là trúng một phần.",
       "calibration_title": "Tiêu điểm hiệu chỉnh sau trận",
       "calibration_points": [
         "Vì sao Brazil kiểm soát nhưng chuyển hóa kém",
@@ -44,13 +45,14 @@
       "state_line": "Trận đã kết thúc · Đang hiệu chỉnh sau trận",
       "share_title": "Biên nhận Tiên Tri · Brazil 1-1 Morocco",
       "share_copy": "Trận chính hôm qua: Brazil vs Morocco, trước trận nghiêng Brazil, khoảng tham khảo có 1-1. Thực tế 1-1. Mở khi phục dựng đầy đủ được xác nhận; vào nhóm xem tiêu điểm hiệu chỉnh.",
-      "join_cta": "Vào nhóm xem quan sát sau trận"
+      "join_cta": "Vào nhóm xem quan sát sau trận",
+      "next_impact": "Ảnh hưởng trận tới: nếu Brazil giữ phong độ, áp lực đi tiếp tăng; sự lì lợm của Morocco đáng theo dõi tiếp."
     },
     "my": {
       "receipt_title": "မနေ့ အဓိကပွဲ ပြေစာ",
       "pre_match_call": "ပွဲကြို အမြင်: Brazil ဘက် ယိမ်း၊ ကိုးကားအကွာအဝေးတွင် 1-1 ပါဝင်။",
       "actual_line": "တကယ့်စကော: 1-1",
-      "assessment": "ဦးတည်ချက် တစ်စိတ်တစ်ပိုင်း မှန် — ကိုးကားအကွာအဝေးတွင် 1-1 ပါသော်လည်း Brazil မနိုင်သဖြင့် တစ်စိတ်တစ်ပိုင်းမှန်ဟု သတ်မှတ်။",
+      "assessment": "မှန်/လွဲ: ဦးတည်ချက် အပြည့်မမှန်သော်လည်း စကောအပိုင်းအခြား မှန်; တစ်စိတ်တစ်ပိုင်း မှန်ဟု သတ်မှတ်။",
       "calibration_title": "ပွဲပြီး ပြန်ညှိ အာရုံစိုက်ချက်",
       "calibration_points": [
         "Brazil ball control များသော်လည်း အသွင်ပြောင်းမှု အဘယ်ကြောင့် နည်း",
@@ -61,13 +63,14 @@
       "state_line": "ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ",
       "share_title": "Oracle မနေ့ ပြေစာ · Brazil 1-1 Morocco",
       "share_copy": "မနေ့ အဓိကပွဲ: Brazil vs Morocco၊ ပွဲကြို Brazil ဘက်ယိမ်း၊ ကိုးကားအကွာအဝေးတွင် 1-1 ပါ။ တကယ် 1-1။ ပြည့်စုံ ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်မည်၊ အဖွဲ့ဝင်ပြီး ပွဲပြီးပြန်ညှိ ကြည့်ပါ။",
-      "join_cta": "ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ"
+      "join_cta": "ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ",
+      "next_impact": "နောက်ပွဲ သက်ရောက်မှု: Brazil အရှိန်ဆက်ထိန်းနိုင်ရင် အဆင့်တက်ဖိအား မြင့်; Morocco ၏ ခံနိုင်ရည်ကို ဆက်စောင့်ကြည့်ပါ။"
     },
     "en": {
       "receipt_title": "Yesterday's featured receipt",
       "pre_match_call": "Pre-match read: leaned Brazil, reference band included 1-1.",
       "actual_line": "Actual score: 1-1",
-      "assessment": "Direction partly held — the reference band included 1-1, but Brazil did not win, so treat it as a partial read.",
+      "assessment": "Hit/miss: direction not fully hit, but the score band hit; treat as a partial hit.",
       "calibration_title": "Post-match calibration focus",
       "calibration_points": [
         "Why Brazil's control did not convert",
@@ -78,11 +81,12 @@
       "state_line": "Match finished · post-match calibration",
       "share_title": "Yesterday's receipt · Brazil 1-1 Morocco",
       "share_copy": "Yesterday's main match: Brazil vs Morocco, pre-match leaned Brazil, reference band included 1-1. Actual 1-1. Opens once the full recap is confirmed; join the group for the calibration focus.",
-      "join_cta": "Join for post-match notes"
+      "join_cta": "Join for post-match notes",
+      "next_impact": "Next-match impact: if Brazil keep their form, qualification pressure rises; Morocco's resilience is worth tracking."
     }
   },
   "safety": {
-    "no_betting_vocab": true,
+    "vocabulary_compliant": true,
     "no_fake_recap": true,
     "no_auto_send": true
   }

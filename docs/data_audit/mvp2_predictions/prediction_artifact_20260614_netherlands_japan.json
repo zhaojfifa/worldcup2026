@@ -8,17 +8,20 @@
   "kickoffUtc": null,
   "source": "operator_structured_pending_confirmation",
   "prediction_confirmed": false,
-  "note": "No data ingested for this fixture (no kickoff/lineups/Elo). Per Owner rule, numeric direction/score/confidence are left null and shown as 方向待临场确认. Analysis fields are question-framed pre-match WATCH frames (the engineering stage), not fabricated stats or result claims.",
+  "note": "No data ingested for this fixture (no kickoff/lineups/rating). Per Owner rule, numeric direction/score/confidence are left null and shown as the pending labels. Analysis fields are question-framed pre-match WATCH frames (the engineering stage), not fabricated stats or result claims. external_expectation uses ONLY the Owner-approved safe vocabulary (公开预测倾向 / 热度集中 / 冷门变量).",
   "i18n": {
     "zh": {
-      "pending_label": "方向 / 比分待临场确认",
+      "pending_direction": "方向待临场确认",
+      "pending_score": "比分待开球前 30 分钟确认",
       "prediction": {
         "primary_direction": null,
         "score_call": null,
         "backup_score": null,
         "confidence": null,
         "risk_level": "待临场确认（首发公布后更新）",
-        "risk_note": "荷兰整体控球与阵地推进占优是普遍认知；日本的高位逼抢与快速转换历来能制造冷门。首发与体能未定前不给硬比分。"
+        "risk_note": "荷兰整体控球与阵地推进占优是普遍认知；日本的高位逼抢与快速转换历来能制造冷门。首发与体能未定前不给硬比分。",
+        "top_variable": "日本高位逼抢能否打断荷兰第一脚出球",
+        "why": "荷兰整体控球与阵地推进更稳，但日本的反击转换与定位球历来能制造冷门，方向未定前以参考区间和临场变量为主。"
       },
       "analysis": {
         "modeling_focus": [
@@ -35,6 +38,11 @@
           "体能与赛程：临场状态、天气与场地",
           "比赛动机与战术保守度"
         ],
+        "external_expectation": [
+          "公开预测倾向：偏向荷兰控球占优",
+          "热度集中：荷兰阵地推进 vs 日本快速反击",
+          "冷门变量：日本高位逼抢与定位球可能制造意外"
+        ],
         "thirty_minute_checklist": [
           "首发阵容与位置",
           "阵型与三/四后卫选择",
@@ -45,19 +53,22 @@
       },
       "operations": {
         "share_title": "俅哥今日热点 · 荷兰 vs 日本",
-        "share_copy": "今日主推：荷兰 vs 日本。开球前看方向，开球前 30 分钟看首发与临场修正。方向与比分待临场确认，不提前给硬结论。进群等临场修正。",
+        "share_copy": "今日主推：荷兰 vs 日本。开球前看方向，开球前 30 分钟看首发与临场修正。方向待临场确认，比分待开球前 30 分钟确认，不提前给硬结论。进群等临场修正。",
         "join_cta": "加入临场情报群"
       }
     },
     "vi": {
-      "pending_label": "Hướng / tỷ số chờ xác nhận sát giờ",
+      "pending_direction": "Hướng chờ xác nhận sát giờ",
+      "pending_score": "Tỷ số chờ xác nhận 30 phút trước giờ đá",
       "prediction": {
         "primary_direction": null,
         "score_call": null,
         "backup_score": null,
         "confidence": null,
         "risk_level": "Chờ xác nhận sát giờ (cập nhật sau khi công bố đội hình)",
-        "risk_note": "Hà Lan nhỉnh hơn về kiểm soát và triển khai trận địa; nhưng pressing cao và chuyển đổi nhanh của Nhật Bản từng tạo bất ngờ. Chưa chốt đội hình/thể lực thì chưa đưa tỷ số cứng."
+        "risk_note": "Hà Lan nhỉnh hơn về kiểm soát và triển khai trận địa; nhưng pressing cao và chuyển đổi nhanh của Nhật Bản từng tạo bất ngờ. Chưa chốt đội hình/thể lực thì chưa đưa tỷ số cứng.",
+        "top_variable": "Pressing cao của Nhật có cắt được nhịp ra bóng đầu của Hà Lan không",
+        "why": "Hà Lan nhỉnh hơn về kiểm soát và triển khai trận địa, nhưng phản công và bóng cố định của Nhật từng tạo bất ngờ; chưa chốt hướng thì ưu tiên khoảng tham khảo và biến số sát giờ."
       },
       "analysis": {
         "modeling_focus": [
@@ -74,6 +85,11 @@
           "Thể lực & lịch thi đấu: phong độ sát giờ, thời tiết và mặt sân",
           "Động lực trận đấu & mức độ thận trọng chiến thuật"
         ],
+        "external_expectation": [
+          "Xu hướng công khai: nghiêng về kiểm soát của Hà Lan",
+          "Độ nóng tập trung: Hà Lan đánh trận địa vs Nhật phản công nhanh",
+          "Biến số bất ngờ: pressing cao và bóng cố định của Nhật"
+        ],
         "thirty_minute_checklist": [
           "Đội hình xuất phát và vị trí",
           "Sơ đồ và lựa chọn 3 hay 4 hậu vệ",
@@ -84,19 +100,22 @@
       },
       "operations": {
         "share_title": "Điểm nóng Tiên Tri · Hà Lan vs Nhật Bản",
-        "share_copy": "Trận chính hôm nay: Hà Lan vs Nhật Bản. Trước trận xem hướng, 30 phút trước xem đội hình và hiệu chỉnh sát giờ. Hướng và tỷ số chờ xác nhận sát giờ. Vào nhóm chờ hiệu chỉnh.",
+        "share_copy": "Trận chính hôm nay: Hà Lan vs Nhật Bản. Trước trận xem hướng, 30 phút trước xem đội hình và hiệu chỉnh sát giờ. Hướng chờ xác nhận sát giờ, tỷ số chờ xác nhận 30 phút trước giờ đá. Vào nhóm chờ hiệu chỉnh.",
         "join_cta": "Vào nhóm sát giờ"
       }
     },
     "my": {
-      "pending_label": "ဦးတည်ချက် / စကော ပွဲနီးမှ အတည်ပြုမည်",
+      "pending_direction": "ဦးတည်ချက် ပွဲနီးမှ အတည်ပြုမည်",
+      "pending_score": "စကော ပွဲမစခင် မိနစ် ၃၀ အတည်ပြုမည်",
       "prediction": {
         "primary_direction": null,
         "score_call": null,
         "backup_score": null,
         "confidence": null,
         "risk_level": "ပွဲနီးမှ အတည်ပြုမည် (lineup ထွက်ပြီး update)",
-        "risk_note": "Netherlands က ball control နှင့် တည်ဆောက်ကစားမှု သာလွန်သည်ဟု ယေဘုယျအသိ; သို့သော် Japan ၏ high press နှင့် မြန်ဆန်သော transition က အံ့အားသင့်ဖွယ် ဖန်တီးနိုင်သည်။ Lineup/fitness မသေချာမချင်း တိကျသော စကော မပေးပါ။"
+        "risk_note": "Netherlands က ball control နှင့် တည်ဆောက်ကစားမှု သာလွန်သည်ဟု ယေဘုယျအသိ; သို့သော် Japan ၏ high press နှင့် မြန်ဆန်သော transition က အံ့အားသင့်ဖွယ် ဖန်တီးနိုင်သည်။ Lineup/fitness မသေချာမချင်း တိကျသော စကော မပေးပါ။",
+        "top_variable": "Japan ၏ high press က Netherlands ၏ ပထမ ball-out ကို ဖြတ်နိုင်မလား",
+        "why": "Netherlands က ball control နှင့် တည်ဆောက်ကစား ပိုတည်ငြိမ်သော်လည်း Japan ၏ counter နှင့် set-piece က အံ့အားသင့်ဖွယ် ဖန်တီးနိုင်; ဦးတည်ချက် မသေချာမချင်း ရည်ညွှန်းအပိုင်းအခြားနှင့် variable ကို ဦးစားပေး။"
       },
       "analysis": {
         "modeling_focus": [
@@ -113,6 +132,11 @@
           "Fitness & schedule: ပွဲနီး အခြေအနေ၊ ရာသီဥတု/ကွင်း",
           "ပွဲ motivation & tactical သတိထားမှု"
         ],
+        "external_expectation": [
+          "လူထုထင်မြင်ချက်: Netherlands ball control ဘက် ယိမ်း",
+          "အပူချိန် စုစည်း: Netherlands တည်ဆောက်ကစား vs Japan counter",
+          "အံ့အားသင့် variable: Japan high press နှင့် set-piece"
+        ],
         "thirty_minute_checklist": [
           "Starting lineup နှင့် နေရာ",
           "ပုံစံ — 3 back သို့ 4 back ရွေးချယ်မှု",
@@ -123,19 +147,22 @@
       },
       "operations": {
         "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Netherlands vs Japan",
-        "share_copy": "ဒီနေ့ အဓိကပွဲ: Netherlands vs Japan။ ပွဲမစခင် ဦးတည်ချက်၊ မိနစ် ၃၀ အလို lineup နှင့် ပြန်ညှိချက်။ ဦးတည်ချက်/စကော ပွဲနီးမှ အတည်ပြုမည်။ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
+        "share_copy": "ဒီနေ့ အဓိကပွဲ: Netherlands vs Japan။ ပွဲမစခင် ဦးတည်ချက်၊ မိနစ် ၃၀ အလို lineup နှင့် ပြန်ညှိချက်။ ဦးတည်ချက် ပွဲနီးမှ၊ စကော မိနစ် ၃၀ အလို အတည်ပြုမည်။ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
         "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
       }
     },
     "en": {
-      "pending_label": "Direction / scoreline pending kickoff confirmation",
+      "pending_direction": "Direction pending kickoff confirmation",
+      "pending_score": "Scoreline pending 30 minutes before kickoff",
       "prediction": {
         "primary_direction": null,
         "score_call": null,
         "backup_score": null,
         "confidence": null,
         "risk_level": "Pending confirmation (updates after lineups)",
-        "risk_note": "Netherlands are generally rated higher on control and build-up; Japan's high press and fast transitions have produced upsets before. No hard scoreline before lineups and fitness are set."
+        "risk_note": "Netherlands are generally rated higher on control and build-up; Japan's high press and fast transitions have produced upsets before. No hard scoreline before lineups and fitness are set.",
+        "top_variable": "Whether Japan's high press cuts Netherlands' first pass out",
+        "why": "Netherlands are steadier on control and build-up, but Japan's transitions and set-pieces have produced upsets; before the direction is set, focus on the reference band and live variables."
       },
       "analysis": {
         "modeling_focus": [
@@ -152,6 +179,11 @@
           "Fitness & schedule: late form, weather and pitch",
           "Match motivation & tactical caution"
         ],
+        "external_expectation": [
+          "Public tendency: leans to Netherlands' control",
+          "Heat focus: Netherlands positional play vs Japan's fast counter",
+          "Upset variable: Japan's high press and set-pieces"
+        ],
         "thirty_minute_checklist": [
           "Starting XI and positions",
           "Shape and the 3- vs 4-back choice",
@@ -162,13 +194,13 @@
       },
       "operations": {
         "share_title": "Today's hotspot · Netherlands vs Japan",
-        "share_copy": "Today's main match: Netherlands vs Japan. Direction before kickoff, lineups and live correction 30 minutes before. Direction and scoreline pending kickoff confirmation. Join the group for the live correction.",
+        "share_copy": "Today's main match: Netherlands vs Japan. Direction before kickoff, lineups and live correction 30 minutes before. Direction pending kickoff, scoreline pending 30 minutes before. Join the group for the live correction.",
         "join_cta": "Join the live group"
       }
     }
   },
   "safety": {
-    "no_betting_vocab": true,
+    "vocabulary_compliant": true,
     "operator_confirmed": false,
     "no_auto_send": true
   }
