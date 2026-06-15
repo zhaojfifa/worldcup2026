@@ -29,6 +29,8 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SEL = ROOT / "frontend" / "src" / "data" / "selectedHotspot.json"
 PRED_DIR = ROOT / "frontend" / "src" / "data" / "predictionArtifacts"
+MANIFEST = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"
+FALLBACK_MANIFEST = ROOT / "frontend" / "src" / "data" / "dailyFixtures.generated.json"
 
 BETTING = ["赔率", "盘口", "下注", "投注", "博彩", "竞猜", "让球", "大小球", "跟单", "串关",
            "odds", "handicap", "bookmaker", "wager", "betting",
@@ -41,12 +43,17 @@ def _load(p):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
-def scan(sel, artifacts, check_files=True):
-    """sel: dict|None ; artifacts: list[(name, dict)] (prediction artifacts only)."""
+def scan(sel, artifacts, check_files=True, slate_date=None):
+    """sel: dict|None ; artifacts: list[(name, dict)] (prediction artifacts only).
+    slate_date: manifest generated_for_date — used for the R2 staleness gate."""
     fails = []
     if not sel or sel.get("status") != "active" or not sel.get("fixture_key"):
         return ["selected_hotspot missing/inactive (no authoritative daily pick)"]
     key = sel["fixture_key"]
+    # R2 staleness gate: the selected hotspot must NOT be older than the current slate.
+    if slate_date and sel.get("date") and sel["date"] < slate_date:
+        fails.append("selected_hotspot is STALE: selection date %s < slate date %s (refresh the hotspot)"
+                     % (sel["date"], slate_date))
     art = next((a for (_n, a) in artifacts if a.get("fixture_key") == key), None)
     if not art:
         return ["selected_hotspot %r has NO prediction artifact" % key]
@@ -159,6 +166,10 @@ def selftest():
             sel, [("g", {k: v for k, v in good.items() if k != "t30"})], check_files=False))),
         ("betting vocab caught", any("betting" in x for x in scan(
             sel, [("g", dict(good, i18n={"zh": {"prediction": {"primary_direction": "x"}, "operations": {"share_copy": "看 赔率"}}}))], check_files=False))),
+        ("stale selection caught", any("STALE" in x for x in scan(
+            dict(sel, date="2026-06-14"), [("g", good)], check_files=False, slate_date="2026-06-15"))),
+        ("fresh selection passes staleness", not any("STALE" in x for x in scan(
+            dict(sel, date="2026-06-15"), [("g", good)], check_files=False, slate_date="2026-06-15"))),
     ]
     ok = all(v for _, v in checks)
     for n, v in checks:
@@ -182,7 +193,9 @@ def main():
             if "recap_ready" in a:   # observation artifact — not a prediction artifact
                 continue
             artifacts.append((p.name, a))
-    fails = scan(sel, artifacts, check_files=True)
+    man = _load(MANIFEST) or _load(FALLBACK_MANIFEST)
+    slate_date = (man or {}).get("generated_for_date")
+    fails = scan(sel, artifacts, check_files=True, slate_date=slate_date)
     for f in fails:
         sys.stdout.write("FAIL  %s\n" % f)
     if fails:

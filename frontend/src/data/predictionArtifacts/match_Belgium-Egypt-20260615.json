@@ -1,0 +1,307 @@
+{
+  "date": "2026-06-15",
+  "fixture_key": "1489377",
+  "id": "1489377",
+  "home": "Belgium",
+  "away": "Egypt",
+  "status": "scheduled",
+  "kickoffUtc": "2026-06-15T19:00:00+00:00",
+  "source": "api_football_scoutscore",
+  "prediction_confirmed": true,
+  "field_sources": {
+    "score_call": "model",
+    "backup_score": "model",
+    "risk_level": "model",
+    "primary_direction": "operator_confirmed",
+    "top_variable": "operator_confirmed",
+    "why": "operator_confirmed",
+    "tactical_matchup": "operator_confirmed",
+    "risk_variables": "operator_confirmed",
+    "external_expectation": "operator_confirmed",
+    "win_prob": "unavailable",
+    "confidence": "unavailable"
+  },
+  "note": "R2: fresh hotspot 2026-06-15 (real API-FOOTBALL fixture 1489377). model_fields are COMPUTED by ScoutScore v0.2 (kaggle Elo gap +129 Belgium>Egypt, last-10 form, Poisson 1-0/2-0/1-1, upset_band=medium); recommended_score/risk_level/risk_note carry source=computed. win_prob/confidence stay null (compliance floor — never a fake probability). The narrative judgement is operator-reviewed (provider=operator_manual; automated model generation = P1). vi/my Han=0.",
+  "t30": {
+    "status": "pending",
+    "checked_at": null,
+    "update_text": null,
+    "changed_fields": [],
+    "operator_note": null
+  },
+  "i18n": {
+    "zh": {
+      "pending_direction": "方向待临场确认",
+      "pending_score": "比分待开球前 30 分钟确认",
+      "prediction": {
+        "primary_direction": "赛前倾向比利时，但埃及有能力压低比分",
+        "score_call": "1-0",
+        "backup_score": "2-0 / 1-1",
+        "confidence": null,
+        "risk_level": "中",
+        "risk_note": "比利时整体实力与近况领先（历史 Elo 与近 10 场进球数明显占优），但埃及防守组织稳健、反击有威胁，比赛可能走向低比分。",
+        "top_variable": "埃及能否压低节奏 + 比利时进攻终结效率",
+        "why": "比利时实力与状态领先，但埃及的防守与反击会压低比分空间"
+      },
+      "analysis": {
+        "modeling_focus": [
+          "实力与状态：比利时历史 Elo 与近 10 场进球数领先 vs 埃及稳健防守",
+          "节奏与终结：比利时控球推进 vs 埃及低位防守与反击转换"
+        ],
+        "tactical_matchup": [
+          "比利时控球与边中结合，关注其能否打穿埃及低位防线",
+          "埃及低位防守加一侧反击，关注其反击落点与定位球威胁",
+          "比分走向取决于比利时首粒进球时间与埃及体能保持"
+        ],
+        "risk_variables": [
+          "首发与轮换：核心球员是否先发",
+          "埃及防线专注度与反击效率",
+          "比赛节奏、天气与场地"
+        ],
+        "external_expectation": [
+          "公开预测倾向偏向比利时",
+          "热度集中在比利时取胜",
+          "冷门变量主要在埃及压低比分或偷袭得手"
+        ],
+        "thirty_minute_checklist": [
+          "首发阵容与位置",
+          "比利时进攻组合与边路选择",
+          "埃及防守站位与反击人员",
+          "临场热度与风险方向",
+          "开球前再确认方向，必要时下调把握度"
+        ]
+      },
+      "operations": {
+        "share_title": "俅哥今日热点 · 比利时 vs 埃及",
+        "share_copy": "今日主推：比利时 vs 埃及。俅哥主看：赛前倾向比利时，但埃及有能力压低比分。主比分 1-0，备选 2-0 / 1-1，冷门风险中。数据依据：比利时历史 Elo 与近 10 场进球数领先。开球前 30 分钟看首发与临场修正，进群等修正。",
+        "join_cta": "加入临场情报群"
+      }
+    },
+    "vi": {
+      "pending_direction": "Hướng chờ xác nhận sát giờ",
+      "pending_score": "Tỷ số chờ xác nhận 30 phút trước giờ đá",
+      "prediction": {
+        "primary_direction": "Trước trận nghiêng Bỉ, nhưng Ai Cập đủ sức ghìm tỷ số thấp",
+        "score_call": "1-0",
+        "backup_score": "2-0 / 1-1",
+        "confidence": null,
+        "risk_level": "Trung bình",
+        "risk_note": "Bỉ trội hơn về thực lực và phong độ (Elo lịch sử và số bàn thắng 10 trận gần nhất vượt trội), nhưng Ai Cập phòng ngự chắc và phản công có nét, trận đấu có thể ít bàn.",
+        "top_variable": "Ai Cập có ghìm được nhịp độ + hiệu quả dứt điểm của Bỉ",
+        "why": "Bỉ trội hơn về thực lực và phong độ, nhưng phòng ngự và phản công của Ai Cập sẽ thu hẹp không gian bàn thắng"
+      },
+      "analysis": {
+        "modeling_focus": [
+          "Thực lực & phong độ: Elo lịch sử và số bàn của Bỉ vượt trội vs phòng ngự chắc của Ai Cập",
+          "Nhịp độ & dứt điểm: Bỉ kiểm soát lên bóng vs Ai Cập phòng ngự thấp và chuyển đổi phản công"
+        ],
+        "tactical_matchup": [
+          "Bỉ phối hợp biên và trung lộ; chú ý khả năng xuyên phá khối phòng ngự thấp của Ai Cập",
+          "Ai Cập phòng ngự thấp cộng phản công một biên; chú ý điểm rơi phản công và tình huống cố định",
+          "Tỷ số phụ thuộc thời điểm Bỉ ghi bàn đầu và thể lực Ai Cập"
+        ],
+        "risk_variables": [
+          "Đội hình & xoay tua: trụ cột có đá chính không",
+          "Sự tập trung của hàng thủ Ai Cập và hiệu quả phản công",
+          "Nhịp độ trận đấu, thời tiết và mặt sân"
+        ],
+        "external_expectation": [
+          "Xu hướng công khai nghiêng về Bỉ",
+          "Độ nóng tập trung ở việc Bỉ thắng",
+          "Biến số bất ngờ chủ yếu ở việc Ai Cập ghìm tỷ số hoặc đánh úp"
+        ],
+        "thirty_minute_checklist": [
+          "Đội hình xuất phát và vị trí",
+          "Bộ đôi tấn công và lựa chọn cánh của Bỉ",
+          "Vị trí phòng ngự và nhân sự phản công của Ai Cập",
+          "Độ nóng sát giờ và hướng rủi ro",
+          "Xác nhận lại hướng trước giờ bóng lăn, hạ mức chắc chắn nếu cần"
+        ]
+      },
+      "operations": {
+        "share_title": "Điểm nóng Tiên Tri · Bỉ vs Ai Cập",
+        "share_copy": "Trận chính hôm nay: Bỉ vs Ai Cập. Tiên Tri chốt: trước trận nghiêng Bỉ, nhưng Ai Cập đủ sức ghìm tỷ số thấp. Tỷ số chính 1-0, phụ 2-0 / 1-1, rủi ro trung bình. Cơ sở dữ liệu: Elo lịch sử và số bàn 10 trận gần nhất của Bỉ vượt trội. 30 phút trước xem đội hình, vào nhóm chờ hiệu chỉnh.",
+        "join_cta": "Vào nhóm sát giờ"
+      }
+    },
+    "my": {
+      "pending_direction": "ဦးတည်ချက် ပွဲနီးမှ အတည်ပြုမည်",
+      "pending_score": "စကော ပွဲမစခင် မိနစ် ၃၀ အတည်ပြုမည်",
+      "prediction": {
+        "primary_direction": "ပွဲကြို Belgium ဘက် ယိမ်း၊ သို့သော် Egypt က စကော နိမ့်အောင် ထိန်းနိုင်",
+        "score_call": "1-0",
+        "backup_score": "2-0 / 1-1",
+        "confidence": null,
+        "risk_level": "အလယ်အလတ်",
+        "risk_note": "Belgium က စွမ်းရည်နှင့် ဖောင်း သာလွန် (သမိုင်း Elo နှင့် နောက်ဆုံး ၁၀ ပွဲ ဂိုးအရေအတွက် သိသိသာသာ သာ)၊ သို့သော် Egypt ခံစစ် တည်ငြိမ်ပြီး counter အန္တရာယ်ရှိ၍ ဂိုးနည်းနိုင်သည်။",
+        "top_variable": "Egypt အရှိန်ထိန်းနိုင်မှု + Belgium ဂိုးသွင်း ထိရောက်မှု",
+        "why": "Belgium စွမ်းရည်/ဖောင်း သာသော်လည်း Egypt ၏ ခံစစ်နှင့် counter က ဂိုးနေရာ ကျဉ်းစေမည်"
+      },
+      "analysis": {
+        "modeling_focus": [
+          "စွမ်းရည် & ဖောင်း: Belgium ၏ သမိုင်း Elo နှင့် ဂိုးအရေအတွက် သာ vs Egypt ခံစစ် တည်ငြိမ်",
+          "အရှိန် & ဂိုးသွင်း: Belgium ball control vs Egypt low block နှင့် counter transition"
+        ],
+        "tactical_matchup": [
+          "Belgium အနား နှင့် အလယ် ပေါင်းစပ်; Egypt low block ကို ဖောက်နိုင်မလား ကြည့်ပါ",
+          "Egypt low block အပြင် တစ်ဖက် counter; counter ကျရောက်ချက်နှင့် set-piece အန္တရာယ်",
+          "စကော က Belgium ပထမဂိုး အချိန်နှင့် Egypt ခွန်အား အပေါ် မူတည်"
+        ],
+        "risk_variables": [
+          "Lineup & rotation: အဓိကကစားသမား ပထမ ၁၁ ပါမလား",
+          "Egypt ခံစစ် အာရုံစူးစိုက်မှုနှင့် counter ထိရောက်မှု",
+          "ပွဲ အရှိန်၊ ရာသီဥတု/ကွင်း"
+        ],
+        "external_expectation": [
+          "လူထုထင်မြင်ချက် Belgium ဘက် ယိမ်း",
+          "အပူချိန် Belgium အနိုင် အပေါ် စုစည်း",
+          "အံ့အားသင့် variable အဓိက Egypt စကော ထိန်း သို့ ရုတ်တရက် သွင်း"
+        ],
+        "thirty_minute_checklist": [
+          "Starting lineup နှင့် နေရာ",
+          "Belgium တိုက်စစ် တွဲဖက်နှင့် အနား ရွေးချယ်မှု",
+          "Egypt ခံစစ် နေရာနှင့် counter ကစားသမား",
+          "ပွဲနီး အပူချိန် & အန္တရာယ် ဦးတည်ချက်",
+          "ပွဲမစခင် ဦးတည်ချက် ပြန်အတည်ပြု၊ လိုအပ်ရင် သေချာမှု လျှော့"
+        ]
+      },
+      "operations": {
+        "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Belgium vs Egypt",
+        "share_copy": "ဒီနေ့ အဓိကပွဲ: Belgium vs Egypt။ Oracle: ပွဲကြို Belgium ဘက်ယိမ်း၊ သို့သော် Egypt က စကော နိမ့်အောင် ထိန်းနိုင်။ အဓိကစကော 1-0၊ အရန် 2-0 / 1-1၊ risk အလယ်အလတ်။ Data: Belgium ၏ သမိုင်း Elo နှင့် နောက်ဆုံး ၁၀ ပွဲ ဂိုး သာလွန်။ မိနစ် ၃၀ အလို lineup ကြည့်၊ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
+        "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
+      }
+    },
+    "en": {
+      "pending_direction": "Direction pending kickoff confirmation",
+      "pending_score": "Scoreline pending 30 minutes before kickoff",
+      "prediction": {
+        "primary_direction": "Pre-match leans Belgium, but Egypt can keep the score low",
+        "score_call": "1-0",
+        "backup_score": "2-0 / 1-1",
+        "confidence": null,
+        "risk_level": "Medium",
+        "risk_note": "Belgium lead on strength and form (historical Elo and last-10 goals clearly ahead), but Egypt defend well and carry a counter threat, so the game may stay low-scoring.",
+        "top_variable": "Whether Egypt slow the tempo + Belgium's finishing efficiency",
+        "why": "Belgium lead on strength and form, but Egypt's defence and counters compress the scoring space"
+      },
+      "analysis": {
+        "modeling_focus": [
+          "Strength & form: Belgium's historical Elo and goals lead vs Egypt's solid defence",
+          "Tempo & finishing: Belgium's possession build-up vs Egypt's low block and counter transition"
+        ],
+        "tactical_matchup": [
+          "Belgium combine wide and central; watch whether they break Egypt's low block",
+          "Egypt's low block plus a one-sided counter; watch counter landing zones and set-pieces",
+          "The scoreline hinges on Belgium's first-goal timing and Egypt's fitness"
+        ],
+        "risk_variables": [
+          "Lineup & rotation: do the key players start",
+          "Egypt's defensive focus and counter efficiency",
+          "Match tempo, weather and pitch"
+        ],
+        "external_expectation": [
+          "Public tendency leans Belgium",
+          "Heat focus on a Belgium win",
+          "Upset variable mainly Egypt keeping it low or snatching a goal"
+        ],
+        "thirty_minute_checklist": [
+          "Starting XI and positions",
+          "Belgium's attacking pairing and wing choice",
+          "Egypt's defensive shape and counter personnel",
+          "Live heat and risk direction",
+          "Re-confirm direction before kickoff; lower the certainty if needed"
+        ]
+      },
+      "operations": {
+        "share_title": "Today's hotspot · Belgium vs Egypt",
+        "share_copy": "Today's main match: Belgium vs Egypt. Call: pre-match leans Belgium, but Egypt can keep it low. Main score 1-0, backup 2-0 / 1-1, risk medium. Basis: Belgium's historical Elo and last-10 goals lead. Check lineups 30 minutes before; join the group for the live correction.",
+        "join_cta": "Join the live group"
+      }
+    }
+  },
+  "safety": {
+    "vocabulary_compliant": true,
+    "operator_confirmed": true,
+    "no_auto_send": true,
+    "no_fake_probability": true
+  },
+  "source_facts": {
+    "fixture_source": "api_football",
+    "data_mode": "api",
+    "has_model_fields": true,
+    "source_refs": [
+      "kaggle Elo: Belgium 1885 / Egypt 1756 (gap 129)",
+      "form10: Belgium 7W-3D-0L GF37/GA6 · Egypt 5W-3D-2L GF13/GA6",
+      "upset_band=medium (clear favourite but gaps are partially covered)",
+      "poisson_bands(1.78,0.72)=1-0/2-0/1-1"
+    ],
+    "missing_fields": [
+      "win_prob",
+      "confidence"
+    ]
+  },
+  "model_fields": {
+    "win_prob": null,
+    "recommended_score": "1-0",
+    "backup_scores": [
+      "2-0",
+      "1-1"
+    ],
+    "risk_level": "中",
+    "risk_note": "Belgium 实力领先（Elo 差 129，近 10 场 7W-3D-0L），但 Egypt 防守稳健、具备反击空间，clear favourite but gaps are partially covered。",
+    "confidence": null,
+    "source": "computed",
+    "model_status": "scoutscore_v0_2_elo_form",
+    "no_fake_probability": true
+  },
+  "content_chain": {
+    "date": "20260615",
+    "model_lookup": "computed",
+    "model_lookup_note": "ScoutScore v0.2 — kaggle Elo + last-10 form + Poisson",
+    "prompt_path": "docs/data_audit/mvp2_predictions/prompts/20260615_1489377_prompt.md",
+    "prompt_generated": true,
+    "reviewed_path": "docs/data_audit/mvp2_predictions/reviewed/20260615_1489377_reviewed.json",
+    "reviewed_applied": true,
+    "llm_provider": "operator_manual",
+    "built_by": "mvp2_build_daily_prediction_artifact.py",
+    "built_at": "20260615"
+  },
+  "llm_judgment": {
+    "main_lean": "赛前倾向比利时，但埃及有能力压低比分",
+    "primary_score": "1-0",
+    "backup_scores": [
+      "2-0",
+      "1-1"
+    ],
+    "top_variable": "埃及能否压低节奏 + 比利时进攻终结效率",
+    "why": "比利时实力与状态领先，但埃及的防守与反击会压低比分空间",
+    "tactical_read": [
+      "比利时控球与边中结合，关注其能否打穿埃及低位防线",
+      "埃及低位防守加一侧反击，关注其反击落点与定位球威胁",
+      "比分走向取决于比利时首粒进球时间与埃及体能保持"
+    ],
+    "risk_factors": [
+      "首发与轮换：核心球员是否先发",
+      "埃及防线专注度与反击效率",
+      "比赛节奏、天气与场地"
+    ],
+    "external_expectation": [
+      "公开预测倾向偏向比利时",
+      "热度集中在比利时取胜",
+      "冷门变量主要在埃及压低比分或偷袭得手"
+    ],
+    "t30_checklist": [
+      "首发阵容与位置",
+      "比利时进攻组合与边路选择",
+      "埃及防守站位与反击人员",
+      "临场热度与风险方向",
+      "开球前再确认方向，必要时下调把握度"
+    ]
+  },
+  "operator_confirmation": {
+    "confirmed": true,
+    "confirmed_by": "operator",
+    "confirmed_at": "20260615T00:00:00+00:00",
+    "edited_fields": []
+  }
+}

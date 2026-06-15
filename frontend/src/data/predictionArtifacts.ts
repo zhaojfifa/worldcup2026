@@ -6,6 +6,7 @@
 // 方向待临场确认, never invented. Bundled at build time; the frontend never calls the LLM/vendor.
 import type { Locale } from '../i18n/useLocale';
 import netherJapan from './predictionArtifacts/manual_Nether-Japan-20260614.json';
+import belgiumEgypt from './predictionArtifacts/match_Belgium-Egypt-20260615.json';
 import observation1489371 from './predictionArtifacts/observation_1489371.json';
 
 export interface ArtifactPrediction {
@@ -156,7 +157,7 @@ export interface ObservationArtifact {
   i18n: Partial<Record<Locale, ObservationArtifactLocale>>;
 }
 
-const PREDICTION: PredictionArtifact[] = [netherJapan as PredictionArtifact];
+const PREDICTION: PredictionArtifact[] = [belgiumEgypt as PredictionArtifact, netherJapan as PredictionArtifact];
 const OBSERVATION: ObservationArtifact[] = [observation1489371 as ObservationArtifact];
 
 /** Resolve a prediction artifact by route key — matches the manifest fixture_key

@@ -63,6 +63,12 @@ def scan(sel, predictions, observations, manifest):
         return fails, warns  # nothing else resolvable
     key = sel["fixture_key"]
 
+    # 1b. R2 staleness gate — selected hotspot must not be older than the slate.
+    slate_date = (manifest or {}).get("generated_for_date")
+    if slate_date and sel.get("date") and sel["date"] < slate_date:
+        fails.append("selected_hotspot is STALE: selection date %s < slate date %s (refresh the hotspot)"
+                     % (sel["date"], slate_date))
+
     # 2. resolves to a prediction artifact
     pred = next((a for a in predictions if a.get("fixture_key") == key), None)
     if not pred:
@@ -176,6 +182,9 @@ def selftest():
     checks = []
     f, w = scan(good_sel, [good_pred], [good_obs], good_manifest)
     checks.append(("clean passes", f == []))
+    checks.append(("stale selection caught", any("STALE" in x for x in scan(
+        dict(good_sel, date="2026-06-14"), [good_pred], [good_obs],
+        dict(good_manifest, generated_for_date="2026-06-15"))[0])))
     checks.append(("missing selection caught", scan(None, [good_pred], [good_obs], good_manifest)[0] != []))
     checks.append(("no-artifact caught", any("NO prediction artifact" in x for x in scan(
         {"status": "active", "fixture_key": "manual:Z"}, [good_pred], [], good_manifest)[0])))

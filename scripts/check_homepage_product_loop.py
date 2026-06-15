@@ -84,7 +84,7 @@ REQUIRED_TITLES = ["昨日热点复盘", "今日热点预测", "今日赛程", "
 # Update when the operator changes the daily hotspot (slate order drives selection).
 SCENARIO = {
     "featured_recap": ("Brazil", "Morocco"),
-    "featured_prediction": ("Netherlands", "Japan"),
+    "featured_prediction": ("Belgium", "Egypt"),   # R2 fresh hotspot 2026-06-15 (was Netherlands/Japan)
     "secondary_recap_team": "Mexico",
 }
 FINISHED_STATES = {"FINISHED", "RECAP_PENDING", "RECAP_READY", "ARCHIVED"}
@@ -200,17 +200,17 @@ def selftest():
                  "selectProductLoop recapReady viewRecap 加入情报群看赛后观察 "
                  "<HotspotPrediction f={featuredPrediction}/> <HotspotRecap f={featuredRecap}/> "
                  "进入战术室 CopyLink buildStrongCall 主比分 加入临场情报群")
-    TEST_ART = {"manual:Nether-Japan-20260614"}
+    TEST_ART = {"1489377"}
     good_manifest = {"fixtures": [
         {"home": "Brazil", "away": "Morocco", "lifecycle_state": "RECAP_PENDING", "recapReady": False},
         {"home": "Mexico", "away": "South Africa", "lifecycle_state": "RECAP_READY", "recapReady": True},
-        {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
-         "external_game_id": "manual:Nether-Japan-20260614"},
+        {"id": "1489377", "home": "Belgium", "away": "Egypt", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
+         "external_game_id": "af:1489377"},
     ]}
     good_data = ("export function selectProductLoop(m){ const sel=getSelectedHotspot(); const finished=...; "
                  "finished[0]; scheduled.find(f=>hasPredictionArtifact(leadKey(f))); }")
     good_home = "<HomeProductLoop manifest={daily.manifest} loc={loc} />"
-    good_sel = {"status": "active", "fixture_key": "manual:Nether-Japan-20260614"}
+    good_sel = {"status": "active", "fixture_key": "1489377"}
     checks = []
     checks.append(("clean passes", scan(good_loop, good_data, good_home) == []))
     checks.append(("missing title caught", any("今日热点预测" in f for f in scan("昨日热点复盘 今日赛程 其他复盘 selectProductLoop recapReady", good_data, good_home))))
@@ -236,8 +236,8 @@ def selftest():
     checks.append(("wrong recap lead caught", any("featured recap" in f for f in scan_manifest(
         {"fixtures": [{"home": "Mexico", "away": "South Africa", "lifecycle_state": "RECAP_READY", "recapReady": True},
                       {"home": "Brazil", "away": "Morocco", "lifecycle_state": "RECAP_PENDING", "recapReady": False},
-                      {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
-                       "external_game_id": "manual:Nether-Japan-20260614"}]}, TEST_ART))))
+                      {"id": "1489377", "home": "Belgium", "away": "Egypt", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
+                       "external_game_id": "af:1489377"}]}, TEST_ART))))
     ok = all(v for _, v in checks)
     for n, v in checks:
         sys.stdout.write("%s %s\n" % ("PASS" if v else "FAIL", n))

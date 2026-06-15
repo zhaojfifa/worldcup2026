@@ -23,6 +23,7 @@ lookup fails (e.g. an id=null manual fixture with no frame), model_fields.source
 and /internal/daily says so.
 """
 import argparse
+import importlib.util
 import json
 import pathlib
 import re
@@ -91,15 +92,77 @@ def fixture_facts(fixture_key, artifact):
     return facts
 
 
-def model_lookup(fixture_key, artifact):
-    """OFFLINE model/source lookup. P0: an id=null manual fixture has no backend Prediction and no
-    bundled ScoutScore frame → 'unavailable'. P1 hook: join a real fixture id to a computed frame."""
-    if artifact.get("id"):
-        # P1: a real numeric id could map to a backend Prediction / ScoutScore frame here.
+_SS = None
+
+
+def _scoutscore():
+    """Lazy-import the ScoutScore v0.2 builder (offline kaggle Elo/form/Poisson). None if unavailable."""
+    global _SS
+    if _SS is None:
+        try:
+            spec = importlib.util.spec_from_file_location(
+                "mvp2_scoutscore", ROOT / "scripts" / "mvp2_build_scoutscore_v0_2_factors.py")
+            mod = importlib.util.module_from_spec(spec)
+            sys.modules["mvp2_scoutscore"] = mod
+            spec.loader.exec_module(mod)
+            mod.load_results()  # verify kaggle present
+            _SS = mod
+        except BaseException:
+            _SS = False
+    return _SS or None
+
+
+def model_lookup(fixture_key, artifact, cutoff=None):
+    """OFFLINE model/source lookup (R2 — real ScoutScore). Compute kaggle Elo + last-10 form + Poisson
+    band + upset_band for the fixture's teams. Both teams resolve in kaggle → source='computed' with
+    source_refs. A cold-start team (Elo None) or no kaggle → 'unavailable' (builder then uses
+    operator_estimated, disclosed). NEVER returns win_prob / numeric confidence (compliance floor)."""
+    home, away = artifact.get("home"), artifact.get("away")
+    ss = _scoutscore()
+    if not ss or not home or not away:
         return {"result": "unavailable",
-                "note": "fixture has an id but no offline model frame is bundled (P1: compute ScoutScore/backend)"}
-    return {"result": "unavailable",
-            "note": "manual fixture (id=null): no API/model source — operator_estimated fields used"}
+                "note": "no offline model source available — operator_estimated fields used"}
+    try:
+        rows = ss.load_results()
+        cut = cutoff or "2026-12-31"
+        elo = ss.elo_snapshot(rows, cut)
+        eh, ea = elo.get(ss.kname(home)), elo.get(ss.kname(away))
+        if eh is None or ea is None:
+            cold = home if eh is None else away
+            return {"result": "unavailable",
+                    "note": "%s not in the historical dataset (Elo cold-start) — no honest computed model; operator_estimated used" % cold}
+        gap = round(eh - ea)
+        fh, fa = ss.recent_form(rows, home, cut), ss.recent_form(rows, away, cut)
+        band, band_note = ss.upset_band(abs(gap), 0)
+        # documented Elo→goal-expectation heuristic (disclosed in source_refs); home carries the gap tilt
+        lam_h = max(0.5, min(2.6, 1.35 + gap / 300.0))
+        lam_a = max(0.4, min(2.6, 1.15 - gap / 300.0))
+        bands = ss.poisson_bands(lam_h, lam_a)
+        fav, under = (home, away) if gap >= 0 else (away, home)
+        favform = (fh if gap >= 0 else fa)["record"]
+        risk_note = ("%s 实力领先（Elo 差 %d，近 10 场 %s），但 %s 防守稳健、具备反击空间，%s。"
+                     % (fav, abs(gap), favform, under, band_note))
+        return {
+            "result": "computed",
+            "note": "ScoutScore v0.2 — kaggle Elo + last-10 form + Poisson",
+            "fields": {
+                "recommended_score": bands[0] if bands else None,
+                "backup_scores": bands[1:3] if bands else [],
+                "risk_level": {"low": "低", "medium": "中", "high": "高"}.get(band, "中"),
+                "risk_note": risk_note,
+            },
+            "source_refs": [
+                "kaggle Elo: %s %.0f / %s %.0f (gap %d)" % (home, eh, away, ea, gap),
+                "form10: %s %s GF%d/GA%d · %s %s GF%d/GA%d" % (
+                    home, fh["record"], fh["goals_for"], fh["goals_against"],
+                    away, fa["record"], fa["goals_for"], fa["goals_against"]),
+                "upset_band=%s (%s)" % (band, band_note),
+                "poisson_bands(%.2f,%.2f)=%s" % (lam_h, lam_a, "/".join(bands)),
+            ],
+            "favoured": fav,
+        }
+    except BaseException as e:
+        return {"result": "unavailable", "note": "model lookup error (%s) — operator_estimated used" % type(e).__name__}
 
 
 def build_source_facts(facts, lookup, model_fields):
@@ -109,35 +172,43 @@ def build_source_facts(facts, lookup, model_fields):
         "fixture_source": facts["fixture_source"],
         "data_mode": "manual" if facts["fixture_source"] == "manual_slate" else "api",
         "has_model_fields": has_model,
-        "source_refs": [],
+        "source_refs": lookup.get("source_refs", []),
         "missing_fields": missing,
     }
 
 
 def build_model_fields(artifact, lookup):
-    """lookup unavailable → operator_estimated, reusing the operator-confirmed score/risk already on
-    the artifact (model_fields or i18n.zh.prediction). win_prob/confidence ALWAYS null (no fake prob)."""
+    """computed lookup → source='computed' using the ScoutScore fields. Otherwise operator_estimated,
+    reusing the operator-confirmed score/risk on the artifact (model_fields or i18n.zh.prediction).
+    win_prob/confidence ALWAYS null (no fake probability)."""
     existing = artifact.get("model_fields") or {}
     zp = (((artifact.get("i18n") or {}).get("zh") or {}).get("prediction") or {})
+    if lookup["result"] == "computed":
+        f = lookup["fields"]
+        return {
+            "win_prob": None,
+            "recommended_score": f["recommended_score"],
+            "backup_scores": f["backup_scores"],
+            "risk_level": f["risk_level"],
+            "risk_note": f["risk_note"],
+            "confidence": None,
+            "source": "computed",
+            "model_status": "scoutscore_v0_2_elo_form",
+            "no_fake_probability": True,
+        }
     rec = existing.get("recommended_score") or zp.get("score_call")
     backups = existing.get("backup_scores")
     if not backups and zp.get("backup_score"):
         backups = [s.strip() for s in zp["backup_score"].split("/") if s.strip()]
-    risk = existing.get("risk_level") or zp.get("risk_level")
-    note = existing.get("risk_note") or zp.get("risk_note")
-    if lookup["result"] == "found":
-        source, status = "computed", "computed"
-    else:
-        source, status = "operator_estimated", "operator_estimated"
     return {
         "win_prob": None,
         "recommended_score": rec,
         "backup_scores": backups or [],
-        "risk_level": risk,
-        "risk_note": note,
+        "risk_level": existing.get("risk_level") or zp.get("risk_level"),
+        "risk_note": existing.get("risk_note") or zp.get("risk_note"),
         "confidence": None,
-        "source": source,
-        "model_status": status,
+        "source": "operator_estimated",
+        "model_status": "operator_estimated",
         "no_fake_probability": True,
     }
 
@@ -248,7 +319,9 @@ def cmd_prompt(date, fixture_key):
         print("FAIL  no prediction artifact for %r (create the artifact first)" % fixture_key); return 1
     art = json.loads(path.read_text(encoding="utf-8"))
     facts = fixture_facts(fixture_key, art)
-    lookup = model_lookup(fixture_key, art)
+    # Elo cutoff = the fixture date (YYYYMMDD → YYYY-MM-DD) so the snapshot has no future leakage.
+    cutoff = "%s-%s-%s" % (date[0:4], date[4:6], date[6:8]) if len(date) == 8 and date.isdigit() else None
+    lookup = model_lookup(fixture_key, art, cutoff)
     mf = build_model_fields(art, lookup)
     facts_with_missing = dict(facts, missing_fields=[k for k in ("win_prob", "confidence") if mf.get(k) is None])
     sf = build_source_facts(facts, lookup, mf)
