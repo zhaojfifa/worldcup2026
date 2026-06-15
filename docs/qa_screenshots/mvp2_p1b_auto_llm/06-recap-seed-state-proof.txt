@@ -1,0 +1,2 @@
+recap_1489371: Brazil vs Morocco 1-1 -> OBSERVATION_READY recap_ready=False
+blocked_reason: lineups/events/player stats not ingested for 1489371 — no honest full recap; obs
