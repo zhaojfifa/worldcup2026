@@ -26,9 +26,18 @@ export interface DailyFixtureRow {
   scoreAway?: number | null;
 }
 
+export interface ManifestFreshness {
+  stored?: boolean; stored_at?: string; age_seconds?: number; stale?: boolean;
+}
 export interface DailyManifest {
   generated_for_date: string;
   generated_at: string;
+  // The PUBLIC backend exposes the slate date as `date` (the bundled/static manifest uses
+  // `generated_for_date`). Carried so normalization can map it; `freshness` is the backend's
+  // upload-time staleness signal (time since the manifest was stored, not since the slate was built).
+  date?: string;
+  slate_date?: string;
+  freshness?: ManifestFreshness;
   source_mode?: string;
   fixture_count?: number;
   fixtures: DailyFixtureRow[];
@@ -73,7 +82,13 @@ async function tryFetch(url: string, timeoutMs: number): Promise<DailyManifest |
     clearTimeout(timer);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const m = await res.json();
-    return validManifest(m) ? (m as DailyManifest) : null;
+    if (!validManifest(m)) return null;
+    // Normalize the backend slate-date field: the public endpoint returns `date`; downstream R2a
+    // logic reads `generated_for_date`. Map it so a correctly-uploaded backend is not mis-read as
+    // "no date" (which would wrongly force FALLBACK). Never invents a date.
+    const mm = m as DailyManifest;
+    if (!mm.generated_for_date) mm.generated_for_date = mm.date || mm.slate_date || mm.generated_for_date;
+    return mm;
   } catch {
     return null;
   }
@@ -93,6 +108,8 @@ function backendAcceptable(m: DailyManifest, selKey: string | null, selDate: str
   if (!containsKey(m, selKey)) return { ok: false, reason: `backend slate does not contain selected ${selKey}` };
   if (selDate && m.generated_for_date < selDate)
     return { ok: false, reason: `backend date ${m.generated_for_date} older than selection ${selDate}` };
+  if (m.freshness?.stale === true)
+    return { ok: false, reason: 'backend manifest flagged stale by the backend freshness signal' };
   const age = manifestAgeMinutes(m, now);
   if (age != null && age > STALE_HOURS * 60)
     return { ok: false, reason: `backend manifest stale (${Math.round(age / 60)}h > ${STALE_HOURS}h)` };
@@ -225,8 +242,18 @@ export function leadReadiness(m: DailyManifest): LeadReadiness {
   };
 }
 
-/** Minutes since the manifest was generated (for a subtle freshness/staleness indicator). */
+/** Minutes since the manifest became authoritative. Prefer the backend's `freshness` (time since the
+ *  manifest was UPLOADED — the operationally relevant signal); fall back to `generated_at` (the slate
+ *  BUILD time) for the bundled/static manifest which has no freshness block. */
 export function manifestAgeMinutes(m: DailyManifest, now: Date = new Date()): number | null {
+  const fr = m.freshness;
+  if (fr) {
+    if (typeof fr.age_seconds === 'number') return Math.max(0, Math.round(fr.age_seconds / 60));
+    if (fr.stored_at) {
+      const ts = Date.parse(fr.stored_at);
+      if (!Number.isNaN(ts)) return Math.max(0, Math.round((now.getTime() - ts) / 60000));
+    }
+  }
   if (!m.generated_at) return null;
   const t = Date.parse(m.generated_at);
   return Number.isNaN(t) ? null : Math.max(0, Math.round((now.getTime() - t) / 60000));

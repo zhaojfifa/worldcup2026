@@ -113,7 +113,11 @@ def main():
             if n == 0:
                 fails.append("live endpoint returned 0 fixtures (nothing uploaded?)")
             # R2a go-live assertions (only when expected values are provided).
-            live_date = mani.get("generated_for_date") or live.get("generated_for_date")
+            # The PUBLIC backend exposes the slate date as `date`; the bundled/static manifest uses
+            # `generated_for_date`. Accept the canonical backend field first, then the static alias,
+            # then `slate_date` — reading the field the backend actually returns (not a weakening).
+            live_date = (mani.get("date") or mani.get("generated_for_date") or mani.get("slate_date")
+                         or live.get("date") or live.get("generated_for_date") or live.get("slate_date"))
             if a.expected_date:
                 print("live backend date = %s (expected %s)" % (live_date, a.expected_date))
                 if live_date != a.expected_date:
@@ -138,15 +142,27 @@ def main():
                 warns.append("live endpoint shows no completed match today")
             if not live.get("active_hero"):
                 warns.append("live endpoint active_hero is null (no hero candidate)")
-            ga = live.get("generated_at")
-            if ga:
-                gat = datetime.fromisoformat(ga.replace("Z", "+00:00"))
-                if gat.tzinfo is None:
-                    gat = gat.replace(tzinfo=timezone.utc)
-                age_h = (datetime.now(timezone.utc) - gat).total_seconds() / 3600
-                print("live manifest age %.1fh (threshold %.0fh)" % (age_h, a.max_age_hours))
-                if age_h > a.max_age_hours:
-                    fails.append("live manifest stale: %.1fh > %.0fh" % (age_h, a.max_age_hours))
+            # Freshness = time since the manifest was UPLOADED (operationally relevant), which the
+            # backend reports in `freshness` (stored_at / age_seconds / stale). Prefer it; fall back
+            # to `generated_at` (slate BUILD time) only when the backend gives no freshness block.
+            fr = live.get("freshness") if isinstance(live.get("freshness"), dict) else {}
+            if fr.get("age_seconds") is not None or fr.get("stored_at"):
+                age_h = (fr.get("age_seconds") or 0) / 3600.0
+                print("live manifest age %.1fh (threshold %.0fh) [backend freshness; stale=%s]"
+                      % (age_h, a.max_age_hours, fr.get("stale")))
+                if fr.get("stale") is True or age_h > a.max_age_hours:
+                    fails.append("live manifest stale: %.1fh > %.0fh (backend stale=%s)"
+                                 % (age_h, a.max_age_hours, fr.get("stale")))
+            else:
+                ga = live.get("generated_at")
+                if ga:
+                    gat = datetime.fromisoformat(ga.replace("Z", "+00:00"))
+                    if gat.tzinfo is None:
+                        gat = gat.replace(tzinfo=timezone.utc)
+                    age_h = (datetime.now(timezone.utc) - gat).total_seconds() / 3600
+                    print("live manifest age %.1fh (threshold %.0fh) [generated_at fallback]" % (age_h, a.max_age_hours))
+                    if age_h > a.max_age_hours:
+                        fails.append("live manifest stale: %.1fh > %.0fh" % (age_h, a.max_age_hours))
         except Exception as e:
             fails.append("live endpoint probe failed: %s" % e)
     else:
