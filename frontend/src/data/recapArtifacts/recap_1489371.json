@@ -1,0 +1,30 @@
+{
+  "date": "2026-06-13",
+  "fixture_key": "1489371",
+  "id": "1489371",
+  "home": "Brazil",
+  "away": "Morocco",
+  "status": "finished",
+  "score": "1-1",
+  "hit_status": "partial_hit",
+  "recap_state": "OBSERVATION_READY",
+  "recap_ready": false,
+  "observation_ref": "observation_1489371.json",
+  "recap_prompt_path": "docs/data_audit/mvp2_recaps/prompts/20260613_1489371_recap_prompt.md",
+  "recap_reviewed_path": "docs/data_audit/mvp2_recaps/reviewed/20260613_1489371_recap_reviewed.json",
+  "headline": "巴西 1-1 摩洛哥 · 比分区间命中，胜负方向需校准",
+  "full_recap_blocked_reason": "lineups/events/player stats not ingested for 1489371 — no honest full recap; observation receipt is the customer tier",
+  "content_chain": {
+    "recap_prompt_generated": true,
+    "recap_reviewed_applied": true,
+    "llm_provider": "operator_manual",
+    "built_by": "operator (P1 recap flow)",
+    "built_at": "2026-06-14"
+  },
+  "safety": {
+    "no_fake_recap": true,
+    "no_fake_probability": true,
+    "no_auto_send": true,
+    "vocabulary_compliant": true
+  }
+}

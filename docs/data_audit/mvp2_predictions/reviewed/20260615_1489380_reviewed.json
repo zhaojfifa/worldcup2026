@@ -1,0 +1,35 @@
+{
+  "_note": "OPERATOR_ESTIMATED reviewed daily judgement for Spain vs Cape Verde Islands (1489380, 2026-06-15). Cape Verde Islands is cold-start (NOT in the historical kaggle dataset), so there is NO honest computed Elo gap and model source = operator_estimated (NOT computed). The lean to Spain is an operator estimate based on Spain's pedigree/strength (Elo ~2048); Cape Verde's unknown level is itself the key variable. llm_provider=operator_manual (no external LLM auto-run; real model+LLM = P1). win_prob/confidence intentionally absent (no fake probability). Safe vocabulary only; zh canonical.",
+  "llm_provider": "operator_manual",
+  "main_lean": "赛前明显倾向西班牙，但佛得角缺乏历史数据，是最大未知",
+  "primary_score": "2-0",
+  "backup_scores": ["3-0", "1-0"],
+  "risk_level": "中",
+  "risk_note": "西班牙以底蕴和整体实力明显占优，但佛得角不在历史数据样本中（冷启动、无可信 Elo），真实水平本身就是变量，因此纸面优势也不能想当然，风险评中。",
+  "top_variable": "佛得角真实水平未知 + 西班牙轮换与终结效率",
+  "why": "西班牙底蕴与整体实力领先，但佛得角无历史数据覆盖，未知水平与西班牙轮换是决定比分的关键",
+  "tactical_read": [
+    "西班牙高位控球加边中结合，关注其能否快速打穿佛得角防线",
+    "佛得角大概率低位密集防守，关注其能否拖住西班牙首粒进球时间",
+    "比分上限取决于西班牙轮换深度与终结效率，下限取决于佛得角防守韧性"
+  ],
+  "risk_factors": [
+    "佛得角真实水平未知：无历史数据，临场可能高于或低于预期",
+    "西班牙轮换与首发：核心球员是否登场影响终结效率",
+    "比赛节奏、天气与场地"
+  ],
+  "external_expectation": [
+    "公开预测倾向明显偏向西班牙",
+    "热度集中在西班牙大胜",
+    "冷门变量主要在佛得角未知水平与西班牙轮换保守"
+  ],
+  "t30_checklist": [
+    "首发阵容与位置（西班牙轮换深度）",
+    "佛得角防守站位与人数",
+    "西班牙进攻组合与边路选择",
+    "临场热度与风险方向",
+    "开球前再确认方向，必要时下调把握度"
+  ],
+  "share_copy": "今日主推：西班牙 vs 佛得角。俅哥主看：赛前明显倾向西班牙，但佛得角是未知数。主比分 2-0，备选 3-0 / 1-0，冷门风险中。数据说明：西班牙底蕴与整体实力领先；佛得角不在历史数据样本中（无可信 Elo），属操作组估计。开球前 30 分钟看首发与临场修正，进群等修正。",
+  "safety": { "no_betting_vocab": true, "no_fake_probability": true, "no_auto_send": true }
+}

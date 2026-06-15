@@ -9,6 +9,22 @@ import {
   getPredictionArtifact, getObservationArtifact, predictionArtifactLocale, recapState,
 } from '../data/predictionArtifacts';
 import { getProductNarrative } from '../data/productNarrativeData';
+import contentQueueRaw from '../data/dailyContentQueue.json';
+
+// P1 content factory — typed view of the bundled daily content queue (built by
+// scripts/mvp2_build_daily_content_queue.py). Rendered as the operator command console below.
+interface QueueRow {
+  fixture_key: string; home: string; away: string; status?: string; kickoffUtc?: string | null;
+  content_state?: string; source_coverage?: string; model_source?: string | null;
+  recommended_score?: string | null; risk_level?: string | null; priority_score?: number;
+}
+interface RecapRow { fixture_key: string; home: string; away: string; score?: string | null; recap_state: string; has_observation: boolean }
+interface T30Row { fixture_key: string; home: string; away: string; t30_status: string }
+interface ContentQueue {
+  date?: string; primary_hotspot?: QueueRow | null; secondary_matches?: QueueRow[];
+  recap_queue?: RecapRow[]; t30_queue?: T30Row[]; send_status?: string;
+}
+const CONTENT_QUEUE = contentQueueRaw as ContentQueue;
 
 // P7 P0-2 — /internal/daily operator content-readiness panel (Owner). NOT a public marketing page:
 // an unlinked operator control surface. Reads ONLY the public runtime manifest + the build-bundled
@@ -163,6 +179,32 @@ export function DailyStatusPage() {
              detail={lastGen ? `${lastGen} (content_chain.built_at / artifact date)` : 'unknown'} />
         <Row label="Next operator action / 下一步运营动作" verdict="warn" detail={nextAction} />
         <Row label="Send status / 发送状态" verdict="warn" detail="HOLD — manual only; Owner per-channel GO required; no auto-send" />
+      </div>
+
+      {/* P1 content factory — daily content QUEUE console: primary + secondary + recap + T-30 with
+          per-match content_state, source coverage, and SLA. Reads the bundled dailyContentQueue.json. */}
+      <div className="sec-en"><span className="zh">🏭 内容工厂队列 / Content factory queue</span><span className="en">QUEUE</span></div>
+      <div className="card id-card">
+        <Row label="Queue date / 队列日期" verdict={CONTENT_QUEUE.date ? 'ok' : 'warn'} detail={CONTENT_QUEUE.date ?? '—'} />
+        {CONTENT_QUEUE.primary_hotspot ? (
+          <Row label="Primary hotspot / 主热点" verdict={(CONTENT_QUEUE.primary_hotspot.content_state === 'PUBLISHED' || CONTENT_QUEUE.primary_hotspot.content_state === 'ARTIFACT_READY') ? 'ok' : 'warn'}
+               detail={`${CONTENT_QUEUE.primary_hotspot.home} vs ${CONTENT_QUEUE.primary_hotspot.away} · ${CONTENT_QUEUE.primary_hotspot.content_state} · source=${CONTENT_QUEUE.primary_hotspot.source_coverage}`} />
+        ) : <Row label="Primary hotspot / 主热点" verdict="fail" detail="MISSING" />}
+        <Row label="Secondary matches / 次要赛事" verdict={(CONTENT_QUEUE.secondary_matches?.length ?? 0) >= 1 ? 'ok' : 'warn'}
+             detail={`${CONTENT_QUEUE.secondary_matches?.length ?? 0} selected`} />
+        {(CONTENT_QUEUE.secondary_matches ?? []).map(s => (
+          <Row key={s.fixture_key}
+               label={`· ${s.home} vs ${s.away}`}
+               verdict={(s.content_state === 'PUBLISHED' || s.content_state === 'ARTIFACT_READY') ? 'ok' : (s.content_state === 'FIXTURE_READY' ? 'fail' : 'warn')}
+               detail={`${s.content_state} · prediction=${s.content_state === 'PUBLISHED' ? 'ready' : 'pending'} · prompt/review=${s.content_state === 'PUBLISHED' || s.content_state === 'REVIEW_READY' ? 'applied' : 'pending'} · source=${s.source_coverage} · score=${s.recommended_score ?? '—'} · /predict/${s.fixture_key}`} />
+        ))}
+        <Row label="T-30 queue / 临场队列" verdict={(CONTENT_QUEUE.t30_queue?.length ?? 0) >= 1 ? 'ok' : 'na'}
+             detail={(CONTENT_QUEUE.t30_queue ?? []).map(t => `${t.home}:${t.t30_status}`).join(' · ') || 'none'} />
+        <Row label="Recap queue / 复盘队列" verdict={(CONTENT_QUEUE.recap_queue?.length ?? 0) >= 1 ? 'ok' : 'na'}
+             detail={(CONTENT_QUEUE.recap_queue ?? []).map(rq => `${rq.home} vs ${rq.away} ${rq.score ?? ''}→${rq.recap_state}`).join(' · ') || 'none'} />
+        <Row label="Source coverage / 来源覆盖" verdict={(CONTENT_QUEUE.secondary_matches ?? []).concat(CONTENT_QUEUE.primary_hotspot ? [CONTENT_QUEUE.primary_hotspot] : []).some(x => x.source_coverage === 'missing') ? 'warn' : 'ok'}
+             detail={(CONTENT_QUEUE.secondary_matches ?? []).concat(CONTENT_QUEUE.primary_hotspot ? [CONTENT_QUEUE.primary_hotspot] : []).filter(x => x.source_coverage !== 'computed').map(x => `${x.home}/${x.away}:${x.source_coverage}`).join(' · ') || 'all computed'} />
+        <Row label="Queue send status / 队列发送" verdict="warn" detail={`${CONTENT_QUEUE.send_status ?? 'HOLD'} — no auto-send`} />
       </div>
 
       <div className="sec-en"><span className="zh">🔗 运营链接 / Operator links</span><span className="en">LINKS</span></div>

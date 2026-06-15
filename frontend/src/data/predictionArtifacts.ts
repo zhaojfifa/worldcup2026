@@ -7,6 +7,8 @@
 import type { Locale } from '../i18n/useLocale';
 import netherJapan from './predictionArtifacts/manual_Nether-Japan-20260614.json';
 import belgiumEgypt from './predictionArtifacts/match_Belgium-Egypt-20260615.json';
+import saudiUruguay from './predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json';
+import spainCapeVerde from './predictionArtifacts/match_Spain-CapeVerde-20260615.json';
 import observation1489371 from './predictionArtifacts/observation_1489371.json';
 
 export interface ArtifactPrediction {
@@ -157,7 +159,14 @@ export interface ObservationArtifact {
   i18n: Partial<Record<Locale, ObservationArtifactLocale>>;
 }
 
-const PREDICTION: PredictionArtifact[] = [belgiumEgypt as PredictionArtifact, netherJapan as PredictionArtifact];
+// P1 content factory: primary hotspot (Belgium-Egypt) + secondary matches (Saudi-Uruguay computed,
+// Spain-CapeVerde operator_estimated cold-start). Each resolves /predict by fixture_key or numeric id.
+const PREDICTION: PredictionArtifact[] = [
+  belgiumEgypt as PredictionArtifact,
+  saudiUruguay as PredictionArtifact,
+  spainCapeVerde as PredictionArtifact,
+  netherJapan as PredictionArtifact,
+];
 const OBSERVATION: ObservationArtifact[] = [observation1489371 as ObservationArtifact];
 
 /** Resolve a prediction artifact by route key — matches the manifest fixture_key

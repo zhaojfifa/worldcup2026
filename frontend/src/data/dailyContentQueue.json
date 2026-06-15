@@ -1,0 +1,142 @@
+{
+  "date": "2026-06-15",
+  "generated_at": "2026-06-15T12:00:00+00:00",
+  "built_by": "mvp2_build_daily_content_queue.py",
+  "scoring": {
+    "weights": {
+      "popular": 25,
+      "market": 20,
+      "host": 15,
+      "model_computed": 20,
+      "model_estimated": 8,
+      "narrative_upset": 10,
+      "scheduled": 10
+    },
+    "note": "transparent editorial priority — never a betting/odds signal"
+  },
+  "primary_hotspot": {
+    "fixture_key": "1489377",
+    "id": "1489377",
+    "home": "Belgium",
+    "away": "Egypt",
+    "kickoffUtc": "2026-06-15T19:00:00+00:00",
+    "status": "scheduled",
+    "lifecycle_state": "SCHEDULED",
+    "role": "primary",
+    "priority_score": 65,
+    "priority_reasons": [
+      "popular:Belgium",
+      "model:computed",
+      "narrative:upset-risk",
+      "scheduled"
+    ],
+    "content_state": "PUBLISHED",
+    "artifact_ready": true,
+    "model_source": "computed",
+    "source_coverage": "computed",
+    "recommended_score": "1-0",
+    "risk_level": "中"
+  },
+  "secondary_matches": [
+    {
+      "fixture_key": "1489379",
+      "id": "1489379",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "kickoffUtc": "2026-06-15T22:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "SCHEDULED",
+      "role": "secondary",
+      "priority_score": 85,
+      "priority_reasons": [
+        "market:Saudi Arabia",
+        "popular:Uruguay",
+        "model:computed",
+        "narrative:upset-risk",
+        "scheduled"
+      ],
+      "content_state": "PUBLISHED",
+      "artifact_ready": true,
+      "model_source": "computed",
+      "source_coverage": "computed",
+      "recommended_score": "0-1",
+      "risk_level": "中"
+    },
+    {
+      "fixture_key": "1489380",
+      "id": "1489380",
+      "home": "Spain",
+      "away": "Cape Verde Islands",
+      "kickoffUtc": "2026-06-15T16:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "SCHEDULED",
+      "role": "secondary",
+      "priority_score": 53,
+      "priority_reasons": [
+        "popular:Spain",
+        "model:operator_estimated",
+        "narrative:upset-risk",
+        "scheduled"
+      ],
+      "content_state": "PUBLISHED",
+      "artifact_ready": true,
+      "model_source": "operator_estimated",
+      "source_coverage": "operator_estimated",
+      "recommended_score": "2-0",
+      "risk_level": "中"
+    }
+  ],
+  "recap_queue": [
+    {
+      "fixture_key": "1489371",
+      "id": "1489371",
+      "home": "Brazil",
+      "away": "Morocco",
+      "score": "1-1",
+      "recap_state": "OBSERVATION_READY",
+      "has_observation": true
+    },
+    {
+      "fixture_key": "1489369",
+      "id": "1489369",
+      "home": "Mexico",
+      "away": "South Africa",
+      "score": "2-0",
+      "recap_state": "RECAP_READY",
+      "has_observation": false
+    },
+    {
+      "fixture_key": "1539002",
+      "id": "1539002",
+      "home": "Sweden",
+      "away": "Tunisia",
+      "score": null,
+      "recap_state": "WAITING_FT",
+      "has_observation": false
+    }
+  ],
+  "t30_queue": [
+    {
+      "fixture_key": "1489377",
+      "home": "Belgium",
+      "away": "Egypt",
+      "t30_status": "pending",
+      "kickoffUtc": "2026-06-15T19:00:00+00:00"
+    },
+    {
+      "fixture_key": "1489379",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "t30_status": "pending",
+      "kickoffUtc": "2026-06-15T22:00:00+00:00"
+    },
+    {
+      "fixture_key": "1489380",
+      "home": "Spain",
+      "away": "Cape Verde Islands",
+      "t30_status": "pending",
+      "kickoffUtc": "2026-06-15T16:00:00+00:00"
+    }
+  ],
+  "send_status": "HOLD"
+}

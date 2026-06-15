@@ -1,0 +1,16 @@
+{
+  "hit_status": "partial_hit",
+  "recap_state": "OBSERVATION_READY",
+  "recap_ready": false,
+  "headline": "巴西 1-1 摩洛哥 · 比分区间命中，胜负方向需校准",
+  "deviation_reason": "巴西控制力低于赛前预期，摩洛哥防线压缩与反击质量高于预期，主推的胜负方向未完全兑现。",
+  "tactical_review": "（待补：该场未接入首发/事件/球员数据，完整战术复盘暂不展开，避免臆造）",
+  "turning_points": [],
+  "model_calibration": "下调对巴西胜负确定性的权重；把摩洛哥这类强韧防反球队的下限上调。",
+  "next_match_impact": "巴西后续需要下调胜负确定性，摩洛哥的韧性值得继续跟踪。",
+  "customer_summary": "赛前偏向巴西、主比分参考 2-1、备选含 1-1；实际 1-1，按部分命中处理。完整复盘待事件数据接入后开放。",
+  "share_copy": "昨日主推：巴西 vs 摩洛哥。赛前偏向巴西、备选含 1-1，实际 1-1，部分命中。偏差在巴西控制力不足、摩洛哥反击更好。完整复盘待数据接入，先进群看赛后校准。",
+  "internal_notes": "full recap blocked: lineups/events/player stats not ingested for 1489371; observation receipt is the customer-facing tier (recap_ready=false).",
+  "llm_provider": "operator_manual",
+  "safety": { "no_fake_recap": true, "no_fake_probability": true, "no_auto_send": true }
+}

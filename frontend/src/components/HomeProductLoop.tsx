@@ -4,7 +4,7 @@ import { selectProductLoop, leadKey, type DailyManifest, type DailyFixtureRow } 
 import { frozenFor } from './UpcomingTacticalStrip';
 import { CopyLink } from './CopyLink';
 import { buildStrongCall } from '../growth/strongCallProjection';
-import { hasObservationArtifact } from '../data/predictionArtifacts';
+import { hasObservationArtifact, hasPredictionArtifact } from '../data/predictionArtifacts';
 
 // P7 P0-5: the recap route key for a finished fixture — numeric id, else the fixture_key when a
 // manual hotspot (id=null) has an observation artifact (carryover). null = no recap surface yet.
@@ -239,25 +239,65 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
   );
 }
 
-/** Zone 4 — 今日赛程 (secondary schedule, lightweight status only). */
+/** Zone 4 — 今日赛程 (secondary schedule). P1 content factory: a secondary match that HAS a
+ *  prediction artifact becomes a compact card with a score-call hook + 进入战术室 (its own /predict
+ *  room); the rest stay lightweight status rows. Never a fake call — the hook is projected from the
+ *  artifact via the canonical projection, and only shown when an artifact exists. */
+function SecondaryMatchCard({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
+  const navigate = useNavigate();
+  const C = loc3(loc);
+  const ko = kickoff(f.kickoffUtc, loc);
+  const key = predictKey(f);
+  const call = buildStrongCall(leadKey(f) ?? `${f.home}-${f.away}`, loc);
+  return (
+    <div className="card th-hero plp-predict plp-secondary">
+      <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</div>
+      {ko && <div className="th-meta">{ko}</div>}
+      {call && (
+        <div className="plp-teaser">
+          <div className="sc-row"><span className="sc-k">{C.leanL}</span><span className="sc-v sc-lead">{call.main_lean}</span></div>
+          {call.primary_score && (
+            <div className="sc-row"><span className="sc-k">{C.scoreL}</span>
+              <span className="sc-v"><span className="sc-primary-score">{call.primary_score}</span>
+                {call.backup_scores.length > 0 && <span className="sc-backup">　{C.backupL}: {call.backup_scores.join(' / ')}</span>}
+              </span>
+            </div>
+          )}
+          {call.risk_label && <div className="sc-row"><span className="sc-k">{C.riskL}</span><span className="sc-v">{call.risk_label}</span></div>}
+        </div>
+      )}
+      <div className="pp-cta-row">
+        <button className="recap-cta-btn" onClick={() => navigate(`/predict/${key}`)}>{C.enterToday} ▸</button>
+      </div>
+    </div>
+  );
+}
+
 function SecondarySchedule({ rows, loc }: { rows: DailyFixtureRow[]; loc: Locale }) {
   const C = loc3(loc);
   if (!rows.length) return null;
+  const withArtifact = rows.filter(f => hasPredictionArtifact(leadKey(f) ?? ''));
+  const plain = rows.filter(f => !hasPredictionArtifact(leadKey(f) ?? ''));
   return (
     <>
       <SecHead zh={C.schedTitle} en={C.schedEn} />
-      <div className="card ut-card">
-        {rows.map(f => {
-          const ko = kickoff(f.kickoffUtc, loc);
-          return (
-            <div className="md-row" key={f.external_game_id || `${f.home}-${f.away}`}>
-              <span className="md-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</span>
-              {ko && <span className="md-meta">{ko}</span>}
-              <span className="md-chip upcoming">{C.upcoming}</span>
-            </div>
-          );
-        })}
-      </div>
+      {withArtifact.map(f => (
+        <SecondaryMatchCard key={f.external_game_id || `${f.home}-${f.away}`} f={f} loc={loc} />
+      ))}
+      {plain.length > 0 && (
+        <div className="card ut-card">
+          {plain.map(f => {
+            const ko = kickoff(f.kickoffUtc, loc);
+            return (
+              <div className="md-row" key={f.external_game_id || `${f.home}-${f.away}`}>
+                <span className="md-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</span>
+                {ko && <span className="md-meta">{ko}</span>}
+                <span className="md-chip upcoming">{C.upcoming}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }
