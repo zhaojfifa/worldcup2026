@@ -4,6 +4,7 @@
 // (once a hosted writable source exists; see GROWTH_P13B doc for the honest limitation).
 // The build-time generated import is kept ONLY as a fallback when the fetch fails.
 import fallbackManifest from './dailyFixtures.generated.json';
+import { hasPredictionArtifact } from './predictionArtifacts';
 
 export interface DailyFixtureRow {
   id: string | null;
@@ -97,17 +98,28 @@ export interface ProductLoop {
   secondarySchedule: DailyFixtureRow[];        // remaining scheduled fixtures (secondary)
 }
 
+/** The artifact-lookup key for a fixture (decoded): numeric id, else the manual fixture_key
+ *  (external_game_id). Matches PredictionArtifact.fixture_key — NOT URL-encoded. */
+export function leadKey(f: DailyFixtureRow): string | null {
+  return f.id ?? f.external_game_id ?? null;
+}
+
 export function selectProductLoop(m: DailyManifest): ProductLoop {
   const fixtures = m.fixtures ?? [];
   const finished = fixtures.filter(f => FINISHED_STATES.has(f.lifecycle_state));
   const scheduled = fixtures.filter(f =>
     !FINISHED_STATES.has(f.lifecycle_state)
     && (f.preMatchAllowed ?? f.lifecycle_state === 'SCHEDULED'));
+  // P6 P0-2 (Owner): the homepage LEAD prediction must resolve to a prediction artifact. Slate
+  // order still decides WHICH fixture leads, but a scheduled fixture with no artifact can never
+  // be the lead (otherwise the score-call hook would be hollow). featuredRecap stays slate-first.
+  const featuredPrediction = scheduled.find(f => hasPredictionArtifact(leadKey(f))) ?? null;
+  const secondarySchedule = scheduled.filter(f => f !== featuredPrediction);
   return {
     featuredRecap: finished[0] ?? null,
-    featuredPrediction: scheduled[0] ?? null,
+    featuredPrediction,
     otherRecaps: finished.slice(1),
-    secondarySchedule: scheduled.slice(1),
+    secondarySchedule,
   };
 }
 

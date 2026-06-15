@@ -50,6 +50,9 @@ GLOBS = [
     "frontend/src/data/predictionArtifacts/*.json",
     "frontend/src/components/ArtifactTacticalRoom.tsx",
     "frontend/src/components/ObservationReceipt.tsx",
+    # P6 — homepage product loop + persisted daily editorial selection
+    "frontend/src/components/HomeProductLoop.tsx",
+    "docs/data_audit/mvp2_predictions/*.json",
 ]
 
 BETTING = ["博彩", "赔率", "盘口", "下注", "投注", "庄家", "让球", "大小球", "跟单", "竞猜", "串关",

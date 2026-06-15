@@ -24,8 +24,9 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-PRED = ROOT / "frontend" / "src" / "data" / "predictionArtifacts" / "manual_Nether-Japan-20260614.json"
-OBS = ROOT / "frontend" / "src" / "data" / "predictionArtifacts" / "observation_1489371.json"
+PRED_ART_DIR = ROOT / "frontend" / "src" / "data" / "predictionArtifacts"
+PRED = PRED_ART_DIR / "manual_Nether-Japan-20260614.json"   # selftest regression anchor
+OBS = PRED_ART_DIR / "observation_1489371.json"             # selftest regression anchor
 ROOM = ROOT / "frontend" / "src" / "components" / "ArtifactTacticalRoom.tsx"
 RECEIPT = ROOT / "frontend" / "src" / "components" / "ObservationReceipt.tsx"
 SHAREBLOCK = ROOT / "frontend" / "src" / "components" / "ShareBlock.tsx"
@@ -90,11 +91,14 @@ def scan_content_words(i18n, label):
 
 
 def scan_prediction(a):
+    # P6 P0-7: generalized — validates ANY prediction artifact (not two hardcoded files). Identity
+    # is presence-checked, not equality-pinned; the product-contract tokens below are required of
+    # every prediction artifact so a new daily hotspot is held to the same bar.
     fails = []
-    if a.get("fixture_key") != "manual:Nether-Japan-20260614":
-        fails.append("prediction artifact fixture_key wrong: %r" % a.get("fixture_key"))
-    if a.get("home") != "Netherlands" or a.get("away") != "Japan":
-        fails.append("prediction artifact teams wrong: %s vs %s" % (a.get("home"), a.get("away")))
+    if not a.get("fixture_key"):
+        fails.append("prediction artifact missing fixture_key")
+    if not a.get("home") or not a.get("away"):
+        fails.append("prediction artifact missing home/away (%s vs %s)" % (a.get("home"), a.get("away")))
     if not a.get("safety", {}).get("no_auto_send"):
         fails.append("prediction artifact safety.no_auto_send must be true")
     i18n = a.get("i18n", {})
@@ -149,13 +153,15 @@ def scan_prediction(a):
 
 
 def scan_observation(a):
+    # P6 P0-7: generalized — validates ANY observation artifact. Identity is presence-checked;
+    # recap_ready must stay false (an observation receipt is the pre-recap tier — no fake recap).
     fails = []
-    if a.get("id") != "1489371":
-        fails.append("observation artifact id wrong: %r" % a.get("id"))
-    if a.get("home") != "Brazil" or a.get("away") != "Morocco":
-        fails.append("observation artifact teams wrong: %s vs %s" % (a.get("home"), a.get("away")))
-    if a.get("score") != "1-1":
-        fails.append("observation artifact score must be 1-1, got %r" % a.get("score"))
+    if not a.get("id"):
+        fails.append("observation artifact missing id")
+    if not a.get("home") or not a.get("away"):
+        fails.append("observation artifact missing home/away (%s vs %s)" % (a.get("home"), a.get("away")))
+    if not a.get("score"):
+        fails.append("observation artifact missing score")
     if a.get("recap_ready") is not False:
         fails.append("observation artifact recap_ready must be false (no fake recap)")
     i18n = a.get("i18n", {})
@@ -265,24 +271,52 @@ def selftest():
     return 0 if ok else 1
 
 
+def classify(a):
+    """Observation artifacts carry recap_ready; prediction artifacts carry prediction_confirmed /
+    an i18n[*].prediction block. Used to pick the right scanner per file (P6 P0-7 generalization)."""
+    return "observation" if "recap_ready" in a else "prediction"
+
+
 def main():
     if "--selftest" in sys.argv:
         return selftest()
-    for p in (PRED, OBS, ROOM, RECEIPT, SHAREBLOCK, PROJ, SHARETPL, PREDICT_PAGE, RECAP_PAGE):
+    for p in (ROOM, RECEIPT, SHAREBLOCK, PROJ, SHARETPL, PREDICT_PAGE, RECAP_PAGE):
         if not p.exists():
             sys.stderr.write("missing file: %s\n" % p)
             return 1
-    fails = scan_prediction(json.loads(_read(PRED)))
-    fails += scan_observation(json.loads(_read(OBS)))
+    # P6 P0-7: validate EVERY artifact in the directory, not two hardcoded files.
+    artifacts = sorted(PRED_ART_DIR.glob("*.json"))
+    if not artifacts:
+        sys.stderr.write("no prediction/observation artifacts found in %s\n" % PRED_ART_DIR)
+        return 1
+    fails = []
+    n_pred = n_obs = 0
+    for p in artifacts:
+        rel = str(p.relative_to(ROOT))
+        try:
+            a = json.loads(p.read_text(encoding="utf-8"))
+        except Exception as e:
+            fails.append("%s: invalid JSON (%s)" % (rel, e))
+            continue
+        kind = classify(a)
+        these = scan_observation(a) if kind == "observation" else scan_prediction(a)
+        if kind == "observation":
+            n_obs += 1
+        else:
+            n_pred += 1
+        fails += ["%s: %s" % (rel, e) for e in these]
     fails += scan_sources({
         "room": _read(ROOM), "receipt": _read(RECEIPT), "share": _read(SHAREBLOCK),
         "proj": _read(PROJ), "tpl": _read(SHARETPL), "predict": _read(PREDICT_PAGE), "recap": _read(RECAP_PAGE)})
+    for f in artifacts:
+        sys.stdout.write("scanned  %s\n" % f.relative_to(ROOT))
     for f in fails:
         sys.stdout.write("FAIL  %s\n" % f)
     if fails:
         sys.stdout.write("PREDICTION ARTIFACT FAIL — %d issue(s)\n" % len(fails))
         return 1
-    sys.stdout.write("PREDICTION ARTIFACT PASS (strong call + observation receipt wired; safe vocab)\n")
+    sys.stdout.write("PREDICTION ARTIFACT PASS (%d prediction + %d observation artifact(s); strong call + receipt wired; safe vocab)\n"
+                     % (n_pred, n_obs))
     return 0
 
 

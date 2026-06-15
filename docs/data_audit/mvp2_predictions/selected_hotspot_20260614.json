@@ -1,0 +1,11 @@
+{
+  "date": "2026-06-14",
+  "fixture_key": "manual:Nether-Japan-20260614",
+  "home": "Netherlands",
+  "away": "Japan",
+  "source": "operator_confirmed",
+  "prediction_artifact_path": "frontend/src/data/predictionArtifacts/manual_Nether-Japan-20260614.json",
+  "operator_confirmed": true,
+  "status": "active",
+  "note": "P6 P0-2 — persisted daily editorial hotspot selection (Owner). The homepage lead prediction resolves to this artifact-backed fixture; a scheduled fixture with no prediction artifact cannot be the lead. No score/probability is invented here; the strong call lives in the referenced prediction artifact. No send. Compliance-safe vocabulary only."
+}

@@ -31,6 +31,27 @@ LOOP = ROOT / "frontend" / "src" / "components" / "HomeProductLoop.tsx"
 DATA = ROOT / "frontend" / "src" / "data" / "dailyFixtures.ts"
 HOME = ROOT / "frontend" / "src" / "pages" / "HomePage.tsx"
 MANIFEST = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"
+PRED_ART_DIR = ROOT / "frontend" / "src" / "data" / "predictionArtifacts"
+
+
+def prediction_artifact_keys():
+    """P6 P0-2: the fixture_keys/ids that resolve to a PREDICTION artifact (not an observation).
+    The homepage lead prediction must be one of these."""
+    import json
+    keys = set()
+    if PRED_ART_DIR.exists():
+        for p in sorted(PRED_ART_DIR.glob("*.json")):
+            try:
+                a = json.loads(p.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if "recap_ready" in a:  # observation artifact, not a prediction
+                continue
+            if a.get("fixture_key"):
+                keys.add(a["fixture_key"])
+            if a.get("id"):
+                keys.add(str(a["id"]))
+    return keys
 
 # zone titles + MVP2-P2b modeling/analysis layer labels (all zh, source-level)
 REQUIRED_TITLES = ["昨日热点复盘", "今日热点预测", "今日赛程", "其他复盘",
@@ -57,9 +78,13 @@ def scan(loop_src, data_src, home_src):
     if "selectProductLoop" not in data_src:
         fails.append("selectProductLoop editorial helper missing from dailyFixtures.ts")
     else:
-        # order-driven: featuredRecap = finished[0], featuredPrediction = scheduled[0]
-        if "finished[0]" not in data_src or "scheduled[0]" not in data_src:
-            fails.append("selectProductLoop is not slate-order-driven (expected finished[0]/scheduled[0])")
+        # P6 P0-2: featuredRecap = finished[0] (slate-first); featuredPrediction = the first
+        # scheduled fixture that RESOLVES TO A PREDICTION ARTIFACT (hasPredictionArtifact), not
+        # just scheduled[0]. A scheduled fixture with no artifact can never be the lead.
+        if "finished[0]" not in data_src:
+            fails.append("selectProductLoop featuredRecap is not slate-first (expected finished[0])")
+        if "hasPredictionArtifact" not in data_src:
+            fails.append("selectProductLoop lead prediction is not artifact-gated (P6 P0-2: hasPredictionArtifact)")
     if "selectProductLoop" not in loop_src:
         fails.append("HomeProductLoop does not use selectProductLoop")
     for w in GENERATION_BANNED:
@@ -91,28 +116,46 @@ def scan(loop_src, data_src, home_src):
         fails.append("lead prediction card missing 进入战术室 (tactical-room CTA)")
     if "CopyLink" not in loop_src:
         fails.append("homepage loop missing a copy/share entry (CopyLink)")
+    # 10. P6 P0-1: the lead prediction card exposes a COMPACT score-call hook (主比分 teaser
+    #     projected via buildStrongCall) + the live-group CTA — not a generic question frame.
+    if "buildStrongCall" not in loop_src:
+        fails.append("lead prediction card not wired to the canonical strong-call projection (buildStrongCall)")
+    if "主比分" not in loop_src:
+        fails.append("lead prediction card missing 主比分 score-call teaser (P6 P0-1 hook)")
+    if "加入临场情报群" not in loop_src:
+        fails.append("lead prediction card missing 加入临场情报群 (live-group CTA)")
     return fails
 
 
-def scan_manifest(m):
+def scan_manifest(m, art_keys=None):
     """Validate the homepage OUTPUT teams: featured recap = first finished fixture, featured
-    prediction = first scheduled fixture, and the secondary recap team is NOT the lead."""
+    prediction = first scheduled fixture THAT RESOLVES TO A PREDICTION ARTIFACT (P6 P0-2), and the
+    secondary recap team is NOT the lead."""
     fails = []
+    if art_keys is None:
+        art_keys = prediction_artifact_keys()
     fx = m.get("fixtures", [])
     finished = [f for f in fx if f.get("lifecycle_state") in FINISHED_STATES]
     scheduled = [f for f in fx if f.get("lifecycle_state") not in FINISHED_STATES
                  and (f.get("preMatchAllowed") if f.get("preMatchAllowed") is not None
                       else f.get("lifecycle_state") == "SCHEDULED")]
+
+    def lead_key(f):
+        return f.get("id") or f.get("external_game_id")
+
     rec = finished[0] if finished else None
-    pred = scheduled[0] if scheduled else None
+    # P6 P0-2: the lead prediction is the first scheduled fixture backed by a prediction artifact.
+    pred = next((f for f in scheduled if lead_key(f) in art_keys), None)
     rh, ra = SCENARIO["featured_recap"]
     if not rec or rec.get("home") != rh or rec.get("away") != ra:
         fails.append("featured recap (first finished) must be %s vs %s, got %s" % (
             rh, ra, (rec.get("home"), rec.get("away")) if rec else None))
     ph, pa = SCENARIO["featured_prediction"]
     if not pred or pred.get("home") != ph or pred.get("away") != pa:
-        fails.append("featured prediction (first scheduled) must be %s vs %s, got %s" % (
+        fails.append("featured prediction (first artifact-backed scheduled) must be %s vs %s, got %s" % (
             ph, pa, (pred.get("home"), pred.get("away")) if pred else None))
+    elif lead_key(pred) not in art_keys:
+        fails.append("featured prediction %s vs %s has no prediction artifact (P6 P0-2)" % (ph, pa))
     # no fake recap: a featured recap with recapReady=false must not be a recap-ready lead
     if rec and not rec.get("recapReady") and rec.get("lifecycle_state") == "RECAP_PENDING":
         pass  # correct: 赛后校准中, handled by the component (no 查看复盘)
@@ -129,13 +172,16 @@ def selftest():
     good_loop = ("昨日热点复盘 今日热点预测 今日赛程 其他复盘 赛后校准关注 今日建模关注 开球前 30 分钟 "
                  "selectProductLoop recapReady viewRecap 加入情报群看赛后观察 "
                  "<HotspotPrediction f={featuredPrediction}/> <HotspotRecap f={featuredRecap}/> "
-                 "进入战术室 CopyLink")
+                 "进入战术室 CopyLink buildStrongCall 主比分 加入临场情报群")
+    TEST_ART = {"manual:Nether-Japan-20260614"}
     good_manifest = {"fixtures": [
         {"home": "Brazil", "away": "Morocco", "lifecycle_state": "RECAP_PENDING", "recapReady": False},
         {"home": "Mexico", "away": "South Africa", "lifecycle_state": "RECAP_READY", "recapReady": True},
-        {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True},
+        {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
+         "external_game_id": "manual:Nether-Japan-20260614"},
     ]}
-    good_data = "export function selectProductLoop(m){ const finished=...; finished[0]; scheduled[0]; }"
+    good_data = ("export function selectProductLoop(m){ const finished=...; finished[0]; "
+                 "scheduled.find(f=>hasPredictionArtifact(leadKey(f))); }")
     good_home = "<HomeProductLoop manifest={daily.manifest} loc={loc} />"
     checks = []
     checks.append(("clean passes", scan(good_loop, good_data, good_home) == []))
@@ -151,12 +197,15 @@ def selftest():
     checks.append(("recap-before-prediction order caught", any("render BEFORE" in f for f in scan(bad_order, good_data, good_home))))
     checks.append(("missing 进入战术室 caught", any("进入战术室" in f for f in scan(good_loop.replace("进入战术室", ""), good_data, good_home))))
     checks.append(("missing CopyLink caught", any("CopyLink" in f for f in scan(good_loop.replace("CopyLink", ""), good_data, good_home))))
-    checks.append(("non-order helper caught", any("order-driven" in f for f in scan(good_loop, "export function selectProductLoop(){}", good_home))))
-    checks.append(("manifest scenario passes", scan_manifest(good_manifest) == []))
+    checks.append(("missing 主比分 hook caught", any("主比分" in f for f in scan(good_loop.replace("主比分", ""), good_data, good_home))))
+    checks.append(("artifact-gating missing caught", any("artifact-gated" in f for f in scan(good_loop, "export function selectProductLoop(){ finished[0]; }", good_home))))
+    checks.append(("manifest scenario passes", scan_manifest(good_manifest, TEST_ART) == []))
+    checks.append(("non-artifact lead caught", any("featured prediction" in f for f in scan_manifest(good_manifest, set()))))
     checks.append(("wrong recap lead caught", any("featured recap" in f for f in scan_manifest(
         {"fixtures": [{"home": "Mexico", "away": "South Africa", "lifecycle_state": "RECAP_READY", "recapReady": True},
                       {"home": "Brazil", "away": "Morocco", "lifecycle_state": "RECAP_PENDING", "recapReady": False},
-                      {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True}]}))))
+                      {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
+                       "external_game_id": "manual:Nether-Japan-20260614"}]}, TEST_ART))))
     ok = all(v for _, v in checks)
     for n, v in checks:
         sys.stdout.write("%s %s\n" % ("PASS" if v else "FAIL", n))

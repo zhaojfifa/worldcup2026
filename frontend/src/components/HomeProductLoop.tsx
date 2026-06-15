@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import type { Locale } from '../i18n/useLocale';
-import { selectProductLoop, type DailyManifest, type DailyFixtureRow } from '../data/dailyFixtures';
+import { selectProductLoop, leadKey, type DailyManifest, type DailyFixtureRow } from '../data/dailyFixtures';
 import { frozenFor } from './UpcomingTacticalStrip';
 import { CopyLink } from './CopyLink';
+import { buildStrongCall } from '../growth/strongCallProjection';
 
 // MVP2-P3 — the tactical-room route key for a fixture. Real fixtures route by numeric id;
 // manual fixtures (id=null, e.g. today's hotspot before a narrative exists) route by their
@@ -37,6 +38,7 @@ const L = {
     recapWhy: '这是昨日主推的热点比赛，赛后观察已开启。',
     predTitle: '🎯 今日热点预测', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: '今日主推 · 开球前判断',
+    leanL: '俅哥主看', scoreL: '主比分', backupL: '备选', riskL: '冷门风险',
     predWhy: '今日主推比赛：基于数据更新 + 建模判断，开球前看方向，开球前 30 分钟修正。',
     enterToday: '进入战术室', joinLive: '加入临场情报群',
     copyShare: '复制/分享入口', copyDone: '已复制 ✓', viewObs: '查看赛后观察',
@@ -56,6 +58,7 @@ const L = {
     recapWhy: 'Đây là trận điểm nóng được chọn hôm qua; quan sát sau trận đã mở.',
     predTitle: '🎯 Dự đoán điểm nóng hôm nay', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: 'Trận chính hôm nay · nhận định trước trận',
+    leanL: 'Tiên Tri chốt', scoreL: 'Tỷ số chính', backupL: 'Phương án phụ', riskL: 'Rủi ro bất ngờ',
     predWhy: 'Trận chính hôm nay: dựa trên dữ liệu cập nhật + phân tích, xem hướng trước trận, hiệu chỉnh 30 phút trước giờ bóng lăn.',
     enterToday: 'Vào phòng chiến thuật', joinLive: 'Vào nhóm sát giờ',
     copyShare: 'Sao chép / chia sẻ', copyDone: 'Đã sao chép ✓', viewObs: 'Xem quan sát sau trận',
@@ -75,6 +78,7 @@ const L = {
     recapWhy: 'ဒါက မနေ့ ရွေးချယ်ထားသော အဓိကပွဲ; ပွဲပြီးသုံးသပ်ချက် စတင်ဖွင့်ပြီ။',
     predTitle: '🎯 ဒီနေ့ အဓိကပွဲ ခန့်မှန်း', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: 'ဒီနေ့ အဓိကပွဲ · ပွဲမစခင် အမြင်',
+    leanL: 'Oracle ပြတ်ပြတ်', scoreL: 'အဓိကစကော', backupL: 'အရန်', riskL: 'အံ့အားသင့် အန္တရာယ်',
     predWhy: 'ဒီနေ့ အဓိကပွဲ — data update + model အမြင်ဖြင့်၊ ပွဲမစခင် ဦးတည်ချက်၊ ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ။',
     enterToday: 'နည်းဗျူဟာခန်း ဝင်ရန်', joinLive: 'ပွဲနီး အဖွဲ့ ဝင်ရန်',
     copyShare: 'Link ကူး / share', copyDone: 'ကူးပြီး ✓', viewObs: 'ပွဲပြီး စောင့်ကြည့်ချက် ကြည့်ရန်',
@@ -94,6 +98,7 @@ const L = {
     recapWhy: 'This was yesterday’s featured hotspot match; post-match observation is open.',
     predTitle: '🎯 Today’s hotspot prediction', predEn: 'TODAY · HOTSPOT PREDICTION',
     predState: 'Today’s main match · pre-match read',
+    leanL: 'Lean', scoreL: 'Score', backupL: 'Backup', riskL: 'Upset risk',
     predWhy: 'Today’s main match: data update + model read — direction before kickoff, re-scored 30 minutes before.',
     enterToday: 'Enter tactical room', joinLive: 'Join the live group',
     copyShare: 'Copy / share link', copyDone: 'Copied ✓', viewObs: 'View post-match observation',
@@ -180,6 +185,10 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
   // The today-hotspot tactical room is ALWAYS reachable (Owner P0-2: never bury it). Real
   // fixtures open their narrative; a manual fixture opens the /predict fallback tactical room.
   const key = predictKey(f);
+  // P6 P0-1 (Owner): expose a COMPACT score-call hook on the lead — lean + 主比分 + 备选 + 冷门风险
+  // — projected from the prediction artifact via THE canonical projection (decoded leadKey, not
+  // the URL-encoded route key). Never invents a score; the full strong card stays on /predict.
+  const call = buildStrongCall(leadKey(f) ?? `${f.home}-${f.away}`, loc);
   return (
     <>
       <SecHead zh={C.predTitle} en={C.predEn} />
@@ -187,8 +196,26 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <div className="th-badge">{C.predState}</div>
         <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</div>
         {ko && <div className="th-meta">{ko}</div>}
-        <div className="th-meta">{C.predWhy}</div>
-        <FocusBlock title={C.predFocus} bullets={C.predBullets} home={f.home} away={f.away} score={null} extra={C.thirtyMin} />
+        {call ? (
+          <div className="plp-teaser">
+            <div className="sc-row"><span className="sc-k">{C.leanL}</span><span className="sc-v sc-lead">{call.main_lean}</span></div>
+            {call.primary_score ? (
+              <div className="sc-row"><span className="sc-k">{C.scoreL}</span>
+                <span className="sc-v"><span className="sc-primary-score">{call.primary_score}</span>
+                  {call.backup_scores.length > 0 && <span className="sc-backup">　{C.backupL}: {call.backup_scores.join(' / ')}</span>}
+                </span>
+              </div>
+            ) : (
+              <div className="sc-row"><span className="sc-k">{C.scoreL}</span><span className="sc-v">{call.scoreline_raw}</span></div>
+            )}
+            {call.risk_label && <div className="sc-row"><span className="sc-k">{C.riskL}</span><span className="sc-v">{call.risk_label}</span></div>}
+          </div>
+        ) : (
+          <>
+            <div className="th-meta">{C.predWhy}</div>
+            <FocusBlock title={C.predFocus} bullets={C.predBullets} home={f.home} away={f.away} score={null} extra={C.thirtyMin} />
+          </>
+        )}
         <div className="pp-cta-row">
           <button className="recap-cta-btn" onClick={() => navigate(`/predict/${key}`)}>{C.enterToday} ▸</button>
           <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{C.joinLive} ▸</button>

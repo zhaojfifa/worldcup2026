@@ -85,6 +85,12 @@ export function getPredictionArtifact(key: string): PredictionArtifact | null {
   return PREDICTION.find(a => a.fixture_key === key || (a.id != null && a.id === key)) ?? null;
 }
 
+/** P6 P0-2 (Owner): the homepage LEAD prediction must resolve to a prediction artifact — a
+ *  scheduled fixture with no artifact cannot be the lead (no hollow score-call hook). */
+export function hasPredictionArtifact(key: string | null | undefined): boolean {
+  return !!key && getPredictionArtifact(key) != null;
+}
+
 /** Locale slice with en fallback (vi/my/en customer langs; never falls back to zh for vi/my). */
 export function predictionArtifactLocale(a: PredictionArtifact, loc: Locale): PredictionArtifactLocale {
   return a.i18n[loc] ?? a.i18n.en ?? (a.i18n.zh as PredictionArtifactLocale);

@@ -1627,6 +1627,11 @@ body {
 .plp-bullets { margin: 0; padding-left: 16px; }
 .plp-bullets li { font-size: 12px; line-height: 1.55; color: var(--ink, #1A2233); }
 .plp-30min { margin-top: 6px; font-size: 12px; font-weight: 600; color: #8A4B00; background: #FFF6E2; border: 1px solid #F0D58A; border-radius: 8px; padding: 5px 8px; }
+/* P6 P0-1: compact homepage score-call teaser (lean + 主比分/备选 + 冷门风险) — reuses sc-row chrome. */
+.plp-teaser { margin: 8px 0 4px; padding: 8px 10px; background: linear-gradient(165deg, #F4F9FF, #fff); border: 1.5px solid var(--blueMid); border-radius: 10px; }
+.plp-teaser .sc-row { padding: 4px 0; }
+/* P6 P0-3: T-30 rescore scroll anchor link in the artifact strong call. */
+.sc-rescore-link { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--blueMid); text-decoration: none; }
 .md-cta { background: var(--blueMid); color: #fff; border: none; border-radius: 8px;
   padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .md-chip { font-size: 11px; padding: 3px 9px; border-radius: 7px; white-space: nowrap; }

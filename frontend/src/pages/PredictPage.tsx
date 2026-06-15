@@ -6,6 +6,7 @@ import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { ProductPredictView } from '../components/ProductProofViews';
 import { StrongCallCard } from '../components/StrongSignalCard';
 import { DetailShareRow } from '../components/DetailShareRow';
+import { ShareBlock } from '../components/ShareBlock';
 import { ArtifactTacticalRoom } from '../components/ArtifactTacticalRoom';
 import { fetchDailyManifest, type DailyFixtureRow } from '../data/dailyFixtures';
 import { getPredictionArtifact } from '../data/predictionArtifacts';
@@ -217,7 +218,8 @@ export function PredictPage() {
         <>
           {isReal && <StrongCallCard n={n} loc={loc} />}
           <ProductPredictView n={n} loc={loc} opsOpen={opsOpen} />
-          {isReal && <DetailShareRow path={`/predict/${id}`} loc={loc} kind="predict" />}
+          {/* P6 P0-5: unify on ShareBlock (copy link + copy share text + share card/QR + join). */}
+          {isReal && <ShareBlock kind="prematch" fixtureId={id} loc={loc} />}
         </>
       ) : (
         <div className="status-card"><div className="ic">🔮</div><div className="st">{B.none}</div></div>

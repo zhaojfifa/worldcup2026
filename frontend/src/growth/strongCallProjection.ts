@@ -49,10 +49,13 @@ export const CALIBRATION_LINE: Record<string, string> = {
   vi: 'Hiệu chỉnh: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.',
   my: 'ပြန်ညှိချက်: ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။',
 };
+// P6 P0-4 (Owner): NEXT_HOOK must NOT hardcode a specific next fixture (was literal
+// 'Brazil vs Morocco' → stale for every other recap). Generic, fixture-agnostic pointer; the
+// match-specific next-match impact comes from the observation artifact's next_impact, not here.
 export const NEXT_HOOK: Record<string, string> = {
-  zh: '下一场 Brazil vs Morocco，开球前 30 分钟继续看首发修正。',
-  vi: 'Trận tới Brazil vs Morocco, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.',
-  my: 'နောက်ပွဲ Brazil vs Morocco — ပွဲမစခင် မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။',
+  zh: '下一场比赛，开球前 30 分钟继续看首发修正。',
+  vi: 'Trận tới, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.',
+  my: 'နောက်ပွဲ — ပွဲမစခင် မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။',
 };
 
 /** Owner rule: lean says 风险偏高 but the explicit label word is bare 中 -> display 中高.

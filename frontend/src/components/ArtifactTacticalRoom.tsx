@@ -1,7 +1,7 @@
 import type { Locale } from '../i18n/useLocale';
 import type { PredictionArtifact } from '../data/predictionArtifacts';
 import { predictionArtifactLocale } from '../data/predictionArtifacts';
-import { buildStrongCallFromArtifact } from '../growth/strongCallProjection';
+import { buildStrongCallFromArtifact, CALIBRATION_LINE } from '../growth/strongCallProjection';
 import { ShareBlock } from './ShareBlock';
 
 // MVP2-P5 — the strong tactical room rendered from a Prediction Artifact via THE canonical
@@ -13,19 +13,23 @@ const CHROME = {
   zh: { title: '今日热点预测', room: '战术室', kicker: '⚡ 俅哥强判断', en: 'STRONG CALL', mainSub: '今日主推判断',
         leanL: '俅哥主看', scoreL: '主比分', backupL: '备选', riskL: '冷门风险', varL: '最大变量', whyL: '为什么',
         extL: '🌐 外部预期 · 公开预测倾向', t30L: '⏱️ T-30 · 开球前 30 分钟修正',
-        focus: '今日建模关注', matchup: '战术对位', risks: '风险变量', thirty: '开球前 30 分钟修正', kickoffTba: '开球时间待确认' },
+        focus: '今日建模关注', matchup: '战术对位', risks: '风险变量', thirty: '开球前 30 分钟修正', kickoffTba: '开球时间待确认',
+        rescoreCta: '看 30 分钟临场修正' },
   vi: { title: 'Dự đoán điểm nóng hôm nay', room: 'Phòng chiến thuật', kicker: '⚡ Nhận định mạnh của Tiên Tri', en: 'STRONG CALL', mainSub: 'Nhận định chính hôm nay',
         leanL: 'Tiên Tri chốt', scoreL: 'Tỷ số chính', backupL: 'Phương án phụ', riskL: 'Rủi ro bất ngờ', varL: 'Biến số lớn nhất', whyL: 'Vì sao',
         extL: '🌐 Kỳ vọng bên ngoài · Xu hướng công khai', t30L: '⏱️ T-30 · Hiệu chỉnh 30 phút trước trận',
-        focus: 'Tiêu điểm phân tích hôm nay', matchup: 'Đối đầu chiến thuật', risks: 'Biến số rủi ro', thirty: 'Hiệu chỉnh 30 phút trước trận', kickoffTba: 'Giờ bóng lăn chờ xác nhận' },
+        focus: 'Tiêu điểm phân tích hôm nay', matchup: 'Đối đầu chiến thuật', risks: 'Biến số rủi ro', thirty: 'Hiệu chỉnh 30 phút trước trận', kickoffTba: 'Giờ bóng lăn chờ xác nhận',
+        rescoreCta: 'Xem hiệu chỉnh 30 phút sát giờ' },
   my: { title: 'ဒီနေ့ အဓိကပွဲ ခန့်မှန်း', room: 'နည်းဗျူဟာခန်း', kicker: '⚡ Oracle ၏ ပြတ်သားသောအမြင်', en: 'STRONG CALL', mainSub: 'ဒီနေ့ အဓိက အမြင်',
         leanL: 'Oracle ပြတ်ပြတ်', scoreL: 'အဓိကစကော', backupL: 'အရန်', riskL: 'အံ့အားသင့် အန္တရာယ်', varL: 'အကြီးဆုံး variable', whyL: 'ဘာကြောင့်',
         extL: '🌐 ပြင်ပမျှော်လင့်ချက် · လူထုထင်မြင်ချက်', t30L: '⏱️ T-30 · ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ',
-        focus: 'ဒီနေ့ ပိုင်းခြားသုံးသပ် အာရုံစိုက်ချက်', matchup: 'နည်းဗျူဟာ ထိပ်တိုက်', risks: 'အန္တရာယ် variable', thirty: 'ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ', kickoffTba: 'ပွဲစချိန် အတည်ပြုရန်' },
+        focus: 'ဒီနေ့ ပိုင်းခြားသုံးသပ် အာရုံစိုက်ချက်', matchup: 'နည်းဗျူဟာ ထိပ်တိုက်', risks: 'အန္တရာယ် variable', thirty: 'ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ', kickoffTba: 'ပွဲစချိန် အတည်ပြုရန်',
+        rescoreCta: 'မိနစ် ၃၀ ပွဲနီး ပြန်ညှိ ကြည့်ရန်' },
   en: { title: "Today's hotspot prediction", room: 'Tactical room', kicker: '⚡ Strong call', en: 'STRONG CALL', mainSub: "Today's main read",
         leanL: 'Lean', scoreL: 'Score', backupL: 'Backup', riskL: 'Upset risk', varL: 'Biggest variable', whyL: 'Why',
         extL: '🌐 External expectation · public tendency', t30L: '⏱️ T-30 · 30-minute correction',
-        focus: 'Modeling focus', matchup: 'Tactical matchup', risks: 'Risk variables', thirty: '30-minute pre-match correction', kickoffTba: 'Kickoff time pending' },
+        focus: 'Modeling focus', matchup: 'Tactical matchup', risks: 'Risk variables', thirty: '30-minute pre-match correction', kickoffTba: 'Kickoff time pending',
+        rescoreCta: 'See the 30-minute live correction' },
 };
 function chrome(loc: Locale) { return loc === 'zh' ? CHROME.zh : loc === 'vi' ? CHROME.vi : loc === 'my' ? CHROME.my : CHROME.en; }
 
@@ -83,13 +87,16 @@ export function ArtifactTacticalRoom({ art, loc }: { art: PredictionArtifact; lo
           </div>
         )}
         <div className="sc-row"><span className="sc-k">{C.t30L}</span><span className="sc-v">{call.t30_hook}</span></div>
+        {/* P6 P0-3: restore the calibration frame line + a scroll anchor to the T-30 block (#live30). */}
+        {CALIBRATION_LINE[loc] && <div className="sc-frame" style={{ textAlign: 'left' }}>{CALIBRATION_LINE[loc]}</div>}
+        <a className="sc-rescore-link" href="#live30">{C.rescoreCta} ▸</a>
       </div>
 
       <div className="card th-hero plp-predict">
         <FocusList title={C.focus} items={A.analysis.modeling_focus} />
         <FocusList title={C.matchup} items={A.analysis.tactical_matchup} />
         <FocusList title={C.risks} items={A.analysis.risk_variables} />
-        <div className="plp-focus">
+        <div className="plp-focus" id="live30">
           <div className="plp-focus-title">{C.thirty}</div>
           <ul className="plp-bullets">{A.analysis.thirty_minute_checklist.map((b, i) => <li key={i}>{b}</li>)}</ul>
         </div>

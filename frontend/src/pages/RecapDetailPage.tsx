@@ -11,6 +11,7 @@ import { buildRecapCall } from '../growth/strongCallProjection';
 import { ProductRecapView } from '../components/ProductProofViews';
 import { getUpcomingFixture } from '../data/upcomingFixtures';
 import { DetailShareRow } from '../components/DetailShareRow';
+import { ShareBlock } from '../components/ShareBlock';
 import { CopyLink } from '../components/CopyLink';
 import { ObservationReceipt } from '../components/ObservationReceipt';
 import { getObservationArtifact } from '../data/predictionArtifacts';
@@ -129,7 +130,8 @@ export function RecapDetailPage() {
         {EVIDENCE_AVAILABLE.has(fixtureId) && (
           <button className="eb-entry-link" onClick={() => navigate(`/evidence/${fixtureId}`)}>🧭 {L.ebLink} ▸</button>
         )}
-        <DetailShareRow path={`/recap/${fixtureId}`} loc={loc} kind="recap" />
+        {/* P6 P0-5: unify on ShareBlock (copy link + copy share text + share card/QR + join). */}
+        <ShareBlock kind="recap" fixtureId={fixtureId} loc={loc} />
       </div>
     );
   }
