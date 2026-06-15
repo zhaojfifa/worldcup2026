@@ -1,0 +1,99 @@
+{
+  "date": "2026-06-15",
+  "built_by": "mvp2_t30_source.py",
+  "note": "Live lineup/injury/news are NOT ingested; T-30 update is operator-confirmed. No invented updates.",
+  "items": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "kickoff_time": "2026-06-15T19:00:00+00:00",
+      "t30_deadline": "KO-30 of 2026-06-15T19:00:00+00:00",
+      "expected_source_fields": [
+        "starting_xi",
+        "formation",
+        "goalkeeper",
+        "injuries_news",
+        "late_tactical_shape"
+      ],
+      "available_source_fields": [
+        "tactical_baseline",
+        "t30_checklist"
+      ],
+      "missing_source_fields": [
+        "starting_xi",
+        "formation",
+        "goalkeeper",
+        "injuries_news",
+        "late_tactical_shape"
+      ],
+      "lineup_availability": false,
+      "injury_news_availability": false,
+      "tactical_variable_availability": "model_baseline",
+      "source_status": "SOURCE_PARTIAL",
+      "update_eligibility": "OPERATOR_CONFIRM_REQUIRED",
+      "next_operator_action": "no live lineup/injury feed — operator confirms lineups at KO-30, then set t30",
+      "guard_status": "no_fake_t30 (no live feed → no auto update_text)"
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "kickoff_time": "2026-06-15T22:00:00+00:00",
+      "t30_deadline": "KO-30 of 2026-06-15T22:00:00+00:00",
+      "expected_source_fields": [
+        "starting_xi",
+        "formation",
+        "goalkeeper",
+        "injuries_news",
+        "late_tactical_shape"
+      ],
+      "available_source_fields": [
+        "tactical_baseline",
+        "t30_checklist"
+      ],
+      "missing_source_fields": [
+        "starting_xi",
+        "formation",
+        "goalkeeper",
+        "injuries_news",
+        "late_tactical_shape"
+      ],
+      "lineup_availability": false,
+      "injury_news_availability": false,
+      "tactical_variable_availability": "model_baseline",
+      "source_status": "SOURCE_PARTIAL",
+      "update_eligibility": "OPERATOR_CONFIRM_REQUIRED",
+      "next_operator_action": "no live lineup/injury feed — operator confirms lineups at KO-30, then set t30",
+      "guard_status": "no_fake_t30 (no live feed → no auto update_text)"
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "kickoff_time": "2026-06-15T16:00:00+00:00",
+      "t30_deadline": "KO-30 of 2026-06-15T16:00:00+00:00",
+      "expected_source_fields": [
+        "starting_xi",
+        "formation",
+        "goalkeeper",
+        "injuries_news",
+        "late_tactical_shape"
+      ],
+      "available_source_fields": [
+        "t30_checklist"
+      ],
+      "missing_source_fields": [
+        "starting_xi",
+        "formation",
+        "goalkeeper",
+        "injuries_news",
+        "late_tactical_shape"
+      ],
+      "lineup_availability": false,
+      "injury_news_availability": false,
+      "tactical_variable_availability": "operator_estimated",
+      "source_status": "SOURCE_PARTIAL",
+      "update_eligibility": "OPERATOR_CONFIRM_REQUIRED",
+      "next_operator_action": "no live lineup/injury feed — operator confirms lineups at KO-30, then set t30",
+      "guard_status": "no_fake_t30 (no live feed → no auto update_text)"
+    }
+  ]
+}

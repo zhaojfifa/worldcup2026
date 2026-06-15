@@ -1,0 +1,74 @@
+{
+  "date": "2026-06-15",
+  "mode": "execute-reviewed-only",
+  "last_run": "2026-06-15T12:00:00+00:00",
+  "next_run": "operator-triggered (manual; no scheduler — no auto-send)",
+  "command_sequence": [
+    "status",
+    "build-queue",
+    "generate-drafts",
+    "review-summary",
+    "t30-source",
+    "build-artifacts",
+    "t30-status",
+    "recap-status",
+    "share-refresh",
+    "close-day"
+  ],
+  "steps_executed": [
+    {
+      "step": "status",
+      "ok": true
+    },
+    {
+      "step": "build-queue",
+      "ok": true
+    },
+    {
+      "step": "generate-drafts",
+      "ok": true
+    },
+    {
+      "step": "review-summary",
+      "ok": true
+    },
+    {
+      "step": "t30-source",
+      "ok": true
+    },
+    {
+      "step": "build-artifacts",
+      "ok": true
+    },
+    {
+      "step": "t30-status",
+      "ok": true
+    },
+    {
+      "step": "recap-status",
+      "ok": true
+    },
+    {
+      "step": "share-refresh",
+      "ok": true
+    },
+    {
+      "step": "close-day",
+      "ok": true
+    }
+  ],
+  "steps_skipped": [],
+  "steps_blocked": [],
+  "required_operator_actions": [
+    "confirm lineups → t30=ready/skipped"
+  ],
+  "send_status": "HOLD",
+  "publish_eligibility": "3 published / 0 review-required",
+  "review_gate_result": {
+    "total": 3,
+    "published": 3,
+    "review_required": 0,
+    "gate": "REVIEWED_JSON_REQUIRED_BEFORE_PUBLISH"
+  },
+  "runtime_match": "PASS"
+}

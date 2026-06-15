@@ -210,6 +210,9 @@ def refresh_state(date):
         or next((i["next_action"] for i in t30["items"] if i["status"] == "T30_PENDING"), None) \
         or next((i["next_action"] for i in recap["items"] if i["publish_eligibility"] == "PENDING"), None) \
         or "all ready — hold for Owner per-channel GO"
+    # P3B — fold in the T-30 source coverage + P3A autorun summary if present (read-only).
+    t30_src = _load(ROOT / "docs" / "data_audit" / "mvp2_t30_sources" / ("%s.json" % date))
+    autorun = _load(ROOT / "docs" / "data_audit" / "mvp2_daily_autorun" / ("%s.json" % date))
     state = {
         "date": date, "built_by": "mvp2_daily_ops.py", "send_status": "HOLD",
         "primary": (q.get("primary_hotspot") or {}).get("fixture_key"),
@@ -217,6 +220,15 @@ def refresh_state(date):
         "autogen_drafts": q.get("autogen_drafts", []),
         "review_queue": rev["items"], "t30_queue": t30["items"],
         "recap_queue": recap["items"], "share_packages": share["items"],
+        "t30_sources": (t30_src or {}).get("items", []),
+        "autorun": ({"last_run": autorun.get("last_run"), "mode": autorun.get("mode"),
+                     "runtime_match": autorun.get("runtime_match"),
+                     "steps_executed": autorun.get("steps_executed", []),
+                     "steps_skipped": autorun.get("steps_skipped", []),
+                     "steps_blocked": autorun.get("steps_blocked", []),
+                     "next_run": autorun.get("next_run"),
+                     "required_operator_actions": autorun.get("required_operator_actions", [])}
+                    if autorun else None),
         "day_close": {"ready": ready, "blocked": blocked, "next_action": nxt, "status": "OPEN"},
         "next_operator_action": nxt,
     }

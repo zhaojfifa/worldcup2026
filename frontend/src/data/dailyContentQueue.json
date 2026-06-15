@@ -7,16 +7,24 @@
       "fixture_key": "1489377",
       "home": "Belgium",
       "away": "Egypt",
-      "provider": "deepseek",
-      "mode": "live",
+      "provider": "dry-run(offline, model-grounded)",
+      "mode": "dry-run",
       "status": "GUARD_PASSED"
     },
     {
       "fixture_key": "1489379",
       "home": "Saudi Arabia",
       "away": "Uruguay",
-      "provider": "deepseek",
-      "mode": "live",
+      "provider": "dry-run(offline, model-grounded)",
+      "mode": "dry-run",
+      "status": "GUARD_PASSED"
+    },
+    {
+      "fixture_key": "1489380",
+      "home": "Spain",
+      "away": "Cape Verde Islands",
+      "provider": "dry-run(offline, model-grounded)",
+      "mode": "dry-run",
       "status": "GUARD_PASSED"
     }
   ],

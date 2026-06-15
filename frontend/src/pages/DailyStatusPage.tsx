@@ -33,10 +33,20 @@ const CONTENT_QUEUE = contentQueueRaw as ContentQueue;
 interface OpsQueueItem {
   fixture_id: string; match: string; status: string; publish_eligibility?: string; next_action?: string;
 }
+interface T30SourceItem {
+  fixture_id: string; match: string; source_status: string; update_eligibility?: string;
+  lineup_availability?: boolean; injury_news_availability?: boolean; next_operator_action?: string;
+}
+interface AutorunState {
+  last_run?: string; mode?: string; runtime_match?: string; next_run?: string;
+  steps_executed?: { step: string }[]; steps_skipped?: { step: string }[]; steps_blocked?: { step: string }[];
+  required_operator_actions?: string[];
+}
 interface OpsState {
   date?: string; primary?: string; secondary?: string[];
   review_queue?: OpsQueueItem[]; t30_queue?: OpsQueueItem[]; recap_queue?: OpsQueueItem[];
   share_packages?: OpsQueueItem[]; day_close?: { ready?: number; blocked?: number; status?: string; next_action?: string };
+  t30_sources?: T30SourceItem[]; autorun?: AutorunState | null;
   next_operator_action?: string; send_status?: string;
 }
 const OPS_STATE = opsStateRaw as OpsState;
@@ -248,6 +258,16 @@ export function DailyStatusPage() {
              detail={(OPS_STATE.share_packages ?? []).map(i => `${i.fixture_id}:${i.status}`).join(' · ') || 'none'} />
         <Row label="Day close / 收日" verdict={OPS_STATE.day_close ? 'ok' : 'warn'}
              detail={OPS_STATE.day_close ? `status=${OPS_STATE.day_close.status} · ready=${OPS_STATE.day_close.ready} · blocked=${OPS_STATE.day_close.blocked}` : 'not closed'} />
+        {/* P3A — daily auto-run status. P3B — T-30 source coverage by match. */}
+        <Row label="Daily auto-run / 每日自动运行" verdict={OPS_STATE.autorun ? ((OPS_STATE.autorun.steps_blocked?.length ?? 0) === 0 ? 'ok' : 'fail') : 'warn'}
+             detail={OPS_STATE.autorun ? `mode=${OPS_STATE.autorun.mode} · runtime=${OPS_STATE.autorun.runtime_match} · last run ${OPS_STATE.autorun.last_run}` : 'not run (mvp2_daily_autorun.py run)'} />
+        <Row label="Autorun steps / 运行步骤" verdict={(OPS_STATE.autorun?.steps_blocked?.length ?? 0) === 0 ? 'ok' : 'fail'}
+             detail={OPS_STATE.autorun ? `passed=${OPS_STATE.autorun.steps_executed?.length ?? 0} · skipped=${(OPS_STATE.autorun.steps_skipped ?? []).map(s => s.step).join(',') || 0} · blocked=${(OPS_STATE.autorun.steps_blocked ?? []).map(s => s.step).join(',') || 0}` : '—'} />
+        <Row label="Next scheduled/manual run / 下次运行" verdict="na" detail={OPS_STATE.autorun?.next_run ?? 'operator-triggered (manual; no scheduler)'} />
+        <Row label="T-30 source coverage / 临场数据来源" verdict={(OPS_STATE.t30_sources?.length ?? 0) >= 1 ? ((OPS_STATE.t30_sources ?? []).some(s => s.source_status === 'SOURCE_READY') ? 'ok' : 'warn') : 'na'}
+             detail={(OPS_STATE.t30_sources ?? []).map(s => `${s.fixture_id}:${s.source_status}`).join(' · ') || 'none'} />
+        <Row label="T-30 source detail / 来源缺口" verdict="na"
+             detail={(OPS_STATE.t30_sources ?? []).map(s => `${s.fixture_id} lineup=${s.lineup_availability} injury=${s.injury_news_availability} → ${s.update_eligibility}`).join(' · ') || 'no live lineup/injury feed — operator confirms at KO-30'} />
         <Row label="Next operator action / 下一步" verdict="warn" detail={OPS_STATE.next_operator_action ?? '—'} />
         <Row label="Send status / 发送状态" verdict="warn" detail={`${OPS_STATE.send_status ?? 'HOLD'} — manual only; Owner per-channel GO; no auto-send`} />
       </div>
