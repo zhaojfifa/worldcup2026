@@ -46,6 +46,10 @@ GLOBS = [
     "backend/app/routers/daily_fixtures.py",
     "backend/app/services/daily_fixtures_service.py",
     # MVP2-P5 prediction/observation artifacts (customer-facing share/operator copy)
+    # P8 P0: these globs ALSO cover the reconnected source_facts/model_fields blocks (in the JSON +
+    # the .ts interface) and the customer-safe data/provenance block in ArtifactTacticalRoom.tsx.
+    # (The P8 engineering docs are intentionally NOT scanned here — they legitimately discuss
+    #  model/DeepSeek/LLM as internal terminology and are not customer copy.)
     "frontend/src/data/predictionArtifacts.ts",
     "frontend/src/data/predictionArtifacts/*.json",
     "frontend/src/components/ArtifactTacticalRoom.tsx",
@@ -76,8 +80,11 @@ LEAKAGE = ["模型", "盲区", "数据缺失", "缺数据", "过程验证", "自
 # negation exemption: 提现 inside 不可提现 / 不能提现 is the COMPLIANCE statement, keep it
 WITHDRAW_OK = re.compile(r"(不可|不能|无法)提现")
 # identifiers/comments legitimately contain English terms (e.g. schema names); allow ONLY
-# these exact code tokens, never display strings
-CODE_TOKEN_ALLOW = {"commission_free_note"}  # none currently; placeholder for explicit review
+# these exact code tokens, never display strings. Stripped (case-insensitively) before scanning so a
+# structural data key is not mistaken for customer copy; standalone customer terms still match.
+# P8 P0: `llm_judgment` is the Owner-canonical schema block name (a JSON key / TS interface, never
+# rendered) — exempt the identifier, NOT the customer word "LLM".
+CODE_TOKEN_ALLOW = {"commission_free_note", "llm_judgment", "ArtifactLlmJudgment"}
 
 CLASSES = [("betting", BETTING), ("win-guarantee", GUARANTEE),
            ("commission/payout/recharge", MONEY), ("agent-hierarchy", HIERARCHY),
@@ -116,6 +123,9 @@ def main(paths=None):
             text = re.sub(r"(?m)^\s*//.*$|(?<=\s)//[^\n]*$", " ", text)
             if f.suffix == ".py":
                 text = re.sub(r"(?m)#.*$", " ", text)
+        # strip explicitly-reviewed structural code identifiers (never display strings)
+        for tok in CODE_TOKEN_ALLOW:
+            text = re.sub(re.escape(tok), " ", text, flags=re.I)
         errs.extend(scan_text(text, str(f.relative_to(ROOT))))
     for f in files:
         print("scanned  %s" % f.relative_to(ROOT))

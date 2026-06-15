@@ -90,6 +90,56 @@ def scan_content_words(i18n, label):
     return fails
 
 
+MODEL_SOURCES = {"computed", "seed", "operator_estimated", "operator_confirmed", "unavailable"}
+
+
+def scan_model_provenance(a):
+    """P8 P0 — every prediction artifact must carry the reconnected content-fact blocks:
+      source_facts: fixture_source, data_mode (api|seed|manual|operator), has_model_fields, source_refs, missing_fields
+      model_fields: source-tagged; win_prob/confidence MUST be null (no fake probability); no_fake_probability true;
+                    a recommended_score/risk_level carries the model_fields.source tag.
+    Numbers may be absent; the block + its source tag may NOT."""
+    fails = []
+    sf = a.get("source_facts")
+    if not isinstance(sf, dict):
+        fails.append("missing source_facts block (P8 content-fact reconnection)")
+    else:
+        if not sf.get("fixture_source"):
+            fails.append("source_facts.fixture_source missing")
+        if sf.get("data_mode") not in ("api", "seed", "manual", "operator"):
+            fails.append("source_facts.data_mode must be api|seed|manual|operator (got %r)" % sf.get("data_mode"))
+        if not isinstance(sf.get("source_refs"), list):
+            fails.append("source_facts.source_refs must be a list")
+        if not isinstance(sf.get("missing_fields"), list):
+            fails.append("source_facts.missing_fields must be a list")
+        if not isinstance(sf.get("has_model_fields"), bool):
+            fails.append("source_facts.has_model_fields must be a bool")
+    mf = a.get("model_fields")
+    if not isinstance(mf, dict):
+        fails.append("missing model_fields block (P8 content-fact reconnection)")
+        return fails
+    src = mf.get("source")
+    if src not in MODEL_SOURCES:
+        fails.append("model_fields.source=%r not a valid tag (%s)" % (src, "|".join(sorted(MODEL_SOURCES))))
+    # P8 floor: win_prob/confidence are NEVER shown as numbers in P0 — they must be null.
+    if mf.get("win_prob") is not None:
+        fails.append("model_fields.win_prob must be null (no fake probability)")
+    if mf.get("confidence") is not None:
+        fails.append("model_fields.confidence must be null (no numeric confidence on the customer side)")
+    if mf.get("no_fake_probability") is not True:
+        fails.append("model_fields.no_fake_probability must be true")
+    # a presented recommended_score / risk_level is only honest when the block is source-tagged
+    # by a non-'unavailable' source (computed|seed|operator_estimated|operator_confirmed).
+    if (mf.get("recommended_score") or mf.get("risk_level")) and src in (None, "unavailable"):
+        fails.append("model_fields presents recommended_score/risk_level but source is %r (must be source-tagged)" % src)
+    # source_facts.has_model_fields must agree with the source tag
+    if isinstance(sf, dict) and isinstance(sf.get("has_model_fields"), bool):
+        expect = src not in (None, "unavailable")
+        if sf.get("has_model_fields") != expect:
+            fails.append("source_facts.has_model_fields=%r disagrees with model_fields.source=%r" % (sf.get("has_model_fields"), src))
+    return fails
+
+
 def scan_prediction(a):
     # P6 P0-7: generalized — validates ANY prediction artifact (not two hardcoded files). Identity
     # is presence-checked, not equality-pinned; the product-contract tokens below are required of
@@ -160,6 +210,8 @@ def scan_prediction(a):
         for numeric in ("win_prob", "confidence"):
             if fsv.get(numeric) in ("operator_confirmed", "operator_estimated"):
                 fails.append("prediction %s must not be operator-typed (no fake probability)" % numeric)
+    # P8 P0: structured content-fact provenance (source_facts + model_fields). Owner 2026-06-15.
+    fails += scan_model_provenance(a)
     # P7 P0-4: persisted T-30 slot; pending => no faked update_text.
     t = a.get("t30")
     if not isinstance(t, dict) or t.get("status") not in ("pending", "ready", "skipped"):

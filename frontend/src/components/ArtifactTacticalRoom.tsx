@@ -37,6 +37,54 @@ const CHROME = {
 };
 function chrome(loc: Locale) { return loc === 'zh' ? CHROME.zh : loc === 'vi' ? CHROME.vi : loc === 'my' ? CHROME.my : CHROME.en; }
 
+// P8 P0 — customer-safe DATA & PROVENANCE block (Owner 2026-06-15). Surfaces the reconnected
+// content-fact layer: fixture-fact source, data mode, source-tagged recommended score / risk level,
+// the honestly-absent numerics, and the judgement provenance — with NO model/AI/probability/betting
+// wording (persona voice only; vi/my stay Han=0; win_prob/confidence never shown).
+const DATA_CHROME = {
+  zh: { title: '📊 数据与建模依据', srcL: '赛程事实来源', srcV: '运营每日选定', modeL: '当前数据模式', modeBase: '人工确认',
+        scoreL: '推荐比分', backupL: '备选', riskL: '风险等级', missL: '缺失项', missV: '暂无自动胜率 / 数值置信度',
+        judgeL: '判断来源', judgeV: '数据快照 + 俅哥判断草案 + 人工确认' },
+  vi: { title: '📊 Dữ liệu & cơ sở nhận định', srcL: 'Nguồn dữ kiện trận', srcV: 'Vận hành chọn mỗi ngày', modeL: 'Chế độ dữ liệu hiện tại', modeBase: 'Xác nhận thủ công',
+        scoreL: 'Tỷ số đề xuất', backupL: 'Phương án phụ', riskL: 'Mức rủi ro', missL: 'Mục còn thiếu', missV: 'Chưa có tỷ lệ tự động / độ tin cậy dạng số',
+        judgeL: 'Nguồn nhận định', judgeV: 'Ảnh dữ liệu + bản nháp Tiên Tri + xác nhận thủ công' },
+  my: { title: '📊 Data & အခြေခံ', srcL: 'ပွဲ အချက်အလက် ရင်းမြစ်', srcV: 'Operator နေ့စဉ် ရွေးချယ်', modeL: 'လက်ရှိ data mode', modeBase: 'Operator အတည်ပြု',
+        scoreL: 'အကြံပြု စကော', backupL: 'အရန်', riskL: 'အန္တရာယ် အဆင့်', missL: 'လိုအပ်နေသေး', missV: 'အလိုအလျောက် ရာခိုင်နှုန်း / ကိန်းဂဏန်း confidence မရှိသေး',
+        judgeL: 'ဆုံးဖြတ်ချက် ရင်းမြစ်', judgeV: 'Data snapshot + Oracle မူကြမ်း + operator အတည်ပြု' },
+  en: { title: '📊 Data & basis', srcL: 'Fixture-fact source', srcV: 'Operator daily selection', modeL: 'Current data mode', modeBase: 'Operator-confirmed',
+        scoreL: 'Recommended score', backupL: 'Backup', riskL: 'Risk level', missL: 'Missing', missV: 'No automatic win-rate / numeric confidence yet',
+        judgeL: 'Judgement source', judgeV: 'Data snapshot + persona draft read + operator confirmation' },
+};
+function dataChrome(loc: Locale) { return loc === 'zh' ? DATA_CHROME.zh : loc === 'vi' ? DATA_CHROME.vi : loc === 'my' ? DATA_CHROME.my : DATA_CHROME.en; }
+
+/** P8 P0 data/provenance block. Renders ONLY from the source-tagged model_fields/source_facts;
+ *  win_prob/confidence are never shown (kept in missing_fields). Skips silently if absent (back-compat). */
+function DataBacking({ art, loc, riskDisplay }: { art: PredictionArtifact; loc: Locale; riskDisplay: string }) {
+  const sf = art.source_facts;
+  const mf = art.model_fields;
+  if (!sf || !mf) return null;
+  const D = dataChrome(loc);
+  const score = mf.recommended_score;
+  const backups = mf.backup_scores ?? [];
+  return (
+    <div className="card db-card">
+      <div className="db-title">{D.title}</div>
+      <div className="sc-row"><span className="sc-k">{D.srcL}</span><span className="sc-v">{D.srcV}</span></div>
+      <div className="sc-row"><span className="sc-k">{D.modeL}</span><span className="sc-v">{D.modeBase} · {mf.source}</span></div>
+      {score && (
+        <div className="sc-row"><span className="sc-k">{D.scoreL}</span>
+          <span className="sc-v"><span className="sc-primary-score">{score}</span>
+            {backups.length > 0 && <span className="sc-backup">　{D.backupL}: {backups.join(' / ')}</span>}
+          </span>
+        </div>
+      )}
+      {riskDisplay && <div className="sc-row"><span className="sc-k">{D.riskL}</span><span className="sc-v">{riskDisplay}</span></div>}
+      <div className="sc-row"><span className="sc-k">{D.missL}</span><span className="sc-v">{D.missV}</span></div>
+      <div className="sc-row"><span className="sc-k">{D.judgeL}</span><span className="sc-v">{D.judgeV}</span></div>
+    </div>
+  );
+}
+
 function kickoffLocal(iso: string, loc: Locale): string {
   const d = new Date(iso);
   const locale = loc === 'zh' ? 'zh-CN' : loc === 'vi' ? 'vi-VN' : 'en-GB';
@@ -95,6 +143,9 @@ export function ArtifactTacticalRoom({ art, loc }: { art: PredictionArtifact; lo
         {CALIBRATION_LINE[loc] && <div className="sc-frame" style={{ textAlign: 'left' }}>{CALIBRATION_LINE[loc]}</div>}
         <a className="sc-rescore-link" href="#live30">{C.rescoreCta} ▸</a>
       </div>
+
+      {/* P8 P0: customer-safe data & provenance block (source-tagged; no win_prob/confidence). */}
+      <DataBacking art={art} loc={loc} riskDisplay={call.risk_label} />
 
       <div className="card th-hero plp-predict">
         <FocusList title={C.focus} items={A.analysis.modeling_focus} />

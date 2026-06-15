@@ -47,6 +47,11 @@ export function DailyStatusPage() {
   const scoreCall = artZh?.prediction.score_call ?? null;
   const shareCopy = artZh?.operations.share_copy ?? null;
   const t30 = art?.t30?.status ?? null;
+  // P8 P0 — content-fact readiness (source_facts / model_fields provenance).
+  const sf = art?.source_facts ?? null;
+  const mf = art?.model_fields ?? null;
+  const oc = art?.operator_confirmation ?? null;
+  const mfSource = mf?.source ?? null;   // computed | seed | operator_estimated | operator_confirmed | unavailable
   const predKey = sel ? encodeURIComponent(sel.fixture_key) : null;
 
   // recap carryover: the finished featured recap must resolve to an observation/recap artifact
@@ -74,6 +79,19 @@ export function DailyStatusPage() {
              detail={art ? `present · ${art.fixture_key} · confirmed=${art.prediction_confirmed}` : 'MISSING for selected hotspot'} />
         <Row label="Score-call hook / 主比分" verdict={v(!!scoreCall)}
              detail={scoreCall ? `主比分 ${scoreCall} · 备选 ${artZh?.prediction.backup_score ?? '—'} · 冷门风险 ${artZh?.prediction.risk_level ?? '—'}` : 'no confirmed score call'} />
+        {/* P8 P0 — content-fact provenance readiness. */}
+        <Row label="Source facts / 事实来源" verdict={v(!!sf)}
+             detail={sf ? `data_mode=${sf.data_mode} · fixture_source=${sf.fixture_source} · has_model_fields=${sf.has_model_fields} · refs=${sf.source_refs.length}` : 'MISSING source_facts (P8 not reconnected)'} />
+        <Row label="Model fields / 建模字段" verdict={mf ? (mfSource && mfSource !== 'unavailable' ? 'ok' : 'warn') : 'fail'}
+             detail={mf ? `source=${mfSource} · status=${mf.model_status} · recommended_score=${mf.recommended_score ?? '—'} · backup=${(mf.backup_scores ?? []).join('/') || '—'} · risk_level=${mf.risk_level ?? '—'}` : 'MISSING model_fields'} />
+        <Row label="win_prob / confidence" verdict="na"
+             detail={`win_prob=${mf?.win_prob ?? 'null'} · confidence=${mf?.confidence ?? 'null'} · unavailable acceptable (no fake probability)`} />
+        <Row label="No-fake-probability / 不伪概率" verdict={v(mf?.no_fake_probability === true)}
+             detail={mf?.no_fake_probability === true ? 'model_fields.no_fake_probability=true' : 'NOT asserted'} />
+        <Row label="Source tag legend / 来源标记" verdict="na"
+             detail="computed · seed · operator_estimated · operator_confirmed · unavailable" />
+        <Row label="Operator confirmation / 人工确认" verdict={v(!!oc?.confirmed)}
+             detail={oc?.confirmed ? `by=${oc.confirmed_by || '—'} · at=${oc.confirmed_at || '—'} · edited=${(oc.edited_fields ?? []).length}` : 'not confirmed'} />
         <Row label="Share copy / 分享文案" verdict={v(!!shareCopy)} detail={shareCopy ? 'present (operations.share_copy)' : 'missing'} />
         <Row label="Share card / 分享卡" verdict={v(!!predKey)} detail={predKey ? `/share/fixture/${predKey}` : 'n/a'} />
         <Row label="T-30 status / 临场就绪" verdict={t30 === 'ready' ? 'ok' : t30 === 'skipped' ? 'ok' : 'warn'}

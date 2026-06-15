@@ -45,6 +45,46 @@ export interface ArtifactT30 {
 // P7 P0-3 — per-field provenance. Owner: operator-confirmed fields are allowed when computed fields
 // are unavailable, but MUST be source-tagged; the frontend never invents win_prob/confidence.
 export type FieldSource = 'operator_confirmed' | 'operator_estimated' | 'model' | 'generated' | 'unavailable';
+
+// P8 P0 — historical content-fact reconnection (Owner 2026-06-15). The daily-refresh path bypassed
+// the old data/model fields (they were never deleted). These structured, SOURCE-TAGGED blocks are the
+// recovery layer: provenance + a model-field shape WITHOUT faking win_prob/numeric confidence.
+export type ModelFieldSource = 'computed' | 'seed' | 'operator_estimated' | 'operator_confirmed' | 'unavailable';
+export interface ArtifactSourceFacts {
+  fixture_source: string;            // KNOWN map | manual_slate | api_football
+  data_mode: 'api' | 'seed' | 'manual' | 'operator';
+  has_model_fields: boolean;         // true once model_fields.source != 'unavailable'
+  source_refs: string[];             // kaggle/api provenance handles when computed; [] when operator
+  missing_fields: string[];          // fields intentionally absent (e.g. win_prob, confidence)
+}
+export interface ArtifactModelFields {
+  win_prob: null;                    // P8 P0: NEVER a fake probability — stays null
+  recommended_score: string | null;
+  backup_scores: string[];
+  risk_level: string | null;         // canonical token (zh); localized display via i18n
+  risk_note: string | null;
+  confidence: null;                  // P8 P0: no numeric confidence on the customer side — stays null
+  source: ModelFieldSource;
+  model_status: string;              // e.g. 'operator_estimated' | 'computed' | 'unavailable'
+  no_fake_probability: boolean;      // must be true
+}
+export interface ArtifactLlmJudgment {
+  main_lean: string;
+  primary_score: string | null;
+  backup_scores: string[];
+  top_variable: string;
+  why: string;
+  tactical_read: string[];
+  risk_factors: string[];
+  external_expectation: string[];
+  t30_checklist: string[];
+}
+export interface ArtifactOperatorConfirmation {
+  confirmed: boolean;
+  confirmed_by: string;
+  confirmed_at: string;
+  edited_fields: string[];
+}
 export interface PredictionArtifact {
   date: string;
   fixture_key: string;
@@ -60,6 +100,11 @@ export interface PredictionArtifact {
   data_snapshot?: Record<string, unknown> | null;     // model inputs + source_refs (P1)
   modeling_output?: Record<string, unknown> | null;   // model-derived score/lean/risk (P1)
   generated_judgment?: Record<string, unknown> | null; // generated tactical/why/external (P1)
+  // P8 P0 structured content-fact blocks (provenance-first; numerics may be null, never invented).
+  source_facts?: ArtifactSourceFacts;
+  model_fields?: ArtifactModelFields;
+  llm_judgment?: ArtifactLlmJudgment;
+  operator_confirmation?: ArtifactOperatorConfirmation;
   t30?: ArtifactT30;
   i18n: Partial<Record<Locale, PredictionArtifactLocale>>;
 }

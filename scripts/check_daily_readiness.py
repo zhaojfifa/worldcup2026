@@ -38,6 +38,7 @@ BETTING = ["赔率", "盘口", "下注", "投注", "博彩", "竞猜", "让球",
            "odds", "handicap", "bookmaker", "wager", "betting",
            "kèo", "cửa trên", "cửa dưới", "nhà cái", "cá cược"]
 VALID_SOURCES = {"operator_confirmed", "operator_estimated", "model", "generated", "unavailable"}
+VALID_MODEL_SOURCES = {"computed", "seed", "operator_estimated", "operator_confirmed", "unavailable"}
 
 
 def _load(p):
@@ -86,6 +87,24 @@ def scan(sel, predictions, observations, manifest):
             fails.append("prediction artifact %r %s must not be operator-typed (no fake probability)" % (key, numeric))
         if pz.get("confidence") not in (None, "") and numeric == "confidence":
             warns.append("prediction artifact %r has a non-null confidence — ensure it is model-sourced, not a probability promise" % key)
+
+    # 3b. P8 P0 — the selected hotspot's artifact must carry the reconnected content-fact blocks.
+    sf = pred.get("source_facts")
+    if not isinstance(sf, dict) or not sf.get("fixture_source") or sf.get("data_mode") not in ("api", "seed", "manual", "operator"):
+        fails.append("prediction artifact %r missing/invalid source_facts (P8 content-fact reconnection)" % key)
+    mf = pred.get("model_fields")
+    if not isinstance(mf, dict):
+        fails.append("prediction artifact %r missing model_fields (P8 content-fact reconnection)" % key)
+    else:
+        if mf.get("source") not in VALID_MODEL_SOURCES:
+            fails.append("prediction artifact %r model_fields.source=%r not a valid tag" % (key, mf.get("source")))
+        # win_prob/confidence acceptable ONLY as null/unavailable (never an invented number).
+        if mf.get("win_prob") is not None:
+            fails.append("prediction artifact %r model_fields.win_prob must be null (no fake probability)" % key)
+        if mf.get("confidence") is not None:
+            fails.append("prediction artifact %r model_fields.confidence must be null (no numeric confidence)" % key)
+        if mf.get("no_fake_probability") is not True:
+            fails.append("prediction artifact %r model_fields.no_fake_probability must be true" % key)
 
     # 4. share copy + card key
     if not (zh.get("operations") or {}).get("share_copy"):
@@ -139,6 +158,11 @@ def selftest():
     good_sel = {"status": "active", "fixture_key": "manual:X-Y-20260614", "home": "X", "away": "Y"}
     good_pred = {"fixture_key": "manual:X-Y-20260614", "prediction_confirmed": True,
                  "field_sources": {"score_call": "operator_confirmed", "win_prob": "unavailable", "confidence": "unavailable"},
+                 "source_facts": {"fixture_source": "manual_slate", "data_mode": "manual",
+                                  "has_model_fields": True, "source_refs": [], "missing_fields": ["win_prob", "confidence"]},
+                 "model_fields": {"win_prob": None, "recommended_score": "2-1", "backup_scores": ["1-1"],
+                                  "risk_level": "中高", "confidence": None, "source": "operator_estimated",
+                                  "model_status": "operator_estimated", "no_fake_probability": True},
                  "t30": {"status": "pending", "update_text": None},
                  "safety": {"no_auto_send": True},
                  "i18n": {"zh": {"prediction": {"score_call": "2-1", "confidence": None},

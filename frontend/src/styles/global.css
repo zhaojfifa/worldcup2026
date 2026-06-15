@@ -1538,6 +1538,9 @@ body {
 
 /* ── Strong-judgment signal card (Product Closure P1) ───────────────────── */
 .sc-card { border: 2px solid var(--blueMid); background: linear-gradient(165deg, #F4F9FF, #fff); padding: 14px; }
+/* P8 P0 data & provenance block — neutral card, reuses .sc-row/.sc-k/.sc-v. */
+.db-card { border: 1px solid var(--line, #d9e3ef); background: #fbfdff; padding: 13px; margin-top: 10px; border-radius: 10px; }
+.db-title { font-weight: 800; font-size: 13px; color: var(--blueDeep); margin-bottom: 8px; letter-spacing: .3px; }
 .sc-kicker { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
 .sc-kicker .zh { font-weight: 800; font-size: 15px; color: var(--blueDeep); }
 .sc-kicker .en { font-size: 10px; letter-spacing: 1.5px; color: var(--sub); }

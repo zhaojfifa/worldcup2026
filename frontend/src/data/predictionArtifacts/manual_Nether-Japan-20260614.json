@@ -24,6 +24,59 @@
   "data_snapshot": null,
   "modeling_output": null,
   "generated_judgment": null,
+  "source_facts": {
+    "fixture_source": "manual_slate",
+    "data_mode": "manual",
+    "has_model_fields": true,
+    "source_refs": [],
+    "missing_fields": ["win_prob", "confidence"]
+  },
+  "model_fields": {
+    "win_prob": null,
+    "recommended_score": "2-1",
+    "backup_scores": ["1-1", "2-2"],
+    "risk_level": "中高",
+    "risk_note": "荷兰整体推进和定位球更稳定，但日本转换速度会制造波动；首发边路配置与反击效率是主要冷门变量。",
+    "confidence": null,
+    "source": "operator_estimated",
+    "model_status": "operator_estimated",
+    "no_fake_probability": true
+  },
+  "llm_judgment": {
+    "main_lean": "赛前倾向荷兰，但冷门风险不低",
+    "primary_score": "2-1",
+    "backup_scores": ["1-1", "2-2"],
+    "top_variable": "日本反击效率与荷兰首发边路配置",
+    "why": "荷兰整体推进和定位球更稳定，但日本转换速度会制造波动",
+    "tactical_read": [
+      "荷兰惯用控球与三/四后卫切换，关注其出球第一脚能否绕开日本第一道逼抢",
+      "日本中前场协同压迫与就地反抢，关注其能否在荷兰半场制造高位丢球",
+      "定位球与二点球：两队身高与落点差异对比分的潜在影响"
+    ],
+    "risk_factors": [
+      "首发与轮换：核心球员是否先发",
+      "体能与赛程：临场状态、天气与场地",
+      "比赛动机与战术保守度"
+    ],
+    "external_expectation": [
+      "公开预测倾向偏向荷兰",
+      "热度集中在荷兰不败",
+      "冷门变量主要在日本反击和首发变化"
+    ],
+    "t30_checklist": [
+      "首发阵容与位置",
+      "阵型与三/四后卫选择",
+      "核心球员状态与热身反馈",
+      "临场热度与风险方向",
+      "开球前再确认方向，必要时下调把握度"
+    ]
+  },
+  "operator_confirmation": {
+    "confirmed": true,
+    "confirmed_by": "operator",
+    "confirmed_at": "2026-06-14T00:00:00+00:00",
+    "edited_fields": ["score_call", "backup_score", "risk_level", "primary_direction"]
+  },
   "t30": {
     "status": "pending",
     "checked_at": null,

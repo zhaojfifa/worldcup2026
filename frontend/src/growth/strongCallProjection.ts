@@ -116,15 +116,26 @@ export function buildStrongCallFromArtifact(art: PredictionArtifact, loc: Locale
   if (!lang) return null;
   const A = predictionArtifactLocale(art, lang);
   const p = A.prediction;
+  // P8 P0 precedence (Owner 2026-06-15): when a SOURCE-TAGGED model_fields block exists (source
+  // computed | seed | operator_confirmed | operator_estimated, never 'unavailable'), it is the
+  // canonical source for the locale-neutral SCORE. The localized i18n risk word stays the display
+  // (model_fields.risk_level is the same judgement, just the canonical zh token) so vi/my stay Han=0.
+  // Unavailable fields (win_prob/confidence) are NOT in StrongCall and are never surfaced.
+  const mf = art.model_fields;
+  const mfUsable = !!mf && mf.source !== 'unavailable';
+  const primary_score = (mfUsable && mf!.recommended_score) || p.score_call;
+  const backup_scores = mfUsable && mf!.backup_scores?.length
+    ? mf!.backup_scores
+    : (p.backup_score ? p.backup_score.split('/').map(s => s.trim()).filter(Boolean) : []);
   return {
     fixture_id: art.fixture_key,
     teams: `${art.home} vs ${art.away}`,
     kickoffUtc: art.kickoffUtc,
     main_lean: p.primary_direction ?? A.pending_direction,
-    primary_score: p.score_call,
-    backup_scores: p.backup_score ? p.backup_score.split('/').map(s => s.trim()).filter(Boolean) : [],
-    scoreline_raw: p.score_call ?? A.pending_score,
-    risk_label: p.risk_level ?? '',
+    primary_score,
+    backup_scores,
+    scoreline_raw: primary_score ?? A.pending_score,
+    risk_label: p.risk_level ?? (mfUsable ? (mf!.risk_level ?? '') : ''),
     top_variable: p.top_variable || A.analysis.risk_variables[0] || '',
     why: p.why || p.risk_note || '',
     external_expectation: A.analysis.external_expectation ?? [],
