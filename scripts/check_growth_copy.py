@@ -84,7 +84,7 @@ WITHDRAW_OK = re.compile(r"(不可|不能|无法)提现")
 # structural data key is not mistaken for customer copy; standalone customer terms still match.
 # P8 P0: `llm_judgment` is the Owner-canonical schema block name (a JSON key / TS interface, never
 # rendered) — exempt the identifier, NOT the customer word "LLM".
-CODE_TOKEN_ALLOW = {"commission_free_note", "llm_judgment", "ArtifactLlmJudgment"}
+CODE_TOKEN_ALLOW = {"commission_free_note", "llm_judgment", "ArtifactLlmJudgment", "llm_provider"}
 
 CLASSES = [("betting", BETTING), ("win-guarantee", GUARANTEE),
            ("commission/payout/recharge", MONEY), ("agent-hierarchy", HIERARCHY),

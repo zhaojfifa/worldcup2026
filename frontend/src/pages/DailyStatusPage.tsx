@@ -53,6 +53,10 @@ export function DailyStatusPage() {
   const oc = art?.operator_confirmation ?? null;
   const mfSource = mf?.source ?? null;   // computed | seed | operator_estimated | operator_confirmed | unavailable
   const predKey = sel ? encodeURIComponent(sel.fixture_key) : null;
+  // R1 P0 — daily content-production-chain readiness (recorded on the artifact by the builder).
+  const cc = art?.content_chain ?? null;
+  const shareKitReady = !!shareCopy && !!predKey;
+  const artifactReady = !!art && !!sf && !!mf && (!!cc?.reviewed_applied || !!oc?.confirmed);
 
   // recap carryover: the finished featured recap must resolve to an observation/recap artifact
   const recapRow: DailyFixtureRow | null = featuredRecap;
@@ -92,6 +96,17 @@ export function DailyStatusPage() {
              detail="computed · seed · operator_estimated · operator_confirmed · unavailable" />
         <Row label="Operator confirmation / 人工确认" verdict={v(!!oc?.confirmed)}
              detail={oc?.confirmed ? `by=${oc.confirmed_by || '—'} · at=${oc.confirmed_at || '—'} · edited=${(oc.edited_fields ?? []).length}` : 'not confirmed'} />
+        {/* R1 P0 — daily content production chain readiness (facts → prompt → review → artifact). */}
+        <Row label="Data-source lookup / 数据源查找" verdict={cc ? (cc.model_lookup === 'found' ? 'ok' : 'warn') : 'fail'}
+             detail={cc ? `${cc.model_lookup} · ${cc.model_lookup_note}` : 'MISSING content_chain (builder not run)'} />
+        <Row label="Prompt file / 提示词产物" verdict={v(!!cc?.prompt_generated)}
+             detail={cc?.prompt_generated ? (cc.prompt_path ?? 'generated') : 'not generated (run builder: prompt)'} />
+        <Row label="Reviewed JSON / 复核产物" verdict={v(!!cc?.reviewed_applied)}
+             detail={cc?.reviewed_applied ? `applied · provider=${cc.llm_provider} · ${cc.reviewed_path ?? ''}` : 'not applied (run builder: apply --reviewed)'} />
+        <Row label="Artifact ready / 产物就绪" verdict={v(artifactReady)}
+             detail={artifactReady ? 'fixture_identity + source_facts + model_fields + judgement + chain' : 'incomplete content chain'} />
+        <Row label="Share kit / 分享物料" verdict={v(shareKitReady)}
+             detail={shareKitReady ? 'share_copy + share card route present' : 'missing share copy or route'} />
         <Row label="Share copy / 分享文案" verdict={v(!!shareCopy)} detail={shareCopy ? 'present (operations.share_copy)' : 'missing'} />
         <Row label="Share card / 分享卡" verdict={v(!!predKey)} detail={predKey ? `/share/fixture/${predKey}` : 'n/a'} />
         <Row label="T-30 status / 临场就绪" verdict={t30 === 'ready' ? 'ok' : t30 === 'skipped' ? 'ok' : 'warn'}

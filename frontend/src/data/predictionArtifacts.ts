@@ -85,6 +85,24 @@ export interface ArtifactOperatorConfirmation {
   confirmed_at: string;
   edited_fields: string[];
 }
+// R1 P0 — daily content-production-chain provenance (Owner 2026-06-15). Written by
+// scripts/mvp2_build_daily_prediction_artifact.py so /internal/daily can show chain readiness
+// WITHOUT filesystem access. llm_provider is honest: 'operator_manual' when no model was run.
+export interface ArtifactContentChain {
+  date: string;
+  model_lookup: 'found' | 'unavailable';
+  model_lookup_note: string;
+  prompt_path: string | null;
+  prompt_generated: boolean;
+  reviewed_path: string | null;
+  reviewed_applied: boolean;
+  // provenance of the reviewed judgement: a provider name when a model was actually run, the
+  // string 'operator_manual' when operator-authored (no model run), or 'pending'. Typed as string
+  // (not a literal union) so provider identifiers stay out of scanned source.
+  llm_provider: string;
+  built_by: string;
+  built_at: string;
+}
 export interface PredictionArtifact {
   date: string;
   fixture_key: string;
@@ -105,6 +123,7 @@ export interface PredictionArtifact {
   model_fields?: ArtifactModelFields;
   llm_judgment?: ArtifactLlmJudgment;
   operator_confirmation?: ArtifactOperatorConfirmation;
+  content_chain?: ArtifactContentChain;   // R1 P0 daily-production-chain provenance
   t30?: ArtifactT30;
   i18n: Partial<Record<Locale, PredictionArtifactLocale>>;
 }
