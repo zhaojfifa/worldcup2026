@@ -87,9 +87,24 @@ export function RecapDetailPage() {
 
   const [content, setContent] = useState<RecapContent | null>(() => getBundledRecap(fixtureId, loc));
 
+  // R3 — recap route must not leak a backend "no recap" 404 as a product failure. When a LOCAL
+  // source already drives the page (bundled product-narrative recap, or an observation receipt for
+  // a finished tracked fixture whose full recap is not built), skip the backend call entirely. The
+  // backend is only consulted for fixtures that genuinely depend on the server-side recap report
+  // (e.g. 855737). No change to what the customer sees — only the wasted/erroring call is removed.
   useEffect(() => {
     let alive = true;
     if (USE_MOCK) {
+      setContent(getBundledRecap(fixtureId, loc));
+      return;
+    }
+    const localProductRecap = getProductNarrative(fixtureId, loc);
+    const hasLocalProductRecap = !!localProductRecap &&
+      (localProductRecap.mode === 'historical_recap' || localProductRecap.mode === 'real_recap');
+    const obsLocal = getObservationArtifact(fixtureId);
+    const hasObservation = !!obsLocal && !obsLocal.recap_ready;
+    if (hasLocalProductRecap || hasObservation) {
+      // Local source is authoritative for this fixture; do not call the backend (avoids the 404 leak).
       setContent(getBundledRecap(fixtureId, loc));
       return;
     }

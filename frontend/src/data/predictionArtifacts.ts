@@ -190,3 +190,17 @@ export function hasObservationArtifact(key: string | null | undefined): boolean 
 export function observationArtifactLocale(a: ObservationArtifact, loc: Locale): ObservationArtifactLocale {
   return a.i18n[loc] ?? a.i18n.en ?? (a.i18n.zh as ObservationArtifactLocale);
 }
+
+// R3 — explicit recap states so the /recap route and /internal/daily can NAME a finished fixture's
+// recap status instead of conflating "observation receipt" with "recap pending/error". Derived,
+// pure (no I/O): a bundled product-narrative recap → RECAP_READY; an observation artifact (always
+// recap_ready=false here) → OBSERVATION_READY; otherwise RECAP_PENDING (safe post-match page, no
+// fake recap, no raw error). RECAP_ERROR is reserved for a fixture with no local source at all AND
+// no backend recap — the route renders the safe generic observation page, never a backend error.
+export type RecapState = 'OBSERVATION_READY' | 'RECAP_PENDING' | 'RECAP_READY' | 'RECAP_ERROR';
+export function recapState(key: string, hasProductRecap: boolean): RecapState {
+  if (hasProductRecap) return 'RECAP_READY';
+  const obs = getObservationArtifact(key);
+  if (obs) return obs.recap_ready ? 'RECAP_READY' : 'OBSERVATION_READY';
+  return 'RECAP_PENDING';
+}

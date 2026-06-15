@@ -6,8 +6,9 @@ import {
 } from '../data/dailyFixtures';
 import { getSelectedHotspot } from '../data/selectedHotspot';
 import {
-  getPredictionArtifact, getObservationArtifact, predictionArtifactLocale,
+  getPredictionArtifact, getObservationArtifact, predictionArtifactLocale, recapState,
 } from '../data/predictionArtifacts';
+import { getProductNarrative } from '../data/productNarrativeData';
 
 // P7 P0-2 — /internal/daily operator content-readiness panel (Owner). NOT a public marketing page:
 // an unlinked operator control surface. Reads ONLY the public runtime manifest + the build-bundled
@@ -68,6 +69,24 @@ export function DailyStatusPage() {
   const ageMin = manifestAgeMinutes(m);
 
   const v = (b: boolean): Verdict => (b ? 'ok' : 'fail');
+
+  // R3 — data-source validity, LLM grounding, update-SLA and recap-SLA state surfaced explicitly.
+  const dataSourceValid = !!mf && mfSource !== 'unavailable' && mf.no_fake_probability === true &&
+    mf.win_prob == null && mf.confidence == null;
+  const groundingReady = !!cc?.prompt_generated && (!!cc?.reviewed_applied || !!oc?.confirmed);
+  const slaReady = !!sel && r.leadMatchesSelection && artifactReady && !!t30 && (!recapRow || !!obs);
+  // recap SLA state for the carryover finished fixture (named, not just present/absent)
+  const recapProductRecap = recapKey ? getProductNarrative(recapKey, 'zh') : null;
+  const hasProductRecap = !!recapProductRecap &&
+    (recapProductRecap.mode === 'historical_recap' || recapProductRecap.mode === 'real_recap');
+  const recapSt = recapKey ? recapState(recapKey, hasProductRecap) : null;
+  const lastGen = cc?.built_at || art?.date || null;
+  const nextAction = !sel ? '选定今日热点 (selectedHotspot.json)'
+    : !artifactReady ? '生成/复核预测产物 (mvp2_build_daily_prediction_artifact.py)'
+    : daily.source !== 'backend' ? '上传后端日程清单 (mvp2_match_sync.py upload — 需运营生产令牌)'
+    : recapRow && recapSt === 'RECAP_PENDING' ? '为已完赛热点生成赛后观察/复盘回执'
+    : t30 === 'pending' ? '开球前 30 分钟确认首发并更新 T-30'
+    : '保持 HOLD · 等 Owner 分渠道 GO';
 
   return (
     <div className="page-enter internal-daily">
@@ -131,6 +150,18 @@ export function DailyStatusPage() {
              detail={`${daily.source}${daily.source !== 'backend' ? ' (bundled/static fresh fallback)' : ' (live runtime)'}`} />
         <Row label="Drift status / 漂移状态" verdict={dr.status === 'MATCH' ? 'ok' : dr.status === 'FALLBACK' ? 'warn' : 'fail'}
              detail={`${dr.status} · ${dr.reason}`} />
+        {/* R3 — data-source validity, content grounding, update + recap SLA state, last gen, next action. */}
+        <Row label="Data source validity / 数据源有效性" verdict={mf ? (dataSourceValid ? 'ok' : 'warn') : 'fail'}
+             detail={mf ? `model_fields.source=${mfSource} · data_mode=${sf?.data_mode ?? '—'} · ${mfSource === 'computed' ? 'real ScoutScore' : mfSource === 'unavailable' ? 'no computed source' : 'operator'} · no_fake_probability=${mf.no_fake_probability === true}` : 'no model_fields'} />
+        <Row label="Content grounding / 内容接地" verdict={groundingReady ? 'ok' : 'warn'}
+             detail={cc ? `prompt=${!!cc.prompt_generated} · reviewed=${!!cc.reviewed_applied} · provider=${cc.llm_provider}` : 'no content_chain'} />
+        <Row label="Update SLA state / 更新就绪" verdict={slaReady ? 'ok' : 'warn'}
+             detail={slaReady ? 'slate-current + artifact-ready + T-30 explicit + recap state explicit' : 'one or more SLA states not yet ready (see rows above)'} />
+        <Row label="Recap SLA state / 复盘状态" verdict={!recapRow ? 'na' : (recapSt === 'RECAP_READY' || recapSt === 'OBSERVATION_READY' ? 'ok' : recapSt === 'RECAP_PENDING' ? 'warn' : 'fail')}
+             detail={!recapRow ? 'no finished featured fixture' : `${recapSt}${recapSt === 'OBSERVATION_READY' ? ' (observation receipt — full recap not built; no raw error)' : recapSt === 'RECAP_READY' ? ' (full recap available)' : recapSt === 'RECAP_PENDING' ? ' (safe post-match page; build observation/recap)' : ' (no local source — safe generic page, never backend error)'}`} />
+        <Row label="Last successful generation / 上次生成" verdict={lastGen ? 'ok' : 'warn'}
+             detail={lastGen ? `${lastGen} (content_chain.built_at / artifact date)` : 'unknown'} />
+        <Row label="Next operator action / 下一步运营动作" verdict="warn" detail={nextAction} />
         <Row label="Send status / 发送状态" verdict="warn" detail="HOLD — manual only; Owner per-channel GO required; no auto-send" />
       </div>
 
