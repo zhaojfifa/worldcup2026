@@ -125,12 +125,14 @@ def scan(sel, predictions, observations, manifest):
     elif t.get("status") == "pending" and t.get("update_text"):
         fails.append("prediction artifact %r t30 is pending but has update_text (faked update)" % key)
 
-    # 6. selected hotspot is in the runtime slate as a scheduled fixture (homepage lead == it)
+    # 6. selected hotspot is in the runtime slate as a scheduled fixture (homepage lead == it).
+    #    R2a: the LOCAL bundled/static manifest IS the fresh fallback the homepage uses when the
+    #    backend is stale — so it MUST contain the selected hotspot (else the fallback is BLOCKED).
     if manifest:
         fxs = manifest.get("fixtures", [])
         row = next((f for f in fxs if _lead_key(f) == key), None)
         if not row:
-            warns.append("selected_hotspot %r not in the current runtime slate (homepage will use a fallback lead)" % key)
+            fails.append("selected_hotspot %r NOT in the bundled/static manifest — fresh fallback would be BLOCKED (R2a)" % key)
         elif row.get("lifecycle_state") in FINISHED:
             warns.append("selected_hotspot %r is already finished in the slate (lead should roll to the next pick)" % key)
         # 7. finished + artifact-tracked fixtures must have an observation (carryover)

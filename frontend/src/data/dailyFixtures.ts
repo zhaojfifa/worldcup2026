@@ -43,7 +43,23 @@ const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.repl
 const BACKEND_URL = `${API_BASE}/api/v1/daily-fixtures`;
 
 export type ManifestSource = 'backend' | 'static' | 'bundled';
-export interface ManifestLoad { manifest: DailyManifest; source: ManifestSource }
+// R2a — drift between the live backend slate and the bundled selected_hotspot.
+//   MATCH    = backend is fresh + contains the selected hotspot → backend used.
+//   FALLBACK = backend stale/date-missing/missing the selection → bundled/static fresh slate used.
+//   BLOCKED  = even the fallback slate does not contain the selected hotspot (should never ship).
+export type DriftStatus = 'MATCH' | 'FALLBACK' | 'BLOCKED';
+export interface ManifestDrift {
+  backendDate: string | null;
+  backendAgeMin: number | null;
+  selectedDate: string | null;
+  selectedKey: string | null;
+  backendContainsSelected: boolean;
+  status: DriftStatus;
+  reason: string;
+}
+export interface ManifestLoad { manifest: DailyManifest; source: ManifestSource; drift: ManifestDrift }
+
+const STALE_HOURS = 36;
 
 function validManifest(m: unknown): m is DailyManifest {
   return !!m && Array.isArray((m as DailyManifest).fixtures) && (m as DailyManifest).fixtures.length > 0;
@@ -63,16 +79,61 @@ async function tryFetch(url: string, timeoutMs: number): Promise<DailyManifest |
   }
 }
 
-/** P1.3c fetch priority: 1) backend (live, updatable without rebuild) → 2) static deployed file
- *  → 3) bundled build-time data. NEVER throws; a broken source falls through, never crashes. */
+function containsKey(m: DailyManifest, key: string | null): boolean {
+  return !!key && (m.fixtures ?? []).some(f => leadKey(f) === key);
+}
+
+/** R2a acceptance: the backend slate is authoritative ONLY when it is fresh (has a date, not older
+ *  than the selection, not stale by age) AND actually contains the bundled selected hotspot. A
+ *  stale / date-missing / mismatched backend must NOT silently override the fresh bundled content. */
+function backendAcceptable(m: DailyManifest, selKey: string | null, selDate: string | null, now: Date):
+  { ok: boolean; reason: string } {
+  if (!selKey) return { ok: true, reason: 'no selected_hotspot bundled (legacy accept)' };
+  if (!m.generated_for_date) return { ok: false, reason: 'backend manifest has no date' };
+  if (!containsKey(m, selKey)) return { ok: false, reason: `backend slate does not contain selected ${selKey}` };
+  if (selDate && m.generated_for_date < selDate)
+    return { ok: false, reason: `backend date ${m.generated_for_date} older than selection ${selDate}` };
+  const age = manifestAgeMinutes(m, now);
+  if (age != null && age > STALE_HOURS * 60)
+    return { ok: false, reason: `backend manifest stale (${Math.round(age / 60)}h > ${STALE_HOURS}h)` };
+  return { ok: true, reason: 'backend fresh and contains the selection' };
+}
+
+/** R2a fetch priority — backend ONLY if fresh AND it contains the selected hotspot; otherwise fall
+ *  back to the bundled/static fresh manifest so a stale backend cannot override the fresh selection.
+ *  NEVER throws; always returns a drift verdict for /internal/daily. */
 export async function fetchDailyManifest(): Promise<ManifestLoad> {
+  const sel = getSelectedHotspot();
+  const selKey = sel?.fixture_key ?? null;
+  const selDate = sel?.date ?? null;
+  const now = new Date();
   const backend = await tryFetch(BACKEND_URL, 3500);
-  if (backend) return { manifest: backend, source: 'backend' };
-  console.warn('[dailyFixtures] backend unavailable → trying static deployed file');
+  if (backend) {
+    const a = backendAcceptable(backend, selKey, selDate, now);
+    if (a.ok) {
+      return { manifest: backend, source: 'backend', drift: {
+        backendDate: backend.generated_for_date ?? null, backendAgeMin: manifestAgeMinutes(backend, now),
+        selectedDate: selDate, selectedKey: selKey, backendContainsSelected: containsKey(backend, selKey),
+        status: 'MATCH', reason: a.reason } };
+    }
+    console.warn('[dailyFixtures] backend rejected (%s) → fresh bundled/static fallback', a.reason);
+    const fb = (await tryFetch(STATIC_URL, 2500)) ?? null;
+    const manifest = fb ?? FALLBACK_MANIFEST;
+    const okFallback = !selKey || containsKey(manifest, selKey);
+    return { manifest, source: fb ? 'static' : 'bundled', drift: {
+      backendDate: backend.generated_for_date ?? null, backendAgeMin: manifestAgeMinutes(backend, now),
+      selectedDate: selDate, selectedKey: selKey, backendContainsSelected: containsKey(backend, selKey),
+      status: okFallback ? 'FALLBACK' : 'BLOCKED',
+      reason: `backend rejected (${a.reason}); using ${fb ? 'static' : 'bundled'} fallback${okFallback ? '' : ' — fallback ALSO lacks the selection (BLOCKED)'}` } };
+  }
+  console.warn('[dailyFixtures] backend unavailable → static/bundled fallback');
   const stat = await tryFetch(STATIC_URL, 2500);
-  if (stat) return { manifest: stat, source: 'static' };
-  console.warn('[dailyFixtures] static file unavailable → bundled fallback');
-  return { manifest: FALLBACK_MANIFEST, source: 'bundled' };
+  const manifest = stat ?? FALLBACK_MANIFEST;
+  const okFallback = !selKey || containsKey(manifest, selKey);
+  return { manifest, source: stat ? 'static' : 'bundled', drift: {
+    backendDate: null, backendAgeMin: null, selectedDate: selDate, selectedKey: selKey,
+    backendContainsSelected: false, status: okFallback ? 'FALLBACK' : 'BLOCKED',
+    reason: `backend unavailable; using ${stat ? 'static' : 'bundled'} fallback${okFallback ? '' : ' — fallback ALSO lacks the selection (BLOCKED)'}` } };
 }
 
 /** Hero-eligible entries = fixtures with a bundled narrative (renderable) and an id.

@@ -30,7 +30,9 @@ function Row({ label, verdict, detail }: { label: string; verdict: Verdict; deta
 
 export function DailyStatusPage() {
   const navigate = useNavigate();
-  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'bundled' });
+  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'bundled',
+    drift: { backendDate: null, backendAgeMin: null, selectedDate: null, selectedKey: null,
+      backendContainsSelected: false, status: 'FALLBACK', reason: 'loading…' } });
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     let alive = true;
@@ -55,6 +57,7 @@ export function DailyStatusPage() {
   const predKey = sel ? encodeURIComponent(sel.fixture_key) : null;
   // R1 P0 — daily content-production-chain readiness (recorded on the artifact by the builder).
   const cc = art?.content_chain ?? null;
+  const dr = daily.drift;   // R2a backend-vs-selection drift
   const shareKitReady = !!shareCopy && !!predKey;
   const artifactReady = !!art && !!sf && !!mf && (!!cc?.reviewed_applied || !!oc?.confirmed);
 
@@ -117,6 +120,17 @@ export function DailyStatusPage() {
              detail={!recapRow ? '—' : recapKey ? `keyed by ${recapRow.id ? 'id' : 'fixture_key'} (${recapKey})` : 'no key'} />
         <Row label="Slate freshness / 数据新鲜度" verdict={daily.source === 'backend' ? 'ok' : 'warn'}
              detail={`source=${daily.source} · age=${ageMin == null ? '—' : ageMin + 'm'} · ${m.fixtures?.length ?? 0} fixtures`} />
+        {/* R2a — backend-vs-selection drift (a stale backend must NOT silently override the fresh pick). */}
+        <Row label="Backend manifest date / 后端日期" verdict={dr.backendDate ? 'ok' : 'warn'}
+             detail={`backend date=${dr.backendDate ?? 'MISSING'}${dr.backendAgeMin != null ? ' · age=' + Math.round(dr.backendAgeMin / 60) + 'h' : ''}`} />
+        <Row label="Selected date / 选定日期" verdict={dr.selectedDate ? 'ok' : 'warn'}
+             detail={`selected=${dr.selectedDate ?? '—'} (${dr.selectedKey ?? '—'})`} />
+        <Row label="Backend contains selection / 含选定" verdict={dr.backendContainsSelected ? 'ok' : 'warn'}
+             detail={dr.backendContainsSelected ? 'yes — backend slate has the selected hotspot' : 'no — backend slate is missing the selected hotspot'} />
+        <Row label="Active source / 生效来源" verdict={daily.source === 'backend' ? 'ok' : (daily.source === 'static' || daily.source === 'bundled' ? 'warn' : 'fail')}
+             detail={`${daily.source}${daily.source !== 'backend' ? ' (bundled/static fresh fallback)' : ' (live runtime)'}`} />
+        <Row label="Drift status / 漂移状态" verdict={dr.status === 'MATCH' ? 'ok' : dr.status === 'FALLBACK' ? 'warn' : 'fail'}
+             detail={`${dr.status} · ${dr.reason}`} />
         <Row label="Send status / 发送状态" verdict="warn" detail="HOLD — manual only; Owner per-channel GO required; no auto-send" />
       </div>
 

@@ -46,6 +46,10 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--base-url", default=None, help="probe a live backend (else code-wiring checks only)")
     ap.add_argument("--max-age-hours", type=float, default=36.0)
+    # R2a — go-live assertions: the live backend slate must match the expected fresh date/fixture,
+    # else an old slate would pass as OK (the exact R2 stale-backend bug).
+    ap.add_argument("--expected-date", default=None, help="require live backend generated_for_date == this")
+    ap.add_argument("--expected-fixture", default=None, help="require this fixture id/key in the live slate")
     a = ap.parse_args()
     fails, warns = [], []
 
@@ -102,10 +106,27 @@ def main():
         try:
             with urllib.request.urlopen(url, timeout=15) as resp:
                 live = json.loads(resp.read().decode("utf-8"))
-            n = len(live.get("fixtures", []))
+            mani = live.get("manifest") if isinstance(live.get("manifest"), dict) else live
+            fixtures = mani.get("fixtures") or live.get("fixtures") or []
+            n = len(fixtures)
             print("live GET %s -> %d fixtures" % (url, n))
             if n == 0:
                 fails.append("live endpoint returned 0 fixtures (nothing uploaded?)")
+            # R2a go-live assertions (only when expected values are provided).
+            live_date = mani.get("generated_for_date") or live.get("generated_for_date")
+            if a.expected_date:
+                print("live backend date = %s (expected %s)" % (live_date, a.expected_date))
+                if live_date != a.expected_date:
+                    fails.append("live backend date %r != expected %r (stale/unmatched slate — not R2 go-live ready)"
+                                 % (live_date, a.expected_date))
+            if a.expected_fixture:
+                keys = {str(f.get("id")) for f in fixtures} | {str(f.get("external_game_id")) for f in fixtures}
+                # tolerate an 'af:' prefix on the external id
+                keys |= {k.split(":", 1)[1] for k in list(keys) if isinstance(k, str) and ":" in k}
+                if a.expected_fixture not in keys:
+                    fails.append("expected fixture %r not in the live slate (backend not updated for R2)" % a.expected_fixture)
+                else:
+                    print("live backend contains expected fixture %s" % a.expected_fixture)
             # every completed (finished) fixture the live endpoint shows must also exist in the
             # static fallback manifest, so a backend outage can never hide a finished match.
             live_completed = {f.get("home") for f in live.get("fixtures", [])

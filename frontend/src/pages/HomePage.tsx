@@ -54,7 +54,9 @@ export function HomePage() {
 
   const [heat, setHeat] = useState<ApiCommunityHeat | null>(null);
   // P1.3b: daily fixtures read at RUNTIME (fetch), bundled data only as fallback.
-  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'bundled' });
+  const [daily, setDaily] = useState<ManifestLoad>({ manifest: FALLBACK_MANIFEST, source: 'bundled',
+    drift: { backendDate: null, backendAgeMin: null, selectedDate: null, selectedKey: null,
+      backendContainsSelected: false, status: 'FALLBACK', reason: 'loading…' } });
 
   useEffect(() => {
     let alive = true;
