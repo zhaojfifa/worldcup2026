@@ -7,6 +7,13 @@ recap → today's hotspot prediction → secondary schedule → other recaps →
 NOT a generic status/recap/fixture list. Source-level (component) checks so it passes pre-deploy;
 live DOM verification is done by scripts/check_customer_visible_copy.py + Owner visual review.
 
+⚠️ VISUAL CONTRAST IS NOT PROVEN BY ANY SCANNER (P8a hotfix, Owner 2026-06-15). This guard and
+check_customer_visible_copy.py both read TEXT ONLY — they cannot detect white-on-light / low-contrast
+rendering (the P8a score-hook bug passed every scanner while being unreadable). The homepage
+score-hook card (今日热点预测 · 俅哥主看 / 主比分 / 备选 / 冷门风险) MUST be screenshot-verified at
+mobile scale on every visual change; a green scanner run is NECESSARY BUT NOT SUFFICIENT for sign-off.
+Reference shot: docs/qa_screenshots/mvp2_p8a_contrast/.
+
 Checks (frontend/src/components/HomeProductLoop.tsx + data/dailyFixtures.ts):
   1. required zone titles present (zh): 昨日热点复盘 · 今日热点预测 · 今日赛程 · 其他复盘
   2. editorial selection helper selectProductLoop exists and is order-driven (first finished =

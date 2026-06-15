@@ -12,6 +12,12 @@
   --red: #E1252E;
   --txt: #0E2542;
   --sub: #5C6B82;
+  /* P8a hotfix — these were referenced (.sc-v/.sc-primary-score/.sc-frame/.db-title/.join-*) but
+     never defined. An undefined var makes `color` invalid → it inherits the parent color, which is
+     #fff inside the dark .th-hero homepage card → white-on-light score hook (unreadable). Defining
+     them gives high-contrast dark values everywhere; light /predict cards stay dark as before. */
+  --ink: #0E2542;
+  --blueDeep: #0A3D6E;
   --shadow: 0 2px 12px rgba(16, 60, 120, 0.08);
   --maxw: 430px;
   --radius: 18px;
