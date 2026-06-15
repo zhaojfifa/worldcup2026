@@ -5,6 +5,7 @@
 // The build-time generated import is kept ONLY as a fallback when the fetch fails.
 import fallbackManifest from './dailyFixtures.generated.json';
 import { hasPredictionArtifact } from './predictionArtifacts';
+import { getSelectedHotspot } from './selectedHotspot';
 
 export interface DailyFixtureRow {
   id: string | null;
@@ -110,16 +111,56 @@ export function selectProductLoop(m: DailyManifest): ProductLoop {
   const scheduled = fixtures.filter(f =>
     !FINISHED_STATES.has(f.lifecycle_state)
     && (f.preMatchAllowed ?? f.lifecycle_state === 'SCHEDULED'));
-  // P6 P0-2 (Owner): the homepage LEAD prediction must resolve to a prediction artifact. Slate
-  // order still decides WHICH fixture leads, but a scheduled fixture with no artifact can never
-  // be the lead (otherwise the score-call hook would be hollow). featuredRecap stays slate-first.
-  const featuredPrediction = scheduled.find(f => hasPredictionArtifact(leadKey(f))) ?? null;
+  // P7 P0-1 (Owner): selected_hotspot is the AUTHORITY for the lead — not slate order. The lead
+  // must still resolve to a prediction artifact (P6 P0-2 gate kept).
+  //  - selection present + in the slate + has an artifact → it is the lead.
+  //  - selection present + in the slate but NO artifact → lead = null (NO silent fallback to a
+  //    different match as the official pick; /internal/daily flags the readiness failure).
+  //  - selection present but NOT in today's scheduled slate (e.g. already kicked off) → safe
+  //    fallback to the first artifact-backed scheduled fixture.
+  //  - no selection persisted → safe fallback (first artifact-backed scheduled).
+  const sel = getSelectedHotspot();
+  const artifactBacked = () => scheduled.find(f => hasPredictionArtifact(leadKey(f))) ?? null;
+  let featuredPrediction: DailyFixtureRow | null;
+  if (sel) {
+    const selRow = scheduled.find(f => leadKey(f) === sel.fixture_key) ?? null;
+    featuredPrediction = selRow
+      ? (hasPredictionArtifact(leadKey(selRow)) ? selRow : null)
+      : artifactBacked();
+  } else {
+    featuredPrediction = artifactBacked();
+  }
   const secondarySchedule = scheduled.filter(f => f !== featuredPrediction);
   return {
     featuredRecap: finished[0] ?? null,
     featuredPrediction,
     otherRecaps: finished.slice(1),
     secondarySchedule,
+  };
+}
+
+/** P7 P0-1/P0-2 — readiness verdict for the homepage lead vs the persisted selected_hotspot.
+ *  Used by /internal/daily; pure, no fetch. */
+export interface LeadReadiness {
+  selectedKey: string | null;
+  leadKey: string | null;
+  selectionPresent: boolean;
+  selectionInSlate: boolean;
+  leadMatchesSelection: boolean;
+  leadHasArtifact: boolean;
+}
+export function leadReadiness(m: DailyManifest): LeadReadiness {
+  const sel = getSelectedHotspot();
+  const { featuredPrediction } = selectProductLoop(m);
+  const lk = featuredPrediction ? leadKey(featuredPrediction) : null;
+  const inSlate = !!sel && (m.fixtures ?? []).some(f => leadKey(f) === sel.fixture_key);
+  return {
+    selectedKey: sel?.fixture_key ?? null,
+    leadKey: lk,
+    selectionPresent: !!sel,
+    selectionInSlate: inSlate,
+    leadMatchesSelection: !!sel && lk === sel.fixture_key,
+    leadHasArtifact: hasPredictionArtifact(lk),
   };
 }
 

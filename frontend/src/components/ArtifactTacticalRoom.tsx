@@ -14,22 +14,26 @@ const CHROME = {
         leanL: '俅哥主看', scoreL: '主比分', backupL: '备选', riskL: '冷门风险', varL: '最大变量', whyL: '为什么',
         extL: '🌐 外部预期 · 公开预测倾向', t30L: '⏱️ T-30 · 开球前 30 分钟修正',
         focus: '今日建模关注', matchup: '战术对位', risks: '风险变量', thirty: '开球前 30 分钟修正', kickoffTba: '开球时间待确认',
-        rescoreCta: '看 30 分钟临场修正' },
+        rescoreCta: '看 30 分钟临场修正',
+        t30StateL: 'T-30 临场状态', t30Pending: '待确认 · 首发公布后群内更新最终倾向与参考比分', t30Skipped: '无重大变化，维持赛前判断' },
   vi: { title: 'Dự đoán điểm nóng hôm nay', room: 'Phòng chiến thuật', kicker: '⚡ Nhận định mạnh của Tiên Tri', en: 'STRONG CALL', mainSub: 'Nhận định chính hôm nay',
         leanL: 'Tiên Tri chốt', scoreL: 'Tỷ số chính', backupL: 'Phương án phụ', riskL: 'Rủi ro bất ngờ', varL: 'Biến số lớn nhất', whyL: 'Vì sao',
         extL: '🌐 Kỳ vọng bên ngoài · Xu hướng công khai', t30L: '⏱️ T-30 · Hiệu chỉnh 30 phút trước trận',
         focus: 'Tiêu điểm phân tích hôm nay', matchup: 'Đối đầu chiến thuật', risks: 'Biến số rủi ro', thirty: 'Hiệu chỉnh 30 phút trước trận', kickoffTba: 'Giờ bóng lăn chờ xác nhận',
-        rescoreCta: 'Xem hiệu chỉnh 30 phút sát giờ' },
+        rescoreCta: 'Xem hiệu chỉnh 30 phút sát giờ',
+        t30StateL: 'Trạng thái T-30', t30Pending: 'Chờ xác nhận · đội hình ra sẽ cập nhật thiên hướng cuối + tỷ số tham khảo trong nhóm', t30Skipped: 'Không thay đổi lớn, giữ nhận định trước trận' },
   my: { title: 'ဒီနေ့ အဓိကပွဲ ခန့်မှန်း', room: 'နည်းဗျူဟာခန်း', kicker: '⚡ Oracle ၏ ပြတ်သားသောအမြင်', en: 'STRONG CALL', mainSub: 'ဒီနေ့ အဓိက အမြင်',
         leanL: 'Oracle ပြတ်ပြတ်', scoreL: 'အဓိကစကော', backupL: 'အရန်', riskL: 'အံ့အားသင့် အန္တရာယ်', varL: 'အကြီးဆုံး variable', whyL: 'ဘာကြောင့်',
         extL: '🌐 ပြင်ပမျှော်လင့်ချက် · လူထုထင်မြင်ချက်', t30L: '⏱️ T-30 · ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ',
         focus: 'ဒီနေ့ ပိုင်းခြားသုံးသပ် အာရုံစိုက်ချက်', matchup: 'နည်းဗျူဟာ ထိပ်တိုက်', risks: 'အန္တရာယ် variable', thirty: 'ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ', kickoffTba: 'ပွဲစချိန် အတည်ပြုရန်',
-        rescoreCta: 'မိနစ် ၃၀ ပွဲနီး ပြန်ညှိ ကြည့်ရန်' },
+        rescoreCta: 'မိနစ် ၃၀ ပွဲနီး ပြန်ညှိ ကြည့်ရန်',
+        t30StateL: 'T-30 အခြေအနေ', t30Pending: 'အတည်ပြုရန် စောင့်ဆဲ · lineup ထွက်ရင် အဖွဲ့ထဲ နောက်ဆုံးအမြင်+ရည်ညွှန်းစကော တင်မည်', t30Skipped: 'ပြောင်းလဲမှု မရှိ၊ ပွဲကြိုအမြင် ဆက်ထား' },
   en: { title: "Today's hotspot prediction", room: 'Tactical room', kicker: '⚡ Strong call', en: 'STRONG CALL', mainSub: "Today's main read",
         leanL: 'Lean', scoreL: 'Score', backupL: 'Backup', riskL: 'Upset risk', varL: 'Biggest variable', whyL: 'Why',
         extL: '🌐 External expectation · public tendency', t30L: '⏱️ T-30 · 30-minute correction',
         focus: 'Modeling focus', matchup: 'Tactical matchup', risks: 'Risk variables', thirty: '30-minute pre-match correction', kickoffTba: 'Kickoff time pending',
-        rescoreCta: 'See the 30-minute live correction' },
+        rescoreCta: 'See the 30-minute live correction',
+        t30StateL: 'T-30 status', t30Pending: 'Pending · final lean + reference score posted in the group once lineups are out', t30Skipped: 'No major change; pre-match read holds' },
 };
 function chrome(loc: Locale) { return loc === 'zh' ? CHROME.zh : loc === 'vi' ? CHROME.vi : loc === 'my' ? CHROME.my : CHROME.en; }
 
@@ -98,6 +102,16 @@ export function ArtifactTacticalRoom({ art, loc }: { art: PredictionArtifact; lo
         <FocusList title={C.risks} items={A.analysis.risk_variables} />
         <div className="plp-focus" id="live30">
           <div className="plp-focus-title">{C.thirty}</div>
+          {/* P7 P0-4: honest T-30 readiness — pending checkpoint (never a faked update), or the
+              operator-confirmed re-check once lineups are out. */}
+          {(() => {
+            const t = art.t30;
+            const txt = !t || t.status === 'pending' ? C.t30Pending
+              : t.status === 'skipped' ? C.t30Skipped
+                : (t.update_text || C.t30Pending);
+            const cls = t && t.status === 'ready' ? 'ready' : 'pending';
+            return <div className={`t30-status ${cls}`}><span className="t30-k">{C.t30StateL}</span> {txt}</div>;
+          })()}
           <ul className="plp-bullets">{A.analysis.thirty_minute_checklist.map((b, i) => <li key={i}>{b}</li>)}</ul>
         </div>
         <ShareBlock kind="prematch" fixtureId={art.fixture_key} loc={loc}

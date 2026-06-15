@@ -8,7 +8,30 @@
   "kickoffUtc": null,
   "source": "operator_confirmed",
   "prediction_confirmed": true,
-  "note": "Operator-confirmed initial pre-match judgment (Owner P5b). A qualitative scout call with a reference scoreline — not a precise probability. Customer-safe vocabulary only; external_expectation uses ONLY safe terms (公开预测倾向 / 热度集中 / 冷门变量). T-30 re-confirms before kickoff.",
+  "field_sources": {
+    "score_call": "operator_confirmed",
+    "backup_score": "operator_confirmed",
+    "risk_level": "operator_confirmed",
+    "primary_direction": "operator_confirmed",
+    "top_variable": "operator_confirmed",
+    "why": "operator_confirmed",
+    "tactical_matchup": "operator_confirmed",
+    "risk_variables": "operator_confirmed",
+    "external_expectation": "operator_confirmed",
+    "win_prob": "unavailable",
+    "confidence": "unavailable"
+  },
+  "data_snapshot": null,
+  "modeling_output": null,
+  "generated_judgment": null,
+  "t30": {
+    "status": "pending",
+    "checked_at": null,
+    "update_text": null,
+    "changed_fields": [],
+    "operator_note": null
+  },
+  "note": "P7 P0-3/P0-4: operator-confirmed initial pre-match judgment (Owner). A qualitative scout call with a reference scoreline — NOT a precise probability (win_prob/confidence remain unavailable; the frontend never invents them). All judgement fields are field_sources=operator_confirmed; the structured data_snapshot/modeling_output/generated_judgment blocks stay null until the P1 model + generation bridge fills them. external_expectation uses ONLY safe terms. T-30 slot is pending until lineups out.",
   "i18n": {
     "zh": {
       "pending_direction": "方向待临场确认",

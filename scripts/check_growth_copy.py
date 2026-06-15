@@ -53,6 +53,9 @@ GLOBS = [
     # P6 — homepage product loop + persisted daily editorial selection
     "frontend/src/components/HomeProductLoop.tsx",
     "docs/data_audit/mvp2_predictions/*.json",
+    # P7 — internal daily readiness page + bundled selected_hotspot
+    "frontend/src/pages/DailyStatusPage.tsx",
+    "frontend/src/data/selectedHotspot.json",
 ]
 
 BETTING = ["博彩", "赔率", "盘口", "下注", "投注", "庄家", "让球", "大小球", "跟单", "竞猜", "串关",

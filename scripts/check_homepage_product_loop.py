@@ -32,6 +32,23 @@ DATA = ROOT / "frontend" / "src" / "data" / "dailyFixtures.ts"
 HOME = ROOT / "frontend" / "src" / "pages" / "HomePage.tsx"
 MANIFEST = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"
 PRED_ART_DIR = ROOT / "frontend" / "src" / "data" / "predictionArtifacts"
+SELECTED = ROOT / "frontend" / "src" / "data" / "selectedHotspot.json"
+
+
+def scan_selected(sel, m, art_keys):
+    """P7 P0-1: selected_hotspot is the lead authority — it must be in the slate AND artifact-backed."""
+    fails = []
+    if not sel or sel.get("status") != "active" or not sel.get("fixture_key"):
+        fails.append("selected_hotspot missing/inactive (P7 P0-1: homepage lead has no authority)")
+        return fails
+    key = sel["fixture_key"]
+    fxs = m.get("fixtures", [])
+    rows = [f for f in fxs if (f.get("id") or f.get("external_game_id")) == key]
+    if not rows:
+        fails.append("selected_hotspot %r is not in the runtime slate" % key)
+    elif key not in art_keys:
+        fails.append("selected_hotspot %r has no prediction artifact (lead would be hollow)" % key)
+    return fails
 
 
 def prediction_artifact_keys():
@@ -85,6 +102,9 @@ def scan(loop_src, data_src, home_src):
             fails.append("selectProductLoop featuredRecap is not slate-first (expected finished[0])")
         if "hasPredictionArtifact" not in data_src:
             fails.append("selectProductLoop lead prediction is not artifact-gated (P6 P0-2: hasPredictionArtifact)")
+        # P7 P0-1: the lead is selected_hotspot-AUTHORITATIVE, not slate order.
+        if "getSelectedHotspot" not in data_src:
+            fails.append("selectProductLoop is not selected_hotspot-authoritative (P7 P0-1: getSelectedHotspot)")
     if "selectProductLoop" not in loop_src:
         fails.append("HomeProductLoop does not use selectProductLoop")
     for w in GENERATION_BANNED:
@@ -180,9 +200,10 @@ def selftest():
         {"home": "Netherlands", "away": "Japan", "lifecycle_state": "SCHEDULED", "preMatchAllowed": True,
          "external_game_id": "manual:Nether-Japan-20260614"},
     ]}
-    good_data = ("export function selectProductLoop(m){ const finished=...; finished[0]; "
-                 "scheduled.find(f=>hasPredictionArtifact(leadKey(f))); }")
+    good_data = ("export function selectProductLoop(m){ const sel=getSelectedHotspot(); const finished=...; "
+                 "finished[0]; scheduled.find(f=>hasPredictionArtifact(leadKey(f))); }")
     good_home = "<HomeProductLoop manifest={daily.manifest} loc={loc} />"
+    good_sel = {"status": "active", "fixture_key": "manual:Nether-Japan-20260614"}
     checks = []
     checks.append(("clean passes", scan(good_loop, good_data, good_home) == []))
     checks.append(("missing title caught", any("今日热点预测" in f for f in scan("昨日热点复盘 今日赛程 其他复盘 selectProductLoop recapReady", good_data, good_home))))
@@ -199,7 +220,11 @@ def selftest():
     checks.append(("missing CopyLink caught", any("CopyLink" in f for f in scan(good_loop.replace("CopyLink", ""), good_data, good_home))))
     checks.append(("missing 主比分 hook caught", any("主比分" in f for f in scan(good_loop.replace("主比分", ""), good_data, good_home))))
     checks.append(("artifact-gating missing caught", any("artifact-gated" in f for f in scan(good_loop, "export function selectProductLoop(){ finished[0]; }", good_home))))
+    checks.append(("selected-hotspot wiring missing caught", any("selected_hotspot-authoritative" in f for f in scan(good_loop, "export function selectProductLoop(){ finished[0]; scheduled.find(f=>hasPredictionArtifact(leadKey(f))); }", good_home))))
     checks.append(("manifest scenario passes", scan_manifest(good_manifest, TEST_ART) == []))
+    checks.append(("selected_hotspot scenario passes", scan_selected(good_sel, good_manifest, TEST_ART) == []))
+    checks.append(("missing selected_hotspot caught", any("no authority" in f for f in scan_selected(None, good_manifest, TEST_ART))))
+    checks.append(("selected-not-artifact caught", any("hollow" in f for f in scan_selected(good_sel, good_manifest, set()))))
     checks.append(("non-artifact lead caught", any("featured prediction" in f for f in scan_manifest(good_manifest, set()))))
     checks.append(("wrong recap lead caught", any("featured recap" in f for f in scan_manifest(
         {"fixtures": [{"home": "Mexico", "away": "South Africa", "lifecycle_state": "RECAP_READY", "recapReady": True},
@@ -223,7 +248,11 @@ def main():
     fails = scan(LOOP.read_text(encoding="utf-8"), DATA.read_text(encoding="utf-8"), HOME.read_text(encoding="utf-8"))
     if MANIFEST.exists():
         import json
-        fails += scan_manifest(json.loads(MANIFEST.read_text(encoding="utf-8")))
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        fails += scan_manifest(manifest)
+        # P7 P0-1: selected_hotspot must be the artifact-backed lead authority.
+        sel = json.loads(SELECTED.read_text(encoding="utf-8")) if SELECTED.exists() else None
+        fails += scan_selected(sel, manifest, prediction_artifact_keys())
     else:
         fails.append("runtime manifest %s missing (cannot validate homepage output teams)" % MANIFEST.name)
     for f in fails:

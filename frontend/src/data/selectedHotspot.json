@@ -1,0 +1,10 @@
+{
+  "date": "2026-06-14",
+  "fixture_key": "manual:Nether-Japan-20260614",
+  "home": "Netherlands",
+  "away": "Japan",
+  "source": "operator_confirmed",
+  "prediction_artifact_path": "frontend/src/data/predictionArtifacts/manual_Nether-Japan-20260614.json",
+  "operator_confirmed": true,
+  "status": "active"
+}

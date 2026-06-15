@@ -182,22 +182,25 @@ def build_package(kind, fid, lang, ref):
         learn = {"zh": "复盘校准：赛前看方向，临场看变量，赛后看校准。",
                  "vi": "Hiệu chỉnh: trước trận xem hướng, sát giờ xem biến số, sau trận xem hiệu chỉnh.",
                  "my": "ပြန်ညှိချက်: ပွဲကြို ဦးတည်ချက် · ပွဲနီး variable · ပွဲပြီး ပြန်ညှိချက်။"}[lang]
-        nxt = {"zh": "下一场 Brazil vs Morocco，开球前 30 分钟继续看首发修正。\n👇进群看临场修正：",
-               "vi": "Trận tới Brazil vs Morocco, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.\n👇Vào nhóm:",
-               "my": "နောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
+        # P7 P0-6: the "next match" hook is fixture-AGNOSTIC (was a stale hardcoded "Brazil vs
+        # Morocco" — mirrors the P6 frontend NEXT_HOOK de-hardcode). The specific next fixture comes
+        # from the daily slate at send time, not a literal opponent baked into the recap kit.
+        nxt = {"zh": "下一场比赛，开球前 30 分钟继续看首发修正。\n👇进群看临场修正：",
+               "vi": "Trận tới, tiếp tục xem hiệu chỉnh đội hình 30 phút trước giờ đá.\n👇Vào nhóm:",
+               "my": "နောက်ပွဲ — မိနစ် ၃၀ lineup ပြန်တွက်ချက် ဆက်ကြည့်ပါ။\n👇အဖွဲ့ဝင်ရန်:"}[lang]
         lines = ["%s：%s" % (head, n["short_title"])]
         if right:
             lines.append("%s：%s" % (right_lbl, right))
         dev_lbl = {"zh": "比分为什么偏离", "vi": "Vì sao tỷ số lệch", "my": "စကော ဘာကြောင့်လွဲ"}[lang]
         lines += ["%s：%s" % (dev_lbl, n["screenshot_line"]), learn, nxt, link]
-        video_script = {"zh": "%s。%s。%s 下一场 Brazil vs Morocco，开球前30分钟，首发出来群内重算。想看，进群。" % (
+        video_script = {"zh": "%s。%s。%s 下一场比赛，开球前30分钟，首发出来群内重算。想看，进群。" % (
                             n["short_title"], n["screenshot_line"], learn),
-                        "vi": "%s. %s. %s Trận tới Brazil vs Morocco — nhóm tính lại 30 phút trước giờ đá. Vào nhóm." % (
+                        "vi": "%s. %s. %s Trận tới — nhóm tính lại 30 phút trước giờ đá. Vào nhóm." % (
                             n["short_title"], n["screenshot_line"], learn),
-                        "my": "%s။ %s။ နောက်ပွဲ Brazil vs Morocco — မိနစ် ၃၀ ပြန်တွက်မည်။ အဖွဲ့ဝင်ပါ။" % (
+                        "my": "%s။ %s။ နောက်ပွဲ — မိနစ် ၃၀ ပြန်တွက်မည်။ အဖွဲ့ဝင်ပါ။" % (
                             n["short_title"], n["screenshot_line"])}[lang]
         meta = {"fixture_id": fid, "recap_line": n["screenshot_line"], "what_was_right": right,
-                "what_changed_score": changed, "next_fixture_hook": "1489371 Brazil vs Morocco T-30",
+                "what_changed_score": changed, "next_fixture_hook": "next match · T-30 rescore",
                 "share_link": link,
                 "lifecycle_state": lc["new_state"], "lifecycle_gate": "allowed"}
     return {"kind": kind, "lang": lang, "ref": ref or DEFAULT_REF[lang],

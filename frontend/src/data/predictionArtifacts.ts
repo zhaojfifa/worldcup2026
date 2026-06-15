@@ -33,6 +33,18 @@ export interface PredictionArtifactLocale {
   analysis: ArtifactAnalysis;
   operations: ArtifactOps;
 }
+// P7 P0-4 — persisted T-30 readiness slot. status=pending pre-lineups (honest checkpoint, never a
+// faked update); ready once the operator confirms the lineups-out re-check; skipped if no change.
+export interface ArtifactT30 {
+  status: 'pending' | 'ready' | 'skipped';
+  checked_at: string | null;
+  update_text: string | null;       // operator-confirmed re-check copy (null while pending)
+  changed_fields: string[];         // which call fields changed at T-30 (empty while pending)
+  operator_note: string | null;
+}
+// P7 P0-3 — per-field provenance. Owner: operator-confirmed fields are allowed when computed fields
+// are unavailable, but MUST be source-tagged; the frontend never invents win_prob/confidence.
+export type FieldSource = 'operator_confirmed' | 'operator_estimated' | 'model' | 'generated' | 'unavailable';
 export interface PredictionArtifact {
   date: string;
   fixture_key: string;
@@ -43,6 +55,12 @@ export interface PredictionArtifact {
   kickoffUtc: string | null;
   source: string;
   prediction_confirmed: boolean;
+  // P7 P0-3 optional structured content layers (back-compat: legacy flat i18n still drives render).
+  field_sources?: Partial<Record<string, FieldSource>>;
+  data_snapshot?: Record<string, unknown> | null;     // model inputs + source_refs (P1)
+  modeling_output?: Record<string, unknown> | null;   // model-derived score/lean/risk (P1)
+  generated_judgment?: Record<string, unknown> | null; // generated tactical/why/external (P1)
+  t30?: ArtifactT30;
   i18n: Partial<Record<Locale, PredictionArtifactLocale>>;
 }
 
@@ -75,9 +93,7 @@ export interface ObservationArtifact {
 }
 
 const PREDICTION: PredictionArtifact[] = [netherJapan as PredictionArtifact];
-const OBSERVATION: Record<string, ObservationArtifact> = {
-  '1489371': observation1489371 as ObservationArtifact,
-};
+const OBSERVATION: ObservationArtifact[] = [observation1489371 as ObservationArtifact];
 
 /** Resolve a prediction artifact by route key — matches the manifest fixture_key
  *  (external_game_id) or a numeric id. Used by /predict for the manual daily hotspot. */
@@ -96,10 +112,15 @@ export function predictionArtifactLocale(a: PredictionArtifact, loc: Locale): Pr
   return a.i18n[loc] ?? a.i18n.en ?? (a.i18n.zh as PredictionArtifactLocale);
 }
 
-/** Recap/observation artifact by fixture id — used by /recap for a tracked hotspot whose
- *  full recap is not ready (recap_ready=false). Never a fake recap. */
-export function getObservationArtifact(id: string): ObservationArtifact | null {
-  return OBSERVATION[id] ?? null;
+/** Recap/observation artifact by fixture_key OR numeric id — used by /recap for a tracked hotspot
+ *  whose full recap is not ready (recap_ready=false). Never a fake recap.
+ *  P7 P0-5: keyed by fixture_key as well as id so a MANUAL hotspot (id=null) carries over next-day. */
+export function getObservationArtifact(key: string): ObservationArtifact | null {
+  return OBSERVATION.find(o => o.fixture_key === key || (o.id != null && o.id === key)) ?? null;
+}
+/** Does a finished fixture (by key or id) have an observation/recap artifact? (readiness page) */
+export function hasObservationArtifact(key: string | null | undefined): boolean {
+  return !!key && getObservationArtifact(key) != null;
 }
 export function observationArtifactLocale(a: ObservationArtifact, loc: Locale): ObservationArtifactLocale {
   return a.i18n[loc] ?? a.i18n.en ?? (a.i18n.zh as ObservationArtifactLocale);

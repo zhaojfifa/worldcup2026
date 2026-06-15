@@ -148,6 +148,24 @@ def scan_prediction(a):
         fails.append("prediction zh score_call must be a confirmed main score (Owner P5b: no weak default)")
     if not zp.get("backup_score"):
         fails.append("prediction zh backup_score must be a confirmed backup (Owner P5b)")
+    # P7 P0-3: per-field provenance (source tagging); win_prob/confidence may NOT be operator-typed.
+    fsv = a.get("field_sources")
+    if not isinstance(fsv, dict) or not fsv:
+        fails.append("prediction artifact missing field_sources (P7 source tagging)")
+    else:
+        valid = {"operator_confirmed", "operator_estimated", "model", "generated", "unavailable"}
+        for k, v in fsv.items():
+            if v not in valid:
+                fails.append("prediction field_sources.%s=%r not a valid source tag" % (k, v))
+        for numeric in ("win_prob", "confidence"):
+            if fsv.get(numeric) in ("operator_confirmed", "operator_estimated"):
+                fails.append("prediction %s must not be operator-typed (no fake probability)" % numeric)
+    # P7 P0-4: persisted T-30 slot; pending => no faked update_text.
+    t = a.get("t30")
+    if not isinstance(t, dict) or t.get("status") not in ("pending", "ready", "skipped"):
+        fails.append("prediction artifact missing a valid t30 slot (status pending|ready|skipped)")
+    elif t.get("status") == "pending" and t.get("update_text"):
+        fails.append("prediction t30 is pending but has update_text (faked update)")
     fails += scan_content_words(i18n, "prediction")
     return fails
 

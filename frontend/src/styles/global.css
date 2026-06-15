@@ -1632,6 +1632,19 @@ body {
 .plp-teaser .sc-row { padding: 4px 0; }
 /* P6 P0-3: T-30 rescore scroll anchor link in the artifact strong call. */
 .sc-rescore-link { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--blueMid); text-decoration: none; }
+/* P7 P0-4: honest T-30 readiness line (pending checkpoint vs confirmed update). */
+.t30-status { margin: 2px 0 6px; font-size: 12px; line-height: 1.5; padding: 5px 8px; border-radius: 8px; background: #FFF6E2; border: 1px solid #F0D58A; color: #8A5B00; }
+.t30-status.ready { background: #EAF6EC; border-color: #BFE3C6; color: #1F6B33; }
+.t30-status .t30-k { font-weight: 800; margin-right: 4px; }
+/* P7 P0-2: /internal/daily operator readiness panel (internal, plain). */
+.internal-daily .id-banner { font-size: 12px; font-weight: 800; color: #5A3B00; background: #FFF1CC; border: 1px solid #F0D58A; border-radius: 8px; padding: 7px 10px; margin: 6px 0; }
+.id-card { padding: 4px 8px; }
+.idr { display: grid; grid-template-columns: 22px 150px 1fr; gap: 8px; align-items: baseline; padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 12px; }
+.idr:last-child { border-bottom: 0; }
+.idr-l { font-weight: 700; color: var(--ink, #1A2233); }
+.idr-d { color: var(--sub); line-height: 1.45; word-break: break-word; }
+.idr[data-v="fail"] .idr-l { color: #B42318; }
+.id-links { display: flex; flex-wrap: wrap; gap: 6px; }
 .md-cta { background: var(--blueMid); color: #fff; border: none; border-radius: 8px;
   padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .md-chip { font-size: 11px; padding: 3px 9px; border-radius: 7px; white-space: nowrap; }

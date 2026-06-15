@@ -4,6 +4,15 @@ import { selectProductLoop, leadKey, type DailyManifest, type DailyFixtureRow } 
 import { frozenFor } from './UpcomingTacticalStrip';
 import { CopyLink } from './CopyLink';
 import { buildStrongCall } from '../growth/strongCallProjection';
+import { hasObservationArtifact } from '../data/predictionArtifacts';
+
+// P7 P0-5: the recap route key for a finished fixture — numeric id, else the fixture_key when a
+// manual hotspot (id=null) has an observation artifact (carryover). null = no recap surface yet.
+function recapKeyFor(f: DailyFixtureRow): string | null {
+  if (f.id) return f.id;
+  const k = leadKey(f);
+  return k && hasObservationArtifact(k) ? encodeURIComponent(k) : null;
+}
 
 // MVP2-P3 — the tactical-room route key for a fixture. Real fixtures route by numeric id;
 // manual fixtures (id=null, e.g. today's hotspot before a narrative exists) route by their
@@ -147,6 +156,7 @@ function HotspotRecap({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
   const C = loc3(loc);
   const FZ = frozenFor(loc);
   const sc = scoreLine(f);
+  const rKey = recapKeyFor(f);
   const ready = !!f.recapReady && !!f.id;
   return (
     <>
@@ -158,17 +168,18 @@ function HotspotRecap({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <FocusBlock title={C.recapFocus} bullets={C.recapBullets} home={f.home} away={f.away} score={sc} />
         <div className="pp-cta-row">
           {/* recapReady=true → 查看复盘 (real recap); recapReady=false but tracked → 查看赛后观察
-              (safe observation page, never a fake recap). Both land on /recap/:id. */}
-          {f.id && (
-            <button className="recap-cta-btn" onClick={() => navigate(`/recap/${f.id}`)}>
+              (safe observation page, never a fake recap). P7 P0-5: route by id OR fixture_key so a
+              manual hotspot (id=null) with an observation artifact still carries over. */}
+          {rKey && (
+            <button className="recap-cta-btn" onClick={() => navigate(`/recap/${rKey}`)}>
               {ready ? FZ.viewRecap : C.viewObs} ▸
             </button>
           )}
           <button className="recap-cta-btn alt" onClick={() => navigate('/community')}>{FZ.joinPost} ▸</button>
         </div>
-        {f.id && (
+        {rKey && (
           <div className="share-block">
-            <CopyLink path={`/recap/${f.id}`} loc={loc} label={C.copyShare} doneLabel={C.copyDone} />
+            <CopyLink path={`/recap/${rKey}`} loc={loc} label={C.copyShare} doneLabel={C.copyDone} />
           </div>
         )}
       </div>
