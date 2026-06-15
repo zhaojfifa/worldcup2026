@@ -20,9 +20,10 @@ interface QueueRow {
 }
 interface RecapRow { fixture_key: string; home: string; away: string; score?: string | null; recap_state: string; has_observation: boolean }
 interface T30Row { fixture_key: string; home: string; away: string; t30_status: string }
+interface AutogenRow { fixture_key: string; home: string; away: string; provider?: string; mode?: string; status?: string }
 interface ContentQueue {
   date?: string; primary_hotspot?: QueueRow | null; secondary_matches?: QueueRow[];
-  recap_queue?: RecapRow[]; t30_queue?: T30Row[]; send_status?: string;
+  recap_queue?: RecapRow[]; t30_queue?: T30Row[]; send_status?: string; autogen_drafts?: AutogenRow[];
 }
 const CONTENT_QUEUE = contentQueueRaw as ContentQueue;
 
@@ -204,6 +205,11 @@ export function DailyStatusPage() {
              detail={(CONTENT_QUEUE.recap_queue ?? []).map(rq => `${rq.home} vs ${rq.away} ${rq.score ?? ''}→${rq.recap_state}`).join(' · ') || 'none'} />
         <Row label="Source coverage / 来源覆盖" verdict={(CONTENT_QUEUE.secondary_matches ?? []).concat(CONTENT_QUEUE.primary_hotspot ? [CONTENT_QUEUE.primary_hotspot] : []).some(x => x.source_coverage === 'missing') ? 'warn' : 'ok'}
              detail={(CONTENT_QUEUE.secondary_matches ?? []).concat(CONTENT_QUEUE.primary_hotspot ? [CONTENT_QUEUE.primary_hotspot] : []).filter(x => x.source_coverage !== 'computed').map(x => `${x.home}/${x.away}:${x.source_coverage}`).join(' · ') || 'all computed'} />
+        {/* P1B — auto-LLM generated-draft status (draft only; operator review still required before publish). */}
+        <Row label="Auto-draft status / 自动草稿" verdict={(CONTENT_QUEUE.autogen_drafts?.length ?? 0) >= 1 ? 'ok' : 'na'}
+             detail={(CONTENT_QUEUE.autogen_drafts ?? []).length
+               ? (CONTENT_QUEUE.autogen_drafts ?? []).map(g => `${g.home}:${g.status}(${g.provider}/${g.mode})`).join(' · ') + ' · review required before publish'
+               : 'no generated drafts (run autogen generator)'} />
         <Row label="Queue send status / 队列发送" verdict="warn" detail={`${CONTENT_QUEUE.send_status ?? 'HOLD'} — no auto-send`} />
       </div>
 

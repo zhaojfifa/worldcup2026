@@ -63,6 +63,21 @@ KNOWN = {
     ("brazil", "morocco"): {
         "internal": "1489371", "kickoff": "2026-06-13T22:00:00+00:00",
         "flag_home": "🇧🇷", "flag_away": "🇲🇦", "group": "Group Stage · 1"},
+    # P1A — real API-FOOTBALL fixture IDs for the 2026-06-15 slate (same IDs already in the bundled
+    # manifest + prediction artifacts). Mapping them here lets the uploaded registry carry the real
+    # internal_fixture_id so the runtime daily-fixtures check resolves them (no faked ids).
+    ("belgium", "egypt"): {
+        "internal": "1489377", "kickoff": "2026-06-15T19:00:00+00:00",
+        "flag_home": "🇧🇪", "flag_away": "🇪🇬", "group": "Group Stage · 1"},
+    ("saudi arabia", "uruguay"): {
+        "internal": "1489379", "kickoff": "2026-06-15T22:00:00+00:00",
+        "flag_home": "🇸🇦", "flag_away": "🇺🇾", "group": "Group Stage · 1"},
+    ("spain", "cape verde islands"): {
+        "internal": "1489380", "kickoff": "2026-06-15T16:00:00+00:00",
+        "flag_home": "🇪🇸", "flag_away": "🇨🇻", "group": "Group Stage · 1"},
+    ("sweden", "tunisia"): {
+        "internal": "1539002", "kickoff": "2026-06-15T02:00:00+00:00",
+        "flag_home": "🇸🇪", "flag_away": "🇹🇳", "group": "Group Stage · 1"},
 }
 # team-name aliases -> canonical lower-case key used above
 ALIASES = {

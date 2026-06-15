@@ -1,0 +1,52 @@
+{
+  "date": "20260615",
+  "fixture_key": "1489379",
+  "home": "Saudi Arabia",
+  "away": "Uruguay",
+  "role": "secondary",
+  "provider": "deepseek",
+  "mode": "live",
+  "status": "GUARD_PASSED",
+  "guard_issues": [],
+  "model_source": "computed",
+  "draft": {
+    "strong_headline": "乌拉圭实力碾压，沙特难阻败局",
+    "main_lean": "客胜",
+    "primary_score": "0-1",
+    "backup_scores": [
+      "0-2",
+      "0-3"
+    ],
+    "risk_level": "中",
+    "top_variable": "乌拉圭中场控制力与沙特防线抗压能力",
+    "why": "乌拉圭Elo评分1872，领先沙特227分，近期状态4胜4平2负且防守稳固（9失球）；沙特虽主场但近10场6负，防守端场均失1.5球，面对乌拉圭的体系化进攻恐难招架。",
+    "tactical_beats": [
+      "乌拉圭擅长利用边中结合，沙特三中卫体系可能被宽度拉开后暴露空当",
+      "沙特反击依赖边锋速度，但乌拉圭双后腰覆盖能力出色，可切断其转换线路"
+    ],
+    "data_source_basis": "Kaggle Elo评分（沙特1645 vs 乌拉圭1872）、近10场战绩（沙特4胜6负/乌拉圭4胜4平2负）、泊松分布（0.59-1.91）支撑0-1/0-2/0-3比分区间",
+    "external_expectation_safe": [
+      "公开预测倾向乌拉圭小胜",
+      "热度集中在客胜方向，但沙特主场存在一定拉力",
+      "冷门变量：沙特若死守反击且乌拉圭久攻不下，可能0-0闷平"
+    ],
+    "t30_checklist": [
+      "首发阵容与位置",
+      "阵型与三/四后卫选择",
+      "核心球员状态与热身",
+      "临场热度与风险方向",
+      "开球前再确认方向"
+    ],
+    "homepage_short": "乌拉圭实力占优，沙特主场难挡",
+    "predict_medium": "主队受让平负",
+    "share_copy": "沙特vs乌拉圭：数据模型指向客胜，0-1是核心比分",
+    "recap_seed": "若乌拉圭控制中场并尽早破门，则0-1/0-2可期；若沙特反击效率高，可能制造冷门。",
+    "safety_flags": {
+      "no_betting_vocab": true,
+      "no_fake_probability": true,
+      "no_fake_events": true,
+      "no_auto_send": true
+    }
+  },
+  "_note": "GENERATED draft for OPERATOR REVIEW only — NOT published. Operator must copy/edit into docs/data_audit/mvp2_predictions/reviewed/20260615_1489379_reviewed.json then run mvp2_build_daily_prediction_artifact.py apply. No auto-publish, no auto-send."
+}

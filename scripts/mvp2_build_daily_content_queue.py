@@ -32,6 +32,7 @@ PRED_DIR = ROOT / "frontend" / "src" / "data" / "predictionArtifacts"
 MANIFEST = ROOT / "frontend" / "public" / "data" / "daily-fixtures.json"
 FALLBACK_MANIFEST = ROOT / "frontend" / "src" / "data" / "dailyFixtures.generated.json"
 QUEUE = ROOT / "frontend" / "src" / "data" / "dailyContentQueue.json"
+GEN_DIR = ROOT / "docs" / "data_audit" / "mvp2_predictions" / "generated"
 
 # Transparent priority inputs (documented in MATCH_PRIORITY_QUEUE.md). Popularity / market relevance
 # are small static lists — editorial, not a model. Host nations 2026 = USA/Canada/Mexico; market =
@@ -205,10 +206,22 @@ def build(now_iso=None):
             t30_q.append({"fixture_key": r["fixture_key"], "home": r["home"], "away": r["away"],
                           "t30_status": t.get("status", "pending"), "kickoffUtc": r["kickoffUtc"]})
 
+    # P1B — auto-LLM generated-draft status per fixture (read the generated/ drafts; never auto-publish)
+    autogen = []
+    if GEN_DIR.exists():
+        for gp in sorted(GEN_DIR.glob("*_generated.json")):
+            try:
+                g = json.loads(gp.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            autogen.append({"fixture_key": str(g.get("fixture_key")), "home": g.get("home"), "away": g.get("away"),
+                            "provider": g.get("provider"), "mode": g.get("mode"), "status": g.get("status")})
+
     queue = {
         "date": slate_date,
         "generated_at": now_iso or man.get("generated_at"),
         "built_by": "mvp2_build_daily_content_queue.py",
+        "autogen_drafts": autogen,
         "scoring": {"weights": {"popular": 25, "market": 20, "host": 15, "model_computed": 20,
                                 "model_estimated": 8, "narrative_upset": 10, "scheduled": 10},
                     "note": "transparent editorial priority — never a betting/odds signal"},

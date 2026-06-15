@@ -2,6 +2,24 @@
   "date": "2026-06-15",
   "generated_at": "2026-06-15T12:00:00+00:00",
   "built_by": "mvp2_build_daily_content_queue.py",
+  "autogen_drafts": [
+    {
+      "fixture_key": "1489377",
+      "home": "Belgium",
+      "away": "Egypt",
+      "provider": "deepseek",
+      "mode": "live",
+      "status": "GUARD_PASSED"
+    },
+    {
+      "fixture_key": "1489379",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "provider": "deepseek",
+      "mode": "live",
+      "status": "GUARD_PASSED"
+    }
+  ],
   "scoring": {
     "weights": {
       "popular": 25,

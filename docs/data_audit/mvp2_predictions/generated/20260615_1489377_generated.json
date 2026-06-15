@@ -1,0 +1,52 @@
+{
+  "date": "20260615",
+  "fixture_key": "1489377",
+  "home": "Belgium",
+  "away": "Egypt",
+  "role": "primary",
+  "provider": "deepseek",
+  "mode": "live",
+  "status": "GUARD_PASSED",
+  "guard_issues": [],
+  "model_source": "computed",
+  "draft": {
+    "strong_headline": "比利时碾压式进攻，埃及防线难挡",
+    "main_lean": "比利时主场大胜可期",
+    "primary_score": "1-0",
+    "backup_scores": [
+      "2-0",
+      "1-1"
+    ],
+    "risk_level": "中",
+    "top_variable": "比利时高位逼抢与埃及后场出球失误率",
+    "why": "比利时近10场狂轰37球，场均3.7球，而埃及进攻乏力仅13球；Elo差距129分，实力悬殊。",
+    "tactical_beats": [
+      "比利时左路突击（如卡拉斯科）将针对埃及右后卫速度短板",
+      "埃及双后腰若无法保护防线，比利时中路渗透（德布劳内）将直接威胁球门"
+    ],
+    "data_source_basis": "Kaggle Elo: 比利时1885 vs 埃及1756（差距129）；近10场战绩：比利时7胜3平0负，进37失6；埃及5胜3平2负，进13失6；泊松分布1.78-0.72，推荐1-0。",
+    "external_expectation_safe": [
+      "公开预测倾向比利时轻松取胜",
+      "热度集中在比利时大胜方向",
+      "冷门变量：埃及若死守反击，可能逼平"
+    ],
+    "t30_checklist": [
+      "首发阵容与位置",
+      "阵型与三/四后卫选择",
+      "核心球员状态与热身",
+      "临场热度与风险方向",
+      "开球前再确认方向"
+    ],
+    "homepage_short": "比利时主场碾压埃及，进攻火力恐怖。",
+    "predict_medium": "1-0",
+    "share_copy": "比利时vs埃及：实力碾压，但需防冷平。",
+    "recap_seed": "本场若比利时1-0胜，则印证其高效进攻与埃及防守韧性；若2-0则体现碾压；若1-1则暴露比利时防守松懈。",
+    "safety_flags": {
+      "no_betting_vocab": true,
+      "no_fake_probability": true,
+      "no_fake_events": true,
+      "no_auto_send": true
+    }
+  },
+  "_note": "GENERATED draft for OPERATOR REVIEW only — NOT published. Operator must copy/edit into docs/data_audit/mvp2_predictions/reviewed/20260615_1489377_reviewed.json then run mvp2_build_daily_prediction_artifact.py apply. No auto-publish, no auto-send."
+}
