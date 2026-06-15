@@ -10,6 +10,7 @@ import {
 } from '../data/predictionArtifacts';
 import { getProductNarrative } from '../data/productNarrativeData';
 import contentQueueRaw from '../data/dailyContentQueue.json';
+import opsStateRaw from '../data/dailyOpsState.json';
 
 // P1 content factory — typed view of the bundled daily content queue (built by
 // scripts/mvp2_build_daily_content_queue.py). Rendered as the operator command console below.
@@ -26,6 +27,19 @@ interface ContentQueue {
   recap_queue?: RecapRow[]; t30_queue?: T30Row[]; send_status?: string; autogen_drafts?: AutogenRow[];
 }
 const CONTENT_QUEUE = contentQueueRaw as ContentQueue;
+
+// P2 — daily-ops command-center snapshot (written by scripts/mvp2_daily_ops.py). Each queue item:
+// fixture_id · match · status · publish_eligibility · next_action.
+interface OpsQueueItem {
+  fixture_id: string; match: string; status: string; publish_eligibility?: string; next_action?: string;
+}
+interface OpsState {
+  date?: string; primary?: string; secondary?: string[];
+  review_queue?: OpsQueueItem[]; t30_queue?: OpsQueueItem[]; recap_queue?: OpsQueueItem[];
+  share_packages?: OpsQueueItem[]; day_close?: { ready?: number; blocked?: number; status?: string; next_action?: string };
+  next_operator_action?: string; send_status?: string;
+}
+const OPS_STATE = opsStateRaw as OpsState;
 
 // P7 P0-2 — /internal/daily operator content-readiness panel (Owner). NOT a public marketing page:
 // an unlinked operator control surface. Reads ONLY the public runtime manifest + the build-bundled
@@ -211,6 +225,31 @@ export function DailyStatusPage() {
                ? (CONTENT_QUEUE.autogen_drafts ?? []).map(g => `${g.home}:${g.status}(${g.provider}/${g.mode})`).join(' · ') + ' · review required before publish'
                : 'no generated drafts (run autogen generator)'} />
         <Row label="Queue send status / 队列发送" verdict="warn" detail={`${CONTENT_QUEUE.send_status ?? 'HOLD'} — no auto-send`} />
+      </div>
+
+      {/* P2 — operator command center: review/T-30/recap/share queues + day close + next action.
+          Reads the dailyOpsState.json snapshot (written by mvp2_daily_ops.py). Answers
+          "what is ready, what is blocked, what do I do next?" — never auto-sends, never auto-publishes. */}
+      <div className="sec-en"><span className="zh">🛰️ 每日指挥台 / Daily command center</span><span className="en">COMMAND CENTER</span></div>
+      <div className="card id-card">
+        <Row label="Runtime / 运行时" verdict={dr.status === 'MATCH' ? 'ok' : dr.status === 'FALLBACK' ? 'warn' : 'fail'}
+             detail={`drift=${dr.status} (see slate/drift rows above)`} />
+        <Row label="Today queue / 今日队列" verdict={OPS_STATE.primary ? 'ok' : 'warn'}
+             detail={`primary=${OPS_STATE.primary ?? '—'} · secondary=${(OPS_STATE.secondary ?? []).join(',') || '—'}`} />
+        <Row label="Review queue / 复核队列" verdict={(OPS_STATE.review_queue?.length ?? 0) >= 1 ? 'ok' : 'warn'}
+             detail={(OPS_STATE.review_queue ?? []).map(i => `${i.fixture_id}:${i.status}/${i.publish_eligibility}`).join(' · ') || 'none'} />
+        <Row label="Artifact readiness / 产物就绪" verdict={(OPS_STATE.review_queue ?? []).some(i => i.publish_eligibility === 'PUBLISHED') ? 'ok' : 'warn'}
+             detail={`${(OPS_STATE.review_queue ?? []).filter(i => i.publish_eligibility === 'PUBLISHED').length} published · ${(OPS_STATE.review_queue ?? []).filter(i => i.publish_eligibility !== 'PUBLISHED').length} review-required`} />
+        <Row label="T-30 queue / 临场队列" verdict={(OPS_STATE.t30_queue?.length ?? 0) >= 1 ? 'ok' : 'na'}
+             detail={(OPS_STATE.t30_queue ?? []).map(i => `${i.fixture_id}:${i.status}`).join(' · ') || 'none'} />
+        <Row label="FT observation+recap / 复盘队列" verdict={(OPS_STATE.recap_queue?.length ?? 0) >= 1 ? 'ok' : 'na'}
+             detail={(OPS_STATE.recap_queue ?? []).map(i => `${i.fixture_id}:${i.publish_eligibility}`).join(' · ') || 'none'} />
+        <Row label="Share package / 分享物料队列" verdict={(OPS_STATE.share_packages ?? []).every(i => i.status === 'SHARE_READY') && (OPS_STATE.share_packages?.length ?? 0) >= 1 ? 'ok' : 'warn'}
+             detail={(OPS_STATE.share_packages ?? []).map(i => `${i.fixture_id}:${i.status}`).join(' · ') || 'none'} />
+        <Row label="Day close / 收日" verdict={OPS_STATE.day_close ? 'ok' : 'warn'}
+             detail={OPS_STATE.day_close ? `status=${OPS_STATE.day_close.status} · ready=${OPS_STATE.day_close.ready} · blocked=${OPS_STATE.day_close.blocked}` : 'not closed'} />
+        <Row label="Next operator action / 下一步" verdict="warn" detail={OPS_STATE.next_operator_action ?? '—'} />
+        <Row label="Send status / 发送状态" verdict="warn" detail={`${OPS_STATE.send_status ?? 'HOLD'} — manual only; Owner per-channel GO; no auto-send`} />
       </div>
 
       <div className="sec-en"><span className="zh">🔗 运营链接 / Operator links</span><span className="en">LINKS</span></div>

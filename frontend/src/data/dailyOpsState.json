@@ -1,0 +1,187 @@
+{
+  "date": "2026-06-15",
+  "built_by": "mvp2_daily_ops.py",
+  "send_status": "HOLD",
+  "primary": "1489377",
+  "secondary": [
+    "1489379",
+    "1489380"
+  ],
+  "autogen_drafts": [
+    {
+      "fixture_key": "1489377",
+      "home": "Belgium",
+      "away": "Egypt",
+      "provider": "deepseek",
+      "mode": "live",
+      "status": "GUARD_PASSED"
+    },
+    {
+      "fixture_key": "1489379",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "provider": "deepseek",
+      "mode": "live",
+      "status": "GUARD_PASSED"
+    }
+  ],
+  "review_queue": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "status": "ARTIFACT_READY",
+      "source": "computed",
+      "deadline": "before kickoff (2026-06-15T19:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "live — monitor T-30",
+      "guard_status": "GUARD_PASSED",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Belgium-Egypt-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "status": "ARTIFACT_READY",
+      "source": "computed",
+      "deadline": "before kickoff (2026-06-15T22:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "live — monitor T-30",
+      "guard_status": "GUARD_PASSED",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "status": "ARTIFACT_READY",
+      "source": "operator_estimated",
+      "deadline": "before kickoff (2026-06-15T16:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "live — monitor T-30",
+      "guard_status": "GUARD_PASSED",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Spain-CapeVerde-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    }
+  ],
+  "t30_queue": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "status": "T30_PENDING",
+      "source": "computed",
+      "deadline": "KO-30 (2026-06-15T19:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "confirm lineups → t30=ready/skipped",
+      "guard_status": "pending=>no faked update_text",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Belgium-Egypt-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "status": "T30_PENDING",
+      "source": "computed",
+      "deadline": "KO-30 (2026-06-15T22:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "confirm lineups → t30=ready/skipped",
+      "guard_status": "pending=>no faked update_text",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "status": "T30_PENDING",
+      "source": "operator_estimated",
+      "deadline": "KO-30 (2026-06-15T16:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "confirm lineups → t30=ready/skipped",
+      "guard_status": "pending=>no faked update_text",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Spain-CapeVerde-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    }
+  ],
+  "recap_queue": [
+    {
+      "fixture_id": "1489371",
+      "match": "Brazil vs Morocco",
+      "status": "OBSERVATION_READY",
+      "source": "final_score",
+      "deadline": "FT+45 (observation) · next-day (full recap)",
+      "owner": "operator",
+      "next_action": "full recap blocked (data) — observation live",
+      "guard_status": "no_fake_recap",
+      "artifact_path": "frontend/src/data/recapArtifacts/recap_1489371.json",
+      "publish_eligibility": "OBSERVATION_READY"
+    },
+    {
+      "fixture_id": "1489369",
+      "match": "Mexico vs South Africa",
+      "status": "RECAP_READY",
+      "source": "final_score",
+      "deadline": "FT+45 (observation) · next-day (full recap)",
+      "owner": "operator",
+      "next_action": "live recap",
+      "guard_status": "no_fake_recap",
+      "artifact_path": "frontend/src/data/productNarratives (real_recap)",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1539002",
+      "match": "Sweden vs Tunisia",
+      "status": "WAITING_FT",
+      "source": null,
+      "deadline": "FT+45 (observation) · next-day (full recap)",
+      "owner": "operator",
+      "next_action": "build observation/recap",
+      "guard_status": "no_fake_recap",
+      "artifact_path": null,
+      "publish_eligibility": "PENDING"
+    }
+  ],
+  "share_packages": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "status": "SHARE_READY",
+      "source": "artifact.operations",
+      "deadline": "with publish",
+      "owner": "operator",
+      "next_action": "share card live: /share/fixture/1489377",
+      "guard_status": "share_copy present",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Belgium-Egypt-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "status": "SHARE_READY",
+      "source": "artifact.operations",
+      "deadline": "with publish",
+      "owner": "operator",
+      "next_action": "share card live: /share/fixture/1489379",
+      "guard_status": "share_copy present",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "status": "SHARE_READY",
+      "source": "artifact.operations",
+      "deadline": "with publish",
+      "owner": "operator",
+      "next_action": "share card live: /share/fixture/1489380",
+      "guard_status": "share_copy present",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Spain-CapeVerde-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    }
+  ],
+  "day_close": {
+    "ready": 3,
+    "blocked": 0,
+    "next_action": "confirm lineups → t30=ready/skipped",
+    "status": "OPEN"
+  },
+  "next_operator_action": "confirm lineups → t30=ready/skipped"
+}

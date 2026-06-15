@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-15",
+  "queue": "t30",
+  "items": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "status": "T30_PENDING",
+      "source": "computed",
+      "deadline": "KO-30 (2026-06-15T19:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "confirm lineups → t30=ready/skipped",
+      "guard_status": "pending=>no faked update_text",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Belgium-Egypt-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "status": "T30_PENDING",
+      "source": "computed",
+      "deadline": "KO-30 (2026-06-15T22:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "confirm lineups → t30=ready/skipped",
+      "guard_status": "pending=>no faked update_text",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "status": "T30_PENDING",
+      "source": "operator_estimated",
+      "deadline": "KO-30 (2026-06-15T16:00:00+00:00)",
+      "owner": "operator",
+      "next_action": "confirm lineups → t30=ready/skipped",
+      "guard_status": "pending=>no faked update_text",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Spain-CapeVerde-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    }
+  ]
+}

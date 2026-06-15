@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-15",
+  "queue": "recap",
+  "items": [
+    {
+      "fixture_id": "1489371",
+      "match": "Brazil vs Morocco",
+      "status": "OBSERVATION_READY",
+      "source": "final_score",
+      "deadline": "FT+45 (observation) · next-day (full recap)",
+      "owner": "operator",
+      "next_action": "full recap blocked (data) — observation live",
+      "guard_status": "no_fake_recap",
+      "artifact_path": "frontend/src/data/recapArtifacts/recap_1489371.json",
+      "publish_eligibility": "OBSERVATION_READY"
+    },
+    {
+      "fixture_id": "1489369",
+      "match": "Mexico vs South Africa",
+      "status": "RECAP_READY",
+      "source": "final_score",
+      "deadline": "FT+45 (observation) · next-day (full recap)",
+      "owner": "operator",
+      "next_action": "live recap",
+      "guard_status": "no_fake_recap",
+      "artifact_path": "frontend/src/data/productNarratives (real_recap)",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1539002",
+      "match": "Sweden vs Tunisia",
+      "status": "WAITING_FT",
+      "source": null,
+      "deadline": "FT+45 (observation) · next-day (full recap)",
+      "owner": "operator",
+      "next_action": "build observation/recap",
+      "guard_status": "no_fake_recap",
+      "artifact_path": null,
+      "publish_eligibility": "PENDING"
+    }
+  ]
+}

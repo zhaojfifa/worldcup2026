@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-15",
+  "queue": "share_packages",
+  "items": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "status": "SHARE_READY",
+      "source": "artifact.operations",
+      "deadline": "with publish",
+      "owner": "operator",
+      "next_action": "share card live: /share/fixture/1489377",
+      "guard_status": "share_copy present",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Belgium-Egypt-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "status": "SHARE_READY",
+      "source": "artifact.operations",
+      "deadline": "with publish",
+      "owner": "operator",
+      "next_action": "share card live: /share/fixture/1489379",
+      "guard_status": "share_copy present",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "status": "SHARE_READY",
+      "source": "artifact.operations",
+      "deadline": "with publish",
+      "owner": "operator",
+      "next_action": "share card live: /share/fixture/1489380",
+      "guard_status": "share_copy present",
+      "artifact_path": "frontend/src/data/predictionArtifacts/match_Spain-CapeVerde-20260615.json",
+      "publish_eligibility": "PUBLISHED"
+    }
+  ]
+}

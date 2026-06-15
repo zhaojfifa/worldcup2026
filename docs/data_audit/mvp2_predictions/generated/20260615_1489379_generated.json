@@ -4,43 +4,44 @@
   "home": "Saudi Arabia",
   "away": "Uruguay",
   "role": "secondary",
-  "provider": "deepseek",
-  "mode": "live",
+  "provider": "dry-run(offline, model-grounded)",
+  "mode": "dry-run",
   "status": "GUARD_PASSED",
   "guard_issues": [],
   "model_source": "computed",
   "draft": {
-    "strong_headline": "乌拉圭实力碾压，沙特难阻败局",
-    "main_lean": "客胜",
+    "strong_headline": "Saudi Arabia vs Uruguay：俅哥主看 0-1，偏向Uruguay",
+    "main_lean": "赛前倾向Uruguay，但对手具备压低比分/反击的能力",
     "primary_score": "0-1",
     "backup_scores": [
       "0-2",
       "0-3"
     ],
     "risk_level": "中",
-    "top_variable": "乌拉圭中场控制力与沙特防线抗压能力",
-    "why": "乌拉圭Elo评分1872，领先沙特227分，近期状态4胜4平2负且防守稳固（9失球）；沙特虽主场但近10场6负，防守端场均失1.5球，面对乌拉圭的体系化进攻恐难招架。",
+    "top_variable": "Saudi Arabia能否压低节奏 + Uruguay的进攻终结效率",
+    "why": "Uruguay在历史强度与近况上更稳，但对手的防守与反击会压缩比分空间。",
     "tactical_beats": [
-      "乌拉圭擅长利用边中结合，沙特三中卫体系可能被宽度拉开后暴露空当",
-      "沙特反击依赖边锋速度，但乌拉圭双后腰覆盖能力出色，可切断其转换线路"
+      "Uruguay控球推进与边中结合，关注能否打穿对手低位防线",
+      "对手低位防守加一侧反击，关注反击落点与定位球威胁",
+      "比分走向取决于首粒进球时间与体能保持"
     ],
-    "data_source_basis": "Kaggle Elo评分（沙特1645 vs 乌拉圭1872）、近10场战绩（沙特4胜6负/乌拉圭4胜4平2负）、泊松分布（0.59-1.91）支撑0-1/0-2/0-3比分区间",
+    "data_source_basis": "kaggle Elo: Saudi Arabia 1645 / Uruguay 1872 (gap -227)",
     "external_expectation_safe": [
-      "公开预测倾向乌拉圭小胜",
-      "热度集中在客胜方向，但沙特主场存在一定拉力",
-      "冷门变量：沙特若死守反击且乌拉圭久攻不下，可能0-0闷平"
+      "公开预测倾向偏向Uruguay",
+      "热度集中在Uruguay取胜",
+      "冷门变量主要在对手压低比分或偷袭得手"
     ],
     "t30_checklist": [
       "首发阵容与位置",
       "阵型与三/四后卫选择",
       "核心球员状态与热身",
       "临场热度与风险方向",
-      "开球前再确认方向"
+      "开球前再确认方向，必要时下调把握度"
     ],
-    "homepage_short": "乌拉圭实力占优，沙特主场难挡",
-    "predict_medium": "主队受让平负",
-    "share_copy": "沙特vs乌拉圭：数据模型指向客胜，0-1是核心比分",
-    "recap_seed": "若乌拉圭控制中场并尽早破门，则0-1/0-2可期；若沙特反击效率高，可能制造冷门。",
+    "homepage_short": "Saudi Arabia vs Uruguay · 俅哥主看 0-1，冷门风险中",
+    "predict_medium": "赛前倾向Uruguay，但对手具备压低比分/反击的能力。主比分参考 0-1，备选 0-2 / 0-3。Uruguay在历史强度与近况上更稳，但对手的防守与反击会压缩比分空间。",
+    "share_copy": "今日次要推荐：Saudi Arabia vs Uruguay。俅哥主看：赛前倾向Uruguay，但对手具备压低比分/反击的能力。主比分 0-1，备选 0-2 / 0-3，冷门风险中。kaggle Elo: Saudi Arabia 1645 / Uruguay 1872 (gap -227)。开球前 30 分钟看首发与临场修正，进群等修正。",
+    "recap_seed": "赛后核对：主推0-1是否兑现、实际比分与 0-1 的偏差、对手反击质量是否高于赛前判断。",
     "safety_flags": {
       "no_betting_vocab": true,
       "no_fake_probability": true,
