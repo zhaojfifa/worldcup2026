@@ -153,6 +153,15 @@ export function DailyStatusPage() {
              detail={OPS_STATE.freshness ? `${OPS_STATE.freshness.freshness_status} · runtime=${OPS_STATE.freshness.runtime_date ?? '—'} · artifact=${OPS_STATE.freshness.artifact_date ?? '—'}${OPS_STATE.freshness.stale_reason ? ' · ' + OPS_STATE.freshness.stale_reason : ''}` : 'no freshness gate (run check_daily_freshness)'} />
         <Row label="今日主推比赛 / Today primary" verdict={OPS_STATE.primary ? 'ok' : 'fail'}
              detail={OPS_STATE.primary ? `${OPS_STATE.primary}` : 'MISSING'} />
+        {/* P4R — source trace: active content date, yesterday recap fixture, and which copy the renderer projects. */}
+        <Row label="生效内容日期 / Active content date" verdict={(OPS_STATE.freshness?.artifact_date) ? 'ok' : 'warn'}
+             detail={`active=${OPS_STATE.freshness?.artifact_date ?? OPS_STATE.date ?? '—'} · runtime=${OPS_STATE.freshness?.runtime_date ?? '—'}`} />
+        <Row label="昨日复盘比赛 / Yesterday recap fixture" verdict={recapKey ? 'ok' : 'warn'}
+             detail={recapRow ? `${recapRow.home} vs ${recapRow.away} (${recapKey})` : 'none'} />
+        <Row label="预测文案来源 / Prediction copy source" verdict={art?.rendered_copy_source ? 'ok' : 'warn'}
+             detail={art?.rendered_copy_source ?? 'unknown — re-run apply (reviewed JSON → i18n sync)'} />
+        <Row label="复盘文案来源 / Recap copy source" verdict={obs ? 'ok' : (recapRow ? 'warn' : 'na')}
+             detail={obs ? `observation receipt (recap_ready=${obs.recap_ready})` : recapRow ? 'full recap / pending' : '—'} />
         <Row label="今日次级推荐 / Today secondary" verdict={(OPS_STATE.secondary?.length ?? 0) >= 2 ? 'ok' : 'warn'}
              detail={(OPS_STATE.secondary ?? []).join(', ') || 'none'} />
         <Row label="昨日推荐闭环 / Yesterday closure" verdict={(OPS_STATE.recommendation_closure?.length ?? 0) >= 1 ? 'ok' : 'warn'}

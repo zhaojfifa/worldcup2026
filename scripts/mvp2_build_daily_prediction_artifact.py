@@ -376,10 +376,42 @@ def cmd_apply(date, fixture_key, reviewed_file):
         "risk_factors": rev.get("risk_factors") or [], "external_expectation": rev.get("external_expectation") or [],
         "t30_checklist": rev.get("t30_checklist") or [],
     }
+    # P4R copy-wiring fix (Owner 2026-06-16): the RENDERER reads i18n.zh.prediction/analysis, not
+    # llm_judgment — so the reviewed LLM judgement must be SYNCED into the zh i18n or it is dead-
+    # rendered. Sync the zh slice from the reviewed JSON (the canonical persona judgement). vi/my/en
+    # stay as authored translations (Han=0 preserved). This makes the rendered zh /predict + homepage
+    # copy BE the reviewed LLM copy.
+    i18n = art.setdefault("i18n", {})
+    zh = i18n.setdefault("zh", {})
+    zp = zh.setdefault("prediction", {})
+    zp["primary_direction"] = rev["main_lean"]
+    if rev.get("primary_score"):
+        zp["score_call"] = rev["primary_score"]
+    if rev.get("backup_scores"):
+        zp["backup_score"] = " / ".join(rev["backup_scores"])
+    if rev.get("risk_level"):
+        zp["risk_level"] = rev["risk_level"]
+    if rev.get("risk_note"):
+        zp["risk_note"] = rev["risk_note"]
+    if rev.get("top_variable"):
+        zp["top_variable"] = rev["top_variable"]
+    if rev.get("why"):
+        zp["why"] = rev["why"]
+    za = zh.setdefault("analysis", {})
+    if rev.get("tactical_read"):
+        za["tactical_matchup"] = rev["tactical_read"]
+    if rev.get("risk_factors"):
+        za["risk_variables"] = rev["risk_factors"]
+    if rev.get("external_expectation"):
+        za["external_expectation"] = rev["external_expectation"]
+    if rev.get("t30_checklist"):
+        za["thirty_minute_checklist"] = rev["t30_checklist"]
     if rev.get("share_copy"):
-        ops = ((art.get("i18n") or {}).get("zh") or {}).get("operations") or {}
+        ops = zh.setdefault("operations", {})
         ops["share_copy"] = rev["share_copy"]
     provider = rev.get("llm_provider") or "operator_manual"
+    # record that the reviewed copy is the rendered source (renderer-traceability for /internal/daily)
+    art["rendered_copy_source"] = ("reviewed_llm:" + provider) if provider not in ("operator_manual", "pending") else "operator_reviewed_llm_judgment"
     cc = art.get("content_chain") or {}
     cc.update({"reviewed_path": str(rp.relative_to(ROOT)) if str(rp).startswith(str(ROOT)) else reviewed_file,
                "reviewed_applied": True, "llm_provider": provider, "built_at": date})

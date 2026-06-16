@@ -127,6 +127,7 @@ export interface PredictionArtifact {
   llm_judgment?: ArtifactLlmJudgment;
   operator_confirmation?: ArtifactOperatorConfirmation;
   content_chain?: ArtifactContentChain;   // R1 P0 daily-production-chain provenance
+  rendered_copy_source?: string;           // P4R: which copy the renderer projects (reviewed_llm:* / operator_reviewed_llm_judgment)
   t30?: ArtifactT30;
   i18n: Partial<Record<Locale, PredictionArtifactLocale>>;
 }
