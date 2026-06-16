@@ -9,9 +9,9 @@
     "kickoff_time": "2026-06-15T19:00:00+00:00",
     "status": "scheduled",
     "lifecycle_state": "UPCOMING_PREDICTION_READY",
-    "model_source": "computed",
+    "model_source": "operator_confirmed",
     "active_content_role": "primary_prediction",
-    "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",
+    "reason_for_role": "earliest upcoming source-qualified (operator_confirmed) match with reviewed copy",
     "has_copy": true,
     "has_observation": false,
     "recap_ready": false
@@ -95,9 +95,9 @@
       "kickoff_time": "2026-06-15T19:00:00+00:00",
       "status": "scheduled",
       "lifecycle_state": "UPCOMING_PREDICTION_READY",
-      "model_source": "computed",
+      "model_source": "operator_confirmed",
       "active_content_role": "primary_prediction",
-      "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",
+      "reason_for_role": "earliest upcoming source-qualified (operator_confirmed) match with reviewed copy",
       "has_copy": true,
       "has_observation": false,
       "recap_ready": false

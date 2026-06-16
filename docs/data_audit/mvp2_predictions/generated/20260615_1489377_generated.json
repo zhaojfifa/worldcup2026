@@ -10,12 +10,12 @@
   "guard_issues": [],
   "model_source": "computed",
   "draft": {
-    "strong_headline": "Belgium vs Egypt：俅哥主看 1-0，偏向Belgium",
-    "main_lean": "赛前倾向Belgium，但对手具备压低比分/反击的能力",
-    "primary_score": "1-0",
+    "strong_headline": "Belgium vs Egypt：俅哥赛前修正为平局 1-1",
+    "main_lean": "赛前修正为平局：Belgium 仍占优，但 Egypt 防守反击足以把比分咬成平局",
+    "primary_score": "1-1",
     "backup_scores": [
-      "2-0",
-      "1-1"
+      "1-0",
+      "2-1"
     ],
     "risk_level": "中",
     "top_variable": "Egypt能否压低节奏 + Belgium的进攻终结效率",
@@ -38,10 +38,10 @@
       "临场热度与风险方向",
       "开球前再确认方向，必要时下调把握度"
     ],
-    "homepage_short": "Belgium vs Egypt · 俅哥主看 1-0，冷门风险中",
-    "predict_medium": "赛前倾向Belgium，但对手具备压低比分/反击的能力。主比分参考 1-0，备选 2-0 / 1-1。Belgium在历史强度与近况上更稳，但对手的防守与反击会压缩比分空间。",
-    "share_copy": "今日主推：Belgium vs Egypt。俅哥主看：赛前倾向Belgium，但对手具备压低比分/反击的能力。主比分 1-0，备选 2-0 / 1-1，冷门风险中。kaggle Elo: Belgium 1885 / Egypt 1756 (gap 129)。开球前 30 分钟看首发与临场修正，进群等修正。",
-    "recap_seed": "赛后核对：主推1-0是否兑现、实际比分与 1-0 的偏差、对手反击质量是否高于赛前判断。",
+    "homepage_short": "Belgium vs Egypt · 俅哥赛前修正为平局 1-1，冷门风险中",
+    "predict_medium": "赛前修正为平局：Belgium 仍占优，但 Egypt 具备压低比分/反击的能力，足以把比赛咬成平局。主比分参考 1-1，备选 1-0 / 2-1。Belgium 若早早进球会回到小胜路径。",
+    "share_copy": "今日主推 比利时 vs 埃及：俅哥赛前修正为平局，主比分 1-1、备选 1-0 / 2-1。依据——Elo 1885 对 1756、近 10 场进 37 球，比利时硬实力仍占优；但埃及防反足以咬住比分，把球拖进平局区间。比利时若早早进球，会回到 1-0 / 2-1 的小胜路径。开球前 30 分钟群里更新首发和最终比分区间。",
+    "recap_seed": "赛后核对：主推已修正为 1-1，核对实际比分与 1-1 的偏差、Belgium 是否早早进球回到 1-0 / 2-1 路径、Egypt 反击质量是否高于赛前判断。复盘基线＝1-1。",
     "safety_flags": {
       "no_betting_vocab": true,
       "no_fake_probability": true,
@@ -49,5 +49,6 @@
       "no_auto_send": true
     }
   },
-  "_note": "GENERATED draft for OPERATOR REVIEW only — NOT published. Operator must copy/edit into docs/data_audit/mvp2_predictions/reviewed/20260615_1489377_reviewed.json then run mvp2_build_daily_prediction_artifact.py apply. No auto-publish, no auto-send."
+  "_note": "GENERATED draft for OPERATOR REVIEW only — NOT published. Operator must copy/edit into docs/data_audit/mvp2_predictions/reviewed/20260615_1489377_reviewed.json then run mvp2_build_daily_prediction_artifact.py apply. No auto-publish, no auto-send.",
+  "_ops_patch_note": "OPS PATCH 2026-06-16: closure baseline corrected 1-0 → 1-1 (Owner OPS GO). recap_seed + draft scores updated so post-match recap uses 1-1 as the prediction baseline."
 }

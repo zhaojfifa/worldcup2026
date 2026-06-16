@@ -52,15 +52,15 @@
     "priority_score": 65,
     "priority_reasons": [
       "popular:Belgium",
-      "model:computed",
+      "model:operator_confirmed",
       "narrative:upset-risk",
       "scheduled"
     ],
     "content_state": "PUBLISHED",
     "artifact_ready": true,
-    "model_source": "computed",
-    "source_coverage": "computed",
-    "recommended_score": "1-0",
+    "model_source": "operator_confirmed",
+    "source_coverage": "operator_confirmed",
+    "recommended_score": "1-1",
     "risk_level": "中"
   },
   "secondary_matches": [
