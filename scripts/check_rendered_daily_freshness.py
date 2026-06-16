@@ -18,7 +18,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from _rendered_dom import dump_dom  # noqa: E402
+from _rendered_dom import dump_dom, demo_pair_leak  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SEL = ROOT / "frontend" / "src" / "data" / "selectedHotspot.json"
@@ -39,9 +39,9 @@ def scan(dom, primary_teams, yesterday_teams):
     for t in yesterday_teams:
         if t and t not in dom:
             fails.append("homepage does NOT render previous-cycle recap team %r" % t)
-    for d in DEMO:
-        if d not in primary_teams and d not in yesterday_teams and d in dom:
-            fails.append("demo/stale fixture %r leaked into the rendered homepage" % d)
+    leak = demo_pair_leak(dom)
+    if leak:
+        fails.append("demo/stale pairing %r leaked into the rendered homepage (critical section)" % leak)
     return fails
 
 

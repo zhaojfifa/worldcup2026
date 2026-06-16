@@ -14,7 +14,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from _rendered_dom import dump_dom  # noqa: E402
+from _rendered_dom import dump_dom, demo_pair_leak  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SEL = ROOT / "frontend" / "src" / "data" / "selectedHotspot.json"
@@ -70,9 +70,9 @@ def trace(base):
         lean = _lean(art_p)
         if lean and lean[:14] not in home and "COPY_MISSING" not in home:
             fails.append("homepage primary card not showing reviewed copy (%r)" % lean[:20])
-    for d in DEMO:
-        if d not in primary_teams and d not in [yrec.get("home"), yrec.get("away")] and d in home:
-            fails.append("demo fixture %r in rendered homepage" % d)
+    leak = demo_pair_leak(home)
+    if leak:
+        fails.append("demo pairing %r in rendered homepage" % leak)
 
     # 4-5 predict pages (primary + first secondary)
     for fk in ([str(primary)] if primary else []) + [str(s) for s in secondary[:1]]:

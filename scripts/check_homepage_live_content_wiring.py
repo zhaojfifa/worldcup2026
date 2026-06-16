@@ -17,7 +17,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from _rendered_dom import dump_dom  # noqa: E402
+from _rendered_dom import dump_dom, demo_pair_leak  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SEL = ROOT / "frontend" / "src" / "data" / "selectedHotspot.json"
@@ -55,9 +55,9 @@ def scan(dom, primary_teams, lean, yesterday_teams):
                 fails.append("昨日热点复盘 label present but recap team %r not rendered" % t)
     else:
         fails.append("homepage missing 昨日热点复盘 section")
-    for d in DEMO:
-        if d not in primary_teams and d not in yesterday_teams and d in dom:
-            fails.append("demo/static fixture %r in rendered homepage" % d)
+    leak = demo_pair_leak(dom)
+    if leak:
+        fails.append("demo/static pairing %r in rendered homepage" % leak)
     return fails
 
 

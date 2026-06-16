@@ -13,3 +13,22 @@ def dump_dom(url, budget_ms=9000):
         return r.stdout or ""
     except Exception:
         return ""
+
+
+def demo_pair_leak(text):
+    """Return the demo PAIRING leaked into the text, or None. The concern is the DEMOTED demo
+    content (Netherlands-vs-Japan as a today-hotspot, Qatar-vs-Ecuador demo detail) appearing in a
+    critical section — NOT bare team names, which legitimately appear in the WC-2022 historical
+    archive (e.g. Germany vs Japan, Qatar vs Ecuador 2022 opener). Match only when both sides of a
+    demo pair appear ADJACENTLY (within 24 chars), in zh or en."""
+    import re
+    flat = re.sub(r"\s+", " ", text)
+    pairs = [(["Netherlands", "荷兰"], ["Japan", "日本"]),
+             (["Qatar", "卡塔尔"], ["Ecuador", "厄瓜多尔"])]
+    for left, right in pairs:
+        for lt in left:
+            for m in re.finditer(re.escape(lt), flat):
+                window = flat[m.start(): m.start() + 24 + len(lt)]
+                if any(rt in window for rt in right):
+                    return "%s vs %s" % (lt, next(rt for rt in right if rt in window))
+    return None
