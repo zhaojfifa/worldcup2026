@@ -61,3 +61,15 @@ primary · 06 predict · 07 recap observation · 08 share prediction · 09 share
   path is demonstrable today only for 06-15 (the date with prepared content) via the editorial `--now`.
 - LOW (inherited): sync side-writes the bundled FE manifest; the cutover snapshots+restores it on block,
   but ad-hoc direct `sync` still needs a manual restore.
+
+## Codex independent review (PASS_WITH_PATCHES → patched) — disposition
+Codex confirmed all hard rules empirically: DIFF_SCOPE_SCRIPTS_ONLY=yes · PRODUCT_UI_UNCHANGED=yes ·
+BACKEND_SCHEMA_CHANGE=no · DATA_ONLY_CUTOVER_BLOCKED=yes · UPLOAD_ONLY_AFTER_GATE=yes ·
+BLOCK_RESTORES_ARTIFACTS=yes (md5 unchanged) · SELECTED_CONTENT_MATCHES_SLATE=yes ·
+PRODUCTION_STAYS_GREEN_ON_FAIL=yes · FAKE_DATA=none · BETTING_VOCAB=none · AUTO_SEND=none ·
+SEND_STATUS=HOLD · ADMIN_TOKEN_LEAK=false.
+Defect R3-1 (LOW) FIXED: the gate now wires _observation/_has_recap_surface so the SELECTED recap
+(lifecycle latest_recap) must be finished+scored AND backed by an observation receipt or real_recap
+narrative (no empty/fake recap); the selected-content guard docstring was corrected to scope it to
+primary/secondary. 06-15 still PASSES, 06-16 still BLOCKS.
+Ref: docs/reviews/codex_normal_ops_r3_content_paired_day_cutover_review_20260616.md
