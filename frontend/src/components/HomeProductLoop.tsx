@@ -222,10 +222,15 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
             {call.risk_label && <div className="sc-row"><span className="sc-k">{C.riskL}</span><span className="sc-v">{call.risk_label}</span></div>}
           </div>
         ) : (
-          <>
-            <div className="th-meta">{C.predWhy}</div>
-            <FocusBlock title={C.predFocus} bullets={C.predBullets} home={f.home} away={f.away} score={null} extra={C.thirtyMin} />
-          </>
+          // P4R+ (Owner): no reviewed LLM copy projected → show an EXPLICIT REVIEW_REQUIRED state,
+          // never a silent generic fallback. (The P6 lead gate normally guarantees an artifact-backed
+          // lead, so this is the honest "copy not yet reviewed" notice, not a demo frame.)
+          <div className="th-meta" data-state="REVIEW_REQUIRED">
+            {loc === 'zh' ? '今日主推文案待复核（REVIEW_REQUIRED）— 复核通过后展示俅哥判断。'
+              : loc === 'vi' ? 'Nội dung trận chính chờ duyệt (REVIEW_REQUIRED) — sẽ hiển thị sau khi duyệt.'
+              : loc === 'my' ? "ဒီနေ့ အဓိကပွဲ စာသား စစ်ဆေးဆဲ (REVIEW_REQUIRED) — အတည်ပြုပြီးမှ ပြသမည်။"
+              : 'Today’s main read is pending review (REVIEW_REQUIRED) — shown once approved.'}
+          </div>
         )}
         <div className="pp-cta-row">
           <button className="recap-cta-btn" onClick={() => navigate(`/predict/${key}`)}>{C.enterToday} ▸</button>
