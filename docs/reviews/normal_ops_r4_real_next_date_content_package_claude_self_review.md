@@ -67,3 +67,16 @@ runtime marker · 06 homepage runtime · 07 recap runtime observation · 08 inte
   After that, daily content cutover = `mvp2_runtime_content_cutover.py ... --target production` with NO deploy.
 - After activation, run the live no-deploy proof on prod (upload content twice, bundle hash unchanged).
 - LOW (inherited): sync side-writes the bundled FE manifest; the cutover snapshots/restores on block.
+
+## Codex independent review (PASS) — disposition
+Codex PASS, all 9 checks green; empirically verified the backend (401/422/stored round-trip), the runtime-
+first frontend wiring, the no-mixed-date invariant, and production untouched (prod runtime endpoint 404).
+Confirmations: DIFF_SCOPE_OK=yes · NO_SCHEMA_MIGRATION=yes · BACKEND_RUNTIME_CONTENT_OK=yes ·
+FRONTEND_RUNTIME_FIRST=yes · NO_MIXED_DATE=yes · BUNDLED_FALLBACK_RETAINED=yes ·
+NO_FRONTEND_DEPLOY_FOR_DAILY_CONTENT=yes (one-time activation deploy noted) · CUTOVER_UPLOADS_ONLY_AFTER_GATE=yes
+· PRODUCTION_GREEN_UNTOUCHED=yes · FAKE_DATA=none · BETTING_VOCAB=none · AUTO_SEND=none · SEND_STATUS=HOLD ·
+ADMIN_TOKEN_LEAK=false · NO_PRODUCT_UI_REDESIGN=yes.
+Defects (LOW, non-blocking): D-a runtime fetch had no timeout signal — FIXED (3s AbortController in
+bootstrapRuntime). D-b upload validates date presence not format — accepted (the frontend date-match gate
+already rejects a wrong/mismatched date; backend stays minimal).
+Ref: docs/reviews/codex_normal_ops_r4_real_next_date_content_package_review_20260616.md

@@ -181,7 +181,11 @@ export async function bootstrapRuntime(): Promise<ManifestLoad> {
     const load = await fetchDailyManifest();
     const effectiveDate = load.manifest.generated_for_date ?? null;
     try {
-      const pkg = await fetchRuntimeContentRaw(API_BASE);
+      // Bound the runtime-content fetch (Codex R4 D-a): a slow backend must not stall bootstrap.
+      const ctrl = new AbortController();
+      const to = setTimeout(() => ctrl.abort(), 3000);
+      const pkg = await fetchRuntimeContentRaw(API_BASE, ctrl.signal);
+      clearTimeout(to);
       const fresh = !!pkg && pkg.freshness?.stored === true && pkg.freshness?.stale !== true
         && typeof pkg.freshness?.age_seconds === 'number'
         && (pkg.freshness!.age_seconds as number) <= RUNTIME_CONTENT_STALE_HOURS * 3600;
