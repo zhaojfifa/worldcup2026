@@ -1,0 +1,21 @@
+# R4 LIVE ACTIVATION — runtime content cutover (NO daily frontend deploy)
+main deployed: 09966f3 (+ gate hotfix f491589)
+
+## 1. backend /api/v1/runtime-content — ACTIVE (no 404):
+HTTP 200
+  date 2026-06-15 | predictions ['1489377', '1489380', '1489379'] | observations ['1489371'] | stale False | send_status HOLD
+
+## 2. frontend runtime-first bundle ACTIVE: index-BsmXWXHz.js (was old index-B6e_Y9Zj.js)
+
+## 3. production runtime cutover 2026-06-15 (manual, noon): GATE PASS -> slate(6)+content(3 pred+1 obs) uploaded, send HOLD
+## Step 2 as instructed: 2026-06-16 api-football cutover -> CUTOVER_BLOCKED (5 checks: DATA_ONLY + primary/secondaries not in slate + no lifecycle primary); prod stays green; NO upload
+
+## 4-5. NO-DEPLOY PROOF (live): bundle hash CONSTANT across two runtime content changes:
+   bundle before content upload: index-BsmXWXHz.js
+   bundle during marker package: index-BsmXWXHz.js
+   bundle after restore        : index-BsmXWXHz.js
+   marker 'R4实时内容验证NODEPLOY' rendered live on /predict/1489377 then removed by re-upload — NO frontend deploy.
+
+## 10. R4 guards:
+R4 RUNTIME CONTENT CUTOVER PASS (endpoint live · stored=True · predictions=3 · send_status=HOLD)
+   frontend_runtime_first / no_frontend_deploy_required / no_mixed_date_runtime: PASS (source)
