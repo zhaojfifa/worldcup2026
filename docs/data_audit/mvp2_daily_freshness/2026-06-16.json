@@ -1,0 +1,14 @@
+{
+  "date": "2026-06-16",
+  "runtime_date": "2026-06-15",
+  "artifact_date": "2026-06-15",
+  "homepage_primary_fixture": "1489377",
+  "secondary_fixtures": [
+    "1489379",
+    "1489380"
+  ],
+  "freshness_status": "FRESH",
+  "stale_reason": null,
+  "next_operator_action": "today is fresh — operator review then hold for Owner GO",
+  "send_status": "HOLD"
+}

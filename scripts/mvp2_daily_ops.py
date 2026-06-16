@@ -213,6 +213,9 @@ def refresh_state(date):
     # P3B — fold in the T-30 source coverage + P3A autorun summary if present (read-only).
     t30_src = _load(ROOT / "docs" / "data_audit" / "mvp2_t30_sources" / ("%s.json" % date))
     autorun = _load(ROOT / "docs" / "data_audit" / "mvp2_daily_autorun" / ("%s.json" % date))
+    # P4 — fold in the daily-freshness gate + yesterday-recommendation closure (read-only).
+    fresh = _load(ROOT / "docs" / "data_audit" / "mvp2_daily_freshness" / ("%s.json" % date))
+    closure = _load(ROOT / "docs" / "data_audit" / "mvp2_recommendation_closure" / ("%s.json" % date))
     state = {
         "date": date, "built_by": "mvp2_daily_ops.py", "send_status": "HOLD",
         "primary": (q.get("primary_hotspot") or {}).get("fixture_key"),
@@ -221,6 +224,11 @@ def refresh_state(date):
         "review_queue": rev["items"], "t30_queue": t30["items"],
         "recap_queue": recap["items"], "share_packages": share["items"],
         "t30_sources": (t30_src or {}).get("items", []),
+        "freshness": ({"freshness_status": fresh.get("freshness_status"), "runtime_date": fresh.get("runtime_date"),
+                       "artifact_date": fresh.get("artifact_date"), "stale_reason": fresh.get("stale_reason"),
+                       "homepage_primary_fixture": fresh.get("homepage_primary_fixture"),
+                       "secondary_fixtures": fresh.get("secondary_fixtures", [])} if fresh else None),
+        "recommendation_closure": (closure or {}).get("items", []),
         "autorun": ({"last_run": autorun.get("last_run"), "mode": autorun.get("mode"),
                      "runtime_match": autorun.get("runtime_match"),
                      "steps_executed": autorun.get("steps_executed", []),

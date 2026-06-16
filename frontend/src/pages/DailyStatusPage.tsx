@@ -42,11 +42,20 @@ interface AutorunState {
   steps_executed?: { step: string }[]; steps_skipped?: { step: string }[]; steps_blocked?: { step: string }[];
   required_operator_actions?: string[];
 }
+interface FreshnessState {
+  freshness_status?: string; runtime_date?: string | null; artifact_date?: string | null;
+  stale_reason?: string | null; homepage_primary_fixture?: string; secondary_fixtures?: string[];
+}
+interface ClosureItem {
+  fixture_id: string; match: string; predicted_score?: string | null; actual_score?: string | null;
+  result_status?: string; recap_eligibility?: string; why_it_hit_or_missed?: string | null; operator_next_action?: string;
+}
 interface OpsState {
   date?: string; primary?: string; secondary?: string[];
   review_queue?: OpsQueueItem[]; t30_queue?: OpsQueueItem[]; recap_queue?: OpsQueueItem[];
   share_packages?: OpsQueueItem[]; day_close?: { ready?: number; blocked?: number; status?: string; next_action?: string };
   t30_sources?: T30SourceItem[]; autorun?: AutorunState | null;
+  freshness?: FreshnessState | null; recommendation_closure?: ClosureItem[];
   next_operator_action?: string; send_status?: string;
 }
 const OPS_STATE = opsStateRaw as OpsState;
@@ -133,6 +142,30 @@ export function DailyStatusPage() {
     <div className="page-enter internal-daily">
       <div className="backbar"><button className="bk" onClick={() => navigate('/')}>←</button><span className="ti">Internal · Daily readiness</span></div>
       <div className="id-banner">🛠️ 内部运营台 · 每日就绪 / DAILY READINESS（内部，请勿外发）</div>
+
+      {/* P4 — CRITICAL OPS VIEW (top screen). Answers in 10s: 今天是不是新内容 / 昨天推荐有没有复盘 /
+          哪场命中或偏差为什么 / 哪些文案还需复核 / 今天能不能发 / 下一步该做什么. Reads dailyOpsState
+          (freshness + recommendation_closure folded in by mvp2_daily_ops.py). Stale is FLAGGED, never hidden. */}
+      <div className="sec-en"><span className="zh">🚨 今日关键运营 / Critical ops</span><span className="en">CRITICAL</span></div>
+      <div className="card id-card">
+        <Row label="今日内容是否新鲜 / Daily freshness"
+             verdict={OPS_STATE.freshness ? (OPS_STATE.freshness.freshness_status === 'FRESH' ? 'ok' : (OPS_STATE.freshness.freshness_status === 'STALE' ? 'warn' : 'fail')) : 'warn'}
+             detail={OPS_STATE.freshness ? `${OPS_STATE.freshness.freshness_status} · runtime=${OPS_STATE.freshness.runtime_date ?? '—'} · artifact=${OPS_STATE.freshness.artifact_date ?? '—'}${OPS_STATE.freshness.stale_reason ? ' · ' + OPS_STATE.freshness.stale_reason : ''}` : 'no freshness gate (run check_daily_freshness)'} />
+        <Row label="今日主推比赛 / Today primary" verdict={OPS_STATE.primary ? 'ok' : 'fail'}
+             detail={OPS_STATE.primary ? `${OPS_STATE.primary}` : 'MISSING'} />
+        <Row label="今日次级推荐 / Today secondary" verdict={(OPS_STATE.secondary?.length ?? 0) >= 2 ? 'ok' : 'warn'}
+             detail={(OPS_STATE.secondary ?? []).join(', ') || 'none'} />
+        <Row label="昨日推荐闭环 / Yesterday closure" verdict={(OPS_STATE.recommendation_closure?.length ?? 0) >= 1 ? 'ok' : 'warn'}
+             detail={(OPS_STATE.recommendation_closure ?? []).map(c => `${c.fixture_id}:${c.result_status}`).join(' · ') || 'no closure (run recommendation_closure)'} />
+        <Row label="命中/偏差/待观察 / Hit·Miss·Pending" verdict="na"
+             detail={(OPS_STATE.recommendation_closure ?? []).map(c => `${c.match}: pred ${c.predicted_score ?? '—'} vs ${c.actual_score ?? '—'} → ${c.result_status}${c.recap_eligibility ? '/' + c.recap_eligibility : ''}`).join(' · ') || '—'} />
+        <Row label="文案复核状态 / Copy review" verdict={(OPS_STATE.review_queue ?? []).every(i => i.publish_eligibility === 'PUBLISHED') && (OPS_STATE.review_queue?.length ?? 0) >= 1 ? 'ok' : 'warn'}
+             detail={(OPS_STATE.review_queue ?? []).map(i => `${i.fixture_id}:${i.publish_eligibility}`).join(' · ') || 'none'} />
+        <Row label="分享物料状态 / Share packages" verdict={(OPS_STATE.share_packages ?? []).every(i => i.status === 'SHARE_READY') && (OPS_STATE.share_packages?.length ?? 0) >= 1 ? 'ok' : 'warn'}
+             detail={(OPS_STATE.share_packages ?? []).map(i => `${i.fixture_id}:${i.status}`).join(' · ') || 'none'} />
+        <Row label="今天能不能发 / Can we send" verdict="warn" detail="HOLD — 需 Owner 分渠道 GO；不自动发送" />
+        <Row label="下一步运营动作 / Next action" verdict="warn" detail={OPS_STATE.next_operator_action ?? '—'} />
+      </div>
 
       <div className="card id-card">
         <Row label="Date / 日期" verdict={loaded ? 'ok' : 'warn'} detail={`${m.generated_for_date ?? '—'}${loaded ? '' : ' · loading…'}`} />

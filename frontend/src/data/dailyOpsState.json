@@ -279,6 +279,64 @@
       "guard_status": "no_fake_t30 (no live feed → no auto update_text)"
     }
   ],
+  "freshness": {
+    "freshness_status": "FRESH",
+    "runtime_date": "2026-06-15",
+    "artifact_date": "2026-06-15",
+    "stale_reason": null,
+    "homepage_primary_fixture": "1489377",
+    "secondary_fixtures": [
+      "1489379",
+      "1489380"
+    ]
+  },
+  "recommendation_closure": [
+    {
+      "fixture_id": "1489371",
+      "match": "Brazil vs Morocco",
+      "predicted_score": "2-1",
+      "actual_score": "1-1",
+      "result_status": "PARTIAL",
+      "source_basis": "observation_receipt",
+      "why_it_hit_or_missed": "偏差原因：巴西控制力低于赛前预期，摩洛哥防线压缩和反击质量高于预期",
+      "correction_note": "下一场影响：巴西后续需要下调胜负确定性，摩洛哥韧性值得继续跟踪",
+      "recap_eligibility": "OBSERVATION_ONLY",
+      "recap_artifact_path": "frontend/src/data/predictionArtifacts/observation_1489371.json",
+      "share_copy_status": "READY",
+      "operator_next_action": "完整赛后数据未接入 — 维持赛后观察，不臆造完整复盘",
+      "guard_status": "no_fake_recap · no_fake_events"
+    },
+    {
+      "fixture_id": "1489369",
+      "match": "Mexico vs South Africa",
+      "predicted_score": null,
+      "actual_score": "2-0",
+      "result_status": "OBSERVATION_ONLY",
+      "source_basis": "full_recap",
+      "why_it_hit_or_missed": null,
+      "correction_note": null,
+      "recap_eligibility": "FULL_RECAP",
+      "recap_artifact_path": "frontend/src/data/productNarratives (real_recap)",
+      "share_copy_status": "READY",
+      "operator_next_action": "完整复盘已就绪 — 复核后可上首页复盘",
+      "guard_status": "no_fake_recap · no_fake_events"
+    },
+    {
+      "fixture_id": "1539002",
+      "match": "Sweden vs Tunisia",
+      "predicted_score": null,
+      "actual_score": null,
+      "result_status": "PENDING",
+      "source_basis": "manifest_score_only",
+      "why_it_hit_or_missed": null,
+      "correction_note": null,
+      "recap_eligibility": "PENDING",
+      "recap_artifact_path": null,
+      "share_copy_status": "PENDING",
+      "operator_next_action": "等待终场比分确认",
+      "guard_status": "no_fake_recap · no_fake_events"
+    }
+  ],
   "autorun": {
     "last_run": "2026-06-15T12:00:00+00:00",
     "mode": "execute-reviewed-only",
