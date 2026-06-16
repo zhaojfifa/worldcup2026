@@ -351,8 +351,12 @@ function OtherRecaps({ rows, loc }: { rows: DailyFixtureRow[]; loc: Locale }) {
           // A finished match with a score-only OBSERVATION receipt is clickable too — recapReady=false
           // does NOT downgrade it to a dead 已完赛 chip (Owner OPS 2026-06-16). 查看复盘 only when a real
           // recap exists (ready); otherwise 查看赛后观察 → the safe observation page.
+          // recapKeyFor returns a non-null key only for (a) an id-fixture, or (b) a manual fixture
+          // (id=null) that ALREADY has an observation artifact. So check the observation on the RAW
+          // id for case (a); a non-null key for a manual fixture (b) already implies one exists
+          // (avoids re-checking hasObservationArtifact on the URL-encoded key, which would miss).
           const rKey = recapKeyFor(f);
-          const obs = !!rKey && hasObservationArtifact(rKey);
+          const obs = f.id ? hasObservationArtifact(f.id) : !!rKey;
           const clickable = !!rKey && (ready || obs);
           return (
             <div className="md-row" key={f.external_game_id || `${f.home}-${f.away}`}>

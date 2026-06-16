@@ -128,7 +128,7 @@ BETTING_VOCAB=none · FAKE_DATA=none · AUTO_SEND=none · SEND_STATUS=HOLD
 ## Check 9 — Secret scan
 - This patch's own additions (`git diff main...HEAD | grep '^+'`) contain **no** token/API key/.env →
   this patch introduces no leak.
-- HOWEVER `git grep "12344321"` finds the admin token VALUE in TWO tracked files:
+- HOWEVER `git grep "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>"` finds the admin token VALUE in TWO tracked files:
   `docs/reviews/codex_p4r_live_source_of_truth_review_20260616.md` and
   `docs/reviews/codex_p5b_match_lifecycle_homepage_review_20260616.md`. These are PRIOR review docs,
   NOT part of this patch's diff (confirmed via `--name-only`). **HIGH-severity pre-existing leak** —

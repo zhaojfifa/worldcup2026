@@ -51,3 +51,20 @@ No betting/odds/handicap/probability wording; no fake event/full recap; Belgium 
 ## Screenshots
 docs/qa_screenshots/ops_patch_brazil_morocco_recap_clickable/local/ (01 home recap card clickable + new
 state label, 02 observation page, 03 predicted-vs-actual, 04 correction/next-learning, 05 Belgium still 1-1).
+
+## Codex independent review (PASS_WITH_PATCHES) — disposition
+Codex confirmed all functional rules: RECAP_CARD_CLICKABLE=yes · LINK_TARGET_RECAP_1489371=yes ·
+RECAPREADY_FALSE_NOT_BLOCKING=yes · OBSERVATION_NOT_FAKE_RECAP=yes · PREDICTED_VS_ACTUAL_ALIGNED=yes ·
+BELGIUM_STILL_1_1=yes · BETTING_VOCAB=none · AUTO_SEND=none · SEND_STATUS=HOLD · BACKEND_SCHEMA_CHANGE=no.
+It also confirmed the "already worked; this patch hardens/clarifies/guards" claim is accurate.
+Defects:
+- HIGH (FIXED): the branch commit d75a31d had swept in the PRIOR patch's uncommitted Codex doc
+  (codex_ops_patch_1489377_score_1_1_review_20260616.md) which still quoted the admin token value →
+  ADMIN_TOKEN_LEAK reintroduced. Scrubbed (git grep clean). The value remains in git history (this commit
+  + the prior P4R++/P5B docs) → Owner MUST ROTATE the token; engineering has no rotation access.
+- LOW (FIXED): OtherRecaps re-checked hasObservationArtifact on the URL-ENCODED key, which would miss a
+  manual-fixture (id=null) observation. Reworked to check the raw id (or trust recapKeyFor's guarantee for
+  manual fixtures). No live impact (1489371 is numeric-id and is the primary card), fixed for correctness.
+- NIT: the codex_ops_patch_1489377 doc belongs to the prior Belgium branch's review (carried in the working
+  tree because this branch is stacked on it); harmless.
+Ref: docs/reviews/codex_ops_patch_brazil_morocco_recap_clickable_review_20260616.md
