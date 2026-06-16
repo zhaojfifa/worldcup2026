@@ -41,3 +41,16 @@ stale/invalid/date-mismatched → bundled selectedHotspot/lifecycle fallback. No
 No CSS/layout/copy/section change; no backend schema change; no env/token committed; no auto-send; send HOLD.
 The frontend R2a change activates on the next deploy (no daily-content deploy needed thereafter); the guard
 fixes are Python and active immediately.
+
+## Codex independent review (PASS_WITH_PATCHES) — disposition
+Codex PASS_WITH_PATCHES; confirmations: DIFF_SCOPE_OK=yes · RUNTIME_SELECTEDHOTSPOT_SOURCE_OF_TRUTH=yes ·
+BUNDLED_FALLBACK_ONLY=yes · CONSISTENCY_GUARD_FIXED=yes · HOMEPAGE_QUALITY_GUARD_FIXED=yes · R2A_RUNTIME_AWARE=yes ·
+NO_MIXED_DATE_PRESERVED=yes · NO_PRODUCT_UI_REDESIGN=yes · NO_BACKEND_SCHEMA_CHANGE=yes · FAKE_DATA=none ·
+AUTO_SEND=none · SEND_STATUS=HOLD · ADMIN_TOKEN_LEAK=false · BUILD=pass. Codex independently verified the
+runtime-aware guards PASS live (sel_source/src=runtime), the bogus-backend fallback is graceful (no crash),
+the R2a anchor logic + no-mixed-date invariant, and the live DOM (France primary, Iran recap, bundle unchanged).
+- D1 (LOW): Codex saw a live check_customer_visible_copy FAIL on /join persona naming. RESOLVED as a
+  TRANSIENT: /join is untouched by this branch, and a clean re-run is 21/21 PASS (incl /join zh/vi/my) —
+  a headless-Chrome cold-start render hiccup, not a regression. The self-review's "customer-visible PASS"
+  is accurate.
+Ref: docs/reviews/codex_r5_runtime_selectedhotspot_guard_patch_review_20260616.md
