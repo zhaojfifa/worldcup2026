@@ -1,35 +1,50 @@
 {
-  "_note": "OPERATOR_ESTIMATED reviewed daily judgement for Spain vs Cape Verde Islands (1489380, 2026-06-15). Cape Verde Islands is cold-start (NOT in the historical kaggle dataset), so there is NO honest computed Elo gap and model source = operator_estimated (NOT computed). The lean to Spain is an operator estimate based on Spain's pedigree/strength (Elo ~2048); Cape Verde's unknown level is itself the key variable. llm_provider=operator_manual (no external LLM auto-run; real model+LLM = P1). win_prob/confidence intentionally absent (no fake probability). Safe vocabulary only; zh canonical.",
+  "_note": "P5A v2 OPERATOR_ESTIMATED reviewed — Spain vs Cape Verde Islands (1489380, 2026-06-15). Cape Verde is cold-start (NOT in the historical kaggle dataset), so model source = operator_estimated, NOT computed; the lean to Spain rests on Spain's pedigree (Elo ~2048) and Cape Verde's unknown level is itself the key variable. Stays SECONDARY (no primary promotion). llm_provider=operator_manual; win_prob/confidence absent. Strong copy v2, no forbidden phrasing, zh canonical.",
   "llm_provider": "operator_manual",
-  "main_lean": "赛前明显倾向西班牙，但佛得角缺乏历史数据，是最大未知",
+  "copy_version": "p5a_v2",
+  "main_lean": "俅哥主看西班牙拿下，但这是估计盘——佛得角没历史数据，下限难判",
   "primary_score": "2-0",
-  "backup_scores": ["3-0", "1-0"],
+  "backup_scores": [
+    "3-0",
+    "1-0"
+  ],
   "risk_level": "中",
-  "risk_note": "西班牙以底蕴和整体实力明显占优，但佛得角不在历史数据样本中（冷启动、无可信 Elo），真实水平本身就是变量，因此纸面优势也不能想当然，风险评中。",
-  "top_variable": "佛得角真实水平未知 + 西班牙轮换与终结效率",
-  "why": "西班牙底蕴与整体实力领先，但佛得角无历史数据覆盖，未知水平与西班牙轮换是决定比分的关键",
+  "risk_note": "西班牙底蕴与传控体系是世界级（参考 Elo 约 2048），赢球方向几乎没争议；但佛得角不在历史样本里、真实战力是未知数，所以这是一个操作组估计、而不是系统算出来的判断。",
+  "top_variable": "佛得角的真实下限——它越能成型防守，西班牙越要靠耐心而不是火力",
+  "why": "传控强队对阵数据空白的对手，胜负方向清楚、比分却最难定：取决于对手能不能把场面拖住，以及强队的终结效率。",
   "tactical_read": [
-    "西班牙高位控球加边中结合，关注其能否快速打穿佛得角防线",
-    "佛得角大概率低位密集防守，关注其能否拖住西班牙首粒进球时间",
-    "比分上限取决于西班牙轮换深度与终结效率，下限取决于佛得角防守韧性"
+    "西班牙控球做横向转移找肋部，重点看多久打穿对手第一道防线",
+    "佛得角大概率深蹲防守加零星反击，落点与体能决定能不能守住门面",
+    "比分弹性大：1-0 闷平到 3-0 大胜都合理，取决于西班牙耐心与效率"
   ],
   "risk_factors": [
-    "佛得角真实水平未知：无历史数据，临场可能高于或低于预期",
-    "西班牙轮换与首发：核心球员是否登场影响终结效率",
-    "比赛节奏、天气与场地"
+    "佛得角真实战力未知（冷启动，无历史数据）——这是最大不确定性",
+    "西班牙是否轮换、终结效率是否在线",
+    "场地、天气与开局节奏拖慢带来的闷局风险"
   ],
   "external_expectation": [
-    "公开预测倾向明显偏向西班牙",
-    "热度集中在西班牙大胜",
-    "冷门变量主要在佛得角未知水平与西班牙轮换保守"
+    "公开预测倾向一边倒看好西班牙",
+    "热度集中在西班牙赢几个，而非胜负方向",
+    "冷门变量几乎只剩佛得角死守拿一个平局"
   ],
   "t30_checklist": [
-    "首发阵容与位置（西班牙轮换深度）",
-    "佛得角防守站位与人数",
-    "西班牙进攻组合与边路选择",
+    "西班牙是否派出最强中前场",
+    "佛得角摆深蹲铁桶还是敢压一线",
+    "核心球员热身与最后伤情",
     "临场热度与风险方向",
-    "开球前再确认方向，必要时下调把握度"
+    "开球前再确认方向，把握度按首发微调"
   ],
-  "share_copy": "今日主推：西班牙 vs 佛得角。俅哥主看：赛前明显倾向西班牙，但佛得角是未知数。主比分 2-0，备选 3-0 / 1-0，冷门风险中。数据说明：西班牙底蕴与整体实力领先；佛得角不在历史数据样本中（无可信 Elo），属操作组估计。开球前 30 分钟看首发与临场修正，进群等修正。",
-  "safety": { "no_betting_vocab": true, "no_fake_probability": true, "no_auto_send": true }
+  "share_copy": "今日次推 西班牙 vs 佛得角：俅哥看西班牙拿下，主比分 2-0、备选 3-0 / 1-0。注意——这是操作组估计盘：佛得角没有历史数据、下限难判，赢球方向清楚、比分弹性大。开球前 30 分钟群里更新首发。",
+  "hook_headline": "西班牙该赢、方向没争议——但佛得角是数据空白，比分是估的不是算的",
+  "main_reason": "西班牙传控底蕴世界级（参考 Elo 约 2048），硬实力远高于对手",
+  "pressure_point": "佛得角能不能把场面拖住：守得越成型，西班牙越要靠耐心破闷局",
+  "hidden_risk": "佛得角无历史数据、真实下限未知，西班牙轮换或低效就可能闷成 1-0",
+  "tactical_watch": "西班牙是否上最强中前场、佛得角是铁桶还是敢压",
+  "confidence_language": "胜负方向把握高、比分把握偏低——来源是操作组估计，不是系统算出来的",
+  "group_hook": "佛得角摆几个后卫、西班牙是否轮换决定比分，群里开球前 30 分钟给区间",
+  "safety": {
+    "no_betting_vocab": true,
+    "no_fake_probability": true,
+    "no_auto_send": true
+  }
 }

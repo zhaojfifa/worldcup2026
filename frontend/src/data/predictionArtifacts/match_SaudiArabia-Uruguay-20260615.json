@@ -34,14 +34,14 @@
       "pending_direction": "方向待临场确认",
       "pending_score": "比分待开球前 30 分钟确认",
       "prediction": {
-        "primary_direction": "赛前倾向乌拉圭，沙特需压低节奏才有机会",
+        "primary_direction": "俅哥主看乌拉圭客场拿下，沙特得把节奏拖慢才有机会偷分",
         "score_call": "0-1",
         "backup_score": "0-2 / 0-3",
         "confidence": null,
         "risk_level": "中",
-        "risk_note": "乌拉圭整体实力与历史积累明显领先（历史 Elo 1872 对沙特 1645，差距 227），但沙特近 10 场踢得开放、进球与失球都多，主场冲击下不排除咬住比分。",
-        "top_variable": "沙特能否压住开局节奏 + 乌拉圭中后场的反击调度效率",
-        "why": "乌拉圭实力与组织领先，控住中场后能稳步建立优势；沙特若放开打反而暴露后防，比分容易被乌拉圭拉开"
+        "risk_note": "乌拉圭 Elo 1872 高出沙特 1645 整整 227，个人能力与经验都在另一档；但沙特主场敢拼、定位球有威胁，真正的问题是乌拉圭愿不愿意提速。",
+        "top_variable": "乌拉圭的提速意愿——全力踢就是大胜，控着踢就可能只赢一个",
+        "why": "实力差距明显的客队掌握主动，主场弱旅靠拼抢和定位球搏一个，比分大小取决于强队态度而不是胜负方向。"
       },
       "analysis": {
         "modeling_focus": [
@@ -49,32 +49,41 @@
           "近况风格：沙特近 10 场 4 胜 6 负、攻防都开放（进 12 失 15）vs 乌拉圭 4 胜 4 平 2 负更均衡（进 10 失 9）"
         ],
         "tactical_matchup": [
-          "乌拉圭控住中场后由中后场发动推进，关注其边路与中锋支点的衔接",
-          "沙特主场会试图提速施压，关注其压上后留出的肋部与反击空当",
-          "比分走向取决于乌拉圭首粒进球时间，以及沙特能否在落后前保持阵型不散"
+          "乌拉圭中场控制加前场个人能力，重点看能否早早一球锁死悬念",
+          "沙特高位逼抢加定位球突袭，落点和第二点是它唯一的得分来源",
+          "比分弹性在 0-1 到 0-3 之间，取决于乌拉圭下半场是否继续加码"
         ],
         "risk_variables": [
-          "首发与轮换：乌拉圭核心中场与锋线是否先发",
-          "沙特主场气氛带动的开局压迫强度与体能分配",
-          "比赛节奏、天气与场地对开放打法的影响"
+          "乌拉圭是否轮换核心、主力前锋出不出场",
+          "沙特主场氛围带动的开局高压能撑多久",
+          "乌拉圭领先后是否收着踢、给沙特还魂窗口"
         ],
         "external_expectation": [
-          "公开预测倾向偏向乌拉圭",
-          "热度集中在乌拉圭取胜",
-          "冷门变量主要在沙特主场压低比分或抢先偷袭得手"
+          "公开预测倾向明显看好乌拉圭",
+          "热度集中在乌拉圭赢几个，而非胜负方向",
+          "冷门变量押在沙特主场逼平或先进球搅局"
         ],
         "thirty_minute_checklist": [
-          "首发阵容与位置",
-          "乌拉圭中场组合与锋线支点",
-          "沙特前压强度与防线站位",
+          "乌拉圭主力前锋与中场是否首发",
+          "沙特摆高压对攻还是低位防守",
+          "核心球员热身与最后伤情",
           "临场热度与风险方向",
-          "开球前再确认方向，必要时下调把握度"
+          "开球前再确认方向，把握度按首发微调"
         ]
       },
       "operations": {
         "share_title": "俅哥今日热点 · 沙特 vs 乌拉圭",
-        "share_copy": "今日主推：沙特 vs 乌拉圭。俅哥主看：赛前倾向乌拉圭，沙特需压低节奏才有机会。主比分 0-1，备选 0-2 / 0-3，冷门风险中。数据依据：乌拉圭历史 Elo 1872 领先沙特 1645，差距 227。开球前 30 分钟看首发与临场修正，进群等修正。",
+        "share_copy": "今日次推 沙特 vs 乌拉圭：俅哥看乌拉圭客场小胜，主比分 0-1、备选 0-2 / 0-3。依据——Elo 1872 对 1645 差 227，乌拉圭高一档；沙特主场拼定位球能搏，赢几个看乌拉圭态度。开球前 30 分钟群里更新首发。",
         "join_cta": "加入临场情报群"
+      },
+      "copy_v2": {
+        "hook_headline": "乌拉圭高出沙特一档，赢是大概率——赢几个全看乌拉圭愿不愿意提速",
+        "main_reason": "Elo 1872 对 1645、差 227，个人能力与经验乌拉圭整体压一档",
+        "pressure_point": "乌拉圭的提速意愿：早进球就大胜，控着踢就可能只赢一个",
+        "hidden_risk": "沙特主场高压加定位球，乌拉圭轻敌或轮换就可能被逼平",
+        "tactical_watch": "乌拉圭主力前锋是否首发、沙特是对攻还是低位死守",
+        "confidence_language": "胜负方向把握偏高、比分把握中等——赢家清楚，赢多少有弹性",
+        "group_hook": "乌拉圭首发是否轮换决定比分大小，群里开球前 30 分钟给最终区间"
       }
     },
     "vi": {
@@ -122,6 +131,15 @@
         "share_title": "Điểm nóng Tiên Tri · Saudi Arabia vs Uruguay",
         "share_copy": "Trận chính hôm nay: Saudi Arabia vs Uruguay. Tiên Tri chốt: trước trận nghiêng Uruguay, Saudi Arabia phải ghìm nhịp mới có cơ hội. Tỷ số chính 0-1, phụ 0-2 / 0-3, rủi ro trung bình. Cơ sở dữ liệu: Elo lịch sử Uruguay 1872 hơn Saudi Arabia 1645, cách biệt 227. 30 phút trước xem đội hình, vào nhóm chờ hiệu chỉnh.",
         "join_cta": "Vào nhóm sát giờ"
+      },
+      "copy_v2": {
+        "hook_headline": "Uruguay hơn Saudi Arabia một bậc, thắng là kịch bản nhiều khả năng — thắng mấy bàn hoàn toàn tùy Uruguay có chịu tăng tốc không",
+        "main_reason": "Elo 1872 so với 1645, cách biệt 227; cá nhân và kinh nghiệm Uruguay nhỉnh hơn cả một bậc",
+        "pressure_point": "Ý chí tăng tốc của Uruguay: ghi sớm thì thắng đậm, đá cầm chừng thì có thể chỉ hơn một bàn",
+        "hidden_risk": "Saudi Arabia gây sức ép sân nhà cộng bóng cố định; Uruguay chủ quan hoặc xoay tua là có thể bị cầm hòa",
+        "tactical_watch": "Tiền đạo chủ lực của Uruguay có đá chính không, và Saudi Arabia chọn đôi công hay phòng ngự tầm thấp",
+        "confidence_language": "Mức chắc chắn về hướng thắng-thua khá cao, về tỷ số ở mức trung bình — bên thắng rõ, thắng bao nhiêu còn co giãn",
+        "group_hook": "Việc Uruguay có xoay tua đội hình hay không quyết định tỷ số đậm nhạt; vào nhóm, 30 phút trước giờ bóng lăn sẽ chốt khoảng cuối"
       }
     },
     "my": {
@@ -169,6 +187,15 @@
         "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Saudi Arabia vs Uruguay",
         "share_copy": "ဒီနေ့ အဓိကပွဲ: Saudi Arabia vs Uruguay။ Oracle: ပွဲကြို Uruguay ဘက်ယိမ်း၊ Saudi Arabia က အရှိန် ထိန်းနိုင်မှသာ အခွင့်အရေး ရှိ။ အဓိကစကော 0-1၊ အရန် 0-2 / 0-3၊ risk အလယ်အလတ်။ Data: Uruguay သမိုင်း Elo 1872 က Saudi Arabia 1645 ကို သာ (ကွာဟ 227)။ မိနစ် ၃၀ အလို lineup ကြည့်၊ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
         "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
+      },
+      "copy_v2": {
+        "hook_headline": "Uruguay က Saudi Arabia ထက် တစ်ဆင့် မြင့်၊ အနိုင်ရဖို့ ဖြစ်နိုင်ခြေ များ — ဘယ်နှစ်ဂိုး နိုင်မလဲ က Uruguay အရှိန်မြှင့်ဖို့ ဆန္ဒ အပေါ် မူတည်",
+        "main_reason": "Elo 1872 vs 1645၊ ကွာဟ 227; တစ်ဦးချင်း စွမ်းရည်နှင့် အတွေ့အကြုံ Uruguay တစ်ဆင့် သာ",
+        "pressure_point": "Uruguay အရှိန်မြှင့် ဆန္ဒ: စောစော သွင်းရင် အပြတ်အသတ် နိုင်၊ ထိန်းကစားရင် တစ်ဂိုးသာ နိုင်နိုင်",
+        "hidden_risk": "Saudi Arabia ကိုယ့်ကွင်း ဖိအားနှင့် set-piece; Uruguay ပေါ့ဆ သို့ rotation လုပ်ရင် သရေ ဆွဲခံရနိုင်",
+        "tactical_watch": "Uruguay အဓိက တိုက်စစ်မှူး ပထမ ၁၁ ပါမလား၊ Saudi Arabia က ဖွင့်ကစား သို့ low block ခိုင်ခိုင် ခံ",
+        "confidence_language": "နိုင်/ရှုံး ဦးတည်ချက် သေချာမှု မြင့်၊ စကော သေချာမှု အလယ်အလတ် — အနိုင်ရသူ ရှင်း၊ ဘယ်လောက် နိုင်မလဲ ဆွဲဆန့်ရှိ",
+        "group_hook": "Uruguay starting lineup rotation လုပ်/မလုပ် က စကော အကြီးအသေး ဆုံးဖြတ်; အဖွဲ့ထဲ ပွဲမစခင် မိနစ် ၃၀ နောက်ဆုံး အပိုင်းအခြား ပေးမည်"
       }
     },
     "en": {
@@ -216,6 +243,15 @@
         "share_title": "Today's hotspot · Saudi Arabia vs Uruguay",
         "share_copy": "Today's main match: Saudi Arabia vs Uruguay. Call: pre-match leans Uruguay, Saudi Arabia need to slow the tempo to get a chance. Main score 0-1, backup 0-2 / 0-3, risk medium. Basis: Uruguay's historical Elo 1872 leads Saudi Arabia's 1645, a 227 gap. Check lineups 30 minutes before; join the group for the live correction.",
         "join_cta": "Join the live group"
+      },
+      "copy_v2": {
+        "hook_headline": "Uruguay are a tier above Saudi Arabia and very likely to win — the margin comes down to whether Uruguay choose to up the tempo",
+        "main_reason": "Elo 1872 vs 1645, a 227 gap; Uruguay edge it on individual quality and experience by a full tier",
+        "pressure_point": "Uruguay's willingness to up the tempo: score early and it's a comfortable win, manage the game and it may be just one goal",
+        "hidden_risk": "Saudi Arabia's home pressure plus set-pieces; if Uruguay are complacent or rotate they could be held",
+        "tactical_watch": "Whether Uruguay's first-choice forward starts, and whether Saudi Arabia trade attacks or sit in a low block",
+        "confidence_language": "Confidence in the result direction is fairly high, in the exact score it's medium — the winner is clear, the margin is flexible",
+        "group_hook": "Whether Uruguay rotate their starting XI decides how big the score is; join the group for the final range 30 minutes before kickoff"
       }
     }
   },
@@ -267,35 +303,35 @@
     "built_at": "20260615"
   },
   "llm_judgment": {
-    "main_lean": "赛前倾向乌拉圭，沙特需压低节奏才有机会",
+    "main_lean": "俅哥主看乌拉圭客场拿下，沙特得把节奏拖慢才有机会偷分",
     "primary_score": "0-1",
     "backup_scores": [
       "0-2",
       "0-3"
     ],
-    "top_variable": "沙特能否压住开局节奏 + 乌拉圭中后场的反击调度效率",
-    "why": "乌拉圭实力与组织领先，控住中场后能稳步建立优势；沙特若放开打反而暴露后防，比分容易被乌拉圭拉开",
+    "top_variable": "乌拉圭的提速意愿——全力踢就是大胜，控着踢就可能只赢一个",
+    "why": "实力差距明显的客队掌握主动，主场弱旅靠拼抢和定位球搏一个，比分大小取决于强队态度而不是胜负方向。",
     "tactical_read": [
-      "乌拉圭控住中场后由中后场发动推进，关注其边路与中锋支点的衔接",
-      "沙特主场会试图提速施压，关注其压上后留出的肋部与反击空当",
-      "比分走向取决于乌拉圭首粒进球时间，以及沙特能否在落后前保持阵型不散"
+      "乌拉圭中场控制加前场个人能力，重点看能否早早一球锁死悬念",
+      "沙特高位逼抢加定位球突袭，落点和第二点是它唯一的得分来源",
+      "比分弹性在 0-1 到 0-3 之间，取决于乌拉圭下半场是否继续加码"
     ],
     "risk_factors": [
-      "首发与轮换：乌拉圭核心中场与锋线是否先发",
-      "沙特主场气氛带动的开局压迫强度与体能分配",
-      "比赛节奏、天气与场地对开放打法的影响"
+      "乌拉圭是否轮换核心、主力前锋出不出场",
+      "沙特主场氛围带动的开局高压能撑多久",
+      "乌拉圭领先后是否收着踢、给沙特还魂窗口"
     ],
     "external_expectation": [
-      "公开预测倾向偏向乌拉圭",
-      "热度集中在乌拉圭取胜",
-      "冷门变量主要在沙特主场压低比分或抢先偷袭得手"
+      "公开预测倾向明显看好乌拉圭",
+      "热度集中在乌拉圭赢几个，而非胜负方向",
+      "冷门变量押在沙特主场逼平或先进球搅局"
     ],
     "t30_checklist": [
-      "首发阵容与位置",
-      "乌拉圭中场组合与锋线支点",
-      "沙特前压强度与防线站位",
+      "乌拉圭主力前锋与中场是否首发",
+      "沙特摆高压对攻还是低位防守",
+      "核心球员热身与最后伤情",
       "临场热度与风险方向",
-      "开球前再确认方向，必要时下调把握度"
+      "开球前再确认方向，把握度按首发微调"
     ]
   },
   "operator_confirmation": {
@@ -304,5 +340,6 @@
     "confirmed_at": "20260615T00:00:00+00:00",
     "edited_fields": []
   },
-  "rendered_copy_source": "operator_reviewed_llm_judgment"
+  "rendered_copy_source": "operator_reviewed_llm_judgment",
+  "copy_version": "p5a_v2"
 }

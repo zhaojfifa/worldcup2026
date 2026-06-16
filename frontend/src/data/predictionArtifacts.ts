@@ -29,12 +29,25 @@ export interface ArtifactAnalysis {
   thirty_minute_checklist: string[];
 }
 export interface ArtifactOps { share_title: string; share_copy: string; join_cta: string; }
+// P5A copy v2 — stronger, persuasive primary copy (additive; rendered when present). No fake
+// probability/confidence; confidence_language is qualitative only. zh synced from the reviewed JSON;
+// vi/my/en authored translations (Han=0).
+export interface ArtifactCopyV2 {
+  hook_headline: string;        // strong, specific (no generic/forbidden phrasing)
+  main_reason: string;          // one concrete reason tied to source data
+  pressure_point: string;       // what could change the match
+  hidden_risk: string;          // why this may fail
+  tactical_watch: string;       // what to watch before kickoff
+  confidence_language: string;  // qualitative only — NO percentage
+  group_hook: string;           // why follow the 30-minute update
+}
 export interface PredictionArtifactLocale {
   pending_direction: string;   // 方向待临场确认
   pending_score: string;       // 比分待开球前 30 分钟确认
   prediction: ArtifactPrediction;
   analysis: ArtifactAnalysis;
   operations: ArtifactOps;
+  copy_v2?: ArtifactCopyV2;    // P5A v2 strong copy (additive)
 }
 // P7 P0-4 — persisted T-30 readiness slot. status=pending pre-lineups (honest checkpoint, never a
 // faked update); ready once the operator confirms the lineups-out re-check; skipped if no change.
@@ -128,6 +141,7 @@ export interface PredictionArtifact {
   operator_confirmation?: ArtifactOperatorConfirmation;
   content_chain?: ArtifactContentChain;   // R1 P0 daily-production-chain provenance
   rendered_copy_source?: string;           // P4R: which copy the renderer projects (reviewed_llm:* / operator_reviewed_llm_judgment)
+  copy_version?: string;                   // P5A: 'p5a_v2' when the strong copy contract is applied
   t30?: ArtifactT30;
   i18n: Partial<Record<Locale, PredictionArtifactLocale>>;
 }
@@ -146,6 +160,14 @@ export interface ObservationArtifactLocale {
   share_title: string;
   share_copy: string;
   join_cta: string;
+  // P5A recap v2 (additive; rendered when present). result_judgment is one of HIT/PARTIAL/MISS/
+  // OBSERVATION_ONLY/PENDING; the rest separate what was right vs wrong vs the model correction.
+  result_judgment?: string;
+  what_was_right?: string;
+  what_was_wrong?: string;
+  model_correction?: string;
+  next_match_learning?: string;
+  source_label?: string;
 }
 export interface ObservationArtifact {
   date: string;

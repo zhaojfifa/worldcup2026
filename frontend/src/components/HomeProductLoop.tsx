@@ -4,7 +4,20 @@ import { selectProductLoop, leadKey, type DailyManifest, type DailyFixtureRow } 
 import { frozenFor } from './UpcomingTacticalStrip';
 import { CopyLink } from './CopyLink';
 import { buildStrongCall } from '../growth/strongCallProjection';
-import { hasObservationArtifact, hasPredictionArtifact } from '../data/predictionArtifacts';
+import { hasObservationArtifact, hasPredictionArtifact, getPredictionArtifact, predictionArtifactLocale } from '../data/predictionArtifacts';
+
+// P5A — the strong v2 copy slice for a fixture (hook/reason/risk), rendered on the homepage cards
+// when present. Pure lookup; returns null when no copy_v2 (older artifacts render unchanged).
+function copyV2For(key: string | null, loc: Locale) {
+  const art = key ? getPredictionArtifact(key) : null;
+  if (!art) return null;
+  return predictionArtifactLocale(art, loc).copy_v2 ?? null;
+}
+const V2L = {
+  zh: { reason: '关键依据', risk: '可能翻车在哪' }, vi: { reason: 'Cơ sở chính', risk: 'Có thể lật ở đâu' },
+  my: { reason: 'အဓိက အခြေခံ', risk: 'ဘယ်မှာ လှန်နိုင်' }, en: { reason: 'Key basis', risk: 'Where it could flip' },
+};
+function v2l(loc: Locale) { return loc === 'zh' ? V2L.zh : loc === 'vi' ? V2L.vi : loc === 'my' ? V2L.my : V2L.en; }
 
 // P7 P0-5: the recap route key for a finished fixture — numeric id, else the fixture_key when a
 // manual hotspot (id=null) has an observation artifact (carryover). null = no recap surface yet.
@@ -200,6 +213,8 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
   // — projected from the prediction artifact via THE canonical projection (decoded leadKey, not
   // the URL-encoded route key). Never invents a score; the full strong card stays on /predict.
   const call = buildStrongCall(leadKey(f) ?? `${f.home}-${f.away}`, loc);
+  const v2 = copyV2For(leadKey(f), loc);
+  const VL = v2l(loc);
   return (
     <>
       <SecHead zh={C.predTitle} en={C.predEn} />
@@ -207,6 +222,8 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
         <div className="th-badge">{C.predState}</div>
         <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</div>
         {ko && <div className="th-meta">{ko}</div>}
+        {/* P5A — strong hook headline leads the primary card (when reviewed v2 copy exists). */}
+        {v2?.hook_headline && <div className="plp-hook">{v2.hook_headline}</div>}
         {call ? (
           <div className="plp-teaser">
             <div className="sc-row"><span className="sc-k">{C.leanL}</span><span className="sc-v sc-lead">{call.main_lean}</span></div>
@@ -220,6 +237,8 @@ function HotspotPrediction({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
               <div className="sc-row"><span className="sc-k">{C.scoreL}</span><span className="sc-v">{call.scoreline_raw}</span></div>
             )}
             {call.risk_label && <div className="sc-row"><span className="sc-k">{C.riskL}</span><span className="sc-v">{call.risk_label}</span></div>}
+            {v2?.main_reason && <div className="sc-row"><span className="sc-k">{VL.reason}</span><span className="sc-v">{v2.main_reason}</span></div>}
+            {v2?.hidden_risk && <div className="sc-row"><span className="sc-k">{VL.risk}</span><span className="sc-v">{v2.hidden_risk}</span></div>}
           </div>
         ) : (
           // P4R+ (Owner): no reviewed LLM copy projected → show an EXPLICIT REVIEW_REQUIRED state,
@@ -254,6 +273,8 @@ function SecondaryMatchCard({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
   const ko = kickoff(f.kickoffUtc, loc);
   const key = predictKey(f);
   const call = buildStrongCall(leadKey(f) ?? `${f.home}-${f.away}`, loc);
+  const v2 = copyV2For(leadKey(f), loc);
+  const VL = v2l(loc);
   return (
     <div className="card th-hero plp-predict plp-secondary">
       <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}</div>
@@ -269,6 +290,9 @@ function SecondaryMatchCard({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
             </div>
           )}
           {call.risk_label && <div className="sc-row"><span className="sc-k">{C.riskL}</span><span className="sc-v">{call.risk_label}</span></div>}
+          {/* P5A — secondary card is a real read, not a schedule row: one reason + one risk. */}
+          {v2?.main_reason && <div className="sc-row"><span className="sc-k">{VL.reason}</span><span className="sc-v">{v2.main_reason}</span></div>}
+          {v2?.hidden_risk && <div className="sc-row"><span className="sc-k">{VL.risk}</span><span className="sc-v">{v2.hidden_risk}</span></div>}
         </div>
       )}
       <div className="pp-cta-row">

@@ -15,24 +15,28 @@ const CHROME = {
         extL: '🌐 外部预期 · 公开预测倾向', t30L: '⏱️ T-30 · 开球前 30 分钟修正',
         focus: '今日建模关注', matchup: '战术对位', risks: '风险变量', thirty: '开球前 30 分钟修正', kickoffTba: '开球时间待确认',
         rescoreCta: '看 30 分钟临场修正',
+        reasonL: '关键依据', pressL: '胜负手', hideL: '可能翻车在哪', watchL: '临场重点看', confL: '把握度', groupL: '为什么进群',
         t30StateL: 'T-30 临场状态', t30Pending: '待确认 · 首发公布后群内更新最终倾向与参考比分', t30Skipped: '无重大变化，维持赛前判断' },
   vi: { title: 'Dự đoán điểm nóng hôm nay', room: 'Phòng chiến thuật', kicker: '⚡ Nhận định mạnh của Tiên Tri', en: 'STRONG CALL', mainSub: 'Nhận định chính hôm nay',
         leanL: 'Tiên Tri chốt', scoreL: 'Tỷ số chính', backupL: 'Phương án phụ', riskL: 'Rủi ro bất ngờ', varL: 'Biến số lớn nhất', whyL: 'Vì sao',
         extL: '🌐 Kỳ vọng bên ngoài · Xu hướng công khai', t30L: '⏱️ T-30 · Hiệu chỉnh 30 phút trước trận',
         focus: 'Tiêu điểm phân tích hôm nay', matchup: 'Đối đầu chiến thuật', risks: 'Biến số rủi ro', thirty: 'Hiệu chỉnh 30 phút trước trận', kickoffTba: 'Giờ bóng lăn chờ xác nhận',
         rescoreCta: 'Xem hiệu chỉnh 30 phút sát giờ',
+        reasonL: 'Cơ sở chính', pressL: 'Điểm quyết định', hideL: 'Có thể lật ở đâu', watchL: 'Sát giờ chú ý', confL: 'Mức chắc chắn', groupL: 'Vì sao vào nhóm',
         t30StateL: 'Trạng thái T-30', t30Pending: 'Chờ xác nhận · đội hình ra sẽ cập nhật thiên hướng cuối + tỷ số tham khảo trong nhóm', t30Skipped: 'Không thay đổi lớn, giữ nhận định trước trận' },
   my: { title: 'ဒီနေ့ အဓိကပွဲ ခန့်မှန်း', room: 'နည်းဗျူဟာခန်း', kicker: '⚡ Oracle ၏ ပြတ်သားသောအမြင်', en: 'STRONG CALL', mainSub: 'ဒီနေ့ အဓိက အမြင်',
         leanL: 'Oracle ပြတ်ပြတ်', scoreL: 'အဓိကစကော', backupL: 'အရန်', riskL: 'အံ့အားသင့် အန္တရာယ်', varL: 'အကြီးဆုံး variable', whyL: 'ဘာကြောင့်',
         extL: '🌐 ပြင်ပမျှော်လင့်ချက် · လူထုထင်မြင်ချက်', t30L: '⏱️ T-30 · ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ',
         focus: 'ဒီနေ့ ပိုင်းခြားသုံးသပ် အာရုံစိုက်ချက်', matchup: 'နည်းဗျူဟာ ထိပ်တိုက်', risks: 'အန္တရာယ် variable', thirty: 'ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ', kickoffTba: 'ပွဲစချိန် အတည်ပြုရန်',
         rescoreCta: 'မိနစ် ၃၀ ပွဲနီး ပြန်ညှိ ကြည့်ရန်',
+        reasonL: 'အဓိက အခြေခံ', pressL: 'အရေးပါဆုံး အချက်', hideL: 'ဘယ်မှာ လှန်နိုင်', watchL: 'ပွဲနီး ဂရုစိုက်', confL: 'သေချာမှု', groupL: 'အဘယ်ကြောင့် ဝင်သင့်',
         t30StateL: 'T-30 အခြေအနေ', t30Pending: 'အတည်ပြုရန် စောင့်ဆဲ · lineup ထွက်ရင် အဖွဲ့ထဲ နောက်ဆုံးအမြင်+ရည်ညွှန်းစကော တင်မည်', t30Skipped: 'ပြောင်းလဲမှု မရှိ၊ ပွဲကြိုအမြင် ဆက်ထား' },
   en: { title: "Today's hotspot prediction", room: 'Tactical room', kicker: '⚡ Strong call', en: 'STRONG CALL', mainSub: "Today's main read",
         leanL: 'Lean', scoreL: 'Score', backupL: 'Backup', riskL: 'Upset risk', varL: 'Biggest variable', whyL: 'Why',
         extL: '🌐 External expectation · public tendency', t30L: '⏱️ T-30 · 30-minute correction',
         focus: 'Modeling focus', matchup: 'Tactical matchup', risks: 'Risk variables', thirty: '30-minute pre-match correction', kickoffTba: 'Kickoff time pending',
         rescoreCta: 'See the 30-minute live correction',
+        reasonL: 'Key basis', pressL: 'Decisive point', hideL: 'Where it could flip', watchL: 'Watch before kickoff', confL: 'Confidence', groupL: 'Why join',
         t30StateL: 'T-30 status', t30Pending: 'Pending · final lean + reference score posted in the group once lineups are out', t30Skipped: 'No major change; pre-match read holds' },
 };
 function chrome(loc: Locale) { return loc === 'zh' ? CHROME.zh : loc === 'vi' ? CHROME.vi : loc === 'my' ? CHROME.my : CHROME.en; }
@@ -143,6 +147,19 @@ export function ArtifactTacticalRoom({ art, loc }: { art: PredictionArtifact; lo
         {CALIBRATION_LINE[loc] && <div className="sc-frame" style={{ textAlign: 'left' }}>{CALIBRATION_LINE[loc]}</div>}
         <a className="sc-rescore-link" href="#live30">{C.rescoreCta} ▸</a>
       </div>
+
+      {/* P5A copy v2 — stronger persuasive read (additive; only when the reviewed copy carries it). */}
+      {A.copy_v2 && (
+        <div className="card sc-card p5a-v2">
+          {A.copy_v2.hook_headline && <div className="sc-row"><span className="sc-v sc-lead">{A.copy_v2.hook_headline}</span></div>}
+          {A.copy_v2.main_reason && <div className="sc-row"><span className="sc-k">{C.reasonL}</span><span className="sc-v">{A.copy_v2.main_reason}</span></div>}
+          {A.copy_v2.pressure_point && <div className="sc-row"><span className="sc-k">{C.pressL}</span><span className="sc-v">{A.copy_v2.pressure_point}</span></div>}
+          {A.copy_v2.hidden_risk && <div className="sc-row"><span className="sc-k">{C.hideL}</span><span className="sc-v">{A.copy_v2.hidden_risk}</span></div>}
+          {A.copy_v2.tactical_watch && <div className="sc-row"><span className="sc-k">{C.watchL}</span><span className="sc-v">{A.copy_v2.tactical_watch}</span></div>}
+          {A.copy_v2.confidence_language && <div className="sc-row"><span className="sc-k">{C.confL}</span><span className="sc-v">{A.copy_v2.confidence_language}</span></div>}
+          {A.copy_v2.group_hook && <div className="sc-row"><span className="sc-v" style={{ color: 'var(--blueMid)', fontWeight: 700 }}>{C.groupL}：{A.copy_v2.group_hook}</span></div>}
+        </div>
+      )}
 
       {/* P8 P0: customer-safe data & provenance block (source-tagged; no win_prob/confidence). */}
       <DataBacking art={art} loc={loc} riskDisplay={call.risk_label} />

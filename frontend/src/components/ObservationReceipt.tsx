@@ -10,10 +10,10 @@ import { ShareBlock } from './ShareBlock';
 // 完整复盘确认后开放). Share/operator actions via the existing ShareBlock (copy link / copy share
 // text / share card / join), now artifact-aware.
 const CHROME = {
-  zh: { back: '赛后观察', nextL: '下一场影响' },
-  vi: { back: 'Quan sát sau trận', nextL: 'Ảnh hưởng trận tới' },
-  my: { back: 'ပွဲပြီး စောင့်ကြည့်ချက်', nextL: 'နောက်ပွဲ သက်ရောက်မှု' },
-  en: { back: 'Post-match observation', nextL: 'Next-match impact' },
+  zh: { back: '赛后观察', nextL: '下一场影响', judgeL: '复盘判定', rightL: '看对了什么', wrongL: '看错了什么', corrL: '判断修正', learnL: '下一场要带走的' },
+  vi: { back: 'Quan sát sau trận', nextL: 'Ảnh hưởng trận tới', judgeL: 'Kết luận', rightL: 'Bắt đúng', wrongL: 'Sai ở đâu', corrL: 'Hiệu chỉnh', learnL: 'Bài học trận tới' },
+  my: { back: 'ပွဲပြီး စောင့်ကြည့်ချက်', nextL: 'နောက်ပွဲ သက်ရောက်မှု', judgeL: 'ဆုံးဖြတ်ချက်', rightL: 'မှန်ခဲ့သည်', wrongL: 'မှားခဲ့သည်', corrL: 'ပြန်ညှိ', learnL: 'နောက်ပွဲ သင်ခန်းစာ' },
+  en: { back: 'Post-match observation', nextL: 'Next-match impact', judgeL: 'Verdict', rightL: 'What was right', wrongL: 'What was wrong', corrL: 'Correction', learnL: 'Next-match learning' },
 };
 function chrome(loc: Locale) { return loc === 'zh' ? CHROME.zh : loc === 'vi' ? CHROME.vi : loc === 'my' ? CHROME.my : CHROME.en; }
 
@@ -33,8 +33,15 @@ export function ObservationReceipt({ art, loc }: { art: ObservationArtifact; loc
           <div className="sc-row"><span className="sc-v sc-lead">{O.receipt_title}</span></div>
           <div className="sc-row"><span className="sc-v">{O.pre_match_call}</span></div>
           <div className="sc-row"><span className="sc-v" style={{ fontWeight: 700 }}>{O.actual_line}</span></div>
+          {O.result_judgment && <div className="sc-row"><span className="sc-k">{C.judgeL}</span><span className="sc-v" style={{ fontWeight: 700 }}>{O.result_judgment}</span></div>}
           <div className="sc-frame" style={{ textAlign: 'left' }}>{O.assessment}</div>
-          {O.deviation && <div className="sc-row"><span className="sc-v">{O.deviation}</span></div>}
+          {/* P5A recap v2 — separate what was right vs wrong vs the model correction (additive). */}
+          {O.what_was_right && <div className="sc-row"><span className="sc-k">{C.rightL}</span><span className="sc-v">{O.what_was_right}</span></div>}
+          {O.what_was_wrong && <div className="sc-row"><span className="sc-k">{C.wrongL}</span><span className="sc-v">{O.what_was_wrong}</span></div>}
+          {O.model_correction && <div className="sc-row"><span className="sc-k">{C.corrL}</span><span className="sc-v">{O.model_correction}</span></div>}
+          {!O.what_was_right && O.deviation && <div className="sc-row"><span className="sc-v">{O.deviation}</span></div>}
+          {O.next_match_learning && <div className="sc-row"><span className="sc-k">{C.learnL}</span><span className="sc-v">{O.next_match_learning}</span></div>}
+          {O.source_label && <div className="sc-frame" style={{ textAlign: 'left', opacity: 0.85 }}>{O.source_label}</div>}
         </div>
 
         <div className="plp-focus">

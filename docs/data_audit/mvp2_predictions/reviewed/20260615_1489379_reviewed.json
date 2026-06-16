@@ -1,35 +1,50 @@
 {
-  "_note": "Reviewed daily judgement for the fresh hotspot Saudi Arabia vs Uruguay (1489379, 2026-06-15, KO 22:00 UTC). model_fields are COMPUTED by ScoutScore v0.2 (kaggle Elo gap 227 Uruguay>Saudi Arabia, last-10 form, Poisson 0-1/0-2/0-3, upset_band=medium). The narrative below is operator-reviewed and consistent with the computed model; llm_provider=operator_manual (no external LLM was auto-run this sprint — that is P1). win_prob/confidence intentionally absent (no fake probability). Safe vocabulary only; zh canonical.",
+  "_note": "P5A v2 reviewed — Saudi Arabia vs Uruguay (1489379, 2026-06-15, KO 22:00 UTC). model_fields COMPUTED by ScoutScore v0.2 (kaggle Elo Uruguay 1872 vs Saudi 1645, gap 227; Poisson 0-1/0-2/0-3; upset_band=medium). Operator-reviewed; llm_provider=operator_manual; win_prob/confidence absent. Strong copy v2, no forbidden phrasing, zh canonical.",
   "llm_provider": "operator_manual",
-  "main_lean": "赛前倾向乌拉圭，沙特需压低节奏才有机会",
+  "copy_version": "p5a_v2",
+  "main_lean": "俅哥主看乌拉圭客场拿下，沙特得把节奏拖慢才有机会偷分",
   "primary_score": "0-1",
-  "backup_scores": ["0-2", "0-3"],
+  "backup_scores": [
+    "0-2",
+    "0-3"
+  ],
   "risk_level": "中",
-  "risk_note": "乌拉圭整体实力与历史积累明显领先（历史 Elo 1872 对沙特 1645，差距 227），但沙特近 10 场踢得开放、进球与失球都多，主场冲击下不排除咬住比分。",
-  "top_variable": "沙特能否压住开局节奏 + 乌拉圭中后场的反击调度效率",
-  "why": "乌拉圭实力与组织领先，控住中场后能稳步建立优势；沙特若放开打反而暴露后防，比分容易被乌拉圭拉开",
+  "risk_note": "乌拉圭 Elo 1872 高出沙特 1645 整整 227，个人能力与经验都在另一档；但沙特主场敢拼、定位球有威胁，真正的问题是乌拉圭愿不愿意提速。",
+  "top_variable": "乌拉圭的提速意愿——全力踢就是大胜，控着踢就可能只赢一个",
+  "why": "实力差距明显的客队掌握主动，主场弱旅靠拼抢和定位球搏一个，比分大小取决于强队态度而不是胜负方向。",
   "tactical_read": [
-    "乌拉圭控住中场后由中后场发动推进，关注其边路与中锋支点的衔接",
-    "沙特主场会试图提速施压，关注其压上后留出的肋部与反击空当",
-    "比分走向取决于乌拉圭首粒进球时间，以及沙特能否在落后前保持阵型不散"
+    "乌拉圭中场控制加前场个人能力，重点看能否早早一球锁死悬念",
+    "沙特高位逼抢加定位球突袭，落点和第二点是它唯一的得分来源",
+    "比分弹性在 0-1 到 0-3 之间，取决于乌拉圭下半场是否继续加码"
   ],
   "risk_factors": [
-    "首发与轮换：乌拉圭核心中场与锋线是否先发",
-    "沙特主场气氛带动的开局压迫强度与体能分配",
-    "比赛节奏、天气与场地对开放打法的影响"
+    "乌拉圭是否轮换核心、主力前锋出不出场",
+    "沙特主场氛围带动的开局高压能撑多久",
+    "乌拉圭领先后是否收着踢、给沙特还魂窗口"
   ],
   "external_expectation": [
-    "公开预测倾向偏向乌拉圭",
-    "热度集中在乌拉圭取胜",
-    "冷门变量主要在沙特主场压低比分或抢先偷袭得手"
+    "公开预测倾向明显看好乌拉圭",
+    "热度集中在乌拉圭赢几个，而非胜负方向",
+    "冷门变量押在沙特主场逼平或先进球搅局"
   ],
   "t30_checklist": [
-    "首发阵容与位置",
-    "乌拉圭中场组合与锋线支点",
-    "沙特前压强度与防线站位",
+    "乌拉圭主力前锋与中场是否首发",
+    "沙特摆高压对攻还是低位防守",
+    "核心球员热身与最后伤情",
     "临场热度与风险方向",
-    "开球前再确认方向，必要时下调把握度"
+    "开球前再确认方向，把握度按首发微调"
   ],
-  "share_copy": "今日主推：沙特 vs 乌拉圭。俅哥主看：赛前倾向乌拉圭，沙特需压低节奏才有机会。主比分 0-1，备选 0-2 / 0-3，冷门风险中。数据依据：乌拉圭历史 Elo 1872 领先沙特 1645，差距 227。开球前 30 分钟看首发与临场修正，进群等修正。",
-  "safety": { "no_betting_vocab": true, "no_fake_probability": true, "no_auto_send": true }
+  "share_copy": "今日次推 沙特 vs 乌拉圭：俅哥看乌拉圭客场小胜，主比分 0-1、备选 0-2 / 0-3。依据——Elo 1872 对 1645 差 227，乌拉圭高一档；沙特主场拼定位球能搏，赢几个看乌拉圭态度。开球前 30 分钟群里更新首发。",
+  "hook_headline": "乌拉圭高出沙特一档，赢是大概率——赢几个全看乌拉圭愿不愿意提速",
+  "main_reason": "Elo 1872 对 1645、差 227，个人能力与经验乌拉圭整体压一档",
+  "pressure_point": "乌拉圭的提速意愿：早进球就大胜，控着踢就可能只赢一个",
+  "hidden_risk": "沙特主场高压加定位球，乌拉圭轻敌或轮换就可能被逼平",
+  "tactical_watch": "乌拉圭主力前锋是否首发、沙特是对攻还是低位死守",
+  "confidence_language": "胜负方向把握偏高、比分把握中等——赢家清楚，赢多少有弹性",
+  "group_hook": "乌拉圭首发是否轮换决定比分大小，群里开球前 30 分钟给最终区间",
+  "safety": {
+    "no_betting_vocab": true,
+    "no_fake_probability": true,
+    "no_auto_send": true
+  }
 }

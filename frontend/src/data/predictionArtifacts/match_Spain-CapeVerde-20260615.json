@@ -34,14 +34,14 @@
       "pending_direction": "方向待临场确认",
       "pending_score": "比分待开球前 30 分钟确认",
       "prediction": {
-        "primary_direction": "赛前明显倾向西班牙，但佛得角缺乏历史数据，是最大未知",
+        "primary_direction": "俅哥主看西班牙拿下，但这是估计盘——佛得角没历史数据，下限难判",
         "score_call": "2-0",
         "backup_score": "3-0 / 1-0",
         "confidence": null,
         "risk_level": "中",
-        "risk_note": "西班牙以底蕴和整体实力明显占优，但佛得角不在历史数据样本中（冷启动、无可信 Elo），真实水平本身就是变量，因此纸面优势也不能想当然，风险评中。",
-        "top_variable": "佛得角真实水平未知 + 西班牙轮换与终结效率",
-        "why": "西班牙底蕴与整体实力领先，但佛得角无历史数据覆盖，未知水平与西班牙轮换是决定比分的关键"
+        "risk_note": "西班牙底蕴与传控体系是世界级（参考 Elo 约 2048），赢球方向几乎没争议；但佛得角不在历史样本里、真实战力是未知数，所以这是一个操作组估计、而不是系统算出来的判断。",
+        "top_variable": "佛得角的真实下限——它越能成型防守，西班牙越要靠耐心而不是火力",
+        "why": "传控强队对阵数据空白的对手，胜负方向清楚、比分却最难定：取决于对手能不能把场面拖住，以及强队的终结效率。"
       },
       "analysis": {
         "modeling_focus": [
@@ -49,32 +49,41 @@
           "未知与终结：佛得角真实水平未知 vs 西班牙控球推进与把握机会效率"
         ],
         "tactical_matchup": [
-          "西班牙高位控球加边中结合，关注其能否快速打穿佛得角防线",
-          "佛得角大概率低位密集防守，关注其能否拖住西班牙首粒进球时间",
-          "比分上限取决于西班牙轮换深度与终结效率，下限取决于佛得角防守韧性"
+          "西班牙控球做横向转移找肋部，重点看多久打穿对手第一道防线",
+          "佛得角大概率深蹲防守加零星反击，落点与体能决定能不能守住门面",
+          "比分弹性大：1-0 闷平到 3-0 大胜都合理，取决于西班牙耐心与效率"
         ],
         "risk_variables": [
-          "佛得角真实水平未知：无历史数据，临场可能高于或低于预期",
-          "西班牙轮换与首发：核心球员是否登场影响终结效率",
-          "比赛节奏、天气与场地"
+          "佛得角真实战力未知（冷启动，无历史数据）——这是最大不确定性",
+          "西班牙是否轮换、终结效率是否在线",
+          "场地、天气与开局节奏拖慢带来的闷局风险"
         ],
         "external_expectation": [
-          "公开预测倾向明显偏向西班牙",
-          "热度集中在西班牙大胜",
-          "冷门变量主要在佛得角未知水平与西班牙轮换保守"
+          "公开预测倾向一边倒看好西班牙",
+          "热度集中在西班牙赢几个，而非胜负方向",
+          "冷门变量几乎只剩佛得角死守拿一个平局"
         ],
         "thirty_minute_checklist": [
-          "首发阵容与位置（西班牙轮换深度）",
-          "佛得角防守站位与人数",
-          "西班牙进攻组合与边路选择",
+          "西班牙是否派出最强中前场",
+          "佛得角摆深蹲铁桶还是敢压一线",
+          "核心球员热身与最后伤情",
           "临场热度与风险方向",
-          "开球前再确认方向，必要时下调把握度"
+          "开球前再确认方向，把握度按首发微调"
         ]
       },
       "operations": {
         "share_title": "俅哥今日热点 · 西班牙 vs 佛得角",
-        "share_copy": "今日主推：西班牙 vs 佛得角。俅哥主看：赛前明显倾向西班牙，但佛得角是未知数。主比分 2-0，备选 3-0 / 1-0，冷门风险中。数据说明：西班牙底蕴与整体实力领先；佛得角不在历史数据样本中（无可信 Elo），属操作组估计。开球前 30 分钟看首发与临场修正，进群等修正。",
+        "share_copy": "今日次推 西班牙 vs 佛得角：俅哥看西班牙拿下，主比分 2-0、备选 3-0 / 1-0。注意——这是操作组估计盘：佛得角没有历史数据、下限难判，赢球方向清楚、比分弹性大。开球前 30 分钟群里更新首发。",
         "join_cta": "加入临场情报群"
+      },
+      "copy_v2": {
+        "hook_headline": "西班牙该赢、方向没争议——但佛得角是数据空白，比分是估的不是算的",
+        "main_reason": "西班牙传控底蕴世界级（参考 Elo 约 2048），硬实力远高于对手",
+        "pressure_point": "佛得角能不能把场面拖住：守得越成型，西班牙越要靠耐心破闷局",
+        "hidden_risk": "佛得角无历史数据、真实下限未知，西班牙轮换或低效就可能闷成 1-0",
+        "tactical_watch": "西班牙是否上最强中前场、佛得角是铁桶还是敢压",
+        "confidence_language": "胜负方向把握高、比分把握偏低——来源是操作组估计，不是系统算出来的",
+        "group_hook": "佛得角摆几个后卫、西班牙是否轮换决定比分，群里开球前 30 分钟给区间"
       }
     },
     "vi": {
@@ -122,6 +131,15 @@
         "share_title": "Điểm nóng Tiên Tri · Tây Ban Nha vs Cabo Verde",
         "share_copy": "Trận chính hôm nay: Tây Ban Nha vs Cabo Verde. Tiên Tri chốt: trước trận nghiêng hẳn về Tây Ban Nha, nhưng Cabo Verde là ẩn số. Tỷ số chính 2-0, phụ 3-0 / 1-0, rủi ro trung bình. Lưu ý dữ liệu: Tây Ban Nha trội về đẳng cấp; Cabo Verde không có trong mẫu lịch sử (không có Elo đáng tin), nên đây là ước tính của nhóm vận hành. 30 phút trước xem đội hình, vào nhóm chờ hiệu chỉnh.",
         "join_cta": "Vào nhóm sát giờ"
+      },
+      "copy_v2": {
+        "hook_headline": "Tây Ban Nha nên thắng và hướng nghiêng không phải bàn cãi — nhưng Cabo Verde là khoảng trống dữ liệu, nên tỷ số là ước tính chứ không phải tính ra",
+        "main_reason": "Bề dày kiểm soát bóng của Tây Ban Nha thuộc đẳng cấp thế giới (Elo tham khảo khoảng 2048), thực lực vượt xa đối thủ",
+        "pressure_point": "Cabo Verde có ghìm được thế trận hay không: phòng ngự càng vào nếp thì Tây Ban Nha càng phải kiên nhẫn để phá thế bế tắc",
+        "hidden_risk": "Cabo Verde không có dữ liệu lịch sử, sàn thực lực là ẩn số; Tây Ban Nha xoay tua hoặc kém hiệu quả thì có thể bị ghìm còn 1-0",
+        "tactical_watch": "Tây Ban Nha có tung ra tuyến giữa và hàng công mạnh nhất không, và Cabo Verde dựng xe buýt hay dám dâng lên",
+        "confidence_language": "Mức chắc chắn về hướng thắng-thua cao, về tỷ số khá thấp — nguồn là ước tính của nhóm vận hành, không phải do hệ thống tính ra",
+        "group_hook": "Cabo Verde xếp mấy hậu vệ và Tây Ban Nha có xoay tua hay không sẽ quyết định tỷ số; vào nhóm, 30 phút trước giờ bóng lăn sẽ chốt khoảng"
       }
     },
     "my": {
@@ -169,6 +187,15 @@
         "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Spain vs Cape Verde",
         "share_copy": "ဒီနေ့ အဓိကပွဲ: Spain vs Cape Verde။ Oracle: ပွဲကြို Spain ဘက် သိသိသာသာ ယိမ်း၊ သို့သော် Cape Verde မှာ မသိချက်။ အဓိကစကော 2-0၊ အရန် 3-0 / 1-0၊ risk အလယ်အလတ်။ မှတ်ချက်: Spain အစဉ်အလာ သာ; Cape Verde သမိုင်းအချက်အလက် နမူနာတွင် မပါ (ယုံကြည်ရသော Elo မရှိ) ၍ operator ခန့်မှန်းချက်။ မိနစ် ၃၀ အလို lineup ကြည့်၊ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
         "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
+      },
+      "copy_v2": {
+        "hook_headline": "Spain နိုင်သင့်၊ ဦးတည်ချက် ငြင်းစရာ မရှိ — သို့သော် Cape Verde က အချက်အလက် ကွက်လပ်၍ စကော က တွက်ထားတာ မဟုတ် ခန့်မှန်းထားတာ",
+        "main_reason": "Spain ball control အစဉ်အလာ ကမ္ဘာ့အဆင့် (ကိုးကား Elo ~2048)၊ စွမ်းရည် ပြိုင်ဘက်ထက် အများကြီး မြင့်",
+        "pressure_point": "Cape Verde ပွဲကို ဆွဲထိန်းနိုင်မလား: ခံစစ် ပိုကျနရင် Spain က စိတ်ရှည် ၍ ပိတ်ဆို့ပွဲ ဖောက်ရ",
+        "hidden_risk": "Cape Verde သမိုင်းအချက်အလက် မရှိ၊ စစ်မှန် အနိမ့်ဆုံးအဆင့် မသိ; Spain rotation သို့ ထိရောက်မှုနည်းရင် 1-0 ပိတ်ပွဲ ဖြစ်နိုင်",
+        "tactical_watch": "Spain အကောင်းဆုံး အလယ်-တိုက်စစ် ပါမလား၊ Cape Verde bus ရပ်မလား တက်ဖိ ဝံ့မလား",
+        "confidence_language": "နိုင်/ရှုံး ဦးတည်ချက် သေချာမှု မြင့်၊ စကော သေချာမှု နိမ့် — အရင်းအမြစ် က operator ခန့်မှန်းချက်၊ စနစ်ဖြင့် တွက်ထားသည် မဟုတ်",
+        "group_hook": "Cape Verde ဂိုးသမား ဘယ်နှစ်ယောက် ချ၊ Spain rotation လုပ်/မလုပ် က စကော ဆုံးဖြတ်; အဖွဲ့ထဲ ပွဲမစခင် မိနစ် ၃၀ အပိုင်းအခြား ပေးမည်"
       }
     },
     "en": {
@@ -216,6 +243,15 @@
         "share_title": "Today's hotspot · Spain vs Cape Verde",
         "share_copy": "Today's main match: Spain vs Cape Verde. Call: pre-match leans strongly to Spain, but Cape Verde are a big unknown. Main score 2-0, backup 3-0 / 1-0, risk medium. Data note: Spain lead on pedigree; Cape Verde are not in the historical sample (no reliable Elo), so this is an operator estimate. Check lineups 30 minutes before; join the group for the live correction.",
         "join_cta": "Join the live group"
+      },
+      "copy_v2": {
+        "hook_headline": "Spain should win and the direction is not in doubt — but Cape Verde are a data blank, so the scoreline is estimated, not computed",
+        "main_reason": "Spain's possession pedigree is world class (reference Elo around 2048), far stronger than the opponent",
+        "pressure_point": "Whether Cape Verde can bog the game down: the more organised their defence, the more Spain need patience to break the deadlock",
+        "hidden_risk": "Cape Verde have no historical data and their true floor is unknown; if Spain rotate or finish poorly it could grind to 1-0",
+        "tactical_watch": "Whether Spain field their strongest midfield and attack, and whether Cape Verde park the bus or dare to push up",
+        "confidence_language": "Confidence in the result direction is high, in the exact score fairly low — the source is an operator estimate, not a computed model",
+        "group_hook": "How many defenders Cape Verde field and whether Spain rotate will decide the score; join the group for the range 30 minutes before kickoff"
       }
     }
   },
@@ -262,35 +298,35 @@
     "built_at": "20260615"
   },
   "llm_judgment": {
-    "main_lean": "赛前明显倾向西班牙，但佛得角缺乏历史数据，是最大未知",
+    "main_lean": "俅哥主看西班牙拿下，但这是估计盘——佛得角没历史数据，下限难判",
     "primary_score": "2-0",
     "backup_scores": [
       "3-0",
       "1-0"
     ],
-    "top_variable": "佛得角真实水平未知 + 西班牙轮换与终结效率",
-    "why": "西班牙底蕴与整体实力领先，但佛得角无历史数据覆盖，未知水平与西班牙轮换是决定比分的关键",
+    "top_variable": "佛得角的真实下限——它越能成型防守，西班牙越要靠耐心而不是火力",
+    "why": "传控强队对阵数据空白的对手，胜负方向清楚、比分却最难定：取决于对手能不能把场面拖住，以及强队的终结效率。",
     "tactical_read": [
-      "西班牙高位控球加边中结合，关注其能否快速打穿佛得角防线",
-      "佛得角大概率低位密集防守，关注其能否拖住西班牙首粒进球时间",
-      "比分上限取决于西班牙轮换深度与终结效率，下限取决于佛得角防守韧性"
+      "西班牙控球做横向转移找肋部，重点看多久打穿对手第一道防线",
+      "佛得角大概率深蹲防守加零星反击，落点与体能决定能不能守住门面",
+      "比分弹性大：1-0 闷平到 3-0 大胜都合理，取决于西班牙耐心与效率"
     ],
     "risk_factors": [
-      "佛得角真实水平未知：无历史数据，临场可能高于或低于预期",
-      "西班牙轮换与首发：核心球员是否登场影响终结效率",
-      "比赛节奏、天气与场地"
+      "佛得角真实战力未知（冷启动，无历史数据）——这是最大不确定性",
+      "西班牙是否轮换、终结效率是否在线",
+      "场地、天气与开局节奏拖慢带来的闷局风险"
     ],
     "external_expectation": [
-      "公开预测倾向明显偏向西班牙",
-      "热度集中在西班牙大胜",
-      "冷门变量主要在佛得角未知水平与西班牙轮换保守"
+      "公开预测倾向一边倒看好西班牙",
+      "热度集中在西班牙赢几个，而非胜负方向",
+      "冷门变量几乎只剩佛得角死守拿一个平局"
     ],
     "t30_checklist": [
-      "首发阵容与位置（西班牙轮换深度）",
-      "佛得角防守站位与人数",
-      "西班牙进攻组合与边路选择",
+      "西班牙是否派出最强中前场",
+      "佛得角摆深蹲铁桶还是敢压一线",
+      "核心球员热身与最后伤情",
       "临场热度与风险方向",
-      "开球前再确认方向，必要时下调把握度"
+      "开球前再确认方向，把握度按首发微调"
     ]
   },
   "operator_confirmation": {
@@ -299,5 +335,6 @@
     "confirmed_at": "20260615T00:00:00+00:00",
     "edited_fields": []
   },
-  "rendered_copy_source": "operator_reviewed_llm_judgment"
+  "rendered_copy_source": "operator_reviewed_llm_judgment",
+  "copy_version": "p5a_v2"
 }

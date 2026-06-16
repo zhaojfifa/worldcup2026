@@ -160,6 +160,9 @@ export function DailyStatusPage() {
              detail={recapRow ? `${recapRow.home} vs ${recapRow.away} (${recapKey})` : 'none'} />
         <Row label="预测文案来源 / Prediction copy source" verdict={art?.rendered_copy_source ? 'ok' : 'warn'}
              detail={art?.rendered_copy_source ?? 'unknown — re-run apply (reviewed JSON → i18n sync)'} />
+        {/* P5A — copy version per match (p5a_v2 = strong copy contract applied). */}
+        <Row label="文案版本 / Copy version" verdict={art?.copy_version === 'p5a_v2' ? 'ok' : 'warn'}
+             detail={`primary=${art?.copy_version ?? '—'} · secondary=${(CONTENT_QUEUE.secondary_matches ?? []).map(s => { const a = getPredictionArtifact(s.fixture_key); return `${s.fixture_key}:${a?.copy_version ?? '—'}`; }).join(' · ') || '—'}`} />
         <Row label="复盘文案来源 / Recap copy source" verdict={obs ? 'ok' : (recapRow ? 'warn' : 'na')}
              detail={obs ? `observation receipt (recap_ready=${obs.recap_ready})` : recapRow ? 'full recap / pending' : '—'} />
         <Row label="今日次级推荐 / Today secondary" verdict={(OPS_STATE.secondary?.length ?? 0) >= 2 ? 'ok' : 'warn'}

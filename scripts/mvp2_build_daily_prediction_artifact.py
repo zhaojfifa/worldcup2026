@@ -409,6 +409,13 @@ def cmd_apply(date, fixture_key, reviewed_file):
     if rev.get("share_copy"):
         ops = zh.setdefault("operations", {})
         ops["share_copy"] = rev["share_copy"]
+    # P5A — sync the v2 strong-copy block (zh) from the reviewed JSON when present, and stamp the
+    # copy version. vi/my/en copy_v2 are authored translations on the artifact (not overwritten).
+    v2_keys = ("hook_headline", "main_reason", "pressure_point", "hidden_risk", "tactical_watch",
+               "confidence_language", "group_hook")
+    if any(rev.get(k) for k in v2_keys):
+        zh["copy_v2"] = {k: rev.get(k, "") for k in v2_keys}
+        art["copy_version"] = "p5a_v2"
     provider = rev.get("llm_provider") or "operator_manual"
     # record that the reviewed copy is the rendered source (renderer-traceability for /internal/daily)
     art["rendered_copy_source"] = ("reviewed_llm:" + provider) if provider not in ("operator_manual", "pending") else "operator_reviewed_llm_judgment"

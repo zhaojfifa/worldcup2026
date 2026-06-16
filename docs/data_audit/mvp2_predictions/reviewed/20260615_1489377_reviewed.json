@@ -1,35 +1,50 @@
 {
-  "_note": "R2 reviewed daily judgement for the fresh hotspot Belgium vs Egypt (1489377, 2026-06-15). model_fields are COMPUTED by ScoutScore v0.2 (kaggle Elo gap +129, form, Poisson 1-0/2-0/1-1, upset_band=medium). The narrative below is operator-reviewed and consistent with the computed model; llm_provider=operator_manual (no external LLM was auto-run this sprint — that is P1). win_prob/confidence intentionally absent (no fake probability). Safe vocabulary only; zh canonical.",
+  "_note": "P5A v2 reviewed daily judgement — Belgium vs Egypt (1489377, 2026-06-15). model_fields COMPUTED by ScoutScore v0.2 (kaggle Elo 1885 vs 1756, gap +129; Belgium last-10 7W-3D-0L GF37/GA6; Poisson 1-0/2-0/1-1; upset_band=medium). Operator-reviewed, consistent with the model; llm_provider=operator_manual. win_prob/confidence absent (no fake probability). Strong copy v2, no forbidden phrasing, zh canonical.",
   "llm_provider": "operator_manual",
-  "main_lean": "赛前倾向比利时，但埃及有能力压低比分",
+  "copy_version": "p5a_v2",
+  "main_lean": "俅哥主看比利时拿下，但这是一场要靠效率、而不是靠碾压的比赛",
   "primary_score": "1-0",
-  "backup_scores": ["2-0", "1-1"],
+  "backup_scores": [
+    "2-0",
+    "1-1"
+  ],
   "risk_level": "中",
-  "risk_note": "比利时整体实力与近况领先（历史 Elo 与近 10 场进球数明显占优），但埃及防守组织稳健、反击有威胁，比赛可能走向低比分。",
-  "top_variable": "埃及能否压低节奏 + 比利时进攻终结效率",
-  "why": "比利时实力与状态领先，但埃及的防守与反击会压低比分空间",
+  "risk_note": "比利时历史 Elo 1885 对埃及 1756、近 10 场 7 胜 3 平进 37 球，硬实力明显占优；但埃及防线成型、反击有点，真正的悬念是比利时第一个球来得早不早。",
+  "top_variable": "比利时首粒进球时间——破僵越晚，埃及越敢压上反咬",
+  "why": "实力与近况双优的一方主导球权，弱势一方靠低位防守和反击压缩空间，低比分小胜是这种结构最常见的落点。",
   "tactical_read": [
-    "比利时控球与边中结合，关注其能否打穿埃及低位防线",
-    "埃及低位防守加一侧反击，关注其反击落点与定位球威胁",
-    "比分走向取决于比利时首粒进球时间与埃及体能保持"
+    "比利时边中结合找肋部，重点看能否在 60 分钟前打穿埃及低位防线",
+    "埃及摆 5-4-1、赌一侧快速反击与定位球，落点和第二点会决定能不能偷分",
+    "比分弹性大：1-0 与 2-0 一线之隔，取决于比利时把握机会的效率"
   ],
   "risk_factors": [
-    "首发与轮换：核心球员是否先发",
-    "埃及防线专注度与反击效率",
-    "比赛节奏、天气与场地"
+    "比利时核心前场是否轮换、首发出不出最强组合",
+    "埃及门将与中卫的专注度——一次失误就可能放大成 0-2",
+    "天气、场地与节奏拖慢带来的爆冷窗口"
   ],
   "external_expectation": [
-    "公开预测倾向偏向比利时",
-    "热度集中在比利时取胜",
-    "冷门变量主要在埃及压低比分或偷袭得手"
+    "公开预测倾向普遍看好比利时取胜",
+    "热度集中在比利时能赢几个，而不是会不会赢",
+    "冷门变量几乎都押在埃及把比分压成平局或偷袭得手"
   ],
   "t30_checklist": [
-    "首发阵容与位置",
-    "比利时进攻组合与边路选择",
-    "埃及防守站位与反击人员",
-    "临场热度与风险方向",
-    "开球前再确认方向，必要时下调把握度"
+    "比利时最强前场三人组是否首发",
+    "埃及是 5 后卫死守还是 4 后卫对攻",
+    "核心球员热身状态与最后伤情",
+    "临场盘面热度与风险方向",
+    "开球前再确认方向，把握度按首发微调"
   ],
-  "share_copy": "今日主推：比利时 vs 埃及。俅哥主看：赛前倾向比利时，但埃及有能力压低比分。主比分 1-0，备选 2-0 / 1-1，冷门风险中。数据依据：比利时历史 Elo 与近 10 场进球数领先。开球前 30 分钟看首发与临场修正，进群等修正。",
-  "safety": { "no_betting_vocab": true, "no_fake_probability": true, "no_auto_send": true }
+  "share_copy": "今日主推 比利时 vs 埃及：俅哥看比利时小胜，主比分 1-0、备选 2-0 / 1-1。依据——Elo 1885 对 1756、近 10 场进 37 球，硬实力压人；但埃及防反有点，赢球更靠效率不靠碾压。开球前 30 分钟群里更新首发和最终比分区间。",
+  "hook_headline": "比利时该赢，但这是效率局不是碾压局——首球来得早不早是关键",
+  "main_reason": "Elo 1885 对 1756、近 10 场 7 胜进 37 球，比利时硬实力明显高一档",
+  "pressure_point": "比利时第一个进球的时间：早进球埃及就崩，拖到下半场埃及敢压上",
+  "hidden_risk": "埃及 5-4-1 死守加一侧快反，比利时若效率低，很容易被拖成 1-1",
+  "tactical_watch": "比利时是否派出最强前场三人组、埃及摆 5 后卫还是 4 后卫",
+  "confidence_language": "方向把握偏高、比分把握中等——赢家清楚，赢几个有弹性",
+  "group_hook": "首发一出就知道比利时是全力还是轮换，群里开球前 30 分钟给最终比分区间",
+  "safety": {
+    "no_betting_vocab": true,
+    "no_fake_probability": true,
+    "no_auto_send": true
+  }
 }
