@@ -14,10 +14,10 @@ Belgium vs Egypt stays 1-1. The implementer's "already worked, this patch harden
 claim is ACCURATE for the primary card.
 
 BUT one HIGH-severity defect blocks a clean PASS: this branch's single commit (`d75a31d`)
-**reintroduces the literal admin token value `12344321` into a tracked file** —
+**reintroduces the literal admin token value `<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>` into a tracked file** —
 `docs/reviews/codex_ops_patch_1489377_score_1_1_review_20260616.md:131`. The prior commit `d09fe2e`
 scrubbed that value from two other docs; this commit added a new doc that quotes it again.
-`git grep 12344321` now returns exactly one tracked hit, on this branch. **ADMIN_TOKEN_LEAK=true.**
+`git grep <REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>` now returns exactly one tracked hit, on this branch. **ADMIN_TOKEN_LEAK=true.**
 
 Required patches before merge:
 1. (HIGH) Scrub the literal token value from `codex_ops_patch_1489377_score_1_1_review_20260616.md`
@@ -120,11 +120,11 @@ PASS (artifact-driven across reviewed/artifact/queue/recap + rendered home/predi
 **BETTING_VOCAB=none · AUTO_SEND=none · SEND_STATUS=HOLD.**
 
 ## Check 9 — Secret scan  ★ DEFECT (HIGH)
-`git grep -nE "12344321|ADMIN_API_TOKEN *=" -- .` →
+`git grep -nE "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>|ADMIN_API_TOKEN *=" -- .` →
 - The only `ADMIN_API_TOKEN=` hits are `<local>` / `<prod token>` / `…` placeholders in docs — OK.
-- BUT the literal admin token VALUE `12344321` is present in a tracked file:
+- BUT the literal admin token VALUE `<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>` is present in a tracked file:
   `docs/reviews/codex_ops_patch_1489377_score_1_1_review_20260616.md:131`
-  (the sentence `git grep "12344321" finds the admin token VALUE in TWO tracked files`). This file
+  (the sentence `git grep "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>" finds the admin token VALUE in TWO tracked files`). This file
   was ADDED by this branch's commit `d75a31d` (confirmed via `git log --oneline -- <file>`). The
   prior fix `d09fe2e` scrubbed the value from the two docs it pointed at, but this newly-committed
   review doc quotes the value, so the leak is reintroduced on this branch.
@@ -150,6 +150,6 @@ rotate the admin token (value already exists in git history).
 ## Defects summary
 | # | Severity | Defect |
 |---|---|---|
-| 1 | HIGH | Admin token value `12344321` reintroduced (tracked) at `codex_ops_patch_1489377_score_1_1_review_20260616.md:131`, added by `d75a31d`. Scrub + rotate. |
+| 1 | HIGH | Admin token value `<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>` reintroduced (tracked) at `codex_ops_patch_1489377_score_1_1_review_20260616.md:131`, added by `d75a31d`. Scrub + rotate. |
 | 2 | LOW | OtherRecaps re-checks `hasObservationArtifact(rKey)` on the URL-ENCODED key → breaks manual-fixture (id=null) observation clickability; no current data triggers it, target fixture unaffected. |
 | 3 | NIT | Prior-Belgium-branch review doc committed in this branch — minor scope drift. |
