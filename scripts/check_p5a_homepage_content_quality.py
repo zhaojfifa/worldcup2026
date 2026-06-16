@@ -56,9 +56,15 @@ def main():
     base = a[a.index("--base-url") + 1] if "--base-url" in a else "https://worldcup2026-izid.onrender.com"
     sel = _load(ROOT / "frontend/src/data/selectedHotspot.json") or {}
     q = _load(ROOT / "frontend/src/data/dailyContentQueue.json") or {}
+    # P5B: the homepage primary is now the LIFECYCLE primary (not necessarily the selectedHotspot).
+    # Read the rendered-primary fixture from the lifecycle artifact when present; fall back to sel.
+    lc = _load(ROOT / "frontend/src/data/homepageLifecycle.json") or {}
+    primary_fk = ((lc.get("primary_prediction") or {}).get("fixture_id")) or sel.get("fixture_key")
+    sec_keys = [ (s or {}).get("fixture_id") for s in (lc.get("secondary_predictions") or []) ] \
+        or [s.get("fixture_key") for s in q.get("secondary_matches", [])]
     dom = dump_dom(base.rstrip("/") + "/?lang=zh")
     if not dom: print("FAIL  homepage not rendered"); return 1
-    fails = scan(dom, cv(sel.get("fixture_key")), [cv(s.get("fixture_key")) for s in q.get("secondary_matches", [])])
+    fails = scan(dom, cv(primary_fk), [cv(k) for k in sec_keys])
     for x in fails: print("FAIL  %s" % x)
     if fails: print("P5A HOMEPAGE CONTENT QUALITY FAIL — %d" % len(fails)); return 1
     print("P5A HOMEPAGE CONTENT QUALITY PASS (hook + reason + risk on primary; secondary not bare rows; no forbidden)"); return 0

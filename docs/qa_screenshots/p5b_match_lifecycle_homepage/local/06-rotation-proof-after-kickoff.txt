@@ -1,0 +1,6 @@
+LIFECYCLE · 2026-06-15 · basis=2026-06-15T20:00:00+00:00
+  primary:   Saudi Arabia vs Uruguay [UPCOMING_PREDICTION_READY]
+  secondary: none
+  recap:     Brazil vs Morocco [FINISHED_OBSERVATION_READY]
+  next:      —
+  excluded:  archive=0 demo=0 · pending_recap=1 · NEXT: build recap for finished tracked matches

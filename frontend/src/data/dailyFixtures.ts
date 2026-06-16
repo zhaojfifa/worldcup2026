@@ -6,6 +6,17 @@
 import fallbackManifest from './dailyFixtures.generated.json';
 import { hasPredictionArtifact } from './predictionArtifacts';
 import { getSelectedHotspot } from './selectedHotspot';
+import homepageLifecycleRaw from './homepageLifecycle.json';
+
+// P5B — the homepage match-lifecycle artifact (built by scripts/mvp2_homepage_lifecycle_selector.py).
+// It DRIVES the homepage roles (primary/secondary/latest_recap) so the page FOLLOWS match progress
+// instead of a fixed selectedHotspot board. A finished match is never the primary here.
+interface LifecycleRole { fixture_id: string; match: string; lifecycle_state: string; active_content_role: string }
+interface HomepageLifecycle {
+  primary_prediction?: LifecycleRole | null; secondary_predictions?: LifecycleRole[];
+  latest_recap?: LifecycleRole | null;
+}
+const HOMEPAGE_LIFECYCLE = homepageLifecycleRaw as HomepageLifecycle;
 
 export interface DailyFixtureRow {
   id: string | null;
@@ -197,22 +208,46 @@ export function selectProductLoop(m: DailyManifest): ProductLoop {
   //  - selection present but NOT in today's scheduled slate (e.g. already kicked off) → safe
   //    fallback to the first artifact-backed scheduled fixture.
   //  - no selection persisted → safe fallback (first artifact-backed scheduled).
+  // P5B — LIFECYCLE-DRIVEN selection (Owner): the homepage follows match progress. The lifecycle
+  // selector chose the primary (earliest upcoming source-qualified, NEVER finished), the secondary set
+  // and the latest recap. Resolve those to manifest rows. Fall back to the selectedHotspot/slate logic
+  // only when the lifecycle artifact has no primary (e.g. PRIMARY_REVIEW_REQUIRED) — never silently
+  // promote a finished match.
+  const lc = HOMEPAGE_LIFECYCLE;
+  const byKey = (fk: string | undefined | null) => fk ? fixtures.find(f => leadKey(f) === fk) ?? null : null;
   const sel = getSelectedHotspot();
   const artifactBacked = () => scheduled.find(f => hasPredictionArtifact(leadKey(f))) ?? null;
-  let featuredPrediction: DailyFixtureRow | null;
-  if (sel) {
-    const selRow = scheduled.find(f => leadKey(f) === sel.fixture_key) ?? null;
-    featuredPrediction = selRow
-      ? (hasPredictionArtifact(leadKey(selRow)) ? selRow : null)
-      : artifactBacked();
-  } else {
-    featuredPrediction = artifactBacked();
+
+  let featuredPrediction: DailyFixtureRow | null = null;
+  const lcPrimary = byKey(lc.primary_prediction?.fixture_id);
+  if (lcPrimary && !FINISHED_STATES.has(lcPrimary.lifecycle_state) && hasPredictionArtifact(leadKey(lcPrimary))) {
+    featuredPrediction = lcPrimary;             // lifecycle primary (upcoming, source-qualified)
+  } else if (!lc.primary_prediction) {
+    // lifecycle says no valid primary → keep the legacy gate (selectedHotspot/artifact-backed) but
+    // still never a finished match (scheduled-only).
+    if (sel) {
+      const selRow = scheduled.find(f => leadKey(f) === sel.fixture_key) ?? null;
+      featuredPrediction = selRow ? (hasPredictionArtifact(leadKey(selRow)) ? selRow : null) : artifactBacked();
+    } else {
+      featuredPrediction = artifactBacked();
+    }
   }
-  const secondarySchedule = scheduled.filter(f => f !== featuredPrediction);
+
+  // latest recap: lifecycle's pick (a finished match) → else first finished.
+  const lcRecap = byKey(lc.latest_recap?.fixture_id);
+  const featuredRecap = (lcRecap && FINISHED_STATES.has(lcRecap.lifecycle_state)) ? lcRecap : (finished[0] ?? null);
+
+  // secondary: lifecycle's secondary set (resolved + scheduled), then any remaining scheduled.
+  const lcSecondary = (lc.secondary_predictions ?? [])
+    .map(r => byKey(r.fixture_id)).filter((f): f is DailyFixtureRow => !!f && !FINISHED_STATES.has(f.lifecycle_state));
+  const secondarySchedule = [
+    ...lcSecondary.filter(f => f !== featuredPrediction),
+    ...scheduled.filter(f => f !== featuredPrediction && !lcSecondary.includes(f)),
+  ];
   return {
-    featuredRecap: finished[0] ?? null,
+    featuredRecap,
     featuredPrediction,
-    otherRecaps: finished.slice(1),
+    otherRecaps: finished.filter(f => f !== featuredRecap),
     secondarySchedule,
   };
 }

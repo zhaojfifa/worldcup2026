@@ -1,0 +1,14 @@
+{
+  "active_date": "2026-06-15",
+  "generated_at": "2026-06-15T12:00:00+00:00",
+  "current_time_basis": "2026-06-15T12:00:00+00:00",
+  "built_by": "mvp2_homepage_lifecycle_selector.py",
+  "primary_prediction": {
+    "fixture_id": "1489377",
+    "match": "Belgium vs Egypt",
+    "kickoff_time": "2026-06-15T19:00:00+00:00",
+    "status": "scheduled",
+    "lifecycle_state": "UPCOMING_PREDICTION_READY",
+    "model_source": "computed",
+    "active_content_role": "primary_prediction",
+    "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",

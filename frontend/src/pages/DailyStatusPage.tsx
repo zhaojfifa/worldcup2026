@@ -11,6 +11,19 @@ import {
 import { getProductNarrative } from '../data/productNarrativeData';
 import contentQueueRaw from '../data/dailyContentQueue.json';
 import opsStateRaw from '../data/dailyOpsState.json';
+import lifecycleRaw from '../data/homepageLifecycle.json';
+
+// P5B — homepage match-lifecycle artifact (built by mvp2_homepage_lifecycle_selector.py). Drives the
+// lifecycle trace so the operator can answer why each match holds its role and what just rotated.
+interface LcRole { fixture_id: string; match: string; lifecycle_state: string; model_source?: string | null; reason_for_role?: string }
+interface LcBlocked { item: string; state: string; reason: string }
+interface HomepageLifecycle {
+  active_date?: string; current_time_basis?: string; primary_prediction?: LcRole | null;
+  secondary_predictions?: LcRole[]; latest_recap?: LcRole | null; next_upcoming?: LcRole | null;
+  finished_pending_recap?: LcRole[]; excluded_archive?: LcRole[]; excluded_demo?: LcRole[];
+  blocked_items?: LcBlocked[]; operator_next_action?: string; send_status?: string;
+}
+const LIFECYCLE = lifecycleRaw as HomepageLifecycle;
 
 // P1 content factory — typed view of the bundled daily content queue (built by
 // scripts/mvp2_build_daily_content_queue.py). Rendered as the operator command console below.
@@ -315,6 +328,28 @@ export function DailyStatusPage() {
              detail={(OPS_STATE.t30_sources ?? []).map(s => `${s.fixture_id} lineup=${s.lineup_availability} injury=${s.injury_news_availability} → ${s.update_eligibility}`).join(' · ') || 'no live lineup/injury feed — operator confirms at KO-30'} />
         <Row label="Next operator action / 下一步" verdict="warn" detail={OPS_STATE.next_operator_action ?? '—'} />
         <Row label="Send status / 发送状态" verdict="warn" detail={`${OPS_STATE.send_status ?? 'HOLD'} — manual only; Owner per-channel GO; no auto-send`} />
+      </div>
+
+      {/* P5B — match-lifecycle trace: why each match holds its homepage role + what rotated + blocks. */}
+      <div className="sec-en"><span className="zh">🔁 比赛生命周期 / Match lifecycle</span><span className="en">LIFECYCLE</span></div>
+      <div className="card id-card">
+        <Row label="Active date / time basis" verdict={LIFECYCLE.current_time_basis ? 'ok' : 'warn'}
+             detail={`${LIFECYCLE.active_date ?? '—'} · basis=${LIFECYCLE.current_time_basis ?? '—'}`} />
+        <Row label="主推预测 / Primary prediction" verdict={LIFECYCLE.primary_prediction ? (LIFECYCLE.primary_prediction.lifecycle_state.startsWith('UPCOMING') || LIFECYCLE.primary_prediction.lifecycle_state.startsWith('T30') ? 'ok' : 'warn') : 'fail'}
+             detail={LIFECYCLE.primary_prediction ? `${LIFECYCLE.primary_prediction.match} [${LIFECYCLE.primary_prediction.lifecycle_state}] · ${LIFECYCLE.primary_prediction.model_source} — ${LIFECYCLE.primary_prediction.reason_for_role}` : 'PRIMARY_REVIEW_REQUIRED (no upcoming source-qualified primary)'} />
+        <Row label="最新复盘 / Latest recap" verdict={LIFECYCLE.latest_recap ? 'ok' : 'warn'}
+             detail={LIFECYCLE.latest_recap ? `${LIFECYCLE.latest_recap.match} [${LIFECYCLE.latest_recap.lifecycle_state}] — ${LIFECYCLE.latest_recap.reason_for_role}` : 'RECAP_PENDING'} />
+        <Row label="次推预测 / Secondary" verdict={(LIFECYCLE.secondary_predictions?.length ?? 0) >= 1 ? 'ok' : 'na'}
+             detail={(LIFECYCLE.secondary_predictions ?? []).map(r => `${r.match}[${r.lifecycle_state}/${r.model_source}]`).join(' · ') || 'none'} />
+        <Row label="下一场 / Next upcoming" verdict="na" detail={LIFECYCLE.next_upcoming ? `${LIFECYCLE.next_upcoming.match} [${LIFECYCLE.next_upcoming.lifecycle_state}]` : '—'} />
+        <Row label="待复盘 / Finished pending recap" verdict={(LIFECYCLE.finished_pending_recap?.length ?? 0) === 0 ? 'ok' : 'warn'}
+             detail={(LIFECYCLE.finished_pending_recap ?? []).map(r => r.match).join(' · ') || 'none'} />
+        <Row label="排除 archive/demo / Excluded" verdict="ok"
+             detail={`archive=${(LIFECYCLE.excluded_archive ?? []).length} · demo=${(LIFECYCLE.excluded_demo ?? []).length} (never active)`} />
+        <Row label="阻塞项 / Blocked" verdict={(LIFECYCLE.blocked_items?.length ?? 0) === 0 ? 'ok' : 'fail'}
+             detail={(LIFECYCLE.blocked_items ?? []).map(b => `${b.item}:${b.state}`).join(' · ') || 'none'} />
+        <Row label="下一步 / Next action" verdict="warn" detail={LIFECYCLE.operator_next_action ?? '—'} />
+        <Row label="Send status / 发送状态" verdict="warn" detail={`${LIFECYCLE.send_status ?? 'HOLD'} — no auto-send`} />
       </div>
 
       <div className="sec-en"><span className="zh">🔗 运营链接 / Operator links</span><span className="en">LINKS</span></div>

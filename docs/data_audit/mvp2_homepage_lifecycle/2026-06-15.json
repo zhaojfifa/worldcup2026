@@ -1,0 +1,173 @@
+{
+  "active_date": "2026-06-15",
+  "generated_at": "2026-06-15T12:00:00+00:00",
+  "current_time_basis": "2026-06-15T12:00:00+00:00",
+  "built_by": "mvp2_homepage_lifecycle_selector.py",
+  "primary_prediction": {
+    "fixture_id": "1489377",
+    "match": "Belgium vs Egypt",
+    "kickoff_time": "2026-06-15T19:00:00+00:00",
+    "status": "scheduled",
+    "lifecycle_state": "UPCOMING_PREDICTION_READY",
+    "model_source": "computed",
+    "active_content_role": "primary_prediction",
+    "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",
+    "has_copy": true,
+    "has_observation": false,
+    "recap_ready": false
+  },
+  "secondary_predictions": [
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "kickoff_time": "2026-06-15T16:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "operator_estimated",
+      "active_content_role": "secondary_prediction",
+      "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "kickoff_time": "2026-06-15T22:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "computed",
+      "active_content_role": "secondary_prediction",
+      "reason_for_role": "secondary upcoming with reviewed copy",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    }
+  ],
+  "latest_recap": {
+    "fixture_id": "1489371",
+    "match": "Brazil vs Morocco",
+    "kickoff_time": "2026-06-13T22:00:00+00:00",
+    "status": "finished",
+    "lifecycle_state": "FINISHED_OBSERVATION_READY",
+    "model_source": null,
+    "active_content_role": "latest_recap",
+    "reason_for_role": "most recent finished tracked match (FINISHED_OBSERVATION_READY)",
+    "has_copy": false,
+    "has_observation": true,
+    "recap_ready": false
+  },
+  "next_upcoming": {
+    "fixture_id": "1489380",
+    "match": "Spain vs Cape Verde Islands",
+    "kickoff_time": "2026-06-15T16:00:00+00:00",
+    "status": "scheduled",
+    "lifecycle_state": "UPCOMING_PREDICTION_READY",
+    "model_source": "operator_estimated",
+    "active_content_role": "secondary_prediction",
+    "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+    "has_copy": true,
+    "has_observation": false,
+    "recap_ready": false
+  },
+  "finished_pending_recap": [
+    {
+      "fixture_id": "1539002",
+      "match": "Sweden vs Tunisia",
+      "kickoff_time": "2026-06-15T02:00:00+00:00",
+      "status": "finished",
+      "lifecycle_state": "FINISHED_RECAP_PENDING",
+      "model_source": null,
+      "active_content_role": "watchlist",
+      "reason_for_role": "",
+      "has_copy": false,
+      "has_observation": false,
+      "recap_ready": false
+    }
+  ],
+  "excluded_archive": [],
+  "excluded_demo": [],
+  "blocked_items": [],
+  "all_fixtures": [
+    {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "kickoff_time": "2026-06-15T19:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "computed",
+      "active_content_role": "primary_prediction",
+      "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    },
+    {
+      "fixture_id": "1489371",
+      "match": "Brazil vs Morocco",
+      "kickoff_time": "2026-06-13T22:00:00+00:00",
+      "status": "finished",
+      "lifecycle_state": "FINISHED_OBSERVATION_READY",
+      "model_source": null,
+      "active_content_role": "latest_recap",
+      "reason_for_role": "most recent finished tracked match (FINISHED_OBSERVATION_READY)",
+      "has_copy": false,
+      "has_observation": true,
+      "recap_ready": false
+    },
+    {
+      "fixture_id": "1489369",
+      "match": "Mexico vs South Africa",
+      "kickoff_time": "2026-06-11T19:00:00+00:00",
+      "status": "finished",
+      "lifecycle_state": "FINISHED_RECAP_READY",
+      "model_source": null,
+      "active_content_role": "watchlist",
+      "reason_for_role": "",
+      "has_copy": false,
+      "has_observation": false,
+      "recap_ready": true
+    },
+    {
+      "fixture_id": "1539002",
+      "match": "Sweden vs Tunisia",
+      "kickoff_time": "2026-06-15T02:00:00+00:00",
+      "status": "finished",
+      "lifecycle_state": "FINISHED_RECAP_PENDING",
+      "model_source": null,
+      "active_content_role": "watchlist",
+      "reason_for_role": "",
+      "has_copy": false,
+      "has_observation": false,
+      "recap_ready": false
+    },
+    {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "kickoff_time": "2026-06-15T16:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "operator_estimated",
+      "active_content_role": "secondary_prediction",
+      "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    },
+    {
+      "fixture_id": "1489379",
+      "match": "Saudi Arabia vs Uruguay",
+      "kickoff_time": "2026-06-15T22:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "computed",
+      "active_content_role": "secondary_prediction",
+      "reason_for_role": "secondary upcoming with reviewed copy",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    }
+  ],
+  "operator_next_action": "build recap for finished tracked matches",
+  "send_status": "HOLD"
+}
