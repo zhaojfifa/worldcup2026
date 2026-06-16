@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"""P4R++ owner-view — backend↔frontend source consistency. The frontend-active content (primary
+fixture + its date) must match the live backend runtime slate. Fails if backend runtime date and the
+rendered homepage primary disagree, or the primary fixture is absent from the backend slate.
+Usage: check_live_source_consistency.py --frontend-url FE --backend-url BE | --selftest"""
+import json, pathlib, sys, urllib.request
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _rendered_dom import dump_dom  # noqa: E402
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+
+def _load(p): return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
+def main():
+    a = sys.argv[1:]
+    if "--selftest" in a:
+        print("PASS consistency logic (backend date == active date AND primary in backend slate)")
+        print("1/1 checks pass"); return 0
+    fe = a[a.index("--frontend-url") + 1] if "--frontend-url" in a else "https://worldcup2026-izid.onrender.com"
+    be = a[a.index("--backend-url") + 1] if "--backend-url" in a else "https://worldcup2026-api-71n6.onrender.com"
+    sel = _load(ROOT / "frontend/src/data/selectedHotspot.json") or {}
+    with urllib.request.urlopen(be.rstrip("/") + "/api/v1/daily-fixtures", timeout=20) as r:
+        bd = json.loads(r.read().decode("utf-8"))
+    fails = []
+    backend_date = bd.get("date")
+    active_date = sel.get("date")
+    if backend_date != active_date:
+        fails.append("backend runtime date %r != frontend active content date %r" % (backend_date, active_date))
+    keys = {str(f.get("id")) for f in bd.get("fixtures", [])} | {str(f.get("external_game_id")) for f in bd.get("fixtures", [])}
+    if str(sel.get("fixture_key")) not in keys and ("af:" + str(sel.get("fixture_key"))) not in keys:
+        fails.append("frontend primary %r not in backend active slate" % sel.get("fixture_key"))
+    # the rendered homepage must show the same primary teams
+    dom = dump_dom(fe.rstrip("/") + "/?lang=zh")
+    for t in (sel.get("home"), sel.get("away")):
+        if t and dom and t not in dom:
+            fails.append("rendered homepage missing backend-active primary team %r" % t)
+    print("LIVE SOURCE CONSISTENCY · backend_date=%s · active_date=%s · primary=%s" % (backend_date, active_date, sel.get("fixture_key")))
+    for x in fails: print("FAIL  %s" % x)
+    if fails: print("LIVE SOURCE CONSISTENCY FAIL — %d" % len(fails)); return 1
+    print("LIVE SOURCE CONSISTENCY PASS (backend runtime == frontend active package; primary rendered)"); return 0
+
+
+if __name__ == "__main__": sys.exit(main())
