@@ -7,6 +7,10 @@ import fallbackManifest from './dailyFixtures.generated.json';
 import { hasPredictionArtifact } from './predictionArtifacts';
 import { getSelectedHotspot } from './selectedHotspot';
 import homepageLifecycleRaw from './homepageLifecycle.json';
+// R4: runtime content (selectedHotspot/lifecycle/predictions) is preferred over bundled when a fresh,
+// date-matched package is uploaded — so a daily content cutover needs no frontend deploy.
+import { setRuntimeContent, fetchRuntimeContentRaw, getRuntimeLifecycle, getRuntimeSelectedHotspot,
+         runtimeActive, runtimeDate } from './runtimeContent';
 
 // P5B — the homepage match-lifecycle artifact (built by scripts/mvp2_homepage_lifecycle_selector.py).
 // It DRIVES the homepage roles (primary/secondary/latest_recap) so the page FOLLOWS match progress
@@ -164,6 +168,47 @@ export async function fetchDailyManifest(): Promise<ManifestLoad> {
     reason: `backend unavailable; using ${stat ? 'static' : 'bundled'} fallback${okFallback ? '' : ' — fallback ALSO lacks the selection (BLOCKED)'}` } };
 }
 
+const RUNTIME_CONTENT_STALE_HOURS = 36;
+let BOOTSTRAP: Promise<ManifestLoad> | null = null;
+
+/** R4 — app bootstrap: fetch the daily manifest (R2a) AND the runtime CONTENT package, then enable
+ *  runtime content ONLY if it is fresh AND its date matches the EFFECTIVE manifest date (so the UI
+ *  never mixes a runtime selection with a different-date slate). Idempotent (one fetch per load).
+ *  Returns the manifest load so the homepage can reuse it without a second fetch. Never throws. */
+export async function bootstrapRuntime(): Promise<ManifestLoad> {
+  if (BOOTSTRAP) return BOOTSTRAP;
+  BOOTSTRAP = (async () => {
+    const load = await fetchDailyManifest();
+    const effectiveDate = load.manifest.generated_for_date ?? null;
+    try {
+      const pkg = await fetchRuntimeContentRaw(API_BASE);
+      const fresh = !!pkg && pkg.freshness?.stored === true && pkg.freshness?.stale !== true
+        && typeof pkg.freshness?.age_seconds === 'number'
+        && (pkg.freshness!.age_seconds as number) <= RUNTIME_CONTENT_STALE_HOURS * 3600;
+      const dateMatch = !!pkg && !!pkg.date && pkg.date === effectiveDate;
+      const hasContent = !!pkg && !!pkg.predictions && Object.keys(pkg.predictions).length > 0;
+      if (pkg && fresh && dateMatch && hasContent) {
+        setRuntimeContent(pkg);
+      } else {
+        setRuntimeContent(null);   // bundled fallback — never a mixed-date runtime package
+        if (pkg && pkg.freshness?.stored) {
+          console.warn('[runtimeContent] not used (fresh=%s dateMatch=%s[%s vs %s] hasContent=%s) → bundled fallback',
+            fresh, dateMatch, pkg.date, effectiveDate, hasContent);
+        }
+      }
+    } catch {
+      setRuntimeContent(null);
+    }
+    return load;
+  })();
+  return BOOTSTRAP;
+}
+
+/** The runtime-content drift verdict for /internal/daily (pure read of the cache after bootstrap). */
+export function runtimeContentTrace(effectiveDate: string | null): { active: boolean; date: string | null; matches: boolean } {
+  return { active: runtimeActive(), date: runtimeDate(), matches: runtimeActive() && runtimeDate() === effectiveDate };
+}
+
 /** Hero-eligible entries = fixtures with a bundled narrative (renderable) and an id.
  *  A completed match with no narrative stays in the manifest (recap-needed) but is never a hero. */
 export function heroEntries(m: DailyManifest): { id: string; kickoffUtc: string | null }[] {
@@ -213,9 +258,12 @@ export function selectProductLoop(m: DailyManifest): ProductLoop {
   // and the latest recap. Resolve those to manifest rows. Fall back to the selectedHotspot/slate logic
   // only when the lifecycle artifact has no primary (e.g. PRIMARY_REVIEW_REQUIRED) — never silently
   // promote a finished match.
-  const lc = HOMEPAGE_LIFECYCLE;
+  // R4: prefer the runtime lifecycle/selectedHotspot (uploaded daily) over the bundled baseline.
+  // The bootstrap only sets runtime content when it is fresh AND its date matches the effective
+  // manifest date, so this never mixes a runtime selection with a different-date slate.
+  const lc: HomepageLifecycle = (getRuntimeLifecycle() as HomepageLifecycle | null) ?? HOMEPAGE_LIFECYCLE;
   const byKey = (fk: string | undefined | null) => fk ? fixtures.find(f => leadKey(f) === fk) ?? null : null;
-  const sel = getSelectedHotspot();
+  const sel = (getRuntimeSelectedHotspot() as ReturnType<typeof getSelectedHotspot>) ?? getSelectedHotspot();
   const artifactBacked = () => scheduled.find(f => hasPredictionArtifact(leadKey(f))) ?? null;
 
   let featuredPrediction: DailyFixtureRow | null = null;

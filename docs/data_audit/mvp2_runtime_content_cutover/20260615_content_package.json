@@ -1,0 +1,1346 @@
+{
+  "date": "2026-06-15",
+  "generated_at": "2026-06-15T12:00:00+00:00",
+  "source_mode": "manual",
+  "send_status": "HOLD",
+  "selectedHotspot": {
+    "date": "2026-06-15",
+    "fixture_key": "1489377",
+    "home": "Belgium",
+    "away": "Egypt",
+    "source": "api_football_scoutscore",
+    "prediction_artifact_path": "frontend/src/data/predictionArtifacts/match_Belgium-Egypt-20260615.json",
+    "operator_confirmed": true,
+    "status": "active"
+  },
+  "lifecycle": {
+    "active_date": "2026-06-15",
+    "generated_at": "2026-06-15T12:00:00+00:00",
+    "current_time_basis": "2026-06-15T12:00:00+00:00",
+    "built_by": "mvp2_homepage_lifecycle_selector.py",
+    "primary_prediction": {
+      "fixture_id": "1489377",
+      "match": "Belgium vs Egypt",
+      "kickoff_time": "2026-06-15T19:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "operator_confirmed",
+      "active_content_role": "primary_prediction",
+      "reason_for_role": "earliest upcoming source-qualified (operator_confirmed) match with reviewed copy",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    },
+    "secondary_predictions": [
+      {
+        "fixture_id": "1489380",
+        "match": "Spain vs Cape Verde Islands",
+        "kickoff_time": "2026-06-15T16:00:00+00:00",
+        "status": "scheduled",
+        "lifecycle_state": "UPCOMING_PREDICTION_READY",
+        "model_source": "operator_estimated",
+        "active_content_role": "secondary_prediction",
+        "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+        "has_copy": true,
+        "has_observation": false,
+        "recap_ready": false
+      },
+      {
+        "fixture_id": "1489379",
+        "match": "Saudi Arabia vs Uruguay",
+        "kickoff_time": "2026-06-15T22:00:00+00:00",
+        "status": "scheduled",
+        "lifecycle_state": "UPCOMING_PREDICTION_READY",
+        "model_source": "computed",
+        "active_content_role": "secondary_prediction",
+        "reason_for_role": "secondary upcoming with reviewed copy",
+        "has_copy": true,
+        "has_observation": false,
+        "recap_ready": false
+      }
+    ],
+    "latest_recap": {
+      "fixture_id": "1489371",
+      "match": "Brazil vs Morocco",
+      "kickoff_time": "2026-06-13T22:00:00+00:00",
+      "status": "finished",
+      "lifecycle_state": "FINISHED_OBSERVATION_READY",
+      "model_source": null,
+      "active_content_role": "latest_recap",
+      "reason_for_role": "most recent finished tracked match (FINISHED_OBSERVATION_READY)",
+      "has_copy": false,
+      "has_observation": true,
+      "recap_ready": false
+    },
+    "next_upcoming": {
+      "fixture_id": "1489380",
+      "match": "Spain vs Cape Verde Islands",
+      "kickoff_time": "2026-06-15T16:00:00+00:00",
+      "status": "scheduled",
+      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "model_source": "operator_estimated",
+      "active_content_role": "secondary_prediction",
+      "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+      "has_copy": true,
+      "has_observation": false,
+      "recap_ready": false
+    },
+    "finished_pending_recap": [
+      {
+        "fixture_id": "1539002",
+        "match": "Sweden vs Tunisia",
+        "kickoff_time": "2026-06-15T02:00:00+00:00",
+        "status": "unknown",
+        "lifecycle_state": "FINISHED_RECAP_PENDING",
+        "model_source": null,
+        "active_content_role": "watchlist",
+        "reason_for_role": "",
+        "has_copy": false,
+        "has_observation": false,
+        "recap_ready": false
+      }
+    ],
+    "excluded_archive": [],
+    "excluded_demo": [],
+    "blocked_items": [],
+    "all_fixtures": [
+      {
+        "fixture_id": "1489377",
+        "match": "Belgium vs Egypt",
+        "kickoff_time": "2026-06-15T19:00:00+00:00",
+        "status": "scheduled",
+        "lifecycle_state": "UPCOMING_PREDICTION_READY",
+        "model_source": "operator_confirmed",
+        "active_content_role": "primary_prediction",
+        "reason_for_role": "earliest upcoming source-qualified (operator_confirmed) match with reviewed copy",
+        "has_copy": true,
+        "has_observation": false,
+        "recap_ready": false
+      },
+      {
+        "fixture_id": "1489379",
+        "match": "Saudi Arabia vs Uruguay",
+        "kickoff_time": "2026-06-15T22:00:00+00:00",
+        "status": "scheduled",
+        "lifecycle_state": "UPCOMING_PREDICTION_READY",
+        "model_source": "computed",
+        "active_content_role": "secondary_prediction",
+        "reason_for_role": "secondary upcoming with reviewed copy",
+        "has_copy": true,
+        "has_observation": false,
+        "recap_ready": false
+      },
+      {
+        "fixture_id": "1489380",
+        "match": "Spain vs Cape Verde Islands",
+        "kickoff_time": "2026-06-15T16:00:00+00:00",
+        "status": "scheduled",
+        "lifecycle_state": "UPCOMING_PREDICTION_READY",
+        "model_source": "operator_estimated",
+        "active_content_role": "secondary_prediction",
+        "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+        "has_copy": true,
+        "has_observation": false,
+        "recap_ready": false
+      },
+      {
+        "fixture_id": "1489371",
+        "match": "Brazil vs Morocco",
+        "kickoff_time": "2026-06-13T22:00:00+00:00",
+        "status": "finished",
+        "lifecycle_state": "FINISHED_OBSERVATION_READY",
+        "model_source": null,
+        "active_content_role": "latest_recap",
+        "reason_for_role": "most recent finished tracked match (FINISHED_OBSERVATION_READY)",
+        "has_copy": false,
+        "has_observation": true,
+        "recap_ready": false
+      },
+      {
+        "fixture_id": "1489369",
+        "match": "Mexico vs South Africa",
+        "kickoff_time": "2026-06-11T19:00:00+00:00",
+        "status": "finished",
+        "lifecycle_state": "FINISHED_RECAP_READY",
+        "model_source": null,
+        "active_content_role": "watchlist",
+        "reason_for_role": "",
+        "has_copy": false,
+        "has_observation": false,
+        "recap_ready": true
+      },
+      {
+        "fixture_id": "1539002",
+        "match": "Sweden vs Tunisia",
+        "kickoff_time": "2026-06-15T02:00:00+00:00",
+        "status": "unknown",
+        "lifecycle_state": "FINISHED_RECAP_PENDING",
+        "model_source": null,
+        "active_content_role": "watchlist",
+        "reason_for_role": "",
+        "has_copy": false,
+        "has_observation": false,
+        "recap_ready": false
+      }
+    ],
+    "operator_next_action": "build recap for finished tracked matches",
+    "send_status": "HOLD"
+  },
+  "predictions": {
+    "1489377": {
+      "date": "2026-06-15",
+      "fixture_key": "1489377",
+      "id": "1489377",
+      "home": "Belgium",
+      "away": "Egypt",
+      "status": "scheduled",
+      "kickoffUtc": "2026-06-15T19:00:00+00:00",
+      "source": "api_football_scoutscore",
+      "prediction_confirmed": true,
+      "field_sources": {
+        "score_call": "operator_confirmed",
+        "backup_score": "operator_confirmed",
+        "risk_level": "model",
+        "primary_direction": "operator_confirmed",
+        "top_variable": "operator_confirmed",
+        "why": "operator_confirmed",
+        "tactical_matchup": "operator_confirmed",
+        "risk_variables": "operator_confirmed",
+        "external_expectation": "operator_confirmed",
+        "win_prob": "unavailable",
+        "confidence": "unavailable"
+      },
+      "note": "R2: fresh hotspot 2026-06-15 (real API-FOOTBALL fixture 1489377). model_fields are COMPUTED by ScoutScore v0.2 (kaggle Elo gap +129 Belgium>Egypt, last-10 form, Poisson 1-0/2-0/1-1, upset_band=medium); recommended_score/risk_level/risk_note carry source=computed. win_prob/confidence stay null (compliance floor — never a fake probability). The narrative judgement is operator-reviewed (provider=operator_manual; automated model generation = P1). vi/my Han=0. | OPS PATCH 2026-06-16: operator manually corrected the pre-match main score from computed 1-0 to a controlled draw 1-1 (backup 1-0 / 2-1). model_fields.source=operator_confirmed; computed baseline retained in model_computed_score=1-0. Copy rewritten to a draw call across zh/vi/my/en. No fabricated data; vocabulary stays compliant; no auto-send.",
+      "t30": {
+        "status": "pending",
+        "checked_at": null,
+        "update_text": null,
+        "changed_fields": [],
+        "operator_note": null
+      },
+      "i18n": {
+        "zh": {
+          "pending_direction": "方向待临场确认",
+          "pending_score": "比分待开球前 30 分钟确认",
+          "prediction": {
+            "primary_direction": "俅哥赛前把这场修正为平局：比利时仍握主动权，但埃及低位防守加反击，足以把比赛拖进 1-1 的平局区间",
+            "score_call": "1-1",
+            "backup_score": "1-0 / 2-1",
+            "confidence": null,
+            "risk_level": "中",
+            "risk_note": "比利时历史 Elo 1885 对埃及 1756、近 10 场 7 胜 3 平进 37 球，硬实力仍占优；但埃及防线成型、反击有点，足以咬住比分。真正的风险是比利时若早早进球，比赛会重新回到 1-0 / 2-1 的小胜路径。",
+            "top_variable": "比利时首粒进球的时间——早进球就回到小胜路径，迟迟打不开埃及越敢压上咬平",
+            "why": "强队主导球权、弱队靠低位防守和反击咬住比分，是低比分平局最常见的结构；比利时占优，但埃及有能力把分差抹平。"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "实力与状态：比利时历史 Elo 与近 10 场进球数领先 vs 埃及稳健防守",
+              "节奏与终结：比利时控球推进 vs 埃及低位防守与反击转换"
+            ],
+            "tactical_matchup": [
+              "比利时边中结合找肋部，重点看能否在 60 分钟前打穿埃及低位防线",
+              "埃及摆 5-4-1、赌一侧快速反击与定位球，落点和第二点会决定能不能偷分",
+              "比分弹性大：1-1 与 1-0 一线之隔，取决于比利时能否在埃及咬住前率先破门"
+            ],
+            "risk_variables": [
+              "比利时核心前场是否轮换、首发出不出最强组合",
+              "埃及门将与中卫的专注度——一次失误就可能放大成 0-2",
+              "天气、场地与节奏拖慢带来的爆冷窗口"
+            ],
+            "external_expectation": [
+              "公开预测倾向普遍看好比利时取胜",
+              "热度集中在比利时能赢几个，而不是会不会赢",
+              "冷门变量几乎都押在埃及把比分压成平局或偷袭得手"
+            ],
+            "thirty_minute_checklist": [
+              "比利时最强前场三人组是否首发",
+              "埃及是 5 后卫死守还是 4 后卫对攻",
+              "核心球员热身状态与最后伤情",
+              "临场盘面热度与风险方向",
+              "开球前再确认方向，把握度按首发微调"
+            ]
+          },
+          "operations": {
+            "share_title": "俅哥今日热点 · 比利时 vs 埃及",
+            "share_copy": "今日主推 比利时 vs 埃及：俅哥赛前修正为平局，主比分 1-1、备选 1-0 / 2-1。依据——Elo 1885 对 1756、近 10 场进 37 球，比利时硬实力仍占优；但埃及防反足以咬住比分，把球拖进平局区间。比利时若早早进球，会回到 1-0 / 2-1 的小胜路径。开球前 30 分钟群里更新首发和最终比分区间。",
+            "join_cta": "加入临场情报群"
+          },
+          "copy_v2": {
+            "hook_headline": "俅哥把比利时 vs 埃及修正为平局——比利时仍占优，但埃及防反足以把比赛咬成 1-1",
+            "main_reason": "Elo 1885 对 1756、近 10 场 7 胜进 37 球，比利时硬实力仍高一档，但埃及低位防守加反击能咬住比分",
+            "pressure_point": "比利时第一个进球的时间：早进球回到 1-0 / 2-1 小胜路径，迟迟打不开埃及越敢压上咬平",
+            "hidden_risk": "若比利时早早破门，平局判断会被打回 1-0 / 2-1 的小胜路径",
+            "tactical_watch": "比利时是否派出最强前场三人组、埃及摆 5 后卫还是 4 后卫",
+            "confidence_language": "方向已修正为平局，比分把握中等——比利时占优但埃及足以咬平，分差有弹性",
+            "group_hook": "首发一出就知道比利时是全力还是轮换，群里开球前 30 分钟给最终比分区间"
+          }
+        },
+        "vi": {
+          "pending_direction": "Hướng chờ xác nhận sát giờ",
+          "pending_score": "Tỷ số chờ xác nhận 30 phút trước giờ đá",
+          "prediction": {
+            "primary_direction": "Trước trận chỉnh thành hòa: Bỉ vẫn nắm thế chủ động, nhưng Ai Cập phòng ngự thấp cộng phản công đủ sức kéo trận đấu về vùng hòa 1-1",
+            "score_call": "1-1",
+            "backup_score": "1-0 / 2-1",
+            "confidence": null,
+            "risk_level": "Trung bình",
+            "risk_note": "Bỉ vẫn trội hơn về thực lực và phong độ (Elo lịch sử và số bàn 10 trận gần nhất vượt trội), nhưng Ai Cập phòng ngự chắc và phản công có nét, đủ sức ghìm tỷ số. Rủi ro chính: nếu Bỉ ghi bàn sớm, trận đấu quay lại lộ trình thắng sát nút 1-0 / 2-1.",
+            "top_variable": "Thời điểm bàn thắng đầu của Bỉ — ghi sớm thì về lộ trình thắng sát nút, bế tắc lâu thì Ai Cập càng dám ghìm hòa",
+            "why": "Đội mạnh kiểm soát bóng, đội yếu phòng ngự thấp và phản công ghìm tỷ số — cấu trúc thường dẫn tới hòa ít bàn; Bỉ trội hơn nhưng Ai Cập đủ sức san bằng cách biệt."
+          },
+          "analysis": {
+            "modeling_focus": [
+              "Thực lực & phong độ: Elo lịch sử và số bàn của Bỉ vượt trội vs phòng ngự chắc của Ai Cập",
+              "Nhịp độ & dứt điểm: Bỉ kiểm soát lên bóng vs Ai Cập phòng ngự thấp và chuyển đổi phản công"
+            ],
+            "tactical_matchup": [
+              "Bỉ phối hợp biên và trung lộ; chú ý khả năng xuyên phá khối phòng ngự thấp của Ai Cập",
+              "Ai Cập phòng ngự thấp cộng phản công một biên; chú ý điểm rơi phản công và tình huống cố định",
+              "Tỷ số co giãn: 1-1 và 1-0 chỉ cách nhau gang tấc, tùy Bỉ có ghi bàn trước khi Ai Cập ghìm được hay không"
+            ],
+            "risk_variables": [
+              "Đội hình & xoay tua: trụ cột có đá chính không",
+              "Sự tập trung của hàng thủ Ai Cập và hiệu quả phản công",
+              "Nhịp độ trận đấu, thời tiết và mặt sân"
+            ],
+            "external_expectation": [
+              "Xu hướng công khai nghiêng về Bỉ",
+              "Độ nóng tập trung ở việc Bỉ thắng",
+              "Biến số bất ngờ chủ yếu ở việc Ai Cập ghìm tỷ số hoặc đánh úp"
+            ],
+            "thirty_minute_checklist": [
+              "Đội hình xuất phát và vị trí",
+              "Bộ đôi tấn công và lựa chọn cánh của Bỉ",
+              "Vị trí phòng ngự và nhân sự phản công của Ai Cập",
+              "Độ nóng sát giờ và hướng rủi ro",
+              "Xác nhận lại hướng trước giờ bóng lăn, hạ mức chắc chắn nếu cần"
+            ]
+          },
+          "operations": {
+            "share_title": "Điểm nóng Tiên Tri · Bỉ vs Ai Cập",
+            "share_copy": "Trận chính hôm nay: Bỉ vs Ai Cập. Tiên Tri chỉnh thành hòa: tỷ số chính 1-1, phụ 1-0 / 2-1. Cơ sở: Elo 1885 so 1756, 10 trận gần nhất ghi 37 bàn — Bỉ vẫn trội hơn; nhưng phòng ngự và phản công của Ai Cập đủ sức ghìm tỷ số về vùng hòa. Nếu Bỉ ghi sớm sẽ quay lại lộ trình 1-0 / 2-1. 30 phút trước xem đội hình, vào nhóm chờ hiệu chỉnh.",
+            "join_cta": "Vào nhóm sát giờ"
+          },
+          "copy_v2": {
+            "hook_headline": "Tiên Tri chỉnh Bỉ vs Ai Cập thành hòa — Bỉ vẫn trội, nhưng phòng ngự phản công Ai Cập đủ sức ghìm về 1-1",
+            "main_reason": "Elo 1885 so 1756, 10 trận gần nhất thắng 7 ghi 37 bàn — Bỉ vẫn cao hơn một bậc, nhưng phòng ngự thấp cộng phản công của Ai Cập đủ sức ghìm tỷ số",
+            "pressure_point": "Thời điểm bàn đầu của Bỉ: ghi sớm thì về lộ trình 1-0 / 2-1, bế tắc lâu thì Ai Cập dâng lên ghìm hòa",
+            "hidden_risk": "Nếu Bỉ ghi bàn sớm, nhận định hòa sẽ bị đẩy về lộ trình thắng sát nút 1-0 / 2-1",
+            "tactical_watch": "Bỉ có tung ra bộ ba tấn công mạnh nhất không, và Ai Cập xếp 5 hậu vệ hay 4 hậu vệ",
+            "confidence_language": "Hướng đã chỉnh thành hòa, mức chắc chắn về tỷ số ở trung bình — Bỉ trội hơn nhưng Ai Cập đủ sức ghìm hòa, cách biệt co giãn",
+            "group_hook": "Đội hình ra sân là biết Bỉ đá hết sức hay xoay tua; vào nhóm, 30 phút trước giờ bóng lăn sẽ chốt khoảng tỷ số cuối"
+          }
+        },
+        "my": {
+          "pending_direction": "ဦးတည်ချက် ပွဲနီးမှ အတည်ပြုမည်",
+          "pending_score": "စကော ပွဲမစခင် မိနစ် ၃၀ အတည်ပြုမည်",
+          "prediction": {
+            "primary_direction": "ပွဲကြို သရေအဖြစ် ပြင်ဆင်: Belgium က ဦးဆောင်မှု ဆက်ရှိသော်လည်း Egypt ၏ low block နှင့် counter က ပွဲကို 1-1 သရေ ဇုန်အတွင်း ဆွဲသွင်းနိုင်",
+            "score_call": "1-1",
+            "backup_score": "1-0 / 2-1",
+            "confidence": null,
+            "risk_level": "အလယ်အလတ်",
+            "risk_note": "Belgium က စွမ်းရည်နှင့် ဖောင်း သာလွန်ဆဲ (သမိုင်း Elo နှင့် နောက်ဆုံး ၁၀ ပွဲ ဂိုး သာ)၊ သို့သော် Egypt ခံစစ် တည်ငြိမ်ပြီး counter ရှိ၍ စကော ထိန်းနိုင်။ အဓိက အန္တရာယ်: Belgium စောစော သွင်းရင် ပွဲက 1-0 / 2-1 အနိုင်ငယ် လမ်းကြောင်း ပြန်ရောက်။",
+            "top_variable": "Belgium ပထမဂိုး အချိန် — စောစော သွင်းရင် အနိုင်ငယ် လမ်းကြောင်း၊ ကြာကြာ မသွင်းနိုင်ရင် Egypt က သရေ ဆွဲရန် ဝံ့လာ",
+            "why": "အားကောင်းသူ ball control၊ အားနည်းသူ low block နှင့် counter ဖြင့် စကော ထိန်း — ဂိုးနည်း သရေ ၏ အဖြစ်များဆုံး ဖွဲ့စည်းပုံ; Belgium သာသော်လည်း Egypt က ကွာဟမှု ဖြည့်နိုင်။"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "စွမ်းရည် & ဖောင်း: Belgium ၏ သမိုင်း Elo နှင့် ဂိုးအရေအတွက် သာ vs Egypt ခံစစ် တည်ငြိမ်",
+              "အရှိန် & ဂိုးသွင်း: Belgium ball control vs Egypt low block နှင့် counter transition"
+            ],
+            "tactical_matchup": [
+              "Belgium အနား နှင့် အလယ် ပေါင်းစပ်; Egypt low block ကို ဖောက်နိုင်မလား ကြည့်ပါ",
+              "Egypt low block အပြင် တစ်ဖက် counter; counter ကျရောက်ချက်နှင့် set-piece အန္တရာယ်",
+              "စကော: 1-1 နှင့် 1-0 အနီးကပ်၊ Belgium က Egypt ထိန်းမိမီ ဦးအရင် သွင်းနိုင်မလားအပေါ် မူတည်"
+            ],
+            "risk_variables": [
+              "Lineup & rotation: အဓိကကစားသမား ပထမ ၁၁ ပါမလား",
+              "Egypt ခံစစ် အာရုံစူးစိုက်မှုနှင့် counter ထိရောက်မှု",
+              "ပွဲ အရှိန်၊ ရာသီဥတု/ကွင်း"
+            ],
+            "external_expectation": [
+              "လူထုထင်မြင်ချက် Belgium ဘက် ယိမ်း",
+              "အပူချိန် Belgium အနိုင် အပေါ် စုစည်း",
+              "အံ့အားသင့် variable အဓိက Egypt စကော ထိန်း သို့ ရုတ်တရက် သွင်း"
+            ],
+            "thirty_minute_checklist": [
+              "Starting lineup နှင့် နေရာ",
+              "Belgium တိုက်စစ် တွဲဖက်နှင့် အနား ရွေးချယ်မှု",
+              "Egypt ခံစစ် နေရာနှင့် counter ကစားသမား",
+              "ပွဲနီး အပူချိန် & အန္တရာယ် ဦးတည်ချက်",
+              "ပွဲမစခင် ဦးတည်ချက် ပြန်အတည်ပြု၊ လိုအပ်ရင် သေချာမှု လျှော့"
+            ]
+          },
+          "operations": {
+            "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Belgium vs Egypt",
+            "share_copy": "ဒီနေ့ အဓိကပွဲ: Belgium vs Egypt။ Oracle: ပွဲကြို သရေအဖြစ် ပြင်ဆင်၊ အဓိကစကော 1-1၊ အရန် 1-0 / 2-1။ Data: Elo 1885 vs 1756၊ နောက်ဆုံး ၁၀ ပွဲ ၃၇ ဂိုး — Belgium သာဆဲ; သို့သော် Egypt ခံစစ်/counter က စကော ထိန်းနိုင်။ Belgium စောစော သွင်းရင် 1-0 / 2-1 ပြန်ရောက်။ မိနစ် ၃၀ အလို lineup ကြည့်၊ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
+            "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
+          },
+          "copy_v2": {
+            "hook_headline": "Oracle က Belgium vs Egypt ကို သရေအဖြစ် ပြင် — Belgium သာဆဲ၊ သို့သော် Egypt ၏ ခံစစ်/counter က 1-1 ထိ ထိန်းနိုင်",
+            "main_reason": "Elo 1885 vs 1756၊ နောက်ဆုံး ၁၀ ပွဲ ၇ နိုင် ၃၇ ဂိုး — Belgium တစ်ဆင့် မြင့်ဆဲ၊ သို့သော် Egypt low block + counter က စကော ထိန်းနိုင်",
+            "pressure_point": "Belgium ပထမဂိုး အချိန်: စောစော သွင်းရင် 1-0 / 2-1 လမ်းကြောင်း၊ ကြာရင် Egypt တက်ဖိ သရေ ဆွဲ",
+            "hidden_risk": "Belgium စောစော သွင်းရင် သရေ ခန့်မှန်းချက် 1-0 / 2-1 အနိုင်ငယ် လမ်းကြောင်း ပြန်ရောက်",
+            "tactical_watch": "Belgium အကောင်းဆုံး တိုက်စစ် သုံးယောက်တွဲ ပါမလား၊ Egypt က ၅ ဂိုးသမား သို့ ၄ ဂိုးသမား ချမလား",
+            "confidence_language": "ဦးတည်ချက် သရေအဖြစ် ပြင်ပြီး၊ စကော သေချာမှု အလယ်အလတ် — Belgium သာသော်လည်း Egypt က သရေ ဆွဲနိုင်၊ ဂိုးကွာဟ ဆွဲဆန့်",
+            "group_hook": "Starting lineup ထွက်တာနဲ့ Belgium အပြည့်အဝ ကစားသလား rotation လား သိ; အဖွဲ့ထဲ ပွဲမစခင် မိနစ် ၃၀ နောက်ဆုံး စကော အပိုင်းအခြား ပေးမည်"
+          }
+        },
+        "en": {
+          "pending_direction": "Direction pending kickoff confirmation",
+          "pending_score": "Scoreline pending 30 minutes before kickoff",
+          "prediction": {
+            "primary_direction": "Pre-match corrected to a draw: Belgium still hold the initiative, but Egypt's low block and counter can drag the game into 1-1 draw territory",
+            "score_call": "1-1",
+            "backup_score": "1-0 / 2-1",
+            "confidence": null,
+            "risk_level": "Medium",
+            "risk_note": "Belgium still lead on strength and form (historical Elo and last-10 goals clearly ahead), but Egypt defend well and carry a counter threat, enough to hold the score. The main risk: if Belgium score early, the game returns to a narrow 1-0 / 2-1 win path.",
+            "top_variable": "The timing of Belgium's first goal — score early and it returns to a narrow win, stay blocked and Egypt grow bolder about holding the draw",
+            "why": "The stronger side controls the ball while the weaker side holds the score with a low block and counters — the structure that most often yields a low-scoring draw; Belgium lead but Egypt can level the gap."
+          },
+          "analysis": {
+            "modeling_focus": [
+              "Strength & form: Belgium's historical Elo and goals lead vs Egypt's solid defence",
+              "Tempo & finishing: Belgium's possession build-up vs Egypt's low block and counter transition"
+            ],
+            "tactical_matchup": [
+              "Belgium combine wide and central; watch whether they break Egypt's low block",
+              "Egypt's low block plus a one-sided counter; watch counter landing zones and set-pieces",
+              "The scoreline is elastic: 1-1 and 1-0 are a hair apart, depending on whether Belgium score before Egypt settle in"
+            ],
+            "risk_variables": [
+              "Lineup & rotation: do the key players start",
+              "Egypt's defensive focus and counter efficiency",
+              "Match tempo, weather and pitch"
+            ],
+            "external_expectation": [
+              "Public tendency leans Belgium",
+              "Heat focus on a Belgium win",
+              "Upset variable mainly Egypt keeping it low or snatching a goal"
+            ],
+            "thirty_minute_checklist": [
+              "Starting XI and positions",
+              "Belgium's attacking pairing and wing choice",
+              "Egypt's defensive shape and counter personnel",
+              "Live heat and risk direction",
+              "Re-confirm direction before kickoff; lower the certainty if needed"
+            ]
+          },
+          "operations": {
+            "share_title": "Today's hotspot · Belgium vs Egypt",
+            "share_copy": "Today's main match: Belgium vs Egypt. Call: corrected to a draw — main score 1-1, backup 1-0 / 2-1. Basis: Elo 1885 vs 1756 and a 37-goal last-10 keep Belgium ahead, but Egypt's defence and counters can hold the score in draw territory. If Belgium score early it returns to a 1-0 / 2-1 path. Check lineups 30 minutes before; join the group for the live correction.",
+            "join_cta": "Join the live group"
+          },
+          "copy_v2": {
+            "hook_headline": "Belgium vs Egypt corrected to a draw — Belgium still lead, but Egypt's defence and counter can hold it to 1-1",
+            "main_reason": "Elo 1885 vs 1756, 7 wins and 37 goals in the last 10 — Belgium are still a tier stronger, but Egypt's low block and counter can hold the score",
+            "pressure_point": "The timing of Belgium's first goal: score early and it returns to a 1-0 / 2-1 path, stay blocked and Egypt push up to hold the draw",
+            "hidden_risk": "If Belgium score early, the draw call gets pushed back to a narrow 1-0 / 2-1 win path",
+            "tactical_watch": "Whether Belgium field their strongest front three, and whether Egypt set up with five at the back or four",
+            "confidence_language": "The direction is now a draw, confidence in the exact score is medium — Belgium lead but Egypt can level it, the margin is elastic",
+            "group_hook": "The starting XI tells you whether Belgium go full strength or rotate; join the group for the final score range 30 minutes before kickoff"
+          }
+        }
+      },
+      "safety": {
+        "vocabulary_compliant": true,
+        "operator_confirmed": true,
+        "no_auto_send": true,
+        "no_fake_probability": true
+      },
+      "source_facts": {
+        "fixture_source": "api_football",
+        "data_mode": "api",
+        "has_model_fields": true,
+        "source_refs": [
+          "kaggle Elo: Belgium 1885 / Egypt 1756 (gap 129)",
+          "form10: Belgium 7W-3D-0L GF37/GA6 · Egypt 5W-3D-2L GF13/GA6",
+          "upset_band=medium (clear favourite but gaps are partially covered)",
+          "poisson_bands(1.78,0.72)=1-0/2-0/1-1"
+        ],
+        "missing_fields": [
+          "win_prob",
+          "confidence"
+        ]
+      },
+      "model_fields": {
+        "win_prob": null,
+        "recommended_score": "1-1",
+        "backup_scores": [
+          "1-0",
+          "2-1"
+        ],
+        "risk_level": "中",
+        "risk_note": "Belgium 实力领先（Elo 差 129，近 10 场 7W-3D-0L），但 Egypt 防守稳健、具备反击空间，足以把比分咬成平局；operator 赛前将主推由 computed 1-0 修正为 1-1。",
+        "confidence": null,
+        "source": "operator_confirmed",
+        "model_status": "scoutscore_v0_2_elo_form+operator_corrected",
+        "no_fake_probability": true,
+        "model_computed_score": "1-0",
+        "operator_correction": "pre-match call manually corrected from computed 1-0 to a controlled draw 1-1 (backup 1-0 / 2-1); Owner OPS GO 2026-06-16"
+      },
+      "content_chain": {
+        "date": "20260615",
+        "model_lookup": "computed",
+        "model_lookup_note": "ScoutScore v0.2 — kaggle Elo + last-10 form + Poisson",
+        "prompt_path": "docs/data_audit/mvp2_predictions/prompts/20260615_1489377_prompt.md",
+        "prompt_generated": true,
+        "reviewed_path": "docs/data_audit/mvp2_predictions/reviewed/20260615_1489377_reviewed.json",
+        "reviewed_applied": true,
+        "llm_provider": "operator_manual",
+        "built_by": "mvp2_build_daily_prediction_artifact.py",
+        "built_at": "20260615",
+        "ops_patch": "20260616 score 1-0→1-1 (operator_confirmed; computed baseline 1-0 retained)"
+      },
+      "llm_judgment": {
+        "main_lean": "俅哥赛前把这场修正为平局：比利时仍握主动权，但埃及低位防守加反击，足以把比赛拖进 1-1 的平局区间",
+        "primary_score": "1-1",
+        "backup_scores": [
+          "1-0",
+          "2-1"
+        ],
+        "top_variable": "比利时首粒进球的时间——早进球就回到小胜路径，迟迟打不开埃及越敢压上咬平",
+        "why": "强队主导球权、弱队靠低位防守和反击咬住比分，是低比分平局最常见的结构；比利时占优，但埃及有能力把分差抹平。",
+        "tactical_read": [
+          "比利时边中结合找肋部，重点看能否在 60 分钟前打穿埃及低位防线",
+          "埃及摆 5-4-1、赌一侧快速反击与定位球，落点和第二点会决定能不能偷分",
+          "比分弹性大：1-1 与 1-0 一线之隔，取决于比利时能否在埃及咬住前率先破门"
+        ],
+        "risk_factors": [
+          "比利时核心前场是否轮换、首发出不出最强组合",
+          "埃及门将与中卫的专注度——一次失误就可能放大成 0-2",
+          "天气、场地与节奏拖慢带来的爆冷窗口"
+        ],
+        "external_expectation": [
+          "公开预测倾向普遍看好比利时取胜",
+          "热度集中在比利时能赢几个，而不是会不会赢",
+          "冷门变量几乎都押在埃及把比分压成平局或偷袭得手"
+        ],
+        "t30_checklist": [
+          "比利时最强前场三人组是否首发",
+          "埃及是 5 后卫死守还是 4 后卫对攻",
+          "核心球员热身状态与最后伤情",
+          "临场盘面热度与风险方向",
+          "开球前再确认方向，把握度按首发微调"
+        ]
+      },
+      "operator_confirmation": {
+        "confirmed": true,
+        "confirmed_by": "operator",
+        "confirmed_at": "20260616T00:00:00+00:00",
+        "edited_fields": [
+          "score_call",
+          "backup_score",
+          "recommended_score",
+          "primary_direction",
+          "risk_note",
+          "top_variable",
+          "why",
+          "tactical_matchup[2]",
+          "share_copy",
+          "copy_v2",
+          "hook_headline",
+          "main_reason",
+          "pressure_point",
+          "hidden_risk",
+          "confidence_language"
+        ],
+        "correction_note": "1-0 → 1-1 controlled draw call (Owner OPS GO 2026-06-16)"
+      },
+      "rendered_copy_source": "operator_reviewed_llm_judgment",
+      "copy_version": "p5a_v2"
+    },
+    "1489380": {
+      "date": "2026-06-15",
+      "fixture_key": "1489380",
+      "id": "1489380",
+      "home": "Spain",
+      "away": "Cape Verde Islands",
+      "status": "scheduled",
+      "kickoffUtc": "2026-06-15T16:00:00+00:00",
+      "source": "operator_estimated_scoutscore",
+      "prediction_confirmed": true,
+      "field_sources": {
+        "score_call": "operator_estimated",
+        "backup_score": "operator_estimated",
+        "risk_level": "operator_estimated",
+        "primary_direction": "operator_confirmed",
+        "top_variable": "operator_confirmed",
+        "why": "operator_confirmed",
+        "tactical_matchup": "operator_confirmed",
+        "risk_variables": "operator_confirmed",
+        "external_expectation": "operator_confirmed",
+        "win_prob": "unavailable",
+        "confidence": "unavailable"
+      },
+      "note": "OPERATOR_ESTIMATED: Cape Verde Islands is cold-start (not in the historical kaggle dataset), so there is NO honest computed Elo gap — model_fields.source=operator_estimated (NOT computed). Spain is strongly favoured on pedigree/strength; Cape Verde's unknown level is itself the key variable. win_prob/confidence stay null (no fake probability); provider operator_manual. vi/my Han=0.",
+      "t30": {
+        "status": "pending",
+        "checked_at": null,
+        "update_text": null,
+        "changed_fields": [],
+        "operator_note": null
+      },
+      "i18n": {
+        "zh": {
+          "pending_direction": "方向待临场确认",
+          "pending_score": "比分待开球前 30 分钟确认",
+          "prediction": {
+            "primary_direction": "俅哥主看西班牙拿下，但这是估计盘——佛得角没历史数据，下限难判",
+            "score_call": "2-0",
+            "backup_score": "3-0 / 1-0",
+            "confidence": null,
+            "risk_level": "中",
+            "risk_note": "西班牙底蕴与传控体系是世界级（参考 Elo 约 2048），赢球方向几乎没争议；但佛得角不在历史样本里、真实战力是未知数，所以这是一个操作组估计、而不是系统算出来的判断。",
+            "top_variable": "佛得角的真实下限——它越能成型防守，西班牙越要靠耐心而不是火力",
+            "why": "传控强队对阵数据空白的对手，胜负方向清楚、比分却最难定：取决于对手能不能把场面拖住，以及强队的终结效率。"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "实力与底蕴：西班牙历史 Elo 极高（约 2048）vs 佛得角无历史数据样本",
+              "未知与终结：佛得角真实水平未知 vs 西班牙控球推进与把握机会效率"
+            ],
+            "tactical_matchup": [
+              "西班牙控球做横向转移找肋部，重点看多久打穿对手第一道防线",
+              "佛得角大概率深蹲防守加零星反击，落点与体能决定能不能守住门面",
+              "比分弹性大：1-0 闷平到 3-0 大胜都合理，取决于西班牙耐心与效率"
+            ],
+            "risk_variables": [
+              "佛得角真实战力未知（冷启动，无历史数据）——这是最大不确定性",
+              "西班牙是否轮换、终结效率是否在线",
+              "场地、天气与开局节奏拖慢带来的闷局风险"
+            ],
+            "external_expectation": [
+              "公开预测倾向一边倒看好西班牙",
+              "热度集中在西班牙赢几个，而非胜负方向",
+              "冷门变量几乎只剩佛得角死守拿一个平局"
+            ],
+            "thirty_minute_checklist": [
+              "西班牙是否派出最强中前场",
+              "佛得角摆深蹲铁桶还是敢压一线",
+              "核心球员热身与最后伤情",
+              "临场热度与风险方向",
+              "开球前再确认方向，把握度按首发微调"
+            ]
+          },
+          "operations": {
+            "share_title": "俅哥今日热点 · 西班牙 vs 佛得角",
+            "share_copy": "今日次推 西班牙 vs 佛得角：俅哥看西班牙拿下，主比分 2-0、备选 3-0 / 1-0。注意——这是操作组估计盘：佛得角没有历史数据、下限难判，赢球方向清楚、比分弹性大。开球前 30 分钟群里更新首发。",
+            "join_cta": "加入临场情报群"
+          },
+          "copy_v2": {
+            "hook_headline": "西班牙该赢、方向没争议——但佛得角是数据空白，比分是估的不是算的",
+            "main_reason": "西班牙传控底蕴世界级（参考 Elo 约 2048），硬实力远高于对手",
+            "pressure_point": "佛得角能不能把场面拖住：守得越成型，西班牙越要靠耐心破闷局",
+            "hidden_risk": "佛得角无历史数据、真实下限未知，西班牙轮换或低效就可能闷成 1-0",
+            "tactical_watch": "西班牙是否上最强中前场、佛得角是铁桶还是敢压",
+            "confidence_language": "胜负方向把握高、比分把握偏低——来源是操作组估计，不是系统算出来的",
+            "group_hook": "佛得角摆几个后卫、西班牙是否轮换决定比分，群里开球前 30 分钟给区间"
+          }
+        },
+        "vi": {
+          "pending_direction": "Hướng chờ xác nhận sát giờ",
+          "pending_score": "Tỷ số chờ xác nhận 30 phút trước giờ đá",
+          "prediction": {
+            "primary_direction": "Trước trận nghiêng hẳn về Tây Ban Nha, nhưng Cabo Verde là ẩn số lớn",
+            "score_call": "2-0",
+            "backup_score": "3-0 / 1-0",
+            "confidence": null,
+            "risk_level": "Trung bình",
+            "risk_note": "Tây Ban Nha trội rõ về đẳng cấp và thực lực, nhưng Cabo Verde không có trong mẫu dữ liệu lịch sử (đội mới, không có Elo đáng tin), nên trình độ thật sự là ẩn số — vì thế kết quả chưa thể coi là điều hiển nhiên, rủi ro ở mức trung bình.",
+            "top_variable": "Trình độ thật của Cabo Verde còn là ẩn số + xoay tua và hiệu quả dứt điểm của Tây Ban Nha",
+            "why": "Tây Ban Nha trội về đẳng cấp và thực lực, nhưng Cabo Verde không có dữ liệu lịch sử; trình độ chưa rõ cùng việc xoay tua của Tây Ban Nha quyết định tỷ số"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "Đẳng cấp & thực lực: Elo lịch sử của Tây Ban Nha rất cao (khoảng 2048) vs Cabo Verde không có mẫu lịch sử",
+              "Ẩn số & dứt điểm: trình độ thật của Cabo Verde chưa rõ vs khả năng kiểm soát và tận dụng cơ hội của Tây Ban Nha"
+            ],
+            "tactical_matchup": [
+              "Tây Ban Nha kiểm soát bóng cao kết hợp biên và trung lộ; chú ý khả năng xuyên phá hàng thủ Cabo Verde",
+              "Cabo Verde nhiều khả năng phòng ngự số đông tầm thấp; chú ý họ có ghìm được thời điểm bàn đầu của Tây Ban Nha",
+              "Trần tỷ số phụ thuộc chiều sâu xoay tua và hiệu quả dứt điểm của Tây Ban Nha, sàn phụ thuộc độ lì của hàng thủ Cabo Verde"
+            ],
+            "risk_variables": [
+              "Trình độ thật của Cabo Verde còn ẩn: không có dữ liệu lịch sử, thực tế có thể cao hoặc thấp hơn kỳ vọng",
+              "Xoay tua & đội hình Tây Ban Nha: trụ cột có ra sân không ảnh hưởng hiệu quả dứt điểm",
+              "Nhịp độ trận đấu, thời tiết và mặt sân"
+            ],
+            "external_expectation": [
+              "Xu hướng công khai nghiêng hẳn về Tây Ban Nha",
+              "Độ nóng tập trung ở chiến thắng đậm của Tây Ban Nha",
+              "Biến số bất ngờ chủ yếu ở trình độ ẩn của Cabo Verde và việc Tây Ban Nha xoay tua thận trọng"
+            ],
+            "thirty_minute_checklist": [
+              "Đội hình xuất phát và vị trí (chiều sâu xoay tua của Tây Ban Nha)",
+              "Vị trí và quân số phòng ngự của Cabo Verde",
+              "Bộ đôi tấn công và lựa chọn cánh của Tây Ban Nha",
+              "Độ nóng sát giờ và hướng rủi ro",
+              "Xác nhận lại hướng trước giờ bóng lăn, hạ mức chắc chắn nếu cần"
+            ]
+          },
+          "operations": {
+            "share_title": "Điểm nóng Tiên Tri · Tây Ban Nha vs Cabo Verde",
+            "share_copy": "Trận chính hôm nay: Tây Ban Nha vs Cabo Verde. Tiên Tri chốt: trước trận nghiêng hẳn về Tây Ban Nha, nhưng Cabo Verde là ẩn số. Tỷ số chính 2-0, phụ 3-0 / 1-0, rủi ro trung bình. Lưu ý dữ liệu: Tây Ban Nha trội về đẳng cấp; Cabo Verde không có trong mẫu lịch sử (không có Elo đáng tin), nên đây là ước tính của nhóm vận hành. 30 phút trước xem đội hình, vào nhóm chờ hiệu chỉnh.",
+            "join_cta": "Vào nhóm sát giờ"
+          },
+          "copy_v2": {
+            "hook_headline": "Tây Ban Nha nên thắng và hướng nghiêng không phải bàn cãi — nhưng Cabo Verde là khoảng trống dữ liệu, nên tỷ số là ước tính chứ không phải tính ra",
+            "main_reason": "Bề dày kiểm soát bóng của Tây Ban Nha thuộc đẳng cấp thế giới (Elo tham khảo khoảng 2048), thực lực vượt xa đối thủ",
+            "pressure_point": "Cabo Verde có ghìm được thế trận hay không: phòng ngự càng vào nếp thì Tây Ban Nha càng phải kiên nhẫn để phá thế bế tắc",
+            "hidden_risk": "Cabo Verde không có dữ liệu lịch sử, sàn thực lực là ẩn số; Tây Ban Nha xoay tua hoặc kém hiệu quả thì có thể bị ghìm còn 1-0",
+            "tactical_watch": "Tây Ban Nha có tung ra tuyến giữa và hàng công mạnh nhất không, và Cabo Verde dựng xe buýt hay dám dâng lên",
+            "confidence_language": "Mức chắc chắn về hướng thắng-thua cao, về tỷ số khá thấp — nguồn là ước tính của nhóm vận hành, không phải do hệ thống tính ra",
+            "group_hook": "Cabo Verde xếp mấy hậu vệ và Tây Ban Nha có xoay tua hay không sẽ quyết định tỷ số; vào nhóm, 30 phút trước giờ bóng lăn sẽ chốt khoảng"
+          }
+        },
+        "my": {
+          "pending_direction": "ဦးတည်ချက် ပွဲနီးမှ အတည်ပြုမည်",
+          "pending_score": "စကော ပွဲမစခင် မိနစ် ၃၀ အတည်ပြုမည်",
+          "prediction": {
+            "primary_direction": "ပွဲကြို Spain ဘက် သိသိသာသာ ယိမ်း၊ သို့သော် Cape Verde မှာ သမိုင်းအချက်အလက် မရှိ၍ အကြီးမားဆုံး မသိချက်",
+            "score_call": "2-0",
+            "backup_score": "3-0 / 1-0",
+            "confidence": null,
+            "risk_level": "အလယ်အလတ်",
+            "risk_note": "Spain က အစဉ်အလာနှင့် စွမ်းရည် သိသိသာသာ သာလွန်၊ သို့သော် Cape Verde က သမိုင်းအချက်အလက် နမူနာတွင် မပါ (cold-start၊ ယုံကြည်ရသော Elo မရှိ) ၍ စစ်မှန်အဆင့် မသိရ — ထို့ကြောင့် စာရွက်ပေါ်တွင် သေချာ အနိုင်မဟုတ်၊ risk အလယ်အလတ်။",
+            "top_variable": "Cape Verde ၏ စစ်မှန်အဆင့် မသိရသေး + Spain rotation နှင့် ဂိုးသွင်း ထိရောက်မှု",
+            "why": "Spain အစဉ်အလာ/စွမ်းရည် သာသော်လည်း Cape Verde တွင် သမိုင်းအချက်အလက် မရှိ၍ မသိသော အဆင့်နှင့် Spain rotation က စကော ဆုံးဖြတ်မည်"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "စွမ်းရည် & အစဉ်အလာ: Spain ၏ သမိုင်း Elo အလွန်မြင့် (~2048) vs Cape Verde သမိုင်းအချက်အလက် နမူနာ မရှိ",
+              "မသိချက် & ဂိုးသွင်း: Cape Verde စစ်မှန်အဆင့် မသိရ vs Spain ball control နှင့် အခွင့်အရေး အသုံးချမှု"
+            ],
+            "tactical_matchup": [
+              "Spain အမြင့် ball control အပြင် အနား/အလယ် ပေါင်းစပ်; Cape Verde ခံစစ်ကို မြန်မြန် ဖောက်နိုင်မလား ကြည့်ပါ",
+              "Cape Verde များသောအားဖြင့် low block လူစုံ ခံစစ်; Spain ပထမဂိုး အချိန်ကို ထိန်းနိုင်မလား",
+              "စကော အမြင့်ဆုံး က Spain rotation အနက်နှင့် ဂိုးသွင်း ထိရောက်မှု၊ အနိမ့်ဆုံး က Cape Verde ခံစစ် ခံနိုင်ရည် အပေါ် မူတည်"
+            ],
+            "risk_variables": [
+              "Cape Verde စစ်မှန်အဆင့် မသိ: သမိုင်းအချက်အလက် မရှိ၍ ပွဲတွင် မျှော်လင့်ထက် မြင့် သို့ နိမ့်နိုင်",
+              "Spain rotation & lineup: အဓိကကစားသမား ပါဝင်မှု က ဂိုးသွင်း ထိရောက်မှု အပေါ် သက်ရောက်",
+              "ပွဲ အရှိန်၊ ရာသီဥတု/ကွင်း"
+            ],
+            "external_expectation": [
+              "လူထုထင်မြင်ချက် Spain ဘက် သိသိသာသာ ယိမ်း",
+              "အပူချိန် Spain အပြတ်အသတ် အနိုင် အပေါ် စုစည်း",
+              "အံ့အားသင့် variable အဓိက Cape Verde မသိအဆင့်နှင့် Spain rotation သတိထား"
+            ],
+            "thirty_minute_checklist": [
+              "Starting lineup နှင့် နေရာ (Spain rotation အနက်)",
+              "Cape Verde ခံစစ် နေရာနှင့် လူအရေအတွက်",
+              "Spain တိုက်စစ် တွဲဖက်နှင့် အနား ရွေးချယ်မှု",
+              "ပွဲနီး အပူချိန် & အန္တရာယ် ဦးတည်ချက်",
+              "ပွဲမစခင် ဦးတည်ချက် ပြန်အတည်ပြု၊ လိုအပ်ရင် သေချာမှု လျှော့"
+            ]
+          },
+          "operations": {
+            "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Spain vs Cape Verde",
+            "share_copy": "ဒီနေ့ အဓိကပွဲ: Spain vs Cape Verde။ Oracle: ပွဲကြို Spain ဘက် သိသိသာသာ ယိမ်း၊ သို့သော် Cape Verde မှာ မသိချက်။ အဓိကစကော 2-0၊ အရန် 3-0 / 1-0၊ risk အလယ်အလတ်။ မှတ်ချက်: Spain အစဉ်အလာ သာ; Cape Verde သမိုင်းအချက်အလက် နမူနာတွင် မပါ (ယုံကြည်ရသော Elo မရှိ) ၍ operator ခန့်မှန်းချက်။ မိနစ် ၃၀ အလို lineup ကြည့်၊ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
+            "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
+          },
+          "copy_v2": {
+            "hook_headline": "Spain နိုင်သင့်၊ ဦးတည်ချက် ငြင်းစရာ မရှိ — သို့သော် Cape Verde က အချက်အလက် ကွက်လပ်၍ စကော က တွက်ထားတာ မဟုတ် ခန့်မှန်းထားတာ",
+            "main_reason": "Spain ball control အစဉ်အလာ ကမ္ဘာ့အဆင့် (ကိုးကား Elo ~2048)၊ စွမ်းရည် ပြိုင်ဘက်ထက် အများကြီး မြင့်",
+            "pressure_point": "Cape Verde ပွဲကို ဆွဲထိန်းနိုင်မလား: ခံစစ် ပိုကျနရင် Spain က စိတ်ရှည် ၍ ပိတ်ဆို့ပွဲ ဖောက်ရ",
+            "hidden_risk": "Cape Verde သမိုင်းအချက်အလက် မရှိ၊ စစ်မှန် အနိမ့်ဆုံးအဆင့် မသိ; Spain rotation သို့ ထိရောက်မှုနည်းရင် 1-0 ပိတ်ပွဲ ဖြစ်နိုင်",
+            "tactical_watch": "Spain အကောင်းဆုံး အလယ်-တိုက်စစ် ပါမလား၊ Cape Verde bus ရပ်မလား တက်ဖိ ဝံ့မလား",
+            "confidence_language": "နိုင်/ရှုံး ဦးတည်ချက် သေချာမှု မြင့်၊ စကော သေချာမှု နိမ့် — အရင်းအမြစ် က operator ခန့်မှန်းချက်၊ စနစ်ဖြင့် တွက်ထားသည် မဟုတ်",
+            "group_hook": "Cape Verde ဂိုးသမား ဘယ်နှစ်ယောက် ချ၊ Spain rotation လုပ်/မလုပ် က စကော ဆုံးဖြတ်; အဖွဲ့ထဲ ပွဲမစခင် မိနစ် ၃၀ အပိုင်းအခြား ပေးမည်"
+          }
+        },
+        "en": {
+          "pending_direction": "Direction pending kickoff confirmation",
+          "pending_score": "Scoreline pending 30 minutes before kickoff",
+          "prediction": {
+            "primary_direction": "Pre-match leans strongly to Spain, but Cape Verde is a big unknown",
+            "score_call": "2-0",
+            "backup_score": "3-0 / 1-0",
+            "confidence": null,
+            "risk_level": "Medium",
+            "risk_note": "Spain are clearly ahead on pedigree and strength, but Cape Verde Islands are not in the historical dataset (cold-start, no reliable Elo), so their true level is unknown — it is not a paper certainty, hence medium risk.",
+            "top_variable": "Cape Verde's unknown true level + Spain's rotation and finishing efficiency",
+            "why": "Spain lead on pedigree and strength, but Cape Verde have no historical coverage; their unknown level and Spain's rotation decide the scoreline"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "Strength & pedigree: Spain's historical Elo is very high (~2048) vs Cape Verde with no historical sample",
+              "Unknown & finishing: Cape Verde's true level is unknown vs Spain's possession build-up and chance conversion"
+            ],
+            "tactical_matchup": [
+              "Spain's high possession plus wide-central combinations; watch whether they break Cape Verde's defence quickly",
+              "Cape Verde will likely sit in a packed low block; watch whether they delay Spain's first goal",
+              "The scoreline ceiling depends on Spain's rotation depth and finishing; the floor on Cape Verde's defensive resilience"
+            ],
+            "risk_variables": [
+              "Cape Verde's true level unknown: no historical data, may play above or below expectation",
+              "Spain's rotation & lineup: whether key players start affects finishing",
+              "Match tempo, weather and pitch"
+            ],
+            "external_expectation": [
+              "Public tendency leans strongly to Spain",
+              "Heat focus on a comfortable Spain win",
+              "Upset variable mainly Cape Verde's unknown level and Spain rotating cautiously"
+            ],
+            "thirty_minute_checklist": [
+              "Starting XI and positions (Spain's rotation depth)",
+              "Cape Verde's defensive shape and numbers",
+              "Spain's attacking pairing and wing choice",
+              "Live heat and risk direction",
+              "Re-confirm direction before kickoff; lower the certainty if needed"
+            ]
+          },
+          "operations": {
+            "share_title": "Today's hotspot · Spain vs Cape Verde",
+            "share_copy": "Today's main match: Spain vs Cape Verde. Call: pre-match leans strongly to Spain, but Cape Verde are a big unknown. Main score 2-0, backup 3-0 / 1-0, risk medium. Data note: Spain lead on pedigree; Cape Verde are not in the historical sample (no reliable Elo), so this is an operator estimate. Check lineups 30 minutes before; join the group for the live correction.",
+            "join_cta": "Join the live group"
+          },
+          "copy_v2": {
+            "hook_headline": "Spain should win and the direction is not in doubt — but Cape Verde are a data blank, so the scoreline is estimated, not computed",
+            "main_reason": "Spain's possession pedigree is world class (reference Elo around 2048), far stronger than the opponent",
+            "pressure_point": "Whether Cape Verde can bog the game down: the more organised their defence, the more Spain need patience to break the deadlock",
+            "hidden_risk": "Cape Verde have no historical data and their true floor is unknown; if Spain rotate or finish poorly it could grind to 1-0",
+            "tactical_watch": "Whether Spain field their strongest midfield and attack, and whether Cape Verde park the bus or dare to push up",
+            "confidence_language": "Confidence in the result direction is high, in the exact score fairly low — the source is an operator estimate, not a computed model",
+            "group_hook": "How many defenders Cape Verde field and whether Spain rotate will decide the score; join the group for the range 30 minutes before kickoff"
+          }
+        }
+      },
+      "safety": {
+        "vocabulary_compliant": true,
+        "operator_confirmed": true,
+        "no_auto_send": true,
+        "no_fake_probability": true
+      },
+      "source_facts": {
+        "fixture_source": "api_football",
+        "data_mode": "api",
+        "has_model_fields": true,
+        "source_refs": [],
+        "missing_fields": [
+          "win_prob",
+          "confidence"
+        ]
+      },
+      "model_fields": {
+        "win_prob": null,
+        "recommended_score": "2-0",
+        "backup_scores": [
+          "3-0",
+          "1-0"
+        ],
+        "risk_level": "中",
+        "risk_note": "西班牙底蕴与整体实力明显领先（历史 Elo 约 2048），但佛得角不在历史数据样本中（冷启动、无可信 Elo），真实水平未知本身就是变量，因此风险评中，比分与风险均为操作组估计。",
+        "confidence": null,
+        "source": "operator_estimated",
+        "model_status": "operator_estimated",
+        "no_fake_probability": true
+      },
+      "content_chain": {
+        "date": "20260615",
+        "model_lookup": "unavailable",
+        "model_lookup_note": "Cape Verde Islands not in the historical dataset (Elo cold-start) — no honest computed model; operator_estimated used",
+        "prompt_path": "docs/data_audit/mvp2_predictions/prompts/20260615_1489380_prompt.md",
+        "prompt_generated": true,
+        "reviewed_path": "docs/data_audit/mvp2_predictions/reviewed/20260615_1489380_reviewed.json",
+        "reviewed_applied": true,
+        "llm_provider": "operator_manual",
+        "built_by": "mvp2_build_daily_prediction_artifact.py",
+        "built_at": "20260615"
+      },
+      "llm_judgment": {
+        "main_lean": "俅哥主看西班牙拿下，但这是估计盘——佛得角没历史数据，下限难判",
+        "primary_score": "2-0",
+        "backup_scores": [
+          "3-0",
+          "1-0"
+        ],
+        "top_variable": "佛得角的真实下限——它越能成型防守，西班牙越要靠耐心而不是火力",
+        "why": "传控强队对阵数据空白的对手，胜负方向清楚、比分却最难定：取决于对手能不能把场面拖住，以及强队的终结效率。",
+        "tactical_read": [
+          "西班牙控球做横向转移找肋部，重点看多久打穿对手第一道防线",
+          "佛得角大概率深蹲防守加零星反击，落点与体能决定能不能守住门面",
+          "比分弹性大：1-0 闷平到 3-0 大胜都合理，取决于西班牙耐心与效率"
+        ],
+        "risk_factors": [
+          "佛得角真实战力未知（冷启动，无历史数据）——这是最大不确定性",
+          "西班牙是否轮换、终结效率是否在线",
+          "场地、天气与开局节奏拖慢带来的闷局风险"
+        ],
+        "external_expectation": [
+          "公开预测倾向一边倒看好西班牙",
+          "热度集中在西班牙赢几个，而非胜负方向",
+          "冷门变量几乎只剩佛得角死守拿一个平局"
+        ],
+        "t30_checklist": [
+          "西班牙是否派出最强中前场",
+          "佛得角摆深蹲铁桶还是敢压一线",
+          "核心球员热身与最后伤情",
+          "临场热度与风险方向",
+          "开球前再确认方向，把握度按首发微调"
+        ]
+      },
+      "operator_confirmation": {
+        "confirmed": true,
+        "confirmed_by": "operator",
+        "confirmed_at": "20260615T00:00:00+00:00",
+        "edited_fields": []
+      },
+      "rendered_copy_source": "operator_reviewed_llm_judgment",
+      "copy_version": "p5a_v2"
+    },
+    "1489379": {
+      "date": "2026-06-15",
+      "fixture_key": "1489379",
+      "id": "1489379",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "status": "scheduled",
+      "kickoffUtc": "2026-06-15T22:00:00+00:00",
+      "source": "api_football_scoutscore",
+      "prediction_confirmed": true,
+      "field_sources": {
+        "score_call": "model",
+        "backup_score": "model",
+        "risk_level": "model",
+        "primary_direction": "operator_confirmed",
+        "top_variable": "operator_confirmed",
+        "why": "operator_confirmed",
+        "tactical_matchup": "operator_confirmed",
+        "risk_variables": "operator_confirmed",
+        "external_expectation": "operator_confirmed",
+        "win_prob": "unavailable",
+        "confidence": "unavailable"
+      },
+      "note": "Fresh hotspot 2026-06-15 (real API-FOOTBALL fixture 1489379, Saudi Arabia vs Uruguay). model_fields are COMPUTED by ScoutScore v0.2 (kaggle Elo gap 227 Uruguay>Saudi Arabia, last-10 form, Poisson 0-1/0-2/0-3, upset_band=medium); recommended_score/risk_level/risk_note carry source=computed. win_prob/confidence stay null (compliance floor — never a fake probability). The narrative judgement is operator-reviewed (provider=operator_manual; automated model generation = P1). vi/my Han=0.",
+      "t30": {
+        "status": "pending",
+        "checked_at": null,
+        "update_text": null,
+        "changed_fields": [],
+        "operator_note": null
+      },
+      "i18n": {
+        "zh": {
+          "pending_direction": "方向待临场确认",
+          "pending_score": "比分待开球前 30 分钟确认",
+          "prediction": {
+            "primary_direction": "俅哥主看乌拉圭客场拿下，沙特得把节奏拖慢才有机会偷分",
+            "score_call": "0-1",
+            "backup_score": "0-2 / 0-3",
+            "confidence": null,
+            "risk_level": "中",
+            "risk_note": "乌拉圭 Elo 1872 高出沙特 1645 整整 227，个人能力与经验都在另一档；但沙特主场敢拼、定位球有威胁，真正的问题是乌拉圭愿不愿意提速。",
+            "top_variable": "乌拉圭的提速意愿——全力踢就是大胜，控着踢就可能只赢一个",
+            "why": "实力差距明显的客队掌握主动，主场弱旅靠拼抢和定位球搏一个，比分大小取决于强队态度而不是胜负方向。"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "实力与积累：乌拉圭历史 Elo 1872 领先沙特 1645（差距 227），整体经验占优",
+              "近况风格：沙特近 10 场 4 胜 6 负、攻防都开放（进 12 失 15）vs 乌拉圭 4 胜 4 平 2 负更均衡（进 10 失 9）"
+            ],
+            "tactical_matchup": [
+              "乌拉圭中场控制加前场个人能力，重点看能否早早一球锁死悬念",
+              "沙特高位逼抢加定位球突袭，落点和第二点是它唯一的得分来源",
+              "比分弹性在 0-1 到 0-3 之间，取决于乌拉圭下半场是否继续加码"
+            ],
+            "risk_variables": [
+              "乌拉圭是否轮换核心、主力前锋出不出场",
+              "沙特主场氛围带动的开局高压能撑多久",
+              "乌拉圭领先后是否收着踢、给沙特还魂窗口"
+            ],
+            "external_expectation": [
+              "公开预测倾向明显看好乌拉圭",
+              "热度集中在乌拉圭赢几个，而非胜负方向",
+              "冷门变量押在沙特主场逼平或先进球搅局"
+            ],
+            "thirty_minute_checklist": [
+              "乌拉圭主力前锋与中场是否首发",
+              "沙特摆高压对攻还是低位防守",
+              "核心球员热身与最后伤情",
+              "临场热度与风险方向",
+              "开球前再确认方向，把握度按首发微调"
+            ]
+          },
+          "operations": {
+            "share_title": "俅哥今日热点 · 沙特 vs 乌拉圭",
+            "share_copy": "今日次推 沙特 vs 乌拉圭：俅哥看乌拉圭客场小胜，主比分 0-1、备选 0-2 / 0-3。依据——Elo 1872 对 1645 差 227，乌拉圭高一档；沙特主场拼定位球能搏，赢几个看乌拉圭态度。开球前 30 分钟群里更新首发。",
+            "join_cta": "加入临场情报群"
+          },
+          "copy_v2": {
+            "hook_headline": "乌拉圭高出沙特一档，赢是大概率——赢几个全看乌拉圭愿不愿意提速",
+            "main_reason": "Elo 1872 对 1645、差 227，个人能力与经验乌拉圭整体压一档",
+            "pressure_point": "乌拉圭的提速意愿：早进球就大胜，控着踢就可能只赢一个",
+            "hidden_risk": "沙特主场高压加定位球，乌拉圭轻敌或轮换就可能被逼平",
+            "tactical_watch": "乌拉圭主力前锋是否首发、沙特是对攻还是低位死守",
+            "confidence_language": "胜负方向把握偏高、比分把握中等——赢家清楚，赢多少有弹性",
+            "group_hook": "乌拉圭首发是否轮换决定比分大小，群里开球前 30 分钟给最终区间"
+          }
+        },
+        "vi": {
+          "pending_direction": "Hướng chờ xác nhận sát giờ",
+          "pending_score": "Tỷ số chờ xác nhận 30 phút trước giờ đá",
+          "prediction": {
+            "primary_direction": "Trước trận nghiêng Uruguay, Saudi Arabia phải ghìm nhịp mới có cơ hội",
+            "score_call": "0-1",
+            "backup_score": "0-2 / 0-3",
+            "confidence": null,
+            "risk_level": "Trung bình",
+            "risk_note": "Uruguay trội rõ về thực lực và bề dày (Elo lịch sử 1872 so với Saudi Arabia 1645, cách biệt 227), nhưng Saudi Arabia 10 trận gần nhất chơi cởi mở, ghi và thủng lưới đều nhiều, sân nhà có thể bám tỷ số.",
+            "top_variable": "Saudi Arabia có ghìm được nhịp đầu trận + hiệu quả triển khai phản công từ tuyến giữa-sau của Uruguay",
+            "why": "Uruguay trội về thực lực và tổ chức, kiểm soát tuyến giữa rồi từ từ tạo lợi thế; nếu Saudi Arabia dâng cao sẽ hở hàng thủ và bị Uruguay nới rộng tỷ số"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "Thực lực & bề dày: Elo lịch sử Uruguay 1872 hơn Saudi Arabia 1645 (cách biệt 227), kinh nghiệm vượt trội",
+              "Phong độ & lối chơi: Saudi Arabia 10 trận gần nhất 4 thắng 6 thua, công thủ cởi mở (ghi 12 thủng 15) vs Uruguay 4 thắng 4 hòa 2 thua cân bằng hơn (ghi 10 thủng 9)"
+            ],
+            "tactical_matchup": [
+              "Uruguay kiểm soát tuyến giữa rồi triển khai từ tuyến sau; chú ý sự kết nối giữa biên và điểm tựa trung phong",
+              "Saudi Arabia sân nhà sẽ tăng tốc gây sức ép; chú ý khoảng trống nách và phản công khi họ dâng cao",
+              "Tỷ số phụ thuộc thời điểm Uruguay ghi bàn đầu và việc Saudi Arabia có giữ được đội hình trước khi bị dẫn"
+            ],
+            "risk_variables": [
+              "Đội hình & xoay tua: trụ cột tuyến giữa và hàng công Uruguay có đá chính không",
+              "Cường độ pháo đài sân nhà của Saudi Arabia và cách phân phối thể lực",
+              "Nhịp độ trận đấu, thời tiết và mặt sân với lối chơi cởi mở"
+            ],
+            "external_expectation": [
+              "Xu hướng công khai nghiêng về Uruguay",
+              "Độ nóng tập trung ở việc Uruguay thắng",
+              "Biến số bất ngờ chủ yếu ở việc Saudi Arabia sân nhà ghìm tỷ số hoặc đánh úp trước"
+            ],
+            "thirty_minute_checklist": [
+              "Đội hình xuất phát và vị trí",
+              "Bộ khung tuyến giữa và điểm tựa hàng công của Uruguay",
+              "Cường độ dâng cao và vị trí hàng thủ của Saudi Arabia",
+              "Độ nóng sát giờ và hướng rủi ro",
+              "Xác nhận lại hướng trước giờ bóng lăn, hạ mức chắc chắn nếu cần"
+            ]
+          },
+          "operations": {
+            "share_title": "Điểm nóng Tiên Tri · Saudi Arabia vs Uruguay",
+            "share_copy": "Trận chính hôm nay: Saudi Arabia vs Uruguay. Tiên Tri chốt: trước trận nghiêng Uruguay, Saudi Arabia phải ghìm nhịp mới có cơ hội. Tỷ số chính 0-1, phụ 0-2 / 0-3, rủi ro trung bình. Cơ sở dữ liệu: Elo lịch sử Uruguay 1872 hơn Saudi Arabia 1645, cách biệt 227. 30 phút trước xem đội hình, vào nhóm chờ hiệu chỉnh.",
+            "join_cta": "Vào nhóm sát giờ"
+          },
+          "copy_v2": {
+            "hook_headline": "Uruguay hơn Saudi Arabia một bậc, thắng là kịch bản nhiều khả năng — thắng mấy bàn hoàn toàn tùy Uruguay có chịu tăng tốc không",
+            "main_reason": "Elo 1872 so với 1645, cách biệt 227; cá nhân và kinh nghiệm Uruguay nhỉnh hơn cả một bậc",
+            "pressure_point": "Ý chí tăng tốc của Uruguay: ghi sớm thì thắng đậm, đá cầm chừng thì có thể chỉ hơn một bàn",
+            "hidden_risk": "Saudi Arabia gây sức ép sân nhà cộng bóng cố định; Uruguay chủ quan hoặc xoay tua là có thể bị cầm hòa",
+            "tactical_watch": "Tiền đạo chủ lực của Uruguay có đá chính không, và Saudi Arabia chọn đôi công hay phòng ngự tầm thấp",
+            "confidence_language": "Mức chắc chắn về hướng thắng-thua khá cao, về tỷ số ở mức trung bình — bên thắng rõ, thắng bao nhiêu còn co giãn",
+            "group_hook": "Việc Uruguay có xoay tua đội hình hay không quyết định tỷ số đậm nhạt; vào nhóm, 30 phút trước giờ bóng lăn sẽ chốt khoảng cuối"
+          }
+        },
+        "my": {
+          "pending_direction": "ဦးတည်ချက် ပွဲနီးမှ အတည်ပြုမည်",
+          "pending_score": "စကော ပွဲမစခင် မိနစ် ၃၀ အတည်ပြုမည်",
+          "prediction": {
+            "primary_direction": "ပွဲကြို Uruguay ဘက် ယိမ်း၊ Saudi Arabia က အရှိန် ထိန်းနိုင်မှသာ အခွင့်အရေး ရှိ",
+            "score_call": "0-1",
+            "backup_score": "0-2 / 0-3",
+            "confidence": null,
+            "risk_level": "အလယ်အလတ်",
+            "risk_note": "Uruguay က စွမ်းရည်နှင့် အတွေ့အကြုံ သိသိသာသာ သာ (သမိုင်း Elo 1872 vs Saudi Arabia 1645၊ ကွာဟ 227)၊ သို့သော် Saudi Arabia နောက်ဆုံး ၁၀ ပွဲ ပွင့်လင်းစွာ ကစား၍ ဂိုးသွင်း/ဂိုးပေါက် များ၊ ကိုယ့်ကွင်းတွင် စကော ကပ်နိုင်သည်။",
+            "top_variable": "Saudi Arabia ပွဲစ အရှိန် ထိန်းနိုင်မှု + Uruguay ၏ အလယ်/နောက်တန်းမှ counter ဖွဲ့စည်းမှု ထိရောက်မှု",
+            "why": "Uruguay စွမ်းရည်/ဖွဲ့စည်းမှု သာ၍ အလယ်တန်း ထိန်းနိုင်ပါက အသာစီး တဖြည်းဖြည်း ရ၊ Saudi Arabia ဖွင့်ကစားလျှင် ခံစစ် ဟ၍ Uruguay က စကော ချဲ့နိုင်"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "စွမ်းရည် & အတွေ့အကြုံ: Uruguay သမိုင်း Elo 1872 က Saudi Arabia 1645 ကို သာ (ကွာဟ 227)",
+              "ဖောင်း & ကစားဟန်: Saudi Arabia နောက်ဆုံး ၁၀ ပွဲ ၄ နိုင် ၆ ရှုံး၊ ပွင့်လင်း (သွင်း 12 ပေါက် 15) vs Uruguay ၄ နိုင် ၄ သရေ ၂ ရှုံး ပိုညီမျှ (သွင်း 10 ပေါက် 9)"
+            ],
+            "tactical_matchup": [
+              "Uruguay အလယ်တန်း ထိန်းပြီး နောက်တန်းမှ တည်ဆောက်; အနားနှင့် အလယ်တိုက်စစ်မှူး ချိတ်ဆက်မှု ကြည့်ပါ",
+              "Saudi Arabia ကိုယ့်ကွင်းတွင် အရှိန်မြှင့် ဖိအားပေးမည်; တက်ဖိချိန် ချန်ထားသော နံဘေး/counter နေရာ ကြည့်ပါ",
+              "စကော က Uruguay ပထမဂိုး အချိန်နှင့် Saudi Arabia အရှုံးမပေါ်ခင် ဖွဲ့စည်းမှု ထိန်းနိုင်မှု အပေါ် မူတည်"
+            ],
+            "risk_variables": [
+              "Lineup & rotation: Uruguay အဓိက အလယ်တန်းနှင့် တိုက်စစ် ပထမ ၁၁ ပါမလား",
+              "Saudi Arabia ကိုယ့်ကွင်း အရှိန်ဖြင့် ပွဲစ ဖိအား နှင့် ခွန်အား ခွဲဝေမှု",
+              "ပွဲ အရှိန်၊ ရာသီဥတု/ကွင်း — ပွင့်လင်း ကစားဟန် အပေါ် သက်ရောက်"
+            ],
+            "external_expectation": [
+              "လူထုထင်မြင်ချက် Uruguay ဘက် ယိမ်း",
+              "အပူချိန် Uruguay အနိုင် အပေါ် စုစည်း",
+              "အံ့အားသင့် variable အဓိက Saudi Arabia ကိုယ့်ကွင်း စကော ထိန်း သို့ ဦးအောင် ရုတ်တရက် သွင်း"
+            ],
+            "thirty_minute_checklist": [
+              "Starting lineup နှင့် နေရာ",
+              "Uruguay အလယ်တန်း တွဲဖက်နှင့် တိုက်စစ် support point",
+              "Saudi Arabia တက်ဖိ အားနှင့် ခံစစ် နေရာ",
+              "ပွဲနီး အပူချိန် & အန္တရာယ် ဦးတည်ချက်",
+              "ပွဲမစခင် ဦးတည်ချက် ပြန်အတည်ပြု၊ လိုအပ်ရင် သေချာမှု လျှော့"
+            ]
+          },
+          "operations": {
+            "share_title": "Oracle ဒီနေ့ အဓိကပွဲ · Saudi Arabia vs Uruguay",
+            "share_copy": "ဒီနေ့ အဓိကပွဲ: Saudi Arabia vs Uruguay။ Oracle: ပွဲကြို Uruguay ဘက်ယိမ်း၊ Saudi Arabia က အရှိန် ထိန်းနိုင်မှသာ အခွင့်အရေး ရှိ။ အဓိကစကော 0-1၊ အရန် 0-2 / 0-3၊ risk အလယ်အလတ်။ Data: Uruguay သမိုင်း Elo 1872 က Saudi Arabia 1645 ကို သာ (ကွာဟ 227)။ မိနစ် ၃၀ အလို lineup ကြည့်၊ အဖွဲ့ဝင်ပြီး စောင့်ပါ။",
+            "join_cta": "ပွဲနီး အဖွဲ့ ဝင်ရန်"
+          },
+          "copy_v2": {
+            "hook_headline": "Uruguay က Saudi Arabia ထက် တစ်ဆင့် မြင့်၊ အနိုင်ရဖို့ ဖြစ်နိုင်ခြေ များ — ဘယ်နှစ်ဂိုး နိုင်မလဲ က Uruguay အရှိန်မြှင့်ဖို့ ဆန္ဒ အပေါ် မူတည်",
+            "main_reason": "Elo 1872 vs 1645၊ ကွာဟ 227; တစ်ဦးချင်း စွမ်းရည်နှင့် အတွေ့အကြုံ Uruguay တစ်ဆင့် သာ",
+            "pressure_point": "Uruguay အရှိန်မြှင့် ဆန္ဒ: စောစော သွင်းရင် အပြတ်အသတ် နိုင်၊ ထိန်းကစားရင် တစ်ဂိုးသာ နိုင်နိုင်",
+            "hidden_risk": "Saudi Arabia ကိုယ့်ကွင်း ဖိအားနှင့် set-piece; Uruguay ပေါ့ဆ သို့ rotation လုပ်ရင် သရေ ဆွဲခံရနိုင်",
+            "tactical_watch": "Uruguay အဓိက တိုက်စစ်မှူး ပထမ ၁၁ ပါမလား၊ Saudi Arabia က ဖွင့်ကစား သို့ low block ခိုင်ခိုင် ခံ",
+            "confidence_language": "နိုင်/ရှုံး ဦးတည်ချက် သေချာမှု မြင့်၊ စကော သေချာမှု အလယ်အလတ် — အနိုင်ရသူ ရှင်း၊ ဘယ်လောက် နိုင်မလဲ ဆွဲဆန့်ရှိ",
+            "group_hook": "Uruguay starting lineup rotation လုပ်/မလုပ် က စကော အကြီးအသေး ဆုံးဖြတ်; အဖွဲ့ထဲ ပွဲမစခင် မိနစ် ၃၀ နောက်ဆုံး အပိုင်းအခြား ပေးမည်"
+          }
+        },
+        "en": {
+          "pending_direction": "Direction pending kickoff confirmation",
+          "pending_score": "Scoreline pending 30 minutes before kickoff",
+          "prediction": {
+            "primary_direction": "Pre-match leans Uruguay; Saudi Arabia need to slow the tempo to get a chance",
+            "score_call": "0-1",
+            "backup_score": "0-2 / 0-3",
+            "confidence": null,
+            "risk_level": "Medium",
+            "risk_note": "Uruguay lead clearly on strength and pedigree (historical Elo 1872 vs Saudi Arabia 1645, a 227 gap), but Saudi Arabia have played open across their last 10, scoring and conceding plenty, and at home could stay close.",
+            "top_variable": "Whether Saudi Arabia control the opening tempo + Uruguay's efficiency launching counters from midfield and the back line",
+            "why": "Uruguay lead on strength and organisation and can build an edge once they control midfield; if Saudi Arabia open up they expose their defence and Uruguay can stretch the score"
+          },
+          "analysis": {
+            "modeling_focus": [
+              "Strength & pedigree: Uruguay's historical Elo 1872 leads Saudi Arabia's 1645 (a 227 gap), with greater experience",
+              "Form & style: Saudi Arabia's last 10 are 4W-6L and open (12 for, 15 against) vs Uruguay's more balanced 4W-4D-2L (10 for, 9 against)"
+            ],
+            "tactical_matchup": [
+              "Uruguay control midfield then build from the back line; watch the link between the wings and the central striker",
+              "Saudi Arabia will lift the tempo and press at home; watch the half-spaces and counter lanes they leave when pushing up",
+              "The scoreline hinges on Uruguay's first-goal timing and whether Saudi Arabia keep their shape before falling behind"
+            ],
+            "risk_variables": [
+              "Lineup & rotation: do Uruguay's key midfield and attack start",
+              "Saudi Arabia's home-driven opening press intensity and fitness management",
+              "Match tempo, weather and pitch on an open style of play"
+            ],
+            "external_expectation": [
+              "Public tendency leans Uruguay",
+              "Heat focus on a Uruguay win",
+              "Upset variable mainly Saudi Arabia keeping it low at home or snatching an early goal"
+            ],
+            "thirty_minute_checklist": [
+              "Starting XI and positions",
+              "Uruguay's midfield pairing and attacking support point",
+              "Saudi Arabia's pressing intensity and defensive shape",
+              "Live heat and risk direction",
+              "Re-confirm direction before kickoff; lower the certainty if needed"
+            ]
+          },
+          "operations": {
+            "share_title": "Today's hotspot · Saudi Arabia vs Uruguay",
+            "share_copy": "Today's main match: Saudi Arabia vs Uruguay. Call: pre-match leans Uruguay, Saudi Arabia need to slow the tempo to get a chance. Main score 0-1, backup 0-2 / 0-3, risk medium. Basis: Uruguay's historical Elo 1872 leads Saudi Arabia's 1645, a 227 gap. Check lineups 30 minutes before; join the group for the live correction.",
+            "join_cta": "Join the live group"
+          },
+          "copy_v2": {
+            "hook_headline": "Uruguay are a tier above Saudi Arabia and very likely to win — the margin comes down to whether Uruguay choose to up the tempo",
+            "main_reason": "Elo 1872 vs 1645, a 227 gap; Uruguay edge it on individual quality and experience by a full tier",
+            "pressure_point": "Uruguay's willingness to up the tempo: score early and it's a comfortable win, manage the game and it may be just one goal",
+            "hidden_risk": "Saudi Arabia's home pressure plus set-pieces; if Uruguay are complacent or rotate they could be held",
+            "tactical_watch": "Whether Uruguay's first-choice forward starts, and whether Saudi Arabia trade attacks or sit in a low block",
+            "confidence_language": "Confidence in the result direction is fairly high, in the exact score it's medium — the winner is clear, the margin is flexible",
+            "group_hook": "Whether Uruguay rotate their starting XI decides how big the score is; join the group for the final range 30 minutes before kickoff"
+          }
+        }
+      },
+      "safety": {
+        "vocabulary_compliant": true,
+        "operator_confirmed": true,
+        "no_auto_send": true,
+        "no_fake_probability": true
+      },
+      "source_facts": {
+        "fixture_source": "api_football",
+        "data_mode": "api",
+        "has_model_fields": true,
+        "source_refs": [
+          "kaggle Elo: Saudi Arabia 1645 / Uruguay 1872 (gap -227)",
+          "form10: Saudi Arabia 4W-0D-6L GF12/GA15 · Uruguay 4W-4D-2L GF10/GA9",
+          "upset_band=medium (clear favourite but gaps are partially covered)",
+          "poisson_bands(0.59,1.91)=0-1/0-2/0-3"
+        ],
+        "missing_fields": [
+          "win_prob",
+          "confidence"
+        ]
+      },
+      "model_fields": {
+        "win_prob": null,
+        "recommended_score": "0-1",
+        "backup_scores": [
+          "0-2",
+          "0-3"
+        ],
+        "risk_level": "中",
+        "risk_note": "Uruguay 实力领先（Elo 差 227，近 10 场 4W-4D-2L），但 Saudi Arabia 防守稳健、具备反击空间，clear favourite but gaps are partially covered。",
+        "confidence": null,
+        "source": "computed",
+        "model_status": "scoutscore_v0_2_elo_form",
+        "no_fake_probability": true
+      },
+      "content_chain": {
+        "date": "20260615",
+        "model_lookup": "computed",
+        "model_lookup_note": "ScoutScore v0.2 — kaggle Elo + last-10 form + Poisson",
+        "prompt_path": "docs/data_audit/mvp2_predictions/prompts/20260615_1489379_prompt.md",
+        "prompt_generated": true,
+        "reviewed_path": "docs/data_audit/mvp2_predictions/reviewed/20260615_1489379_reviewed.json",
+        "reviewed_applied": true,
+        "llm_provider": "operator_manual",
+        "built_by": "mvp2_build_daily_prediction_artifact.py",
+        "built_at": "20260615"
+      },
+      "llm_judgment": {
+        "main_lean": "俅哥主看乌拉圭客场拿下，沙特得把节奏拖慢才有机会偷分",
+        "primary_score": "0-1",
+        "backup_scores": [
+          "0-2",
+          "0-3"
+        ],
+        "top_variable": "乌拉圭的提速意愿——全力踢就是大胜，控着踢就可能只赢一个",
+        "why": "实力差距明显的客队掌握主动，主场弱旅靠拼抢和定位球搏一个，比分大小取决于强队态度而不是胜负方向。",
+        "tactical_read": [
+          "乌拉圭中场控制加前场个人能力，重点看能否早早一球锁死悬念",
+          "沙特高位逼抢加定位球突袭，落点和第二点是它唯一的得分来源",
+          "比分弹性在 0-1 到 0-3 之间，取决于乌拉圭下半场是否继续加码"
+        ],
+        "risk_factors": [
+          "乌拉圭是否轮换核心、主力前锋出不出场",
+          "沙特主场氛围带动的开局高压能撑多久",
+          "乌拉圭领先后是否收着踢、给沙特还魂窗口"
+        ],
+        "external_expectation": [
+          "公开预测倾向明显看好乌拉圭",
+          "热度集中在乌拉圭赢几个，而非胜负方向",
+          "冷门变量押在沙特主场逼平或先进球搅局"
+        ],
+        "t30_checklist": [
+          "乌拉圭主力前锋与中场是否首发",
+          "沙特摆高压对攻还是低位防守",
+          "核心球员热身与最后伤情",
+          "临场热度与风险方向",
+          "开球前再确认方向，把握度按首发微调"
+        ]
+      },
+      "operator_confirmation": {
+        "confirmed": true,
+        "confirmed_by": "operator",
+        "confirmed_at": "20260615T00:00:00+00:00",
+        "edited_fields": []
+      },
+      "rendered_copy_source": "operator_reviewed_llm_judgment",
+      "copy_version": "p5a_v2"
+    }
+  },
+  "observations": {
+    "1489371": {
+      "date": "2026-06-13",
+      "id": "1489371",
+      "fixture_key": "af:1489371",
+      "home": "Brazil",
+      "away": "Morocco",
+      "status": "finished",
+      "score": "1-1",
+      "score_home": 1,
+      "score_away": 1,
+      "recap_ready": false,
+      "source": "recovered_from_bundled_pre_match_receipt + manifest_score",
+      "note": "Recovered post-match observation receipt (Owner P5b): pre-match call -> actual score -> partial hit -> deviation -> calibration -> next-match impact. NOT a full recap; recap_ready stays false. Customer-safe vocabulary; no hindsight brag.",
+      "i18n": {
+        "zh": {
+          "receipt_title": "昨日主推回执",
+          "pre_match_call": "赛前主推：偏向巴西，主比分参考 2-1，备选含 1-1",
+          "actual_line": "实际比分：1-1",
+          "assessment": "结果判断：比分区间命中，但胜负方向未完全命中，按部分命中处理",
+          "calibration_title": "赛后校准关注",
+          "calibration_points": [
+            "巴西控球转化为何不足",
+            "摩洛哥防守压缩与反击质量是否改变赛前判断",
+            "1-1 对小组出线走势的影响"
+          ],
+          "pending_line": "完整复盘确认后开放。",
+          "state_line": "比赛已结束 · 赛后校准中",
+          "share_title": "俅哥昨日主推回执 · 巴西 1-1 摩洛哥",
+          "share_copy": "昨日主推：巴西 vs 摩洛哥，赛前偏向巴西、主比分参考 2-1、备选含 1-1。实际 1-1，按部分命中处理。偏差在于巴西控制力低于预期、摩洛哥反击质量更高。完整复盘确认后开放，先进群看赛后校准。",
+          "join_cta": "加入情报群看赛后观察",
+          "next_impact": "下一场影响：巴西后续需要下调胜负确定性，摩洛哥这类强硬防反球队要按强队对待、别再低估它的下限",
+          "deviation": "偏差原因：巴西控制力低于赛前预期，摩洛哥防线压缩和反击质量高于预期",
+          "result_judgment": "部分命中（PARTIAL）",
+          "what_was_right": "看对的：比分区间——赛前给的备选 1-1 正是终场比分，低比分的判断成立",
+          "what_was_wrong": "看错的：胜负方向——主推偏向巴西取胜，实际被摩洛哥逼平，把巴西的控制力高估了",
+          "model_correction": "修正：下调巴西这类强队对中下游强硬防反球队的胜负确定性，把对手的下限上调一档",
+          "next_match_learning": "下一场要带走的：遇到摆 5 后卫打反击的对手，先看强队首粒进球时间，再定胜负把握度",
+          "source_label": "来源：赛后观察回执（OBSERVATION_ONLY）· 完整事件数据未接入，不展开完整战术复盘"
+        },
+        "vi": {
+          "receipt_title": "Biên nhận trận chính hôm qua",
+          "pre_match_call": "Nhận định trước trận: nghiêng Brazil, tỷ số chính tham khảo 2-1, phương án phụ có 1-1",
+          "actual_line": "Tỷ số thực tế: 1-1",
+          "assessment": "Đánh giá kết quả: khoảng tỷ số trúng, nhưng hướng thắng-thua chưa trúng hoàn toàn, tính là trúng một phần.",
+          "calibration_title": "Tiêu điểm hiệu chỉnh sau trận",
+          "calibration_points": [
+            "Vì sao Brazil kiểm soát nhưng chuyển hóa kém",
+            "Việc Morocco nén phòng ngự và chất lượng phản công có đổi nhận định trước trận không",
+            "Ảnh hưởng của tỷ số 1-1 tới cục diện bảng đấu"
+          ],
+          "pending_line": "Mở khi phục dựng đầy đủ được xác nhận.",
+          "state_line": "Trận đã kết thúc · Đang hiệu chỉnh sau trận",
+          "share_title": "Biên nhận Tiên Tri · Brazil 1-1 Morocco",
+          "share_copy": "Trận chính hôm qua: Brazil vs Morocco, trước trận nghiêng Brazil, tỷ số chính 2-1, phụ có 1-1. Thực tế 1-1, tính là trúng một phần. Lệch do Brazil kiểm soát kém hơn kỳ vọng, phản công Morocco tốt hơn. Mở khi phục dựng đầy đủ được xác nhận; vào nhóm xem hiệu chỉnh.",
+          "join_cta": "Vào nhóm xem quan sát sau trận",
+          "next_impact": "Ảnh hưởng trận tới: Brazil cần hạ bớt mức chắc chắn về thắng-thua, sự lì lợm của Morocco đáng theo dõi tiếp.",
+          "deviation": "Nguyên nhân lệch: khả năng kiểm soát của Brazil thấp hơn kỳ vọng, Morocco nén phòng ngự và chất lượng phản công cao hơn dự kiến."
+        },
+        "my": {
+          "receipt_title": "မနေ့ အဓိကပွဲ ပြေစာ",
+          "pre_match_call": "ပွဲကြို အမြင်: Brazil ဘက် ယိမ်း၊ အဓိကစကော ကိုးကား 2-1၊ အရန်တွင် 1-1 ပါ",
+          "actual_line": "တကယ့်စကော: 1-1",
+          "assessment": "ရလဒ်သုံးသပ်ချက်: စကောအပိုင်းအခြား မှန်သော်လည်း နိုင်/ရှုံး ဦးတည်ချက် အပြည့်မမှန်၊ တစ်စိတ်တစ်ပိုင်း မှန်ဟု သတ်မှတ်။",
+          "calibration_title": "ပွဲပြီး ပြန်ညှိ အာရုံစိုက်ချက်",
+          "calibration_points": [
+            "Brazil ball control များသော်လည်း အသွင်ပြောင်းမှု အဘယ်ကြောင့် နည်း",
+            "Morocco ၏ ခံစစ်ဖိအားနှင့် ပြန်တိုက်အရည်အသွေးက ပွဲကြိုအမြင် ပြောင်းစေမလား",
+            "1-1 ရလဒ်က အုပ်စု အခြေအနေအပေါ် သက်ရောက်မှု"
+          ],
+          "pending_line": "ပြည့်စုံသော ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်ပါမည်။",
+          "state_line": "ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး ပြန်ညှိနေဆဲ",
+          "share_title": "Oracle မနေ့ ပြေစာ · Brazil 1-1 Morocco",
+          "share_copy": "မနေ့ အဓိကပွဲ: Brazil vs Morocco၊ ပွဲကြို Brazil ဘက်ယိမ်း၊ အဓိကစကော 2-1၊ အရန် 1-1 ပါ။ တကယ် 1-1၊ တစ်စိတ်တစ်ပိုင်း မှန်။ Brazil ထိန်းချုပ်မှု လျော့ပြီး Morocco counter ပိုကောင်းသဖြင့် လွဲ။ ပြည့်စုံ ပြန်သုံးသပ်ချက် အတည်ပြုပြီးမှ ဖွင့်၊ အဖွဲ့ဝင်ပြီး ကြည့်ပါ။",
+          "join_cta": "ပွဲပြီးနောက် သုံးသပ်ချက်ကြည့်ရန် အဖွဲ့ဝင်ပါ",
+          "next_impact": "နောက်ပွဲ သက်ရောက်မှု: Brazil နိုင်ရေး သေချာမှု လျှော့ချသင့်၊ Morocco ၏ ခံနိုင်ရည်ကို ဆက်စောင့်ကြည့်ပါ။",
+          "deviation": "လွဲချော်ရသည့်အကြောင်း: Brazil ၏ ထိန်းချုပ်မှု မျှော်မှန်းချက်အောက်၊ Morocco ၏ ခံစစ်ဖိအားနှင့် counter အရည်အသွေး မျှော်လင့်ထက် မြင့်။"
+        },
+        "en": {
+          "receipt_title": "Yesterday's featured receipt",
+          "pre_match_call": "Pre-match read: leaned Brazil, main score reference 2-1, backup included 1-1",
+          "actual_line": "Actual score: 1-1",
+          "assessment": "Result read: the score band hit, but the win/draw direction was not fully hit; treat as a partial hit.",
+          "calibration_title": "Post-match calibration focus",
+          "calibration_points": [
+            "Why Brazil's control did not convert",
+            "Whether Morocco's defensive compression and counter quality change the pre-match read",
+            "Effect of the 1-1 on the group outlook"
+          ],
+          "pending_line": "Opens once the full recap is confirmed.",
+          "state_line": "Match finished · post-match calibration",
+          "share_title": "Yesterday's receipt · Brazil 1-1 Morocco",
+          "share_copy": "Yesterday's main match: Brazil vs Morocco, pre-match leaned Brazil, main score 2-1, backup included 1-1. Actual 1-1, a partial hit. It deviated because Brazil's control was below expectation and Morocco's counter was better. Opens once the full recap is confirmed; join the group for the calibration.",
+          "join_cta": "Join for post-match notes",
+          "next_impact": "Next-match impact: Brazil should lower their win certainty; Morocco's resilience is worth tracking.",
+          "deviation": "Why it deviated: Brazil's control was below the pre-match expectation; Morocco's defensive compression and counter quality were higher than expected."
+        }
+      },
+      "safety": {
+        "vocabulary_compliant": true,
+        "no_fake_recap": true,
+        "no_auto_send": true
+      }
+    }
+  }
+}

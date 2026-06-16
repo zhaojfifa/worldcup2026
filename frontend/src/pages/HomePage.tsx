@@ -11,7 +11,7 @@ import { teamLoc, homeWinLoc, awayWinLoc, aiPickLoc, heatLoc, riskShortLoc, note
 import { api, safeTrack, type ApiCommunityHeat } from '../api/client';
 import { RECAP_AVAILABLE, recapFixtureId } from '../data/recapData';
 import { TrialStatusStrip } from '../components/UpcomingTacticalStrip';
-import { fetchDailyManifest, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
+import { bootstrapRuntime, manifestAgeMinutes, FALLBACK_MANIFEST, type ManifestLoad } from '../data/dailyFixtures';
 import { HomeProductLoop } from '../components/HomeProductLoop';
 import type { Match } from '../types';
 
@@ -60,7 +60,8 @@ export function HomePage() {
 
   useEffect(() => {
     let alive = true;
-    fetchDailyManifest().then(r => { if (alive) setDaily(r); });
+    // R4: reuse the app bootstrap (idempotent) so the runtime content cache + manifest load once.
+    bootstrapRuntime().then(r => { if (alive) setDaily(r); });
     return () => { alive = false; };
   }, []);
 

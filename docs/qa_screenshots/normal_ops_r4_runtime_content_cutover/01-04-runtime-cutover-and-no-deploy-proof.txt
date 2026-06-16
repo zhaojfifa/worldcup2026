@@ -1,0 +1,13 @@
+# R4 PROOF — runtime content cutover, NO frontend deploy
+
+## Backend runtime-content endpoint (local, mechanism deployed there):
+date 2026-06-15 | predictions ['1489377', '1489380', '1489379'] | observations ['1489371'] | send_status HOLD | stale False
+
+## NO-DEPLOY PROOF: runtime content was swapped (unique hook marker injected) and re-uploaded;
+## /predict/1489377 then rendered the marker WITHOUT any frontend rebuild — bundle hash identical:
+   bundle before swap: index-DgV6r1sD.js
+   bundle after swap : index-DgV6r1sD.js
+   RUNTIME marker '俅哥运行时内容验证R4-NODEPLOY' rendered on /predict/1489377: YES
+
+## prod runtime-content endpoint (mechanism NOT yet deployed to prod): HTTP 404 (expected)
+## prod live source consistency: PASS (06-15 baseline untouched by R4)

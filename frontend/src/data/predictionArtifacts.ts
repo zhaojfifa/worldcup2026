@@ -5,6 +5,8 @@
 // join copy). Numeric direction/score/confidence may be null (pending lineups) — rendered as
 // 方向待临场确认, never invented. Bundled at build time; the frontend never calls the LLM/vendor.
 import type { Locale } from '../i18n/useLocale';
+// R4: runtime content is preferred over bundled artifacts (daily cutover without a frontend deploy).
+import { getRuntimePrediction, getRuntimeObservation } from './runtimeContent';
 import netherJapan from './predictionArtifacts/manual_Nether-Japan-20260614.json';
 import belgiumEgypt from './predictionArtifacts/match_Belgium-Egypt-20260615.json';
 import saudiUruguay from './predictionArtifacts/match_SaudiArabia-Uruguay-20260615.json';
@@ -195,6 +197,9 @@ const OBSERVATION: ObservationArtifact[] = [observation1489371 as ObservationArt
 /** Resolve a prediction artifact by route key — matches the manifest fixture_key
  *  (external_game_id) or a numeric id. Used by /predict for the manual daily hotspot. */
 export function getPredictionArtifact(key: string): PredictionArtifact | null {
+  // R4: prefer the runtime package (uploaded daily, no frontend deploy); bundled is the fallback.
+  const rt = getRuntimePrediction(key);
+  if (rt) return rt as PredictionArtifact;
   return PREDICTION.find(a => a.fixture_key === key || (a.id != null && a.id === key)) ?? null;
 }
 
@@ -213,6 +218,9 @@ export function predictionArtifactLocale(a: PredictionArtifact, loc: Locale): Pr
  *  whose full recap is not ready (recap_ready=false). Never a fake recap.
  *  P7 P0-5: keyed by fixture_key as well as id so a MANUAL hotspot (id=null) carries over next-day. */
 export function getObservationArtifact(key: string): ObservationArtifact | null {
+  // R4: prefer the runtime package; bundled is the fallback.
+  const rt = getRuntimeObservation(key);
+  if (rt) return rt as ObservationArtifact;
   return OBSERVATION.find(o => o.fixture_key === key || (o.id != null && o.id === key)) ?? null;
 }
 /** Does a finished fixture (by key or id) have an observation/recap artifact? (readiness page) */
