@@ -1,0 +1,11 @@
+# R5 follow-up LIVE ACTIVATION — runtime-selectedHotspot-aware frontend deployed
+main e2f77f7 · backend redeployed (no env/schema change) · FRONTEND ACTIVATED
+frontend bundle: index-BsmXWXHz.js -> index-_j--pEwl.js (R2a runtime-anchor logic now active)
+
+## check_live_source_consistency:
+LIVE SOURCE CONSISTENCY · backend_date=2026-06-16 · active_date=2026-06-16 (sel_source=runtime) · primary=1489383
+LIVE SOURCE CONSISTENCY PASS (backend runtime == runtime active selectedHotspot; primary rendered)
+## check_p5a_homepage_content_quality:
+P5A HOMEPAGE CONTENT QUALITY PASS (hook + reason + risk on primary; secondary not bare rows; no forbidden · src=runtime)
+## no-mixed-date: PASS · P5A predict/recap/share PASS · customer-visible 21/21 PASS
+## homepage: France vs Senegal primary (anchor-free); recap Iran 2-2 New Zealand; send HOLD
