@@ -59,6 +59,15 @@ def _observation(fixture_key):
     return None
 
 
+def _has_recap_surface(fixture_key):
+    """A recap surface = an observation receipt artifact OR a bundled real_recap product narrative."""
+    if _observation(fixture_key) is not None:
+        return True
+    narr = FE / "productNarratives" / ("%s.zh-CN.json" % fixture_key)
+    n = _load(narr)
+    return bool(n and n.get("mode") == "real_recap")
+
+
 def gate(date_iso, reg=None, sel=None, lc=None, queue=None):
     """Returns (ok, fails). Pure over the passed-in artifacts (defaults read from disk)."""
     compact = date_iso.replace("-", "")
@@ -107,14 +116,17 @@ def gate(date_iso, reg=None, sel=None, lc=None, queue=None):
         sk = str(s.get("fixture_key") or s.get("id") or "")
         if sk and sk not in ids:
             f.append("secondary %s not in generated slate" % sk)
-    # ---- recap fixture: finished WITH a score + observation/recap artifact ----
-    for r in (queue or {}).get("recap_queue", []) or (queue or {}).get("recap_matches", []):
-        rk = str(r.get("fixture_key") or r.get("id") or "")
-        if not rk:
-            continue
-        row = _slate_row(reg, rk)
+    # ---- recap: the SELECTED recap (lifecycle latest_recap = what the homepage surfaces) must be
+    #      finished WITH a score AND backed by a recap surface (observation artifact OR a real_recap
+    #      narrative) — never an empty/fake recap, never a recap of a missing score. Other finished
+    #      fixtures in the queue may legitimately be recap-PENDING and are not required to have content.
+    sel_recap = str((lc or {}).get("latest_recap", {}).get("fixture_id") or "") if lc else ""
+    if sel_recap:
+        row = _slate_row(reg, sel_recap)
         if row and row.get("status") == "finished" and row.get("score_home") is None:
-            f.append("recap fixture %s finished but has NO score (cannot recap missing score)" % rk)
+            f.append("selected recap %s finished but has NO score (cannot recap a missing score)" % sel_recap)
+        if not _has_recap_surface(sel_recap):
+            f.append("selected recap %s has NO observation/recap artifact (would be an empty recap)" % sel_recap)
     return (not f), f
 
 

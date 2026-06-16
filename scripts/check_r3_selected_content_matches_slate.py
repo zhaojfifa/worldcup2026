@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""R3 guard — every SELECTED content fixture (primary/secondary/recap) exists in the generated slate
-and is backed by the right artifact: the primary by a REVIEWED prediction artifact, a recap fixture by
-an observation/recap artifact. Prevents a homepage that points at a fixture the slate/content lacks.
+"""R3 guard — every SELECTED prediction fixture (primary/secondary) exists in the generated slate and the
+primary is backed by a REVIEWED prediction artifact. Prevents a homepage that points at a fixture the
+slate/content lacks. (The recap-surface requirement is enforced by check_r3_day_cutover_consistency.)
 
 --selftest: synthetic checks (primary present+reviewed passes; primary absent from slate fails;
   recap without artifact fails). --date D: validates the live artifacts for D via the gate.
