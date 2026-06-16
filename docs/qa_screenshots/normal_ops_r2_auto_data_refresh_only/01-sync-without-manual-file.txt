@@ -1,0 +1,13 @@
+# R2 evidence — sync --source api-football --date 2026-06-16 (NO manual_scores file)
+$ ls docs/data_audit/mvp2_match_sync/manual_scores_20260616.md
+ls: manual_scores_20260616.md: No such file (proves not required)
+
+$ python3 scripts/mvp2_match_sync.py sync --date 2026-06-16 --source api-football
+api-football slate: 3 fixture(s) for 2026-06-16 · no manual override file (optional)
+Iran vs New Zealand        RECAP_PENDING pre=False recap_need=True  2-2  HERO
+France vs Senegal          SCHEDULED     pre=True  recap_need=False  
+Iraq vs Norway             SCHEDULED     pre=True  recap_need=False  
+registry -> docs/data_audit/mvp2_match_sync/daily_fixtures_20260616.json
+recap_queue -> docs/data_audit/mvp2_match_sync/recap_queue_20260616.json (1 item(s))
+fallback manifest -> frontend/src/data/dailyFixtures.generated.json (3 fixtures, 0 renderable)
+runtime manifest -> frontend/public/data/daily-fixtures.json

@@ -1,0 +1,10 @@
+# R2 evidence — generated registry uploads to production (token redacted)
+$ python3 scripts/mvp2_match_sync.py upload --date 2026-06-16 --target production
+uploaded daily_fixtures_20260616.json -> https://worldcup2026-api-71n6.onrender.com/api/v1/admin/daily-fixtures/upload
+response: {"stored":true,"fixture_count":3,"generated_at":"2026-06-16T13:29:33.006284+00:00","source_mode":"api-football"}
+
+# NOTE: 06-16 has no reviewed prediction content yet -> live consistency would mismatch.
+# Restored the accepted green 06-15 baseline (content-paired cutover deferred, R2 = data only):
+$ python3 scripts/mvp2_match_sync.py upload --date 2026-06-15 --target production
+uploaded daily_fixtures_20260615.json -> https://worldcup2026-api-71n6.onrender.com/api/v1/admin/daily-fixtures/upload
+response: {"stored":true,"fixture_count":6,"generated_at":"2026-06-15T15:42:41.426011+00:00","source_mode":"manual"}
