@@ -120,7 +120,7 @@ def gate(date_iso, reg=None, sel=None, lc=None, queue=None):
     #      finished WITH a score AND backed by a recap surface (observation artifact OR a real_recap
     #      narrative) — never an empty/fake recap, never a recap of a missing score. Other finished
     #      fixtures in the queue may legitimately be recap-PENDING and are not required to have content.
-    sel_recap = str((lc or {}).get("latest_recap", {}).get("fixture_id") or "") if lc else ""
+    sel_recap = str(((lc or {}).get("latest_recap") or {}).get("fixture_id") or "")
     if sel_recap:
         row = _slate_row(reg, sel_recap)
         if row and row.get("status") == "finished" and row.get("score_home") is None:
