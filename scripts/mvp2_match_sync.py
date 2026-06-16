@@ -92,14 +92,9 @@ def _canon(name):
     return ALIASES.get(n, n)
 
 
-def parse_manual(date_compact):
-    """Parse manual_scores_<date>.md -> list of raw fixture dicts. No score invention:
-    only scores explicitly written are recorded; 'vs' lines carry no score."""
-    p = SYNC_DIR / ("manual_scores_%s.md" % date_compact)
-    if not p.exists():
-        raise SystemExit("manual scores file not found: %s" % p.relative_to(ROOT))
+def _parse_manual_text(text):
     out = []
-    for line in p.read_text(encoding="utf-8").splitlines():
+    for line in text.splitlines():
         line = line.strip()
         if not line or line.startswith(("#", ">", "<!--", "-->")):
             continue
@@ -117,6 +112,44 @@ def parse_manual(date_compact):
                         "score_home": None, "score_away": None,
                         "status": m.group(3).strip().lower()})
     return out
+
+
+def parse_manual(date_compact):
+    """Parse manual_scores_<date>.md -> list of raw fixture dicts (REQUIRED; the manual source).
+    No score invention: only scores explicitly written are recorded; 'vs' lines carry no score."""
+    p = SYNC_DIR / ("manual_scores_%s.md" % date_compact)
+    if not p.exists():
+        raise SystemExit("manual scores file not found: %s" % p.relative_to(ROOT))
+    return _parse_manual_text(p.read_text(encoding="utf-8"))
+
+
+def parse_manual_optional(date_compact):
+    """R2: manual_scores_<date>.md as an OPTIONAL operator override. Returns [] if absent —
+    never a failure (the API source is authoritative when no override file exists)."""
+    p = SYNC_DIR / ("manual_scores_%s.md" % date_compact)
+    if not p.exists():
+        return []
+    return _parse_manual_text(p.read_text(encoding="utf-8"))
+
+
+def apply_manual_override(raws, overrides):
+    """R2: overlay operator override rows onto API-sourced raws (match by canon team names).
+    An override may correct score/status; the row is tagged operator_override. Never adds a
+    fabricated fixture that the API did not return (override corrects, it does not invent)."""
+    by_key = {(_canon(r["home"]), _canon(r["away"])): r for r in raws}
+    applied = 0
+    for ov in overrides:
+        key = (_canon(ov["home"]), _canon(ov["away"]))
+        tgt = by_key.get(key)
+        if not tgt:
+            continue  # override for a fixture the API didn't return -> ignored (no invention)
+        if ov.get("score_home") is not None:
+            tgt["score_home"], tgt["score_away"] = ov["score_home"], ov["score_away"]
+        if ov.get("status"):
+            tgt["status"] = ov["status"]
+        tgt["operator_override"] = True
+        applied += 1
+    return raws, applied
 
 
 def _api_short_for(status, score_home):
@@ -153,8 +186,12 @@ def evaluate(raw, now, captured_at, source_mode, source_name, source_note):
     lc = _lc()
     hk = (_canon(raw["home"]), _canon(raw["away"]))
     known = KNOWN.get(hk, {})
-    internal = known.get("internal")
-    kickoff_raw = known.get("kickoff")
+    # R2: an API-sourced fixture carries its own id + kickoff. The API fixture id IS our internal id
+    # space (e.g. Belgium vs Egypt = 1489377 in both), so use it when KNOWN has no hand-mapping; the
+    # KNOWN kickoff/group/flags still win when present. Manual raws carry neither key -> unchanged.
+    api_id = raw.get("api_fixture_id")
+    internal = known.get("internal") or (str(api_id) if api_id is not None else None)
+    kickoff_raw = known.get("kickoff") or raw.get("kickoff_utc")
     kickoff = None
     if kickoff_raw:
         kickoff = datetime.fromisoformat(kickoff_raw)
@@ -280,13 +317,30 @@ def cmd_sync(date_iso, source, now=None, stamp=None):
     stamp = stamp or now.isoformat()
     compact = date_iso.replace("-", "")
     SYNC_DIR.mkdir(parents=True, exist_ok=True)
-    raws = parse_manual(compact)
-    source_name = "manual operator input (manual_scores_%s.md)" % compact
-    source_note = "Owner/operator-provided slate; no score invented; unconfirmed = unknown"
-    fixtures = [evaluate(r, now, stamp, "manual", source_name, source_note) for r in raws]
-
-    if source == "fetched":
-        _enrich_fetched(fixtures, date_iso, now)
+    if source == "api-football":
+        # R2: automated slate from API-FOOTBALL — NO manual_scores file required.
+        import os
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from _api_football_slate import fetch_slate
+        raws = fetch_slate(date_iso)
+        league = os.environ.get("WC_LEAGUE_ID", "1"); seas = os.environ.get("WC_SEASON", "2026")
+        source_name = "API-FOOTBALL automated slate (league=%s season=%s)" % (league, seas)
+        source_note = "Automated API-FOOTBALL fixtures; score only when finished+reported; no invention"
+        overrides = parse_manual_optional(compact)
+        ov_applied = 0
+        if overrides:
+            raws, ov_applied = apply_manual_override(raws, overrides)
+            source_note += " | operator_override applied to %d fixture(s) from manual_scores_%s.md" % (ov_applied, compact)
+        fixtures = [evaluate(r, now, stamp, "api-football", source_name, source_note) for r in raws]
+        print("api-football slate: %d fixture(s) for %s%s" % (
+            len(raws), date_iso, (" · operator_override x%d" % ov_applied) if ov_applied else " · no manual override file (optional)"))
+    else:
+        raws = parse_manual(compact)
+        source_name = "manual operator input (manual_scores_%s.md)" % compact
+        source_note = "Owner/operator-provided slate; no score invented; unconfirmed = unknown"
+        fixtures = [evaluate(r, now, stamp, "manual", source_name, source_note) for r in raws]
+        if source == "fetched":
+            _enrich_fetched(fixtures, date_iso, now)
 
     select_candidates(fixtures)
     doc = {"date": date_iso, "generated_at": stamp, "source_mode": source,
@@ -444,9 +498,9 @@ def cmd_recap_queue(date_iso):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", nargs="?", default="sync", choices=["sync", "upload", "recap-queue"])
+    ap.add_argument("cmd", nargs="?", default="sync", choices=["sync", "upload", "recap-queue", "refresh"])
     ap.add_argument("--date", default=None, help="YYYY-MM-DD (default: today UTC)")
-    ap.add_argument("--source", default="manual", choices=["manual", "fetched"])
+    ap.add_argument("--source", default="manual", choices=["manual", "fetched", "api-football"])
     ap.add_argument("--target", default="production", help="upload target: production|local")
     ap.add_argument("--url", default=None, help="override backend base url for upload")
     ap.add_argument("--selftest", action="store_true")
@@ -459,6 +513,12 @@ def main():
         return
     if a.cmd == "recap-queue":
         cmd_recap_queue(date_iso)
+        return
+    if a.cmd == "refresh":
+        # R2 one-shot: automated sync (API-FOOTBALL by default) + admin upload to backend.
+        src = a.source if a.source != "manual" else "api-football"
+        cmd_sync(date_iso, src)
+        cmd_upload(date_iso, a.target, a.url)
         return
     cmd_sync(date_iso, a.source)
 

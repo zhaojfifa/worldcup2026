@@ -1,0 +1,16 @@
+{
+ "date": "2026-06-16",
+ "generated_at": "2026-06-16T13:29:33.006284+00:00",
+ "items": [
+  {
+   "fixture": "Iran vs New Zealand",
+   "internal_fixture_id": "1489378",
+   "final_score": "2-2",
+   "recap_needed": true,
+   "recap_ready": false,
+   "priority": 2,
+   "operator_next_step": "generate recap (A4) before any recap package/send",
+   "reason": "match finished but no recap narrative bundled — 赛后复盘生成中"
+  }
+ ]
+}
