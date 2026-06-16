@@ -94,3 +94,17 @@ The phrase is embedded inside a substantive sentence (not standalone vague fille
 2. (Context, not a defect) The new v2 copy is verified on the LOCAL build only. Production (`worldcup2026-izid.onrender.com`) still serves the old generic copy — deployment is pending. Running the guards without `--base-url` defaults to production and FAILs.
 
 Codex verdict: PASS_WITH_PATCHES
+
+---
+
+## Patch re-verification (2026-06-16)
+
+The single defect from Finding 1 is **RESOLVED**:
+
+1. `grep -c "值得继续跟踪" frontend/src/data/predictionArtifacts/observation_1489371.json` → **0** (phrase removed from zh `next_impact`).
+2. `scripts/check_p5a_copy_contract.py` now has `scan_obs` (lines 36-44) serialize the observation `i18n.zh` blob to JSON and scan it against the full `FORBIDDEN` list (which includes `值得继续跟踪`). `--selftest` → 4/4 PASS (incl. "good obs passes"); plain run → `P5A COPY CONTRACT PASS`.
+3. `check_prediction_artifact.py` → PASS (4 prediction + 1 observation, safe vocab). `check_growth_copy.py` → PASS (32 files).
+
+The forbidden phrase is gone from the data file and the guard now covers the observation, closing the gap that let it slip through previously.
+
+Codex verdict (post-patch): PASS
