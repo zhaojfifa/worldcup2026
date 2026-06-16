@@ -1,0 +1,15 @@
+{
+  "date": "2026-06-16",
+  "source": "api-football",
+  "result": "CUTOVER_BLOCKED",
+  "send_status": "HOLD",
+  "uploaded": false,
+  "reasons": [
+    "DATA_ONLY_CUTOVER: selectedHotspot.date '2026-06-15' != runtime date '2026-06-16'",
+    "selected primary 1489377 not in generated slate",
+    "lifecycle has NO primary (PRIMARY_REVIEW_REQUIRED) but selectedHotspot=1489377",
+    "secondary 1489379 not in generated slate",
+    "secondary 1489380 not in generated slate"
+  ],
+  "action": "production left on last green baseline; prepare reviewed content + selectedHotspot for 2026-06-16, then re-run cutover"
+}

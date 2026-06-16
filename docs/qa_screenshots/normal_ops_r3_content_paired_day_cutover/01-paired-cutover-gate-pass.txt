@@ -1,0 +1,24 @@
+# R3 evidence — paired cutover (gate-only, no upload) + consistency gate
+$ python3 scripts/mvp2_day_cutover.py --date 2026-06-15 --source manual --now 2026-06-15T12:00:00+00:00
+== R3 cutover 2026-06-15 · source=manual · target=(gate only) · basis=2026-06-15T12:00:00+00:00 ==
+Belgium vs Egypt           SCHEDULED     pre=True  recap_need=False  
+Saudi Arabia vs Uruguay    SCHEDULED     pre=True  recap_need=False  
+Spain vs Cape Verde Islands SCHEDULED     pre=True  recap_need=False  
+Brazil vs Morocco          RECAP_PENDING pre=False recap_need=True  1-1  recap
+Mexico vs South Africa     ARCHIVED      pre=False recap_need=False 2-0  HERO
+Sweden vs Tunisia          RECAP_PENDING pre=False recap_need=True   recap
+registry -> docs/data_audit/mvp2_match_sync/daily_fixtures_20260615.json
+recap_queue -> docs/data_audit/mvp2_match_sync/recap_queue_20260615.json (3 item(s))
+fallback manifest -> frontend/src/data/dailyFixtures.generated.json (6 fixtures, 2 renderable)
+runtime manifest -> frontend/public/data/daily-fixtures.json
+LIFECYCLE · 2026-06-15 · basis=2026-06-15T12:00:00+00:00
+  primary:   Belgium vs Egypt [UPCOMING_PREDICTION_READY]
+  secondary: Spain vs Cape Verde Islands(operator_estimated) · Saudi Arabia vs Uruguay(computed)
+  recap:     Brazil vs Morocco [FINISHED_OBSERVATION_READY]
+  next:      Spain vs Cape Verde Islands
+  excluded:  archive=0 demo=0 · pending_recap=1 · NEXT: build recap for finished tracked matches
+
+GATE PASS — data+content paired for 2026-06-15.
+(no --target/--upload -> gate only; nothing uploaded)
+report -> docs/data_audit/mvp2_day_cutover/20260615_cutover.json
+SEND_STATUS=HOLD

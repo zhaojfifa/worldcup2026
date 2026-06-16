@@ -1,0 +1,10 @@
+# R3 consistency gate — 06-15 PASS (paired) vs 06-16 BLOCK (data-only/no-content)
+$ python3 scripts/check_r3_day_cutover_consistency.py --date 2026-06-15
+R3 DAY-CUTOVER CONSISTENCY PASS (2026-06-15: data+content paired — selectedHotspot/lifecycle/slate/artifacts all agree; send HOLD)
+
+$ python3 scripts/check_r3_day_cutover_consistency.py --date 2026-06-16
+FAIL  DATA_ONLY_CUTOVER: selectedHotspot.date '2026-06-15' != runtime date '2026-06-16'
+FAIL  selected primary 1489377 not in generated slate
+FAIL  secondary 1489379 not in generated slate
+FAIL  secondary 1489380 not in generated slate
+R3 DAY-CUTOVER CONSISTENCY FAIL — 4 (CUTOVER_BLOCKED; production stays on last green baseline)

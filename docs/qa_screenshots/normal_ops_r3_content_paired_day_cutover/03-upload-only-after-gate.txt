@@ -1,0 +1,29 @@
+# R3 evidence — upload happens ONLY after the gate passes
+# BLOCK path: data-only 06-16 cutover to production -> gate fails -> NO upload, artifacts restored:
+$ python3 scripts/mvp2_day_cutover.py --date 2026-06-16 --source api-football --target production
+== R3 cutover 2026-06-16 · source=api-football · target=production ==
+api-football slate: 3 fixture(s) for 2026-06-16 · no manual override file (optional)
+Iran vs New Zealand        RECAP_PENDING pre=False recap_need=True  2-2  HERO
+France vs Senegal          SCHEDULED     pre=True  recap_need=False  
+Iraq vs Norway             SCHEDULED     pre=True  recap_need=False  
+registry -> docs/data_audit/mvp2_match_sync/daily_fixtures_20260616.json
+recap_queue -> docs/data_audit/mvp2_match_sync/recap_queue_20260616.json (1 item(s))
+fallback manifest -> frontend/src/data/dailyFixtures.generated.json (3 fixtures, 0 renderable)
+runtime manifest -> frontend/public/data/daily-fixtures.json
+LIFECYCLE · 2026-06-16 · basis=2026-06-16T14:20:51.822134+00:00
+  primary:   PRIMARY_REVIEW_REQUIRED (blocked)
+  secondary: none
+  recap:     RECAP_PENDING
+  next:      —
+  excluded:  archive=0 demo=0 · pending_recap=1 · NEXT: review/select an upcoming source-qualified primary
+
+CUTOVER_BLOCKED — 5 gate failure(s):
+  - DATA_ONLY_CUTOVER: selectedHotspot.date '2026-06-15' != runtime date '2026-06-16'
+  - selected primary 1489377 not in generated slate
+  - lifecycle has NO primary (PRIMARY_REVIEW_REQUIRED) but selectedHotspot=1489377
+  - secondary 1489379 not in generated slate
+  - secondary 1489380 not in generated slate
+bundled artifacts RESTORED (no homepage change). report -> docs/data_audit/mvp2_day_cutover/20260616_blocked.json
+SEND_STATUS=HOLD
+
+# PASS path (earlier): 06-15 paired cutover -> gate PASS -> upload {stored:true,fixture_count:6}; prod stays green. send HOLD.
