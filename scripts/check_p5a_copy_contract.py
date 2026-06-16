@@ -38,6 +38,9 @@ def scan_obs(name, o):
     zh = (o.get("i18n") or {}).get("zh") or {}
     for k in ("result_judgment", "what_was_right", "what_was_wrong", "model_correction"):
         if not (zh.get(k) or "").strip(): f.append("%s: recap v2 %s empty" % (name, k))
+    blob = json.dumps(zh, ensure_ascii=False)
+    for w in FORBIDDEN:
+        if w in blob: f.append("%s: forbidden phrase %r in recap" % (name, w))
     return f
 
 
