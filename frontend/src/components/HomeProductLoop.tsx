@@ -64,6 +64,7 @@ const L = {
     predWhy: '今日主推比赛：基于数据更新 + 建模判断，开球前看方向，开球前 30 分钟修正。',
     enterToday: '进入战术室', joinLive: '加入临场情报群',
     copyShare: '复制/分享入口', copyDone: '已复制 ✓', viewObs: '查看赛后观察',
+    recapState: '比赛已结束 · 赛后观察 / 复盘校准中',
     schedTitle: '🗓️ 今日赛程', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ 其他复盘', otherEn: 'OTHER RECAPS', done: '已完赛',
     growthWhy: '想看完整临场 30 分钟修正、建模变量和赛后校准，进群。', joinGroup: '加入情报群',
@@ -84,6 +85,7 @@ const L = {
     predWhy: 'Trận chính hôm nay: dựa trên dữ liệu cập nhật + phân tích, xem hướng trước trận, hiệu chỉnh 30 phút trước giờ bóng lăn.',
     enterToday: 'Vào phòng chiến thuật', joinLive: 'Vào nhóm sát giờ',
     copyShare: 'Sao chép / chia sẻ', copyDone: 'Đã sao chép ✓', viewObs: 'Xem quan sát sau trận',
+    recapState: 'Trận đã kết thúc · Quan sát sau trận / đang hiệu chỉnh',
     schedTitle: '🗓️ Lịch hôm nay', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ Phục dựng khác', otherEn: 'OTHER RECAPS', done: 'Đã kết thúc',
     growthWhy: 'Muốn xem đầy đủ hiệu chỉnh 30 phút, biến số phân tích và hiệu chỉnh sau trận, vào nhóm.', joinGroup: 'Vào nhóm',
@@ -104,6 +106,7 @@ const L = {
     predWhy: 'ဒီနေ့ အဓိကပွဲ — data update + model အမြင်ဖြင့်၊ ပွဲမစခင် ဦးတည်ချက်၊ ပွဲမစခင် မိနစ် ၃၀ ပြန်ညှိ။',
     enterToday: 'နည်းဗျူဟာခန်း ဝင်ရန်', joinLive: 'ပွဲနီး အဖွဲ့ ဝင်ရန်',
     copyShare: 'Link ကူး / share', copyDone: 'ကူးပြီး ✓', viewObs: 'ပွဲပြီး စောင့်ကြည့်ချက် ကြည့်ရန်',
+    recapState: 'ပွဲ ပြီးဆုံးပြီ · ပွဲပြီး စောင့်ကြည့် / ပြန်ညှိနေဆဲ',
     schedTitle: '🗓️ ဒီနေ့ ပွဲစဉ်', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ အခြား ပြန်သုံးသပ်ချက်', otherEn: 'OTHER RECAPS', done: 'ပြီးဆုံး',
     growthWhy: 'ပွဲနီး မိနစ် ၃၀ ပြန်ညှိ၊ ပိုင်းခြားသုံးသပ် variable နှင့် ပွဲပြီးပြန်ညှိချက် အပြည့်အစုံ ကြည့်ချင်ရင် အဖွဲ့ဝင်ပါ။', joinGroup: 'အဖွဲ့ဝင်ရန်',
@@ -124,6 +127,7 @@ const L = {
     predWhy: 'Today’s main match: data update + model read — direction before kickoff, re-scored 30 minutes before.',
     enterToday: 'Enter tactical room', joinLive: 'Join the live group',
     copyShare: 'Copy / share link', copyDone: 'Copied ✓', viewObs: 'View post-match observation',
+    recapState: 'Match finished · post-match observation / calibrating',
     schedTitle: '🗓️ Today’s schedule', schedEn: 'TODAY · SCHEDULE',
     otherTitle: '🗂️ Other recaps', otherEn: 'OTHER RECAPS', done: 'Finished',
     growthWhy: 'Want the full 30-minute live correction, modeling variables and post-match calibration? Join the group.', joinGroup: 'Join the group',
@@ -175,7 +179,7 @@ function HotspotRecap({ f, loc }: { f: DailyFixtureRow; loc: Locale }) {
     <>
       <SecHead zh={C.recapTitle} en={C.recapEn} />
       <div className="card th-hero th-frozen plp-recap">
-        <div className="th-badge sc-frozen-badge">{ready ? FZ.ready : FZ.pending}</div>
+        <div className="th-badge sc-frozen-badge">{ready ? FZ.ready : C.recapState}</div>
         <div className="th-teams">{f.home} <span className="ut-vs">vs</span> {f.away}{sc ? `　${sc}` : ''}</div>
         <div className="th-meta">{C.recapWhy}</div>
         <FocusBlock title={C.recapFocus} bullets={C.recapBullets} home={f.home} away={f.away} score={sc} />
@@ -344,11 +348,17 @@ function OtherRecaps({ rows, loc }: { rows: DailyFixtureRow[]; loc: Locale }) {
         {rows.map(f => {
           const sc = scoreLine(f);
           const ready = !!f.recapReady && !!f.id;
+          // A finished match with a score-only OBSERVATION receipt is clickable too — recapReady=false
+          // does NOT downgrade it to a dead 已完赛 chip (Owner OPS 2026-06-16). 查看复盘 only when a real
+          // recap exists (ready); otherwise 查看赛后观察 → the safe observation page.
+          const rKey = recapKeyFor(f);
+          const obs = !!rKey && hasObservationArtifact(rKey);
+          const clickable = !!rKey && (ready || obs);
           return (
             <div className="md-row" key={f.external_game_id || `${f.home}-${f.away}`}>
               <span className="md-teams">{f.home} <span className="ut-vs">vs</span> {f.away}{sc ? `　${sc}` : ''}</span>
-              {ready && f.id ? (
-                <button className="md-cta" onClick={() => navigate(`/recap/${f.id}`)}>{C.viewRecap} ▸</button>
+              {clickable ? (
+                <button className="md-cta" onClick={() => navigate(`/recap/${rKey}`)}>{ready ? C.viewRecap : C.viewObs} ▸</button>
               ) : (
                 <span className="md-chip done">{C.done}</span>
               )}
