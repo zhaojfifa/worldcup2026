@@ -136,7 +136,7 @@ as a finished match-desk secondary row (`md-row` "Belgium vs Egypt 1 - 1"), not 
 bundle = `index-BsmXWXHz.js` (unchanged) — no frontend deploy was needed for these guard fixes.
 
 ## Check 9 — Secret scan
-`git grep -lc "12344321" -- . ':!*.png'` → exit 1, **no matches** (token VALUE absent from all tracked files
+`git grep -lc "<REDACTED_ADMIN_TOKEN — per Owner security boundary; scrubbed 2026-06-16>" -- . ':!*.png'` → exit 1, **no matches** (token VALUE absent from all tracked files
 on this branch). Only `.env.example` / `frontend/.env.example` templates are tracked (no real values).
 `git diff main...HEAD` introduces no `.env`/token file. `backend/.env` is not tracked. Token scan of the
 added evidence txt and self-review doc → no matches.
