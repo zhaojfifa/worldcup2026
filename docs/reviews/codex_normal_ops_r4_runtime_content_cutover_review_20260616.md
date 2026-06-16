@@ -133,7 +133,7 @@ FAKE_DATA=none · BETTING_VOCAB=none · AUTO_SEND=none · SEND_STATUS=HOLD
 
 ## Check 9 — Secret scan
 
-- `git grep -lc "12344321" -- . ':!*.png'` → **no matches** (token value absent from all tracked files).
+- `git grep -lc "<REDACTED_ADMIN_TOKEN — per Owner security boundary; scrubbed 2026-06-16>" -- . ':!*.png'` → **no matches** (token value absent from all tracked files).
 - `backend/.env` is NOT tracked (`git ls-files` empty).
 - `git diff main...HEAD` introduces no `.env`/token file.
 
