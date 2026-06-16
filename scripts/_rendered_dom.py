@@ -32,3 +32,11 @@ def demo_pair_leak(text):
                 if any(rt in window for rt in right):
                     return "%s vs %s" % (lt, next(rt for rt in right if rt in window))
     return None
+
+
+def strip_folds(dom):
+    """Remove collapsed <details> fold content before a customer-visible scan — matches the canonical
+    check_customer_visible_copy convention (internal-demo / archive folds are NOT the active surface).
+    Only strips folds that are NOT open (no ' open' attribute)."""
+    import re
+    return re.sub(r"<details(?![^>]*\sopen)[^>]*>.*?</details>", " ", dom, flags=re.S | re.I)

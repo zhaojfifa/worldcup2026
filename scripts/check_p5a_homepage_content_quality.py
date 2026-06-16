@@ -4,7 +4,7 @@ show reason/risk (not bare schedule rows); recap card shows a result judgment; n
 Usage: --base-url URL | --selftest"""
 import json, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from _rendered_dom import dump_dom  # noqa: E402
+from _rendered_dom import dump_dom, strip_folds  # noqa: E402
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FORBIDDEN = ["赛前倾向", "双方实力接近", "临场变量影响有限", "模型判断方向较为明确"]
 
@@ -31,8 +31,11 @@ def scan(dom, primary_v2, sec_v2_list):
     for i, s in enumerate(sec_v2_list):
         if s.get("main_reason") and s["main_reason"][:8] not in dom:
             f.append("secondary[%d] reason not rendered (still a bare schedule row?)" % i)
+    # Forbidden-phrase scan is on the ACTIVE customer surface only — collapsed <details> internal-demo
+    # / archive folds are stripped (same convention as check_customer_visible_copy).
+    active = strip_folds(dom)
     for w in FORBIDDEN:
-        if w in dom: f.append("forbidden phrase %r in homepage" % w)
+        if w in active: f.append("forbidden phrase %r in active homepage content" % w)
     return f
 
 
