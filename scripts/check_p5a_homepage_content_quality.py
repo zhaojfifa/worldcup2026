@@ -50,24 +50,54 @@ def selftest():
     print("%d/%d checks pass" % (sum(1 for _, v in checks if v), len(checks))); return 0 if ok else 1
 
 
+def _rcv(pkg, fk):
+    """copy_v2 for a fixture from the runtime-content package (zh)."""
+    art = (pkg.get("predictions") or {}).get(str(fk)) if pkg else None
+    return ((art or {}).get("i18n") or {}).get("zh", {}).get("copy_v2") or {} if art else {}
+
+
 def main():
     a = sys.argv[1:]
     if "--selftest" in a: return selftest()
+    import urllib.request
     base = a[a.index("--base-url") + 1] if "--base-url" in a else "https://worldcup2026-izid.onrender.com"
+    be = a[a.index("--backend-url") + 1] if "--backend-url" in a else "https://worldcup2026-api-71n6.onrender.com"
     sel = _load(ROOT / "frontend/src/data/selectedHotspot.json") or {}
     q = _load(ROOT / "frontend/src/data/dailyContentQueue.json") or {}
-    # P5B: the homepage primary is now the LIFECYCLE primary (not necessarily the selectedHotspot).
-    # Read the rendered-primary fixture from the lifecycle artifact when present; fall back to sel.
     lc = _load(ROOT / "frontend/src/data/homepageLifecycle.json") or {}
-    primary_fk = ((lc.get("primary_prediction") or {}).get("fixture_id")) or sel.get("fixture_key")
-    sec_keys = [ (s or {}).get("fixture_id") for s in (lc.get("secondary_predictions") or []) ] \
-        or [s.get("fixture_key") for s in q.get("secondary_matches", [])]
+    # R5 follow-up: runtime content is the source of truth when active. Resolve the primary + its copy_v2
+    # from the backend runtime-content package; fall back to the bundled lifecycle/artifacts only when
+    # runtime content is absent/stale/invalid. (Inspects the LIVE DOM either way.)
+    src = "bundled"
+    rc = None
+    try:
+        with urllib.request.urlopen(be.rstrip("/") + "/api/v1/runtime-content", timeout=20) as r:
+            rc = json.loads(r.read().decode("utf-8"))
+        fr = rc.get("freshness") or {}
+        if not (fr.get("stored") and fr.get("stale") is not True and (rc.get("predictions"))):
+            rc = None
+    except Exception:
+        rc = None
+    if rc:
+        src = "runtime"
+        rlc = rc.get("lifecycle") or {}
+        primary_fk = ((rlc.get("primary_prediction") or {}).get("fixture_id")) or (rc.get("selectedHotspot") or {}).get("fixture_key")
+        sec_keys = [(s or {}).get("fixture_id") for s in (rlc.get("secondary_predictions") or [])]
+        cvp = _rcv(rc, primary_fk)
+        cvs = [_rcv(rc, k) for k in sec_keys]
+    else:
+        # P5B bundled path: lifecycle primary, then selectedHotspot.
+        primary_fk = ((lc.get("primary_prediction") or {}).get("fixture_id")) or sel.get("fixture_key")
+        sec_keys = [(s or {}).get("fixture_id") for s in (lc.get("secondary_predictions") or [])] \
+            or [s.get("fixture_key") for s in q.get("secondary_matches", [])]
+        cvp = cv(primary_fk)
+        cvs = [cv(k) for k in sec_keys]
     dom = dump_dom(base.rstrip("/") + "/?lang=zh")
     if not dom: print("FAIL  homepage not rendered"); return 1
-    fails = scan(dom, cv(primary_fk), [cv(k) for k in sec_keys])
+    fails = scan(dom, cvp, cvs)
     for x in fails: print("FAIL  %s" % x)
-    if fails: print("P5A HOMEPAGE CONTENT QUALITY FAIL — %d" % len(fails)); return 1
-    print("P5A HOMEPAGE CONTENT QUALITY PASS (hook + reason + risk on primary; secondary not bare rows; no forbidden)"); return 0
+    if fails: print("P5A HOMEPAGE CONTENT QUALITY FAIL — %d (src=%s primary=%s)" % (len(fails), src, primary_fk)); return 1
+    print("P5A HOMEPAGE CONTENT QUALITY PASS (hook + reason + risk on primary; secondary not bare rows; no forbidden · src=%s)" % src); return 0
 
 
 if __name__ == "__main__": sys.exit(main())

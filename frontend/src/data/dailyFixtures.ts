@@ -134,8 +134,11 @@ function backendAcceptable(m: DailyManifest, selKey: string | null, selDate: str
 /** R2a fetch priority — backend ONLY if fresh AND it contains the selected hotspot; otherwise fall
  *  back to the bundled/static fresh manifest so a stale backend cannot override the fresh selection.
  *  NEVER throws; always returns a drift verdict for /internal/daily. */
-export async function fetchDailyManifest(): Promise<ManifestLoad> {
-  const sel = getSelectedHotspot();
+export async function fetchDailyManifest(preferSel?: { fixture_key: string | null; date: string | null } | null): Promise<ManifestLoad> {
+  // R5 follow-up: when runtime content is active, its selectedHotspot is the source of truth for R2a
+  // acceptance (so a fresh runtime slate is accepted on its OWN anchor, not the bundled 06-15 one).
+  // Bundled selectedHotspot is the fallback anchor when no runtime content is provided.
+  const sel = preferSel ?? getSelectedHotspot();
   const selKey = sel?.fixture_key ?? null;
   const selDate = sel?.date ?? null;
   const now = new Date();
@@ -178,30 +181,33 @@ let BOOTSTRAP: Promise<ManifestLoad> | null = null;
 export async function bootstrapRuntime(): Promise<ManifestLoad> {
   if (BOOTSTRAP) return BOOTSTRAP;
   BOOTSTRAP = (async () => {
-    const load = await fetchDailyManifest();
-    const effectiveDate = load.manifest.generated_for_date ?? null;
+    // R5 follow-up: fetch the runtime CONTENT package FIRST so its selectedHotspot can anchor R2a
+    // acceptance — a fresh runtime slate is then accepted on its OWN selection (no bundled-anchor trick).
+    let pkg = null as Awaited<ReturnType<typeof fetchRuntimeContentRaw>>;
     try {
-      // Bound the runtime-content fetch (Codex R4 D-a): a slow backend must not stall bootstrap.
       const ctrl = new AbortController();
-      const to = setTimeout(() => ctrl.abort(), 3000);
-      const pkg = await fetchRuntimeContentRaw(API_BASE, ctrl.signal);
+      const to = setTimeout(() => ctrl.abort(), 3000);   // Codex R4 D-a: bound the fetch
+      pkg = await fetchRuntimeContentRaw(API_BASE, ctrl.signal);
       clearTimeout(to);
-      const fresh = !!pkg && pkg.freshness?.stored === true && pkg.freshness?.stale !== true
-        && typeof pkg.freshness?.age_seconds === 'number'
-        && (pkg.freshness!.age_seconds as number) <= RUNTIME_CONTENT_STALE_HOURS * 3600;
-      const dateMatch = !!pkg && !!pkg.date && pkg.date === effectiveDate;
-      const hasContent = !!pkg && !!pkg.predictions && Object.keys(pkg.predictions).length > 0;
-      if (pkg && fresh && dateMatch && hasContent) {
-        setRuntimeContent(pkg);
-      } else {
-        setRuntimeContent(null);   // bundled fallback — never a mixed-date runtime package
-        if (pkg && pkg.freshness?.stored) {
-          console.warn('[runtimeContent] not used (fresh=%s dateMatch=%s[%s vs %s] hasContent=%s) → bundled fallback',
-            fresh, dateMatch, pkg.date, effectiveDate, hasContent);
-        }
+    } catch { pkg = null; }
+    const rcFresh = !!pkg && pkg.freshness?.stored === true && pkg.freshness?.stale !== true
+      && typeof pkg.freshness?.age_seconds === 'number'
+      && (pkg.freshness!.age_seconds as number) <= RUNTIME_CONTENT_STALE_HOURS * 3600
+      && !!pkg.date && !!pkg.predictions && Object.keys(pkg.predictions).length > 0;
+    const runtimeSel = (rcFresh && pkg && pkg.selectedHotspot)
+      ? { fixture_key: (pkg.selectedHotspot as any).fixture_key ?? null, date: pkg.date }
+      : null;
+    const load = await fetchDailyManifest(runtimeSel);
+    const effectiveDate = load.manifest.generated_for_date ?? null;
+    const dateMatch = !!pkg && !!pkg.date && pkg.date === effectiveDate;
+    if (rcFresh && dateMatch) {
+      setRuntimeContent(pkg);
+    } else {
+      setRuntimeContent(null);   // bundled fallback — never a mixed-date runtime package
+      if (pkg && pkg.freshness?.stored) {
+        console.warn('[runtimeContent] not used (fresh=%s dateMatch=%s[%s vs %s]) → bundled fallback',
+          rcFresh, dateMatch, pkg.date, effectiveDate);
       }
-    } catch {
-      setRuntimeContent(null);
     }
     return load;
   })();

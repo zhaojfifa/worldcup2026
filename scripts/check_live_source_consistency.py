@@ -19,7 +19,22 @@ def main():
         print("1/1 checks pass"); return 0
     fe = a[a.index("--frontend-url") + 1] if "--frontend-url" in a else "https://worldcup2026-izid.onrender.com"
     be = a[a.index("--backend-url") + 1] if "--backend-url" in a else "https://worldcup2026-api-71n6.onrender.com"
+    # R5 follow-up: runtime content is the source of truth when active. Resolve the ACTIVE selectedHotspot
+    # from the backend runtime-content package (stored + fresh + has a selectedHotspot); fall back to the
+    # bundled selectedHotspot.json only when runtime content is absent/stale/invalid.
     sel = _load(ROOT / "frontend/src/data/selectedHotspot.json") or {}
+    sel_source = "bundled"
+    try:
+        with urllib.request.urlopen(be.rstrip("/") + "/api/v1/runtime-content", timeout=20) as r:
+            rc = json.loads(r.read().decode("utf-8"))
+        fr = rc.get("freshness") or {}
+        if fr.get("stored") and fr.get("stale") is not True and rc.get("selectedHotspot") and rc.get("date"):
+            rsel = rc["selectedHotspot"]
+            sel = {"date": rc.get("date"), "fixture_key": rsel.get("fixture_key"),
+                   "home": rsel.get("home"), "away": rsel.get("away")}
+            sel_source = "runtime"
+    except Exception:
+        pass
     with urllib.request.urlopen(be.rstrip("/") + "/api/v1/daily-fixtures", timeout=20) as r:
         bd = json.loads(r.read().decode("utf-8"))
     fails = []
@@ -35,10 +50,10 @@ def main():
     for t in (sel.get("home"), sel.get("away")):
         if t and dom and t not in dom:
             fails.append("rendered homepage missing backend-active primary team %r" % t)
-    print("LIVE SOURCE CONSISTENCY · backend_date=%s · active_date=%s · primary=%s" % (backend_date, active_date, sel.get("fixture_key")))
+    print("LIVE SOURCE CONSISTENCY · backend_date=%s · active_date=%s (sel_source=%s) · primary=%s" % (backend_date, active_date, sel_source, sel.get("fixture_key")))
     for x in fails: print("FAIL  %s" % x)
     if fails: print("LIVE SOURCE CONSISTENCY FAIL — %d" % len(fails)); return 1
-    print("LIVE SOURCE CONSISTENCY PASS (backend runtime == frontend active package; primary rendered)"); return 0
+    print("LIVE SOURCE CONSISTENCY PASS (backend runtime == %s active selectedHotspot; primary rendered)" % sel_source); return 0
 
 
 if __name__ == "__main__": sys.exit(main())

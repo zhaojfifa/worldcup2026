@@ -1,0 +1,8 @@
+# R5 follow-up — runtime-selectedHotspot-aware guards + R2a (06-16 live, France primary)
+## check_live_source_consistency (now runtime-aware):
+LIVE SOURCE CONSISTENCY · backend_date=2026-06-16 · active_date=2026-06-16 (sel_source=runtime) · primary=1489383
+LIVE SOURCE CONSISTENCY PASS (backend runtime == runtime active selectedHotspot; primary rendered)
+## check_p5a_homepage_content_quality (now runtime-aware):
+P5A HOMEPAGE CONTENT QUALITY PASS (hook + reason + risk on primary; secondary not bare rows; no forbidden · src=runtime)
+## bundle hash (no deploy for content): index-BsmXWXHz.js live (R2a frontend change ships on next deploy; anchor holds live until then)
+## send_status: HOLD

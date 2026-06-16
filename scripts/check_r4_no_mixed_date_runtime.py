@@ -12,9 +12,11 @@ def main():
     checks = [
         ("computes effectiveDate from manifest", "generated_for_date" in boot and "effectiveDate" in boot),
         ("requires content date == effectiveDate", "dateMatch" in boot and "pkg.date === effectiveDate" in boot),
-        ("requires fresh (not stale)", "fresh" in boot and "stale" in boot),
+        ("requires fresh (not stale)", "rcFresh" in boot and "stale" in boot),
         ("sets bundled fallback on mismatch", "setRuntimeContent(null)" in boot),
-        ("only enables runtime when fresh && dateMatch && hasContent", "fresh && dateMatch && hasContent" in boot),
+        ("only enables runtime when rcFresh && dateMatch", "rcFresh && dateMatch" in boot),
+        # R5 follow-up: the runtime selectedHotspot anchors R2a acceptance (fetched before the manifest)
+        ("runtime selectedHotspot anchors R2a", "runtimeSel" in boot and "fetchDailyManifest(runtimeSel)" in boot),
     ]
     ok = all(v for _, v in checks)
     for n, v in checks: print("%s %s" % ("PASS" if v else "FAIL", n))
