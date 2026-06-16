@@ -1,12 +1,12 @@
 {
   "active_date": "2026-06-15",
-  "generated_at": "2026-06-15T12:00:00+00:00",
-  "current_time_basis": "2026-06-15T12:00:00+00:00",
+  "generated_at": "2026-06-15T20:00:00+00:00",
+  "current_time_basis": "2026-06-15T20:00:00+00:00",
   "built_by": "mvp2_homepage_lifecycle_selector.py",
   "primary_prediction": {
-    "fixture_id": "1489377",
-    "match": "Belgium vs Egypt",
-    "kickoff_time": "2026-06-15T19:00:00+00:00",
+    "fixture_id": "1489379",
+    "match": "Saudi Arabia vs Uruguay",
+    "kickoff_time": "2026-06-15T22:00:00+00:00",
     "status": "scheduled",
     "lifecycle_state": "UPCOMING_PREDICTION_READY",
     "model_source": "computed",
@@ -16,34 +16,7 @@
     "has_observation": false,
     "recap_ready": false
   },
-  "secondary_predictions": [
-    {
-      "fixture_id": "1489380",
-      "match": "Spain vs Cape Verde Islands",
-      "kickoff_time": "2026-06-15T16:00:00+00:00",
-      "status": "scheduled",
-      "lifecycle_state": "UPCOMING_PREDICTION_READY",
-      "model_source": "operator_estimated",
-      "active_content_role": "secondary_prediction",
-      "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
-      "has_copy": true,
-      "has_observation": false,
-      "recap_ready": false
-    },
-    {
-      "fixture_id": "1489379",
-      "match": "Saudi Arabia vs Uruguay",
-      "kickoff_time": "2026-06-15T22:00:00+00:00",
-      "status": "scheduled",
-      "lifecycle_state": "UPCOMING_PREDICTION_READY",
-      "model_source": "computed",
-      "active_content_role": "secondary_prediction",
-      "reason_for_role": "secondary upcoming with reviewed copy",
-      "has_copy": true,
-      "has_observation": false,
-      "recap_ready": false
-    }
-  ],
+  "secondary_predictions": [],
   "latest_recap": {
     "fixture_id": "1489371",
     "match": "Brazil vs Morocco",
@@ -57,19 +30,7 @@
     "has_observation": true,
     "recap_ready": false
   },
-  "next_upcoming": {
-    "fixture_id": "1489380",
-    "match": "Spain vs Cape Verde Islands",
-    "kickoff_time": "2026-06-15T16:00:00+00:00",
-    "status": "scheduled",
-    "lifecycle_state": "UPCOMING_PREDICTION_READY",
-    "model_source": "operator_estimated",
-    "active_content_role": "secondary_prediction",
-    "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
-    "has_copy": true,
-    "has_observation": false,
-    "recap_ready": false
-  },
+  "next_upcoming": null,
   "finished_pending_recap": [
     {
       "fixture_id": "1539002",
@@ -94,10 +55,10 @@
       "match": "Belgium vs Egypt",
       "kickoff_time": "2026-06-15T19:00:00+00:00",
       "status": "scheduled",
-      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "lifecycle_state": "LIVE_OR_LOCKED",
       "model_source": "computed",
-      "active_content_role": "primary_prediction",
-      "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",
+      "active_content_role": "watchlist",
+      "reason_for_role": "",
       "has_copy": true,
       "has_observation": false,
       "recap_ready": false
@@ -146,10 +107,10 @@
       "match": "Spain vs Cape Verde Islands",
       "kickoff_time": "2026-06-15T16:00:00+00:00",
       "status": "scheduled",
-      "lifecycle_state": "UPCOMING_PREDICTION_READY",
+      "lifecycle_state": "LIVE_OR_LOCKED",
       "model_source": "operator_estimated",
-      "active_content_role": "secondary_prediction",
-      "reason_for_role": "secondary upcoming with reviewed copy (operator_estimated — labelled, never primary)",
+      "active_content_role": "watchlist",
+      "reason_for_role": "",
       "has_copy": true,
       "has_observation": false,
       "recap_ready": false
@@ -161,8 +122,8 @@
       "status": "scheduled",
       "lifecycle_state": "UPCOMING_PREDICTION_READY",
       "model_source": "computed",
-      "active_content_role": "secondary_prediction",
-      "reason_for_role": "secondary upcoming with reviewed copy",
+      "active_content_role": "primary_prediction",
+      "reason_for_role": "earliest upcoming source-qualified (computed) match with reviewed copy",
       "has_copy": true,
       "has_observation": false,
       "recap_ready": false

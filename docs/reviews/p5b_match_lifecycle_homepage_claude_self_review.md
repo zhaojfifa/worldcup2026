@@ -40,3 +40,20 @@ docs/qa_screenshots/p5b_match_lifecycle_homepage/local/ (01 lifecycle primary, 0
 ## Scope
 1 primary + 1-2 secondary + latest recap + next upcoming. No 3-5 expansion, no scheduler, no backend
 deploy, no secrets. P5A quality guards still PASS (homepage guard updated to read the lifecycle primary).
+
+## Codex independent review (PASS_WITH_PATCHES) — disposition
+Codex confirmed all hard rules hold: BETTING_VOCAB=none · FAKE_DATA=none · AUTO_SEND=none ·
+FINISHED_PRIMARY_POSSIBLE=no · ARCHIVE_DEMO_LEAK=no · ADMIN_TOKEN_LEAK=false · SEND_STATUS=HOLD ·
+SCOPE_EXPANSION=no. Defects:
+- D1 (MEDIUM, foot-gun) FIXED: `build --now` (rotation-proof / what-if basis) used to overwrite the
+  committed bundled homepageLifecycle.json. Now an ad-hoc `--now` basis writes ONLY the docs artifact;
+  the bundled FE artifact is left untouched unless `--write-fe` is passed. Verified: a 20:00 rotation
+  build no longer flips the bundled primary off Belgium.
+- D2 (LOW) accepted/documented: the lifecycle artifact is bundled at compile time (like was intended this
+  sprint — no scheduler). "Follows match progress" is deploy-time; at runtime a kicked-off bundled primary
+  yields a null lead (safe, not self-healing). Runtime rotation = a future scheduler sprint.
+- D3 (LOW) accepted: SOURCE_QUALIFIED includes `seed` alongside computed/operator_confirmed; no live
+  fixture uses seed, kept for the demo/seed fallback path. Owner may narrow if desired.
+- D4 (INFO) pre-existing, outside the P5B diff: artifacts store win_prob/confidence as the string
+  "unavailable" (not literal null) — not a fabricated number; honest-unavailable sentinel.
+Ref: docs/reviews/codex_p5b_match_lifecycle_homepage_review_20260616.md

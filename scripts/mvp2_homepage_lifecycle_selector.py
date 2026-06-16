@@ -247,6 +247,8 @@ def main():
     ap.add_argument("cmd", nargs="?", choices=["build", "validate", "report"])
     ap.add_argument("--date", default="")
     ap.add_argument("--now", default="")
+    ap.add_argument("--write-fe", action="store_true",
+                    help="force-write the bundled frontend artifact even when --now is given")
     a = ap.parse_args()
     date = a.date or _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d")
     now_iso = a.now or None
@@ -254,7 +256,12 @@ def main():
         return cmd_validate(date, now_iso)
     if a.cmd == "report":
         return cmd_report(date)
-    return cmd_build(date, now_iso)
+    # D1 guard: an ad-hoc --now basis (rotation proof / what-if) must NOT silently clobber the committed
+    # editorial bundled artifact. Only an editorial build (no --now) writes the FE file unless --write-fe.
+    write_fe = a.write_fe or now_iso is None
+    if now_iso is not None and not write_fe:
+        print("(rotation-proof basis: docs artifact only; bundled FE artifact left untouched — pass --write-fe to override)")
+    return cmd_build(date, now_iso, write_fe=write_fe)
 
 
 if __name__ == "__main__":
