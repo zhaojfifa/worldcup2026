@@ -110,7 +110,7 @@ recap caught) is real, so the guard is not vacuous.
 
 ## Check 7 — secret / token leak
 
-`ADMIN_TOKEN_LEAK=false`. `git grep -nE "12344321|ADMIN_API_TOKEN *="` returns only placeholder/doc
+`ADMIN_TOKEN_LEAK=false`. `git grep -nE "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>|ADMIN_API_TOKEN *="` returns only placeholder/doc
 references (`<prod token>`, prior review docs describing the search, `llm_draft_verify.py` comment). The
 literal token value does not appear in any tracked file. Tracked env files are `.env.example` /
 `frontend/.env.example` only, both with `replace_with_…` placeholders — no real values. No `.env` with a

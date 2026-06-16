@@ -9,9 +9,9 @@
 
 ## Item 1 — Token safety (CRITICAL) → PASS
 
-- `git grep -n "12344321"` → **NO MATCH** in any tracked file.
-- `grep -rn "12344321" docs/ scripts/ frontend/` → **NO MATCH**.
-- `grep -c "12344321"` on `docs/qa_reports/p4r_live_source_of_truth_diagnosis.md` → **0**.
+- `git grep -n "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>"` → **NO MATCH** in any tracked file.
+- `grep -rn "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>" docs/ scripts/ frontend/` → **NO MATCH**.
+- `grep -c "<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>"` on `docs/qa_reports/p4r_live_source_of_truth_diagnosis.md` → **0**.
 - `scripts/mvp2_match_sync.py` `cmd_upload`: token read via `os.environ.get("ADMIN_API_TOKEN")` (line 386); raises `SystemExit` if unset; sent only in the `x-admin-token` header. The two prints (`uploaded ...`, `response: <server body>`) do not include the token. No literal token anywhere.
 
 **Verdict: PASS** — the admin token literal does not appear in any committed/new file; the sync script reads it from env and never prints it.
@@ -81,6 +81,6 @@ Only `scripts/` + `docs/` touched. No `backend/`, no schema. Working tree clean.
 
 ## Summary
 
-Every claim verified with evidence, not trust. The admin token literal `12344321` is absent from all tracked/new files and the sync script reads it from `$ADMIN_API_TOKEN` and never prints it. All five owner-view guards inspect the correct surface (the API guard checks the live active slate excludes 2022 teams and that the admin POST is 401-protected; the homepage/predict/recap guards dump rendered DOM and assert reviewed copy/score/label/no-fake-event; the consistency guard ties backend date to the frontend active package). `demo_pair_leak` is precise (archive "德国 vs Japan" not flagged; demo "荷兰 vs Japan" flagged). All 5 selftests pass (15/16 real-case checks; the consistency selftest is a trivial print — minor, non-blocking) and all 5 live runs PASS, with the live backend at date 2026-06-15, fixture 1489377 present, stale=false, and no Germany/Qatar in the active slate. Diff scope is scripts/ + docs/ only (no backend/schema), and the 8 live screenshots exist.
+Every claim verified with evidence, not trust. The admin token literal `<REDACTED_ADMIN_TOKEN — per Owner security boundary; value scrubbed 2026-06-16>` is absent from all tracked/new files and the sync script reads it from `$ADMIN_API_TOKEN` and never prints it. All five owner-view guards inspect the correct surface (the API guard checks the live active slate excludes 2022 teams and that the admin POST is 401-protected; the homepage/predict/recap guards dump rendered DOM and assert reviewed copy/score/label/no-fake-event; the consistency guard ties backend date to the frontend active package). `demo_pair_leak` is precise (archive "德国 vs Japan" not flagged; demo "荷兰 vs Japan" flagged). All 5 selftests pass (15/16 real-case checks; the consistency selftest is a trivial print — minor, non-blocking) and all 5 live runs PASS, with the live backend at date 2026-06-15, fixture 1489377 present, stale=false, and no Germany/Qatar in the active slate. Diff scope is scripts/ + docs/ only (no backend/schema), and the 8 live screenshots exist.
 
 Codex verdict: PASS
