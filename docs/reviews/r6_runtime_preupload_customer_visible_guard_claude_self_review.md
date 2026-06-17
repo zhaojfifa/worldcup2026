@@ -49,3 +49,12 @@ token committed; send HOLD.
 Cold-start / low-source cards must use persona-safe wording (e.g. "缺少历史交锋，俅哥保守看小比分" / "信息
 有限，先按稳态判断") or be omitted — never expose engineering/source weakness as product copy. R6 already
 applied this by dropping the Portugal card; R6.1 enforces it automatically before upload.
+
+## Codex independent review (PASS) — disposition
+Codex PASS, no defects. Confirmations: DIFF_SCOPE_OK=yes · GUARD_RUNS_BEFORE_UPLOAD=yes ·
+DEMODEL_TERMS_BLOCK=yes · FAKE_PROB_CONFIDENCE_BLOCKS=yes · BLOCK_RESTORES_NO_UPLOAD=yes ·
+PRODUCTION_UNCHANGED=yes · NO_UI_PRODUCT_BACKEND_CHANGE=yes · OVERBAN_概率_FIXED=yes · FAKE_DATA=none ·
+AUTO_SEND=none · SEND_STATUS=HOLD · ADMIN_TOKEN_LEAK=false. Codex empirically verified bad(模型)/fake-win_prob
+block with field paths, clean(live England) passes, the scan runs before both _post() calls, and production
+is unchanged (06-17 England, HOLD). No token leak this round.
+Ref: docs/reviews/codex_r6_runtime_preupload_customer_visible_guard_review_20260617.md
