@@ -128,6 +128,21 @@ def run(date_iso, source, target, now_iso, do_upload):
     pkg_path.write_text(json.dumps(pkg, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("\nGATE PASS — content package: %d prediction(s), %d observation(s) -> %s" % (
         len(pkg["predictions"]), len(pkg["observations"]), pkg_path.relative_to(ROOT)))
+    # R6.1 — PRE-UPLOAD customer-visible guard: never upload a package whose customer copy carries
+    # engineering/de-model wording, betting vocabulary, or a fabricated probability/confidence.
+    cvg = _imp("r6cv", ROOT / "scripts" / "check_r6_runtime_preupload_customer_visible_guard.py")
+    cv_violations = cvg.scan_package(pkg)
+    if cv_violations:
+        _restore(snap)
+        rep = {"date": date_iso, "result": "CUTOVER_BLOCKED_CUSTOMER_VISIBLE", "send_status": "HOLD",
+               "uploaded": False, "violations": [{"field": fp, "reason": r} for fp, r in cv_violations]}
+        (CUT_DIR / ("%s_blocked_customer_visible.json" % date_iso.replace("-", ""))).write_text(
+            json.dumps(rep, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print("\nCUTOVER_BLOCKED_CUSTOMER_VISIBLE — %d violation(s) (NOTHING uploaded; production unchanged):" % len(cv_violations))
+        for fp, r in cv_violations:
+            print("  - %s — %s" % (fp, r))
+        print("bundled artifacts RESTORED. SEND_STATUS=HOLD")
+        return 4
     if do_upload and target:
         token = os.environ.get("ADMIN_API_TOKEN")
         if not token:

@@ -1,0 +1,22 @@
+# R6.1 — pre-upload customer-visible guard for the runtime content cutover
+## 1. CLEAN package (live R6 England primary) PASS:
+R6.1 PRE-UPLOAD CUSTOMER-VISIBLE GUARD PASS (no banned terms; win_prob/confidence null)
+
+## 2. BAD package (R6 first attempt w/ Portugal operator_estimated 'model unavailable' copy) BLOCKED before upload:
+FAIL  predictions.1539003.i18n.zh.prediction.primary_direction — banned customer-visible term '模型'
+FAIL  predictions.1539003.i18n.zh.prediction.risk_note — banned customer-visible term '模型'
+FAIL  predictions.1539003.i18n.zh.prediction.why — banned customer-visible term '数据缺失'
+FAIL  predictions.1539003.i18n.zh.prediction.why — banned customer-visible term '置信度'
+FAIL  predictions.1539003.i18n.zh.analysis.modeling_focus[0] — banned customer-visible term '模型'
+FAIL  predictions.1539003.i18n.zh.analysis.tactical_matchup[2] — banned customer-visible term '模型'
+FAIL  predictions.1539003.i18n.zh.operations.share_title — banned customer-visible term '模型'
+FAIL  predictions.1539003.i18n.zh.operations.share_copy — banned customer-visible term '模型'
+   ... (30 violations total)
+
+## 3. cutover wiring — scan runs BEFORE the runtime-content POST; block restores + uploads nothing:
+   scan_package before the runtime-content _post() call: True (the earlier 'False' matched the docstring mention, not the POST call)
+   CUTOVER_BLOCKED_CUSTOMER_VISIBLE + _restore + return (no upload): True
+
+## 4. production UNCHANGED after the blocked dry-run:
+   prod runtime date: 2026-06-17 primary: 1489384 send: HOLD
+## send_status: HOLD
